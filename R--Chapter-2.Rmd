@@ -1,0 +1,936 @@
+---
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 4
+    number_sections: false
+    latex_engine: xelatex
+    fig_caption: yes
+mainfont: Helvetica
+font-family: Helvetica Neue
+fontsize: 11pt
+geometry: left=35mm, right=20mm, top=30mm, bottom=30mm
+bibliography: resources/refs.bib
+csl: resources/apa.csl
+header-includes:
+- \usepackage{fancyhdr}                 # Latex package for formatting PDFs.
+- \usepackage{setspace}\doublespacing   # Double spacing.
+- \pagestyle{fancy}                     # Set page style.
+- \renewcommand{\headrulewidth}{1.5pt}  # Thickness of header line.
+- \fancyhead[L]{\textsl{CHAPTER 1}}     # Chapter number (top left header).
+- \fancyhead[R]{\textsl{\rightmark}}    # Section number (top right header).
+#- \lfoot{\leftmark}                    # Add section number to left footer.
+#- \rfoot{Page \thepage}                # Add page number to right footer.
+- \setlength{\headheight}{14.49998pt}   # Ensures consistent space between header line and text.
+---
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+####################################################################################################################
+##                                                                                                                ##
+##    Install and load required packages:                                                                         ##
+##                                                                                                                ##
+####################################################################################################################
+# List required packages:    
+    required_packages <- c("tidyverse", "dplyr","emmeans", "captioner", "ggplot2", "devtools", "tinytex",
+                           "kableExtra", "janitor", "fs","irr", "formattable")
+
+##    install.packages('pacman')
+##    library(pacman)
+##    library(bbplot)
+##    devtools::install_github('bbc/bbplot')
+##    pacman::p_load('dplyr','tidyr','ggplot2', 'ggalt', 'forcats', 'R.utils','png','grid','ggpubr','scales','bbplot')
+
+    packages_to_install <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
+# Compares list of required packages with list of installed packages (installed.packages()[,"Package"]):
+    if(length(packages_to_install)) install.packages(packages_to_install) # If missing, install.
+# Initialize packages, but suppress all messages.
+    invisible(suppressPackageStartupMessages(lapply(required_packages, library, character.only = TRUE)))
+# Install 'papaja' (stable development version from GitHub):
+    devtools::install_github("crsh/papaja")
+# Clear environment.
+    rm(list=ls())  
+# Define coalesce function (merges multiple rows from the same subject into one):
+    coalesce_by_column <- function(df) {
+      return(dplyr::coalesce(!!! as.list(df)))}
+```
+
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+####################################################################################################################
+##                                                                                                                ##
+##    Experiment 1:                                                                                               ##
+##                                                                                                                ##
+####################################################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+####################################################################################################################
+##                                                                                                                ##
+##    EXPERIMENT 2:                                                                                               ##
+##                                                                                                                ##
+####################################################################################################################
+####################################################################################################################
+##                                                                                                                ##
+##    Import data:                                                                                                ##
+##                                                                                                                ##
+####################################################################################################################
+##  List data files:
+    raw_data_files <- list.files(path = "./resources/raw_data/")
+##  Create 'do not import' list: 
+    do_not_import <-   # Experimenter test files: 
+        c("PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_17h24.58.448.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_13h50.57.226.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_09h35.46.685.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 04_2019-08-30_20h05.24.009.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 04_2019-08-30_17h30.37.570.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 04_2019-08-30_13h36.33.493.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-29_14h09.45.628.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-29_07h36.38.588.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-28_20h37.19.421.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-28_18h14.42.370.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-28_14h09.34.697.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-28_10h10.14.072.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-27_15h57.08.388.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 01_2019-08-27_10h48.32.252.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 01_2019-08-26_12h12.26.753.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-30_21h07.28.268.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-28_08h22.14.369.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-28_09h57.14.448.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_16h13.04.980.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-11-22_09h27.37.994.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_16h09.53.591.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_16h03.22.229.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_15h43.07.191.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_15h40.03.881.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_15h35.42.080.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h57.35.053.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h53.19.091.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h48.27.823.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h33.54.515.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h03.09.719.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_13h22.22.702.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h52.34.761.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h47.34.512.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h43.06.244.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h40.35.211.csv",
+    #   Empty / incomplete data (not even a single block fully completed):
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-10-01_09h15.14.507.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_11h18.21.623.csv",   
+    #   Experimental error. Three participants fully completed the study, but the image stim they were
+    #   responding to was not recorded:
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-25_17h56.51.111.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-26_13h36.14.194.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_02h30.16.689.csv",
+    #   Remove subsequent datasets of participants who took part more than once: 
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_22h19.30.823.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.25.233.csv",  
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_13h14.17.240.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.56.054.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.37.530.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_16h52.46.376.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.56.887.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_14h23.39.423.csv")
+##  Remove 'do not import' items from the to-be-imported "csv_file_list".
+    raw_data_files <- raw_data_files[!(raw_data_files %in% do_not_import)] %>%       
+        str_replace("PARTICIPANT", "./resources/raw_data/PARTICIPANT")    # Add folder location to start of each file name.
+    
+##  Create raw df from the above files, but only get the following columns:
+    raw_data <- map_dfr(raw_data_files,~read_csv(.x, col_types = cols_only("Participant Private ID"='c',
+                                                                           "date"='c',"expName"='c',"Prolific_ID"='c',
+                                                                           "Age"='c',"Gender"='c',"EnglishFirstLang"='c',
+                                                                           "Ethnicity"='c',"EthnicityOther"='c',
+                                                                           "UsingMac"='c',"RetinaScreen"='c',
+                                                                           "DidYouHearBeep"='c',"Debrief_Comments"='c',
+                                                                           "B1__DoYouUnderstand"='c',
+                                                                           "B2__DoYouUnderstand"='c',
+                                                                           "B3__DoYouUnderstand"='c',"Order"='c',
+                                                                           "images1"='c',"images2"='c',"images3"='c',
+                                                                           "images4"='c',"images5"='c',"images6"='c',
+                                                                           "Naming_Response"='c',"Naming_RT"='c',
+                                                                           "Familiarity"='c',"FamResp__Mouse.time"='c',
+                                                                           "VisualComplexity"='c',"VisCom__Mouse.time"='c',
+                                                                           "ColourDiagnosticity"='c',
+                                                                           "ColDia__Mouse.time"='c',
+                                                                           "MentalImageryAgreement"='c',
+                                                                           "MenIma__Mouse.time"='c'))) %>%
+##  Merge columns that contain the same type of data, but were originally split into different columns:
+        unite(stim,  "images1", "images2", "images3", "images4", "images5", "images6",
+              remove = TRUE, na.rm = TRUE) %>%
+##  Change all column names to lower:
+        rename_with(., tolower) %>%
+##  Change all data to lower:
+        mutate_all(tolower) %>%
+##  Rename some columns:    
+        rename(id = "prolific_id", exp_ver = "expname", fam_rt = "famresp__mouse.time", viscom_rt = "viscom__mouse.time",
+               coldia_rt = "coldia__mouse.time", menima_rt = "menima__mouse.time") %>%
+##  Reorder columns:    
+        select(id, date, exp_ver, usingmac,	retinascreen, age, gender, englishfirstlang, ethnicity, 
+               ethnicityother, didyouhearbeep, debrief_comments, b1__doyouunderstand, b2__doyouunderstand,
+               b3__doyouunderstand, order, stim, naming_response, familiarity, visualcomplexity, 
+               colourdiagnosticity, mentalimageryagreement, naming_rt, fam_rt, viscom_rt, coldia_rt) %>%
+##  Set participant ID as the grouping variable, and arrange data by participant ID:
+        group_by(id) %>%
+        arrange(id) %>%
+##  Tidy up responses for clarity:
+        mutate(id = str_remove_all(id, "<br /><br /><span style=\"font-size:16px;\">")) %>%
+        mutate(id = str_remove_all(id, "<br><br><span style=\"font-size:16px;\">")) %>%
+        mutate(id = str_remove_all(id, "<(.*)")) %>%
+        mutate(exp_ver = str_remove_all(exp_ver, "subjective judgments for photographic stimuli --- 0")) %>%
+        mutate(usingmac = str_remove_all(usingmac, " (.*)")) %>%
+        mutate(retinascreen = str_remove_all(retinascreen, " (.*)")) %>%
+        mutate(retinascreen = str_replace(retinascreen, "not", "not_sure"))%>%
+        mutate(ethnicity = str_remove_all(ethnicity, "<span style=\"font-size:16px;\"><strong>")) %>%
+        mutate(ethnicity = str_remove_all(ethnicity, "<(.*)")) %>%
+        mutate(ethnicityother = str_remove_all(ethnicityother, "<span style=\"font-size:16px;\"><strong>")) %>%
+        mutate(ethnicityother = str_remove_all(ethnicityother, "<(.*)")) %>%
+        mutate(stim = str_remove_all(stim, "images/stimuli/photos/")) %>%
+        mutate(stim = str_remove_all(stim, ".png")) %>%
+        mutate(gender = str_replace(gender, "^m$", "male")) %>%
+        mutate(gender = str_replace(gender, "^femal$", "female")) %>%
+        mutate(gender = str_replace(gender, "^nonbinary$", "non-binary")) %>%
+    # Age info was duplicated in the Gender field by software if P did not respond: 
+        mutate(gender = str_replace(gender, "^21$", "unspecified")) %>%
+        mutate(gender = str_replace(gender, "^28$", "unspecified")) %>%
+        mutate(gender = str_replace(gender, "^28$", "unspecified")) %>%
+        mutate(gender = str_replace(gender, "^29$", "unspecified")) %>%
+        mutate(gender = str_replace(gender, "^31$", "unspecified")) %>%
+        mutate(gender = str_replace(gender, "^38$", "unspecified")) %>%
+    # Some P were not automatically assigned an id. Populate with date instead (stays the same for all rows of a participant,
+    # but is also precise enough to still be unique between participants):
+        mutate(id = str_replace(id, "\\{\\{%prolific_pid%\\}\\}", date)) %>%
+    # Two items had a number at the end of their name in some conditions, remove this: 
+        mutate(stim = str_replace(stim, "skunk3-photo-grey1.png", "skunk3-photo-grey.png")) %>%
+        mutate(stim = str_replace(stim, "skunk3-photo-colour1g", "skunk3-photo-colour")) %>%
+    # Add missing 'Order' info (an error in the experiment meant the 'Order' column was not created for the first 20 
+    # participants (all of whom did 'A'): 
+        mutate(order = ifelse(id == "5cd3a546fe890a00014dedd1" | id == "5ba2de5c962418000113e3c8" |
+                              id == "5d5ef53ea55e6a0016d2cae4" | id == "5d2945a4bc573b00185c8eed" |
+                              id == "56e6a66af6ed900006a5867c" | id == "5d39c8b48087000019f3e573" |
+                              id == "5bddd72b18f1b9000174109e" | id == "5aca4e27a3ba7a0001b4d415" |
+                              id == "5d3302e067a8ff0015dbff86" | id == "56ce42d9465e580006846f57" |
+                              id == "5bd2ddf325b7190001553305" | id == "5c81872942ff490016c7dc3f" |
+                              id == "5b9f7e3d00815d00010323f6" | id == "595e7974af78da0001a21c3a" |
+                              id == "5c90bb590d21a20017ec455d" | id == "593533d4ed2e9a0001d37c0b" |
+                              id == "5cd9dd09c8e37500018ab627" | id == "59d11f1519d3170001b1d679" |
+                              id == "59d65ad8e2762800015eb51b" | id == "5c03b6681a20110001e996a5", 
+                              "A", order)) %>%
+##    Ps with messed up ColDia responses (remove these Ps entirely for now): 
+        #filter(id != "56a3211edbe850000bfcedc6") %>%
+        #filter(id != "55b567fbfdf99b4a11df33b9") %>%
+        #filter(id != "59b59d59f69f340001867454") %>%
+        #filter(id != "59e46feb16ecc200016fef61") %>%
+        #filter(id != "5bebd4111296920001d55c5a") %>%
+        #filter(id != "5c6205a724b1fc00019db2de") %>%
+        #filter(id != "5d0651c57c37bf001a987dc2") %>%
+        #filter(id != "5d29c671bc573b00165c9014") %>%      
+        #filter(id != "5d51c0efbbb1aa00170db6c8") %>%
+        #filter(id != "5d542c3a5af5900019bc80c4") %>%
+##  Remove empty / unimportant rows:
+        mutate(stim = na_if(stim, "")) %>%
+        drop_na(stim) %>%
+        distinct(stim, .keep_all = TRUE) %>%
+        arrange(id, stim) %>%
+##  Add response counts (so we can exclude people that didn't finish a section):
+        mutate(naming_count = sum(!is.na(naming_response))) %>%
+        mutate(familiarity_count = sum(!is.na(familiarity))) %>%
+        mutate(viscom_count = sum(!is.na(visualcomplexity))) %>%
+        mutate(coldia_count = sum(!is.na(colourdiagnosticity))) %>%
+        mutate(menima_count = sum(!is.na(mentalimageryagreement)))
+    
+write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
+
+####################################################################################################################
+##                                                                                                                ##
+##    NAMING:                                                                                                     ##
+##                                                                                                                ##
+####################################################################################################################
+    naming <- raw_data %>%
+        filter(naming_count == 44 | naming_count == 48) %>%
+        ungroup() %>%
+        select(stim, naming_response) %>%
+        drop_na(naming_response) %>%
+        group_by(stim) %>%                      
+        arrange (stim, naming_response) %>%
+        mutate(correct_name = str_remove_all(stim, "[1-3](.*)")) %>%
+# Spelling corrections:   
+        mutate(naming_response = str_replace(naming_response, "^idk$", "no")) %>%          # Change "idk" to "no".
+        mutate(naming_response = str_replace(naming_response, "^none$", "no")) %>%         # Change "none" to "no".
+        mutate(naming_response = str_replace(naming_response, "^a$", "no")) %>%            # Incorrect spelling / typo.
+        mutate(naming_response = str_replace(naming_response, "^anker$", "anchor")) %>%         
+        mutate(naming_response = str_replace(naming_response, "^ancher$", "anchor")) %>%
+        mutate(naming_response = str_replace(naming_response, "^anchore$", "anchor")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ancor$", "anchor")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ashtry$", "ashtray")) %>%
+        mutate(naming_response = str_replace(naming_response, "^;ashtray$", "ashtray")) %>%
+        mutate(naming_response = str_replace(naming_response, "^aparagus$", "asparagus")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ballon$", "balloon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^baloon$", "balloon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ballone$", "balloon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ballun$", "balloon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^balloone$", "balloon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bannan$", "banana")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bamnna$", "banana")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bananna$", "banana")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bannana$", "banana")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bananaa$", "banana")) %>%
+        mutate(naming_response = str_replace(naming_response, "^barrell$", "barrel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^barrle$", "barrel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^barel$", "barrel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^barrow$", "barrel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^busket$", "basket")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bellpepp34$", "bellpepper")) %>%
+        mutate(naming_response = str_replace(naming_response, "^beatle$", "beetle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bettle$", "beetle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^blueberrys$", "blueberries")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bycycle$", "bicycle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bicucle$", "bicycle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bicyle$", "bicycle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bootle$", "bottle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bolw$", "bowl")) %>%
+        mutate(naming_response = str_replace(naming_response, "^broon$", "broom")) %>%
+        mutate(naming_response = str_replace(naming_response, "^broon$", "broom")) %>%
+        mutate(naming_response = str_replace(naming_response, "^brum$", "broom")) %>%
+        mutate(naming_response = str_replace(naming_response, "^camal$", "camel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^canddle$", "candle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^canle$", "candle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^canon$", "cannon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^carrott$", "carrot")) %>%
+        mutate(naming_response = str_replace(naming_response, "^carott$", "carrot")) %>%
+        mutate(naming_response = str_replace(naming_response, "^cerlery$", "celery")) %>%
+        mutate(naming_response = str_replace(naming_response, "^celary$", "celery")) %>%
+        mutate(naming_response = str_replace(naming_response, "^cellary$", "celery")) %>%
+        mutate(naming_response = str_replace(naming_response, "^celeary$", "celery")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chain2$", "chain")) %>%
+        mutate(naming_response = str_replace(naming_response, "^cockrel$", "cockerel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^cockaroach$", "cockroach")) %>%
+        mutate(naming_response = str_replace(naming_response, "^cochroach$", "cockroach")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chissel$", "chisel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chizel$", "chisel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chestofdraws$", "chestofdrawers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chestofdrawerserss$", "chestofdrawers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chisle$", "chisel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^claranet$", "clarinet")) %>%
+        mutate(naming_response = str_replace(naming_response, "^combe$", "comb")) %>%
+        mutate(naming_response = str_replace(naming_response, "^dear$", "deer")) %>%
+        mutate(naming_response = str_replace(naming_response, "^deere$", "deer")) %>%
+        mutate(naming_response = str_replace(naming_response, "^draws$", "drawers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^doormouse$", "dormouse")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eagal$", "eagle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eeagle$", "eagle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eclipses$", "eclipse")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eclipes$", "eclipse")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eclipsse$", "eclipse")) %>%
+        mutate(naming_response = str_replace(naming_response, "^falg$", "flag")) %>%
+        mutate(naming_response = str_replace(naming_response, "^footstall$", "footstool")) %>%
+        mutate(naming_response = str_replace(naming_response, "^fott$", "foot")) %>%
+        mutate(naming_response = str_replace(naming_response, "^frog/$", "frog")) %>%
+        mutate(naming_response = str_replace(naming_response, "^girafffe$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^giraffee$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^girrafe$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^girafe$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^giraff$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^giaffee$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^girraffe$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^giaraffe$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^glases$", "glasses")) %>%
+        mutate(naming_response = str_replace(naming_response, "^gutair$", "guitar")) %>%
+        mutate(naming_response = str_replace(naming_response, "^gitaur$", "guitar")) %>%
+        mutate(naming_response = str_replace(naming_response, "^gitter$", "guitar")) %>%
+        mutate(naming_response = str_replace(naming_response, "^hemmar$", "hammer")) %>%
+        mutate(naming_response = str_replace(naming_response, "^hand5$", "hand")) %>%
+        mutate(naming_response = str_replace(naming_response, "^hamp$", "harp")) %>%
+        mutate(naming_response = str_replace(naming_response, "^kacket$", "jacket")) %>%
+        mutate(naming_response = str_replace(naming_response, "^kangroo$", "kangaroo")) %>%
+        mutate(naming_response = str_replace(naming_response, "^lader$", "ladder")) %>%
+        mutate(naming_response = str_replace(naming_response, "^latter$", "ladder")) %>%
+        mutate(naming_response = str_replace(naming_response, "^leafe$", "leaf")) %>%
+        mutate(naming_response = str_replace(naming_response, "^lettace$", "lettuce")) %>%
+        mutate(naming_response = str_replace(naming_response, "^leamon$", "lemon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^leema$", "lemur")) %>%
+        mutate(naming_response = str_replace(naming_response, "^olobster$", "lobster")) %>%
+        mutate(naming_response = str_replace(naming_response, "^maledear$", "maledeer")) %>%
+        mutate(naming_response = str_replace(naming_response, "^mortle$", "mortar")) %>%        
+        mutate(naming_response = str_replace(naming_response, "^monkeybut$", "monkeynut")) %>%  
+        mutate(naming_response = str_replace(naming_response, "^mousse$", "moose")) %>%
+        mutate(naming_response = str_replace(naming_response, "^neddle$", "needle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^nectarinee$", "nectarine")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ostrage$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^osterich$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ostrige$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ostrisge$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ostritch$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ostridge$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^apricorte$", "apricot")) %>%
+        mutate(naming_response = str_replace(naming_response, "^nectarin$", "nectarine")) %>%
+        mutate(naming_response = str_replace(naming_response, "^nectrine$", "nectarine")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pecock$", "peacock")) %>%
+        mutate(naming_response = str_replace(naming_response, "^peacck$", "peacock")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pair$", "pear")) %>%
+        mutate(naming_response = str_replace(naming_response, "^oencil$", "pencil")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pengiuin$", "penguin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pengiun$", "penguin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^penguine$", "penguin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^penquin$", "penguin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^peguin$", "penguin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^peper$", "pepper")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pestleandmorter$", "pestleandmortar")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tabaccopipe$", "tobaccopipe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^piccalo$", "piccolo")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pliars$", "pliers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^plier$", "pliers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^plyers$", "pliers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pilers$", "pliers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pliyers$", "pliers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^vicescripts$", "vicegrips")) %>%
+        mutate(naming_response = str_replace(naming_response, "^usplug$", "plug")) %>%      # U.S. (i.e. United States) plug? 
+        mutate(naming_response = str_replace(naming_response, "^potatoe$", "potato")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pottato$", "potato")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pumkin$", "pumpkin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pumpkim$", "pumpkin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^punpkin$", "pumpkin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^rabit$", "rabbit")) %>%
+        mutate(naming_response = str_replace(naming_response, "^racoon$", "raccoon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^mercat$", "meerkat")) %>%
+        mutate(naming_response = str_replace(naming_response, "^meercat$", "meerkat")) %>%
+        mutate(naming_response = str_replace(naming_response, "^acoop$", "scoop")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eele$", "seal")) %>%
+        mutate(naming_response = str_replace(naming_response, "^seel$", "seal")) %>%
+        mutate(naming_response = str_replace(naming_response, "^snakw$", "snake")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ssnowman$", "snowman")) %>%
+        mutate(naming_response = str_replace(naming_response, "^showel$", "shovel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^soak$", "socks")) %>%
+        mutate(naming_response = str_replace(naming_response, "^spon$", "spoon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^steplader$", "stepladder")) %>%
+        mutate(naming_response = str_replace(naming_response, "^sterss$", "step")) %>%
+        mutate(naming_response = str_replace(naming_response, "^sweetcirn$", "sweetcorn")) %>%
+        mutate(naming_response = str_replace(naming_response, "^rubarb$", "rhubarb")) %>%
+        mutate(naming_response = str_replace(naming_response, "^thinbell$", "thimble")) %>%
+        mutate(naming_response = str_replace(naming_response, "^thmble$", "thimble")) %>%
+        mutate(naming_response = str_replace(naming_response, "^timble$", "thimble")) %>%
+        mutate(naming_response = str_replace(naming_response, "^timbil$", "thimble")) %>%
+        mutate(naming_response = str_replace(naming_response, "^thunb$", "thumb")) %>%
+        mutate(naming_response = str_replace(naming_response, "^toitouse$", "tortoise")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tomatoe$", "tomato")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tomoato$", "tomato")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tortiste$", "tortoise")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tortise$", "tortoise")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tortus$", "tortoise")) %>%
+        mutate(naming_response = str_replace(naming_response, "^volion$", "violin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^vioin$", "violin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^violen$", "violin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^valture$", "vulture")) %>%
+        mutate(naming_response = str_replace(naming_response, "^waistcoast$", "waistcoat")) %>%
+        mutate(naming_response = str_replace(naming_response, "^wastecoat$", "waistcoat")) %>%
+        mutate(naming_response = str_replace(naming_response, "^wale$", "well")) %>%
+        mutate(naming_response = str_replace(naming_response, "^whistel$", "whistle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^whsitle$", "whistle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^whisell$", "whistle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^whitle$", "whistle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^windown$", "window")) %>%
+        mutate(naming_response = str_replace(naming_response, "^peneut$", "peanut")) %>%
+# Sensible word responses, but based on the picture P were responding to, were probably typos: 
+        mutate(naming_response = str_replace(naming_response, "^beer$", "bear")) %>%
+        # Item "swan". Probably meant "duck":
+        mutate(naming_response = str_replace(naming_response, "^dock$", "duck")) %>%      
+        mutate(naming_response = str_replace(naming_response,  "^frock$", "frog")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^glass$", "glasses")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^glassesbottle$", "bottle")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^hose$", "house")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^noise$", "nose")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^paper$", "pepper")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^harper$", "hamper")) %>%
+        # Item "raccoon". Probably meant "muskrat":
+        mutate(naming_response = str_replace(naming_response,  "^muscat$", "muskrat")) %>%
+        # Spelling mistake 'bittle' appeared for both beetle and bottle. Before correcting the spelling,
+        # we must check which item P was responding to:
+        mutate(naming_response = ifelse(naming_response == "bittle" & correct_name == "bottle", "bottle",
+                                        ifelse(naming_response == "bittle" & correct_name == "beetle", "beetle",
+                                               naming_response))) %>%   
+# Plural to singular: 
+        mutate(naming_response = str_replace(naming_response,  "^carrots$", "carrot")) %>%   
+        mutate(naming_response = str_replace(naming_response,  "^clouds$", "cloud")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^draw$", "drawers")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^drawer$", "drawers")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^drums$", "drum")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^feet$", "foot")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^geese$", "goose")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^gloves$", "glove")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^grape$", "grapes")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^ladders$", "ladder")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^lip$", "lips")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^mice$", "mouse")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^mittens$", "mitten")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^onions$", "onion")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^onions$", "onion")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^peanuts$", "peanut")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^pears$", "pear")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^peppers$", "pepper")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^pumpkins$", "pumpkin")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^shoes$", "shoe")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^sock$", "socks")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^steps$", "step")) %>% #change 
+        mutate(naming_response = str_replace(naming_response,  "^babydoll$", "doll")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^broomstick$", "broom")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^cock$", "cockerel")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^cycle$", "bicycle")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^dolly$", "doll")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^eyeglass$", "eyeglasses")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^fencing$", "fence")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^haircomb$", "comb")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^longdress$", "dress")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^mit$", "mitten")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^plugin$", "plug")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^rule$", "ruler")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^specs$", "spectacles")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^teakettle$", "kettle")) %>%
+####################################################################################################################
+##    Naming totals:                                                                                              ##
+####################################################################################################################
+        add_count(stim, name = "total_responses") %>%
+        add_count(naming_response, name = "resp_count") %>%
+        mutate(prop_resp = (resp_count / total_responses)) %>%
+        mutate(no_count = sum(naming_response == "no")) %>%    
+        mutate(prop_no = (no_count / total_responses)) %>%
+        mutate(correct_count = sum(naming_response == correct_name)) %>%
+        mutate(prop_correct = (correct_count / total_responses)) %>%
+        mutate(incorrect_count = sum(naming_response != correct_name)) %>%
+        mutate(prop_incorrect = (incorrect_count / total_responses)) %>%
+        select(-total_responses) %>%
+        distinct(naming_response, .keep_all = TRUE)  
+####################################################################################################################
+##    Item exclusion:                                                                                             ##
+####################################################################################################################    
+##  Exclusion criteria 1: items with a “don’t know” score over 20%:
+    exclusion_1 <- naming %>% 
+        filter(prop_no >= 0.2) %>%    
+        distinct(stim, .keep_all = TRUE)
+##  Exclusion criteria 2: items incorrectly named by the majority of subjects (prop_correct equals .50 or lower).
+    exclusion_2 <- naming %>%
+        filter(prop_correct <= 0.5) %>%
+        distinct(stim, .keep_all = TRUE)
+##  Exclusion criteria 3: items where only 20% (or fewer) subjects named the object similarly (poor naming agreement). 
+    exclusion_3 <- naming %>%                                              
+        filter(prop_resp == max(prop_resp)) %>%     # Get the highest agreed upon name for each object.
+        filter(prop_resp <= 0.2)                    # Filter to see if any items received lower than 20% agreement.
+##  Combine all to-be-excluded items into a single df:
+    all_exclusion <- bind_rows(exclusion_1, exclusion_2, exclusion_3) %>%
+        arrange(stim)                                                                 
+##  Simplified list of to-be-excluded item names (colour/greyscale taken out):       
+    items_to_exclude <- c(all_exclusion$stim) %>%
+    # It's not really important whether the grey or colour version of an item did not meet the inclusion criteria.
+    # Regardless of which is flagged, we remove both the grey and colour (we need to have both versions going forward).
+        str_remove_all("[-](.*)") %>%
+        unique()
+## Drop these items from naming data:
+    naming <- naming %>%
+        mutate(temp_stim = str_remove_all(stim, "[-](.*)")) %>%
+        filter(!temp_stim %in% items_to_exclude) %>%
+        select(-temp_stim)
+    
+####################################################################################################################
+##    Identify items with least difference between colour and grey:                                               ##
+####################################################################################################################    
+    grey <- naming %>%
+        select(stim, prop_correct) %>%
+        filter(str_detect(stim, "grey$")) %>%
+        distinct(stim, .keep_all = TRUE) %>%
+        rename(grey_correct = prop_correct) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)"))
+    col <- naming %>%
+        select(stim, prop_correct) %>%
+        filter(str_detect(stim, "colour$")) %>%
+        distinct(stim, .keep_all = TRUE) %>%
+        rename(col_correct = prop_correct) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)"))
+    col_and_grey <- right_join(grey, col, by = 'stim') %>%
+        mutate(difference = abs(col_correct - grey_correct))
+##  For each of the object names, give us the version with the least 'difference' (of % correct) between colour and greyscale.
+    # List all object names to loop through:
+    item_names <- col_and_grey %>%
+        select(stim) %>%
+        mutate(stim = str_remove_all(stim, "[0-3]")) %>%
+        distinct(stim) %>%
+        pull()
+    
+    selected_stimuli <- tibble()                # Create empty df to store results of for loop. 
+ 
+    # Define function that selects the appropriate row(s), depending on whether items share the same difference value.
+    my_function <- function(i){
+      # If top row of "tally_difference_values" == 1, that's the lowest difference, so only keep only that row.
+      if (i[1,5] == 1) {  
+          i %>% .[1,] }
+      # If top row of "tally_difference_values" == 2, then the lowest difference is shared by two rows, so keep both.
+      else if (i[1,5] == 2) {
+          i %>% .[1:2,] }
+      # If top row of "tally_difference_values" == 3, then the lowest difference is shared by all 3 rows, so keep all.
+      else if (i[1,5] == 3) {
+       i %>% .[1:3,] }
+      }
+      
+    for (i in item_names) {                                                 # For each item (i) in item_names;
+        i <- col_and_grey %>%                                               # i equals the data from col_and_grey;
+            filter(str_detect(stim, i)) %>%                                 # filter by each item separately;
+            group_by(difference) %>%                                        # group by 'difference' col;
+            add_count(difference, name = "tally_difference_values") %>%     # add column that counts unique difference values;
+            arrange(difference) %>%                                         # sort difference values (ascending);
+            my_function()
+        selected_stimuli <- bind_rows(selected_stimuli, i) }                # Add row to the selected_stimuli df before looping.
+
+####################################################################################################################
+##    Inter-rater selections:                                                                                     ##
+#################################################################################################################### 
+##  For objects where >1 variation remains (no difference between col/greyscale variations), we must manually select 
+##  the variation we think is the best to be taken forward to the final stim set. 
+    inter_rater <- selected_stimuli %>%
+        select(stim, tally_difference_values) %>%
+        filter(tally_difference_values >1) %>%
+        distinct(stim)
+    write.csv(inter_rater,'~/Desktop/inter_rater.csv', row.names = FALSE)         
+
+##  The "inter_rater" df was exported here so each rater could give their independent rankings for each object.
+##  Import rating data: 
+    rater_1 <- read_csv("./resources/rater_1.csv", col_types = list(col_character(), col_double())) %>%
+        rename(rater_1 = rating)
+    rater_2 <- read_csv("./resources/rater_2.csv", col_types = list(col_character(), col_double())) %>%
+        rename(rater_2 = rating)
+    agreements <- merge(rater_1, rater_2) %>%
+        group_by(stim) %>%
+        filter(rater_1 == 1 & rater_2 == 1) %>%
+        select(stim)
+##  For all the items where there was disagreement, we need to just select one of the options at random:
+    disagreements <- merge(rater_1, rater_2) %>%
+        filter(rater_1 != rater_2) %>%
+        rename(disagreed = "stim") %>%
+        mutate(stim = str_remove(disagreed, "[1-3]")) %>%
+        group_by(stim)
+##  The following code as used to randomise (but running this again would give different results!):
+        #randomised_disagree_items <- sample_n(disagreements, 1) %>%
+            #ungroup() %>%
+            #select(disagreed) %>%
+            #rename(stim = "disagreed")
+        #write.csv(randomised_disagree_items,'~/Desktop/randomised_disagree_items.csv', row.names = FALSE)
+##  Since we wrote our original randomised selection to .csv, we import that to get the same results.
+    randomised_disagree_items <- read_csv("./resources/randomised_disagree_items.csv", 
+                                          col_types = list(col_character()))
+    inter_rater_items <- bind_rows(agreements, randomised_disagree_items) %>%
+        arrange() 
+##  We want to add these items back into the "selected_stimuli" df, so we have a complete list of final stim.
+##  First we remove all variations of these items from "selected_stimuli", before adding "inter_rater_items" back in.
+    inter_rater_items_raw <- inter_rater_items %>%
+        pull(stim) %>%
+        str_remove("[1-3]")
+    
+    final_stim_list <- selected_stimuli %>%
+      select(stim) %>%
+      mutate(stim_raw = str_remove(stim, "[1-3]")) %>%
+      filter(!stim_raw %in% inter_rater_items_raw) %>%
+      select(-stim_raw) %>%
+      bind_rows(inter_rater_items) %>%
+      arrange(stim)
+
+write.csv(final_stim_list,'~/Desktop/final_stim_list.csv', row.names = FALSE)
+
+
+
+
+####################################################################################################################
+##   H stat:                                                                                                      ##
+#################################################################################################################### 
+##    Calculate H statistic (naming agreement):
+h_calculation <- final_stim %>% 
+  group_by(Stim) %>%
+  filter(!Resp == "no") %>%                                                     # Drop any "no" response rows - these cannot be included in H calculations.
+  arrange (Stim, desc(Resp_count)) %>%                                          # Arrange by "Stim" first, then by "Resp_count" (descending). This ensures that, for each stimuli, the most frequent name is at the top.
+  mutate(One_dividedby_Pi = 1 / Resp_proportion) %>%                            # 1 divided by the proportion of each name.
+  mutate(Log_two = log2(One_dividedby_Pi)) %>%                                  # Log of base 2 of 1 / prop.
+  mutate(Multiplied = Resp_proportion*Log_two) %>%                              # Resp_proportion multiplied by Log of base 2 of 1 / prop.
+  mutate(H = sum(Multiplied))                                                   # Sum of all multiplied values = H. 
+h_summarised <- h_calculation %>%
+  select(Stim, Resp, Resp_proportion, H) %>%
+  distinct(Stim, .keep_all = TRUE) %>%
+  rename(Most_freq_name = Resp) %>%
+  mutate_at(c("Resp_proportion", "H"), round, 2)
+write.csv(h_summarised,'~/Desktop/h_summarised.csv', row.names = FALSE)
+##    Summarised H stats for grey items: 
+h_summarised_grey <- h_summarised %>%
+  filter(str_detect(Stim, "grey")) %>%
+  rename("Grey Freq Name" = Most_freq_name, "Grey Resp Proportion" = Resp_proportion, "Grey H" = H) %>%
+  ungroup(Stim) %>%
+  mutate(Stim = str_remove_all(Stim, "_photo_grey")) %>%
+  group_by(Stim)
+##    Summarised H stats for colour items: 
+h_summarised_colour <- h_summarised %>%
+  filter(str_detect(Stim, "colour")) %>%
+  rename("Colour Freq Name" = Most_freq_name, "Colour Resp Proportion" = Resp_proportion, "Colour H" = H) %>%
+  ungroup(Stim) %>%
+  mutate(Stim = str_remove_all(Stim, "_photo_colour")) %>%
+  group_by(Stim)
+##    Combined summarised H stats:
+h_summarised_combined <- right_join(h_summarised_colour, h_summarised_grey, by = "Stim") %>%
+  select("Stim", "Grey Resp Proportion", "Grey H", "Colour Resp Proportion", "Colour H")
+#########################################################################################################################################################################################################################################           
+##
+## KRIPPENDORFF'S ALPHA:
+##
+#########################################################################################################################################################################################################################################
+# IRR stat. Had to be run for each object. Still say how many items we disagreed on, here's some examples (they were v similar). 
+# we tried to do it objectively, BUT.... we know % is shitty but,.....
+# it's all we needd for our reference.
+# sometimes 3 items, sometimes 2. All items were 100% rated in naming...V difficult to decide on best as "good" items were all so similar. 
+kripp_jamie_ratings <- jamie_ratings %>%
+  mutate(rater = "jamie") %>%                             # Remove numbers from the Stim coloumn, leaving us with just the item names. This allows us to merge with Rater 2 in a short while.  
+  rename(rating = jamie_rating) %>%
+  spread(Stim, rating)
+kripp_helen_ratings <- helen_ratings %>%
+  mutate(rater = "helen") %>%                             # Remove numbers from the Stim coloumn, leaving us with just the item names. This allows us to merge with Rater 2 in a short while.  
+  rename(rating = helen_rating) %>%
+  spread(Stim, rating)
+kripp_ratings <- rbind(kripp_jamie_ratings, kripp_helen_ratings)
+##    Create list of all objects that were rated to loop through:
+rated_stim_list <- jamie_ratings %>%
+  select(Stim) %>%
+  mutate(Stim = str_remove_all(Stim, "[1-3]")) %>%                             # Remove numbers from the Stim coloumn, leaving us with just the item names. This allows us to merge with Rater 2 in a short while.  
+  unique()
+rated_stim_list <- pull(rated_stim_list)
+##    Create empty df to store results of for loop: 
+kripps_alpha <- tibble()                                                        
+##    Loop that runs through each of the rated objects and individually calculates kripps alpha: 
+for (i in rated_stim_list) {
+  kripp_calc <- kripp_ratings %>%
+    select(-rater) %>%                                    # Remove "rater" column (as it cannot be input into kripp.alpha function?).
+    select(contains(i)) %>%                               # Select only the ratings for the current iteration (i).
+    as.matrix() %>%                                       # Convert to matrix, so "kripp.alpha" can run. 
+    kripp.alpha("ordinal")                                # Run Krippendorff's Alpha calculation for this item. 
+  kripp_calc <- as.tibble(kripp_calc[c(2,3,5)])             # Convert result from "irrlist" to tibble. 
+  kripp_calc <- kripp_calc %>%                              # Adjust "kripp_calc" df...
+    mutate(object = i)                                      # To re-insert the object name. 
+  kripps_alpha <- bind_rows(kripps_alpha, kripp_calc) }     # Add the completed row to our new "kripps_alpha" df, and repeat loop. 
+##    Final edits: 
+kripps_alpha <- kripps_alpha %>%
+  mutate_at(c("value"), round, 2) %>%
+  select(object, subjects, raters, value) %>%
+  rename("Krippendorff's alpha (α)" = value, "Image Versions" = subjects, "Number of Raters" = raters, "Concept" = object)
+write.csv(kripps_alpha,'~/Desktop/4 - kripps_alpha.csv', row.names = FALSE)
+#########################################################################################################################################################################################################################################           
+##
+## NORMS FOR COLOUR ITEMS:
+##
+#########################################################################################################################################################################################################################################
+col_final_stim <- final_stim_list %>%           # Create new list from "final_stim_list"...
+  str_replace("$", "_photo_colour")             # Where we add the 'full' file name back in, so we can go back to the unfiltered fam/viscom etc. data and now filter by our final chosen items. 
+##    Familiarity:
+col_tidy_fam <- familiarity_data %>%
+  select(col_final_stim, -Participant_ID, -Resp_Count) %>%                      # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
+  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
+  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
+  group_by(Stim) %>%                                                            # Group by Stim. 
+  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
+  mutate(Resp = str_remove_all(Resp, "Fam_")) %>%                               # Remove "Fam_" bit from responses. 
+  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
+  summarise_all(funs(col_fam_mean = mean(Resp),                             # Summarise and calculate the mean; 
+                     col_fam_sd = sd(Resp),                                 # Standard deviation;
+                     col_fam_median = median(Resp),                         # Median
+                     col_fam_min = min(Resp),                               # Minimum value; 
+                     col_fam_max = max(Resp),                               # Maximum value; 
+                     col_fam_range = (col_fam_max - col_fam_min)))  # Range.
+##    Visual Complexity:
+col_tidy_viscom <- viscom_data %>%
+  select(col_final_stim, -Participant_ID, -Resp_Count) %>%                      # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
+  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
+  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
+  group_by(Stim) %>%                                                            # Group by Stim. 
+  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
+  mutate(Resp = str_remove_all(Resp, "VisCom_")) %>%                            # Remove "VisCom_" bit from responses. 
+  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
+  summarise_all(funs(col_viscom_mean = mean(Resp),                              # Summarise and calculate the mean; 
+                     col_viscom_sd = sd(Resp),                                  # Standard deviation;
+                     col_viscom_median = median(Resp),                          # Median
+                     col_viscom_min = min(Resp),                                # Minimum value; 
+                     col_viscom_max = max(Resp),                                # Maximum value; 
+                     col_viscom_range = (col_viscom_max - col_viscom_min)))     # Range.                     
+##    Mental Imagery:
+col_tidy_menima <- menima_data %>%
+  select(col_final_stim, -Participant_ID, -Resp_Count) %>%                      # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
+  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
+  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
+  group_by(Stim) %>%                                                            # Group by Stim. 
+  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
+  mutate(Resp = str_remove_all(Resp, "MenIma_")) %>%                            # Remove "MenIma_" bit from responses. 
+  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
+  summarise_all(funs(col_menima_mean = mean(Resp),                                  # Summarise and calculate the mean; 
+                     col_menima_sd = sd(Resp),                                      # Standard deviation;
+                     col_menima_median = median(Resp),                              # Median
+                     col_menima_min = min(Resp),                                    # Minimum value; 
+                     col_menima_max = max(Resp),                                    # Maximum value; 
+                     col_menima_range = (col_menima_max - col_menima_min)))                 # Range.
+##    Combined:
+colour_final <- col_tidy_fam %>%
+  right_join(col_tidy_viscom, by = "Stim") %>%
+  right_join(col_tidy_menima, by = "Stim") %>%
+  mutate(Stim = str_remove_all(Stim, "_photo_colour")) %>%
+  rename(PhotoVersion = Stim) %>%
+  mutate(Concept = str_remove_all(PhotoVersion, "[1-3]")) %>%       # Create new column "Concept", aka the object name without version number.   
+  mutate(PhotoVersion = str_extract(PhotoVersion, "[1-3]")) %>%       # Create new column "Concept", aka the object name without version number.   
+  select(Concept, everything()) %>%                                     # Change column order so Concept is first. 
+  mutate_at(c("col_fam_mean", "col_fam_sd", "col_viscom_mean", "col_viscom_sd", "col_menima_mean", "col_menima_sd"), round, 2) %>%
+  mutate_at(c("col_fam_median", "col_viscom_median", "col_menima_median"), round, 1)
+write.csv(colour_final,'~/Desktop/colour_final.csv', row.names = FALSE)
+#########################################################################################################################################################################################################################################           
+##
+## NORMS FOR GREY ITEMS:
+##
+#########################################################################################################################################################################################################################################
+grey_final_stim <- final_stim_list %>%           # Create new list from "final_stim_list"...
+  str_replace("$", "_photo_grey")             # Where we add the 'full' file name back in, so we can go back to the unfiltered fam/viscom etc. data and now filter by our final chosen items. 
+##    Familiarity:
+grey_tidy_fam <- familiarity_data %>%
+  select(grey_final_stim, -Participant_ID, -Resp_Count) %>%                     # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
+  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
+  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
+  group_by(Stim) %>%                                                            # Group by Stim. 
+  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
+  mutate(Resp = str_remove_all(Resp, "Fam_")) %>%                               # Remove "Fam_" bit from responses. 
+  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
+  summarise_all(funs(grey_fam_mean = mean(Resp),                             # Summarise and calculate the mean; 
+                     grey_fam_sd = sd(Resp),                                 # Standard deviation;
+                     grey_fam_median = median(Resp),                         # Median
+                     grey_fam_min = min(Resp),                               # Minimum value; 
+                     grey_fam_max = max(Resp),                               # Maximum value; 
+                     grey_fam_range = (grey_fam_max - grey_fam_min)))  # Range.                     
+##    Visual Complexity:
+grey_tidy_viscom <- viscom_data %>%
+  select(grey_final_stim, -Participant_ID, -Resp_Count) %>%                     # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
+  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
+  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
+  group_by(Stim) %>%                                                            # Group by Stim. 
+  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
+  mutate(Resp = str_remove_all(Resp, "VisCom_")) %>%                            # Remove "VisCom_" bit from responses. 
+  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
+  summarise_all(funs(grey_viscom_mean = mean(Resp),                                  # Summarise and calculate the mean; 
+                     grey_viscom_sd = sd(Resp),                                      # Standard deviation;
+                     grey_viscom_median = median(Resp),                              # Median
+                     grey_viscom_min = min(Resp),                                    # Minimum value; 
+                     grey_viscom_max = max(Resp),                                    # Maximum value; 
+                     grey_viscom_range = (grey_viscom_max - grey_viscom_min)))                 # Range.                     
+##    Mental Imagery:
+grey_tidy_menima <- menima_data %>%
+  select(grey_final_stim, -Participant_ID, -Resp_Count) %>%                     # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
+  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
+  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
+  group_by(Stim) %>%                                                            # Group by Stim. 
+  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
+  mutate(Resp = str_remove_all(Resp, "MenIma_")) %>%                            # Remove "MenIma_" bit from responses. 
+  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
+  summarise_all(funs(grey_menima_mean = mean(Resp),                                  # Summarise and calculate the mean; 
+                     grey_menima_sd = sd(Resp),                                      # Standard deviation;
+                     grey_menima_median = median(Resp),                              # Median
+                     grey_menima_min = min(Resp),                                    # Minimum value; 
+                     grey_menima_max = max(Resp),                                    # Maximum value; 
+                     menima_range = (grey_menima_max - grey_menima_min)))                 # Range.      
+##    Combined:
+grey_final <- grey_tidy_fam %>%
+  right_join(grey_tidy_viscom, by = "Stim") %>%
+  right_join(grey_tidy_menima, by = "Stim") %>%
+  mutate(Stim = str_remove_all(Stim, "_photo_grey")) %>%
+  rename(PhotoVersion = Stim) %>%
+  mutate(Concept = str_remove_all(PhotoVersion, "[1-3]")) %>%       # Create new column "Concept", aka the object name without version number.   
+  mutate(PhotoVersion = str_extract(PhotoVersion, "[1-3]")) %>%       # Create new column "Concept", aka the object name without version number.   
+  select(Concept, everything()) %>%                                     # Change column order so Concept is first. 
+  mutate_at(c("grey_fam_mean", "grey_fam_sd", "grey_viscom_mean", "grey_viscom_sd", "grey_menima_mean", "grey_menima_sd"), round, 2) %>%
+  mutate_at(c("grey_fam_median", "grey_viscom_median", "grey_menima_median"), round, 1)
+write.csv(grey_final,'~/Desktop/grey_final.csv', row.names = FALSE)
+
+
+
+```
+
+
+# Method
+## Participants
+```{r, echo=FALSE}
+participant_summary$Age <- as.double(participant_summary$Age)
+```
+
+A total of `r nrow(participant_summary)` participants completed the experiment: `r formatC(length(participant_summary$Gender[participant_summary$Gender == "female"]))` females (*M* age = `r formatC(mean(participant_summary$Age[participant_summary$Gender == "female"]))` years, *SD* = `r formatC(sd(participant_summary$Age))`) and `r formatC(length(participant_summary$Gender[participant_summary$Gender == "male"]))` males (*M* = `r formatC(mean(participant_summary$Age[participant_summary$Gender == "male"]))` years, *SD* = `r formatC(sd(participant_summary$Age))`). Subjects were recruited from voluntary participation websites (e.g. \href{https://www.prolific.co/}{Prolific Academic}) and received either payment or research participation credit for taking part. 
+
+## Materials
+
+In Experiment 1, we used a random sample of line-drawn, everyday object stimuli [@rossion2004], along with their written-word counterparts. These items were brought forward into the current study to be matched with photographs, with the exception of a select few depicting shapes that could not easily be translated into photographic format. Such items included arrow and star shapes (without any context), which could not be represented in a photograph in a similar manner. 
+
+The matching process was completed by searching open-source, copyright-freZe image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels} for photographs that depicted the everyday objects in a similiar fashion as the line-drawings (see Appendix B for full list of photograph sources). Three unique photographs were selected for each object, with a general aim of choosing two that closely resembled the line-drawn version, and one that was somewhat different / more modern than the original. 
+
+Adobe Photoshop CC (20.0.04 Release) was used to remove the background from photographs and isolate the object of interest from other potentially distracting visual details. This was completed manually using the Magnetic Lasso and Polygonal Lasso tools. Edges were either not feathered, or feathered by 1px. Once objects had been "cut out" from their background, their orientation was also adjusted to ensure they matched as closely as possible with the depictions of the line drawings (for example, a boot shown with the toe facing left and heel facing right was matched); this sometimes entailed flipping or mirroring the object to 'correct' its' direction. 
+
+In rare instances, the Clone Stamp and Content Aware Fill tools were used to eliminate irrelevant and potentially distracting items that were not removed by the initial crop around the edge of the object (see Appendix ???? for some examples). Any obvious text (e.g. words / letters / brand names) were also removed in a similiar manner; this was done in an effort to ensure photographs were not made additionally memorable by inadvertedly combining more than one stimuli format (photograph + words). Our ultimate goal was to independantly examine recognition toward words, line-drawings, and photographic stimuli, and so a photograph that also contained text may not be directly comparable to one that does not). Numbers were often removed too on the same basis - apart from a few exceptions where numbers were integral to the depiction of the object (e.g. the numbers on a ruler, or a labelled clock).
+
+Cropped photos were exported in both colour and greyscale from Photoshop in “.png” format. 
+Other minor edits were made in Adobe Lightroom Classic CC (8.2 Release):
+exposure (brightness) - too light / too dark contrast 
+Highlights - decreased if some areas of the image were too bright.
+Shadows - raised if some areas of the image were too dark. 
+Noise reduction - as some objects were not the main focus of the original image, and so the increased crop factor made noise more visible.
+
+
+The unique changes made to each image were applied to both greyscale and colour versions (e.g. if the colour version of shoe1 had an exposure increase of .010 and shadows raised by +20, these same values were aplied to the greyscale version of shoe1). There were some colour-specific edits though:the white balance of the cropped .png colour photos were normalised using……, and Common image artifacts, such as chromatic aberration (purple fringing) were corrected. 
+
+To normalise the size between all stimuli, the colour corrected and greyscale .pngs were finally imported back into Photoshop CC (20.0.04 Release) to each be placed on a 600x600 pixel white background, and again exported as .pngs. 
+
+MENTION: left/right orientation of images. See [@moreno-martinez2012]. Also - better explanation by [@brodeur2010].
+
+<!-- This needs to be more precise. Does each image roughly take up the same amount of pixels or something? -->
+
+## Procedure
+Data collection was conducted via two online platforms; i) \href{https://www.qualtrics.com/uk/}{Qualtrics} - a survey platform that allowed for straightforward collection of consent, demographics, and computer compatibility data, and ii) \href{https://pavlovia.org/}{Pavlovia} - an open-source experiment hosting platform for studies programmed in Javascript [@peirce2019].
+
+# Analysis
+
+Some of the photos don’t really change between colour and greyscale (e.g. sock 3). Examine if responses are the same between these. Maybe remove these items from analyses when looking at the effects of colour?
+
+## Data preperation
+
+Item exclusion:
+Items with a “don’t know” score over 20% were excluded:
+
+Krippendorff's alpha (α)
+Measure of inter-rater reliability. An α of 1 indicates perfect agreement. 
+
+Naming agreement: H-statistic
+Measure of agreement between naming responses (takes into account the number of different names given):
+
+
+
+\newpage
+# References
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{8pt}
+\noindent
+
+<div id="refs"></div>
+\newpage
+# Appendices
+
+## Appendix A
+```{r, echo=FALSE}
+replaced_items <- read_csv("resources/replaced_items.csv", col_types = cols(.default = "c"))
+kable(replaced_items)
+```
+
+\newpage
+## Appendix B
+```{r, echo=FALSE}
+original_image_urls <- read_csv("resources/original_image_urls.csv", col_types = cols(.default = "c"))
+original_image_urls %>%
+  kable(longtable = T, caption = "Original photograph sources") %>%
+  kable_styling(latex_options = c("repeat_header"), font_size = 7) %>%
+  landscape()
+```
