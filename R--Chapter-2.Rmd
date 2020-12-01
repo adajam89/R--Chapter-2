@@ -306,7 +306,7 @@ To meet our YA requirements, all participants were required to be aged between 1
 ```{r, echo=FALSE, cache=TRUE}
   exp2_age_gender_table %>%
       kable("latex", booktabs = T) %>%
-      #kable_styling(latex_options = "hold_position") %>%
+      kable_styling(latex_options = "hold_position") %>%
       column_spec(2, italic = TRUE) %>%
       column_spec(4, italic = TRUE) %>%
       row_spec(5, bold = TRUE)
@@ -315,25 +315,35 @@ To meet our YA requirements, all participants were required to be aged between 1
 ## Materials
 Items from the previous experiment were brought forward into the current study; these consisted of a random sample of line-drawn, everyday object stimuli [@rossion2004], along with their written-word counterparts. Before sourcing photographs to match these items, some were excluded due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). 
 
-Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs similarly depicting the line-drawn everyday objects (the full list of image references can be found in Appendix A). For each item, three unique photographs were selected. An emphasis was placed on variety when selecting the three images, with the aim of obtaining photographs that very closely resembled the line-drawings and those offering more modern depictions. All photographs were imported into Adobe Photoshop (20.0.04 Release), where the background was removed in order to isolate the objects of interest from other potentially distracting visual details (this was completed manually using the magnetic lasso and polygonal lasso tools; the edges were either feathered by 1px or left un-feathered). Next, the orientation of isolated objects was adjusted to ensure they matched as closely as possible to their line-drawn counterparts (e.g. photographs of the 'boot' item were adjusted so the toe was facing left and the heel facing right, as in the line-drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
+Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs similarly depicting the line-drawn everyday objects (the full list of image references can be found in Appendix A). For each item, three unique photographs were selected. An emphasis was placed on variety when selecting the three images, with the aim of obtaining photographs that very closely resembled the line drawings and those offering more modern depictions. All photographs were imported into Adobe Photoshop (20.0.04 Release), where the background was removed in order to isolate the objects of interest from other potentially distracting visual details (this was completed manually using the magnetic lasso and polygonal lasso tools; the edges were either feathered by 1px or left un-feathered). Next, the orientation of isolated objects was adjusted to ensure they matched as closely as possible to their line-drawn counterparts (e.g. photographs of the 'boot' item were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
 
 Despite isolating objects from their background, a small number of photographs still contained irrelevant and potentially distracting details (e.g. in one photograph of a 'piano', there was a sign atop the object that may have impacted how the item is encoded when ultimately used in recognition tasks). Such details were removed using the clone stamp and content-aware fill tools (some examples of these photo manipulations can be found in Appendix B). Any obvious text (e.g. brand names) and numbers were also removed from photographs using the same method. The primary aim of the current study was to obtain photographic stimuli that could be clearly separated from words and line drawings; if some of our photograph stimuli contained text, whilst others did not, it is conceivable that they may not be directly comparable in terms of recognition. There were a couple of exceptions to this rule, when such details happened to be integral to the depiction of an object (e.g. the numbers found on a ruler or clock).
 
-
-
-Cropped photos were exported in both colour and greyscale from Photoshop in “.png” format. 
-Other minor edits were made in Adobe Lightroom (Classic, 8.2 Release):
-exposure (brightness) - too light / too dark contrast 
-Highlights - decreased if some areas of the image were too bright.
-Shadows - raised if some areas of the image were too dark. 
-Noise reduction - as some objects were not the main focus of the original image, and so the increased crop factor made noise more visible.
-
-
-The unique changes made to each image were applied to both greyscale and colour versions (e.g. if the colour version of shoe1 had an exposure increase of .010 and shadows raised by +20, these same values were aplied to the greyscale version of shoe1). There were some colour-specific edits though:the white balance of the cropped .png colour photos were normalised using……, and Common image artifacts, such as chromatic aberration (purple fringing) were corrected. 
-
-To normalise the size between all stimuli, the colour corrected and greyscale .pngs were finally imported back into Photoshop CC (20.0.04 Release) to each be placed on a 600x600 pixel white background, and again exported as .pngs. 
+The photographs were exported from Photoshop in “.png” format in both their original colour and in greyscale (by setting saturation levels to 0). Final edits were completed in Adobe Lightroom (Classic, 8.2 Release): exposure (brightness) adjustments were made on images that appeared too light or too dark; highlights were decreased if some areas were too bright compared to the rest of the photograph; shadows were raised if some areas were too dark compared to the rest of the photograph; noise reduction was applied to some items after isolating the subject had inadvertently made unwanted noise/grain more visible. The changes made to each image were systematically applied to both the colour and greyscale versions (e.g. if one variation of "shoe" had an exposure increase of .010 for the colour version, the greyscale version also received an exposure increase of .010). Some colour-specific adjustments were made to the colour photographs only, however; common photo artefacts such as chromatic aberration (purple fringing) were corrected, along with white balance normalisation. Finally, all photographs were placed on a 600x600 pixel white background, and made to fill this frame as much as possible (i.e. some items were restrained by height, whilst others were restrained by width).
 
 MENTION: left/right orientation of images. See [@moreno-martinez2012]. Also - better explanation by [@brodeur2010].
+
+## Design
+Across three blocks, participants were required to make 
+
+In Block 1, participants made Naming and Familiarity judgements. 
+
+
+completed a number of different response types toward the photo stimuli.
+
+In all blocks, photographs were shown one at a time o
+
+Familiarity scale: 0-5
+
+## Procedure
+
+In the Naming and Familiarity block, participants were first instructed to name each photograph as briefly and unambiguously as possible, with one name only, and respond by typing their answer into the response box. If they did not know the name of an item, or had a tip-of-the-tongue experience, subjects were instructed to type "no" for their answer (the term "don't know" was avoided so as not to encourage participants to deviate from single-word responses, as instructed). Following the naming judgement, with the same photograph still present on-screen, participants were asked to rate how familiar they were with the item depicted. Subjects were instructed to judge each photo according to how usual or unusual the item was in their realm of experience; we defined familiarity as "the degree to which you come in contact with, or think about, the concept", and encouraged participants to rate the concept itself rather than the particular way it was currently shown. Participants selected one value from the 5-point scale, from 1 = very unfamiliar to 5 = very familiar, and were encouraged to use the full range of the scale throughout the set of photographs. 
+
+
+
+
+
+
 
 ## Results
 ### Naming
@@ -736,7 +746,6 @@ MENTION: left/right orientation of images. See [@moreno-martinez2012]. Also - be
 ```
     
     
-
     
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ####################################################################################################################
