@@ -643,37 +643,26 @@ header-includes:
 ####################################################################################################################
 ##   H stat (naming agreement)::                                                                                  ##
 #################################################################################################################### 
-    h_calculation <- final_stim %>% 
-        group_by(Stim) %>%
-        filter(!Resp == "no") %>%                                                     # Drop any "no" response rows - these cannot be included in H calculations.
-  arrange (Stim, desc(Resp_count)) %>%                                          # Arrange by "Stim" first, then by "Resp_count" (descending). This ensures that, for each stimuli, the most frequent name is at the top.
-  mutate(One_dividedby_Pi = 1 / Resp_proportion) %>%                            # 1 divided by the proportion of each name.
-  mutate(Log_two = log2(One_dividedby_Pi)) %>%                                  # Log of base 2 of 1 / prop.
-  mutate(Multiplied = Resp_proportion*Log_two) %>%                              # Resp_proportion multiplied by Log of base 2 of 1 / prop.
-  mutate(H = sum(Multiplied))                                                   # Sum of all multiplied values = H. 
-h_summarised <- h_calculation %>%
-  select(Stim, Resp, Resp_proportion, H) %>%
-  distinct(Stim, .keep_all = TRUE) %>%
-  rename(Most_freq_name = Resp) %>%
-  mutate_at(c("Resp_proportion", "H"), round, 2)
-write.csv(h_summarised,'~/Desktop/h_summarised.csv', row.names = FALSE)
-##    Summarised H stats for grey items: 
-h_summarised_grey <- h_summarised %>%
-  filter(str_detect(Stim, "grey")) %>%
-  rename("Grey Freq Name" = Most_freq_name, "Grey Resp Proportion" = Resp_proportion, "Grey H" = H) %>%
-  ungroup(Stim) %>%
-  mutate(Stim = str_remove_all(Stim, "_photo_grey")) %>%
-  group_by(Stim)
-##    Summarised H stats for colour items: 
-h_summarised_colour <- h_summarised %>%
-  filter(str_detect(Stim, "colour")) %>%
-  rename("Colour Freq Name" = Most_freq_name, "Colour Resp Proportion" = Resp_proportion, "Colour H" = H) %>%
-  ungroup(Stim) %>%
-  mutate(Stim = str_remove_all(Stim, "_photo_colour")) %>%
-  group_by(Stim)
-##    Combined summarised H stats:
-h_summarised_combined <- right_join(h_summarised_colour, h_summarised_grey, by = "Stim") %>%
-  select("Stim", "Grey Resp Proportion", "Grey H", "Colour Resp Proportion", "Colour H")
+    h_stat_all_items <- naming %>%
+        select(stim, naming_response, prop_resp) %>% 
+        filter(!naming_response == "no") %>%              # "Don't know" responses cannot be included in H calculations.
+        rename(pi = "prop_resp") %>%                      # pi = proportion of subjects producing the i-th name.
+        mutate(one_divided_by_pi = 1 / pi) %>%                 
+        mutate(log_two = log2(one_divided_by_pi)) %>%     # Log of base 2 of 1 / prop.
+        mutate(multiplied = pi*log_two) %>%               # pi multiplied by 'log of base 2' of 1 / prop.
+        mutate(H = sum(multiplied)) %>%                   # Sum multiplied values for each item = H. 
+        arrange(stim, desc(pi)) %>%
+        select(stim, naming_response, pi, H)%>%
+        distinct(stim, .keep_all = TRUE) %>%
+        rename(most_freq_name = naming_response) %>%
+        mutate_at(c("pi", "H"), round, 2)
+      
+write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
+
+
+
+
+
 #########################################################################################################################################################################################################################################           
 ##
 ## KRIPPENDORFF'S ALPHA:
@@ -717,6 +706,8 @@ kripps_alpha <- kripps_alpha %>%
   select(object, subjects, raters, value) %>%
   rename("Krippendorff's alpha (α)" = value, "Image Versions" = subjects, "Number of Raters" = raters, "Concept" = object)
 write.csv(kripps_alpha,'~/Desktop/4 - kripps_alpha.csv', row.names = FALSE)
+
+
 #########################################################################################################################################################################################################################################           
 ##
 ## NORMS FOR COLOUR ITEMS:
