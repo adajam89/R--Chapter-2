@@ -245,8 +245,6 @@ header-includes:
         mutate(viscom_count = sum(!is.na(visualcomplexity))) %>%
         mutate(coldia_count = sum(!is.na(colourdiagnosticity))) %>%
         mutate(menima_count = sum(!is.na(mentalimageryagreement)))
-    
-write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
 
 ####################################################################################################################
 ##                                                                                                                ##
@@ -584,6 +582,9 @@ write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
             arrange(difference) %>%                                         # sort difference values (ascending);
             my_function()
         selected_stimuli <- bind_rows(selected_stimuli, i) }                # Add row to the selected_stimuli df before looping.
+    selected_stimuli <- selected_stimuli %>%
+        distinct(stim, .keep_all = TRUE) %>%
+        arrange(stim)
 
 ####################################################################################################################
 ##    Inter-rater selections:                                                                                     ##
@@ -592,10 +593,7 @@ write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
 ##  the variation we think is the best to be taken forward to the final stim set. 
     inter_rater <- selected_stimuli %>%
         select(stim, tally_difference_values) %>%
-        filter(tally_difference_values >1) %>%
-        distinct(stim)
-    write.csv(inter_rater,'~/Desktop/inter_rater.csv', row.names = FALSE)         
-
+        filter(tally_difference_values >1)
 ##  The "inter_rater" df was exported here so each rater could give their independent rankings for each object.
 ##  Import rating data: 
     rater_1 <- read_csv("./resources/rater_1.csv", col_types = list(col_character(), col_double())) %>%
@@ -605,13 +603,16 @@ write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
     agreements <- merge(rater_1, rater_2) %>%
         group_by(stim) %>%
         filter(rater_1 == 1 & rater_2 == 1) %>%
-        select(stim)
+        mutate(stim_raw = str_remove(stim, "[1-3]"))
 ##  For all the items where there was disagreement, we need to just select one of the options at random:
+        agree_items <- agreements %>%
+        pull(stim_raw)
     disagreements <- merge(rater_1, rater_2) %>%
-        filter(rater_1 != rater_2) %>%
         rename(disagreed = "stim") %>%
-        mutate(stim = str_remove(disagreed, "[1-3]")) %>%
-        group_by(stim)
+        mutate(stim_raw = str_remove(disagreed, "[1-3]")) %>%
+        filter(!stim_raw %in% agree_items) %>%
+        filter(rater_1 != rater_2) %>%
+        group_by(stim_raw)
 ##  The following code as used to randomise (but running this again would give different results!):
         #randomised_disagree_items <- sample_n(disagreements, 1) %>%
             #ungroup() %>%
@@ -621,34 +622,30 @@ write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
 ##  Since we wrote our original randomised selection to .csv, we import that to get the same results.
     randomised_disagree_items <- read_csv("./resources/randomised_disagree_items.csv", 
                                           col_types = list(col_character()))
-    inter_rater_items <- bind_rows(agreements, randomised_disagree_items) %>%
-        arrange() 
+    inter_rater_items <- agreements %>%
+        select(stim) %>%
+        bind_rows(randomised_disagree_items) %>%
+        arrange(stim) 
+
 ##  We want to add these items back into the "selected_stimuli" df, so we have a complete list of final stim.
 ##  First we remove all variations of these items from "selected_stimuli", before adding "inter_rater_items" back in.
     inter_rater_items_raw <- inter_rater_items %>%
         pull(stim) %>%
         str_remove("[1-3]")
-    
     final_stim_list <- selected_stimuli %>%
-      select(stim) %>%
-      mutate(stim_raw = str_remove(stim, "[1-3]")) %>%
-      filter(!stim_raw %in% inter_rater_items_raw) %>%
-      select(-stim_raw) %>%
-      bind_rows(inter_rater_items) %>%
-      arrange(stim)
-
-write.csv(final_stim_list,'~/Desktop/final_stim_list.csv', row.names = FALSE)
-
-
-
+        select(stim) %>%
+        mutate(stim_raw = str_remove(stim, "[1-3]")) %>%
+        filter(!stim_raw %in% inter_rater_items_raw) %>%
+        select(-stim_raw) %>%
+        bind_rows(inter_rater_items) %>%
+        arrange(stim)
 
 ####################################################################################################################
-##   H stat:                                                                                                      ##
+##   H stat (naming agreement)::                                                                                  ##
 #################################################################################################################### 
-##    Calculate H statistic (naming agreement):
-h_calculation <- final_stim %>% 
-  group_by(Stim) %>%
-  filter(!Resp == "no") %>%                                                     # Drop any "no" response rows - these cannot be included in H calculations.
+    h_calculation <- final_stim %>% 
+        group_by(Stim) %>%
+        filter(!Resp == "no") %>%                                                     # Drop any "no" response rows - these cannot be included in H calculations.
   arrange (Stim, desc(Resp_count)) %>%                                          # Arrange by "Stim" first, then by "Resp_count" (descending). This ensures that, for each stimuli, the most frequent name is at the top.
   mutate(One_dividedby_Pi = 1 / Resp_proportion) %>%                            # 1 divided by the proportion of each name.
   mutate(Log_two = log2(One_dividedby_Pi)) %>%                                  # Log of base 2 of 1 / prop.
