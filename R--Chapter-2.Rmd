@@ -32,7 +32,7 @@ header-includes:
 ####################################################################################################################
 # List required packages:    
     required_packages <- c("tidyverse", "dplyr","emmeans", "captioner", "ggplot2", "devtools", "tinytex",
-                           "kableExtra", "janitor", "fs","irr", "formattable")
+                           "kableExtra", "janitor", "fs","irr", "formattable", "readr")
 
 ##    install.packages('pacman')
 ##    library(pacman)
@@ -52,6 +52,15 @@ header-includes:
 # Define coalesce function (merges multiple rows from the same subject into one):
     coalesce_by_column <- function(df) {
       return(dplyr::coalesce(!!! as.list(df)))}
+    
+####################################################################################################################
+##                                                                                                                ##
+##    Captioner:                                                                                                  ##
+##                                                                                                                ##
+####################################################################################################################
+    table_numbering <- captioner(prefix = "Table")
+        table_numbering("exp2__age.and.gender__table.caption",
+                        "Gender and age (*sd*) of the current sample.", display = FALSE)
 ```
 
 
@@ -64,23 +73,16 @@ header-includes:
 
 
 
+```
 
 
+# Experiment 2
 
-
-
-
-
-
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 
 ####################################################################################################################
 ##                                                                                                                ##
 ##    EXPERIMENT 2:                                                                                               ##
-##                                                                                                                ##
-####################################################################################################################
-####################################################################################################################
-##                                                                                                                ##
-##    Import data:                                                                                                ##
 ##                                                                                                                ##
 ####################################################################################################################
 ##  List data files:
@@ -195,6 +197,8 @@ header-includes:
         mutate(stim = str_remove_all(stim, "images/stimuli/photos/")) %>%
         mutate(stim = str_remove_all(stim, ".png")) %>%
         mutate(gender = str_replace(gender, "^m$", "male")) %>%
+        mutate(gender = str_replace(gender, "^cis male$", "male")) %>%
+        mutate(gender = str_replace(gender, "^f$", "female")) %>%
         mutate(gender = str_replace(gender, "^femal$", "female")) %>%
         mutate(gender = str_replace(gender, "^nonbinary$", "non-binary")) %>%
     # Age info was duplicated in the Gender field by software if P did not respond: 
@@ -245,6 +249,97 @@ header-includes:
         mutate(viscom_count = sum(!is.na(visualcomplexity))) %>%
         mutate(coldia_count = sum(!is.na(colourdiagnosticity))) %>%
         mutate(menima_count = sum(!is.na(mentalimageryagreement)))
+    
+####################################################################################################################
+##    Participant summary:                                                                                        ##
+####################################################################################################################  
+    exp_2_participants <- raw_data %>%
+        select(id, age, gender, englishfirstlang, ethnicity, ethnicityother) %>%
+        summarise_all(coalesce_by_column)
+        
+    write.csv(exp_2_participants,'~/Desktop/exp_2_participants.csv', row.names = FALSE)
+    
+```
+    
+## Method
+### Participants
+A total of `r nrow(exp_2_participants)` subjects completed the online experiment (see `r table_numbering("exp2__age.and.gender__table.caption", display = "cite")` for a breakdown of the gender and age of the sample). Subjects were recruited from both voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (where they received payment at the rate of £5/hr), and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits).
+
+```{r, echo=FALSE, cache=TRUE}
+  exp2_age_gender <- exp_2_participants %>%
+      select(age, gender) %>%
+      mutate(age = as.double(age))
+
+  exp2_age_gender_table <- tribble(
+      ~"Gender", ~N, ~Age, ~"",
+      "Female",
+            exp2_age_gender %>% filter(gender == "female") %>% nrow(),
+            exp2_age_gender %>% filter(gender == "female") %>% summarise(mean(age)) %>% pull() %>% round (2),
+            str_c("(",exp2_age_gender %>% filter(gender == "female") %>% summarise(sd(age)) %>% pull()
+                  %>% round (2) %>% as.character(), ")"),
+      "Male",
+            exp2_age_gender %>% filter(gender == "male") %>% nrow(),
+            exp2_age_gender %>% filter(gender == "male") %>% summarise(mean(age)) %>% pull() %>% round (2),
+            str_c("(",exp2_age_gender %>% filter(gender == "male") %>% summarise(sd(age)) %>% pull()
+                  %>% round (2) %>% as.character(), ")"),
+      "Non-binary",
+            exp2_age_gender %>% filter(gender == "non-binary") %>% nrow(),
+            exp2_age_gender %>% filter(gender == "non-binary") %>% summarise(mean(age)) %>% pull(),
+            "(-)",
+      "Unspecified",
+            exp2_age_gender %>% filter(gender == "unspecified") %>% nrow(),
+            exp2_age_gender %>% filter(gender == "unspecified") %>% summarise(mean(age)) %>% pull(),
+            str_c("(",exp2_age_gender %>% filter(gender == "unspecified") %>% summarise(sd(age)) %>% pull()
+                  %>% round (2) %>% as.character(), ")"),
+      "Total",
+            exp2_age_gender %>% nrow(),
+            exp2_age_gender %>% summarise(mean(age)) %>% pull() %>% round (2),
+            str_c("(",exp2_age_gender %>% summarise(sd(age)) %>% pull() %>% round (2) %>% as.character(),")"))
+  
+      exp2_n_eng_lang <- nrow(exp_2_participants %>% filter(englishfirstlang == "yes"))
+      exp2_n_eng_lang <- round((exp2_n_eng_lang / nrow(exp_2_participants)) * 100, 2)
+```
+
+To meet our YA requirements, all participants were required to be aged between 18-59 years (obtained range: `r min(exp_2_participants$age, na.rm = TRUE)`-`r max(exp_2_participants$age, na.rm = TRUE)` years). As our experiment involved typing the English labels for a range of image stimuli, we also asked subjects whether English was their first language; all but one participant indicated that English was indeed their first language (`r exp2_n_eng_lang`%). 
+
+`r table_numbering("exp2__age.and.gender__table.caption")`
+```{r, echo=FALSE, cache=TRUE}
+  exp2_age_gender_table %>%
+      kable("latex", booktabs = T) %>%
+      #kable_styling(latex_options = "hold_position") %>%
+      column_spec(2, italic = TRUE) %>%
+      column_spec(4, italic = TRUE) %>%
+      row_spec(5, bold = TRUE)
+```
+
+## Materials
+Items from the previous experiment were brought forward into the current study; these consisted of a random sample of line-drawn, everyday object stimuli [@rossion2004], along with their written-word counterparts. Before sourcing photographs to match these items, some were excluded due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). 
+
+Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs similarly depicting the line-drawn everyday objects (the full list of image references can be found in Appendix A). For each item, three unique photographs were selected. An emphasis was placed on variety when selecting the three images, with the aim of obtaining photographs that very closely resembled the line-drawings and those offering more modern depictions. All photographs were imported into Adobe Photoshop (20.0.04 Release), where the background was removed in order to isolate the objects of interest from other potentially distracting visual details (this was completed manually using the magnetic lasso and polygonal lasso tools; the edges were either feathered by 1px or left un-feathered). Next, the orientation of isolated objects was adjusted to ensure they matched as closely as possible to their line-drawn counterparts (e.g. photographs of the 'boot' item were adjusted so the toe was facing left and the heel facing right, as in the line-drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
+
+Despite isolating objects from their background, a small number of photographs still contained irrelevant and potentially distracting details (e.g. in one photograph of a 'piano', there was a sign atop the object that may have impacted how the item was encoded). Such details were removed using the clone stamp and content-aware fill tools (some examples of this photo manipulation can be found in Appendix B).
+
+
+that were not removed by the initial crop around the edge of the object (see Appendix ???? for some examples). Any obvious text (e.g. words / letters / brand names) were also removed in a similiar manner; this was done in an effort to ensure photographs were not made additionally memorable by inadvertedly combining more than one stimuli format (photograph + words). Our ultimate goal was to independantly examine recognition toward words, line-drawings, and photographic stimuli, and so a photograph that also contained text may not be directly comparable to one that does not). Numbers were often removed too on the same basis - apart from a few exceptions where numbers were integral to the depiction of the object (e.g. the numbers on a ruler, or a labelled clock).
+
+Cropped photos were exported in both colour and greyscale from Photoshop in “.png” format. 
+Other minor edits were made in Adobe Lightroom Classic CC (8.2 Release):
+exposure (brightness) - too light / too dark contrast 
+Highlights - decreased if some areas of the image were too bright.
+Shadows - raised if some areas of the image were too dark. 
+Noise reduction - as some objects were not the main focus of the original image, and so the increased crop factor made noise more visible.
+
+
+The unique changes made to each image were applied to both greyscale and colour versions (e.g. if the colour version of shoe1 had an exposure increase of .010 and shadows raised by +20, these same values were aplied to the greyscale version of shoe1). There were some colour-specific edits though:the white balance of the cropped .png colour photos were normalised using……, and Common image artifacts, such as chromatic aberration (purple fringing) were corrected. 
+
+To normalise the size between all stimuli, the colour corrected and greyscale .pngs were finally imported back into Photoshop CC (20.0.04 Release) to each be placed on a 600x600 pixel white background, and again exported as .pngs. 
+
+MENTION: left/right orientation of images. See [@moreno-martinez2012]. Also - better explanation by [@brodeur2010].
+
+## Results
+### Naming
+    
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 
 ####################################################################################################################
 ##                                                                                                                ##
@@ -639,7 +734,12 @@ header-includes:
         select(-stim_raw) %>%
         bind_rows(inter_rater_items) %>%
         arrange(stim)
+```
+    
+    
 
+    
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ####################################################################################################################
 ##   H stat (naming agreement)::                                                                                  ##
 #################################################################################################################### 
@@ -658,242 +758,7 @@ header-includes:
         mutate_at(c("pi", "H"), round, 2)
       
 write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
-
-
-
-
-
-#########################################################################################################################################################################################################################################           
-##
-## KRIPPENDORFF'S ALPHA:
-##
-#########################################################################################################################################################################################################################################
-# IRR stat. Had to be run for each object. Still say how many items we disagreed on, here's some examples (they were v similar). 
-# we tried to do it objectively, BUT.... we know % is shitty but,.....
-# it's all we needd for our reference.
-# sometimes 3 items, sometimes 2. All items were 100% rated in naming...V difficult to decide on best as "good" items were all so similar. 
-kripp_jamie_ratings <- jamie_ratings %>%
-  mutate(rater = "jamie") %>%                             # Remove numbers from the Stim coloumn, leaving us with just the item names. This allows us to merge with Rater 2 in a short while.  
-  rename(rating = jamie_rating) %>%
-  spread(Stim, rating)
-kripp_helen_ratings <- helen_ratings %>%
-  mutate(rater = "helen") %>%                             # Remove numbers from the Stim coloumn, leaving us with just the item names. This allows us to merge with Rater 2 in a short while.  
-  rename(rating = helen_rating) %>%
-  spread(Stim, rating)
-kripp_ratings <- rbind(kripp_jamie_ratings, kripp_helen_ratings)
-##    Create list of all objects that were rated to loop through:
-rated_stim_list <- jamie_ratings %>%
-  select(Stim) %>%
-  mutate(Stim = str_remove_all(Stim, "[1-3]")) %>%                             # Remove numbers from the Stim coloumn, leaving us with just the item names. This allows us to merge with Rater 2 in a short while.  
-  unique()
-rated_stim_list <- pull(rated_stim_list)
-##    Create empty df to store results of for loop: 
-kripps_alpha <- tibble()                                                        
-##    Loop that runs through each of the rated objects and individually calculates kripps alpha: 
-for (i in rated_stim_list) {
-  kripp_calc <- kripp_ratings %>%
-    select(-rater) %>%                                    # Remove "rater" column (as it cannot be input into kripp.alpha function?).
-    select(contains(i)) %>%                               # Select only the ratings for the current iteration (i).
-    as.matrix() %>%                                       # Convert to matrix, so "kripp.alpha" can run. 
-    kripp.alpha("ordinal")                                # Run Krippendorff's Alpha calculation for this item. 
-  kripp_calc <- as.tibble(kripp_calc[c(2,3,5)])             # Convert result from "irrlist" to tibble. 
-  kripp_calc <- kripp_calc %>%                              # Adjust "kripp_calc" df...
-    mutate(object = i)                                      # To re-insert the object name. 
-  kripps_alpha <- bind_rows(kripps_alpha, kripp_calc) }     # Add the completed row to our new "kripps_alpha" df, and repeat loop. 
-##    Final edits: 
-kripps_alpha <- kripps_alpha %>%
-  mutate_at(c("value"), round, 2) %>%
-  select(object, subjects, raters, value) %>%
-  rename("Krippendorff's alpha (α)" = value, "Image Versions" = subjects, "Number of Raters" = raters, "Concept" = object)
-write.csv(kripps_alpha,'~/Desktop/4 - kripps_alpha.csv', row.names = FALSE)
-
-
-#########################################################################################################################################################################################################################################           
-##
-## NORMS FOR COLOUR ITEMS:
-##
-#########################################################################################################################################################################################################################################
-col_final_stim <- final_stim_list %>%           # Create new list from "final_stim_list"...
-  str_replace("$", "_photo_colour")             # Where we add the 'full' file name back in, so we can go back to the unfiltered fam/viscom etc. data and now filter by our final chosen items. 
-##    Familiarity:
-col_tidy_fam <- familiarity_data %>%
-  select(col_final_stim, -Participant_ID, -Resp_Count) %>%                      # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
-  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
-  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
-  group_by(Stim) %>%                                                            # Group by Stim. 
-  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
-  mutate(Resp = str_remove_all(Resp, "Fam_")) %>%                               # Remove "Fam_" bit from responses. 
-  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
-  summarise_all(funs(col_fam_mean = mean(Resp),                             # Summarise and calculate the mean; 
-                     col_fam_sd = sd(Resp),                                 # Standard deviation;
-                     col_fam_median = median(Resp),                         # Median
-                     col_fam_min = min(Resp),                               # Minimum value; 
-                     col_fam_max = max(Resp),                               # Maximum value; 
-                     col_fam_range = (col_fam_max - col_fam_min)))  # Range.
-##    Visual Complexity:
-col_tidy_viscom <- viscom_data %>%
-  select(col_final_stim, -Participant_ID, -Resp_Count) %>%                      # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
-  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
-  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
-  group_by(Stim) %>%                                                            # Group by Stim. 
-  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
-  mutate(Resp = str_remove_all(Resp, "VisCom_")) %>%                            # Remove "VisCom_" bit from responses. 
-  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
-  summarise_all(funs(col_viscom_mean = mean(Resp),                              # Summarise and calculate the mean; 
-                     col_viscom_sd = sd(Resp),                                  # Standard deviation;
-                     col_viscom_median = median(Resp),                          # Median
-                     col_viscom_min = min(Resp),                                # Minimum value; 
-                     col_viscom_max = max(Resp),                                # Maximum value; 
-                     col_viscom_range = (col_viscom_max - col_viscom_min)))     # Range.                     
-##    Mental Imagery:
-col_tidy_menima <- menima_data %>%
-  select(col_final_stim, -Participant_ID, -Resp_Count) %>%                      # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
-  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
-  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
-  group_by(Stim) %>%                                                            # Group by Stim. 
-  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
-  mutate(Resp = str_remove_all(Resp, "MenIma_")) %>%                            # Remove "MenIma_" bit from responses. 
-  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
-  summarise_all(funs(col_menima_mean = mean(Resp),                                  # Summarise and calculate the mean; 
-                     col_menima_sd = sd(Resp),                                      # Standard deviation;
-                     col_menima_median = median(Resp),                              # Median
-                     col_menima_min = min(Resp),                                    # Minimum value; 
-                     col_menima_max = max(Resp),                                    # Maximum value; 
-                     col_menima_range = (col_menima_max - col_menima_min)))                 # Range.
-##    Combined:
-colour_final <- col_tidy_fam %>%
-  right_join(col_tidy_viscom, by = "Stim") %>%
-  right_join(col_tidy_menima, by = "Stim") %>%
-  mutate(Stim = str_remove_all(Stim, "_photo_colour")) %>%
-  rename(PhotoVersion = Stim) %>%
-  mutate(Concept = str_remove_all(PhotoVersion, "[1-3]")) %>%       # Create new column "Concept", aka the object name without version number.   
-  mutate(PhotoVersion = str_extract(PhotoVersion, "[1-3]")) %>%       # Create new column "Concept", aka the object name without version number.   
-  select(Concept, everything()) %>%                                     # Change column order so Concept is first. 
-  mutate_at(c("col_fam_mean", "col_fam_sd", "col_viscom_mean", "col_viscom_sd", "col_menima_mean", "col_menima_sd"), round, 2) %>%
-  mutate_at(c("col_fam_median", "col_viscom_median", "col_menima_median"), round, 1)
-write.csv(colour_final,'~/Desktop/colour_final.csv', row.names = FALSE)
-#########################################################################################################################################################################################################################################           
-##
-## NORMS FOR GREY ITEMS:
-##
-#########################################################################################################################################################################################################################################
-grey_final_stim <- final_stim_list %>%           # Create new list from "final_stim_list"...
-  str_replace("$", "_photo_grey")             # Where we add the 'full' file name back in, so we can go back to the unfiltered fam/viscom etc. data and now filter by our final chosen items. 
-##    Familiarity:
-grey_tidy_fam <- familiarity_data %>%
-  select(grey_final_stim, -Participant_ID, -Resp_Count) %>%                     # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
-  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
-  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
-  group_by(Stim) %>%                                                            # Group by Stim. 
-  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
-  mutate(Resp = str_remove_all(Resp, "Fam_")) %>%                               # Remove "Fam_" bit from responses. 
-  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
-  summarise_all(funs(grey_fam_mean = mean(Resp),                             # Summarise and calculate the mean; 
-                     grey_fam_sd = sd(Resp),                                 # Standard deviation;
-                     grey_fam_median = median(Resp),                         # Median
-                     grey_fam_min = min(Resp),                               # Minimum value; 
-                     grey_fam_max = max(Resp),                               # Maximum value; 
-                     grey_fam_range = (grey_fam_max - grey_fam_min)))  # Range.                     
-##    Visual Complexity:
-grey_tidy_viscom <- viscom_data %>%
-  select(grey_final_stim, -Participant_ID, -Resp_Count) %>%                     # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
-  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
-  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
-  group_by(Stim) %>%                                                            # Group by Stim. 
-  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
-  mutate(Resp = str_remove_all(Resp, "VisCom_")) %>%                            # Remove "VisCom_" bit from responses. 
-  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
-  summarise_all(funs(grey_viscom_mean = mean(Resp),                                  # Summarise and calculate the mean; 
-                     grey_viscom_sd = sd(Resp),                                      # Standard deviation;
-                     grey_viscom_median = median(Resp),                              # Median
-                     grey_viscom_min = min(Resp),                                    # Minimum value; 
-                     grey_viscom_max = max(Resp),                                    # Maximum value; 
-                     grey_viscom_range = (grey_viscom_max - grey_viscom_min)))                 # Range.                     
-##    Mental Imagery:
-grey_tidy_menima <- menima_data %>%
-  select(grey_final_stim, -Participant_ID, -Resp_Count) %>%                     # Filter by our final chosen items. Also drop two columns, as we don't need to match responses back to participants (only stim).  
-  gather(key = Stim, value = Resp) %>%                                          # Gather all responses from wide into long format.
-  filter(!is.na(Resp)) %>%                                                      # Filter out any NA rows, leaving us with just responses.
-  group_by(Stim) %>%                                                            # Group by Stim. 
-  arrange (Stim, Resp) %>%                                                      # Arrange by Stim name first, then by Resp. 
-  mutate(Resp = str_remove_all(Resp, "MenIma_")) %>%                            # Remove "MenIma_" bit from responses. 
-  mutate(Resp = as.numeric(Resp)) %>%                                           # Change Resp col to numeric. 
-  summarise_all(funs(grey_menima_mean = mean(Resp),                                  # Summarise and calculate the mean; 
-                     grey_menima_sd = sd(Resp),                                      # Standard deviation;
-                     grey_menima_median = median(Resp),                              # Median
-                     grey_menima_min = min(Resp),                                    # Minimum value; 
-                     grey_menima_max = max(Resp),                                    # Maximum value; 
-                     menima_range = (grey_menima_max - grey_menima_min)))                 # Range.      
-##    Combined:
-grey_final <- grey_tidy_fam %>%
-  right_join(grey_tidy_viscom, by = "Stim") %>%
-  right_join(grey_tidy_menima, by = "Stim") %>%
-  mutate(Stim = str_remove_all(Stim, "_photo_grey")) %>%
-  rename(PhotoVersion = Stim) %>%
-  mutate(Concept = str_remove_all(PhotoVersion, "[1-3]")) %>%       # Create new column "Concept", aka the object name without version number.   
-  mutate(PhotoVersion = str_extract(PhotoVersion, "[1-3]")) %>%       # Create new column "Concept", aka the object name without version number.   
-  select(Concept, everything()) %>%                                     # Change column order so Concept is first. 
-  mutate_at(c("grey_fam_mean", "grey_fam_sd", "grey_viscom_mean", "grey_viscom_sd", "grey_menima_mean", "grey_menima_sd"), round, 2) %>%
-  mutate_at(c("grey_fam_median", "grey_viscom_median", "grey_menima_median"), round, 1)
-write.csv(grey_final,'~/Desktop/grey_final.csv', row.names = FALSE)
-
-
-
 ```
-
-
-# Method
-## Participants
-```{r, echo=FALSE}
-participant_summary$Age <- as.double(participant_summary$Age)
-```
-
-A total of `r nrow(participant_summary)` participants completed the experiment: `r formatC(length(participant_summary$Gender[participant_summary$Gender == "female"]))` females (*M* age = `r formatC(mean(participant_summary$Age[participant_summary$Gender == "female"]))` years, *SD* = `r formatC(sd(participant_summary$Age))`) and `r formatC(length(participant_summary$Gender[participant_summary$Gender == "male"]))` males (*M* = `r formatC(mean(participant_summary$Age[participant_summary$Gender == "male"]))` years, *SD* = `r formatC(sd(participant_summary$Age))`). Subjects were recruited from voluntary participation websites (e.g. \href{https://www.prolific.co/}{Prolific Academic}) and received either payment or research participation credit for taking part. 
-
-## Materials
-
-In Experiment 1, we used a random sample of line-drawn, everyday object stimuli [@rossion2004], along with their written-word counterparts. These items were brought forward into the current study to be matched with photographs, with the exception of a select few depicting shapes that could not easily be translated into photographic format. Such items included arrow and star shapes (without any context), which could not be represented in a photograph in a similar manner. 
-
-The matching process was completed by searching open-source, copyright-freZe image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels} for photographs that depicted the everyday objects in a similiar fashion as the line-drawings (see Appendix B for full list of photograph sources). Three unique photographs were selected for each object, with a general aim of choosing two that closely resembled the line-drawn version, and one that was somewhat different / more modern than the original. 
-
-Adobe Photoshop CC (20.0.04 Release) was used to remove the background from photographs and isolate the object of interest from other potentially distracting visual details. This was completed manually using the Magnetic Lasso and Polygonal Lasso tools. Edges were either not feathered, or feathered by 1px. Once objects had been "cut out" from their background, their orientation was also adjusted to ensure they matched as closely as possible with the depictions of the line drawings (for example, a boot shown with the toe facing left and heel facing right was matched); this sometimes entailed flipping or mirroring the object to 'correct' its' direction. 
-
-In rare instances, the Clone Stamp and Content Aware Fill tools were used to eliminate irrelevant and potentially distracting items that were not removed by the initial crop around the edge of the object (see Appendix ???? for some examples). Any obvious text (e.g. words / letters / brand names) were also removed in a similiar manner; this was done in an effort to ensure photographs were not made additionally memorable by inadvertedly combining more than one stimuli format (photograph + words). Our ultimate goal was to independantly examine recognition toward words, line-drawings, and photographic stimuli, and so a photograph that also contained text may not be directly comparable to one that does not). Numbers were often removed too on the same basis - apart from a few exceptions where numbers were integral to the depiction of the object (e.g. the numbers on a ruler, or a labelled clock).
-
-Cropped photos were exported in both colour and greyscale from Photoshop in “.png” format. 
-Other minor edits were made in Adobe Lightroom Classic CC (8.2 Release):
-exposure (brightness) - too light / too dark contrast 
-Highlights - decreased if some areas of the image were too bright.
-Shadows - raised if some areas of the image were too dark. 
-Noise reduction - as some objects were not the main focus of the original image, and so the increased crop factor made noise more visible.
-
-
-The unique changes made to each image were applied to both greyscale and colour versions (e.g. if the colour version of shoe1 had an exposure increase of .010 and shadows raised by +20, these same values were aplied to the greyscale version of shoe1). There were some colour-specific edits though:the white balance of the cropped .png colour photos were normalised using……, and Common image artifacts, such as chromatic aberration (purple fringing) were corrected. 
-
-To normalise the size between all stimuli, the colour corrected and greyscale .pngs were finally imported back into Photoshop CC (20.0.04 Release) to each be placed on a 600x600 pixel white background, and again exported as .pngs. 
-
-MENTION: left/right orientation of images. See [@moreno-martinez2012]. Also - better explanation by [@brodeur2010].
-
-<!-- This needs to be more precise. Does each image roughly take up the same amount of pixels or something? -->
-
-## Procedure
-Data collection was conducted via two online platforms; i) \href{https://www.qualtrics.com/uk/}{Qualtrics} - a survey platform that allowed for straightforward collection of consent, demographics, and computer compatibility data, and ii) \href{https://pavlovia.org/}{Pavlovia} - an open-source experiment hosting platform for studies programmed in Javascript [@peirce2019].
-
-# Analysis
-
-Some of the photos don’t really change between colour and greyscale (e.g. sock 3). Examine if responses are the same between these. Maybe remove these items from analyses when looking at the effects of colour?
-
-## Data preperation
-
-Item exclusion:
-Items with a “don’t know” score over 20% were excluded:
-
-Krippendorff's alpha (α)
-Measure of inter-rater reliability. An α of 1 indicates perfect agreement. 
-
-Naming agreement: H-statistic
-Measure of agreement between naming responses (takes into account the number of different names given):
-
 
 
 \newpage
@@ -904,21 +769,3 @@ Measure of agreement between naming responses (takes into account the number of 
 \noindent
 
 <div id="refs"></div>
-\newpage
-# Appendices
-
-## Appendix A
-```{r, echo=FALSE}
-replaced_items <- read_csv("resources/replaced_items.csv", col_types = cols(.default = "c"))
-kable(replaced_items)
-```
-
-\newpage
-## Appendix B
-```{r, echo=FALSE}
-original_image_urls <- read_csv("resources/original_image_urls.csv", col_types = cols(.default = "c"))
-original_image_urls %>%
-  kable(longtable = T, caption = "Original photograph sources") %>%
-  kable_styling(latex_options = c("repeat_header"), font_size = 7) %>%
-  landscape()
-```
