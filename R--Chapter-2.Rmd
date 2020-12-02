@@ -16,8 +16,9 @@ header-includes:
 - \usepackage{fancyhdr}                 # Latex package for formatting PDFs.
 - \usepackage{setspace}\doublespacing   # Double spacing.
 - \pagestyle{fancy}                     # Set page style.
-- \usepackage{booktabs}
+- \usepackage{booktabs}                 # Used for presenting tables.
 - \renewcommand{\headrulewidth}{1.5pt}  # Thickness of header line.
+- \renewcommand{\href}[2]{#2\footnote{\url{#1}}}    # Show URLs in footnote.
 - \fancyhead[L]{\textsl{CHAPTER 2}}     # Chapter number (top left header).
 - \fancyhead[R]{\textsl{\rightmark}}    # Section number (top right header).
 #- \lfoot{\leftmark}                    # Add section number to left footer.
@@ -762,10 +763,6 @@ All responses were self-paced; the timing was only controlled during the study/i
       
 write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
 ```
-
-
-
-
 
 \newpage
 # References
