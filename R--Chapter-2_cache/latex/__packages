@@ -8,15 +8,7 @@ purrr
 dplyr
 stringr
 forcats
-emmeans
 captioner
-usethis
-devtools
 tinytex
 kableExtra
-janitor
-fs
-lpSolve
-irr
 formattable
-papaja

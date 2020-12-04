@@ -13,21 +13,24 @@ geometry: left=35mm, right=20mm, top=30mm, bottom=30mm
 bibliography: resources/refs.bib
 csl: resources/apa.csl
 header-includes:
-#- \usepackage{fancyhdr}                 # Latex package for formatting PDFs.
-#- \usepackage{setspace}\doublespacing   # Double spacing.
-#- \pagestyle{fancy}                     # Set page style.
-#- \usepackage{booktabs}                 # Used for presenting tables.
-#- \renewcommand{\headrulewidth}{1.5pt}  # Thickness of header line.
-#- \renewcommand{\href}[2]{#2\footnote{\url{#1}}}    # Show URLs in footnote.
-#- \fancyhead[L]{\textsl{CHAPTER 2}}     # Chapter number (top left header).
-#- \fancyhead[R]{\textsl{\rightmark}}    # Section number (top right header).
-#- \setlength{\headheight}{14.49998pt}   # Ensures consistent space between header line and text.
+- \usepackage{fancyhdr}                           # Latex package for formatting PDFs.
+- \pagestyle{fancy}                               # Set page style.
+- \renewcommand{\headrulewidth}{1.5pt}            # Thickness of header line.
+- \setlength{\headheight}{13.59999pt}             # Ensures consistent space between header line and text.
+- \renewcommand{\href}[2]{#2\footnote{\url{#1}}}  # Show URLs in footnote.
+#- \usepackage{setspace}\doublespacing            # Double spacing.
+#- \usepackage{booktabs}                          # Used for presenting tables.
+#- \fancyhead[L]{\textsl{CHAPTER 2}}              # Chapter number (top left header).
+#- \fancyhead[R]{\textsl{\rightmark}}             # Section number (top right header).
+- \usepackage{pdflscape}
+- \newcommand{\blandscape}{\begin{landscape}}
+- \newcommand{\elandscape}{\end{landscape}}
 ---
 
-```{r load-packages, include=FALSE}
+```{r load-packages, include=FALSE, cache=FALSE}
 rm(list=ls())  
 # List required packages:
-    required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable")
+    required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", "readr")
     packages_to_install <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
     if(length(packages_to_install)) install.packages(packages_to_install)
     invisible(suppressPackageStartupMessages(lapply(required_packages, library, character.only = TRUE)))
@@ -43,7 +46,7 @@ rm(list=ls())
 ```
 
 
-```{r raw-data, include=FALSE}
+```{r raw-data, include=FALSE, cache=FALSE}
 ####################################################################################################################
 ##                                                                                                                ##
 ##    EXPERIMENT 2:                                                                                               ##
@@ -110,8 +113,7 @@ raw_data_files <- raw_data_files[!(raw_data_files %in% do_not_import)] %>%
   str_replace("PARTICIPANT", "./resources/raw_data/PARTICIPANT")    # Add folder location to start of each file name.
 
 ##  Create raw df from the above files, but only get the following columns:
-raw_data <- map_dfr(raw_data_files,~read_csv(.x, col_types = cols_only("Participant Private ID"='c',
-                                                                       "date"='c',"expName"='c',"Prolific_ID"='c',
+raw_data <- map_dfr(raw_data_files,~read_csv(.x, col_types = cols_only("date"='c',"expName"='c',"Prolific_ID"='c',
                                                                        "Age"='c',"Gender"='c',"EnglishFirstLang"='c',
                                                                        "Ethnicity"='c',"EthnicityOther"='c',
                                                                        "UsingMac"='c',"RetinaScreen"='c',
@@ -220,16 +222,13 @@ mutate(stim = na_if(stim, "")) %>%
 exp_2_participants <- raw_data %>%
   select(id, age, gender, englishfirstlang, ethnicity, ethnicityother) %>%
   summarise_all(coalesce_by_column)
-
-write.csv(exp_2_participants,'~/Desktop/exp_2_participants.csv', row.names = FALSE)
 ```
 
-
-## Method
-### Participants
+# Method
+## Participants
 A total of `r nrow(exp_2_participants)` subjects completed the online experiment (see `r table_numbering("exp2__age.and.gender__table.caption", display = "cite")` for a breakdown of the gender and age of the sample). Subjects were recruited from both voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (where they received payment at the rate of £5/hr), and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits).
 
-```{r exp2-age-gend-table-data, include=FALSE}
+```{r exp2-age-gend-table-data, include=FALSE, cache=FALSE}
 exp2_age_gender <- exp_2_participants %>%
   select(age, gender) %>%
   mutate(age = as.double(age))
@@ -260,23 +259,23 @@ exp2_age_gender_table <- tribble(
   exp2_age_gender %>% summarise(mean(age)) %>% pull() %>% round (2),
   str_c("(",exp2_age_gender %>% summarise(sd(age)) %>% pull() %>% round (2) %>% as.character(),")"))
 
-    exp2_n_eng_lang <- nrow(exp_2_participants %>% filter(englishfirstlang == "yes"))
-    exp2_n_eng_lang <- round((exp2_n_eng_lang / nrow(exp_2_participants)) * 100, 2)
+exp2_n_eng_lang <- nrow(exp_2_participants %>% filter(englishfirstlang == "yes"))
+exp2_n_eng_lang <- round((exp2_n_eng_lang / nrow(exp_2_participants)) * 100, 2)
 ```
 
 `r table_numbering("exp2__age.and.gender__table.caption")`
-```{r exp2-age-gend-table, echo=FALSE}
-    exp2_age_gender_table %>%
-      kable("latex", booktabs = T) %>%
-      kable_styling(latex_options = "hold_position") %>%
-      column_spec(2, italic = TRUE) %>%
-      column_spec(4, italic = TRUE) %>%
-      row_spec(5, bold = TRUE)
+```{r exp2-age-gend-table, echo=FALSE, cache=FALSE}
+exp2_age_gender_table %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position") %>%
+  column_spec(2, italic = TRUE) %>%
+  column_spec(4, italic = TRUE) %>%
+  row_spec(5, bold = TRUE)
 ```
 
 To meet our YA requirements, all participants were required to be aged between 18-59 years (actual obtained range: `r min(exp_2_participants$age, na.rm = TRUE)`-`r max(exp_2_participants$age, na.rm = TRUE)` years). As our experiment involved typing the English labels for a range of image stimuli, subjects were also asked whether English was their first language; all but one participant indicated that English was indeed their first language (`r exp2_n_eng_lang`%). 
 
-### Materials
+## Materials
 Items from the previous experiment were brought forward into the current study; these consisted of a random sample of line-drawn, everyday object stimuli [@rossion2004], along with their written-word counterparts. Before sourcing photographs to match these items, some were excluded due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). 
 
 Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs similarly depicting the line-drawn everyday objects (the full list of image references can be found in Appendix A). For each item, three unique photographs were selected. An emphasis was placed on variety when selecting the three images, with the aim of obtaining photographs that very closely resembled the line drawings and those offering more modern depictions. All photographs were imported into Adobe Photoshop (20.0.04 Release), where the background was removed in order to isolate the objects of interest from other potentially distracting visual details (this was completed manually using the magnetic lasso and polygonal lasso tools; the edges were either feathered by 1px or left un-feathered). Next, the orientation of isolated objects was adjusted to ensure they matched as closely as possible to their line-drawn counterparts (e.g. photographs of the 'boot' item were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
@@ -285,10 +284,10 @@ Despite isolating objects from their background, a small number of photographs s
 
 The photographs were exported from Photoshop in “.png” format in both their original colour and in greyscale (by setting saturation levels to 0). Final edits were completed in Adobe Lightroom (Classic, 8.2 Release): exposure (brightness) adjustments were made on images that appeared too light or too dark; highlights were decreased if some areas were too bright compared to the rest of the photograph; shadows were raised if some areas were too dark compared to the rest of the photograph; noise reduction was applied to some items after isolating the subject had inadvertently made unwanted noise/grain more visible. The changes made to each image were systematically applied to both the colour and greyscale versions (e.g. if one variation of "shoe" had an exposure increase of .010 for the colour version, the greyscale version also received an exposure increase of .010). Some colour-specific adjustments were made to the colour photographs only, however; common photo artefacts such as chromatic aberration (purple fringing) were corrected, along with white balance normalisation. Finally, all photographs were placed on a 600x600 pixel white background, and made to fill this frame as much as possible (i.e. some items were restrained by height, whilst others were restrained by width).
 
-### Design
+## Design
 Across three blocks, all participants provided five types of response toward photo stimuli: i) Naming; ii) Familiarity; iii) Visual Complexity, iv) Colour Diagnosticity; and v) Mental Imagery Agreement. Excluding the Naming task (consisting of a typed single-word answer), all responses were provided on a 5-point Likert scale. Within participants, the maximum number of response type provided for any one item was two; Naming and Familiarity responses were paired in one block, Visual Complexity and Colour Diagnosticity responses were paired in another, and Mental Imagery Agreement responses were always presented in a separate block. The order of these three blocks was counterbalanced across participants. Toward each individual photograph, participants made only one or two types of response before moving on to the next item, and the same items were not repeated to participants. For each photograph, the five types of required data were obtained by counterbalancing between participants (e.g. for the first variation of the "cat" photograph, the Naming and Familiarity data was obtained from one participant, the Visual Complexity and Colour Diagnosticity data was obtained from another, and the Mental Imagery Agreement data was obtained from another). 
 
-### Procedure
+## Procedure
 
 Data collection was conducted via two online platforms; i) \href{https://www.qualtrics.com/uk/}{Qualtrics} - a survey platform that allowed for straightforward collection of consent, demographics, and computer compatibility data, and ii) \href{https://pavlovia.org/}{Pavlovia} - an open-source experiment hosting platform for studies programmed in Javascript [@peirce2019].
 
@@ -300,9 +299,11 @@ Due to the slight change in procedure and increased task complexity, Mental Imag
 
 All responses were self-paced; the timing was only controlled during the study/imagine section of the Mental Imagery Agreement block.
 
+
+
 ![`r figure_numbering("men_ima_procedure.caption")`](./resources/images/procedure.png)
 
-```{r naming-data, include=FALSE}
+```{r naming-data, include=FALSE, cache=TRUE}
 ####################################################################################################################
 ##                                                                                                                ##
 ##    NAMING:                                                                                                     ##
@@ -721,11 +722,17 @@ write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
 #################################################################################################################### 
 ```
 
-## Results
-### Naming
-The naming responses for each photograph item were first manually assessed for spelling and typing errors. Automatic spell checking software was avoided in an effort to avoid inadvertently introducing unique names that were not actually given by participants. The vast majority of errors were unambiguous and easy to correct (e.g. "anker" = "anchor", "peguin" = "penguin", "ssnowman" = "snowman"), or consisted of transforming plural words to singular (or vice versa, depending on the form of the intended label - e.g. "sock" to "socks"). Some responses were a little more ambiguous, and necessitated comparison to the photographs they were in response to for additional clarity (e.g. a photograph depicting a plug that would fit into North American electrical sockets was labelled as "usplug" - given the nature of our UK-based sample, it's likely the subject was responding: "U.S. (i.e. United States) plug". 
+# Results
+## Naming
+The naming responses for each photograph item were manually assessed for spelling and typing errors. Automatic spell checking software was avoided in an effort to avoid inadvertently introducing unique names that were not actually given by participants. The vast majority of errors were unambiguous and easy to correct (e.g. "anker" = "anchor", "peguin" = "penguin", "ssnowman" = "snowman"), or consisted of transforming plural words to singular (or vice versa, depending on the form of the intended label - e.g. "sock" to "socks"). Some responses were a little more ambiguous, and necessitated comparison to the photographs they were in response to for additional clarity (e.g. a photograph depicting a plug that would fit into North American electrical sockets was labelled as "usplug" - given the nature of our UK-based sample, it's likely the subject was responding: "U.S. (i.e. United States) plug". 
 
-There were instances where subjects provided a sensible and correctly spelled English word, but that were clearly typos when examined against the photograph they were in response to (e.g. "dock" for a photograph depicting a duck, "frock" for a frog, and "beer" for a "bear", etc). The most ambiguous spelling error to correct was "bittle", which was provided by more than one participant and to more than one item; separate inspections of the photographs participants were responding to made this easy to correct though, with one participant clearly meaning to respond "bottle", whilst the other meant to respond "beetle". Though participants were instructed to only give a single label for each item, some multiple word responses were found (without spaces) during the spell checking process. On such occasions, a judgement was made regarding whether multiple words were retained, or whether the response could be shortened into a single word. A general rule was applied whereby if the other words provided additional information, they were retained (e.g."maledear" - presumably "male deer" - was kept as a two-word answer). Multiple word responses were generally shortened into a single word when the intended label for the item was clearly present, and no information was lost in the process (e.g. "haircomb" was shortened to the intended answer "comb"). It is noted that there was some inherent subjectivity in this process, though as such items were not common among straightforward responses, their overall effects are estimated to be negligible. Finally, there were some responses that were changed to "no" as they were clearly intended to signify that the responder did not know the name of the item shown; the experiment instructed participants to type "no" in these instances, though the labels "none" and "idk" (common abbreviation for "I don't know) were provided instead. There was also a single response that was manually changed to "no", as the provided label was a single letter and thus entirely unclear what the intended answer should be. All manipulations to naming responses can be found at Appendix C.
+There were instances where subjects provided a sensible and correctly spelled English word, but that were clearly typos when examined against the photograph they were in response to (e.g. "dock" for a photograph depicting a duck, "frock" for a frog, and "beer" for a "bear", etc). The most ambiguous spelling error to correct was "bittle", which was provided by more than one participant and to more than one item; separate inspections of the photographs participants were responding to made this easy to correct though, with one participant clearly meaning to respond "bottle", whilst the other meant to respond "beetle". Though participants were instructed to only give a single label for each item, some multiple word responses were found (without spaces) during the spell checking process. On such occasions, a judgement was made regarding whether multiple words were retained, or whether the response could be shortened into a single word. A general rule was applied whereby if the other words provided additional information, they were retained (e.g."maledear" - presumably "male deer" - was kept as a two-word answer). Multiple word responses were generally shortened into a single word when the intended label for the item was clearly present, and no information was lost in the process (e.g. "haircomb" was shortened to the intended answer "comb"). It is noted that there was some inherent subjectivity in this process, though as such items were not common among straightforward responses, their overall effects are estimated to be negligible.
+
+Finally, there were some responses that were changed to "no" as they were clearly intended to signify that the responder did not know the name of the item shown; the experiment instructed participants to type "no" in these instances, though the labels "none" and "idk" (common abbreviation for "I don't know) were provided instead. There was also a single response that was manually changed to "no", as the provided label was a single letter and thus entirely unclear what the intended answer should be. All manipulations to naming responses can be found at Appendix C.
+
+
+
+
 
 \newpage
 
@@ -736,248 +743,108 @@ There were instances where subjects provided a sensible and correctly spelled En
 \noindent
 
 <div id="refs"></div>
-
+  
 \newpage
-# Appendices
 
+# Appendices
 
 ## Appendix C
 
-
-
-
-```{r spelling-corrections, include=FALSE}
-    spelling_corrections <- 
-
-
-mutate(naming_response = str_replace(naming_response, "^idk$", "no")) %>%          # Change "idk" to "no".
-        mutate(naming_response = str_replace(naming_response, "^none$", "no")) %>%         # Change "none" to "no".
-        mutate(naming_response = str_replace(naming_response, "^a$", "no")) %>%            # Incorrect spelling / typo.
-        mutate(naming_response = str_replace(naming_response, "^anker$", "anchor")) %>%         
-        mutate(naming_response = str_replace(naming_response, "^ancher$", "anchor")) %>%
-        mutate(naming_response = str_replace(naming_response, "^anchore$", "anchor")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ancor$", "anchor")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ashtry$", "ashtray")) %>%
-        mutate(naming_response = str_replace(naming_response, "^;ashtray$", "ashtray")) %>%
-        mutate(naming_response = str_replace(naming_response, "^aparagus$", "asparagus")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ballon$", "balloon")) %>%
-        mutate(naming_response = str_replace(naming_response, "^baloon$", "balloon")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ballone$", "balloon")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ballun$", "balloon")) %>%
-        mutate(naming_response = str_replace(naming_response, "^balloone$", "balloon")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bannan$", "banana")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bamnna$", "banana")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bananna$", "banana")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bannana$", "banana")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bananaa$", "banana")) %>%
-        mutate(naming_response = str_replace(naming_response, "^barrell$", "barrel")) %>%
-        mutate(naming_response = str_replace(naming_response, "^barrle$", "barrel")) %>%
-        mutate(naming_response = str_replace(naming_response, "^barel$", "barrel")) %>%
-        mutate(naming_response = str_replace(naming_response, "^barrow$", "barrel")) %>%
-        mutate(naming_response = str_replace(naming_response, "^busket$", "basket")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bellpepp34$", "bellpepper")) %>%
-        mutate(naming_response = str_replace(naming_response, "^beatle$", "beetle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bettle$", "beetle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^blueberrys$", "blueberries")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bycycle$", "bicycle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bicucle$", "bicycle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bicyle$", "bicycle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bootle$", "bottle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^bolw$", "bowl")) %>%
-        mutate(naming_response = str_replace(naming_response, "^broon$", "broom")) %>%
-        mutate(naming_response = str_replace(naming_response, "^broon$", "broom")) %>%
-        mutate(naming_response = str_replace(naming_response, "^brum$", "broom")) %>%
-        mutate(naming_response = str_replace(naming_response, "^camal$", "camel")) %>%
-        mutate(naming_response = str_replace(naming_response, "^canddle$", "candle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^canle$", "candle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^canon$", "cannon")) %>%
-        mutate(naming_response = str_replace(naming_response, "^carrott$", "carrot")) %>%
-        mutate(naming_response = str_replace(naming_response, "^carott$", "carrot")) %>%
-        mutate(naming_response = str_replace(naming_response, "^cerlery$", "celery")) %>%
-        mutate(naming_response = str_replace(naming_response, "^celary$", "celery")) %>%
-        mutate(naming_response = str_replace(naming_response, "^cellary$", "celery")) %>%
-        mutate(naming_response = str_replace(naming_response, "^celeary$", "celery")) %>%
-        mutate(naming_response = str_replace(naming_response, "^chain2$", "chain")) %>%
-        mutate(naming_response = str_replace(naming_response, "^cockrel$", "cockerel")) %>%
-        mutate(naming_response = str_replace(naming_response, "^cockaroach$", "cockroach")) %>%
-        mutate(naming_response = str_replace(naming_response, "^cochroach$", "cockroach")) %>%
-        mutate(naming_response = str_replace(naming_response, "^chissel$", "chisel")) %>%
-        mutate(naming_response = str_replace(naming_response, "^chizel$", "chisel")) %>%
-        mutate(naming_response = str_replace(naming_response, "^chestofdraws$", "chestofdrawers")) %>%
-        mutate(naming_response = str_replace(naming_response, "^chestofdrawerserss$", "chestofdrawers")) %>%
-        mutate(naming_response = str_replace(naming_response, "^chisle$", "chisel")) %>%
-        mutate(naming_response = str_replace(naming_response, "^claranet$", "clarinet")) %>%
-        mutate(naming_response = str_replace(naming_response, "^combe$", "comb")) %>%
-        mutate(naming_response = str_replace(naming_response, "^dear$", "deer")) %>%
-        mutate(naming_response = str_replace(naming_response, "^deere$", "deer")) %>%
-        mutate(naming_response = str_replace(naming_response, "^draws$", "drawers")) %>%
-        mutate(naming_response = str_replace(naming_response, "^doormouse$", "dormouse")) %>%
-        mutate(naming_response = str_replace(naming_response, "^eagal$", "eagle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^eeagle$", "eagle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^eclipses$", "eclipse")) %>%
-        mutate(naming_response = str_replace(naming_response, "^eclipes$", "eclipse")) %>%
-        mutate(naming_response = str_replace(naming_response, "^eclipsse$", "eclipse")) %>%
-        mutate(naming_response = str_replace(naming_response, "^falg$", "flag")) %>%
-        mutate(naming_response = str_replace(naming_response, "^footstall$", "footstool")) %>%
-        mutate(naming_response = str_replace(naming_response, "^fott$", "foot")) %>%
-        mutate(naming_response = str_replace(naming_response, "^frog/$", "frog")) %>%
-        mutate(naming_response = str_replace(naming_response, "^girafffe$", "giraffe")) %>%
-        mutate(naming_response = str_replace(naming_response, "^giraffee$", "giraffe")) %>%
-        mutate(naming_response = str_replace(naming_response, "^girrafe$", "giraffe")) %>%
-        mutate(naming_response = str_replace(naming_response, "^girafe$", "giraffe")) %>%
-        mutate(naming_response = str_replace(naming_response, "^giraff$", "giraffe")) %>%
-        mutate(naming_response = str_replace(naming_response, "^giaffee$", "giraffe")) %>%
-        mutate(naming_response = str_replace(naming_response, "^girraffe$", "giraffe")) %>%
-        mutate(naming_response = str_replace(naming_response, "^giaraffe$", "giraffe")) %>%
-        mutate(naming_response = str_replace(naming_response, "^glases$", "glasses")) %>%
-        mutate(naming_response = str_replace(naming_response, "^gutair$", "guitar")) %>%
-        mutate(naming_response = str_replace(naming_response, "^gitaur$", "guitar")) %>%
-        mutate(naming_response = str_replace(naming_response, "^gitter$", "guitar")) %>%
-        mutate(naming_response = str_replace(naming_response, "^hemmar$", "hammer")) %>%
-        mutate(naming_response = str_replace(naming_response, "^hand5$", "hand")) %>%
-        mutate(naming_response = str_replace(naming_response, "^hamp$", "harp")) %>%
-        mutate(naming_response = str_replace(naming_response, "^kacket$", "jacket")) %>%
-        mutate(naming_response = str_replace(naming_response, "^kangroo$", "kangaroo")) %>%
-        mutate(naming_response = str_replace(naming_response, "^lader$", "ladder")) %>%
-        mutate(naming_response = str_replace(naming_response, "^latter$", "ladder")) %>%
-        mutate(naming_response = str_replace(naming_response, "^leafe$", "leaf")) %>%
-        mutate(naming_response = str_replace(naming_response, "^lettace$", "lettuce")) %>%
-        mutate(naming_response = str_replace(naming_response, "^leamon$", "lemon")) %>%
-        mutate(naming_response = str_replace(naming_response, "^leema$", "lemur")) %>%
-        mutate(naming_response = str_replace(naming_response, "^olobster$", "lobster")) %>%
-        mutate(naming_response = str_replace(naming_response, "^maledear$", "maledeer")) %>%
-        mutate(naming_response = str_replace(naming_response, "^mortle$", "mortar")) %>%        
-        mutate(naming_response = str_replace(naming_response, "^monkeybut$", "monkeynut")) %>%  
-        mutate(naming_response = str_replace(naming_response, "^mousse$", "moose")) %>%
-        mutate(naming_response = str_replace(naming_response, "^neddle$", "needle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^nectarinee$", "nectarine")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ostrage$", "ostrich")) %>%
-        mutate(naming_response = str_replace(naming_response, "^osterich$", "ostrich")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ostrige$", "ostrich")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ostrisge$", "ostrich")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ostritch$", "ostrich")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ostridge$", "ostrich")) %>%
-        mutate(naming_response = str_replace(naming_response, "^apricorte$", "apricot")) %>%
-        mutate(naming_response = str_replace(naming_response, "^nectarin$", "nectarine")) %>%
-        mutate(naming_response = str_replace(naming_response, "^nectrine$", "nectarine")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pecock$", "peacock")) %>%
-        mutate(naming_response = str_replace(naming_response, "^peacck$", "peacock")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pair$", "pear")) %>%
-        mutate(naming_response = str_replace(naming_response, "^oencil$", "pencil")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pengiuin$", "penguin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pengiun$", "penguin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^penguine$", "penguin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^penquin$", "penguin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^peguin$", "penguin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^peper$", "pepper")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pestleandmorter$", "pestleandmortar")) %>%
-        mutate(naming_response = str_replace(naming_response, "^tabaccopipe$", "tobaccopipe")) %>%
-        mutate(naming_response = str_replace(naming_response, "^piccalo$", "piccolo")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pliars$", "pliers")) %>%
-        mutate(naming_response = str_replace(naming_response, "^plier$", "pliers")) %>%
-        mutate(naming_response = str_replace(naming_response, "^plyers$", "pliers")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pilers$", "pliers")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pliyers$", "pliers")) %>%
-        mutate(naming_response = str_replace(naming_response, "^vicescripts$", "vicegrips")) %>%
-        mutate(naming_response = str_replace(naming_response, "^usplug$", "plug")) %>%      # U.S. (i.e. United States) plug? 
-        mutate(naming_response = str_replace(naming_response, "^potatoe$", "potato")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pottato$", "potato")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pumkin$", "pumpkin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^pumpkim$", "pumpkin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^punpkin$", "pumpkin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^rabit$", "rabbit")) %>%
-        mutate(naming_response = str_replace(naming_response, "^racoon$", "raccoon")) %>%
-        mutate(naming_response = str_replace(naming_response, "^mercat$", "meerkat")) %>%
-        mutate(naming_response = str_replace(naming_response, "^meercat$", "meerkat")) %>%
-        mutate(naming_response = str_replace(naming_response, "^acoop$", "scoop")) %>%
-        mutate(naming_response = str_replace(naming_response, "^eele$", "seal")) %>%
-        mutate(naming_response = str_replace(naming_response, "^seel$", "seal")) %>%
-        mutate(naming_response = str_replace(naming_response, "^snakw$", "snake")) %>%
-        mutate(naming_response = str_replace(naming_response, "^ssnowman$", "snowman")) %>%
-        mutate(naming_response = str_replace(naming_response, "^showel$", "shovel")) %>%
-        mutate(naming_response = str_replace(naming_response, "^soak$", "socks")) %>%
-        mutate(naming_response = str_replace(naming_response, "^spon$", "spoon")) %>%
-        mutate(naming_response = str_replace(naming_response, "^steplader$", "stepladder")) %>%
-        mutate(naming_response = str_replace(naming_response, "^sterss$", "step")) %>%
-        mutate(naming_response = str_replace(naming_response, "^sweetcirn$", "sweetcorn")) %>%
-        mutate(naming_response = str_replace(naming_response, "^rubarb$", "rhubarb")) %>%
-        mutate(naming_response = str_replace(naming_response, "^thinbell$", "thimble")) %>%
-        mutate(naming_response = str_replace(naming_response, "^thmble$", "thimble")) %>%
-        mutate(naming_response = str_replace(naming_response, "^timble$", "thimble")) %>%
-        mutate(naming_response = str_replace(naming_response, "^timbil$", "thimble")) %>%
-        mutate(naming_response = str_replace(naming_response, "^thunb$", "thumb")) %>%
-        mutate(naming_response = str_replace(naming_response, "^toitouse$", "tortoise")) %>%
-        mutate(naming_response = str_replace(naming_response, "^tomatoe$", "tomato")) %>%
-        mutate(naming_response = str_replace(naming_response, "^tomoato$", "tomato")) %>%
-        mutate(naming_response = str_replace(naming_response, "^tortiste$", "tortoise")) %>%
-        mutate(naming_response = str_replace(naming_response, "^tortise$", "tortoise")) %>%
-        mutate(naming_response = str_replace(naming_response, "^tortus$", "tortoise")) %>%
-        mutate(naming_response = str_replace(naming_response, "^volion$", "violin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^vioin$", "violin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^violen$", "violin")) %>%
-        mutate(naming_response = str_replace(naming_response, "^valture$", "vulture")) %>%
-        mutate(naming_response = str_replace(naming_response, "^waistcoast$", "waistcoat")) %>%
-        mutate(naming_response = str_replace(naming_response, "^wastecoat$", "waistcoat")) %>%
-        mutate(naming_response = str_replace(naming_response, "^wale$", "well")) %>%
-        mutate(naming_response = str_replace(naming_response, "^whistel$", "whistle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^whsitle$", "whistle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^whisell$", "whistle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^whitle$", "whistle")) %>%
-        mutate(naming_response = str_replace(naming_response, "^windown$", "window")) %>%
-        mutate(naming_response = str_replace(naming_response, "^peneut$", "peanut")) %>%
-# Sensible word responses, but based on the picture P were responding to, were probably typos: 
-        mutate(naming_response = str_replace(naming_response, "^beer$", "bear")) %>%
-        # Item "swan". Probably meant "duck":
-        mutate(naming_response = str_replace(naming_response, "^dock$", "duck")) %>%      
-        mutate(naming_response = str_replace(naming_response,  "^frock$", "frog")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^glass$", "glasses")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^glassesbottle$", "bottle")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^hose$", "house")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^noise$", "nose")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^paper$", "pepper")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^harper$", "hamper")) %>%
-        # Item "raccoon". Probably meant "muskrat":
-        mutate(naming_response = str_replace(naming_response,  "^muscat$", "muskrat")) %>%
-        # Spelling mistake 'bittle' appeared for both beetle and bottle. Before correcting the spelling,
-        # we must check which item P was responding to:
-        mutate(naming_response = ifelse(naming_response == "bittle" & correct_name == "bottle", "bottle",
-                                        ifelse(naming_response == "bittle" & correct_name == "beetle", "beetle",
-                                               naming_response))) %>%   
-# Plural to singular: 
-        mutate(naming_response = str_replace(naming_response,  "^carrots$", "carrot")) %>%   
-        mutate(naming_response = str_replace(naming_response,  "^clouds$", "cloud")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^draw$", "drawers")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^drawer$", "drawers")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^drums$", "drum")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^feet$", "foot")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^geese$", "goose")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^gloves$", "glove")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^grape$", "grapes")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^ladders$", "ladder")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^lip$", "lips")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^mice$", "mouse")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^mittens$", "mitten")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^onions$", "onion")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^onions$", "onion")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^peanuts$", "peanut")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^pears$", "pear")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^peppers$", "pepper")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^pumpkins$", "pumpkin")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^shoes$", "shoe")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^sock$", "socks")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^steps$", "step")) %>% #change 
-        mutate(naming_response = str_replace(naming_response,  "^babydoll$", "doll")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^broomstick$", "broom")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^cock$", "cockerel")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^cycle$", "bicycle")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^dolly$", "doll")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^eyeglass$", "eyeglasses")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^fencing$", "fence")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^haircomb$", "comb")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^longdress$", "dress")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^mit$", "mitten")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^plugin$", "plug")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^rule$", "ruler")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^specs$", "spectacles")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^teakettle$", "kettle"))
+```{r spelling-corrections, include=FALSE, cache=TRUE}
+spelling_corrections <- tribble(
+~"Response", ~"Correction",~"",~"Response", ~"Correction",~"",~"Response", ~"Correction",
+"idk", "no", "","canle", "candle","","giaraffe", "giraffe",
+"none", "no", "","canon", "cannon","","glases", "glasses",
+"a", "no", "","carrott", "carrot","","gutair", "guitar",
+"anker", "anchor", "", "carott", "carrot","","gitaur", "guitar",
+"ancher", "anchor","", "cerlery", "celery","","gitter", "guitar",
+"anchore", "anchor", "", "celary", "celery","","hemmar", "hammer",
+"ancor", "anchor", "","cellary", "celery","","hand5", "hand",
+"ashtry", "ashtray", "","celeary", "celery","","hamp", "harp",
+";ashtray", "ashtray", "","chain2", "chain","","kacket", "jacket",
+"aparagus", "asparagus", "","cockrel", "cockerel","","kangroo", "kangaroo",
+"ballon", "balloon", "","cockaroach", "cockroach","","lader", "ladder",
+"baloon", "balloon", "","cochroach", "cockroach","","latter", "ladder",
+"ballone", "balloon", "","chissel", "chisel","","leafe", "leaf",
+"ballun", "balloon", "","chizel", "chisel","","lettace", "lettuce",
+"balloone", "balloon", "","chestofdraws", "chest of drawers","", "leamon", "lemon",
+"bannan", "banana", "", "chestofdrawerserss", "chest of drawers","", "leema", "lemur",
+"bamnna", "banana", "", "chisle", "chisel","","olobster", "lobster",
+"bananna", "banana", "", "claranet", "clarinet","","maledear", "maledeer",
+"bannana", "banana", "", "combe", "comb","","mortle", "mortar",
+"bananaa", "banana", "", "dear", "deer","","monkeybut", "monkeynut",  
+"barrell", "barrel", "", "deere", "deer","","mousse", "moose",
+"barrle", "barrel", "", "draws", "drawers","","neddle", "needle",
+"barel", "barrel", "", "doormouse", "dormouse","","nectarinee", "nectarine",
+"barrow", "barrel", "", "eagal", "eagle","","onions", "onion",
+"busket", "basket", "", "eeagle", "eagle","","ostrage", "ostrich",
+"bellpepp34", "bellpepper", "", "eclipses", "eclipse","","osterich", "ostrich",
+"beatle", "beetle", "","eclipes", "eclipse", "","ostrige", "ostrich",
+"bettle", "beetle", "", "eclipsse", "eclipse", "","ostrisge", "ostrich",
+"blueberrys", "blueberries", "", "falg", "flag", "","ostritch", "ostrich",
+"bycycle", "bicycle", "", "footstall", "footstool","","ostridge", "ostrich",
+"bicucle", "bicycle", "", "fott", "foot","","apricorte", "apricot",
+"bicyle", "bicycle", "","frog/", "frog","","nectarin", "nectarine",
+"bootle", "bottle", "","girafffe", "giraffe","","nectrine", "nectarine",
+"bolw", "bowl", "", "giraffee", "giraffe","","pecock", "peacock",
+"broon", "broom", "", "girrafe", "giraffe","","peacck", "peacock",
+"broon", "broom", "", "girafe", "giraffe","","pair", "pear",
+"brum", "broom", "", "giraff", "giraffe","","oencil", "pencil",
+"camal", "camel","", "giaffee", "giraffe","","pengiuin", "penguin",
+"canddle", "candle", "", "girraffe", "giraffe","","pengiun", "penguin",
+"penguine", "penguin","","timbil", "thimble","","drums", "drum",
+"penquin", "penguin","","thunb", "thumb","","feet", "foot",
+"peguin", "penguin","","toitouse", "tortoise","","geese", "goose",
+"peper", "pepper","","tomatoe", "tomato","","gloves", "glove",
+"pestleandmorter","pestleandmortar","","grape", "grapes","","ladders", "ladder",
+"tabaccopipe", "tobaccopipe","","tomoato", "tomato","","lip", "lips",
+"piccalo", "piccolo","","tortiste","tortoise","","mice", "mouse",
+"pliars", "pliers","","tortise", "tortoise","","mittens", "mitten",
+"plier", "pliers","","tortus", "tortoise","","onions", "onion",
+"plyers", "pliers","","volion", "violin","","cock", "cockerel",
+"pilers", "pliers","","vioin", "violin","","cycle", "bicycle",
+"pliyers", "pliers","","violen", "violin","","dolly", "doll",
+"vicescripts", "vicegrips","","valture", "vulture","","eyeglass", "eyeglasses",
+"usplug", "plug","","waistcoast", "waistcoat","","fencing", "fence",
+"potatoe", "potato","","wastecoat", "waistcoat","","haircomb", "comb",
+"pottato", "potato","","wale", "well","","longdress", "dress",
+"pumkin", "pumpkin","","whistel", "whistle","","mit", "mitten",
+"pumpkim", "pumpkin","","whsitle", "whistle","","plugin", "plug",
+"punpkin", "pumpkin","","whisell", "whistle","","rule", "ruler",
+"rabit", "rabbit","","whitle", "whistle","","specs", "spectacles",
+"racoon", "raccoon","","windown", "window","","teakettle", "kettle",
+"mercat", "meerkat","","peneut", "peanut","","","",
+"meercat", "meerkat","","beer", "bear","","","",
+"acoop", "scoop","","dock", "duck", "","","",
+"eele", "seal","","frock", "frog","","","",
+"seel", "seal","","glass", "glasses","","","",
+"snakw", "snake","","glassesbottle", "bottle","","","",
+"ssnowman", "snowman","","hose", "house","","","",
+"showel", "shovel","","noise", "nose","","","",
+"soak", "socks","","paper", "pepper","","","",
+"spon", "spoon","","harper", "hamper","","","",
+"steplader", "stepladder","","muscat", "muskrat","","","",
+"sterss", "step","","bittle", "bottle","","","",
+"sweetcirn", "sweetcorn","","bittle", "beetle","","","",
+"rubarb", "rhubarb","","carrots", "carrot",  "","","",
+"thinbell", "thimble","","clouds", "cloud","","","",
+"thmble", "thimble","","draw", "drawers","","","",
+"timble", "thimble","","drawer", "drawers","","","")
 ```
+\newpage
+\blandscape
+```{r spelling-correctionss-table, echo=FALSE, cache=FALSE}
+    spelling_corrections %>%
+      kable("latex", longtable = T, booktabs = T) %>%
+      kable_styling(bootstrap_options = c("striped","condensed")) %>%
+      kable_styling(latex_options = c("repeat_header"), font_size = 8) %>%
+      column_spec(1, width = "2.5cm") %>%
+      column_spec(2, width = "2.5cm") %>%
+      column_spec(3, width = "0.5cm") %>%
+      column_spec(4, width = "2.5cm") %>%
+      column_spec(5, width = "2.5cm") %>%
+      column_spec(6, width = "0.5cm") %>%
+      column_spec(7, width = "2.5cm") %>%
+      column_spec(8, width = "2.5cm")
+```
+\elandscape
