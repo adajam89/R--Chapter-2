@@ -12,3 +12,5 @@ captioner
 tinytex
 kableExtra
 formattable
+lpSolve
+irr

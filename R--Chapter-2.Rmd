@@ -30,7 +30,8 @@ header-includes:
 ```{r load-packages, include=FALSE, cache=FALSE}
 rm(list=ls())  
 # List required packages:
-    required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", "readr")
+    required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", 
+                           "readr", "irr")
     packages_to_install <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
     if(length(packages_to_install)) install.packages(packages_to_install)
     invisible(suppressPackageStartupMessages(lapply(required_packages, library, character.only = TRUE)))
@@ -38,15 +39,63 @@ rm(list=ls())
     coalesce_by_column <- function(df) {return(dplyr::coalesce(!!! as.list(df)))}
 # Captioner:
     figure_numbering <- captioner()
-    figure_numbering("men_ima_procedure.caption",
-                     "Data collection procedure for Mental Imagery Agreement responses.", display = FALSE)
+    
+    
+
+    
     table_numbering <- captioner(prefix = "Table")
-    table_numbering("exp2__age.and.gender__table.caption",
-                    "Gender and age (*sd*) of the current sample.", display = FALSE)
+    table_numbering(name = "exp2__age.and.gender__table.caption",
+                    caption = "Gender and age (*sd*) of the current sample.",
+                    display = FALSE)
+    table_numbering(name = "image-refs-table.caption",
+                    caption = "Photograph sources.",
+                    display = FALSE)
+    table_numbering(name = "spelling-corrections-table.caption",
+                    caption = "Spelling corrections / manipulations to naming responses.",
+                    display = FALSE)
+    
 ```
 
 
-```{r raw-data, include=FALSE, cache=FALSE}
+# Chapter 2
+Development of standardised photographic stimuli; an extension of Rossion and Pourtois' (2004) object pictorial set
+
+In an effort to understand how recognition memory abilities can deteriorate with age, studies typically make comparisons between the recollection and familiarity abilities of young adults (YAs), healthy older adults (OAs), and those presenting early isolated memory impairments (amnestic Mild Cognitive Impairment; aMCI). Findings thus far have been inconsistent, with some aMCI groups exhibiting impairment to both recollection and familiarity processes, whilst others show only familiarity impairments. Recent reviews have proposed methodological differences across studies could account for the inconsistent findings. For example, there is very little consistency across experiments in regard to the type of stimuli participants engage with during recognition tasks (such as: written words, line-drawn pictures, or photographs) - despite robust evidence to show stimuli format impacts later recognition (namely the Picture Superiority Effect, where pictures (compared to words) produce increased recollection in healthy populations. The level at which stimuli distinctiveness impacts successful recognition in aMCI is currently unclear. 
+
+Throughout a number of planned recognition experiments, we aim to systematically compare the impact different stimuli formats (written words, line-drawings, and photographs) have on the recollection and familiarity processes of YAs, OAs, and those with aMCI. In order to make such comparisons, and ensure any differences in memory test performance are indeed attributable to stimuli format, we must ensure the same to-be-remembered concepts are similarly depicted across the three stimuli formats. We have already selected a set of line-drawings for use in these experiments: pictures of common, everyday objects (e.g. table), obtained from Rossion and Pourtois (2004). The written-word counterparts of these objects will also serve as our word stimuli. Finally, corresponding photographs were obtained online with the aim of depicting the everyday objects in a similar manner to the line-drawings; due to the inherent subjectivity of this latter task, three different photographs were found for each everyday object, with the aim of taking the best ‘match’ forward. 
+
+The currently outlined research will act as a precursor to the planned recognition memory experiments, and will seek to determine which of the three photograph variations we have already selected for each item most closely resembles the depiction in the line-drawings by Rossion and Pourtois (2004). We aim to achieve this by gathering normative data for all of the newly-obtained photographs, and then comparing this to the existing normative data for the line-drawings, in order to select the most suitable photograph variations to take forward into the proposed memory experiments. The data we plan to collect includes: i) the most commonly used name; ii) how familiar the object is; iii) how complex the image is; iv) whether the colour the object is currently depicted in is essential; and v) how closely the current depiction matches ones' mental image for the object). In addition to furthering our own research goals, the newly established set of photographic stimuli (and accompanying normative data) may also be useful to a range of other cognitive researchers looking for up-to-date, high quality stimuli. 
+
+
+Does the type of picture matter?
+i.e. how does stimuli distinctiveness affect recognition response patterns? 
+Line-drawings, photographs, etc. 
+
+No study has matched items to examine at what point stimuli-distinctiveness impacts recognition.
+Also discuss how different picture types fit in with the Dual-coding hypothesis.
+
+To examine the effect of stimuli distinctiveness, we need different ‘levels’ of the same objects stimuli. The new level of ‘photos’ was created for the same objects.
+
+establish a new set of stimuli. 
+
+The aim is to establish a new set of photograph stimuli for use in future planned memory experiments; the  selected photographs will be supported by pilot data that help ensure they accurately depict the everyday  objects in a similar fashion as those presented in line-drawings by Rossion & Pourtois (2004). 
+
+My research into recognition memory (approved, REC Project Reference: PS-19001) will utilise different  stimuli formats (words, line-drawings, and photographs) to examine the potential role of each format on  subsequent memory test performance. All stimuli are innocuous, and depict common, everyday objects;  
+line-drawings (and their written word counterparts) were sourced from Rossion & Pourtois (2004), whilst  potential photographs depicting the objects in a similar manner were manually sourced (from online image  databases). To ensure any differences in memory test performance are indeed attributable to stimuli  format, it is important that all objects are clearly and similarly depicted across words, line-drawings, and  photographs. 
+Whilst every effort has been made to source photographs that depict the everyday objects in a similar  fashion to the line-drawings, the inherent subjectivity of this process may lead to images that are not an  accurate ‘match’ of the objects they were chosen to depict; for example, the photograph chosen to convey  “bottle” may inaccurately provoke the label “wine” in the majority of participants. To address this issue - and ensure all photographs objectively depict the same objects as their line-drawn counterparts when  included in the planned memory experiments - I am seeking to collect pilot data that will inform the  selection of photograph stimuli.  
+Participants will view a sample of the potential photographs and be asked to provide the name of the  object currently depicted. This process will produce data that will either support the chosen photographs  (e.g. 100% of participants labelled the object “bottle”, which accurately matches the intentions of the  researchers), or refute particular photographs (e.g. on 50% of participants labelled the item “bottle”, whilst  the other 50% used the label “wine”). Photographs showing poor agreement across participant-generated  labels, or those where the majority of produced labels differ from that intended by the researcher, can be  replaced with more accurate depictions prior to inclusion in the planned memory experiments.
+
+
+Normative data is to be obtained for a newly-developed set of realistic object stimuli. This new set of stimuli consists of 816x high-quality photographs of innocuous everyday items (e.g. shoe – see example below). Items were matched with those from an existing set of line-drawn, illustrative stimuli (Rossion & Pourtois, 2004), with a goal of ultimately assessing how different stimuli formats impact recognition (realistic photographs vs. illustrations). In order to publish the new stimuli set – and later compare recognition for these items against recognition for line-drawn illustrations (Rossion & Pourtois, 2004) – the following normative data is required: 
+	i)	the most commonly used name;
+	ii)	how familiar the item is; 
+	iii)	how complex each depiction of the item is;
+	iv)	whether the colour is diagnostic (regularly seen in this colour vs. can be seen in a range of colours);  
+	v)	how well the current depiction matches mental images of the object. 
+
+The proposal to gather such normative data was made by reviewers during my progression, and it will form an important basis for the photographs that will be taken forward into planned memory research. For each item (e.g. shoe), we selected 3x potential photograph variations; in an effort to reduce researcher bias, we will rely on the newly-acquired normative data to determine which photograph variation best ‘matches’ the items from the set of line-drawings (Rossion & Pourtois, 2004). 
+
+```{r raw-data, include=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
 ####################################################################################################################
 ##                                                                                                                ##
 ##    EXPERIMENT 2:                                                                                               ##
@@ -224,9 +273,10 @@ exp_2_participants <- raw_data %>%
   summarise_all(coalesce_by_column)
 ```
 
+\newpage
 # Method
 ## Participants
-A total of `r nrow(exp_2_participants)` subjects completed the online experiment (see `r table_numbering("exp2__age.and.gender__table.caption", display = "cite")` for a breakdown of the gender and age of the sample). Subjects were recruited from both voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (where they received payment at the rate of £5/hr), and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits).
+A total of `r nrow(exp_2_participants)` subjects completed the online experiment (see `r table_numbering("exp2__age.and.gender__table.caption", display = "cite")` for a breakdown of the gender and age of the sample). This sample size provided 20 data points for each of the five response types, while also ensuring the experiment did not last too long for participants (approx 25-mins). Subjects were recruited from both voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (where they received payment at the rate of £5/hr), and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits).
 
 ```{r exp2-age-gend-table-data, include=FALSE, cache=FALSE}
 exp2_age_gender <- exp_2_participants %>%
@@ -276,19 +326,47 @@ exp2_age_gender_table %>%
 To meet our YA requirements, all participants were required to be aged between 18-59 years (actual obtained range: `r min(exp_2_participants$age, na.rm = TRUE)`-`r max(exp_2_participants$age, na.rm = TRUE)` years). As our experiment involved typing the English labels for a range of image stimuli, subjects were also asked whether English was their first language; all but one participant indicated that English was indeed their first language (`r exp2_n_eng_lang`%). 
 
 ## Materials
-Items from the previous experiment were brought forward into the current study; these consisted of a random sample of line-drawn, everyday object stimuli [@rossion2004], along with their written-word counterparts. Before sourcing photographs to match these items, some were excluded due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). 
+A pool of 136 line-drawings [@rossion2004] - depicting common, everyday objects - were brought forward from the previous experiment. These items (along with their written-word labels) formed two unique stimuli formats that would be used in future experiments, but in this study, they were used as a reference in the photograph matching process. Some items were substituted due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs that depicted the same everyday objects as the line-drawings  (the full list of image references can be found in Appendix A). 
 
-Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs similarly depicting the line-drawn everyday objects (the full list of image references can be found in Appendix A). For each item, three unique photographs were selected. An emphasis was placed on variety when selecting the three images, with the aim of obtaining photographs that very closely resembled the line drawings and those offering more modern depictions. All photographs were imported into Adobe Photoshop (20.0.04 Release), where the background was removed in order to isolate the objects of interest from other potentially distracting visual details (this was completed manually using the magnetic lasso and polygonal lasso tools; the edges were either feathered by 1px or left un-feathered). Next, the orientation of isolated objects was adjusted to ensure they matched as closely as possible to their line-drawn counterparts (e.g. photographs of the 'boot' item were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
 
-Despite isolating objects from their background, a small number of photographs still contained irrelevant and potentially distracting details (e.g. in one photograph of a 'piano', there was a sign atop the object that may have impacted how the item is encoded when ultimately used in recognition tasks). Such details were removed using the clone stamp and content-aware fill tools (some examples of these photo manipulations can be found in Appendix B). Any obvious text (e.g. brand names) and numbers were also removed from photographs using the same method. The primary aim of the current study was to obtain photographic stimuli that could be clearly separated from words and line drawings; if some of our photograph stimuli contained text, whilst others did not, it is conceivable that they may not be directly comparable in terms of recognition. There were a couple of exceptions to this rule, when such details happened to be integral to the depiction of an object (e.g. the numbers found on a ruler or clock).
+
+
+For each item, three unique photographs were selected. An emphasis was placed on variety when selecting the three images, with the aim of obtaining photographs that very closely resembled the line drawings and those offering more modern depictions. All photographs were imported into Adobe Photoshop (20.0.04 Release), where the background was removed in order to isolate the objects of interest from other potentially distracting visual details (this was completed manually using the magnetic lasso and polygonal lasso tools; the edges were either feathered by 1px or left un-feathered). Next, the orientation of isolated objects was adjusted to ensure they matched as closely as possible to their line-drawn counterparts (e.g. photographs of the 'boot' item were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
+
+```{r define-photo-manipulation-caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "photo-manipulation-exmaples",
+                     caption = "Example manipulations of the photograph stimuli.", )
+```
+
+Despite isolating objects from their background, a small number of photographs still contained irrelevant and potentially distracting details (e.g. in one photograph of a 'piano', there was a sign atop the object that may have impacted how the item is encoded when ultimately used in recognition tasks). Such details were removed using the clone stamp and content-aware fill tools Any obvious text (e.g. brand names) and numbers were also removed from photographs using the same method (see `r figure_numbering("photo-manipulation-exmaples", display = "cite")`). The primary aim of the current study was to obtain photographic stimuli that could be clearly separated from words and line drawings; if some of our photograph stimuli contained text, whilst others did not, it is conceivable that they may not be directly comparable in terms of recognition. There were a couple of exceptions to this rule, when such details happened to be integral to the depiction of an object (e.g. the numbers found on a ruler or clock).
+
+&nbsp;
+&nbsp;
+```{r photo-manipulation-exmaples-image, echo=FALSE, out.width = '100%', cache=TRUE}
+knitr::include_graphics("./resources/images/photo-manipulation-exmaples.png")
+```
+
+`r figure_numbering("photo-manipulation-exmaples")`  
+&nbsp;
+&nbsp;
 
 The photographs were exported from Photoshop in “.png” format in both their original colour and in greyscale (by setting saturation levels to 0). Final edits were completed in Adobe Lightroom (Classic, 8.2 Release): exposure (brightness) adjustments were made on images that appeared too light or too dark; highlights were decreased if some areas were too bright compared to the rest of the photograph; shadows were raised if some areas were too dark compared to the rest of the photograph; noise reduction was applied to some items after isolating the subject had inadvertently made unwanted noise/grain more visible. The changes made to each image were systematically applied to both the colour and greyscale versions (e.g. if one variation of "shoe" had an exposure increase of .010 for the colour version, the greyscale version also received an exposure increase of .010). Some colour-specific adjustments were made to the colour photographs only, however; common photo artefacts such as chromatic aberration (purple fringing) were corrected, along with white balance normalisation. Finally, all photographs were placed on a 600x600 pixel white background, and made to fill this frame as much as possible (i.e. some items were restrained by height, whilst others were restrained by width).
 
 ## Design
-Across three blocks, all participants provided five types of response toward photo stimuli: i) Naming; ii) Familiarity; iii) Visual Complexity, iv) Colour Diagnosticity; and v) Mental Imagery Agreement. Excluding the Naming task (consisting of a typed single-word answer), all responses were provided on a 5-point Likert scale. Within participants, the maximum number of response type provided for any one item was two; Naming and Familiarity responses were paired in one block, Visual Complexity and Colour Diagnosticity responses were paired in another, and Mental Imagery Agreement responses were always presented in a separate block. The order of these three blocks was counterbalanced across participants. Toward each individual photograph, participants made only one or two types of response before moving on to the next item, and the same items were not repeated to participants. For each photograph, the five types of required data were obtained by counterbalancing between participants (e.g. for the first variation of the "cat" photograph, the Naming and Familiarity data was obtained from one participant, the Visual Complexity and Colour Diagnosticity data was obtained from another, and the Mental Imagery Agreement data was obtained from another). 
+This was a descriptive study; a mix of qualitative and quantitative were gathered, without any hypothesis testing. Across three blocks, all participants provided five types of response toward photo stimuli: i) Naming; ii) Familiarity; iii) Visual Complexity, iv) Colour Diagnosticity; and v) Mental Imagery Agreement. 
+
+
+Five variables will initially be measured:
+Naming - qualitative, open-ended text box (participants are instructed to only give one-word answers.
+Familiarity - ordinal scale, from 1 (very unfamiliar) to 5 (very familiar);
+Visual Complexity - ordinal scale, from 1 (very simple) to 5 (very complex);
+Colour Diagnosticity - ordinal scale, from 1 (not diagnostic at all) to 5 (highly diagnostic);
+Mental imagery agreement - ordinal scale, from 1 (low agreement) to 5 (high agreement).
+
+
+Excluding the Naming task (consisting of a typed single-word answer), all responses were provided on a 5-point Likert scale. Within participants, the maximum number of response type provided for any one item was two; Naming and Familiarity responses were paired in one block, Visual Complexity and Colour Diagnosticity responses were paired in another, and Mental Imagery Agreement responses were always presented in a separate block. The order of these three blocks was counterbalanced across participants. Toward each individual photograph, participants made only one or two types of response before moving on to the next item, and the same items were not repeated to participants. For each photograph, the five types of required data were obtained by counterbalancing between participants (e.g. for the first variation of the "cat" photograph, the Naming and Familiarity data was obtained from one participant, the Visual Complexity and Colour Diagnosticity data was obtained from another, and the Mental Imagery Agreement data was obtained from another). 
 
 ## Procedure
-
 Data collection was conducted via two online platforms; i) \href{https://www.qualtrics.com/uk/}{Qualtrics} - a survey platform that allowed for straightforward collection of consent, demographics, and computer compatibility data, and ii) \href{https://pavlovia.org/}{Pavlovia} - an open-source experiment hosting platform for studies programmed in Javascript [@peirce2019].
 
 In the Naming and Familiarity block, participants were first asked "What is the name of the item depicted?". Subjects were instructed to name each photograph as briefly and unambiguously as possible, with one name only, and respond by typing their answer into the response box. If they did not know the name of an item, or had a tip-of-the-tongue experience, participants were instructed to type "no" for their answer (the term "don't know" was avoided so as not to encourage subjects to deviate from single-word responses, as instructed). Following the naming judgement, with the same photograph still present on-screen, participants were next asked "How familiar is the item depicted?". Subjects were instructed to judge each photo according to how usual or unusual the item was in their realm of experience; specifically, familiarity was defined as "the degree to which you come in contact with, or think about, the concept", and encouraged participants to rate the concept itself rather than the particular way it was currently shown. Participants selected one value from the 5-point scale, ranging from very unfamiliar (1) to very familiar (5), and were encouraged to use the full range of the scale throughout the set of photographs. 
@@ -299,9 +377,35 @@ Due to the slight change in procedure and increased task complexity, Mental Imag
 
 All responses were self-paced; the timing was only controlled during the study/imagine section of the Mental Imagery Agreement block.
 
+```{r define-men-ima-procedure-caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "men_ima_procedure",
+                     caption = "Data collection procedure for Mental Imagery Agreement responses.")
+```
+
+&nbsp;
+&nbsp;
+```{r men-ima-procedure-image, echo=FALSE, out.width = '100%', cache=TRUE}
+knitr::include_graphics("./resources/images/procedure.png")
+```
+`r figure_numbering("men_ima_procedure")`
+&nbsp;
+&nbsp;
+
+## Data preperatsion
+The naming responses for each photograph item were manually assessed for spelling and typing errors. Automatic spell checking software was avoided in an effort to avoid inadvertently introducing unique names that were not actually given by participants. The vast majority of errors were unambiguous and easy to correct (e.g. "anker" = "anchor", "peguin" = "penguin", "ssnowman" = "snowman"), or consisted of transforming plural words to singular (or vice versa, depending on the form of the intended label - e.g. "sock" to "socks"). Some responses were a little more ambiguous, and necessitated comparison to the photographs they were in response to for additional clarity (e.g. a photograph depicting a plug that would fit into North American electrical sockets was labelled as "usplug" - given the nature of our UK-based sample, it's likely the subject was responding: "U.S. (i.e. United States) plug". 
+
+There were instances where subjects provided a sensible and correctly spelled English word, but that were clearly typos when examined against the photograph they were in response to (e.g. "dock" for a photograph depicting a duck, "frock" for a frog, and "beer" for a "bear", etc). The most ambiguous spelling error to correct was "bittle", which was provided by more than one participant and to more than one item; separate inspections of the photographs participants were responding to made this easy to correct though, with one participant clearly meaning to respond "bottle", whilst the other meant to respond "beetle". Though participants were instructed to only give a single label for each item, some multiple word responses were found (without spaces) during the spell checking process. On such occasions, a judgement was made regarding whether multiple words were retained, or whether the response could be shortened into a single word. A general rule was applied whereby if the other words provided additional information, they were retained (e.g."maledear" - presumably "male deer" - was kept as a two-word answer). Multiple word responses were generally shortened into a single word when the intended label for the item was clearly present, and no information was lost in the process (e.g. "haircomb" was shortened to the intended answer "comb"). It is noted that there was some inherent subjectivity in this process, though as such items were not common among straightforward responses, their overall effects are estimated to be negligible.
+
+Finally, there were some responses that were changed to "no" as they were clearly intended to signify that the responder did not know the name of the item shown; the experiment instructed participants to type "no" in these instances, though the labels "none" and "idk" (common abbreviation for "I don't know) were provided instead. There was also a single response that was manually changed to "no", as the provided label was a single letter and thus entirely unclear what the intended answer should be. All manipulations to naming responses can be found in Appendix C.
 
 
-![`r figure_numbering("men_ima_procedure.caption")`](./resources/images/procedure.png)
+Naming:
+  Most frequent name;
+  Percentage of subjects giving this most frequent name;
+  H: similar to b), but also takes into account the number of different names given for the item. See “Indices” for formula.
+  Mean reaction times (RTs) and standard deviations (SDs).
+
+Mean ratings were calculated for Familiarity, Visual Complexity, Colour Diagnosticity, and Mental imagery agreement. 
 
 ```{r naming-data, include=FALSE, cache=TRUE}
 ####################################################################################################################
@@ -447,7 +551,7 @@ All responses were self-paced; the timing was only controlled during the study/i
         mutate(naming_response = str_replace(naming_response, "^pilers$", "pliers")) %>%
         mutate(naming_response = str_replace(naming_response, "^pliyers$", "pliers")) %>%
         mutate(naming_response = str_replace(naming_response, "^vicescripts$", "vicegrips")) %>%
-        mutate(naming_response = str_replace(naming_response, "^usplug$", "plug")) %>%      # U.S. (i.e. United States) plug? 
+        mutate(naming_response = str_replace(naming_response, "^usplug$", "plug")) %>%  # U.S. (i.e. United States) plug? 
         mutate(naming_response = str_replace(naming_response, "^potatoe$", "potato")) %>%
         mutate(naming_response = str_replace(naming_response, "^pottato$", "potato")) %>%
         mutate(naming_response = str_replace(naming_response, "^pumkin$", "pumpkin")) %>%
@@ -632,14 +736,14 @@ All responses were self-paced; the timing was only controlled during the study/i
        i %>% .[1:3,] }
       }
       
-    for (i in item_names) {                                                 # For each item (i) in item_names;
-        i <- col_and_grey %>%                                               # i equals the data from col_and_grey;
-            filter(str_detect(stim, i)) %>%                                 # filter by each item separately;
-            group_by(difference) %>%                                        # group by 'difference' col;
-            add_count(difference, name = "tally_difference_values") %>%     # add column that counts unique difference values;
-            arrange(difference) %>%                                         # sort difference values (ascending);
+    for (i in item_names) {                                               # For each item (i) in item_names;
+        i <- col_and_grey %>%                                             # i equals the data from col_and_grey;
+            filter(str_detect(stim, i)) %>%                               # filter by each item separately;
+            group_by(difference) %>%                                      # group by 'difference' col;
+            add_count(difference, name = "tally_difference_values") %>%   # add column counting unique difference values;
+            arrange(difference) %>%                                       # sort difference values (ascending);
             my_function()
-        selected_stimuli <- bind_rows(selected_stimuli, i) }                # Add row to the selected_stimuli df before looping.
+        selected_stimuli <- bind_rows(selected_stimuli, i) }        # Add row to selected_stimuli df before looping.
     selected_stimuli <- selected_stimuli %>%
         distinct(stim, .keep_all = TRUE) %>%
         arrange(stim)
@@ -718,17 +822,64 @@ All responses were self-paced; the timing was only controlled during the study/i
 write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
 
 ####################################################################################################################
-##   Kripp:                                                                                  ##
+##   Krippendorff's alpha (reliability coefficient) stat:                                                         ##
 #################################################################################################################### 
+    kripp_rater_1 <- rater_1 %>%
+        spread(stim, rater_1)
+    kripp_rater_2 <- rater_2 %>%
+        spread(stim, rater_2)
+    kripp_ratings <- bind_rows(kripp_rater_1, kripp_rater_2)
+# Loop that runs through each of the rated objects and individually calculates kripps alpha: 
+    kripps_alpha <- tibble()                              # Create empty df to store results of for loop. 
+    for (i in inter_rater_items_raw) {
+        kripp_calc <- kripp_ratings %>%
+            select(contains(i)) %>%                       # Select all ratings for each item in turn (i).
+            as.matrix() %>%                               # Tibble to matrix, so "kripp.alpha" can run.
+            kripp.alpha("ordinal")                        # Run Krippendorff's Alpha calculation.
+  
+        kripp_calc <- as.tibble(kripp_calc[c(2,3,5)]) %>% # Convert result from "irrlist" to tibble. 
+            mutate(object = i)                            # Re-insert the object name.
+        kripps_alpha <- bind_rows(kripps_alpha, kripp_calc) }
+# Final edits: 
+    kripps_alpha <- kripps_alpha %>%
+        mutate_at(c("value"), round, 2) %>%
+        select(object, subjects, value) %>%
+        rename("krippendorffs_alpha" = value, "variations" = subjects, "concept" = object)
+    write.csv(kripps_alpha,'~/Desktop/kripps_alpha.csv', row.names = FALSE)
+
+    
+# Has to be run for each object. Still say how many items we disagreed on, here's some examples (they were v similar). 
+# we tried to do it objectively, BUT.... we know % is shitty but,.....
+# it's all we needd for our reference.
+# sometimes 3 items, sometimes 2. All items were 100% rated in naming...V difficult to decide on best as "good" items were all so similar. 
+
 ```
 
 # Results
+
+To compare responses across stimuli formats, separate one-way ANOVAs were conducted on the following variables: 
+
+(Naming) H
+(Naming) RT
+
+(Familiarity) Mean
+(Familiarity) RT
+
+(Visual Complexity) Mean
+(Visual Complexity) RT
+
+(Colour Diagnosticity) Mean
+(Colour Diagnosticity) RT
+
+(Mental Imagery Agreement) Mean
+(Mental Imagery Agreement) RT
+
+Significant differences will be followed up with post-hoc pairwise multiple comparison tests
+
+
+
 ## Naming
-The naming responses for each photograph item were manually assessed for spelling and typing errors. Automatic spell checking software was avoided in an effort to avoid inadvertently introducing unique names that were not actually given by participants. The vast majority of errors were unambiguous and easy to correct (e.g. "anker" = "anchor", "peguin" = "penguin", "ssnowman" = "snowman"), or consisted of transforming plural words to singular (or vice versa, depending on the form of the intended label - e.g. "sock" to "socks"). Some responses were a little more ambiguous, and necessitated comparison to the photographs they were in response to for additional clarity (e.g. a photograph depicting a plug that would fit into North American electrical sockets was labelled as "usplug" - given the nature of our UK-based sample, it's likely the subject was responding: "U.S. (i.e. United States) plug". 
 
-There were instances where subjects provided a sensible and correctly spelled English word, but that were clearly typos when examined against the photograph they were in response to (e.g. "dock" for a photograph depicting a duck, "frock" for a frog, and "beer" for a "bear", etc). The most ambiguous spelling error to correct was "bittle", which was provided by more than one participant and to more than one item; separate inspections of the photographs participants were responding to made this easy to correct though, with one participant clearly meaning to respond "bottle", whilst the other meant to respond "beetle". Though participants were instructed to only give a single label for each item, some multiple word responses were found (without spaces) during the spell checking process. On such occasions, a judgement was made regarding whether multiple words were retained, or whether the response could be shortened into a single word. A general rule was applied whereby if the other words provided additional information, they were retained (e.g."maledear" - presumably "male deer" - was kept as a two-word answer). Multiple word responses were generally shortened into a single word when the intended label for the item was clearly present, and no information was lost in the process (e.g. "haircomb" was shortened to the intended answer "comb"). It is noted that there was some inherent subjectivity in this process, though as such items were not common among straightforward responses, their overall effects are estimated to be negligible.
-
-Finally, there were some responses that were changed to "no" as they were clearly intended to signify that the responder did not know the name of the item shown; the experiment instructed participants to type "no" in these instances, though the labels "none" and "idk" (common abbreviation for "I don't know) were provided instead. There was also a single response that was manually changed to "no", as the provided label was a single letter and thus entirely unclear what the intended answer should be. All manipulations to naming responses can be found at Appendix C.
 
 
 
@@ -745,11 +896,24 @@ Finally, there were some responses that were changed to "no" as they were clearl
 <div id="refs"></div>
   
 \newpage
-
 # Appendices
+\blandscape
+## Appendix A
+```{r image-refs, include=FALSE, cache=FALSE}
+image_refs <- read_csv("./resources/image_refs.csv")
+```
+`r table_numbering("image-refs-table.caption")`
+```{r image-refs-table, echo=FALSE, cache=FALSE}
+    image_refs %>%
+      kable("latex", longtable = T, booktabs = T) %>%
+      kable_styling(bootstrap_options = c("striped","condensed")) %>%
+      kable_styling(latex_options = c("repeat_header"), font_size = 8) %>%
+      column_spec(2, width = "8cm") %>%
+      column_spec(5, width = "8cm")
+```
 
+\newpage
 ## Appendix C
-
 ```{r spelling-corrections, include=FALSE, cache=TRUE}
 spelling_corrections <- tribble(
 ~"Response", ~"Correction",~"",~"Response", ~"Correction",~"",~"Response", ~"Correction",
@@ -831,9 +995,8 @@ spelling_corrections <- tribble(
 "thmble", "thimble","","draw", "drawers","","","",
 "timble", "thimble","","drawer", "drawers","","","")
 ```
-\newpage
-\blandscape
-```{r spelling-correctionss-table, echo=FALSE, cache=FALSE}
+`r table_numbering("spelling-corrections-table.caption")`
+```{r spelling-corrections-table, echo=FALSE, cache=FALSE}
     spelling_corrections %>%
       kable("latex", longtable = T, booktabs = T) %>%
       kable_styling(bootstrap_options = c("striped","condensed")) %>%
