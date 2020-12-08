@@ -75,8 +75,6 @@ table_numbering("col__mean.d.and.c__table.caption", "Mean d' and c scores by sti
     
 ```
 
-
-# Chapter 2
 The Picture Superiority Effect (PSE) is a highly robust and replicable phenomenon; in recognition memory paradigms, the PSE generally presents as an increase in recollection in both healthy younger and older samples [@ally2007; @ally2008; @curran2011; @rajaram1996]. However, the level at which stimuli distinctiveness impacts successful recognition is currently unclear, and there is little consistency across studies with regard to what constitutes a 'picture', with many experiments utilising line-drawn illustrations [@vandermeulen2012; @westerberg2013; @wolk2011] while others use photographs [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. Methodological differences make it difficult to reconcile the effects of drawing vs. photograph. It is unclear whether the magnitude of picture superiority effects are mediated by the format pictures are presented in, and to our knowledge, no study has systematically matched items across formats in an effort to determine the point at which stimuli distinctiveness impacts recognition. Throughout a number of planned recognition experiments, we aim to systematically compare the impact different stimuli formats (written words, line-drawings, and photographs) have on the recollection and familiarity processes.
 
 In order to make such comparisons, and ensure any differences in memory test performance are indeed attributable to stimuli format, we must ensure the same to-be-remembered concepts are similarly depicted across different ‘levels’ of stimuli format. The formats we have chosen to compare present common, everyday objects in either: i) written word format; ii) line-drawn illustrations; iii) photographs. Two of our stimuli formats were obtained from a pool provided by @rossion2004; these objects consisted of line-drawings and their written-word labels.
@@ -284,8 +282,8 @@ exp_2_participants <- raw_data %>%
 ```
 
 \newpage
-# Method
-## Participants
+## Method
+### Participants
 A total of `r nrow(exp_2_participants)` subjects completed the online experiment (see `r table_numbering("exp2__age.and.gender__table.caption", display = "cite")` for a breakdown of the gender and age of the sample). This sample size provided 20 data points for each of the five response types, while also ensuring the experiment did not last too long for participants (approx 25-mins). Subjects were recruited from both voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (where they received payment at the rate of £5/hr), and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits).
 
 ```{r exp2-age-gend-table-data, include=FALSE, cache=FALSE}
@@ -335,7 +333,7 @@ exp2_age_gender_table %>%
 
 To meet our YA requirements, all participants were required to be aged between 18-59 years (actual obtained range: `r min(exp_2_participants$age, na.rm = TRUE)`-`r max(exp_2_participants$age, na.rm = TRUE)` years). As our experiment involved typing the English labels for a range of image stimuli, subjects were also asked whether English was their first language; all but one participant indicated that English was indeed their first language (`r exp2_n_eng_lang`%). 
 
-## Materials
+### Materials
 A pool of 136 line-drawings [@rossion2004] - depicting common, everyday objects - were brought forward from the previous experiment. These items (along with their written-word labels) formed two unique stimuli formats that would be used in future recognition experiments (words and drawings), but in this study, they were simply used as a reference in the photograph matching process. Corresponding photographs were obtained online with the aim of depicting the everyday objects in a similar manner to the drawings; due to the inherent subjectivity of this latter task, three different photographs were found for each everyday object, with the aim of taking the best ‘match’ forward. An emphasis was placed on variety across these variations, with the aim of obtaining at least one photograph that very closely resembled the line-drawn depiction, and another offering a more modern depiction. Some items were substituted due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs that depicted the same everyday objects as the line-drawings (the full list of image references can be found in Appendix A). 
 
 The matching process produced a total of 408 unique photographs. All were imported into Adobe Photoshop (20.0.04 Release), where the background was removed to isolate the object of interest from other potentially distracting visual details. This was completed manually using the magnetic lasso and polygonal lasso tools (edges were either feathered by 1px or left un-feathered). The orientation of isolated objects was adjusted to ensure they matched as closely as possible with their line-drawn counterpart (e.g. all photograph variations of the item 'boot' were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
@@ -363,10 +361,10 @@ All photographs were exported from Photoshop in “.png” format in both their 
 &nbsp;
 &nbsp;
 
-## Design
+### Design
 This was a descriptive study; a mix of qualitative and quantitative data were gathered in the absence of hypothesis testing. Across three blocks, all participants provided five types of response toward photograph stimuli: i) Naming; ii) Familiarity; iii) Visual Complexity, iv) Colour Diagnosticity; and v) Mental Imagery Agreement. Excluding the Naming task (consisting of a typed single-word answer), all responses were provided on a 5-point ordinal scale. Within participants, the maximum number of response type provided for any one item was two; Naming and Familiarity responses were paired in one block, Visual Complexity and Colour Diagnosticity responses were paired in another, and Mental Imagery Agreement responses were always presented in a separate block. The order of these three blocks was counterbalanced across participants. Toward each individual photograph, participants made only one or two types of response before moving on to the next item, and the same items were not repeated to participants. For each photograph, the five types of required data were obtained by counterbalancing between participants (e.g. for the first variation of the "cat" photograph, the Naming and Familiarity data was obtained from one participant, the Visual Complexity and Colour Diagnosticity data was obtained from another, and the Mental Imagery Agreement data was obtained from another). 
 
-## Procedure
+### Procedure
 Data collection was conducted via two online platforms; i) \href{https://www.qualtrics.com/uk/}{Qualtrics} - a survey platform that allowed for straightforward collection of consent, demographics, and computer compatibility data, and ii) \href{https://pavlovia.org/}{Pavlovia} - an open-source experiment hosting platform for studies programmed in Javascript [@peirce2019].
 
 In the Naming and Familiarity block, participants were first asked "What is the name of the item depicted?". Subjects were instructed to name each photograph as briefly and unambiguously as possible, with one name only, and respond by typing their answer into the response box. If they did not know the name of an item, or had a tip-of-the-tongue experience, participants were instructed to type "no" for their answer (the term "don't know" was avoided so as not to encourage subjects to deviate from single-word responses, as instructed). Following the naming judgement, with the same photograph still present on-screen, participants were next asked "How familiar is the item depicted?". Subjects were instructed to judge each photo according to how usual or unusual the item was in their realm of experience; specifically, familiarity was defined as "the degree to which you come in contact with, or think about, the concept", and encouraged participants to rate the concept itself rather than the particular way it was currently shown. Participants selected one value from the 5-point scale, ranging from very unfamiliar (1) to very familiar (5), and were encouraged to use the full range of the scale throughout the set of photographs. 
@@ -391,7 +389,7 @@ All responses were self-paced; the timing was only controlled during the study/i
 &nbsp;
 &nbsp;
 
-## Data preperatsion
+### Data preperatsion
 The naming responses for each photograph item were manually assessed for spelling and typing errors. Automatic spell checking software was avoided in an effort to avoid inadvertently introducing unique names that were not actually given by participants. The vast majority of errors were unambiguous and easy to correct (e.g. "anker" = "anchor", "peguin" = "penguin", "ssnowman" = "snowman"), or consisted of transforming plural words to singular (or vice versa, depending on the form of the intended label - e.g. "sock" to "socks"). Some responses were a little more ambiguous, and necessitated comparison to the photographs they were in response to for additional clarity (e.g. a photograph depicting a plug that would fit into North American electrical sockets was labelled as "usplug" - given the nature of our UK-based sample, it's likely the subject was responding: "U.S. (i.e. United States) plug". 
 
 There were instances where subjects provided a sensible and correctly spelled English word, but that were clearly typos when examined against the photograph they were in response to (e.g. "dock" for a photograph depicting a duck, "frock" for a frog, and "beer" for a "bear", etc). The most ambiguous spelling error to correct was "bittle", which was provided by more than one participant and to more than one item; separate inspections of the photographs participants were responding to made this easy to correct though, with one participant clearly meaning to respond "bottle", whilst the other meant to respond "beetle". Though participants were instructed to only give a single label for each item, some multiple word responses were found (without spaces) during the spell checking process. On such occasions, a judgement was made regarding whether multiple words were retained, or whether the response could be shortened into a single word. A general rule was applied whereby if the other words provided additional information, they were retained (e.g."maledear" - presumably "male deer" - was kept as a two-word answer). Multiple word responses were generally shortened into a single word when the intended label for the item was clearly present, and no information was lost in the process (e.g. "haircomb" was shortened to the intended answer "comb"). It is noted that there was some inherent subjectivity in this process, though as such items were not common among straightforward responses, their overall effects are estimated to be negligible.
@@ -855,7 +853,7 @@ write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
 
 ```
 
-# Results
+## Results
 
 To compare responses across stimuli formats, separate one-way ANOVAs were conducted on the following variables: 
 
@@ -878,7 +876,7 @@ Significant differences will be followed up with post-hoc pairwise multiple comp
 
 
 
-## Naming
+### Naming
 
 
 \newpage
@@ -2118,8 +2116,8 @@ Significant differences will be followed up with post-hoc pairwise multiple comp
     stat_function(fun=dnorm, args = list(mean=mean(reaction_times$rt), sd=sd(reaction_times$rt)), color="red")
 ```
 
-# Method
-## Participants
+## Method
+### Participants
 A total of `r nrow(grey_data)` subjects completed the online experiment (see `r table_numbering("grey__age.and.gender__table.caption", display = "cite")` for a breakdown of the gender and age of the sample).
 
 ```{r, echo=FALSE, cache=TRUE}
@@ -2191,7 +2189,7 @@ The current sample was comprised of participants sourced from voluntary particip
 ```
 
 \newpage
-# Results
+## Results
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ###################################################################################################################
 ##                                                                                                               ##
@@ -2203,7 +2201,7 @@ The current sample was comprised of participants sourced from voluntary particip
       mutate(age = na_if(age, 0))
 ```
 
-## Overall hits, false alarms (FAs), and recognition
+### Overall hits, false alarms (FAs), and recognition
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ###################################################################################################################
 ##                                                                                                               ##
@@ -2311,7 +2309,7 @@ grey__anova__PROP.HITS__table %>%
 ```
 &nbsp;
 
-### Proportion of total hits
+#### Proportion of total hits
 For the proportion of hits, there was a significant main effect of stimuli format [`r apa__grey__anova__PROP.HITS__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__PROP.HITS__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that photographs (`r apa__grey__anova__PROP.HITS__photographs.mean`) produced a significantly higher proportion of hits than both words (`r apa__grey__anova__PROP.HITS__words.mean`) [`r apa__grey__anova__PROP.HITS__words.vs.photographs.pairwise`] and drawings (`r apa__grey__anova__PROP.HITS__drawings.mean`) [`r apa__grey__anova__PROP.HITS__drawings.vs.photographs.pairwise`]. Drawings (`r apa__grey__anova__PROP.HITS__drawings.mean`) also produced a significantly higher proportion of hits compared to words (`r apa__grey__anova__PROP.HITS__words.mean`) [`r apa__grey__anova__PROP.HITS__words.vs.drawings.pairwise`].
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -2381,7 +2379,7 @@ papaja:::apa_print.emmGrid(grey__anova__PROP.FA__stim.format.pairwise)
 ##  Interaction:  Not significant.
 ```
 
-### Proportion of total FAs
+#### Proportion of total FAs
 For the proportion of FAs, there was a significant main effect of stimuli format [`r apa__grey__anova__PROP.FA__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__PROP.FA__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that 
 photographs (`r apa__grey__anova__PROP.FA__photographs.mean`) produced a significantly lower proportion of FAs than both 
 words (`r apa__grey__anova__PROP.FA__words.mean`) [`r apa__grey__anova__PROP.FA__words.vs.photographs.pairwise`] 
@@ -2451,13 +2449,13 @@ words (`r apa__grey__anova__PROP.FA__words.mean`) [`r apa__grey__anova__PROP.FA_
 ##  Interaction:  Not significant.
 ```
 
-### Overall performance accuracy
+#### Overall performance accuracy
 For overall performance accuracy, there was a significant main effect of stimuli format [`r apa__grey__anova__RECOG__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__RECOG__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that 
 photographs (`r apa__grey__anova__RECOG__photographs.mean`) produced significantly better performance accuracy than both 
 words (`r apa__grey__anova__RECOG__words.mean`) [`r apa__grey__anova__RECOG__words.vs.photographs.pairwise`] and drawings (`r apa__grey__anova__RECOG__drawings.mean`) [`r apa__grey__anova__RECOG__drawings.vs.photographs.pairwise`]. Drawings (`r apa__grey__anova__RECOG__drawings.mean`) also produced significantly better performance accuracy compared to 
 words (`r apa__grey__anova__RECOG__words.mean`) [`r apa__grey__anova__RECOG__words.vs.drawings.pairwise`].
 
-## Discrimination (d') and response bias (c)
+### Discrimination (d') and response bias (c)
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ###################################################################################################################
 ##                                                                                                               ##
@@ -2570,7 +2568,7 @@ grey__anova__D.PRIME__table %>%
 ```
 &nbsp;
 
-### d' (discrimination)
+#### d' (discrimination)
 For d' scores, there was a significant interaction between stimuli format and response-option [`r apa__grey__anova__D.PRIME__interaction.main.effect`] (see `r figure_numbering("grey__dprime_interaction_figure_caption", display = "cite")`). 
 
 Photographs
@@ -2674,7 +2672,7 @@ grey__D.PRIME__interaction.figure
 #-----------------------------------------------------------------------------------------------------------------#
 ```
 
-### c (response bias)
+#### c (response bias)
 For c-scores, there was a significant main effect of stimuli format [`r apa__grey__anova__C.SCORES__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__C.SCORES__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that photographs (`r apa__grey__anova__C.SCORES__photographs.mean`) produced significantly lower c-scores (and thus a less conservative response bias) than both words (`r apa__grey__anova__C.SCORES__words.mean`) [`r apa__grey__anova__C.SCORES__words.vs.photographs.pairwise`] and drawings (`r apa__grey__anova__C.SCORES__drawings.mean`) [`r apa__grey__anova__C.SCORES__drawings.vs.photographs.pairwise`]. There was no difference in c-scores between drawings (`r apa__grey__anova__C.SCORES__drawings.mean`) and words (`r apa__grey__anova__C.SCORES__words.mean`) [`r apa__grey__anova__C.SCORES__words.vs.drawings.pairwise`].
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -3029,7 +3027,7 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
             plot.margin = margin(20, 20, 24, 30))
 ```
 
-## Hits assigned Recollection, Familiarity, and Guessing
+### Hits assigned Recollection, Familiarity, and Guessing
 To determine the effects of stimuli format and response-option on accurate recognition memory judgments, separate 3 (stimuli format: words, drawings, photographs) x 2 (response-option condition: RFG-judgments, RFBG-judgments) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("grey__PROP.REC.FAM.GUESS.HITS__figure.caption", display = "cite")`).
 
 ```{r fig.width=7, fig.height=5.5, echo=FALSE}
@@ -3037,7 +3035,7 @@ grey__PROP.REC.FAM.GUESS.HITS__figure
 ```
 `r figure_numbering("grey__PROP.REC.FAM.GUESS.HITS__figure.caption")`
 
-### Recollection (hits)
+#### Recollection (hits)
 For hits assigned Recollection, there was a significant interaction effect [`r apa__grey__anova__PROP.REC.HITS__interaction.main.effect`] (see `r figure_numbering("grey__PROP.FAM.HITS__figure.caption", display = "cite")`). Photographs (`r apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) resulted in more Recollection hits than both words (`r apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.REC.HITS__interaction.full.pairwise$statistic$RFGWords_RFGPhotographs`] 
 and drawings (`r apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.REC.HITS__interaction.full.pairwise$statistic$RFGDrawings_RFGPhotographs`] in the RFG group. Drawings (`r apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) also resulted in more Recollection hits than words (`r apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`) 
 [`r apa__grey__anova__PROP.REC.HITS__interaction.full.pairwise$statistic$RFGWords_RFGDrawings`] in the RFG group. In the RFBG group, there was an identical pattern; photographs (`r apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) resulted in more Recollection hits than both words (`r apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.REC.HITS__interaction.full.pairwise$statistic$RFBGWords_RFBGPhotographs`] and drawings (`r apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.REC.HITS__interaction.full.pairwise$statistic$RFBGDrawings_RFBGPhotographs`]. Drawings (`r apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) also resulted in more Recollection hits than words (`r apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) 
@@ -3051,7 +3049,7 @@ grey__PROP.REC.HITS__interaction.figure
 ```
 `r figure_numbering("grey__PROP.FAM.HITS__figure.caption")`
 
-### Familiarity (hits)
+#### Familiarity (hits)
 For hits assigned Familiarity, there was a significant interaction between stimuli format and response-option [`r apa__grey__anova__PROP.FAM.HITS__interaction.main.effect`] (see `r figure_numbering("grey__PROP.FAM.HITS__figure.caption", display = "cite")`). Within the RFG condition, words (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`) resulted in more Familiarity hits than both drawings (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFGWords_RFGDrawings`] and photographs (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFGWords_RFGPhotographs`]. Drawings (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) also produced more Familiarity hits compared to photographs (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFGDrawings_RFGPhotographs`]. 
 
 Within the RFBG condition, words (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) still produced more Familiarity hits than photographs (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFBGWords_RFBGPhotographs`]. However, there was no difference in the number of Familiarity hits when comparing words (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) to drawings (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFBGWords_RFBGDrawings`]. Another difference from the within-RFG findings is the number of Familiarity hits for drawings (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) did not differ from photographs (`r apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) in the RFBG condition [`r apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFBGDrawings_RFBGPhotographs`].
@@ -3065,7 +3063,7 @@ grey__PROP.FAM.HITS__interaction.figure
 ```
 `r figure_numbering("grey__PROP.FAM.HITS__figure.caption")`
 
-### Guessing (hits)
+#### Guessing (hits)
 For hits assigned Guessing, there was a significant main effect of stimuli format [`r apa__grey__anova__PROP.GUESS.HITS__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__PROP.GUESS.HITS__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that words (`r apa__grey__anova__PROP.GUESS.HITS__words.mean`) produced significantly more Guessing hits than both drawings (`r apa__grey__anova__PROP.GUESS.HITS__drawings.mean`) [`r apa__grey__anova__PROP.GUESS.HITS__words.vs.drawings.pairwise`] and photographs (`r apa__grey__anova__PROP.GUESS.HITS__photographs.mean`) [`r apa__grey__anova__PROP.GUESS.HITS__words.vs.photographs.pairwise`]. Drawings (`r apa__grey__anova__PROP.GUESS.HITS__drawings.mean`) also produced significantly more Guessing hits compared to photographs (`r apa__grey__anova__PROP.GUESS.HITS__photographs.mean`) [`r apa__grey__anova__PROP.GUESS.HITS__drawings.vs.photographs.pairwise`].
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -3374,7 +3372,7 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
             plot.margin = margin(20, 20, 24, 30))
 ```
 
-## FAs assigned Recollection, Familiarity, and Guessing
+### FAs assigned Recollection, Familiarity, and Guessing
 To determine the effects of stimuli format and response-option on false alarms, separate 3 (stimuli format: words, drawings, photographs) x 2 (response-option condition: RFG-judgments, RFBG-judgments) mixed ANOVAs were conducted on the mean proportion of FAs assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("grey__PROP.REC.FAM.GUESS.FA__figure.caption", display = "cite")`).
 
 ```{r fig.width=7, fig.height=5.5, echo=FALSE}
@@ -3382,10 +3380,10 @@ grey__PROP.REC.FAM.GUESS.FA__figure
 ```
 `r figure_numbering("grey__PROP.REC.FAM.GUESS.FA__figure.caption")`
 
-### Recollection (FAs)
+#### Recollection (FAs)
 For FAs assigned Recollection, there was no significant main effect of stimuli format [`r apa__grey__anova__PROP.REC.FA__stim.format.main.effect`] or interaction [`r apa__grey__anova__PROP.REC.FA__interaction.main.effect`].
 
-### Familiarity (FAs)
+#### Familiarity (FAs)
 For FAs assigned Familiarity, there was a significant interaction between stimuli format and response-option [`r apa__grey__anova__PROP.FAM.FA__interaction.main.effect`] (see `r figure_numbering("grey__PROP.FAM.FA__figure.caption", display = "cite")`). Within the RFG condition, words (`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`) resulted in more Familiarity FAs than photographs (`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFGWords_RFGPhotographs`], but not drawings (`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFGWords_RFGDrawings`]. The number of Familiarity FAs did not differ between drawings (`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) and photographs (`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFGDrawings_RFGPhotographs`] in the RFG condition.
 
 Within the RFBG condition, words (`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) again produced more Familiarity FAs than photographs (`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFBGWords_RFBGPhotographs`]. However, words (`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) also produced more Familiarity FAs than drawings(`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) [`r apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFBGWords_RFBGDrawings`]. As before, the number of Familiarity FAs did not differ between drawings (`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) and photographs (`r apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) in the RFBG condition [`r apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFBGDrawings_RFBGPhotographs`].
@@ -3399,83 +3397,8 @@ grey__PROP.FAM.FA__interaction.figure
 ```
 `r figure_numbering("grey__PROP.FAM.FA__figure.caption")`
 
-###  Guessing (FAs)
+####  Guessing (FAs)
 For FAs assigned Guessing, there was a significant main effect of stimuli format [`r apa__grey__anova__PROP.GUESS.FA__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__PROP.GUESS.FA__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that words (`r apa__grey__anova__PROP.GUESS.FA__words.mean`) produced significantly more Guessing FAs than both drawings (`r apa__grey__anova__PROP.GUESS.FA__drawings.mean`) [`r apa__grey__anova__PROP.GUESS.FA__words.vs.drawings.pairwise`] and photographs (`r apa__grey__anova__PROP.GUESS.FA__photographs.mean`) [`r apa__grey__anova__PROP.GUESS.FA__words.vs.photographs.pairwise`]. There was no difference in the proportion of FAs assigned Guessing between drawings (`r apa__grey__anova__PROP.GUESS.FA__drawings.mean`) and photographs (`r apa__grey__anova__PROP.GUESS.FA__photographs.mean`) [`r apa__grey__anova__PROP.GUESS.FA__drawings.vs.photographs.pairwise`].
-
-\newpage
-# Experiment 4 (Colour)
-# Method
-
-The objective of Experiment 4 was to examine PSE response patterns in younger adults toward colour stimuli, across two response-option conditions (RF-judgments / RFB-judgments). A 3x2 mixed factorial design was utilised, consisting of a within-subjects variable of stimulus type (words / colour line-drawings / colour photographs) and a between-subjects variable of response-option (RF-judgments / RFBG-judgments). 
-
-
-## Participants
-A total of `r nrow(colour_data)` subjects completed the online experiment (see `r table_numbering("col__age.and.gender__table.caption", display = "cite")` for a breakdown of the gender and age of the sample).
-
-```{r, echo=FALSE, cache=TRUE}
-  col_age_gender <- colour_data %>%
-      select(age, gender) %>%
-      mutate(age = as.double(age))
-
-  col_age_gender_table <- tribble(
-      ~"Gender", ~N, ~Age, ~"",
-      "Female",
-            col_age_gender %>% filter(gender == "female") %>% nrow(),
-            col_age_gender %>% filter(gender == "female") %>% summarise(mean(age)) %>% pull() %>% round (2),
-            str_c("(",col_age_gender %>% filter(gender == "female") %>% summarise(sd(age)) %>% pull()
-                  %>% round (2) %>% as.character(), ")"),
-      "Male",
-            col_age_gender %>% filter(gender == "male") %>% nrow(),
-            col_age_gender %>% filter(gender == "male") %>% summarise(mean(age)) %>% pull() %>% round (2),
-            str_c("(",col_age_gender %>% filter(gender == "male") %>% summarise(sd(age)) %>% pull()
-                  %>% round (2) %>% as.character(), ")"),
-      "Non-binary",
-            col_age_gender %>% filter(gender == "non-binary") %>% nrow(),
-            col_age_gender %>% filter(gender == "non-binary") %>% summarise(mean(age)) %>% pull(),
-            "(-)",
-      "Transgender", 
-            col_age_gender %>% filter(gender == "transgender") %>% nrow(),
-            col_age_gender %>% filter(gender == "transgender") %>% summarise(mean(age)) %>% pull(),
-            "(-)",
-      "Unspecified",
-            col_age_gender %>% filter(gender == "unspecified") %>% nrow(),
-            col_age_gender %>% filter(gender == "unspecified") %>% summarise(mean(age)) %>% pull(),
-            str_c("(",col_age_gender %>% filter(gender == "unspecified") %>% summarise(sd(age)) %>% pull()
-                  %>% round (2) %>% as.character(), ")"),
-      "Total",
-            col_age_gender %>% nrow(),
-            col_age_gender %>% summarise(mean(age)) %>% pull() %>% round (2),
-            str_c("(",col_age_gender %>% summarise(sd(age)) %>% pull() %>% round (2) %>% as.character(),")"))
-  
-  
-    col_participant_source <- as_tibble(colour_data$prolific_id)
-    col_participant_source <- col_participant_source %>%
-        mutate(length = str_length(value)) %>%
-        mutate(source = ifelse(length == 5, "sona", ifelse(length == 24, "prolific", length)))
-        
-    col_n_prolific <- nrow(col_participant_source %>% filter(source == "prolific"))
-    col_n_prolific <- round((col_n_prolific / nrow(col_participant_source)) * 100, 2)
-    
-    col_n_sona <- nrow(col_participant_source %>% filter(source == "sona"))
-    col_n_sona <- round((col_n_sona / nrow(col_participant_source)) * 100, 2)
-    
-    col_n_eng_lang <- nrow(colour_data %>% filter(eng_first_lang == "yes"))
-    col_n_eng_lang <- round((col_n_eng_lang / nrow(colour_data)) * 100, 2)
-```
-
-To meet our YA requirements, all participants were required to be between 18-59 years of age (actual range: `r min(colour_data$age, na.rm = TRUE)`-`r max(colour_data$age, na.rm = TRUE)`). As our experiment involved English word stimuli, we also asked subjects whether English was their first language; the vast majority (`r col_n_eng_lang`%) reported that English was indeed their first language.
-
-The current sample was comprised of participants sourced from voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (`r col_n_prolific`%), where payment at the rate of £5/hr was given, and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r col_n_sona`%), where they received course participation credits.
-
-`r table_numbering("col__age.and.gender__table.caption")`
-```{r, echo=FALSE, cache=TRUE}
-  col_age_gender_table %>%
-      kable("latex", booktabs = T) %>%
-      kable_styling(latex_options = "hold_position") %>%
-      column_spec(2, italic = TRUE) %>%
-      column_spec(4, italic = TRUE) %>%
-      row_spec(6, bold = TRUE)
-```
 
 
 
