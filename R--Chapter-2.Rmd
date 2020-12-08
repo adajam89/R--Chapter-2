@@ -2366,7 +2366,7 @@ For the proportion of hits, there was a significant main effect of stimuli forma
           apa__grey__anova__PROP.FA__stim.format.means$estimate$Photographs %>%
           str_remove("\\,.*")
         apa__grey__anova__PROP.FA__stim.format.pairwise <- 
-          apa_print.emmGrid(grey__anova__PROP.FA__stim.format.pairwise)
+papaja:::apa_print.emmGrid(grey__anova__PROP.FA__stim.format.pairwise)
         
         apa__grey__anova__PROP.FA__words.vs.drawings.pairwise <-
           apa__grey__anova__PROP.FA__stim.format.pairwise$full$Words_Drawings %>% 
@@ -2436,7 +2436,7 @@ words (`r apa__grey__anova__PROP.FA__words.mean`) [`r apa__grey__anova__PROP.FA_
         apa__grey__anova__RECOG__photographs.mean <- 
           apa__grey__anova__RECOG__stim.format.means$estimate$Photographs %>%
           str_remove("\\,.*")
-        apa__grey__anova__RECOG__stim.format.pairwise <- apa_print.emmGrid(grey__anova__RECOG__stim.format.pairwise)
+        apa__grey__anova__RECOG__stim.format.pairwise <- papaja:::apa_print.emmGrid(grey__anova__RECOG__stim.format.pairwise)
         
         apa__grey__anova__RECOG__words.vs.drawings.pairwise <-
           apa__grey__anova__RECOG__stim.format.pairwise$full$Words_Drawings %>%
