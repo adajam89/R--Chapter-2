@@ -75,6 +75,7 @@ table_numbering("col__mean.d.and.c__table.caption", "Mean d' and c scores by sti
     
 ```
 
+\newpage
 The Picture Superiority Effect (PSE) is a highly robust and replicable phenomenon; in recognition memory paradigms, the PSE generally presents as an increase in recollection in both healthy younger and older samples [@ally2007; @ally2008; @curran2011; @rajaram1996]. However, the level at which stimuli distinctiveness impacts successful recognition is currently unclear, and there is little consistency across studies with regard to what constitutes a 'picture', with many experiments utilising line-drawn illustrations [@vandermeulen2012; @westerberg2013; @wolk2011] while others use photographs [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. Methodological differences make it difficult to reconcile the effects of drawing vs. photograph. It is unclear whether the magnitude of picture superiority effects are mediated by the format pictures are presented in, and to our knowledge, no study has systematically matched items across formats in an effort to determine the point at which stimuli distinctiveness impacts recognition. Throughout a number of planned recognition experiments, we aim to systematically compare the impact different stimuli formats (written words, line-drawings, and photographs) have on the recollection and familiarity processes.
 
 In order to make such comparisons, and ensure any differences in memory test performance are indeed attributable to stimuli format, we must ensure the same to-be-remembered concepts are similarly depicted across different ‘levels’ of stimuli format. The formats we have chosen to compare present common, everyday objects in either: i) written word format; ii) line-drawn illustrations; iii) photographs. Two of our stimuli formats were obtained from a pool provided by @rossion2004; these objects consisted of line-drawings and their written-word labels.
@@ -3415,14 +3416,14 @@ For FAs assigned Guessing, there was a significant main effect of stimuli format
 <div id="refs"></div>
   
 \newpage
-# Appendices
 \blandscape
+# Appendices
 ## Appendix A
-```{r image-refs, include=FALSE, cache=FALSE}
+```{r image-refs, include=FALSE, cache=TRUE}
 image_refs <- read_csv("./resources/image_refs.csv")
 ```
 `r table_numbering("image-refs-table.caption")`
-```{r image-refs-table, echo=FALSE, cache=FALSE}
+```{r image-refs-table, echo=FALSE, cache=TRUE}
     image_refs %>%
       kable("latex", longtable = T, booktabs = T) %>%
       kable_styling(bootstrap_options = c("striped","condensed")) %>%
@@ -3515,7 +3516,7 @@ spelling_corrections <- tribble(
 "timble", "thimble","","drawer", "drawers","","","")
 ```
 `r table_numbering("spelling-corrections-table.caption")`
-```{r spelling-corrections-table, echo=FALSE, cache=FALSE}
+```{r spelling-corrections-table, echo=FALSE, cache=TRUE}
     spelling_corrections %>%
       kable("latex", longtable = T, booktabs = T) %>%
       kable_styling(bootstrap_options = c("striped","condensed")) %>%
