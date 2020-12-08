@@ -14,3 +14,8 @@ kableExtra
 formattable
 lpSolve
 irr
+psycho
+Matrix
+lme4
+afex
+emmeans
