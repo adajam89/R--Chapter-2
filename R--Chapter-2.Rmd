@@ -71,8 +71,6 @@ table_numbering("col__prop.hits.and.FAs__table.caption", "Mean proportion of hit
 table_numbering("col__mean.d.and.c__table.caption", "Mean d' and c scores by stimuli-format and response-option condition.", display = FALSE)
 ```
 
- 
-
 
 ```{r define-grey__dprime_interaction_figure_caption, echo=FALSE, results = FALSE}
     figure_numbering(name = "grey__dprime_interaction_figure_caption",
@@ -109,25 +107,39 @@ table_numbering("col__mean.d.and.c__table.caption", "Mean d' and c scores by sti
                      caption = "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.")
 ```
 
-```{r define-grey__PROP.FAM.FA__figure.caption, echo=FALSE, results = FALSE}
-    figure_numbering(name = "col__PROP.REC.FAM.GUESS.HITS__figure.caption",
-                     caption = "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.")
-```
-
-```{r define-col__PROP.REC.FAM.GUESS.FA__figure.caption, echo=FALSE, results = FALSE}
-    figure_numbering(name = "col__PROP.REC.FAM.GUESS.HITS__figure.caption",
-                     caption = "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.")
-```
-
 \newpage
 # Experiment 2
 ## Development of a new set of standardised photographic stimuli
 
 The Picture Superiority Effect (PSE) is highly robust and replicable. In recognition memory paradigms, the PSE has been shown to manifest as both increased recollection [] and familiarity [@rajaram1993; @rajaram1996; @dewhurst1994; @wagner1997; @yonelinas2002]. Studies utilising event-related potentials (ERPs) have also demonstrated how pictures enhance parietally-based ERP components (linked to recollection processes) compared to words [@ally2007; @curran2011]. 
 
-The effect is also present in children, adolescents and healthy older adults [@whitehouse2006; need ref for healthy OAs], though perhaps more striking is the fact that patients with Alzheimer’s disease or those presenting early isolated memory impairments, known as amnestic mild cognitive impairment (aMCI), also show memorial benefits toward pictures [@ally2012]. This is supported by ERP studies demonstrating comparable enhancements to recollection-based ERP components between healthy older and aMCI groups when pictures, rather than words, are utilised [@ally2009]. There is debate within the literature attempting to characterise the nature of memory deficits in aMCI, whereby despite general agreement that recollection processes are impaired in such individuals, findings show great inconsistency with regard to familiarity [@algarabel2012; @belleville2011; @pitarque2016; @wolk2013; @wolk2011]. The PSE may have been largely overlooked as an area for further research in an effort to help settle this debate, despite recent reviews highlighting methodological differences across studies as the potential source of inconsistent findings [@koen2014; @migo2012; @schoemaker2014]. The level at which stimuli distinctiveness impacts successful recognition is currently unclear, and there is little consistency across studies with regard to what is considered to be a 'picture'.
+The effect is also present in children, adolescents and healthy older adults [@whitehouse2006; need ref for healthy OAs], though perhaps more striking is the fact that patients with Alzheimer’s disease or those presenting early isolated memory impairments, known as amnestic mild cognitive impairment (aMCI), also show memorial benefits toward pictures [@ally2012]. This is supported by ERP studies demonstrating comparable enhancements to recollection-based ERP components between healthy older and aMCI groups when pictures, rather than words, are utilised [@ally2009]. There is debate within the literature attempting to characterise the nature of memory deficits in aMCI, whereby despite general agreement that recollection processes are impaired in such individuals, findings show great inconsistency with regard to familiarity [@algarabel2012; @belleville2011; @pitarque2016; @wolk2013; @wolk2011]. The PSE may have been largely overlooked as an area for further research in an effort to help settle this debate, despite recent reviews highlighting methodological differences across studies as the potential source of inconsistent findings [@koen2014; @migo2012; @schoemaker2014]. The level at which stimuli distinctiveness impacts successful recognition is currently unclear, and there is little consistency across studies with regard to what is considered a 'picture'.
 
-, with many experiments utilising line-drawn illustrations [@vandermeulen2012; @westerberg2013; @wolk2011] while others use photographs [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. Methodological differences make it difficult to reconcile the effects of drawing vs. photograph. It is unclear whether the magnitude of picture superiority effects are mediated by the format pictures are presented in, and to our knowledge, no study has systematically matched items across formats in an effort to determine the point at which stimuli distinctiveness impacts recognition. Throughout a number of planned recognition experiments, we aim to systematically compare the impact different stimuli formats (written words, line-drawings, and photographs) have on the recollection and familiarity processes.
+Many experiments utilise line-drawn illustrations for their picture stimuli [@vandermeulen2012; @westerberg2013; @wolk2011] - a set of items published by @snodgrass1980 are perhaps among the most-used illustrated picture stimuli, at least within the domain of memory research [@weldon1987; @weldon1989; @wagner1997; @whitehouse2006; @vandermeulen2012; @wammes2016]
+
+
+
+. The set features 
+
+
+common, everyday objects 
+
+Normative data for the @snodgrass1980 items has been continually revisited, including additional testing of the relationship between reaction time and naming agreement [@szekely2003], as well gathering localised norms for use across different cultures - for example, China [@yoon2004] and Russia (@tsaparina2011). The popularity of the stimuli within cognitive research led to a revision of the items by @rossion2004, whereby each item was carefully re-drawn 
+A notable addition to 
+
+
+The @rossion2004 revision now appears to be favoured over the original @snodgrass1980 set among cognitive researchers [@wolk2008]
+
+
+while others use photographs [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. Methodological differences make it difficult to reconcile the effects of drawing vs. photograph. It is unclear whether the magnitude of picture superiority effects are mediated by the format pictures are presented in, and 
+
+
+While similar sets of photograph stimuli have been published @viggiano2004
+@moreno-martinez2012
+
+"visually poor from an ecological point of view"
+
+to our knowledge, no study has systematically matched items across formats in an effort to determine the point at which stimuli distinctiveness impacts recognition. Throughout a number of planned recognition experiments, we aim to systematically compare the impact different stimuli formats (written words, line-drawings, and photographs) have on the recollection and familiarity processes.
 
 In order to make such comparisons, and ensure any differences in memory test performance are indeed attributable to stimuli format, we must ensure the same to-be-remembered concepts are similarly depicted across different ‘levels’ of stimuli format. The formats we have chosen to compare present common, everyday objects in either: i) written word format; ii) line-drawn illustrations; iii) photographs. Two of our stimuli formats were obtained from a pool provided by @rossion2004; these objects consisted of line-drawings and their written-word labels.
 
@@ -338,7 +350,7 @@ exp_2_participants <- raw_data %>%
 ### Participants
 A total of `r nrow(exp_2_participants)` subjects completed the online experiment (see `r table_numbering("exp2__age.and.gender__table.caption", display = "cite")` for a breakdown of the gender and age of the sample). This sample size provided 20 data points for each of the five response types, while also ensuring the experiment did not last too long for participants (approx 25-mins). Subjects were recruited from both voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (where they received payment at the rate of £5/hr), and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits).
 
-```{r exp2-age-gend-table-data, include=FALSE, cache=FALSE}
+```{r exp2-age-gend-table-data, include=FALSE, cache=TRUE}
 exp2_age_gender <- exp_2_participants %>%
   select(age, gender) %>%
   mutate(age = as.double(age))
@@ -374,7 +386,7 @@ exp2_n_eng_lang <- round((exp2_n_eng_lang / nrow(exp_2_participants)) * 100, 2)
 ```
 
 `r table_numbering("exp2__age.and.gender__table.caption")`
-```{r exp2-age-gend-table, echo=FALSE, cache=FALSE}
+```{r exp2-age-gend-table, echo=FALSE, cache=TRUE}
 exp2_age_gender_table %>%
   kable("latex", booktabs = T) %>%
   kable_styling(latex_options = "hold_position") %>%
@@ -966,7 +978,7 @@ write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
 
 \newpage
 # Experiment 3
-```{r experiment-3-main, include=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
+```{r experiment-3-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ####################################################################################################################
 ##                                                                                                                ##
 ##    Participant info:                                                                                           ##
