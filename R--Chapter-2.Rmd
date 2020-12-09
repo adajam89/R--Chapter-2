@@ -42,15 +42,14 @@ rm(list=ls())
     coalesce_by_column <- function(df) {return(dplyr::coalesce(!!! as.list(df)))}
 # Captioner:
     figure_numbering <- captioner()
-figure_numbering("grey__dprime_interaction_figure_caption", "Interaction plot between stimuli format and response-option for  d' scores", display = FALSE)
-figure_numbering("grey__PROP.REC.FAM.GUESS.HITS__figure.caption", "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.", display = FALSE)
-figure_numbering("grey__PROP.REC.HITS__figure.caption", "Interaction plot between stimuli format and response-option for the mean proportion of hits assigned 'Recollection'.", display = FALSE)
-figure_numbering("grey__PROP.FAM.HITS__figure.caption", "Interaction plot between stimuli format and response-option for the mean proportion of hits assigned 'Familiarity'.", display = FALSE)
-figure_numbering("grey__PROP.REC.FAM.GUESS.FA__figure.caption", "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.", display = FALSE)
-figure_numbering("grey__PROP.FAM.FA__figure.caption", "Interaction plot between stimuli format and response-option for the mean proportion of FAs assigned 'Familiarity'.", display = FALSE)  
-figure_numbering("col__PROP.REC.FAM.GUESS.HITS__figure.caption", "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.", display = FALSE)
-figure_numbering("col__PROP.FAM.HITS__figure.caption", "Interaction plot between stimuli format and response-option for the mean proportion of hits assigned 'Familiarity'.", display = FALSE)
-figure_numbering("col__PROP.REC.FAM.GUESS.FA__figure.caption", "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.", display = FALSE)
+
+    
+    
+
+
+
+
+
     
 
     
@@ -70,28 +69,81 @@ table_numbering("grey__mean.d.and.c__table.caption", "Mean d' and c scores by st
 table_numbering("col__age.and.gender__table.caption", "Gender and age (SD) of the current sample.", display = FALSE)
 table_numbering("col__prop.hits.and.FAs__table.caption", "Mean proportion of hits and FAs by stimuli format and response-option condition.", display = FALSE)
 table_numbering("col__mean.d.and.c__table.caption", "Mean d' and c scores by stimuli-format and response-option condition.", display = FALSE)
-    
-    
-    
+```
+
+ 
+
+
+```{r define-grey__dprime_interaction_figure_caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "grey__dprime_interaction_figure_caption",
+                     caption = "Interaction plot between stimuli format and response-option for d' scores.")
+```
+
+```{r define-grey__PROP.REC.FAM.GUESS.HITS__figure.caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "grey__PROP.REC.FAM.GUESS.HITS__figure.caption",
+                     caption = "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.")
+```
+
+```{r define-grey__PROP.REC.HITS__figure.caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "grey__PROP.REC.HITS__figure.caption",
+                     caption = "Interaction plot between stimuli format and response-option for the mean proportion of hits assigned Recollection.")
+```
+
+```{r define-grey__PROP.FAM.HITS__figure.caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "grey__PROP.FAM.HITS__figure.caption",
+                     caption = "Interaction plot between stimuli format and response-option for the mean proportion of hits assigned 'Familiarity'.")
+```
+
+```{r define-grey__PROP.REC.FAM.GUESS.FA__figure.caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "grey__PROP.REC.FAM.GUESS.FA__figure.caption",
+                     caption = "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.")
+```
+
+```{r define-grey__PROP.FAM.FA__figure.caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "grey__PROP.FAM.FA__figure.caption",
+                     caption = "Interaction plot between stimuli format and response-option for the mean proportion of FAs assigned 'Familiarity'.")
+```
+
+```{r define-col__PROP.REC.FAM.GUESS.HITS__figure.caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "col__PROP.REC.FAM.GUESS.HITS__figure.caption",
+                     caption = "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.")
+```
+
+```{r define-grey__PROP.FAM.FA__figure.caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "col__PROP.REC.FAM.GUESS.HITS__figure.caption",
+                     caption = "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.")
+```
+
+```{r define-col__PROP.REC.FAM.GUESS.FA__figure.caption, echo=FALSE, results = FALSE}
+    figure_numbering(name = "col__PROP.REC.FAM.GUESS.HITS__figure.caption",
+                     caption = "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.")
 ```
 
 \newpage
-The Picture Superiority Effect (PSE) is a highly robust and replicable phenomenon; in recognition memory paradigms, the PSE generally presents as an increase in recollection in both healthy younger and older samples [@ally2007; @ally2008; @curran2011; @rajaram1996]. However, the level at which stimuli distinctiveness impacts successful recognition is currently unclear, and there is little consistency across studies with regard to what constitutes a 'picture', with many experiments utilising line-drawn illustrations [@vandermeulen2012; @westerberg2013; @wolk2011] while others use photographs [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. Methodological differences make it difficult to reconcile the effects of drawing vs. photograph. It is unclear whether the magnitude of picture superiority effects are mediated by the format pictures are presented in, and to our knowledge, no study has systematically matched items across formats in an effort to determine the point at which stimuli distinctiveness impacts recognition. Throughout a number of planned recognition experiments, we aim to systematically compare the impact different stimuli formats (written words, line-drawings, and photographs) have on the recollection and familiarity processes.
+# Experiment 2
+## Development of a new set of standardised photographic stimuli
+
+The Picture Superiority Effect (PSE) is highly robust and replicable. In recognition memory paradigms, the PSE has been shown to manifest as both increased recollection [] and familiarity [@rajaram1993; @rajaram1996; @dewhurst1994; @wagner1997; @yonelinas2002]. Studies utilising event-related potentials (ERPs) have also demonstrated how pictures enhance parietally-based ERP components (linked to recollection processes) compared to words [@ally2007; @curran2011]. 
+
+The effect is also present in children, adolescents and healthy older adults [@whitehouse2006; need ref for healthy OAs], though perhaps more striking is the fact that patients with Alzheimer’s disease or those presenting early isolated memory impairments, known as amnestic mild cognitive impairment (aMCI), also show memorial benefits toward pictures [@ally2012]. This is supported by ERP studies demonstrating comparable enhancements to recollection-based ERP components between healthy older and aMCI groups when pictures, rather than words, are utilised [@ally2009]. There is debate within the literature attempting to characterise the nature of memory deficits in aMCI, whereby despite general agreement that recollection processes are impaired in such individuals, findings show great inconsistency with regard to familiarity [@algarabel2012; @belleville2011; @pitarque2016; @wolk2013; @wolk2011]. The PSE may have been largely overlooked as an area for further research in an effort to help settle this debate, despite recent reviews highlighting methodological differences across studies as the potential source of inconsistent findings [@koen2014; @migo2012; @schoemaker2014]. The level at which stimuli distinctiveness impacts successful recognition is currently unclear, and there is little consistency across studies with regard to what is considered to be a 'picture'.
+
+, with many experiments utilising line-drawn illustrations [@vandermeulen2012; @westerberg2013; @wolk2011] while others use photographs [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. Methodological differences make it difficult to reconcile the effects of drawing vs. photograph. It is unclear whether the magnitude of picture superiority effects are mediated by the format pictures are presented in, and to our knowledge, no study has systematically matched items across formats in an effort to determine the point at which stimuli distinctiveness impacts recognition. Throughout a number of planned recognition experiments, we aim to systematically compare the impact different stimuli formats (written words, line-drawings, and photographs) have on the recollection and familiarity processes.
 
 In order to make such comparisons, and ensure any differences in memory test performance are indeed attributable to stimuli format, we must ensure the same to-be-remembered concepts are similarly depicted across different ‘levels’ of stimuli format. The formats we have chosen to compare present common, everyday objects in either: i) written word format; ii) line-drawn illustrations; iii) photographs. Two of our stimuli formats were obtained from a pool provided by @rossion2004; these objects consisted of line-drawings and their written-word labels.
 
-To examine our research questions, it was necessary to develop a standardised pool of photographic stimuli that would act as an extension to the set of drawings/words obtained from @rossion2004. The currently outlined research will act as a precursor to the planned recognition memory experiments, and will seek to determine which of the three photograph variations we have already selected for each item most closely resembles the depiction in the line-drawings by Rossion and Pourtois (2004). We aim to achieve this by gathering normative data for all of the newly-obtained photographs, and then comparing this to the existing normative data for the line-drawings, in order to select the most suitable photograph variations to take forward into the proposed memory experiments. The data we plan to collect includes: i) the most commonly used name; ii) how familiar the object is; iii) how complex the image is; iv) whether the colour the object is currently depicted in is essential; and v) how closely the current depiction matches ones' mental image for the object). In addition to furthering our own research goals, the newly established set of photographic stimuli (and accompanying normative data) may also be useful to a range of other cognitive researchers looking for up-to-date, high quality stimuli. 
+To examine our research questions, it was necessary 
 
+
+The current study aims to develop a standardised pool of photographic stimuli that act as an extension to the set of drawings/words obtained from @rossion2004. 
+
+
+will act as a precursor to the planned recognition memory experiments, and will seek to determine which of the three photograph variations we have already selected for each item most closely resembles the depiction in the line-drawings by Rossion and Pourtois (2004). We aim to achieve this by gathering normative data for all of the newly-obtained photographs, and then comparing this to the existing normative data for the line-drawings, in order to select the most suitable photograph variations to take forward into the proposed memory experiments. The data we plan to collect includes: i) the most commonly used name; ii) how familiar the object is; iii) how complex the image is; iv) whether the colour the object is currently depicted in is essential; and v) how closely the current depiction matches ones' mental image for the object). In addition to furthering our own research goals, the newly established set of photographic stimuli (and accompanying normative data) may also be useful to a range of other cognitive researchers looking for up-to-date, high quality stimuli. 
 
 The aim is to establish a new set of photograph stimuli for use in future planned memory experiments; the selected photographs will be supported by pilot data that help ensure they accurately depict the everyday objects in a similar fashion as those presented in line-drawings by Rossion & Pourtois (2004). 
 
-
 Whilst every effort has been made to source photographs that depict the everyday objects in a similar  fashion to the line-drawings, the inherent subjectivity of this process may lead to images that are not an accurate ‘match’ of the objects they were chosen to depict; for example, the photograph chosen to convey  “bottle” may inaccurately provoke the label “wine” in the majority of participants. To address this issue - and ensure all photographs objectively depict the same objects as their line-drawn counterparts when included in the planned memory experiments
 
-
-- I am seeking to collect pilot data that will inform the  selection of photograph stimuli.  
 Participants will view a sample of the potential photographs and be asked to provide the name of the  object currently depicted. This process will produce data that will either support the chosen photographs  (e.g. 100% of participants labelled the object “bottle”, which accurately matches the intentions of the  researchers), or refute particular photographs (e.g. on 50% of participants labelled the item “bottle”, whilst  the other 50% used the label “wine”). Photographs showing poor agreement across participant-generated  labels, or those where the majority of produced labels differ from that intended by the researcher, can be  replaced with more accurate depictions prior to inclusion in the planned memory experiments.
-
 
 Normative data is to be obtained for a newly-developed set of realistic object stimuli. This new set of stimuli consists of 816x high-quality photographs of innocuous everyday items (e.g. shoe – see example below). Items were matched with those from an existing set of line-drawn, illustrative stimuli (Rossion & Pourtois, 2004), with a goal of ultimately assessing how different stimuli formats impact recognition (realistic photographs vs. illustrations). In order to publish the new stimuli set – and later compare recognition for these items against recognition for line-drawn illustrations (Rossion & Pourtois, 2004) – the following normative data is required: 
 	i)	the most commonly used name;
@@ -100,11 +152,10 @@ Normative data is to be obtained for a newly-developed set of realistic object s
 	iv)	whether the colour is diagnostic (regularly seen in this colour vs. can be seen in a range of colours);  
 	v)	how well the current depiction matches mental images of the object. 
 
-The proposal to gather such normative data was made by reviewers during my progression, and it will form an important basis for the photographs that will be taken forward into planned memory research. For each item (e.g. shoe), we selected 3x potential photograph variations; in an effort to reduce researcher bias, we will rely on the newly-acquired normative data to determine which photograph variation best ‘matches’ the items from the set of line-drawings (Rossion & Pourtois, 2004). 
+The proposal to gather such normative data was made by reviewers during my progression, and it will form an important basis for the photographs that will be taken forward into planned memory research. For each item (e.g. shoe), we selected 3x potential photograph variations; in an effort to reduce researcher bias, we will rely on the newly-acquired normative data to determine which photograph variation best ‘matches’ the items from the set of line-drawings (Rossion & Pourtois, 2004).
 
 
-# Experiment 2
-```{r experiment-2-main, include=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
+```{r experiment-2-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ####################################################################################################################
 ##                                                                                                                ##
 ##    EXPERIMENT 2:                                                                                               ##
@@ -390,22 +441,64 @@ All responses were self-paced; the timing was only controlled during the study/i
 &nbsp;
 &nbsp;
 
-### Data preperatsion
+### Data processing and analysis
 The naming responses for each photograph item were manually assessed for spelling and typing errors. Automatic spell checking software was avoided in an effort to avoid inadvertently introducing unique names that were not actually given by participants. The vast majority of errors were unambiguous and easy to correct (e.g. "anker" = "anchor", "peguin" = "penguin", "ssnowman" = "snowman"), or consisted of transforming plural words to singular (or vice versa, depending on the form of the intended label - e.g. "sock" to "socks"). Some responses were a little more ambiguous, and necessitated comparison to the photographs they were in response to for additional clarity (e.g. a photograph depicting a plug that would fit into North American electrical sockets was labelled as "usplug" - given the nature of our UK-based sample, it's likely the subject was responding: "U.S. (i.e. United States) plug". 
 
 There were instances where subjects provided a sensible and correctly spelled English word, but that were clearly typos when examined against the photograph they were in response to (e.g. "dock" for a photograph depicting a duck, "frock" for a frog, and "beer" for a "bear", etc). The most ambiguous spelling error to correct was "bittle", which was provided by more than one participant and to more than one item; separate inspections of the photographs participants were responding to made this easy to correct though, with one participant clearly meaning to respond "bottle", whilst the other meant to respond "beetle". Though participants were instructed to only give a single label for each item, some multiple word responses were found (without spaces) during the spell checking process. On such occasions, a judgement was made regarding whether multiple words were retained, or whether the response could be shortened into a single word. A general rule was applied whereby if the other words provided additional information, they were retained (e.g."maledear" - presumably "male deer" - was kept as a two-word answer). Multiple word responses were generally shortened into a single word when the intended label for the item was clearly present, and no information was lost in the process (e.g. "haircomb" was shortened to the intended answer "comb"). It is noted that there was some inherent subjectivity in this process, though as such items were not common among straightforward responses, their overall effects are estimated to be negligible.
 
 Finally, there were some responses that were changed to "no" as they were clearly intended to signify that the responder did not know the name of the item shown; the experiment instructed participants to type "no" in these instances, though the labels "none" and "idk" (common abbreviation for "I don't know) were provided instead. There was also a single response that was manually changed to "no", as the provided label was a single letter and thus entirely unclear what the intended answer should be. All manipulations to naming responses can be found in Appendix C.
 
+A number of variables were calculated prior to analysis. The output variables for the naming responses included the most frequent name, percentage agreement (proportion of subjects reporting this most frequent name), and the statistic *H*. Like percentage agreement, the *H* statistic (ref) also reflects the naming agreement between participants, however, it also takes into account the number of unique names provided for any given item. A *H* value of 0 indicates perfect naming agreement (all subjects responded alike), whilst a *H* value of 1 shows that two unique names were given, but with identical proportions (i.e. 10 subjects responded with Name A, and 10 subjects responded with Name B). As the *H* value increases, 
 
-Naming:
-  Most frequent name;
-  Percentage of subjects giving this most frequent name;
-  H: similar to b), but also takes into account the number of different names given for the item. See “Indices” for formula.
+
+  
+  
+  
   Mean reaction times (RTs) and standard deviations (SDs).
+  
 
 Mean ratings were calculated for Familiarity, Visual Complexity, Colour Diagnosticity, and Mental imagery agreement. 
 
+
+
+## Results
+### Selection of final items
+For each item represented in the photographs, one variation (of a possible three) was selected for inclusion in a final list of stimuli that would be taken forward into subsequent recognition experiments. The selection process was conducted on the basis of naming data only. If an item was found to primarily convey a different concept than intended during the naming task, then it could not be sufficiently compared to it's line-drawn and written-word counterpart during recognition studies. Naming data from all participants was collated, resulting in a minimum of 20 naming responses for each of the 816 photographs (408 colour items / 408 greyscale items). The proportion of 'correct' responses (i.e. names that were congruent with the intended label) and the proportion of 'don't know' responses were calculated for each item. Photographs were subjected to a number of criteria to determine whether they should be taken any further. First, items were excluded if they received a high proportion of "don't know" responses (20%) - all of the photographs depicted common, everyday objects, and so if a number of subjects were unable to name the item, that particular photograph was considered to be a poor representation of the item. Similarly, items were excluded if they were incorrectly named by the majority of subjects (i.e. if the proportion of correct responses equalled .50 or lower), since it was essential for the photograph items to depict the same concepts as those found in the line drawings and word stimuli. Finally, items with particularly poor naming agreement were also excluded (i.e. 20% or fewer subjects named the object similarly). A total of 54 photographs matched at least one of these criteria. Regardless of whether flagged items were grey or colour, both items had to be removed since it was necessary to have otherwise identical grey and colour versions in our final stimuli list. Thus, a total of 64 items (32 grey / 32 colour) were excluded at this stage.
+
+Next, the proportion of correct responses were compared between grey and colour photographs in order to identify items showing the lowest difference. In order to manipulate colour in later recognition experiments, it was important to select items where naming was congruent across colour/grey items; in other words, it would be difficult to attribute particular recognition response patterns to the addition of colour (if a difference were found) when the grey version could not be identified (or encoded) similarly. Variations exhibiting the least difference between colour and grey items (for the proportion of correct responses) were taken forward, while the rest were excluded. In a number of instances, multiple variations for the same object had the same 'difference' score. For example, all three variations of the item "balloon" exhibited perfect naming agreement, irrespective of whether they were presented in colour or grey (and thus "balloon1", "balloon2", and "balloon3" had a difference score of 0). For items where more than 1 variation remained, manual rankings were obtained from two of the researchers to determine which variation best depicted the intended concept. For each item, the researchers independently studied the remaining variations and provided a rank of which they thought was best (1) to worst (2 or 3, depending on the number of variations that remained). The ratings from both researchers were collated; items where there was agreement as to which variation best depicted the intended concept were selected for inclusion in the final stimuli list. For all the items where there was disagreement between the researchers rankings, one of the variations was simply selected at random.
+
+
+### Colour vs. grey
+Mean values for 
+
+t-tests 
+
+
+mean scores of Familiarity (
+
+
+) 
+
+To compare responses across stimuli formats, separate one-way ANOVAs were conducted on the following variables: 
+
+(Naming) H
+(Naming) RT
+
+(Familiarity) Mean
+(Familiarity) RT
+
+(Visual Complexity) Mean
+(Visual Complexity) RT
+
+(Colour Diagnosticity) Mean
+(Colour Diagnosticity) RT
+
+(Mental Imagery Agreement) Mean
+(Mental Imagery Agreement) RT
+
+
+
+### Naming
 ```{r naming-data, include=FALSE, cache=TRUE}
 ####################################################################################################################
 ##                                                                                                                ##
@@ -712,7 +805,8 @@ Mean ratings were calculated for Familiarity, Visual Complexity, Colour Diagnost
         mutate(stim = str_remove_all(stim, "[-](.*)"))
     col_and_grey <- right_join(grey, col, by = 'stim') %>%
         mutate(difference = abs(col_correct - grey_correct))
-##  For each of the object names, give us the version with the least 'difference' (of % correct) between colour and greyscale.
+##  For each of the object names, give us the version with the least 
+##  'difference' (of % correct) between colour and greyscale.
     # List all object names to loop through:
     item_names <- col_and_grey %>%
         select(stim) %>%
@@ -802,7 +896,10 @@ Mean ratings were calculated for Familiarity, Visual Complexity, Colour Diagnost
         arrange(stim)
 
 ####################################################################################################################
-##   H stat (naming agreement)::                                                                                  ##
+##   Additional stats:                                                                                            ##
+####################################################################################################################    
+####################################################################################################################
+##   H stat (naming agreement):                                                                                   ##
 #################################################################################################################### 
     h_stat_all_items <- naming %>%
         select(stim, naming_response, prop_resp, prop_correct) %>% 
@@ -845,39 +942,26 @@ write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
         select(object, subjects, value) %>%
         rename("krippendorffs_alpha" = value, "variations" = subjects, "concept" = object)
     write.csv(kripps_alpha,'~/Desktop/kripps_alpha.csv', row.names = FALSE)
-
+    
     
 # Has to be run for each object. Still say how many items we disagreed on, here's some examples (they were v similar). 
 # we tried to do it objectively, BUT.... we know % is shitty but,.....
 # it's all we needd for our reference.
 # sometimes 3 items, sometimes 2. All items were 100% rated in naming...V difficult to decide on best as "good" items were all so similar. 
 
+    
+        #t-test:
+        #mutate(stim = str_remove(stim, "^(.*?-.*?)-")) %>%
+    #fam_summary <- fam %>%
+    #    get_summary_stats(familiarity, type = "mean_sd")
+    #fam_plot <- ggqqplot(fam, x = "familiarity", facet.by = "stim")
+    #fam_ttest <- fam %>% 
+    #    ungroup() %>% 
+    #    t_test(familiarity ~ stim) %>%
+    #    add_significance()
+    
+    
 ```
-
-## Results
-
-To compare responses across stimuli formats, separate one-way ANOVAs were conducted on the following variables: 
-
-(Naming) H
-(Naming) RT
-
-(Familiarity) Mean
-(Familiarity) RT
-
-(Visual Complexity) Mean
-(Visual Complexity) RT
-
-(Colour Diagnosticity) Mean
-(Colour Diagnosticity) RT
-
-(Mental Imagery Agreement) Mean
-(Mental Imagery Agreement) RT
-
-Significant differences will be followed up with post-hoc pairwise multiple comparison tests
-
-
-
-### Naming
 
 
 \newpage
@@ -3419,18 +3503,39 @@ For FAs assigned Guessing, there was a significant main effect of stimuli format
 \blandscape
 # Appendices
 ## Appendix A
-```{r image-refs, include=FALSE, cache=TRUE}
-image_refs <- read_csv("./resources/image_refs.csv")
-```
-`r table_numbering("image-refs-table.caption")`
-```{r image-refs-table, echo=FALSE, cache=TRUE}
-    image_refs %>%
-      kable("latex", longtable = T, booktabs = T) %>%
+
+```{r norms-table, include=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
+    norms <- raw_data %>%
+        ungroup() %>% 
+        select(stim, familiarity, visualcomplexity, colourdiagnosticity, mentalimageryagreement) %>%
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        mutate(familiarity = str_remove(familiarity, "fam_")) %>%
+        mutate(visualcomplexity = str_remove(visualcomplexity, "viscom_")) %>%
+        mutate(colourdiagnosticity = str_remove(colourdiagnosticity, "coldia_")) %>%
+        mutate(mentalimageryagreement = str_remove(mentalimageryagreement, "menima_")) %>%
+        mutate(familiarity = as.double(familiarity)) %>%
+        mutate(visualcomplexity = as.double(visualcomplexity)) %>%
+        mutate(colourdiagnosticity = as.double(colourdiagnosticity)) %>%
+        mutate(mentalimageryagreement = as.double(mentalimageryagreement)) %>%
+        group_by(stim) %>%
+        summarise_all(funs(mean), na.rm = TRUE) %>%
+        mutate_at(c("familiarity", "visualcomplexity", "colourdiagnosticity", 
+                    "mentalimageryagreement"), round, 2)
+
+#image_refs <- read_csv("./resources/image_refs.csv")
+#        norms2 <- (bind_cols(norms, image_refs))
+
+```  
+
+```{r norms-table-print, echo=FALSE, cache=TRUE}
+    norms %>%
+      kable("latex", longtable = T, booktabs = T, linesep = c("", "", "", "", "", "\\hline")) %>%
       kable_styling(bootstrap_options = c("striped","condensed")) %>%
-      kable_styling(latex_options = c("repeat_header"), font_size = 8) %>%
-      column_spec(2, width = "8cm") %>%
-      column_spec(5, width = "8cm")
+      kable_styling(latex_options = c("repeat_header"), font_size = 8)
 ```
+
+
 
 \newpage
 ## Appendix C
@@ -3530,4 +3635,10 @@ spelling_corrections <- tribble(
       column_spec(7, width = "2.5cm") %>%
       column_spec(8, width = "2.5cm")
 ```
+
+
+
+\newpage
+## Appendix D
+
 \elandscape
