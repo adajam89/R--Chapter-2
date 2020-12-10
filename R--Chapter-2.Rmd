@@ -134,17 +134,12 @@ The chosen set of photograph stimuli will be taken forward for use in subsequent
 
 the selected photographs will be supported by
 
-
-
 will act as a precursor to the planned recognition memory experiments, and will seek to determine which of the three photograph variations we have already selected for each item most closely resembles the depiction in the line drawings by Rossion and Pourtois (2004). We aim to achieve this by gathering normative data for all of the newly-obtained photographs, and then comparing this to the existing normative data for the line drawings, in order to select the most suitable photograph variations to take forward into the proposed memory experiments. The data we plan to collect includes: i) the most commonly used name; ii) how familiar the object is; iii) how complex the image is; iv) whether the colour the object is currently depicted in is essential; and v) how closely the current depiction matches ones' mental image for the object). In addition to furthering our own research goals, the newly established set of photographic stimuli (and accompanying normative data) may also be useful to a range of other cognitive researchers looking for up-to-date, high quality stimuli. 
 
+The inherent subjectivity involved in the process of matching new photographs with existing drawings may lead to images that are not a reliable ‘match’ to the objects they were selected to depict. For example, the photograph chosen to depict the concept “bottle” may inadvertently provoke the majority of participants to provide the label "wine", thus indicating that this particular photograph has failed to accurately depict the concept it should. To address this issue, and ensure all photographs objectively depict the same objects as their line-drawn counterparts, three potential photograph variations were selected for each item.
 
+; in an effort to reduce researcher bias, we will rely on the newly-acquired normative data to determine which photograph variation best ‘matches’ the items from the set of line drawings (Rossion & Pourtois, 2004).
 
-The inherent subjectivity involved in the process of matching new photographs with existing drawings may lead to images that are not a reliable ‘match’ to the objects they were selected to depict;
-
-
-
-for example, the photograph chosen to convey  “bottle” may inaccurately provoke the label “wine” in the majority of participants. To address this issue - and ensure all photographs objectively depict the same objects as their line-drawn counterparts when included in the planned memory experiments
 
 Participants will view a sample of the potential photographs and be asked to provide the name of the  object currently depicted. This process will produce data that will either support the chosen photographs  (e.g. 100% of participants labelled the object “bottle”, which accurately matches the intentions of the  researchers), or refute particular photographs (e.g. on 50% of participants labelled the item “bottle”, whilst  the other 50% used the label “wine”). Photographs showing poor agreement across participant-generated  labels, or those where the majority of produced labels differ from that intended by the researcher, can be  replaced with more accurate depictions prior to inclusion in the planned memory experiments.
 
@@ -155,7 +150,7 @@ Normative data is to be obtained for a newly-developed set of realistic object s
 	iv)	whether the colour is diagnostic (regularly seen in this colour vs. can be seen in a range of colours);  
 	v)	how well the current depiction matches mental images of the object. 
 
-For each item (e.g. shoe), we selected 3x potential photograph variations; in an effort to reduce researcher bias, we will rely on the newly-acquired normative data to determine which photograph variation best ‘matches’ the items from the set of line drawings (Rossion & Pourtois, 2004).
+For each item (e.g. shoe), we selected 
 
 
 ```{r experiment-2-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
