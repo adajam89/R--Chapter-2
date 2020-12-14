@@ -906,28 +906,77 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
     col_norms <- bind_cols(col_norms, col_naming_norms)
 # Create norms table (all stim):
     colvsgreynorms <- tribble(
-      ~"Item type", ~"Naming accuracy", ~"Naming agreement (H)", ~"Mental imagery agreement", ~"Familiarity", 
-      ~"Visual complexity", ~"Colour Diagnosticity",
-       "Grey", 
-        grey_norms %>% select(grey_naming_acc_mean) %>% pull() %>% round (2), # Grey naming accuracy;
-        grey_norms %>% select(grey_H_mean) %>% pull() %>% round (2),          # Grey H;
-        grey_norms %>% select(grey_menima_mean) %>% pull() %>% round (2),     # Grey MenIma;
-        grey_norms %>% select(grey_fam_mean) %>% pull() %>% round (2),        # Grey Fam;
-        grey_norms %>% select(grey_viscom_mean) %>% pull() %>% round (2),     # Grey VisCom;
-        NA,                                                                   # Grey ColDia;
-       "Colour", 
-        col_norms %>% select(col_naming_acc_mean) %>% pull() %>% round (2),   # Col naming accuracy;
-        col_norms %>% select(col_H_mean) %>% pull() %>% round (2),            # Col H;
-        col_norms %>% select(col_menima_mean) %>% pull() %>% round (2),       # Col MenIma;
-        col_norms %>% select(col_fam_mean) %>% pull() %>% round (2),          # Col Fam;
-        col_norms %>% select(col_viscom_mean) %>% pull() %>% round (2),       # Col VisCom;
-        col_norms %>% select(col_coldia_mean) %>% pull() %>% round (2))       # Col ColDia
+        ~"Variable", ~"Grey", ~"grey_sd", ~"blank", ~"Colour", ~"col_sd",
+        "Naming accuracy",
+            grey_norms %>% select(grey_naming_acc_mean) %>% pull() %>% round (2), # Grey naming accuracy mean;
+            grey_norms %>% select(grey_naming_acc_sd) %>% pull() %>% round (2),   # Grey naming accuracy sd;
+            "",
+            col_norms %>% select(col_naming_acc_mean) %>% pull() %>% round (2),   # Col naming accuracy mean;
+            col_norms %>% select(col_naming_acc_sd) %>% pull() %>% round (2),     # Col naming accuracy sd;
+        "Naming agreement (H)", 
+            grey_norms %>% select(grey_H_mean) %>% pull() %>% round (2),          # Grey H mean;
+            grey_norms %>% select(grey_H_sd) %>% pull() %>% round (2),            # Grey H sd;
+            "",
+            col_norms %>% select(col_H_mean) %>% pull() %>% round (2),            # Col H mean;
+            col_norms %>% select(col_H_sd) %>% pull() %>% round (2),              # Col H sd;
+        "Mental imagery agreement", 
+            grey_norms %>% select(grey_menima_mean) %>% pull() %>% round (2),     # Grey MenIma mean;
+            grey_norms %>% select(grey_menima_sd) %>% pull() %>% round (2),       # Grey MenIma sd;
+            "",
+            col_norms %>% select(col_menima_mean) %>% pull() %>% round (2),       # Col MenIma mean;
+            col_norms %>% select(col_menima_sd) %>% pull() %>% round (2),         # Col MenIma sd;
+        "Familiarity",
+            grey_norms %>% select(grey_fam_mean) %>% pull() %>% round (2),        # Grey Fam mean;
+            grey_norms %>% select(grey_fam_sd) %>% pull() %>% round (2),          # Grey Fam sd;
+            "",
+            col_norms %>% select(col_fam_mean) %>% pull() %>% round (2),          # Col Fam mean;
+            col_norms %>% select(col_fam_sd) %>% pull() %>% round (2),            # Col Fam sd;
+        "Visual complexity",
+            grey_norms %>% select(grey_viscom_mean) %>% pull() %>% round (2),     # Grey VisCom mean;
+            grey_norms %>% select(grey_viscom_sd) %>% pull() %>% round (2),       # Grey VisCom sd;
+            "",
+            col_norms %>% select(col_viscom_mean) %>% pull() %>% round (2),       # Col VisCom mean;
+            col_norms %>% select(col_viscom_sd) %>% pull() %>% round (2),         # Col VisCom sd;
+        "Colour diagnosticity",
+            NA,                                                                   # Grey ColDia mean;
+            NA,                                                                   # Grey ColDia sd;
+            "",
+            col_norms %>% select(col_coldia_mean) %>% pull() %>% round (2),       # Col ColDia mean;
+            col_norms %>% select(col_coldia_sd) %>% pull() %>% round (2))         # Col ColDia sd. 
+    
+    colvsgreynorms_table <- colvsgreynorms %>%
+        mutate(grey_sd = str_c("(", grey_sd, ")")) %>%
+        mutate(col_sd = str_c("(", col_sd, ")")) %>%
+        mutate_all(as.character) %>%
+        mutate(Grey = replace_na(Grey, "-")) %>%
+        mutate(grey_sd = replace_na(grey_sd, "-"))
 ```
 
 
 ## Results
+
+```{r define-exp2--colvsgreynorms--tablecaption, echo=FALSE, results = FALSE}
+    table_numbering(name = "exp2--colvsgreynorms--tablecaption",
+                     caption = "Mean (*SD*) scores for each variable by colour and greyscale photographs.")
+```
 ### General analyses
 Mean values for 
+
+`r table_numbering("exp2--colvsgreynorms--tablecaption")`
+```{r, echo=FALSE, cache=TRUE}
+  colvsgreynorms_table %>%
+      kable("latex", booktabs = T, align = "lrlcrl", col.names = NULL,
+            linesep = c("", "\\addlinespace", "\\addlinespace", "\\addlinespace", "\\addlinespace")) %>%
+      kable_styling(latex_options = "hold_position") %>%
+      add_header_above(c(" ", "Grey" = 2, "", Colour" = 2)) %>%
+      column_spec(1, width = "5.5cm") %>%
+      column_spec(2, width = "1cm") %>%
+      column_spec(3, italic = TRUE, width = "1cm") %>%
+      column_spec(4, width = "2cm") %>%
+      column_spec(5, width = "1cm") %>%
+      column_spec(6, italic = TRUE, width = "1cm")
+```
+
 
 
 ### Selection of final items
