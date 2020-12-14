@@ -197,7 +197,7 @@ raw_data <- map_dfr(raw_data_files,~read_csv(.x, col_types = cols_only("date"='c
   mutate(id = str_replace(id, "\\{\\{%prolific_pid%\\}\\}", date)) %>%
   # Two items had a number at the end of their name in some conditions, remove this: 
   mutate(stim = str_replace(stim, "skunk3-photo-grey1.png", "skunk3-photo-grey.png")) %>%
-  mutate(stim = str_replace(stim, "skunk3-photo-colour1g", "skunk3-photo-colour")) %>%
+  mutate(stim = str_replace(stim, "skunk3-photo-colour1.png", "skunk3-photo-colour")) %>%
   # Add missing 'Order' info (an error in the experiment meant the 'Order' column was not created for the first 20 
   # participants (all of whom did 'A'): 
   mutate(order = ifelse(id == "5cd3a546fe890a00014dedd1" | id == "5ba2de5c962418000113e3c8" |
@@ -373,7 +373,7 @@ All responses were self-paced; the timing was only controlled during the study/i
 &nbsp;
 &nbsp;
 
-### Data processing and analysis
+### Data processing
 The naming responses for each photograph item were manually assessed for spelling and typing errors. Automatic spell checking software was avoided in an effort to avoid inadvertently introducing unique names that were not actually given by participants. The vast majority of errors were unambiguous and easy to correct (e.g. "anker" = "anchor", "peguin" = "penguin", "ssnowman" = "snowman"), or consisted of transforming plural words to singular (or vice versa, depending on the form of the intended label - e.g. "sock" to "socks"). Some responses were a little more ambiguous, and necessitated comparison to the photographs they were in response to for additional clarity (e.g. a photograph depicting a plug that would fit into North American electrical sockets was labelled as "usplug" - given the nature of our UK-based sample, it's likely the subject was responding: "U.S. (i.e. United States) plug". 
 
 There were instances where subjects provided a sensible and correctly spelled English word, but that were clearly typos when examined against the photograph they were in response to (e.g. "dock" for a photograph depicting a duck, "frock" for a frog, and "beer" for a "bear", etc). The most ambiguous spelling error to correct was "bittle", which was provided by more than one participant and to more than one item; separate inspections of the photographs participants were responding to made this easy to correct though, with one participant clearly meaning to respond "bottle", whilst the other meant to respond "beetle". Though participants were instructed to only give a single label for each item, some multiple word responses were found (without spaces) during the spell checking process. On such occasions, a judgement was made regarding whether multiple words were retained, or whether the response could be shortened into a single word. A general rule was applied whereby if the other words provided additional information, they were retained (e.g."maledear" - presumably "male deer" - was kept as a two-word answer). Multiple word responses were generally shortened into a single word when the intended label for the item was clearly present, and no information was lost in the process (e.g. "haircomb" was shortened to the intended answer "comb"). It is noted that there was some inherent subjectivity in this process, though as such items were not common among straightforward responses, their overall effects are estimated to be negligible.
@@ -383,44 +383,6 @@ Finally, there were some responses that were changed to "no" as they were clearl
 A number of variables were calculated prior to analysis. The output variables for the naming responses included the most frequent name, percentage agreement (proportion of subjects reporting this most frequent name), and the statistic *H*. Like percentage agreement, the *H* statistic (ref) also reflects the naming agreement between participants, however, it also takes into account the number of unique names provided for any given item. A *H* value of 0 indicates perfect naming agreement (all subjects responded alike), whilst a *H* value of 1 shows that two unique names were given, but with identical proportions (i.e. 10 subjects responded with Name A, and 10 subjects responded with Name B). As the *H* value increases, 
 
 Mean ratings were calculated for familiarity, visual complexity, colour diagnosticity, and mental imagery agreement. 
-
-## Results
-### Selection of final items
-In an effort to reduce researcher bias, the normative naming data was assessed to determine which photograph variation best matched the concepts depicted in the line drawings [@rossion2004]. For each item represented in the photographs, one variation (of a possible three) would be selected for inclusion in a final list of stimuli that would be taken forward into subsequent recognition experiments. The selection process was conducted on the basis of naming data only. If an item was found to primarily convey a different concept than intended during the naming task, then it could not be sufficiently compared to its line-drawn (and written-word) counterpart during recognition studies. 
-
-Naming data from all participants was collated, resulting in at least 20 unique naming responses for each of the 816 photographs (408 colour items and 408 greyscale items). The proportion of 'correct' responses (i.e. names that were congruent with the intended label) and the proportion of 'don't know' responses were calculated for each item. Photographs were subjected to a number of criteria to determine whether they should be taken any further. First, items were excluded if they received a high proportion of "don't know" responses (20%) - all of the photographs depicted common, everyday objects, and so if a number of subjects were unable to name the item, that particular photograph was considered to be a poor representation of the item. Similarly, items were excluded if they were incorrectly named by the majority of subjects (i.e. if the proportion of correct responses equalled .50 or lower), since it was essential for the photograph items to depict the same concepts as those found in the line drawings and word stimuli. Finally, items with particularly poor naming agreement were also excluded (i.e. 20% or fewer subjects named the object similarly). A total of 54 photographs matched at least one of these criteria. Regardless of whether flagged items were grey or colour, both items had to be removed since it was necessary to have otherwise identical grey and colour versions in our final stimuli list. Thus, a total of 64 items (32 grey / 32 colour) were excluded at this stage.
-
-Next, the proportion of correct responses were compared between grey and colour photographs in order to identify items showing the lowest difference. In order to manipulate colour in later recognition experiments, it was important to select items where naming was congruent across colour/grey items; in other words, it would be difficult to attribute particular recognition response patterns to the addition of colour (if a difference were found) when the grey version could not be identified (or encoded) similarly. Variations exhibiting the least difference between colour and grey items (for the proportion of correct responses) were taken forward, while the rest were excluded. In a number of instances, multiple variations for the same object had the same 'difference' score. For example, all three variations of the item "balloon" exhibited perfect naming agreement, irrespective of whether they were presented in colour or grey (and thus "balloon1", "balloon2", and "balloon3" had a difference score of 0). For items where more than 1 variation remained, manual rankings were obtained from two of the researchers to determine which variation best depicted the intended concept. For each item, the researchers independently studied the remaining variations and provided a rank of which they thought was best (1) to worst (2 or 3, depending on the number of variations that remained). The ratings from both researchers were collated; items where there was agreement as to which variation best depicted the intended concept were selected for inclusion in the final stimuli list. For all the items where there was disagreement between the researchers rankings, one of the variations was simply selected at random.
-
-
-### Colour vs. grey
-Mean values for 
-
-t-tests 
-
-
-mean scores of Familiarity (
-
-
-) 
-
-To compare responses across stimuli formats, separate one-way ANOVAs were conducted on the following variables: 
-
-(Naming) H
-(Naming) RT
-
-(Familiarity) Mean
-(Familiarity) RT
-
-(Visual Complexity) Mean
-(Visual Complexity) RT
-
-(Colour Diagnosticity) Mean
-(Colour Diagnosticity) RT
-
-(Mental Imagery Agreement) Mean
-(Mental Imagery Agreement) RT
-
 
 
 ### Naming
@@ -838,10 +800,10 @@ To compare responses across stimuli formats, separate one-way ANOVAs were conduc
         select(stim, naming_response, prop_correct, H)%>%
         distinct(stim, .keep_all = TRUE) %>%
         rename(most_freq_name = naming_response) %>%
-        mutate_at(c("prop_correct", "H"), round, 2)
-    
-write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
-
+        mutate_at(c("prop_correct", "H"), round, 2) %>%
+      # Two items had a number at the end of their name in some conditions, remove this: 
+        mutate(stim = str_replace(stim, "skunk3-photo-grey1", "skunk3-photo-grey")) %>%
+        mutate(stim = str_replace(stim, "skunk3-photo-colour1", "skunk3-photo-colour"))
 ####################################################################################################################
 ##   Krippendorff's alpha (reliability coefficient) stat:                                                         ##
 #################################################################################################################### 
@@ -866,9 +828,7 @@ write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
         mutate_at(c("value"), round, 2) %>%
         select(object, subjects, value) %>%
         rename("krippendorffs_alpha" = value, "variations" = subjects, "concept" = object)
-    write.csv(kripps_alpha,'~/Desktop/kripps_alpha.csv', row.names = FALSE)
-    
-    
+
 # Has to be run for each object. Still say how many items we disagreed on, here's some examples (they were v similar). 
 # we tried to do it objectively, BUT.... we know % is shitty but,.....
 # it's all we needd for our reference.
@@ -885,8 +845,98 @@ write.csv(naming,'~/Desktop/naming.csv', row.names = FALSE)
     #    t_test(familiarity ~ stim) %>%
     #    add_significance()
     
-    
+    results_norms <- raw_data %>%
+        ungroup() %>% 
+        select(stim, familiarity, visualcomplexity, colourdiagnosticity, mentalimageryagreement) %>%
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        mutate(familiarity = str_remove(familiarity, "fam_")) %>%
+        mutate(visualcomplexity = str_remove(visualcomplexity, "viscom_")) %>%
+        mutate(colourdiagnosticity = str_remove(colourdiagnosticity, "coldia_")) %>%
+        mutate(mentalimageryagreement = str_remove(mentalimageryagreement, "menima_")) %>%
+        mutate(familiarity = as.double(familiarity)) %>%
+        mutate(visualcomplexity = as.double(visualcomplexity)) %>%
+        mutate(colourdiagnosticity = as.double(colourdiagnosticity)) %>%
+        mutate(mentalimageryagreement = as.double(mentalimageryagreement)) %>%
+        group_by(stim) %>%
+        summarise_all(tibble::lst(mean), na.rm = TRUE)
+    grey_norms <- results_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(grey_fam_mean = mean(familiarity_mean)) %>%
+        mutate(grey_fam_sd = sd(familiarity_mean)) %>%
+        mutate(grey_viscom_mean = mean(visualcomplexity_mean)) %>%
+        mutate(grey_viscom_sd = sd(visualcomplexity_mean)) %>%
+        mutate(grey_menima_mean = mean(mentalimageryagreement_mean)) %>%
+        mutate(grey_menima_sd = sd(mentalimageryagreement_mean)) %>%
+        select(grey_fam_mean, grey_fam_sd, grey_viscom_mean, 
+               grey_viscom_sd, grey_menima_mean, grey_menima_sd) %>%
+        distinct()
+    grey_naming_norms <- h_stat_all_items %>%
+        ungroup() %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(grey_naming_acc_mean = mean(prop_correct)) %>%
+        mutate(grey_naming_acc_sd = sd(prop_correct)) %>%
+        mutate(grey_H_mean = mean(H)) %>%
+        mutate(grey_H_sd = sd(H)) %>%
+        select(grey_naming_acc_mean, grey_naming_acc_sd, grey_H_mean, grey_H_sd) %>%
+        distinct()
+    grey_norms <- bind_cols(grey_norms, grey_naming_norms)
+    col_norms <- results_norms %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(col_fam_mean = mean(familiarity_mean)) %>%
+        mutate(col_fam_sd = sd(familiarity_mean)) %>%
+        mutate(col_viscom_mean = mean(visualcomplexity_mean)) %>%
+        mutate(col_viscom_sd = sd(visualcomplexity_mean)) %>%
+        mutate(col_menima_mean = mean(mentalimageryagreement_mean)) %>%
+        mutate(col_menima_sd = sd(mentalimageryagreement_mean)) %>%
+        mutate(col_coldia_mean = mean(colourdiagnosticity_mean)) %>%
+        mutate(col_coldia_sd = sd(colourdiagnosticity_mean)) %>%
+        select(col_fam_mean, col_fam_sd, col_viscom_mean, 
+               col_viscom_sd, col_menima_mean, col_menima_sd, col_coldia_mean, col_coldia_sd) %>%
+        distinct()
+    col_naming_norms <- h_stat_all_items %>%
+        ungroup() %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(col_naming_acc_mean = mean(prop_correct)) %>%
+        mutate(col_naming_acc_sd = sd(prop_correct)) %>%
+        mutate(col_H_mean = mean(H)) %>%
+        mutate(col_H_sd = sd(H)) %>%
+        select(col_naming_acc_mean, col_naming_acc_sd, col_H_mean, col_H_sd) %>%
+        distinct()
+    col_norms <- bind_cols(col_norms, col_naming_norms)
+# Create norms table (all stim):
+    colvsgreynorms <- tribble(
+      ~"Item type", ~"Naming accuracy", ~"Naming agreement (H)", ~"Mental imagery agreement", ~"Familiarity", 
+      ~"Visual complexity", ~"Colour Diagnosticity",
+       "Grey", 
+        grey_norms %>% select(grey_naming_acc_mean) %>% pull() %>% round (2), # Grey naming accuracy;
+        grey_norms %>% select(grey_H_mean) %>% pull() %>% round (2),          # Grey H;
+        grey_norms %>% select(grey_menima_mean) %>% pull() %>% round (2),     # Grey MenIma;
+        grey_norms %>% select(grey_fam_mean) %>% pull() %>% round (2),        # Grey Fam;
+        grey_norms %>% select(grey_viscom_mean) %>% pull() %>% round (2),     # Grey VisCom;
+        NA,                                                                   # Grey ColDia;
+       "Colour", 
+        col_norms %>% select(col_naming_acc_mean) %>% pull() %>% round (2),   # Col naming accuracy;
+        col_norms %>% select(col_H_mean) %>% pull() %>% round (2),            # Col H;
+        col_norms %>% select(col_menima_mean) %>% pull() %>% round (2),       # Col MenIma;
+        col_norms %>% select(col_fam_mean) %>% pull() %>% round (2),          # Col Fam;
+        col_norms %>% select(col_viscom_mean) %>% pull() %>% round (2),       # Col VisCom;
+        col_norms %>% select(col_coldia_mean) %>% pull() %>% round (2))       # Col ColDia
 ```
+
+
+## Results
+### General analyses
+Mean values for 
+
+
+### Selection of final items
+In an effort to reduce researcher bias, the normative naming data was assessed to determine which photograph variation best matched the concepts depicted in the line drawings [@rossion2004]. For each item represented in the photographs, one variation (of a possible three) would be selected for inclusion in a final list of stimuli that would be taken forward into subsequent recognition experiments. The selection process was conducted on the basis of naming data only. If an item was found to primarily convey a different concept than intended during the naming task, then it could not be sufficiently compared to its line-drawn (and written-word) counterpart during recognition studies. 
+
+Naming data from all participants was collated, resulting in at least 20 unique naming responses for each of the 816 photographs (408 colour items and 408 greyscale items). The proportion of 'correct' responses (i.e. names that were congruent with the intended label) and the proportion of 'don't know' responses were calculated for each item. Photographs were subjected to a number of criteria to determine whether they should be taken any further. First, items were excluded if they received a high proportion of "don't know" responses (20%) - all of the photographs depicted common, everyday objects, and so if a number of subjects were unable to name the item, that particular photograph was considered to be a poor representation of the item. Similarly, items were excluded if they were incorrectly named by the majority of subjects (i.e. if the proportion of correct responses equalled .50 or lower), since it was essential for the photograph items to depict the same concepts as those found in the line drawings and word stimuli. Finally, items with particularly poor naming agreement were also excluded (i.e. 20% or fewer subjects named the object similarly). A total of 54 photographs matched at least one of these criteria. Regardless of whether flagged items were grey or colour, both items had to be removed since it was necessary to have otherwise identical grey and colour versions in our final stimuli list. Thus, a total of 64 items (32 grey / 32 colour) were excluded at this stage.
+
+Next, the proportion of correct responses were compared between grey and colour photographs in order to identify items showing the lowest difference. In order to manipulate colour in later recognition experiments, it was important to select items where naming was congruent across colour/grey items; in other words, it would be difficult to attribute particular recognition response patterns to the addition of colour (if a difference were found) when the grey version could not be identified (or encoded) similarly. Variations exhibiting the least difference between colour and grey items (for the proportion of correct responses) were taken forward, while the rest were excluded. In a number of instances, multiple variations for the same object had the same 'difference' score. For example, all three variations of the item "balloon" exhibited perfect naming agreement, irrespective of whether they were presented in colour or grey (and thus "balloon1", "balloon2", and "balloon3" had a difference score of 0). For items where more than 1 variation remained, manual rankings were obtained from two of the researchers to determine which variation best depicted the intended concept. For each item, the researchers independently studied the remaining variations and provided a rank of which they thought was best (1) to worst (2 or 3, depending on the number of variations that remained). The ratings from both researchers were collated; items where there was agreement as to which variation best depicted the intended concept were selected for inclusion in the final stimuli list. For all the items where there was disagreement between the researchers rankings, one of the variations was simply selected at random.
+
 
 
 \newpage
@@ -3483,8 +3533,8 @@ For FAs assigned Guessing, there was a significant main effect of stimuli format
                      caption = "Spelling corrections / manipulations to naming responses.")
 ```
 
-```{r spelling-corrections, include=FALSE, cache=FALSE}
-spelling_corrections <- read_csv("./resources/spelling_corrections.csv")
+```{r include=FALSE, cache=FALSE}
+    spelling_corrections <- read_csv("./resources/spelling_corrections.csv")
 ```
 `r table_numbering("exp2--spelling-corrections--tablecaption")`
 ```{r spelling-corrections-table, echo=FALSE, cache=FALSE}
@@ -3533,11 +3583,16 @@ spelling_corrections <- read_csv("./resources/spelling_corrections.csv")
 ```  
 
 ```{r norms-table-print, echo=FALSE, cache=TRUE}
+    
+    final_stim_list <- final_stim_list %>%
+      mutate(stim = str_remove(stim, "[1-3]"))
+
     norms %>%
       kable("latex", longtable = T, booktabs = T, linesep = c("", "", "", "", "", "\\addlinespace")) %>%
       kable_styling(bootstrap_options = c("striped","condensed")) %>%
       kable_styling(latex_options = c("repeat_header"), font_size = 6) %>%
       add_header_above(c(" " = 1, "Familiarity" = 2, "Visual Complexity" = 2, 
-                         "Colour Diagnosticity" = 2, "Mental Imagery Agreement" = 2))
-
+                         "Colour Diagnosticity" = 2, "Mental Imagery Agreement" = 2)) %>%
+      pack_rows(index = table(final_stim_list$stim))
+ 
 ```
