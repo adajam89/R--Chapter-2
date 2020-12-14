@@ -380,7 +380,9 @@ There were instances where subjects provided a sensible and correctly spelled En
 
 Finally, there were some responses that were changed to "no" as they were clearly intended to signify that the responder did not know the name of the item shown; the experiment instructed participants to type "no" in these instances, though the labels "none" and "idk" (common abbreviation for "I don't know) were provided instead. There was also a single response that was manually changed to "no", as the provided label was a single letter and thus entirely unclear what the intended answer should be (see Appendix A for full list of manipulations to naming responses). This process yielded data that could be used to determine which photograph variation best matched the intended concepts (e.g. 100% of participants labelled the object “bottle”, indicating a perfect match), and which did not (e.g. only 50% of participants labelled the item “bottle”, whilst the other 50% gave the label “wine”, indicating a poor match). Photographs showing poor agreement across participant-generated labels, or those where the majority of labels differed from the intended concept, could be replaced with the variation demonstrating the most accurate depiction. 
 
-A number of variables were calculated prior to analysis. The output variables for the naming responses included the most frequent name, percentage agreement (proportion of subjects reporting this most frequent name), and the statistic *H*. Like percentage agreement, the *H* statistic (ref) also reflects the naming agreement between participants, however, it also takes into account the number of unique names provided for any given item. A *H* value of 0 indicates perfect naming agreement (all subjects responded alike), whilst a *H* value of 1 shows that two unique names were given, but with identical proportions (i.e. 10 subjects responded with Name A, and 10 subjects responded with Name B). As the *H* value increases, 
+A number of variables were calculated prior to analysis. The output variables for the naming responses included the most frequent name, 
+
+percentage agreement (proportion of subjects reporting this most frequent name), and the statistic *H*. Like percentage agreement, the *H* statistic (ref) also reflects the naming agreement between participants, however, it also takes into account the number of unique names provided for any given item. A *H* value of 0 indicates perfect naming agreement (all subjects responded alike), whilst a *H* value of 1 shows that two unique names were given, but with identical proportions (i.e. 10 subjects responded with Name A, and 10 subjects responded with Name B). As the *H* value increases, 
 
 Mean ratings were calculated for familiarity, visual complexity, colour diagnosticity, and mental imagery agreement. 
 
@@ -949,34 +951,64 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
         mutate(col_sd = str_c("(", col_sd, ")")) %>%
         mutate_all(as.character) %>%
         mutate(Grey = replace_na(Grey, "-")) %>%
-        mutate(grey_sd = replace_na(grey_sd, "-"))
+        mutate(grey_sd = replace_na(grey_sd, "-")) %>%
+        rename(" " = "Variable", "  " = "grey_sd", "   " = "blank", "    " = "col_sd")
+   
+####################################################################################################################
+##   Naming accuracy t-test:                                                                                      ##
+####################################################################################################################     
+    naming_acc <- h_stat_all_items %>%
+        select(stim, prop_correct) %>%
+        ungroup()
+    grey_naming_acc <- naming_acc %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("grey_naming_acc" = "prop_correct") %>%
+        select(-stim)
+    col_naming_acc <- naming_acc %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("col_naming_acc" = "prop_correct") %>%
+        select(-stim)
+    naming_acc__ttest <- t.test(grey_naming_acc, col_naming_acc)
+    apa__naming_acc__ttest <- papaja:::apa_print(naming_acc__ttest)
+      
+    
+
+    
+     
 ```
+
+Naming accuracy was high in both the grey (*M* = ) and colour (*M* = ) photographs, with no significant difference between them [] 
+
+`r apa__naming_acc__ttest$full_result`
 
 
 ## Results
-
 ```{r define-exp2--colvsgreynorms--tablecaption, echo=FALSE, results = FALSE}
     table_numbering(name = "exp2--colvsgreynorms--tablecaption",
                      caption = "Mean (*SD*) scores for each variable by colour and greyscale photographs.")
 ```
+To compare normative data between the grey and colour photographs, a series of independant samples t-tests were run.
+A series of 
+
 ### General analyses
-Mean values for 
+Naming accuracy was high for both grey (94%) and colour (95%) photographs, with no significant difference between the two []
 
 `r table_numbering("exp2--colvsgreynorms--tablecaption")`
 ```{r, echo=FALSE, cache=TRUE}
   colvsgreynorms_table %>%
-      kable("latex", booktabs = T, align = "lrlcrl", col.names = NULL,
+      kable("latex", booktabs = T, align = "lrlcrl", #col.names = NULL,
             linesep = c("", "\\addlinespace", "\\addlinespace", "\\addlinespace", "\\addlinespace")) %>%
       kable_styling(latex_options = "hold_position") %>%
-      add_header_above(c(" ", "Grey" = 2, "", Colour" = 2)) %>%
-      column_spec(1, width = "5.5cm") %>%
-      column_spec(2, width = "1cm") %>%
-      column_spec(3, italic = TRUE, width = "1cm") %>%
-      column_spec(4, width = "2cm") %>%
-      column_spec(5, width = "1cm") %>%
-      column_spec(6, italic = TRUE, width = "1cm")
+      #add_header_above(c(" ", "Grey" = 2, "", "Colour" = 2)) %>%
+      column_spec(1, width = "5.2cm") %>%
+      column_spec(2, width = "0.8cm") %>%
+      column_spec(3, italic = TRUE, width = "0.8cm") %>%
+      column_spec(4, width = "0.8cm") %>%
+      column_spec(5, width = "0.8cm") %>%
+      column_spec(6, italic = TRUE, width = "0.8cm")
 ```
-
 
 
 ### Selection of final items
@@ -2333,27 +2365,27 @@ It is hypothesised that the grey photographs
 ###################################################################################################################
 ## Prep data for analysis:                                               
     grey__anova__PROP.HITS_data <- grey_data %>%
-        select(id, ResponseOption, prop_word_hit, prop_drawing_hit, prop_photo_hit) %>%
+        select(id, resp_option, prop_word_hit, prop_drawing_hit, prop_photo_hit) %>%
         rename(word = "prop_word_hit", drawing = "prop_drawing_hit", photo = "prop_photo_hit") %>%
-        gather(key = "StimuliFormat", value = "hit", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "hit", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__PROP.HITS <- aov_ez("id", "hit", grey__anova__PROP.HITS_data,
-                                       between = "ResponseOption", within = "StimuliFormat")
+                                       between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__PROP.HITS <- papaja:::apa_print.afex_aov(grey__anova__PROP.HITS) 
-        apa__grey__anova__PROP.HITS__stim.format.main.effect <- apa__grey__anova__PROP.HITS$full$StimuliFormat %>%
+        apa__grey__anova__PROP.HITS__stim.format.main.effect <- apa__grey__anova__PROP.HITS$full$stim_format %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-        apa__grey__anova__PROP.HITS__resp.option.main.effect <- apa__grey__anova__PROP.HITS$full$ResponseOption %>%
+        apa__grey__anova__PROP.HITS__resp.option.main.effect <- apa__grey__anova__PROP.HITS$full$resp_option %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-        apa__grey__anova__PROP.HITS__interaction.main.effect <- apa__grey__anova__PROP.HITS$full$ResponseOption_StimuliFormat %>%
+        apa__grey__anova__PROP.HITS__interaction.main.effect <- apa__grey__anova__PROP.HITS$full$resp_option_stim_format %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
@@ -2362,7 +2394,7 @@ It is hypothesised that the grey photographs
 ##  Response-option:  Not significant.
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
-    grey__anova__PROP.HITS__stim.format.means <- emmeans(grey__anova__PROP.HITS, ~ StimuliFormat)
+    grey__anova__PROP.HITS__stim.format.means <- emmeans(grey__anova__PROP.HITS, ~ stim_format)
     grey__anova__PROP.HITS__stim.format.pairwise <- pairs(grey__anova__PROP.HITS__stim.format.means)
     ##  Format pairwise results for use in report:  
         apa__grey__anova__PROP.HITS__stim.format.means <- 
@@ -2392,17 +2424,17 @@ It is hypothesised that the grey photographs
 ##  Interaction:  Not significant.
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Prep data for figure:
-    grey__anova__PROP.HITS__all.means <- emmeans(grey__anova__PROP.HITS, c("ResponseOption", "StimuliFormat"))
+    grey__anova__PROP.HITS__all.means <- emmeans(grey__anova__PROP.HITS, c("resp_option", "stim_format"))
     grey__anova__PROP.HITS__figure.data <- as_tibble(grey__anova__PROP.HITS__all.means) %>%
         select(-df, -lower.CL, -upper.CL)
     
 ##  Prep data for table:  
     grey__anova__PROP.HITS__rfg.totals <- grey_data %>%
-        filter(ResponseOption == "RFG") %>%
+        filter(resp_option == "RFG") %>%
         mutate(total_hit = total_word_hit + total_drawing_hit + total_photo_hit) %>%
         mutate(total_FA = total_word_FA + total_drawing_FA + total_photo_FA)
     grey__anova__PROP.HITS__rfbg.totals <- grey_data %>%
-        filter(ResponseOption == "RFBG") %>%
+        filter(resp_option == "RFBG") %>%
         mutate(total_hit = total_word_hit + total_drawing_hit + total_photo_hit) %>%
         mutate(total_FA = total_word_FA + total_drawing_FA + total_photo_FA)
 
@@ -2447,28 +2479,28 @@ For the proportion of hits, there was a significant main effect of stimuli forma
 ###################################################################################################################
 # Prep data for analysis:                                               
     grey__anova__PROP.FA_data <- grey_data %>%
-        select(id, ResponseOption, prop_word_FA, prop_drawing_FA, prop_photo_FA) %>%
+        select(id, resp_option, prop_word_FA, prop_drawing_FA, prop_photo_FA) %>%
         rename(word = "prop_word_FA", drawing = "prop_drawing_FA", photo = "prop_photo_FA") %>%
-        gather(key = "StimuliFormat", value = "FA", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "FA", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__PROP.FA <- aov_ez("id", "FA", grey__anova__PROP.FA_data,
-                                       between = "ResponseOption", within = "StimuliFormat")
+                                       between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__PROP.FA <- papaja:::apa_print.afex_aov(grey__anova__PROP.FA) 
-        apa__grey__anova__PROP.FA__stim.format.main.effect <- apa__grey__anova__PROP.FA$full$StimuliFormat %>%
+        apa__grey__anova__PROP.FA__stim.format.main.effect <- apa__grey__anova__PROP.FA$full$stim_format %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-        apa__grey__anova__PROP.FA__resp.option.main.effect <- apa__grey__anova__PROP.FA$full$ResponseOption %>%
+        apa__grey__anova__PROP.FA__resp.option.main.effect <- apa__grey__anova__PROP.FA$full$resp_option %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
         apa__grey__anova__PROP.FA__interaction.main.effect <- 
-          apa__grey__anova__PROP.FA$full$ResponseOption_StimuliFormat %>%
+          apa__grey__anova__PROP.FA$full$resp_option_stim_format %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
@@ -2477,7 +2509,7 @@ For the proportion of hits, there was a significant main effect of stimuli forma
 ##  Response-option:  Not significant.
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
-    grey__anova__PROP.FA__stim.format.means <- emmeans(grey__anova__PROP.FA, ~ StimuliFormat)
+    grey__anova__PROP.FA__stim.format.means <- emmeans(grey__anova__PROP.FA, ~ stim_format)
     grey__anova__PROP.FA__stim.format.pairwise <- pairs(grey__anova__PROP.FA__stim.format.means)
     ##  Format pairwise results for use in report:  
         apa__grey__anova__PROP.FA__stim.format.means <- papaja:::apa_print.emmGrid(grey__anova__PROP.FA__stim.format.means)
@@ -2521,27 +2553,27 @@ words (`r apa__grey__anova__PROP.FA__words.mean`) [`r apa__grey__anova__PROP.FA_
 ###################################################################################################################
 ## Prep data for analysis:                                               
     grey__anova__RECOG_data <- grey_data %>%
-        select(id, ResponseOption, word_recog, drawing_recog, photo_recog) %>%
+        select(id, resp_option, word_recog, drawing_recog, photo_recog) %>%
         rename(word = "word_recog", drawing = "drawing_recog", photo = "photo_recog") %>%
-        gather(key = "StimuliFormat", value = "recog", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "recog", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__RECOG <- aov_ez("id", "recog", grey__anova__RECOG_data,
-                                       between = "ResponseOption", within = "StimuliFormat")
+                                       between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__RECOG <- papaja:::apa_print.afex_aov(grey__anova__RECOG) 
-        apa__grey__anova__RECOG__stim.format.main.effect <- apa__grey__anova__RECOG$full$StimuliFormat %>%
+        apa__grey__anova__RECOG__stim.format.main.effect <- apa__grey__anova__RECOG$full$stim_format %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-        apa__grey__anova__RECOG__resp.option.main.effect <- apa__grey__anova__RECOG$full$ResponseOption %>%
+        apa__grey__anova__RECOG__resp.option.main.effect <- apa__grey__anova__RECOG$full$resp_option %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-        apa__grey__anova__RECOG__interaction.main.effect <- apa__grey__anova__RECOG$full$ResponseOption_StimuliFormat %>%
+        apa__grey__anova__RECOG__interaction.main.effect <- apa__grey__anova__RECOG$full$resp_option_stim_format %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
@@ -2550,7 +2582,7 @@ words (`r apa__grey__anova__PROP.FA__words.mean`) [`r apa__grey__anova__PROP.FA_
 ##  Response-option:  Not significant.
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
-    grey__anova__RECOG__stim.format.means <- emmeans(grey__anova__RECOG, ~ StimuliFormat)
+    grey__anova__RECOG__stim.format.means <- emmeans(grey__anova__RECOG, ~ stim_format)
     grey__anova__RECOG__stim.format.pairwise <- pairs(grey__anova__RECOG__stim.format.means)
     ##  Format pairwise results for use in report:  
         apa__grey__anova__RECOG__stim.format.means <- papaja:::apa_print.emmGrid(grey__anova__RECOG__stim.format.means)
@@ -2591,34 +2623,34 @@ words (`r apa__grey__anova__RECOG__words.mean`) [`r apa__grey__anova__RECOG__wor
 ###################################################################################################################
 ## Prep data for analysis:                                               
     grey__anova__D.PRIME_data <- grey_data %>%
-        select(id, ResponseOption, word_d_prime, drawing_d_prime, photo_d_prime) %>%
+        select(id, resp_option, word_d_prime, drawing_d_prime, photo_d_prime) %>%
         rename(word = "word_d_prime", drawing = "drawing_d_prime", photo = "photo_d_prime") %>%
-        gather(key = "StimuliFormat", value = "d.prime", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "d.prime", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__D.PRIME <- aov_ez("id", "d.prime", grey__anova__D.PRIME_data,
-                                   between = "ResponseOption", within = "StimuliFormat")
+                                   between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__D.PRIME <- papaja:::apa_print.afex_aov(grey__anova__D.PRIME) 
-    apa__grey__anova__D.PRIME__stim.format.main.effect <- apa__grey__anova__D.PRIME$full$StimuliFormat %>%
+    apa__grey__anova__D.PRIME__stim.format.main.effect <- apa__grey__anova__D.PRIME$full$stim_format %>%
         str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    apa__grey__anova__D.PRIME__resp.option.main.effect <- apa__grey__anova__D.PRIME$full$ResponseOption %>%
+    apa__grey__anova__D.PRIME__resp.option.main.effect <- apa__grey__anova__D.PRIME$full$resp_option %>%
         str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__D.PRIME__interaction.main.effect <- 
-        apa__grey__anova__D.PRIME$full$ResponseOption_StimuliFormat %>%
+        apa__grey__anova__D.PRIME$full$resp_option_stim_format %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Interaction:
-    grey__anova__D.PRIME__interaction.means <- emmeans(grey__anova__D.PRIME, ~ ResponseOption:StimuliFormat)
+    grey__anova__D.PRIME__interaction.means <- emmeans(grey__anova__D.PRIME, ~ resp_option:stim_format)
     grey__anova__D.PRIME__interaction.pairwise <- pairs(grey__anova__D.PRIME__interaction.means)
     
     ##  Format pairwise results for use in report:  
@@ -2631,19 +2663,19 @@ words (`r apa__grey__anova__RECOG__words.mean`) [`r apa__grey__anova__RECOG__wor
             select(-df, -lower.CL, -upper.CL)
     ##  Create labels for figure (replaces plot legend):
         grey__D.PRIME__interaction.figure.labels <- grey__D.PRIME__interaction.figure.data %>%
-            select(StimuliFormat, ResponseOption, emmean) %>%
-            filter(StimuliFormat == "Photographs") %>%
+            select(stim_format, resp_option, emmean) %>%
+            filter(stim_format == "Photographs") %>%
             mutate(label = case_when(
-            ResponseOption == "RFG" ~ "RFG",
-            ResponseOption == "RFBG" ~ "RFBG")) %>%
-            group_by(StimuliFormat, ResponseOption, label)
+            resp_option == "RFG" ~ "RFG",
+            resp_option == "RFBG" ~ "RFBG")) %>%
+            group_by(stim_format, resp_option, label)
     ##  Interaction figure:
         grey__D.PRIME__interaction.figure <- grey__D.PRIME__interaction.figure.data %>%
             ggplot() +
-            aes(x = StimuliFormat, color = ResponseOption, group = ResponseOption, y = emmean) +
+            aes(x = stim_format, color = resp_option, group = resp_option, y = emmean) +
             stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
             stat_summary(fun.y = mean, geom = "line", size = 1.2) +
-            geom_text(size = 4, aes(label = label, color = ResponseOption), nudge_x = 0.08, hjust = 0,
+            geom_text(size = 4, aes(label = label, color = resp_option), nudge_x = 0.08, hjust = 0,
             data = grey__D.PRIME__interaction.figure.labels) +
             scale_color_manual(values = c('#8ec6c5', '#7d9ab5', '#8566aa')) +
             labs(x = "Stimuli-format", y = "Mean d' scores") +
@@ -2661,11 +2693,11 @@ words (`r apa__grey__anova__RECOG__words.mean`) [`r apa__grey__anova__RECOG__wor
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Prep data for table:  
     grey__anova__D.PRIME__rfg.totals <- grey_data %>%
-        filter(ResponseOption == "RFG") %>%
+        filter(resp_option == "RFG") %>%
         mutate(total_d_prime = word_d_prime + drawing_d_prime + photo_d_prime) %>%
         mutate(total_c = word_c + drawing_c + photo_c)
     grey__anova__D.PRIME__rfbg.totals <- grey_data %>%
-        filter(ResponseOption == "RFBG") %>%
+        filter(resp_option == "RFBG") %>%
         mutate(total_d_prime = word_d_prime + drawing_d_prime + photo_d_prime) %>%
         mutate(total_c = word_c + drawing_c + photo_c)
 
@@ -2745,39 +2777,39 @@ Comparisons of stimuli format across the response-option groups showed that d' s
 ###################################################################################################################
 ## Prep data for analysis:                                               
     grey__anova__C.SCORES_data <- grey_data %>%
-        select(id, ResponseOption, word_c, drawing_c, photo_c) %>%
+        select(id, resp_option, word_c, drawing_c, photo_c) %>%
         rename(word = "word_c", drawing = "drawing_c", photo = "photo_c") %>%
-        gather(key = "StimuliFormat", value = "C.SCORES", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "C.SCORES", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__C.SCORES <- aov_ez("id", "C.SCORES", grey__anova__C.SCORES_data,
-                                    between = "ResponseOption", within = "StimuliFormat")
+                                    between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__C.SCORES <- papaja:::apa_print.afex_aov(grey__anova__C.SCORES) 
-    apa__grey__anova__C.SCORES__stim.format.main.effect <- apa__grey__anova__C.SCORES$full$StimuliFormat %>%
+    apa__grey__anova__C.SCORES__stim.format.main.effect <- apa__grey__anova__C.SCORES$full$stim_format %>%
         str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    apa__grey__anova__C.SCORES__resp.option.main.effect <- apa__grey__anova__C.SCORES$full$ResponseOption %>%
+    apa__grey__anova__C.SCORES__resp.option.main.effect <- apa__grey__anova__C.SCORES$full$resp_option %>%
         str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__C.SCORES__interaction.main.effect <-
-        apa__grey__anova__C.SCORES$full$ResponseOption_StimuliFormat %>%
+        apa__grey__anova__C.SCORES$full$resp_option_stim_format %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
 #-----------------------------------------------------------------------------------------------------------------#
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Response-option:
-    grey__anova__C.SCORES__resp.option.means <- emmeans(grey__anova__C.SCORES, ~ ResponseOption)
+    grey__anova__C.SCORES__resp.option.means <- emmeans(grey__anova__C.SCORES, ~ resp_option)
     grey__anova__C.SCORES__resp.option.pairwise <- pairs(grey__anova__C.SCORES__resp.option.means)  
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
-    grey__anova__C.SCORES__stim.format.means <- emmeans(grey__anova__C.SCORES, ~ StimuliFormat)
+    grey__anova__C.SCORES__stim.format.means <- emmeans(grey__anova__C.SCORES, ~ stim_format)
     grey__anova__C.SCORES__stim.format.pairwise <- pairs(grey__anova__C.SCORES__stim.format.means)
     
     ##  Format pairwise results for use in report:  
@@ -2817,38 +2849,38 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
 ###################################################################################################################
 ##  Prep data for analysis:                                               
     grey__anova__PROP.REC.HITS_data <- grey_data %>%
-        select(id, ResponseOption, prop_word_hit_rec_total, prop_drawing_hit_rec_total, 
+        select(id, resp_option, prop_word_hit_rec_total, prop_drawing_hit_rec_total, 
                prop_photo_hit_rec_total) %>%
         rename(word = "prop_word_hit_rec_total", 
                drawing = "prop_drawing_hit_rec_total",
                photo = "prop_photo_hit_rec_total") %>%
-        gather(key = "StimuliFormat", value = "PROP.REC.HITS", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "PROP.REC.HITS", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__PROP.REC.HITS <- aov_ez("id", "PROP.REC.HITS", grey__anova__PROP.REC.HITS_data,
-                                       between = "ResponseOption", within = "StimuliFormat")
+                                       between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__PROP.REC.HITS <- papaja:::apa_print.afex_aov(grey__anova__PROP.REC.HITS) 
     apa__grey__anova__PROP.REC.HITS__stim.format.main.effect <-
-        apa__grey__anova__PROP.REC.HITS$full$StimuliFormat %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.REC.HITS$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.REC.HITS__resp.option.main.effect <-
-        apa__grey__anova__PROP.REC.HITS$full$ResponseOption %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.REC.HITS$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.REC.HITS__interaction.main.effect <-
-        apa__grey__anova__PROP.REC.HITS$full$ResponseOption_StimuliFormat %>%
+        apa__grey__anova__PROP.REC.HITS$full$resp_option_stim_format %>%
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Interaction:
     grey__anova__PROP.REC.HITS__interaction.means <- 
-        emmeans(grey__anova__PROP.REC.HITS, ~ ResponseOption:StimuliFormat)
+        emmeans(grey__anova__PROP.REC.HITS, ~ resp_option:stim_format)
     grey__anova__PROP.REC.HITS__interaction.pairwise <- pairs(grey__anova__PROP.REC.HITS__interaction.means)
     
     ##  Format pairwise results for use in report:  
@@ -2862,19 +2894,19 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
             select(-df, -lower.CL, -upper.CL)
     ##  Create labels for figure (replaces plot legend):
         grey__PROP.REC.HITS__interaction.figure.labels <- grey__PROP.REC.HITS__interaction.figure.data %>%
-            select(StimuliFormat, ResponseOption, emmean) %>%
-            filter(StimuliFormat == "Photographs") %>%
+            select(stim_format, resp_option, emmean) %>%
+            filter(stim_format == "Photographs") %>%
             mutate(label = case_when(
-            ResponseOption == "RFG" ~ "RFG",
-            ResponseOption == "RFBG" ~ "RFBG")) %>%
-            group_by(StimuliFormat, ResponseOption, label)
+            resp_option == "RFG" ~ "RFG",
+            resp_option == "RFBG" ~ "RFBG")) %>%
+            group_by(stim_format, resp_option, label)
     ##  Interaction figure:
         grey__PROP.REC.HITS__interaction.figure <- grey__PROP.REC.HITS__interaction.figure.data %>%
             ggplot() +
-            aes(x = StimuliFormat, colour = ResponseOption, group = ResponseOption, y = emmean) +
+            aes(x = stim_format, colour = resp_option, group = resp_option, y = emmean) +
             stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
             stat_summary(fun.y = mean, geom = "line", size = 1.2) +
-            geom_text(size = 4, aes(label = label, colour = ResponseOption), nudge_x = 0.08, hjust = 0,
+            geom_text(size = 4, aes(label = label, colour = resp_option), nudge_x = 0.08, hjust = 0,
             data = grey__PROP.REC.HITS__interaction.figure.labels) +
             scale_colour_manual(values = c('#8ec6c5', '#7d9ab5', '#8566aa')) +
             labs(x = "Stimuli-format", y = "Mean proportion of hits assigned:  'Familiarity'") +
@@ -2897,38 +2929,38 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
 ###################################################################################################################
 ## Prep data for analysis:                                               
     grey__anova__PROP.FAM.HITS_data <- grey_data %>%
-        select(id, ResponseOption, prop_word_hit_fam_total, prop_drawing_hit_fam_total,
+        select(id, resp_option, prop_word_hit_fam_total, prop_drawing_hit_fam_total,
                prop_photo_hit_fam_total) %>%
         rename(word = "prop_word_hit_fam_total",
                drawing = "prop_drawing_hit_fam_total",
                photo = "prop_photo_hit_fam_total") %>%
-        gather(key = "StimuliFormat", value = "PROP.FAM.HITS", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "PROP.FAM.HITS", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__PROP.FAM.HITS <- aov_ez("id", "PROP.FAM.HITS", grey__anova__PROP.FAM.HITS_data,
-                                       between = "ResponseOption", within = "StimuliFormat")
+                                       between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__PROP.FAM.HITS <- papaja:::apa_print.afex_aov(grey__anova__PROP.FAM.HITS) 
     apa__grey__anova__PROP.FAM.HITS__stim.format.main.effect <-
-        apa__grey__anova__PROP.FAM.HITS$full$StimuliFormat %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.FAM.HITS$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.FAM.HITS__resp.option.main.effect <-
-        apa__grey__anova__PROP.FAM.HITS$full$ResponseOption %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.FAM.HITS$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.FAM.HITS__interaction.main.effect <-
-        apa__grey__anova__PROP.FAM.HITS$full$ResponseOption_StimuliFormat %>%   
+        apa__grey__anova__PROP.FAM.HITS$full$resp_option_stim_format %>%   
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run post-hoc contrasts:
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Interaction:
     grey__anova__PROP.FAM.HITS__interaction.means <- 
-        emmeans(grey__anova__PROP.FAM.HITS, ~ ResponseOption:StimuliFormat)
+        emmeans(grey__anova__PROP.FAM.HITS, ~ resp_option:stim_format)
     grey__anova__PROP.FAM.HITS__interaction.pairwise <- pairs(grey__anova__PROP.FAM.HITS__interaction.means)
     
     ##  Format pairwise results for use in report:  
@@ -2942,19 +2974,19 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
             select(-df, -lower.CL, -upper.CL)
     ##  Create labels for figure (replaces plot legend):
         grey__PROP.FAM.HITS__interaction.figure.labels <- grey__PROP.FAM.HITS__interaction.figure.data %>%
-            select(StimuliFormat, ResponseOption, emmean) %>%
-            filter(StimuliFormat == "Photographs") %>%
+            select(stim_format, resp_option, emmean) %>%
+            filter(stim_format == "Photographs") %>%
             mutate(label = case_when(
-            ResponseOption == "RFG" ~ "RFG",
-            ResponseOption == "RFBG" ~ "RFBG")) %>%
-            group_by(StimuliFormat, ResponseOption, label)
+            resp_option == "RFG" ~ "RFG",
+            resp_option == "RFBG" ~ "RFBG")) %>%
+            group_by(stim_format, resp_option, label)
     ##  Interaction figure:
         grey__PROP.FAM.HITS__interaction.figure <- grey__PROP.FAM.HITS__interaction.figure.data %>%
             ggplot() +
-            aes(x = StimuliFormat, colour = ResponseOption, group = ResponseOption, y = emmean) +
+            aes(x = stim_format, colour = resp_option, group = resp_option, y = emmean) +
             stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
             stat_summary(fun.y = mean, geom = "line", size = 1.2) +
-            geom_text(size = 4, aes(label = label, colour = ResponseOption), nudge_x = 0.08, hjust = 0,
+            geom_text(size = 4, aes(label = label, colour = resp_option), nudge_x = 0.08, hjust = 0,
             data = grey__PROP.FAM.HITS__interaction.figure.labels) +
             scale_colour_manual(values = c('#8ec6c5', '#7d9ab5', '#8566aa')) +
             labs(x = "Stimuli-format", y = "Mean proportion of hits assigned:  'Familiarity'") +
@@ -2977,30 +3009,30 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
 ###################################################################################################################
 ## Prep data for analysis:                                               
     grey__anova__PROP.GUESS.HITS_data <- grey_data %>%
-        select(id, ResponseOption, prop_word_hit_guess, prop_drawing_hit_guess, prop_photo_hit_guess) %>%
+        select(id, resp_option, prop_word_hit_guess, prop_drawing_hit_guess, prop_photo_hit_guess) %>%
         rename(word = "prop_word_hit_guess",
                drawing = "prop_drawing_hit_guess",
                photo = "prop_photo_hit_guess") %>%
-        gather(key = "StimuliFormat", value = "PROP.GUESS.HITS", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "PROP.GUESS.HITS", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__PROP.GUESS.HITS <- aov_ez("id", "PROP.GUESS.HITS", grey__anova__PROP.GUESS.HITS_data,
-                                       between = "ResponseOption", within = "StimuliFormat")
+                                       between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__PROP.GUESS.HITS <- papaja:::apa_print.afex_aov(grey__anova__PROP.GUESS.HITS) 
     apa__grey__anova__PROP.GUESS.HITS__stim.format.main.effect <- 
-        apa__grey__anova__PROP.GUESS.HITS$full$StimuliFormat %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.GUESS.HITS$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.GUESS.HITS__resp.option.main.effect <- 
-        apa__grey__anova__PROP.GUESS.HITS$full$ResponseOption %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.GUESS.HITS$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.GUESS.HITS__interaction.main.effect <-
-        apa__grey__anova__PROP.GUESS.HITS$full$ResponseOption_StimuliFormat %>% 
+        apa__grey__anova__PROP.GUESS.HITS$full$resp_option_stim_format %>% 
             str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run post-hoc contrasts:
@@ -3009,7 +3041,7 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
 ##  Response-option:  Not significant.
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
-    grey__anova__PROP.GUESS.HITS__stim.format.means <- emmeans(grey__anova__PROP.GUESS.HITS, ~ StimuliFormat)
+    grey__anova__PROP.GUESS.HITS__stim.format.means <- emmeans(grey__anova__PROP.GUESS.HITS, ~ stim_format)
     grey__anova__PROP.GUESS.HITS__stim.format.pairwise <- 
         pairs(grey__anova__PROP.GUESS.HITS__stim.format.means)
     
@@ -3044,17 +3076,17 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
 ###################################################################################################################
 ##  Prep data for figures:  
     grey__PROP.REC.HITS__figure.data <- 
-        as.tibble(emmeans(grey__anova__PROP.REC.HITS, ~ ResponseOption:StimuliFormat)) %>%
+        as.tibble(emmeans(grey__anova__PROP.REC.HITS, ~ resp_option:stim_format)) %>%
         select(-df, -lower.CL, -upper.CL)
     grey__PROP.FAM.HITS__figure.data <- 
-        as.tibble(emmeans(grey__anova__PROP.FAM.HITS, ~ ResponseOption:StimuliFormat)) %>%
+        as.tibble(emmeans(grey__anova__PROP.FAM.HITS, ~ resp_option:stim_format)) %>%
         select(-df, -lower.CL, -upper.CL)
     grey__PROP.GUESS.HITS__figure.data <- 
-        as.tibble(emmeans(grey__anova__PROP.GUESS.HITS, ~ ResponseOption:StimuliFormat)) %>%
+        as.tibble(emmeans(grey__anova__PROP.GUESS.HITS, ~ resp_option:stim_format)) %>%
         select(-df, -lower.CL, -upper.CL)
       
     grey__PROP.REC.FAM.GUESS.HITS__figure.data <- 
-      tribble(~"ResponseOption", ~"StimuliFormat", ~"rfg", ~"emmean", ~"SE",
+      tribble(~"resp_option", ~"stim_format", ~"rfg", ~"emmean", ~"SE",
         as.character(pull(grey__PROP.REC.HITS__figure.data[1,1])), ... = 
         as.character(pull(grey__PROP.REC.HITS__figure.data[1,2])), "Recollection",
         as.double(pull(grey__PROP.REC.HITS__figure.data[1,3])), 
@@ -3127,20 +3159,20 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
         as.character(pull(grey__PROP.GUESS.HITS__figure.data[6,2])), "Guessing",
         as.double(pull(grey__PROP.GUESS.HITS__figure.data[6,3])), 
         as.double(pull(grey__PROP.GUESS.HITS__figure.data[6,4]))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG"))) %>%
         transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings", "Photographs")))
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings", "Photographs")))
 
 ##  Prep data for figures:  
     grey__PROP.REC.FAM.GUESS.HITS__figure <-
-        ggplot(grey__PROP.REC.FAM.GUESS.HITS__figure.data, aes(x = StimuliFormat, y = emmean, fill = rfg)) +
+        ggplot(grey__PROP.REC.FAM.GUESS.HITS__figure.data, aes(x = stim_format, y = emmean, fill = rfg)) +
         scale_fill_manual("legend", values = c("Recollection" = "#1B4251", 
                                                "Familiarity" = "#6A6C93", 
                                                "Guessing" = "#D491CA")) + 
         geom_col(position = position_dodge()) +
         geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), 
                       width = 0.2, size = 0.3, position = position_dodge(0.9)) +
-        facet_wrap(~ResponseOption, strip.position = "bottom") +
+        facet_wrap(~resp_option, strip.position = "bottom") +
         labs(x = "Response-option condition", y = "Mean proportion of hits") +
         scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
         theme_classic() +    # Removes grey background and grid lines. 
@@ -3225,30 +3257,30 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
 ###################################################################################################################
 ## Prep data for analysis:                                               
     grey__anova__PROP.REC.FA_data <- grey_data %>%
-        select(id, ResponseOption, prop_word_FA_rec_total, prop_drawing_FA_rec_total, prop_photo_FA_rec_total) %>%
+        select(id, resp_option, prop_word_FA_rec_total, prop_drawing_FA_rec_total, prop_photo_FA_rec_total) %>%
         rename(word = "prop_word_FA_rec_total", 
                drawing = "prop_drawing_FA_rec_total", 
                photo = "prop_photo_FA_rec_total") %>%
-        gather(key = "StimuliFormat", value = "PROP.REC.FA", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "PROP.REC.FA", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__PROP.REC.FA <- aov_ez("id", "PROP.REC.FA", grey__anova__PROP.REC.FA_data,
-                                         between = "ResponseOption", within = "StimuliFormat")
+                                         between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__PROP.REC.FA <- papaja:::apa_print.afex_aov(grey__anova__PROP.REC.FA) 
     apa__grey__anova__PROP.REC.FA__stim.format.main.effect <-
-        apa__grey__anova__PROP.REC.FA$full$StimuliFormat %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.REC.FA$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.REC.FA__resp.option.main.effect <-
-        apa__grey__anova__PROP.REC.FA$full$ResponseOption %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.REC.FA$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.REC.FA__interaction.main.effect <-
-        apa__grey__anova__PROP.REC.FA$full$ResponseOption_StimuliFormat %>% 
+        apa__grey__anova__PROP.REC.FA$full$resp_option_stim_format %>% 
         str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run post-hoc contrasts:
@@ -3266,36 +3298,36 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
 ###################################################################################################################
 ## Prep data for analysis:                                               
     grey__anova__PROP.FAM.FA_data <- grey_data %>%
-        select(id, ResponseOption, prop_word_FA_fam_total, prop_drawing_FA_fam_total, prop_photo_FA_fam_total) %>%
+        select(id, resp_option, prop_word_FA_fam_total, prop_drawing_FA_fam_total, prop_photo_FA_fam_total) %>%
         rename(word = "prop_word_FA_fam_total",
                drawing = "prop_drawing_FA_fam_total",
                photo = "prop_photo_FA_fam_total") %>%
-        gather(key = "StimuliFormat", value = "PROP.FAM.FA", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "PROP.FAM.FA", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__PROP.FAM.FA <- aov_ez("id", "PROP.FAM.FA", grey__anova__PROP.FAM.FA_data,
-                                       between = "ResponseOption", within = "StimuliFormat")
+                                       between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__PROP.FAM.FA <- papaja:::apa_print.afex_aov(grey__anova__PROP.FAM.FA) 
     apa__grey__anova__PROP.FAM.FA__stim.format.main.effect <-
-        apa__grey__anova__PROP.FAM.FA$full$StimuliFormat %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.FAM.FA$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.FAM.FA__resp.option.main.effect <-
-        apa__grey__anova__PROP.FAM.FA$full$ResponseOption %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.FAM.FA$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.FAM.FA__interaction.main.effect <-
-        apa__grey__anova__PROP.FAM.FA$full$ResponseOption_StimuliFormat %>%   
+        apa__grey__anova__PROP.FAM.FA$full$resp_option_stim_format %>%   
         str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run post-hoc contrasts:
 ##  Interaction:
     grey__anova__PROP.FAM.FA__interaction.means <- 
-        emmeans(grey__anova__PROP.FAM.FA, ~ ResponseOption:StimuliFormat)
+        emmeans(grey__anova__PROP.FAM.FA, ~ resp_option:stim_format)
     grey__anova__PROP.FAM.FA__interaction.pairwise <- pairs(grey__anova__PROP.FAM.FA__interaction.means)
     
     ##  Format pairwise results for use in report:  
@@ -3309,19 +3341,19 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
             select(-df, -lower.CL, -upper.CL)
     ##  Create labels for figure (replaces plot legend):
         grey__PROP.FAM.FA__interaction.figure.labels <- grey__PROP.FAM.FA__interaction.figure.data %>%
-            select(StimuliFormat, ResponseOption, emmean) %>%
-            filter(StimuliFormat == "Photographs") %>%
+            select(stim_format, resp_option, emmean) %>%
+            filter(stim_format == "Photographs") %>%
             mutate(label = case_when(
-            ResponseOption == "RFG" ~ "RFG",
-            ResponseOption == "RFBG" ~ "RFBG")) %>%
-            group_by(StimuliFormat, ResponseOption, label)
+            resp_option == "RFG" ~ "RFG",
+            resp_option == "RFBG" ~ "RFBG")) %>%
+            group_by(stim_format, resp_option, label)
     ##  Interaction figure:
         grey__PROP.FAM.FA__interaction.figure <- grey__PROP.FAM.FA__interaction.figure.data %>%
             ggplot() +
-            aes(x = StimuliFormat, colour = ResponseOption, group = ResponseOption, y = emmean) +
+            aes(x = stim_format, colour = resp_option, group = resp_option, y = emmean) +
             stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
             stat_summary(fun.y = mean, geom = "line", size = 1.2) +
-            geom_text(size = 4, aes(label = label, colour = ResponseOption), nudge_x = 0.08, hjust = 0,
+            geom_text(size = 4, aes(label = label, colour = resp_option), nudge_x = 0.08, hjust = 0,
             data = grey__PROP.FAM.FA__interaction.figure.labels) +
             scale_colour_manual(values = c('#8ec6c5', '#7d9ab5', '#8566aa')) +
             labs(x = "Stimuli-format", y = "Mean proportion of FA assigned:  'Familiarity'") +
@@ -3344,28 +3376,28 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
 ###################################################################################################################
 ## Prep data for analysis:                                               
     grey__anova__PROP.GUESS.FA_data <- grey_data %>%
-        select(id, ResponseOption, prop_word_FA_guess, prop_drawing_FA_guess, prop_photo_FA_guess) %>%
+        select(id, resp_option, prop_word_FA_guess, prop_drawing_FA_guess, prop_photo_FA_guess) %>%
         rename(word = "prop_word_FA_guess", drawing = "prop_drawing_FA_guess", photo = "prop_photo_FA_guess") %>%
-        gather(key = "StimuliFormat", value = "PROP.GUESS.FA", word, drawing, photo) %>%
-        mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "drawing", "Drawings")) %>%
-        mutate(StimuliFormat = str_replace(StimuliFormat, "photo", "Photographs")) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings","Photographs"))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG")))
+        gather(key = "stim_format", value = "PROP.GUESS.FA", word, drawing, photo) %>%
+        mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+        mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+        mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+        mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run 2-way mixed ANOVA:
     grey__anova__PROP.GUESS.FA <- aov_ez("id", "PROP.GUESS.FA", grey__anova__PROP.GUESS.FA_data,
-                                           between = "ResponseOption", within = "StimuliFormat")
+                                           between = "resp_option", within = "stim_format")
     
 ##  Format ANOVA main effects for use in report:  
     apa__grey__anova__PROP.GUESS.FA <- papaja:::apa_print.afex_aov(grey__anova__PROP.GUESS.FA) 
     apa__grey__anova__PROP.GUESS.FA__stim.format.main.effect <-
-        apa__grey__anova__PROP.GUESS.FA$full$StimuliFormat %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.GUESS.FA$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.GUESS.FA__resp.option.main.effect <-
-        apa__grey__anova__PROP.GUESS.FA$full$ResponseOption %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+        apa__grey__anova__PROP.GUESS.FA$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
     apa__grey__anova__PROP.GUESS.FA__interaction.main.effect <-
-        apa__grey__anova__PROP.GUESS.FA$full$ResponseOption_StimuliFormat %>%
+        apa__grey__anova__PROP.GUESS.FA$full$resp_option_stim_format %>%
         str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Run post-hoc contrasts:
@@ -3373,7 +3405,7 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
 ##  Response-option:  Not significant.
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
-    grey__anova__PROP.GUESS.FA__stim.format.means <- emmeans(grey__anova__PROP.GUESS.FA, ~ StimuliFormat)
+    grey__anova__PROP.GUESS.FA__stim.format.means <- emmeans(grey__anova__PROP.GUESS.FA, ~ stim_format)
     grey__anova__PROP.GUESS.FA__stim.format.pairwise <- pairs(grey__anova__PROP.GUESS.FA__stim.format.means)
     ##  Format pairwise results for use in report:  
         apa__grey__anova__PROP.GUESS.FA__stim.format.means <- 
@@ -3406,17 +3438,17 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
 ###################################################################################################################
 ##  Prep data for figures:  
     grey__PROP.REC.FA__figure.data <- 
-        as.tibble(emmeans(grey__anova__PROP.REC.FA, ~ ResponseOption:StimuliFormat)) %>%
+        as.tibble(emmeans(grey__anova__PROP.REC.FA, ~ resp_option:stim_format)) %>%
         select(-df, -lower.CL, -upper.CL)
     grey__PROP.FAM.FA__figure.data <- 
-        as.tibble(emmeans(grey__anova__PROP.FAM.FA, ~ ResponseOption:StimuliFormat)) %>%
+        as.tibble(emmeans(grey__anova__PROP.FAM.FA, ~ resp_option:stim_format)) %>%
         select(-df, -lower.CL, -upper.CL)
     grey__PROP.GUESS.FA__figure.data <- 
-        as.tibble(emmeans(grey__anova__PROP.GUESS.FA, ~ ResponseOption:StimuliFormat)) %>%
+        as.tibble(emmeans(grey__anova__PROP.GUESS.FA, ~ resp_option:stim_format)) %>%
         select(-df, -lower.CL, -upper.CL)
       
     grey__PROP.REC.FAM.GUESS.FA__figure.data <- 
-        tribble(~"ResponseOption", ~"StimuliFormat", ~"rfg", ~"emmean", ~"SE",
+        tribble(~"resp_option", ~"stim_format", ~"rfg", ~"emmean", ~"SE",
         as.character(pull(grey__PROP.REC.FA__figure.data[1,1])),
         as.character(pull(grey__PROP.REC.FA__figure.data[1,2])), "Recollection",
         as.double(pull(grey__PROP.REC.FA__figure.data[1,3])),
@@ -3489,20 +3521,20 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
         as.character(pull(grey__PROP.GUESS.FA__figure.data[6,2])), "Guessing",
         as.double(pull(grey__PROP.GUESS.FA__figure.data[6,3])),
         as.double(pull(grey__PROP.GUESS.FA__figure.data[6,4]))) %>%
-        transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG"))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG"))) %>%
         transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
-        transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Drawings", "Photographs")))
+        transform(stim_format = factor(stim_format, levels=c("Words","Drawings", "Photographs")))
 
 ##  Prep data for figures:  
     grey__PROP.REC.FAM.GUESS.FA__figure <-
-        ggplot(grey__PROP.REC.FAM.GUESS.FA__figure.data, aes(x = StimuliFormat, y = emmean, fill = rfg)) +
+        ggplot(grey__PROP.REC.FAM.GUESS.FA__figure.data, aes(x = stim_format, y = emmean, fill = rfg)) +
         scale_fill_manual("legend",values = c("Recollection" = "#1B4251", 
                                               "Familiarity" = "#6A6C93", 
                                               "Guessing" = "#D491CA")) + 
         geom_col(position = position_dodge()) +
         geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), 
                       width = 0.2, size = 0.3, position = position_dodge(0.9)) +
-        facet_wrap(~ResponseOption, strip.position = "bottom") +
+        facet_wrap(~resp_option, strip.position = "bottom") +
         labs(x = "Response-option condition", y = "Mean proportion of FA") +
         scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
         theme_classic() +    # Removes grey background and grid lines. 
