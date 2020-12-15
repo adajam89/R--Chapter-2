@@ -30,7 +30,7 @@ header-includes:
 #- \usepackage{float}
 ---
 
-```{r load-packages, include=FALSE, cache=FALSE}
+```{r load-packages, include=FALSE, cache=TRUE}
 rm(list=ls())  
 # List required packages:
     required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", 
@@ -244,7 +244,7 @@ exp_2_participants <- raw_data %>%
 
 \newpage
 ## Method
-```{r exp2--age-gender--tablecaption, echo=FALSE, results = FALSE}
+```{r exp2--age-gender--tablecaption, echo=FALSE, results = FALSE, cache=TRUE}
     table_numbering(name = "exp2--age-gender--tablecaption", 
                      caption = "Gender and age (*SD*) of the current sample.")
 ```
@@ -301,7 +301,7 @@ To meet our YA requirements, all participants were required to be aged between 1
 ### Materials
 A pool of 136 line drawings [@rossion2004] - depicting common, everyday objects - were brought forward from the previous experiment. These items (along with their written-word labels) would form two of the unique stimuli formats that would be used in future recognition experiments (words and drawings). In this study, the drawings from @rossion2004 were simply used as a reference in the photograph matching process. Corresponding photographs were obtained online with the aim of depicting the everyday objects in a similar manner to the drawings. The inherent subjectivity involved in this process may have led to images that were not a reliable ‘match’ to the concepts they were selected to depict (for example, the photograph chosen to depict the concept “bottle” may inadvertently provoke the majority of participants to give the label "wine", thus indicating that this particular photograph fails to accurately depict the intended concept). To address this issue, and ensure all photographs more objectively depict the same concepts as the line drawings, three different photograph variations were found for each everyday object, with the aim of taking the best ‘match’ forward. An emphasis was placed on variety across these variations, with the aim of obtaining at least one photograph that very closely resembled the line-drawn depiction, and another offering a more modern depiction. Some items were substituted due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs that depicted the same everyday objects as the line drawings (see Appendix B for the full list of image references). 
 
-```{r exp2--stim-examples--caption, echo=FALSE, results = FALSE}
+```{r exp2--stim-examples--caption, echo=FALSE, results = FALSE, cache=TRUE}
     figure_numbering(name = "exp2--stim-examples--caption",
                      caption = "Example pictures from @snodgrass1980, @rossion2004, and photographs from the current study selected to match.")
 ```
@@ -318,7 +318,7 @@ A pool of 136 line drawings [@rossion2004] - depicting common, everyday objects 
 
 The matching process produced a total of 408 unique photographs. All were imported into Adobe Photoshop (20.0.04 Release), where the background was removed to isolate the object of interest from other potentially distracting visual details. This was completed manually using the magnetic lasso and polygonal lasso tools (edges were either feathered by 1px or left un-feathered). The orientation of isolated objects was adjusted to ensure they matched as closely as possible with their line-drawn counterpart (e.g. all photograph variations of the item 'boot' were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
 
-```{r define-photo-manipulation-caption, echo=FALSE, results = FALSE}
+```{r define-photo-manipulation-caption, echo=FALSE, results = FALSE, cache=TRUE}
     figure_numbering(name = "photo-manipulation-examples",
                      caption = "Examples of background and text removal in photograph items.")
 ```
@@ -357,7 +357,7 @@ Due to the slight change in procedure and increased task complexity, Mental Imag
 
 All responses were self-paced; the timing was only controlled during the study/imagine section of the Mental Imagery Agreement block.
 
-```{r define-men-ima-procedure-caption, echo=FALSE, results = FALSE}
+```{r define-men-ima-procedure-caption, echo=FALSE, results = FALSE, cache=TRUE}
     figure_numbering(name = "men_ima_procedure",
                      caption = "Data collection procedure for Mental Imagery Agreement responses.")
 ```
@@ -831,14 +831,7 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
         select(object, subjects, value) %>%
         rename("krippendorffs_alpha" = value, "variations" = subjects, "concept" = object)
 
-# Has to be run for each object. Still say how many items we disagreed on, here's some examples (they were v similar). 
-# we tried to do it objectively, BUT.... we know % is shitty but,.....
-# it's all we needd for our reference.
-# sometimes 3 items, sometimes 2. All items were 100% rated in naming...V difficult to decide on best as "good" items were all so similar. 
 
-    
-        #t-test:
-        #mutate(stim = str_remove(stim, "^(.*?-.*?)-")) %>%
     #fam_summary <- fam %>%
     #    get_summary_stats(familiarity, type = "mean_sd")
     #fam_plot <- ggqqplot(fam, x = "familiarity", facet.by = "stim")
@@ -972,28 +965,69 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
         select(-stim)
     naming_acc__ttest <- t.test(grey_naming_acc, col_naming_acc)
     apa__naming_acc__ttest <- papaja:::apa_print(naming_acc__ttest)
-      
-    
-
-    
-     
+    mean_naming_acc <- naming_acc %>% pull() %>% mean() %>% round(2) 
+    mean_grey_naming_acc <- grey_naming_acc %>% pull() %>% mean() %>% round(2) 
+    mean_col_naming_acc <- col_naming_acc %>% pull() %>% mean() %>% round(2)
+####################################################################################################################
+##   H-stat t-test:                                                                                               ##
+####################################################################################################################     
+    H_stat <- h_stat_all_items %>%
+        select(stim, H) %>%
+        ungroup()
+    grey_H_stat <- H_stat %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("grey_H" = "H") %>%
+        select(-stim)
+    col_H_stat <- H_stat %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("col_H" = "H") %>%
+        select(-stim)
+    H_stat__ttest <- t.test(grey_H_stat, col_H_stat)
+    apa__H_stat__ttest <- papaja:::apa_print(H_stat__ttest)
+    mean_H_stat <- H_stat %>% pull() %>% mean() %>% round(2) 
+    mean_grey_H_stat <- grey_H_stat %>% pull() %>% mean() %>% round(2) 
+    mean_col_H_stat <- col_H_stat %>% pull() %>% mean() %>% round(2)
+####################################################################################################################
+##   Mental imagery agreement t-test:                                                                             ##
+####################################################################################################################     
+    men_ima <- results_norms %>%
+        select(stim, mentalimageryagreement_mean) %>%
+        ungroup()
+    grey_men_ima <- men_ima %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("grey_men_ima" = "mentalimageryagreement_mean") %>%
+        select(-stim)
+    col_men_ima <- men_ima %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("col_men_ima" = "mentalimageryagreement_mean") %>%
+        select(-stim)
+    men_ima__ttest <- t.test(grey_men_ima, col_men_ima)
+    apa__men_ima__ttest <- papaja:::apa_print(men_ima__ttest)
+    mean_men_ima <- men_ima %>% pull() %>% mean() %>% round(2) 
+    mean_grey_men_ima <- grey_men_ima %>% pull() %>% mean() %>% round(2) 
+    mean_col_men_ima <- col_men_ima %>% pull() %>% mean() %>% round(2)
 ```
 
-Naming accuracy was high in both the grey (*M* = ) and colour (*M* = ) photographs, with no significant difference between them [] 
-
-`r apa__naming_acc__ttest$full_result`
-
-
 ## Results
-```{r define-exp2--colvsgreynorms--tablecaption, echo=FALSE, results = FALSE}
+```{r define-exp2--colvsgreynorms--tablecaption, echo=FALSE, results = FALSE, cache=TRUE}
     table_numbering(name = "exp2--colvsgreynorms--tablecaption",
-                     caption = "Mean (*SD*) scores for each variable by colour and greyscale photographs.")
+                     caption = "Summary statistics (mean and *SD*) for each of the measured variables, by colour and greyscale items.")
 ```
 To compare normative data between the grey and colour photographs, a series of independant samples t-tests were run.
 A series of 
 
 ### General analyses
-Naming accuracy was high for both grey (94%) and colour (95%) photographs, with no significant difference between the two []
+Naming accuracy was very high across all items (*M* = `r mean_naming_acc`), indicating that overall, the selected photographs accurately depicted the intended concepts. Accuracy was the same between the grey (*M* = `r mean_grey_naming_acc`) and colour (*M* = `r mean_col_naming_acc`) versions of the photographs [`r apa__naming_acc__ttest$statistic`]. Overall *H* values were low (*M* = `r mean_H_stat`), similarly indicating a good level of naming agreement across all items. While @rossion2004 observed significantly better naming agreement for their colour items in comparison to their grey items, the same pattern was not replicated when comparing the colour photographs (*M* = `r mean_col_H_stat`) to the grey photographs (*M* = `r mean_grey_H_stat`) in the current study [`r apa__H_stat__ttest$statistic`]. 
+
+Scores of mental imagery agreement (*M* = `r mean_men_ima`),
+[`r apa__men_ima__ttest$statistic`]
+
+
+
 
 `r table_numbering("exp2--colvsgreynorms--tablecaption")`
 ```{r, echo=FALSE, cache=TRUE}
@@ -2219,26 +2253,14 @@ Next, the proportion of correct responses were compared between grey and colour 
 ##  Remove these participants from 'final_data':
     final_data <- final_data %>%
         filter(!id %in% p_to_exclude) %>%
-        mutate(resp_option = toupper(resp_option))
-
-###################################################################################################################
-##                                                                                                               ##
-##    Experiment 3 (grey):                                                                                       ##
-##                                                                                                               ##
-###################################################################################################################
+        mutate(resp_option = toupper(resp_option)) %>%
+        mutate(age = na_if(age, 0))
+##    Experiment 3 (grey):
     grey_data <- final_data %>%
         filter(col_or_grey == "grey")
-  write.csv(grey_data,'~/Desktop/grey_data.csv', row.names = FALSE)
-
-###################################################################################################################
-##                                                                                                               ##
-##    Experiment 4 (colour):                                                                                     ##
-##                                                                                                               ##
-###################################################################################################################
+##    Experiment 4 (colour):
     colour_data <- final_data %>%
         filter(col_or_grey == "col")
-    write.csv(colour_data,'~/Desktop/colour_data.csv', row.names = FALSE)
-
 ###################################################################################################################
 ##                                                                                                               ##
 ##   Reaction times:                                                                                             ##
@@ -2262,7 +2284,7 @@ Common, everyday objects will be presented in: i) word form (written in simple, 
 To our knowledge, no study has systematically matched items across a number of formats in an effort to determine the point at which stimuli distinctiveness impacts recognition. 
 
 ## Method
-```{r exp3--age-gender--tablecaption, echo=FALSE, results = FALSE}
+```{r exp3--age-gender--tablecaption, echo=FALSE, results = FALSE, cache=TRUE}
     table_numbering(name = "exp3--age-gender--tablecaption", 
                      caption = "Gender and age (*SD*) of the current sample.")
 ```
@@ -2345,16 +2367,7 @@ It is hypothesised that the grey photographs
 
 \newpage
 ## Results
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
-###################################################################################################################
-##                                                                                                               ##
-##    Experiment 3 - Analysis prep:                                                                              ##
-##                                                                                                               ##
-###################################################################################################################
-    grey_data <- grey_data %>%  
-      rename(ResponseOption = "resp_option") %>%
-      mutate(age = na_if(age, 0))
-```
+
 
 ### Overall hits, false alarms (FAs), and recognition
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -2451,7 +2464,7 @@ It is hypothesised that the grey photographs
         column_to_rownames(var = "Stim")
 ```
 
-```{r exp3--prop-hits-and-FAs--tablecaption, echo=FALSE, results = FALSE}
+```{r exp3--prop-hits-and-FAs--tablecaption, echo=FALSE, results = FALSE, cache=TRUE}
     table_numbering(name = "exp3--prop-hits-and-FAs--tablecaption",
                      caption = "Mean proportion of hits and FAs by stimuli format and response-option condition.")
 ```
@@ -2758,12 +2771,12 @@ Comparisons of stimuli format across the response-option groups showed that d' s
 
 &nbsp;
 
-```{r exp3--dprime-interaction--figurecaption, echo=FALSE, results = FALSE}
+```{r exp3--dprime-interaction--figurecaption, echo=FALSE, results = FALSE, cache=TRUE}
     figure_numbering(name = "exp3--dprime-interaction--figurecaption",
                      caption = "Interaction plot between stimuli format and response-option for d' scores.")
 ```
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE}
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
     grey__D.PRIME__interaction.figure
 ```
 `r figure_numbering("exp3--dprime-interaction--figurecaption")`
@@ -3192,7 +3205,7 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
             plot.margin = margin(20, 20, 24, 30))
 ```
 
-```{r exp3--prop-rec-fam-guess-hits--figurecaption, echo=FALSE, results = FALSE}
+```{r exp3--prop-rec-fam-guess-hits--figurecaption, echo=FALSE, results = FALSE, cache=TRUE}
     figure_numbering(name = "exp3--prop-rec-fam-guess-hits--figurecaption",
                      caption = "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.")
 ```
@@ -3200,14 +3213,14 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
 ### Hits assigned Recollection, Familiarity, and Guessing
 To determine the effects of stimuli format and response-option on accurate recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response-option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp3--prop-rec-fam-guess-hits--figurecaption", display = "cite")`).
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE}
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
 grey__PROP.REC.FAM.GUESS.HITS__figure
 ```
 `r figure_numbering("exp3--prop-rec-fam-guess-hits--figurecaption")`
 
 
 
-```{r exp3--prop-rec-hits--figurecaption, echo=FALSE, results = FALSE}
+```{r exp3--prop-rec-hits--figurecaption, echo=FALSE, results = FALSE, cache=TRUE}
     figure_numbering(name = "exp3--prop-rec-hits--figurecaption",
                      caption = "Interaction plot between stimuli format and response-option for the mean proportion of hits assigned Recollection.")
 ```
@@ -3221,12 +3234,12 @@ Comparisons of stimuli format across the response-option groups showed no differ
 
 &nbsp;
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE}
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
 grey__PROP.REC.HITS__interaction.figure
 ```
 `r figure_numbering("exp3--prop-rec-hits--figurecaption")`
 
-```{r exp3--prop-fam-hits--figurecaption, echo=FALSE, results = FALSE}
+```{r exp3--prop-fam-hits--figurecaption, echo=FALSE, results = FALSE, cache=TRUE}
     figure_numbering(name = "exp3--prop-fam-hits--figurecaption",
                      caption = "Interaction plot between stimuli format and response-option for the mean proportion of hits assigned 'Familiarity'.")
 ```
@@ -3240,7 +3253,7 @@ Comparisons across response-option conditions showed that drawings produced sign
 
 &nbsp;
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE}
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
 grey__PROP.FAM.HITS__interaction.figure
 ```
 `r figure_numbering("exp3--prop-fam-hits--figurecaption")`
@@ -3554,7 +3567,7 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
             plot.margin = margin(20, 20, 24, 30))
 ```
 
-```{r exp3--prop-rec-fam-guess-FA--figurecaption, echo=FALSE, results = FALSE}
+```{r exp3--prop-rec-fam-guess-FA--figurecaption, echo=FALSE, results = FALSE, cache=TRUE}
     figure_numbering(name = "exp3--prop-rec-fam-guess-FA--figurecaption",
                      caption = "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response-option condition.")
 ```
@@ -3562,7 +3575,7 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
 ### FAs assigned Recollection, Familiarity, and Guessing
 To determine the effects of stimuli format and response-option on false alarms, separate 3 (stimuli format: words, drawings, photographs) x 2 (response-option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of FAs assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp3--prop-rec-fam-guess-FA--figurecaption", display = "cite")`).
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE}
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
 grey__PROP.REC.FAM.GUESS.FA__figure
 ```
 `r figure_numbering("exp3--prop-rec-fam-guess-FA--figurecaption")`
@@ -3570,7 +3583,7 @@ grey__PROP.REC.FAM.GUESS.FA__figure
 #### Recollection (FAs)
 For FAs assigned Recollection, there was no significant main effect of stimuli format [`r apa__grey__anova__PROP.REC.FA__stim.format.main.effect`] or interaction [`r apa__grey__anova__PROP.REC.FA__interaction.main.effect`].
 
-```{r exp3--prop-fam-FA--figurecaption, echo=FALSE, results = FALSE}
+```{r exp3--prop-fam-FA--figurecaption, echo=FALSE, results = FALSE, cache=TRUE}
     figure_numbering(name = "exp3--prop-fam-FA--figurecaption",
                      caption = "Interaction plot between stimuli format and response-option for the mean proportion of FAs assigned 'Familiarity'.")
 ```
@@ -3583,17 +3596,13 @@ Comparisons across response-option conditions showed no differences in the numbe
 
 &nbsp;
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE}
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
 grey__PROP.FAM.FA__interaction.figure
 ```
 `r figure_numbering("exp3--prop-fam-FA--figurecaption")`
 
 ####  Guessing (FAs)
 For FAs assigned Guessing, there was a significant main effect of stimuli format [`r apa__grey__anova__PROP.GUESS.FA__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__PROP.GUESS.FA__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that words (`r apa__grey__anova__PROP.GUESS.FA__words.mean`) produced significantly more Guessing FAs than both drawings (`r apa__grey__anova__PROP.GUESS.FA__drawings.mean`) [`r apa__grey__anova__PROP.GUESS.FA__words.vs.drawings.pairwise`] and photographs (`r apa__grey__anova__PROP.GUESS.FA__photographs.mean`) [`r apa__grey__anova__PROP.GUESS.FA__words.vs.photographs.pairwise`]. There was no difference in the proportion of FAs assigned Guessing between drawings (`r apa__grey__anova__PROP.GUESS.FA__drawings.mean`) and photographs (`r apa__grey__anova__PROP.GUESS.FA__photographs.mean`) [`r apa__grey__anova__PROP.GUESS.FA__drawings.vs.photographs.pairwise`].
-
-
-
-
 
 \newpage
 
@@ -3609,16 +3618,16 @@ For FAs assigned Guessing, there was a significant main effect of stimuli format
 \blandscape
 # Appendices
 ## Appendix A
-```{r exp2--spelling-corrections--tablecaption, echo=FALSE, results = FALSE}
+```{r exp2--spelling-corrections--tablecaption, echo=FALSE, results = FALSE, cache=TRUE}
     table_numbering(name = "exp2--spelling-corrections--tablecaption", 
                      caption = "Spelling corrections / manipulations to naming responses.")
 ```
 
-```{r include=FALSE, cache=FALSE}
+```{r include=FALSE, cache=TRUE}
     spelling_corrections <- read_csv("./resources/spelling_corrections.csv")
 ```
 `r table_numbering("exp2--spelling-corrections--tablecaption")`
-```{r spelling-corrections-table, echo=FALSE, cache=FALSE}
+```{r spelling-corrections-table, echo=FALSE, cache=TRUE}
     spelling_corrections %>%
       kable("latex", longtable = T, booktabs = T) %>%
       kable_styling(bootstrap_options = c("striped","condensed")) %>%
@@ -3633,7 +3642,7 @@ For FAs assigned Guessing, there was a significant main effect of stimuli format
 \elandscape
 \newpage
 ## Appendix B
-```{r norms-table, include=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
+```{r norms-table, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
     norms <- raw_data %>%
         ungroup() %>% 
         select(stim, familiarity, visualcomplexity, colourdiagnosticity, mentalimageryagreement) %>%
