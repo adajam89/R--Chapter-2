@@ -31,16 +31,16 @@ header-includes:
 ---
 
 ```{r load-packages, include=FALSE, cache=FALSE}
-rm(list=ls())  
-# List required packages:
+##  Clear environment and list required packages:
+    rm(list=ls())  
     required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", 
                            "readr", "irr", "psycho", "afex", "emmeans")
     packages_to_install <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
     if(length(packages_to_install)) install.packages(packages_to_install)
     invisible(suppressPackageStartupMessages(lapply(required_packages, library, character.only = TRUE)))
-# Define own function:
+##  Define own function:
     coalesce_by_column <- function(df) {return(dplyr::coalesce(!!! as.list(df)))}
-# Captioner:
+##  Captioner:
     figure_numbering <- captioner()
     table_numbering <- captioner(prefix = "Table")
 ```
@@ -131,7 +131,7 @@ While the published sets of photographs are undoubtedly useful in a range of cog
                         "Prolific_ID"='c',"Age"='c',"Gender"='c',"EnglishFirstLang"='c',"Ethnicity"='c',
                         "EthnicityOther"='c',"UsingMac"='c',"RetinaScreen"='c',"DidYouHearBeep"='c',
                         "Debrief_Comments"='c',"B1__DoYouUnderstand"='c',"B2__DoYouUnderstand"='c',
-                          "B3__DoYouUnderstand"='c',"Order"='c',"images1"='c',"images2"='c',"images3"='c',
+                        "B3__DoYouUnderstand"='c',"Order"='c',"images1"='c',"images2"='c',"images3"='c',
                         "images4"='c',"images5"='c',"images6"='c',"Naming_Response"='c',"Naming_RT"='c',
                         "Familiarity"='c',"FamResp__Mouse.time"='c',"VisualComplexity"='c',
                         "VisCom__Mouse.time"='c',"ColourDiagnosticity"='c',"ColDia__Mouse.time"='c',
@@ -191,8 +191,8 @@ While the published sets of photographs are undoubtedly useful in a range of cog
                               id == "5b9f7e3d00815d00010323f6" | id == "595e7974af78da0001a21c3a" |
                               id == "5c90bb590d21a20017ec455d" | id == "593533d4ed2e9a0001d37c0b" |
                               id == "5cd9dd09c8e37500018ab627" | id == "59d11f1519d3170001b1d679" |
-                              id == "59d65ad8e2762800015eb51b" | id == "5c03b6681a20110001e996a5", "A", 
-                              order)) %>%
+                              id == "59d65ad8e2762800015eb51b" | id == "5c03b6681a20110001e996a5" , 
+                              "A", order)) %>%
 ##  Remove empty / unimportant rows:
         mutate(stim = na_if(stim, "")) %>%
         drop_na(stim) %>%
@@ -205,16 +205,16 @@ While the published sets of photographs are undoubtedly useful in a range of cog
         mutate(coldia_count = sum(!is.na(colourdiagnosticity))) %>%
         mutate(menima_count = sum(!is.na(mentalimageryagreement)))
     
-#################################################################################################################
-##    Participant summary:                                                                                     ##
-#################################################################################################################
+################################################################################################################
+##    Participant summary:                                                                                    ##
+################################################################################################################
     exp_2_participants <- raw_data %>%
         select(id, age, gender, englishfirstlang, ethnicity, ethnicityother) %>%
         summarise_all(coalesce_by_column)
     
-#################################################################################################################
-##    RTs for all vars except naming:                                                                          ##
-#################################################################################################################
+################################################################################################################
+##    RTs for all vars except naming:                                                                         ##
+################################################################################################################
     all_rts <- raw_data %>%
         ungroup() %>%
         select(stim, fam_rt, viscom_rt, coldia_rt, menima_rt) %>%
@@ -230,9 +230,9 @@ While the published sets of photographs are undoubtedly useful in a range of cog
         group_by(stim) %>%
         arrange(stim)
     
-#################################################################################################################
-##    NAMING:                                                                                                  ##
-#################################################################################################################
+################################################################################################################
+##    NAMING:                                                                                                 ##
+################################################################################################################
     naming <- raw_data %>%
         filter(naming_count == 44 | naming_count == 48) %>%
         ungroup() %>%
@@ -423,7 +423,7 @@ While the published sets of photographs are undoubtedly useful in a range of cog
         mutate(naming_response = str_replace(naming_response, "^beer$", "bear")) %>%
         mutate(naming_response = str_replace(naming_response, "^dock$", "duck")) %>%        ## Item: swan.
         mutate(naming_response = str_replace(naming_response,  "^frock$", "frog")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^glass$", "glasses")) %>%s
+        mutate(naming_response = str_replace(naming_response,  "^glass$", "glasses")) %>%
         mutate(naming_response = str_replace(naming_response,  "^glassesbottle$", "bottle")) %>%
         mutate(naming_response = str_replace(naming_response,  "^hose$", "house")) %>%
         mutate(naming_response = str_replace(naming_response,  "^noise$", "nose")) %>%
@@ -456,7 +456,7 @@ While the published sets of photographs are undoubtedly useful in a range of cog
         mutate(naming_response = str_replace(naming_response,  "^pumpkins$", "pumpkin")) %>%
         mutate(naming_response = str_replace(naming_response,  "^shoes$", "shoe")) %>%
         mutate(naming_response = str_replace(naming_response,  "^sock$", "socks")) %>%
-        mutate(naming_response = str_replace(naming_response,  "^steps$", "step")) %>% #change 
+        mutate(naming_response = str_replace(naming_response,  "^steps$", "step")) %>%
         mutate(naming_response = str_replace(naming_response,  "^babydoll$", "doll")) %>%
         mutate(naming_response = str_replace(naming_response,  "^broomstick$", "broom")) %>%
         mutate(naming_response = str_replace(naming_response,  "^cock$", "cockerel")) %>%
@@ -472,9 +472,9 @@ While the published sets of photographs are undoubtedly useful in a range of cog
         mutate(naming_response = str_replace(naming_response,  "^specs$", "spectacles")) %>%
         mutate(naming_response = str_replace(naming_response,  "^teakettle$", "kettle")) %>%
           
-#################################################################################################################
-##    Naming totals:                                                                                           ##
-#################################################################################################################
+################################################################################################################
+##    Naming totals:                                                                                          ##
+################################################################################################################
         add_count(stim, name = "total_responses") %>%
         add_count(naming_response, name = "resp_count") %>%
         mutate(naming_rt = as.double(naming_rt)) %>%
@@ -491,11 +491,9 @@ While the published sets of photographs are undoubtedly useful in a range of cog
     naming_rt <- naming %>%
         select(stim, mean_rt) %>%
         distinct(stim, .keep_all = TRUE)
-
-    
-#################################################################################################################
-##    Selecting items to take forward:                                                                         ##
-#################################################################################################################
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Selecting items to take forward:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ##  Criteria 1: items with a “don’t know” score over 20%:
     exclusion_1 <- naming %>% 
         filter(prop_no >= 0.2) %>%    
@@ -522,9 +520,9 @@ While the published sets of photographs are undoubtedly useful in a range of cog
         mutate(temp_stim = str_remove_all(stim, "[-](.*)")) %>%
         filter(!temp_stim %in% items_to_exclude) %>%
         select(-temp_stim)
-    
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ##  Identify items with least difference between colour and grey:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     grey <- naming %>%
         select(stim, prop_correct) %>%
         filter(str_detect(stim, "grey$")) %>%
@@ -569,8 +567,9 @@ While the published sets of photographs are undoubtedly useful in a range of cog
     selected_stimuli <- selected_stimuli %>%
         distinct(stim, .keep_all = TRUE) %>%
         arrange(stim)
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ##  Inter-rater selections:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ##  For objects where >1 variation remains (no difference between col/greyscale variations), we must manually
 ##  select the variation we think is the best to be taken forward to the final stimuli set. 
     inter_rater <- selected_stimuli %>%
@@ -621,175 +620,51 @@ While the published sets of photographs are undoubtedly useful in a range of cog
         select(-stim_raw) %>%
         bind_rows(inter_rater_items) %>%
         arrange(stim)
-
-    
-    
-    
-####################################################################################################################
-##   Additional stats:                                                                                            ##
-####################################################################################################################    
-####################################################################################################################
-##   H stat (naming agreement):                                                                                   ##
-#################################################################################################################### 
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  H stat (naming agreement):
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     h_stat_all_items <- naming %>%
         select(stim, naming_response, prop_resp, prop_correct) %>% 
-        filter(!naming_response == "no") %>%              # "Don't know" responses cannot be included in H calculations.
-        rename(pi = "prop_resp") %>%                      # pi = proportion of subjects producing the i-th name.
-        mutate(one_divided_by_pi = 1 / pi) %>%                 
-        mutate(log_two = log2(one_divided_by_pi)) %>%     # Log of base 2 of 1 / prop.
-        mutate(multiplied = pi*log_two) %>%               # pi multiplied by 'log of base 2' of 1 / prop.
-        mutate(H = sum(multiplied)) %>%                   # Sum multiplied values for each item = H. 
+        filter(!naming_response == "no") %>%    ##  "Don't know" responses cannot be included in H calculations.
+        rename(pi = "prop_resp") %>%            ##  pi = proportion of subjects producing the i-th name.
+        mutate(one_divided_by_pi = 1 / pi) %>%
+        mutate(log_two = log2(one_divided_by_pi)) %>%     ##  Log of base 2 of 1 / prop.
+        mutate(multiplied = pi*log_two) %>%               ##  pi multiplied by 'log of base 2' of 1 / prop.
+        mutate(H = sum(multiplied)) %>%                   ##  Sum multiplied values for each item = H. 
         arrange(stim, desc(pi)) %>%
         select(stim, naming_response, prop_correct, H)%>%
         distinct(stim, .keep_all = TRUE) %>%
         rename(most_freq_name = naming_response) %>%
         mutate_at(c("prop_correct", "H"), round, 2) %>%
-      # Two items had a number at the end of their name in some conditions, remove this: 
+##  Two items still had a number at the end of their name in some conditions, remove this: 
         mutate(stim = str_replace(stim, "skunk3-photo-grey1", "skunk3-photo-grey")) %>%
         mutate(stim = str_replace(stim, "skunk3-photo-colour1", "skunk3-photo-colour"))
-####################################################################################################################
-##   Krippendorff's alpha (reliability coefficient) stat:                                                         ##
-#################################################################################################################### 
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Krippendorff's alpha (reliability coefficient) stat:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     kripp_rater_1 <- rater_1 %>%
         spread(stim, rater_1)
     kripp_rater_2 <- rater_2 %>%
         spread(stim, rater_2)
     kripp_ratings <- bind_rows(kripp_rater_1, kripp_rater_2)
-# Loop that runs through each of the rated objects and individually calculates kripps alpha: 
-    kripps_alpha <- tibble()                              # Create empty df to store results of for loop. 
+##  Loop that runs through each of the rated objects and individually calculates kripps alpha: 
+    kripps_alpha <- tibble()                  ##  Create empty df to store results of for loop. 
     for (i in inter_rater_items_raw) {
         kripp_calc <- kripp_ratings %>%
-            select(contains(i)) %>%                       # Select all ratings for each item in turn (i).
-            as.matrix() %>%                               # Tibble to matrix, so "kripp.alpha" can run.
-            kripp.alpha("ordinal")                        # Run Krippendorff's Alpha calculation.
-  
-        kripp_calc <- as.tibble(kripp_calc[c(2,3,5)]) %>% # Convert result from "irrlist" to tibble. 
-            mutate(object = i)                            # Re-insert the object name.
+            select(contains(i)) %>%                           ##  Select all ratings for each item in turn (i).
+            as.matrix() %>%                                   ##  Tibble to matrix, so "kripp.alpha" can run.
+            kripp.alpha("ordinal")                            ##  Run Krippendorff's Alpha calculation.
+        kripp_calc <- as.tibble(kripp_calc[c(2,3,5)]) %>%     ##  Convert result from "irrlist" to tibble. 
+            mutate(object = i)                                ##  Re-insert the object name.
         kripps_alpha <- bind_rows(kripps_alpha, kripp_calc) }
-# Final edits: 
-    kripps_alpha <- kripps_alpha %>%
+##  Final edits: 
+    kripps_alpha <- kripsps_alpha %>%
         mutate_at(c("value"), round, 2) %>%
         select(object, subjects, value) %>%
         rename("krippendorffs_alpha" = value, "variations" = subjects, "concept" = object)
-
-####################################################################################################################
-##   Norms prep:                                                                                                  ##
-####################################################################################################################
-    results_norms <- raw_data %>%
-        ungroup() %>% 
-        select(stim, familiarity, visualcomplexity, colourdiagnosticity, mentalimageryagreement,
-               fam_rt, viscom_rt, coldia_rt, menima_rt) %>%
-        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
-        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
-        mutate(familiarity = str_remove(familiarity, "fam_")) %>%
-        mutate(visualcomplexity = str_remove(visualcomplexity, "viscom_")) %>%
-        mutate(colourdiagnosticity = str_remove(colourdiagnosticity, "coldia_")) %>%
-        mutate(mentalimageryagreement = str_remove(mentalimageryagreement, "menima_")) %>%
-        mutate_at(vars(familiarity, visualcomplexity,
-                       colourdiagnosticity, mentalimageryagreement,
-                       colourdiagnosticity, fam_rt, viscom_rt,
-                       coldia_rt, menima_rt), as.numeric) %>%
-        group_by(stim) %>%
-        summarise_all(tibble::lst(mean), na.rm = TRUE)
-    
-    grey_norms <- results_norms %>%
-        filter(str_detect(stim, "grey")) %>%
-        mutate(grey_fam_mean = mean(familiarity_mean)) %>%
-        mutate(grey_fam_sd = sd(familiarity_mean)) %>%
-        mutate(grey_viscom_mean = mean(visualcomplexity_mean)) %>%
-        mutate(grey_viscom_sd = sd(visualcomplexity_mean)) %>%
-        mutate(grey_menima_mean = mean(mentalimageryagreement_mean)) %>%
-        mutate(grey_menima_sd = sd(mentalimageryagreement_mean)) %>%
-        select(grey_fam_mean, grey_fam_sd, grey_viscom_mean, 
-               grey_viscom_sd, grey_menima_mean, grey_menima_sd) %>%
-        distinct()
-    grey_naming_norms <- h_stat_all_items %>%
-        ungroup() %>%
-        filter(str_detect(stim, "grey")) %>%
-        mutate(grey_naming_acc_mean = mean(prop_correct)) %>%
-        mutate(grey_naming_acc_sd = sd(prop_correct)) %>%
-        mutate(grey_H_mean = mean(H)) %>%
-        mutate(grey_H_sd = sd(H)) %>%
-        select(grey_naming_acc_mean, grey_naming_acc_sd, grey_H_mean, grey_H_sd) %>%
-        distinct()
-    grey_norms <- bind_cols(grey_norms, grey_naming_norms)
-    col_norms <- results_norms %>%
-        filter(str_detect(stim, "colour")) %>%
-        mutate(col_fam_mean = mean(familiarity_mean)) %>%
-        mutate(col_fam_sd = sd(familiarity_mean)) %>%
-        mutate(col_viscom_mean = mean(visualcomplexity_mean)) %>%
-        mutate(col_viscom_sd = sd(visualcomplexity_mean)) %>%
-        mutate(col_menima_mean = mean(mentalimageryagreement_mean)) %>%
-        mutate(col_menima_sd = sd(mentalimageryagreement_mean)) %>%
-        mutate(col_coldia_mean = mean(colourdiagnosticity_mean)) %>%
-        mutate(col_coldia_sd = sd(colourdiagnosticity_mean)) %>%
-        select(col_fam_mean, col_fam_sd, col_viscom_mean, 
-               col_viscom_sd, col_menima_mean, col_menima_sd, col_coldia_mean, col_coldia_sd) %>%
-        distinct()
-    col_naming_norms <- h_stat_all_items %>%
-        ungroup() %>%
-        filter(str_detect(stim, "colour")) %>%
-        mutate(col_naming_acc_mean = mean(prop_correct)) %>%
-        mutate(col_naming_acc_sd = sd(prop_correct)) %>%
-        mutate(col_H_mean = mean(H)) %>%
-        mutate(col_H_sd = sd(H)) %>%
-        select(col_naming_acc_mean, col_naming_acc_sd, col_H_mean, col_H_sd) %>%
-        distinct()
-    col_norms <- bind_cols(col_norms, col_naming_norms)
-##  Create norms table (all stim):
-    colvsgreynorms <- tribble(
-        ~"Variable", ~"Grey", ~"grey_sd", ~"blank", ~"Colour", ~"col_sd",
-        "Naming accuracy",
-            grey_norms %>% select(grey_naming_acc_mean) %>% pull() %>% round (2), # Grey naming accuracy mean;
-            grey_norms %>% select(grey_naming_acc_sd) %>% pull() %>% round (2),   # Grey naming accuracy sd;
-            "",
-            col_norms %>% select(col_naming_acc_mean) %>% pull() %>% round (2),   # Col naming accuracy mean;
-            col_norms %>% select(col_naming_acc_sd) %>% pull() %>% round (2),     # Col naming accuracy sd;
-        "Naming agreement (H)", 
-            grey_norms %>% select(grey_H_mean) %>% pull() %>% round (2),          # Grey H mean;
-            grey_norms %>% select(grey_H_sd) %>% pull() %>% round (2),            # Grey H sd;
-            "",
-            col_norms %>% select(col_H_mean) %>% pull() %>% round (2),            # Col H mean;
-            col_norms %>% select(col_H_sd) %>% pull() %>% round (2),              # Col H sd;
-        "Mental imagery agreement", 
-            grey_norms %>% select(grey_menima_mean) %>% pull() %>% round (2),     # Grey MenIma mean;
-            grey_norms %>% select(grey_menima_sd) %>% pull() %>% round (2),       # Grey MenIma sd;
-            "",
-            col_norms %>% select(col_menima_mean) %>% pull() %>% round (2),       # Col MenIma mean;
-            col_norms %>% select(col_menima_sd) %>% pull() %>% round (2),         # Col MenIma sd;
-        "Familiarity",
-            grey_norms %>% select(grey_fam_mean) %>% pull() %>% round (2),        # Grey Fam mean;
-            grey_norms %>% select(grey_fam_sd) %>% pull() %>% round (2),          # Grey Fam sd;
-            "",
-            col_norms %>% select(col_fam_mean) %>% pull() %>% round (2),          # Col Fam mean;
-            col_norms %>% select(col_fam_sd) %>% pull() %>% round (2),            # Col Fam sd;
-        "Visual complexity",
-            grey_norms %>% select(grey_viscom_mean) %>% pull() %>% round (2),     # Grey VisCom mean;
-            grey_norms %>% select(grey_viscom_sd) %>% pull() %>% round (2),       # Grey VisCom sd;
-            "",
-            col_norms %>% select(col_viscom_mean) %>% pull() %>% round (2),       # Col VisCom mean;
-            col_norms %>% select(col_viscom_sd) %>% pull() %>% round (2),         # Col VisCom sd;
-        "Colour diagnosticity",
-            NA,                                                                   # Grey ColDia mean;
-            NA,                                                                   # Grey ColDia sd;
-            "",
-            col_norms %>% select(col_coldia_mean) %>% pull() %>% round (2),       # Col ColDia mean;
-            col_norms %>% select(col_coldia_sd) %>% pull() %>% round (2))         # Col ColDia sd. 
-    
-    colvsgreynorms_table <- colvsgreynorms %>%
-        mutate(grey_sd = str_c("(", grey_sd, ")")) %>%
-        mutate(col_sd = str_c("(", col_sd, ")")) %>%
-        mutate_all(as.character) %>%
-        mutate(Grey = replace_na(Grey, "-")) %>%
-        mutate(grey_sd = replace_na(grey_sd, "")) %>%
-        unite("Grey", Grey:grey_sd, sep = " ", remove = TRUE) %>%
-        unite("Colour", Colour:col_sd, sep = " ", remove = TRUE) %>%
-        rename(" " = blank)
-    
-#################################################################################################################
-##   Naming:                                                                                                   ##
-#################################################################################################################
-##  Naming accuracy:    
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Naming norms:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##  Naming accuracy:    
     naming_acc <- h_stat_all_items %>%
         select(stim, prop_correct) %>%
         ungroup()
@@ -844,111 +719,234 @@ While the published sets of photographs are undoubtedly useful in a range of cog
     mean_grey_naming_rt <- grey_naming_rt %>% pull() %>% mean(., na.rm = TRUE) %>% round(2) 
     mean_col_naming_rt <- col_naming_rt %>% pull() %>% mean(., na.rm = TRUE) %>% round(2)
     
-#################################################################################################################
-##   Mental imagery agreement:                                                                                 ##
-#################################################################################################################
-    men_ima <- results_norms %>%
-        select(stim, mentalimageryagreement_mean) %>%
-        ungroup()
     
-      # Ps with messed up ColDia responses (remove these Ps entirely for now): 
-        #filter(id != "56a3211edbe850000bfcedc6") %>%
-        #filter(id != "55b567fbfdf99b4a11df33b9") %>%
-        #filter(id != "59b59d59f69f340001867454") %>%
-        #filter(id != "59e46feb16ecc200016fef61") %>%
-        #filter(id != "5bebd4111296920001d55c5a") %>%
-        #filter(id != "5c6205a724b1fc00019db2de") %>%
-        #filter(id != "5d0651c57c37bf001a987dc2") %>%
-        #filter(id != "5d29c671bc573b00165c9014") %>%      
-        #filter(id != "5d51c0efbbb1aa00170db6c8") %>%
-        #filter(id != "5d542c3a5af5900019bc80c4") %>%
+    grey_naming_norms <- h_stat_all_items %>%
+        ungroup() %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(grey_naming_acc_mean = mean(prop_correct)) %>%
+        mutate(grey_naming_acc_sd = sd(prop_correct)) %>%
+        mutate(grey_H_mean = mean(H)) %>%
+        mutate(grey_H_sd = sd(H)) %>%
+        select(grey_naming_acc_mean, grey_naming_acc_sd, grey_H_mean, grey_H_sd) %>%
+        distinct()
+    col_naming_norms <- h_stat_all_items %>%
+        ungroup() %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(col_naming_acc_mean = mean(prop_correct)) %>%
+        mutate(col_naming_acc_sd = sd(prop_correct)) %>%
+        mutate(col_H_mean = mean(H)) %>%
+        mutate(col_H_sd = sd(H)) %>%
+        select(col_naming_acc_mean, col_naming_acc_sd, col_H_mean, col_H_sd) %>%
+        distinct()
+    
+################################################################################################################
+##   Familiarity:                                                                                             ##
+################################################################################################################
+    fam_norms <- raw_data %>%
+        ungroup() %>%
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        select(stim, familiarity, fam_rt) %>%
+        drop_na(familiarity) %>%
+        group_by(stim) %>%                      
+        arrange (stim, familiarity) %>%
+        mutate(fam_rt = str_remove(fam_rt, "\\[")) %>%
+        mutate(fam_rt = str_remove(fam_rt, "\\]")) %>%
+        mutate(fam_rt = str_remove(fam_rt, "\\,.*")) %>%
+        mutate(familiarity = str_remove(familiarity, "fam_")) %>%
+        mutate_at(vars(familiarity, fam_rt), as.numeric) %>%
+        group_by(stim) %>%
+        summarise_all(tibble::lst(mean), na.rm = TRUE)
+##  Grey photographs:
+    grey_fam_means <- fam_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(grey_fam_mean = mean(familiarity_mean)) %>%
+        mutate(grey_fam_sd = sd(familiarity_mean)) %>%
+        mutate(grey_fam_mean_rt = mean(fam_rt_mean)) %>%
+        mutate(grey_fam_sd_rt = sd(fam_rt_mean)) %>%
+        select(grey_fam_mean, grey_fam_sd, grey_fam_mean_rt, grey_fam_sd_rt) %>%
+        distinct()
+##  Colour photographs:
+    col_fam_means <- fam_norms %>%
+        filter(str_detect(stim, "col")) %>%
+        mutate(col_fam_mean = mean(familiarity_mean)) %>%
+        mutate(col_fam_sd = sd(familiarity_mean)) %>%
+        mutate(col_fam_mean_rt = mean(fam_rt_mean)) %>%
+        mutate(col_fam_sd_rt = sd(fam_rt_mean)) %>%
+        select(col_fam_mean, col_fam_sd, col_fam_mean_rt, col_fam_sd_rt) %>%
+        distinct()
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Familiarity analysis:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    fam <- fam_norms %>%
+        select(stim, familiarity_mean, fam_rt_mean) %>%
+        ungroup()
+    mean_fam <- fam$familiarity_mean %>% mean() %>% round(2)
+    mean_fam_rt <- fam$fam_rt_mean %>% mean() %>% round(2)
 
-    grey_men_ima <- men_ima %>%
-        filter(str_detect(stim, "grey")) %>%
-        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
-        rename("grey_men_ima" = "mentalimageryagreement_mean") %>%
-        select(-stim)
-    col_men_ima <- men_ima %>%
-        filter(str_detect(stim, "colour")) %>%
-        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
-        rename("col_men_ima" = "mentalimageryagreement_mean") %>%
-        select(-stim)
-    men_ima__ttest <- t.test(grey_men_ima, col_men_ima)
-    apa__men_ima__ttest <- papaja:::apa_print(men_ima__ttest)
-    mean_men_ima <- men_ima %>% pull() %>% mean() %>% round(2) 
-    mean_grey_men_ima <- grey_men_ima %>% pull() %>% mean() %>% round(2) 
-    mean_col_men_ima <- col_men_ima %>% pull() %>% mean() %>% round(2)
-####################################################################################################################
-##   Mental imagery agreement RT t-test:                                                                          ##
-####################################################################################################################
-    men_ima_rt <- results_norms %>%
-        select(stim, mentalimageryagreement_mean) %>%
-        ungroup()
-    grey_men_ima <- men_ima %>%
-        filter(str_detect(stim, "grey")) %>%
-        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
-        rename("grey_men_ima" = "mentalimageryagreement_mean") %>%
-        select(-stim)
-    col_men_ima <- men_ima %>%
-        filter(str_detect(stim, "colour")) %>%
-        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
-        rename("col_men_ima" = "mentalimageryagreement_mean") %>%
-        select(-stim)
-    men_ima__ttest <- t.test(grey_men_ima, col_men_ima)
-    apa__men_ima__ttest <- papaja:::apa_print(men_ima__ttest)
-    mean_men_ima <- men_ima %>% pull() %>% mean() %>% round(2) 
-    mean_grey_men_ima <- grey_men_ima %>% pull() %>% mean() %>% round(2) 
-    mean_col_men_ima <- col_men_ima %>% pull() %>% mean() %>% round(2)    
-####################################################################################################################
-##   Familiarity t-test:                                                                                          ##
-####################################################################################################################
-    fam <- results_norms %>%
-        select(stim, familiarity_mean) %>%
-        ungroup()
-    grey_fam <- fam %>%
+    grey_fam <- fam_norms %>%
         filter(str_detect(stim, "grey")) %>%
         mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
         rename("grey_fam" = "familiarity_mean") %>%
+        rename("grey_fam_rt" = "fam_rt_mean") %>%
         select(-stim)
-    col_fam <- fam %>%
+    mean_grey_fam <- grey_fam$grey_fam %>% mean() %>% round(2) 
+    mean_grey_fam_rt <- grey_fam$grey_fam_rt %>% mean() %>% round(2) 
+
+    col_fam <- fam_norms %>%
         filter(str_detect(stim, "colour")) %>%
         mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
         rename("col_fam" = "familiarity_mean") %>%
+        rename("col_fam_rt" = "fam_rt_mean") %>%
         select(-stim)
-    fam__ttest <- t.test(grey_fam, col_fam)
+    mean_col_fam <- col_fam$col_fam %>% mean() %>% round(2)
+    mean_col_fam_rt <- col_fam$col_fam_rt %>% mean() %>% round(2)
+
+    fam__ttest <- t.test(grey_fam$grey_fam, col_fam$col_fam)
     apa__fam__ttest <- papaja:::apa_print(fam__ttest)
-    mean_fam <- fam %>% pull() %>% mean() %>% round(2)
-    mean_grey_fam <- grey_fam %>% pull() %>% mean() %>% round(2) 
-    mean_col_fam <- col_fam %>% pull() %>% mean() %>% round(2)
-####################################################################################################################
-##   Visual complexity t-test:                                                                                    ##
-####################################################################################################################
-    vis_com <- results_norms %>%
-        select(stim, visualcomplexity_mean) %>%
+    fam_rt__ttest <- t.test(grey_fam$grey_fam_rt, col_fam$col_fam_rt)
+    apa__fam__ttest <- papaja:::apa_print(fam_rt__ttest)
+################################################################################################################
+##   Visual Complexity:                                                                                       ##
+################################################################################################################
+    vis_com_norms <- raw_data %>%
+        ungroup() %>%
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        select(stim, visualcomplexity, viscom_rt) %>%
+        drop_na(visualcomplexity) %>%
+        group_by(stim) %>%                      
+        arrange (stim, visualcomplexity) %>%
+        mutate(viscom_rt = str_remove(viscom_rt, "\\[")) %>%
+        mutate(viscom_rt = str_remove(viscom_rt, "\\]")) %>%
+        mutate(viscom_rt = str_remove(viscom_rt, "\\,.*")) %>%
+        mutate(visualcomplexity = str_remove(visualcomplexity, "viscom_")) %>%
+        mutate_at(vars(visualcomplexity, viscom_rt), as.numeric) %>%
+        group_by(stim) %>%
+        summarise_all(tibble::lst(mean), na.rm = TRUE)
+##  Grey photographs:
+    grey_vis_com_means <- vis_com_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(grey_vis_com_mean = mean(visualcomplexity_mean)) %>%
+        mutate(grey_vis_com_sd = sd(visualcomplexity_mean)) %>%
+        mutate(grey_vis_com_mean_rt = mean(viscom_rt_mean)) %>%
+        mutate(grey_vis_com_sd_rt = sd(viscom_rt_mean)) %>%
+        select(grey_vis_com_mean, grey_vis_com_sd, grey_vis_com_mean_rt, grey_vis_com_sd_rt) %>%
+        distinct()
+##  Colour photographs:
+    col_vis_com_means <- vis_com_norms %>%
+        filter(str_detect(stim, "col")) %>%
+        mutate(col_vis_com_mean = mean(visualcomplexity_mean)) %>%
+        mutate(col_vis_com_sd = sd(visualcomplexity_mean)) %>%
+        mutate(col_vis_com_mean_rt = mean(viscom_rt_mean)) %>%
+        mutate(col_vis_com_sd_rt = sd(viscom_rt_mean)) %>%
+        select(col_vis_com_mean, col_vis_com_sd, col_vis_com_mean_rt, col_vis_com_sd_rt) %>%
+        distinct()
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Visual Complexity analysis:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    vis_com <- vis_com_norms %>%
+        select(stim, visualcomplexity_mean, viscom_rt_mean) %>%
         ungroup()
-    grey_vis_com <- vis_com %>%
+    mean_vis_com <- vis_com$visualcomplexity_mean %>% mean() %>% round(2)
+    mean_viscom_rt <- vis_com$viscom_rt_mean %>% mean() %>% round(2)
+
+    grey_vis_com <- vis_com_norms %>%
         filter(str_detect(stim, "grey")) %>%
         mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
         rename("grey_vis_com" = "visualcomplexity_mean") %>%
+        rename("grey_viscom_rt" = "viscom_rt_mean") %>%
         select(-stim)
-    col_vis_com <- vis_com %>%
+    mean_grey_vis_com <- grey_vis_com$grey_vis_com %>% mean() %>% round(2) 
+    mean_grey_viscom_rt <- grey_vis_com$grey_viscom_rt %>% mean() %>% round(2) 
+
+    col_vis_com <- vis_com_norms %>%
         filter(str_detect(stim, "colour")) %>%
         mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
         rename("col_vis_com" = "visualcomplexity_mean") %>%
+        rename("col_viscom_rt" = "viscom_rt_mean") %>%
         select(-stim)
-    vis_com__ttest <- t.test(grey_vis_com, col_vis_com)
+    mean_col_vis_com <- col_vis_com$col_vis_com %>% mean() %>% round(2)
+    mean_col_viscom_rt <- col_vis_com$col_viscom_rt %>% mean() %>% round(2)
+
+    vis_com__ttest <- t.test(grey_vis_com$grey_vis_com, col_vis_com$col_vis_com)
     apa__vis_com__ttest <- papaja:::apa_print(vis_com__ttest)
-    mean_vis_com <- vis_com %>% pull() %>% mean() %>% round(2)
-    mean_grey_vis_com <- grey_vis_com %>% pull() %>% mean() %>% round(2)
-    mean_col_vis_com <- col_vis_com %>% pull() %>% mean() %>% round(2)
-####################################################################################################################
-##   Colour diagnosticity:                                                                                        ##
-####################################################################################################################
-    col_dia <- results_norms %>%
-        select(stim, colourdiagnosticity_mean) %>%
+    viscom_rt__ttest <- t.test(grey_vis_com$grey_viscom_rt, col_vis_com$col_viscom_rt)
+    apa__vis_com__ttest <- papaja:::apa_print(viscom_rt__ttest)    
+    
+################################################################################################################
+##   Mental imagery agreement:                                                                                ##
+################################################################################################################
+    men_ima_norms <- raw_data %>%
+##  Software error: these participants were asked ColDia question for grey and colour stim. This must have been ##  confusing, so we remove their ColDia data completely.  
+        filter(id != "56a3211edbe850000bfcedc6" | id != "55b567fbfdf99b4a11df33b9" |
+               id != "59b59d59f69f340001867454" | id != "59e46feb16ecc200016fef61" |
+               id != "5bebd4111296920001d55c5a" | id != "5c6205a724b1fc00019db2de" |
+               id != "5d0651c57c37bf001a987dc2" | id != "5d29c671bc573b00165c9014" |
+               id != "5d51c0efbbb1aa00170db6c8" | id != "5d542c3a5af5900019bc80c4") %>%
         ungroup() %>%
-        drop_na(colourdiagnosticity_mean)
-    mean_col_dia <- col_dia %>% pull() %>% mean() %>% round(2)
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        select(stim, mentalimageryagreement, menima_rt) %>%
+        drop_na(mentalimageryagreement) %>%
+        group_by(stim) %>%                      
+        arrange (stim, mentalimageryagreement) %>%
+        mutate(menima_rt = str_remove(menima_rt, "\\[")) %>%
+        mutate(menima_rt = str_remove(menima_rt, "\\]")) %>%
+        mutate(menima_rt = str_remove(menima_rt, "\\,.*")) %>%
+        mutate(mentalimageryagreement = str_remove(mentalimageryagreement, "menima_")) %>%
+        mutate_at(vars(mentalimageryagreement, menima_rt), as.numeric) %>%
+        group_by(stim) %>%
+        summarise_all(tibble::lst(mean), na.rm = TRUE)
+##  Grey photographs:
+    grey_men_ima_means <- men_ima_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(grey_menima_mean = mean(mentalimageryagreement_mean)) %>%
+        mutate(grey_menima_sd = sd(mentalimageryagreement_mean)) %>%
+        mutate(grey_menima_mean_rt = mean(menima_rt_mean)) %>%
+        mutate(grey_menima_sd_rt = sd(menima_rt_mean)) %>%
+        select(grey_menima_mean, grey_menima_sd, grey_menima_mean_rt, grey_menima_sd_rt) %>%
+        distinct()
+##  Colour photographs:
+    col_men_ima_means <- men_ima_norms %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(col_menima_mean = mean(mentalimageryagreement_mean)) %>%
+        mutate(col_menima_sd = sd(mentalimageryagreement_mean)) %>%
+        mutate(col_menima_mean_rt = mean(menima_rt_mean)) %>%
+        mutate(col_menima_sd_rt = sd(menima_rt_mean)) %>%
+        select(col_menima_mean, col_menima_sd, col_menima_mean_rt, col_menima_sd_rt) %>%
+        distinct()
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Mental imagery analysis:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    men_ima <- men_ima_norms %>%
+        select(stim, mentalimageryagreement_mean, menima_rt_mean) %>%
+        ungroup()
+    mean_men_ima <- men_ima$mentalimageryagreement_mean %>% mean() %>% round(2)
+    mean_men_ima_rt <- men_ima$menima_rt_mean %>% mean() %>% round(2)
+
+    grey_men_ima <- men_ima_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("grey_men_ima" = "mentalimageryagreement_mean") %>%
+        rename("grey_men_ima_rt" = "menima_rt_mean") %>%
+        select(-stim)
+    mean_grey_men_ima <- grey_men_ima$grey_men_ima %>% mean() %>% round(2) 
+    mean_grey_men_ima_rt <- grey_men_ima$grey_men_ima_rt %>% mean() %>% round(2) 
+
+    col_men_ima <- men_ima_norms %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("col_men_ima" = "mentalimageryagreement_mean") %>%
+        rename("col_men_ima_rt" = "menima_rt_mean") %>%
+        select(-stim)
+    mean_col_men_ima <- col_men_ima$col_men_ima %>% mean() %>% round(2)
+    mean_col_men_ima_rt <- col_men_ima$col_men_ima_rt %>% mean() %>% round(2)
+
+    men_ima__ttest <- t.test(grey_men_ima$grey_men_ima, col_men_ima$col_men_ima)
+    apa__men_ima__ttest <- papaja:::apa_print(men_ima__ttest)
+    men_ima_rt__ttest <- t.test(grey_men_ima$grey_men_ima_rt, col_men_ima$col_men_ima_rt)
+    apa__men_ima__ttest <- papaja:::apa_print(men_ima_rt__ttest)
 ```
 
 \newpage
@@ -1096,15 +1094,52 @@ percentage agreement (proportion of subjects reporting this most frequent name),
 Mean ratings were calculated for familiarity, visual complexity, colour diagnosticity, and mental imagery agreement. 
 
 ```{r naming-data, include=FALSE, cache=TRUE}
-
+##  Create norms table:
+    colvsgreynorms <- tribble( ~"Variable", ~"Grey", ~"grey_sd", ~"blank", ~"Colour", ~"col_sd",
+        "Naming accuracy",
+            grey_norms %>% select(grey_naming_acc_mean) %>% pull() %>% round (2), ##  Grey naming accuracy mean;
+            grey_norms %>% select(grey_naming_acc_sd) %>% pull() %>% round (2),"",##  Grey naming accuracy sd;
+            col_norms %>% select(col_naming_acc_mean) %>% pull() %>% round (2),   ##  Col naming accuracy mean;
+            col_norms %>% select(col_naming_acc_sd) %>% pull() %>% round (2),     ##  Col naming accuracy sd;
+        "Naming agreement (H)", 
+            grey_norms %>% select(grey_H_mean) %>% pull() %>% round (2),          ##  Grey H mean;
+            grey_norms %>% select(grey_H_sd) %>% pull() %>% round (2),"",         ##  Grey H sd;
+            col_norms %>% select(col_H_mean) %>% pull() %>% round (2),            ##  Col H mean;
+            col_norms %>% select(col_H_sd) %>% pull() %>% round (2),              ##  Col H sd;
+        "Mental imagery agreement", 
+            grey_men_ima_means$grey_menima_mean, grey_men_ima_means$grey_menima_sd, "",
+            col_men_ima_means$col_menima_mean,  col_men_ima_means$col_menima_sd,
+        "Familiarity",
+            grey_fam_means$grey_fam_mean, grey_fam_means$grey_fam_sd, "",
+            col_fam_means$col_fam_mean,  col_fam_means$col_fam_sd,
+        "Visual complexity",
+            grey_norms %>% select(grey_viscom_mean) %>% pull() %>% round (2),     ##  Grey VisCom mean;
+            grey_norms %>% select(grey_viscom_sd) %>% pull() %>% round (2),"",    ##  Grey VisCom sd;
+            col_norms %>% select(col_viscom_mean) %>% pull() %>% round (2),       ##  Col VisCom mean;
+            col_norms %>% select(col_viscom_sd) %>% pull() %>% round (2),         ##  Col VisCom sd;
+        "Colour diagnosticity",
+            NA,                                                                   ##  Grey ColDia mean;
+            NA,"",                                                                ##  Grey ColDia sd;
+            col_norms %>% select(col_coldia_mean) %>% pull() %>% round (2),       ##  Col ColDia mean;
+            col_norms %>% select(col_coldia_sd) %>% pull() %>% round (2))         ##  Col ColDia sd. 
+    
+    colvsgreynorms_table <- colvsgreynorms %>%
+        mutate(grey_sd = str_c("(", grey_sd, ")")) %>%
+        mutate(col_sd = str_c("(", col_sd, ")")) %>%
+        mutate_all(as.character) %>%
+        mutate(Grey = replace_na(Grey, "-")) %>%
+        mutate(grey_sd = replace_na(grey_sd, "")) %>%
+        unite("Grey", Grey:grey_sd, sep = " ", remove = TRUE) %>%
+        unite("Colour", Colour:col_sd, sep = " ", remove = TRUE) %>%
+        rename(" " = blank)
 ```
 
-## Results
 ```{r define-exp2--colvsgreynorms--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp2--colvsgreynorms--tablecaption",
                      caption = "Summary statistics (mean and *SD*) for each of the measured variables, by colour and greyscale items.")
 ```
 
+## Results
 Mean scores for each of the variables of interest, separated between colour and greyscale items, are shown in `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")` (mean scores for each unique photograph are presented in Appendix B). To compare normative data across the grey and colour versions of the photographs, a series of independent samples t-tests were run on each variable, as well as their corresponding reaction times (excluding scores of colour diagnosticity, which only apply to items presented in colour). 
 
 ### *Naming*
