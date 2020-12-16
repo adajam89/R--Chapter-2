@@ -719,7 +719,6 @@ While the published sets of photographs are undoubtedly useful in a range of cog
     mean_grey_naming_rt <- grey_naming_rt %>% pull() %>% mean(., na.rm = TRUE) %>% round(2) 
     mean_col_naming_rt <- col_naming_rt %>% pull() %>% mean(., na.rm = TRUE) %>% round(2)
     
-    
     grey_naming_norms <- h_stat_all_items %>%
         ungroup() %>%
         filter(str_detect(stim, "grey")) %>%
@@ -947,6 +946,42 @@ While the published sets of photographs are undoubtedly useful in a range of cog
     apa__men_ima__ttest <- papaja:::apa_print(men_ima__ttest)
     men_ima_rt__ttest <- t.test(grey_men_ima$grey_men_ima_rt, col_men_ima$col_men_ima_rt)
     apa__men_ima__ttest <- papaja:::apa_print(men_ima_rt__ttest)
+    
+################################################################################################################
+##   Colour diagnosticity:                                                                                    ##
+################################################################################################################
+    col_dia_norms <- raw_data %>%
+        ungroup() %>%
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        select(stim, colourdiagnosticity, coldia_rt) %>%
+        drop_na(colourdiagnosticity) %>%
+        group_by(stim) %>%                      
+        arrange (stim, colourdiagnosticity) %>%
+        mutate(coldia_rt = str_remove(coldia_rt, "\\[")) %>%
+        mutate(coldia_rt = str_remove(coldia_rt, "\\]")) %>%
+        mutate(coldia_rt = str_remove(coldia_rt, "\\,.*")) %>%
+        mutate(colourdiagnosticity = str_remove(colourdiagnosticity, "coldia_")) %>%
+        mutate_at(vars(colourdiagnosticity, coldia_rt), as.numeric) %>%
+        group_by(stim) %>%
+        summarise_all(tibble::lst(mean), na.rm = TRUE)
+##  Colour photographs:
+    col_dia_means <- col_dia_norms %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(col_coldia_mean = mean(colourdiagnosticity_mean)) %>%
+        mutate(col_coldia_sd = sd(colourdiagnosticity_mean)) %>%
+        mutate(col_coldia_mean_rt = mean(coldia_rt_mean)) %>%
+        mutate(col_coldia_sd_rt = sd(coldia_rt_mean)) %>%
+        select(col_coldia_mean, col_coldia_sd, col_coldia_mean_rt, col_coldia_sd_rt) %>%
+        distinct()
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Mental imagery analysis:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    col_dia <- col_dia_norms %>%
+        select(stim, colourdiagnosticity_mean, coldia_rt_mean) %>%
+        ungroup()
+    mean_col_dia <- col_dia$colourdiagnosticity_mean %>% mean() %>% round(2)
+    mean_col_dia_rt <- col_dia$coldia_rt_mean %>% mean() %>% round(2)
 ```
 
 \newpage
@@ -1097,15 +1132,11 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
 ##  Create norms table:
     colvsgreynorms <- tribble( ~"Variable", ~"Grey", ~"grey_sd", ~"blank", ~"Colour", ~"col_sd",
         "Naming accuracy",
-            grey_norms %>% select(grey_naming_acc_mean) %>% pull() %>% round (2), ##  Grey naming accuracy mean;
-            grey_norms %>% select(grey_naming_acc_sd) %>% pull() %>% round (2),"",##  Grey naming accuracy sd;
-            col_norms %>% select(col_naming_acc_mean) %>% pull() %>% round (2),   ##  Col naming accuracy mean;
-            col_norms %>% select(col_naming_acc_sd) %>% pull() %>% round (2),     ##  Col naming accuracy sd;
+            grey_naming_norms$grey_naming_acc_mean, grey_naming_norms$grey_naming_acc_sd, "",
+            col_naming_norms$col_naming_acc_mean, col_naming_norms$col_naming_acc_sd,
         "Naming agreement (H)", 
-            grey_norms %>% select(grey_H_mean) %>% pull() %>% round (2),          ##  Grey H mean;
-            grey_norms %>% select(grey_H_sd) %>% pull() %>% round (2),"",         ##  Grey H sd;
-            col_norms %>% select(col_H_mean) %>% pull() %>% round (2),            ##  Col H mean;
-            col_norms %>% select(col_H_sd) %>% pull() %>% round (2),              ##  Col H sd;
+            grey_naming_norms$grey_H_mean, grey_naming_norms$grey_H_sd, "",
+            col_naming_norms$col_H_mean, col_naming_norms$col_H_sd,
         "Mental imagery agreement", 
             grey_men_ima_means$grey_menima_mean, grey_men_ima_means$grey_menima_sd, "",
             col_men_ima_means$col_menima_mean,  col_men_ima_means$col_menima_sd,
@@ -1113,15 +1144,11 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
             grey_fam_means$grey_fam_mean, grey_fam_means$grey_fam_sd, "",
             col_fam_means$col_fam_mean,  col_fam_means$col_fam_sd,
         "Visual complexity",
-            grey_norms %>% select(grey_viscom_mean) %>% pull() %>% round (2),     ##  Grey VisCom mean;
-            grey_norms %>% select(grey_viscom_sd) %>% pull() %>% round (2),"",    ##  Grey VisCom sd;
-            col_norms %>% select(col_viscom_mean) %>% pull() %>% round (2),       ##  Col VisCom mean;
-            col_norms %>% select(col_viscom_sd) %>% pull() %>% round (2),         ##  Col VisCom sd;
+            grey_vis_com_means$grey_vis_com_mean, grey_vis_com_means$grey_vis_com_sd, "",
+            col_vis_com_means$col_vis_com_mean,  col_vis_com_means$col_vis_com_sd,
         "Colour diagnosticity",
-            NA,                                                                   ##  Grey ColDia mean;
-            NA,"",                                                                ##  Grey ColDia sd;
-            col_norms %>% select(col_coldia_mean) %>% pull() %>% round (2),       ##  Col ColDia mean;
-            col_norms %>% select(col_coldia_sd) %>% pull() %>% round (2))         ##  Col ColDia sd. 
+            NA, NA,"",
+            col_dia_means$col_coldia_mean, col_dia_means$col_coldia_sd)
     
     colvsgreynorms_table <- colvsgreynorms %>%
         mutate(grey_sd = str_c("(", grey_sd, ")")) %>%
