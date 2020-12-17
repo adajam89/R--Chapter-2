@@ -577,7 +577,7 @@ While the published sets of photographs are undoubtedly useful in a range of cog
         filter(tally_difference_values >1)
 ##  The "inter_rater" df was exported here so each rater could give their independent rankings for each object.
 ##  Import rating data: 
-    rater_1 <- read_csv("./resources/rater_1.csv", col_types = list(col_character(), scol_double())) %>%
+    rater_1 <- read_csv("./resources/rater_1.csv", col_types = list(col_character(), col_double())) %>%
         rename(rater_1 = rating)
     rater_2 <- read_csv("./resources/rater_2.csv", col_types = list(col_character(), col_double())) %>%
         rename(rater_2 = rating)
@@ -658,7 +658,7 @@ While the published sets of photographs are undoubtedly useful in a range of cog
             mutate(object = i)                                ##  Re-insert the object name.
         kripps_alpha <- bind_rows(kripps_alpha, kripp_calc) }
 ##  Final edits: 
-    kripps_alpha <- kripsps_alpha %>%
+    kripps_alpha <- kripps_alpha %>%
         mutate_at(c("value"), round, 2) %>%
         select(object, subjects, value) %>%
         rename("krippendorffs_alpha" = value, "variations" = subjects, "concept" = object)
@@ -1045,7 +1045,7 @@ A pool of 136 line drawings [@rossion2004] - depicting common, everyday objects 
 
 ```{r exp2--stim-examples--caption, echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering(name = "exp2--stim-examples--caption",
-                     caption = "Example pictures from @snodgrass1980, @rossion2004, and photographs from the current study selected to match.")
+                     caption = "Example pictures from @snodgrass1980, @rossion2004, and photographs from the current study selected to match. Greyscale versions not shown here.")
 ```
 &nbsp;
 &nbsp;
@@ -1130,40 +1130,89 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
 
 ```{r naming-data, include=FALSE, cache=TRUE}
 ##  Create norms table:
-    colvsgreynorms <- tribble( ~"Variable", ~"Grey", ~"grey_sd", ~"blank", ~"Colour", ~"col_sd",
+    colvsgreynorms <- tribble( ~"Variable",
+                               ~"lines", ~"grey_shaded", ~"col_shaded", ~"grey_photo", ~"col_photo",
         "Naming accuracy",
-            grey_naming_norms$grey_naming_acc_mean, grey_naming_norms$grey_naming_acc_sd, "",
-            col_naming_norms$col_naming_acc_mean, col_naming_norms$col_naming_acc_sd,
-        "Naming agreement (H)", 
-            grey_naming_norms$grey_H_mean, grey_naming_norms$grey_H_sd, "",
-            col_naming_norms$col_H_mean, col_naming_norms$col_H_sd,
-        "Mental imagery agreement", 
-            grey_men_ima_means$grey_menima_mean, grey_men_ima_means$grey_menima_sd, "",
-            col_men_ima_means$col_menima_mean,  col_men_ima_means$col_menima_sd,
+            NA, 89.2, 90.3, grey_naming_norms$grey_naming_acc_mean, col_naming_norms$col_naming_acc_mean,
+        "SD - Naming accuracy",
+            NA, 17.2, 16.9, grey_naming_norms$grey_naming_acc_sd, col_naming_norms$col_naming_acc_sd,
+        "Naming agreement (H)",
+            0.56, 0.38, 0.32, grey_naming_norms$grey_H_mean, col_naming_norms$col_H_mean,
+        "SD - Naming agreement (H)",
+            0.53, 0.52, 0.46, grey_naming_norms$grey_H_sd, col_naming_norms$col_H_sd,
+        "Mental imagery agreement",
+            3.69, 3.76, 3.74, grey_men_ima_means$grey_menima_mean, col_men_ima_means$col_menima_mean,
+        "SD - Mental imagery agreement",
+            0.59, 0.55, 0.63, grey_men_ima_means$grey_menima_sd, col_men_ima_means$col_menima_sd,
         "Familiarity",
-            grey_fam_means$grey_fam_mean, grey_fam_means$grey_fam_sd, "",
-            col_fam_means$col_fam_mean,  col_fam_means$col_fam_sd,
+            3.29, 3.52, 3.44, grey_fam_means$grey_fam_mean, col_fam_means$col_fam_mean,
+        "SD - Familiarity",
+            0.96, 1.01, 1.007, grey_fam_means$grey_fam_sd, col_fam_means$col_fam_sd,
         "Visual complexity",
-            grey_vis_com_means$grey_vis_com_mean, grey_vis_com_means$grey_vis_com_sd, "",
-            col_vis_com_means$col_vis_com_mean,  col_vis_com_means$col_vis_com_sd,
+            2.96, 2.88, 2.70, grey_vis_com_means$grey_vis_com_mean, col_vis_com_means$col_vis_com_mean,
+        "SD - Visual complexity",
+            0.90, 1.03, 0.94, grey_vis_com_means$grey_vis_com_sd, col_vis_com_means$col_vis_com_sd,
         "Colour diagnosticity",
-            NA, NA,"",
-            col_dia_means$col_coldia_mean, col_dia_means$col_coldia_sd)
+            NA, NA, NA, NA, col_dia_means$col_coldia_mean,
+        "SD - Colour diagnosticity",
+            NA, NA, NA, NA, col_dia_means$col_coldia_sd)
     
     colvsgreynorms_table <- colvsgreynorms %>%
-        mutate(grey_sd = str_c("(", grey_sd, ")")) %>%
-        mutate(col_sd = str_c("(", col_sd, ")")) %>%
+        mutate_if(is.numeric, ~round(., 2)) %>%
         mutate_all(as.character) %>%
-        mutate(Grey = replace_na(Grey, "-")) %>%
-        mutate(grey_sd = replace_na(grey_sd, "")) %>%
-        unite("Grey", Grey:grey_sd, sep = " ", remove = TRUE) %>%
-        unite("Colour", Colour:col_sd, sep = " ", remove = TRUE) %>%
-        rename(" " = blank)
+        mutate(lines = 
+            ifelse(Variable == "SD - Naming accuracy", str_c("(", lines, ")"),
+            ifelse(Variable == "SD - Naming agreement (H)", str_c("(", lines, ")"), 
+            ifelse(Variable == "SD - Mental imagery agreement", str_c("(", lines, ")"), 
+            ifelse(Variable == "SD - Familiarity", str_c("(", lines, ")"), 
+            ifelse(Variable == "SD - Visual complexity", str_c("(", lines, ")"), 
+            ifelse(Variable == "SD - Colour diagnosticity", str_c("(", lines, ")"), lines))))))) %>%
+        mutate(grey_shaded = 
+            ifelse(Variable == "SD - Naming accuracy", str_c("(", grey_shaded, ")"),
+            ifelse(Variable == "SD - Naming agreement (H)", str_c("(", grey_shaded, ")"), 
+            ifelse(Variable == "SD - Mental imagery agreement", str_c("(", grey_shaded, ")"), 
+            ifelse(Variable == "SD - Familiarity", str_c("(", grey_shaded, ")"), 
+            ifelse(Variable == "SD - Visual complexity", str_c("(", grey_shaded, ")"), 
+            ifelse(Variable == "SD - Colour diagnosticity", str_c("(", grey_shaded, ")"), grey_shaded))))))) %>%
+        mutate(col_shaded = 
+            ifelse(Variable == "SD - Naming accuracy", str_c("(", col_shaded, ")"),
+            ifelse(Variable == "SD - Naming agreement (H)", str_c("(", col_shaded, ")"), 
+            ifelse(Variable == "SD - Mental imagery agreement", str_c("(", col_shaded, ")"), 
+            ifelse(Variable == "SD - Familiarity", str_c("(", col_shaded, ")"), 
+            ifelse(Variable == "SD - Visual complexity", str_c("(", col_shaded, ")"), 
+            ifelse(Variable == "SD - Colour diagnosticity", str_c("(", col_shaded, ")"), col_shaded))))))) %>%
+        mutate(grey_photo = 
+            ifelse(Variable == "SD - Naming accuracy", str_c("(", grey_photo, ")"),
+            ifelse(Variable == "SD - Naming agreement (H)", str_c("(", grey_photo, ")"), 
+            ifelse(Variable == "SD - Mental imagery agreement", str_c("(", grey_photo, ")"), 
+            ifelse(Variable == "SD - Familiarity", str_c("(", grey_photo, ")"), 
+            ifelse(Variable == "SD - Visual complexity", str_c("(", grey_photo, ")"), 
+            ifelse(Variable == "SD - Colour diagnosticity", str_c("(", grey_photo, ")"), grey_photo))))))) %>%
+        mutate(col_photo = 
+            ifelse(Variable == "SD - Naming accuracy", str_c("(", col_photo, ")"),
+            ifelse(Variable == "SD - Naming agreement (H)", str_c("(", col_photo, ")"), 
+            ifelse(Variable == "SD - Mental imagery agreement", str_c("(", col_photo, ")"), 
+            ifelse(Variable == "SD - Familiarity", str_c("(", col_photo, ")"), 
+            ifelse(Variable == "SD - Visual complexity", str_c("(", col_photo, ")"), 
+            ifelse(Variable == "SD - Colour diagnosticity", str_c("(", col_photo, ")"), col_photo))))))) %>%
+        mutate(lines = replace_na(lines, "-")) %>%
+        mutate(grey_shaded = replace_na(grey_shaded, "-")) %>%
+        mutate(col_shaded = replace_na(col_shaded, "-")) %>%
+        mutate(grey_photo = replace_na(grey_photo, "-")) %>%
+        mutate(col_photo = replace_na(col_photo, "-")) %>%
+        mutate(Variable = 
+            ifelse(Variable == "SD - Naming accuracy" | Variable == "SD - Naming agreement (H)" |
+                   Variable == "SD - Mental imagery agreement" | Variable == "SD - Familiarity" |
+                   Variable == "SD - Visual complexity" | Variable == "SD - Colour diagnosticity", 
+                   "", Variable)) %>%
+        rename(" " = "Variable")
+    
 ```
 
 ```{r define-exp2--colvsgreynorms--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp2--colvsgreynorms--tablecaption",
-                     caption = "Summary statistics (mean and *SD*) for each of the measured variables, by colour and greyscale items.")
+                     caption = "Summary statistics (mean and *SD*) for each of the measured variables, 
+                                sby colour and greyscale items.")
 ```
 
 ## Results
@@ -1175,22 +1224,21 @@ Naming accuracy was very high for all of the photographs (*M* = `r mean_naming_a
 &nbsp;
 &nbsp;
 `r table_numbering("exp2--colvsgreynorms--tablecaption")`
-```{r, echo=FALSE, cache=TRUE}
+```{r, echo=FALSE, cache=FALSE}
   colvsgreynorms_table %>%
-      kable("latex", booktabs = T, align = "lccc", #col.names = NULL,
+      kable("latex", booktabs = T, align = "cccccc", #col.names = NULL,
             linesep = c("", "\\addlinespace", "\\addlinespace", "\\addlinespace", "\\addlinespace")) %>%
       kable_styling(latex_options = "hold_position") %>%
-      add_header_above(c(" ", "Photographs" = 2)) %>%
-      column_spec(1, width = "5.2cm") %>%
-      column_spec(2, width = "2cm") %>%
-      column_spec(3, width = "0.8cm") %>%
-      column_spec(4, width = "2cm")
+      add_header_above(c(" " = 1, "S+V" = 1, "R+P" = 2, "Current" = 2)) %>%
+      column_spec(1, width = "10em") %>%
+      column_spec(2:6, width = "3em") %>%
+      row_spec(c(1,3,5,7,9,11), bold = TRUE)
 ```
 &nbsp;
 &nbsp;
 
 ### *Mental imagery agreement*
-Scores of mental imagery agreement were moderate across all items (*M* = `r mean_men_ima`), and presented data consistent with previous scores obtained in response to drawing stimuli (@rossion2004). Unlike previous studies, however, the items in the current study exhibited colour differences; colour photographs (*M* = `r mean_col_men_ima`) showed significantly higher mental imagery agreement scores than grey photographs (*M* = `r mean_grey_men_ima`), [`r apa__men_ima__ttest$statistic`].
+Scores of mental imagery agreement were moderate across all items (*M* = `r mean_men_ima`), and consistent with previous scores obtained in response to line-drawn stimuli (see `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")`). Unlike previous studies, however, the items in the current study exhibited colour differences; colour photographs (*M* = `r mean_col_men_ima`) showed significantly higher mental imagery agreement scores than grey photographs (*M* = `r mean_grey_men_ima`), [`r apa__men_ima__ttest$statistic`].
 
 ### *Familiarity*
 Scores of familiarity (*M* = `r mean_fam`),
