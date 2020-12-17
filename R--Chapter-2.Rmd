@@ -1133,25 +1133,25 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
     colvsgreynorms <- tribble( ~"Variable",
                                ~"lines", ~"grey_shaded", ~"col_shaded", ~"grey_photo", ~"col_photo",
         "Naming accuracy",
-            NA, 89.2, 90.3, grey_naming_norms$grey_naming_acc_mean, col_naming_norms$col_naming_acc_mean,
+            88.2, 89.2, 90.3, grey_naming_norms$grey_naming_acc_mean, col_naming_norms$col_naming_acc_mean,
         "SD - Naming accuracy",
-            NA, 17.2, 16.9, grey_naming_norms$grey_naming_acc_sd, col_naming_norms$col_naming_acc_sd,
+            17.1, 17.2, 16.9, grey_naming_norms$grey_naming_acc_sd, col_naming_norms$col_naming_acc_sd,
         "Naming agreement (H)",
-            0.56, 0.38, 0.32, grey_naming_norms$grey_H_mean, col_naming_norms$col_H_mean,
+            0.44, 0.38, 0.32, grey_naming_norms$grey_H_mean, col_naming_norms$col_H_mean,
         "SD - Naming agreement (H)",
-            0.53, 0.52, 0.46, grey_naming_norms$grey_H_sd, col_naming_norms$col_H_sd,
+            0.56, 0.52, 0.46, grey_naming_norms$grey_H_sd, col_naming_norms$col_H_sd,
         "Mental imagery agreement",
-            3.69, 3.76, 3.74, grey_men_ima_means$grey_menima_mean, col_men_ima_means$col_menima_mean,
+            3.73, 3.76, 3.74, grey_men_ima_means$grey_menima_mean, col_men_ima_means$col_menima_mean,
         "SD - Mental imagery agreement",
-            0.59, 0.55, 0.63, grey_men_ima_means$grey_menima_sd, col_men_ima_means$col_menima_sd,
+            0.48, 0.55, 0.63, grey_men_ima_means$grey_menima_sd, col_men_ima_means$col_menima_sd,
         "Familiarity",
-            3.29, 3.52, 3.44, grey_fam_means$grey_fam_mean, col_fam_means$col_fam_mean,
+            3.59, 3.52, 3.44, grey_fam_means$grey_fam_mean, col_fam_means$col_fam_mean,
         "SD - Familiarity",
-            0.96, 1.01, 1.007, grey_fam_means$grey_fam_sd, col_fam_means$col_fam_sd,
+            0.94, 1.01, 1.01, grey_fam_means$grey_fam_sd, col_fam_means$col_fam_sd,
         "Visual complexity",
-            2.96, 2.88, 2.70, grey_vis_com_means$grey_vis_com_mean, col_vis_com_means$col_vis_com_mean,
+            2.76, 2.88, 2.70, grey_vis_com_means$grey_vis_com_mean, col_vis_com_means$col_vis_com_mean,
         "SD - Visual complexity",
-            0.90, 1.03, 0.94, grey_vis_com_means$grey_vis_com_sd, col_vis_com_means$col_vis_com_sd,
+            1.03, 1.03, 0.94, grey_vis_com_means$grey_vis_com_sd, col_vis_com_means$col_vis_com_sd,
         "Colour diagnosticity",
             NA, NA, NA, NA, col_dia_means$col_coldia_mean,
         "SD - Colour diagnosticity",
@@ -1205,40 +1205,42 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
                    Variable == "SD - Mental imagery agreement" | Variable == "SD - Familiarity" |
                    Variable == "SD - Visual complexity" | Variable == "SD - Colour diagnosticity", 
                    "", Variable)) %>%
-        rename(" " = "Variable")
-    
-```
-
-```{r define-exp2--colvsgreynorms--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
-    table_numbering(name = "exp2--colvsgreynorms--tablecaption",
-                     caption = "Summary statistics (mean and *SD*) for each of the measured variables, 
-                                sby colour and greyscale items.")
+        rename(" " = "Variable", "S&V lines" = "lines", "Grey shaded" = "grey_shaded",
+               "Colour shaded" = "col_shaded", "Grey photos" = "grey_photo", 
+               "Colour photos" = "col_photo") %>%
+        mutate("  " = "") %>%
+        select(" ", "S&V lines", "Grey shaded", "Colour shaded", "  ", "Grey photos", "Colour photos")
 ```
 
 ## Results
-Mean scores for each of the variables of interest, separated between colour and greyscale items, are shown in `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")` (mean scores for each unique photograph are presented in Appendix B). To compare normative data across the grey and colour versions of the photographs, a series of independent samples t-tests were run on each variable, as well as their corresponding reaction times (excluding scores of colour diagnosticity, which only apply to items presented in colour). 
+Summary statistics (mean and *SD*) for each of the measured variables are shown in `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")`. Data for the grey and colour photographs are presented alongside previously obtained normative values for a number of other stimuli formats (all obtained from @rossion2004, who published revised norms for @snodgrass1980's (S&V) original line drawings, as well as their own re-drawn versions that contained shading and texture detail). The data from previous studies were not used in any statistical analyses. To examine whether the grey and colour photographs from the current study demonstrated any differences, a series of independent samples t-tests were run on each variable, as well as their corresponding reaction times (excluding scores of colour diagnosticity, which were obtained only in response to the colour items and thus cannot be compared). Mean (and *SD*) values for all x816 unique photograph items are presented in Appendix B. 
+
+```{r define-exp2--colvsgreynorms--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
+    table_numbering(name = "exp2--colvsgreynorms--tablecaption",
+                     caption = "Summary statistics (mean and *SD*) for each of the measured variables. 
+                    
+                    ")
+```
+
+`r table_numbering("exp2--colvsgreynorms--tablecaption")`
+```{r, echo=FALSE, cache=TRUE}
+  colvsgreynorms_table %>%
+      kable("latex", booktabs = T, align = "lcccccc") %>%
+      kable_styling(latex_options = c("hold_position", "condensed")) %>%
+      add_header_above(c(" " = 1, "Rossion & Pourtois (2004)" = 3, " " = 1, "Current study" = 2)) %>%
+      column_spec(1, width = "13em") %>%
+      column_spec(2:4, width = "3.8em") %>%
+      column_spec(5, width = "2em") %>%
+      column_spec(6:7, width = "3.8em") %>%
+      row_spec(c(1,3,5,7,9,11), bold = TRUE) %>%
+      row_spec(c(2,4,6,8,10,12), italic = TRUE)
+```
 
 ### *Naming*
 Naming accuracy was very high for all of the photographs (*M* = `r mean_naming_acc`), indicating that overall, the selected items closely depicted the intended concepts. Accuracy rates did not differ between the grey (*M* = `r mean_grey_naming_acc`) and colour (*M* = `r mean_col_naming_acc`) versions of the photographs [`r apa__naming_acc__ttest$statistic`]. *H* values were also low across all items (*M* = `r mean_H_stat`), showing that subjects generally agreed on how the item should be named. While @rossion2004 observed significantly better naming agreement for their colour - rather than greyscale - items, this pattern was not replicated with the current set of photographs; *H* values did not differ between the grey (*M* = `r mean_grey_H_stat`) and colour (*M* = `r mean_col_H_stat`) photographs [`r apa__H_stat__ttest$statistic`]. A mean reaction time (RT) of (*M* = `r mean_naming_rt`s) was observed for naming responses, and while this this tells us little without any sort of baseline (the current methods of collecting naming responses were slightly different than that of @rossion2004), they did allow comparisons to be made between grey and colour items (though no difference was observed [grey *M* = `r mean_grey_naming_rt`s, colour *M* = `r mean_col_naming_rt`s, `r apa__naming_rt__ttest$statistic`]). Overall, these analyses suggest that the current photographs closely resemble the line drawings they were designed to match, with high levels of naming accuracy and agreement among subjects. The absence of any colour differences indicates there were no naming advantages when photographs were made even more distinctive through the addition of colour. 
 
-&nbsp;
-&nbsp;
-`r table_numbering("exp2--colvsgreynorms--tablecaption")`
-```{r, echo=FALSE, cache=FALSE}
-  colvsgreynorms_table %>%
-      kable("latex", booktabs = T, align = "cccccc", #col.names = NULL,
-            linesep = c("", "\\addlinespace", "\\addlinespace", "\\addlinespace", "\\addlinespace")) %>%
-      kable_styling(latex_options = "hold_position") %>%
-      add_header_above(c(" " = 1, "S+V" = 1, "R+P" = 2, "Current" = 2)) %>%
-      column_spec(1, width = "10em") %>%
-      column_spec(2:6, width = "3em") %>%
-      row_spec(c(1,3,5,7,9,11), bold = TRUE)
-```
-&nbsp;
-&nbsp;
-
 ### *Mental imagery agreement*
-Scores of mental imagery agreement were moderate across all items (*M* = `r mean_men_ima`), and consistent with previous scores obtained in response to line-drawn stimuli (see `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")`). Unlike previous studies, however, the items in the current study exhibited colour differences; colour photographs (*M* = `r mean_col_men_ima`) showed significantly higher mental imagery agreement scores than grey photographs (*M* = `r mean_grey_men_ima`), [`r apa__men_ima__ttest$statistic`].
+Scores of mental imagery agreement were moderate across all items (*M* = `r mean_men_ima`), and were very similar as those obtained in response to the other stimuli formats (see `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")`). Unlike previous studies, however, the items in the current study exhibited colour differences; colour photographs (*M* = `r mean_col_men_ima`) showed significantly higher mental imagery agreement scores than grey photographs (*M* = `r mean_grey_men_ima`), [`r apa__men_ima__ttest$statistic`].
 
 ### *Familiarity*
 Scores of familiarity (*M* = `r mean_fam`),
