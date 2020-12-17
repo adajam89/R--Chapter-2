@@ -804,7 +804,7 @@ While the published sets of photographs are undoubtedly useful in a range of cog
     fam__ttest <- t.test(grey_fam$grey_fam, col_fam$col_fam)
     apa__fam__ttest <- papaja:::apa_print(fam__ttest)
     fam_rt__ttest <- t.test(grey_fam$grey_fam_rt, col_fam$col_fam_rt)
-    apa__fam__ttest <- papaja:::apa_print(fam_rt__ttest)
+    apa__fam_rt__ttest <- papaja:::apa_print(fam_rt__ttest)
 ################################################################################################################
 ##   Visual Complexity:                                                                                       ##
 ################################################################################################################
@@ -870,8 +870,8 @@ While the published sets of photographs are undoubtedly useful in a range of cog
 
     vis_com__ttest <- t.test(grey_vis_com$grey_vis_com, col_vis_com$col_vis_com)
     apa__vis_com__ttest <- papaja:::apa_print(vis_com__ttest)
-    viscom_rt__ttest <- t.test(grey_vis_com$grey_viscom_rt, col_vis_com$col_viscom_rt)
-    apa__vis_com__ttest <- papaja:::apa_print(viscom_rt__ttest)    
+    vis_com_rt__ttest <- t.test(grey_vis_com$grey_viscom_rt, col_vis_com$col_viscom_rt)
+    apa__vis_com_rt__ttest <- papaja:::apa_print(vis_com_rt__ttest)    
     
 ################################################################################################################
 ##   Mental imagery agreement:                                                                                ##
@@ -945,7 +945,7 @@ While the published sets of photographs are undoubtedly useful in a range of cog
     men_ima__ttest <- t.test(grey_men_ima$grey_men_ima, col_men_ima$col_men_ima)
     apa__men_ima__ttest <- papaja:::apa_print(men_ima__ttest)
     men_ima_rt__ttest <- t.test(grey_men_ima$grey_men_ima_rt, col_men_ima$col_men_ima_rt)
-    apa__men_ima__ttest <- papaja:::apa_print(men_ima_rt__ttest)
+    apa__men_ima_rt__ttest <- papaja:::apa_print(men_ima_rt__ttest)
     
 ################################################################################################################
 ##   Colour diagnosticity:                                                                                    ##
@@ -975,7 +975,7 @@ While the published sets of photographs are undoubtedly useful in a range of cog
         select(col_coldia_mean, col_coldia_sd, col_coldia_mean_rt, col_coldia_sd_rt) %>%
         distinct()
 ##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##  Mental imagery analysis:
+##  Colour diagnosticity analysis:
 ##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     col_dia <- col_dia_norms %>%
         select(stim, colourdiagnosticity_mean, coldia_rt_mean) %>%
@@ -1217,9 +1217,7 @@ Summary statistics (mean and *SD*) for each of the measured variables are shown 
 
 ```{r define-exp2--colvsgreynorms--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp2--colvsgreynorms--tablecaption",
-                     caption = "Summary statistics (mean and *SD*) for each of the measured variables. 
-                    
-                    ")
+                     caption = "Summary statistics for each of the measured variables. Mean values are presented in **bold**, while SDs are shown in parentheses.")
 ```
 
 `r table_numbering("exp2--colvsgreynorms--tablecaption")`
@@ -1237,28 +1235,31 @@ Summary statistics (mean and *SD*) for each of the measured variables are shown 
 ```
 
 ### *Naming*
-Naming accuracy was very high for all of the photographs (*M* = `r mean_naming_acc`), indicating that overall, the selected items closely depicted the intended concepts. Accuracy rates did not differ between the grey (*M* = `r mean_grey_naming_acc`) and colour (*M* = `r mean_col_naming_acc`) versions of the photographs [`r apa__naming_acc__ttest$statistic`]. *H* values were also low across all items (*M* = `r mean_H_stat`), showing that subjects generally agreed on how the item should be named. While @rossion2004 observed significantly better naming agreement for their colour - rather than greyscale - items, this pattern was not replicated with the current set of photographs; *H* values did not differ between the grey (*M* = `r mean_grey_H_stat`) and colour (*M* = `r mean_col_H_stat`) photographs [`r apa__H_stat__ttest$statistic`]. A mean reaction time (RT) of (*M* = `r mean_naming_rt`s) was observed for naming responses, and while this this tells us little without any sort of baseline (the current methods of collecting naming responses were slightly different than that of @rossion2004), they did allow comparisons to be made between grey and colour items (though no difference was observed [grey *M* = `r mean_grey_naming_rt`s, colour *M* = `r mean_col_naming_rt`s, `r apa__naming_rt__ttest$statistic`]). Overall, these analyses suggest that the current photographs closely resemble the line drawings they were designed to match, with high levels of naming accuracy and agreement among subjects. The absence of any colour differences indicates there were no naming advantages when photographs were made even more distinctive through the addition of colour. 
+Naming accuracy was very high for all photographs (*M* = `r mean_naming_acc`), indicating that overall, the selected items closely depicted the intended concepts. Compared with the other stimuli formats, there appears to be a steady increase in accuracy as items become more distinctive (see `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")`). Accuracy rates did not differ between the grey (*M* = `r mean_grey_naming_acc`) and colour (*M* = `r mean_col_naming_acc`) versions of the photographs [`r apa__naming_acc__ttest$statistic`].
+
+*H* values were also low across all items (*M* = `r mean_H_stat`), showing that subjects generally agreed on how the items should be named. Similar to naming accuracy, naming agreement also appears to steadily increase as items become more distinctive (as indicated by decreasing H values - see `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")`. While @rossion2004 observed significantly better naming agreement for their colour - rather than greyscale - items, this pattern did not reach significance with the current set of photographs; *H* values did not differ between the grey (*M* = `r mean_grey_H_stat`) and colour (*M* = `r mean_col_H_stat`) photographs [`r apa__H_stat__ttest$statistic`].
+
+A mean reaction time (RT) of (`r mean_naming_rt`s) was observed for naming responses. While this was of little interest on its own, and could not be compared to those obtained in response to the other stimuli formats as our methodology was slightly different (RTs were only recorded when subjects had typed their response *and* clicked the mouse to signify they had finished), they were useful for marking comparisons between the grey and colour items (though no difference was observed [*M* grey = `r mean_grey_naming_rt`s, *M* colour = `r mean_col_naming_rt`s, `r apa__naming_rt__ttest$statistic`]). Overall, these analyses suggest that the current photographs closely resemble the drawings they were designed to match, with high levels of naming accuracy and agreement among subjects. The absence of any colour differences indicates there were no naming advantages when photographs were made even more distinctive through the addition of colour. 
 
 ### *Mental imagery agreement*
-Scores of mental imagery agreement were moderate across all items (*M* = `r mean_men_ima`), and were very similar as those obtained in response to the other stimuli formats (see `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")`). Unlike previous studies, however, the items in the current study exhibited colour differences; colour photographs (*M* = `r mean_col_men_ima`) showed significantly higher mental imagery agreement scores than grey photographs (*M* = `r mean_grey_men_ima`), [`r apa__men_ima__ttest$statistic`].
+Scores of mental imagery agreement were moderate across all items (*M* = `r mean_men_ima`). While no colour differences were previously observed between stimuli formats, the grey (*M* = `r mean_grey_men_ima`) photographs in the current study showed significantly lower mental imagery agreement scores than the colour (*M* = `r mean_col_men_ima`) items [`r apa__men_ima__ttest$statistic`]. Comparisons with previous normative data also highlight how the grey photographs exhibited uniquely poorer mental imagery agreement scores than any of the other stimuli formats (see `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")`). RTs between the grey (*M* = `r mean_grey_men_ima_rt`) and colour (*M* = `r mean_col_men_ima_rt`) items did not significantly differ [`r apa__men_ima_rt__ttest$statistic`].
 
 ### *Familiarity*
-Scores of familiarity (*M* = `r mean_fam`),
-grey (*M* = `r mean_grey_fam`),
-colour (*M* = `r mean_col_fam`),
-[`r apa__fam__ttest$statistic`]
+Familiarity scores were high overall (*M* = `r mean_fam`), and like previous findings, there was no difference between the grey (*M* = `r mean_grey_fam`) and colour (*M* = `r mean_col_fam`) items [`r apa__fam__ttest$statistic`]. However, familiarity scores for the current set of photographs were higher than those obtained for any of the other stimuli formats, and while there previously appeared to be a decline in familiarity as stimuli become more distinctive (from line drawings, to grey shaded, to colour shaded), such a pattern was not evident with the current photographs (see `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")`). RTs between the grey (*M* = `r mean_grey_fam_rt`) and colour (*M* = `r mean_col_fam_rt`) items did not significantly differ [`r apa__fam_rt__ttest$statistic`].
 
 ### *Visual complexity*
-Scores of visual complexity (*M* = `r mean_vis_com`),
-grey (*M* = `r mean_grey_vis_com`),
-colour (*M* = `r mean_col_vis_com`),
-[`r apa__vis_com__ttest$statistic`]
-
+Visual complexity ratings were moderate across all of the items (*M* = `r mean_vis_com`). Colour (*M* = `r mean_col_vis_com`) photographs showed significantly higher scores of visual complexity than grey (*M* = `r mean_grey_vis_com`) photographs [`r apa__vis_com__ttest$statistic`]. This finding is further demonstrated when compared to the scores from the other stimuli formats (see `r table_numbering("exp2--colvsgreynorms--tablecaption", display = "cite")`); where grey photographs show comparable levels of visual complexity, the colour photographs show higher scores than all of the other formats. There was no significant difference between the RTs of grey (*M* = `r mean_grey_viscom_rt`) and colour (*M* = `r mean_col_viscom_rt`) items [`r apa__vis_com_rt__ttest$statistic`].
 
 ### *Selection of final items*
-In an effort to reduce researcher bias, the normative naming data was assessed to determine which photograph variation best matched the concepts depicted in the line drawings [@rossion2004]. For each item represented in the photographs, one variation (of a possible three) would be selected for inclusion in a final list of stimuli that would be taken forward into subsequent recognition experiments. The selection process was conducted on the basis of naming data only. If an item was found to primarily convey a different concept than intended during the naming task, then it could not be sufficiently compared to its line-drawn (and written-word) counterpart during recognition studies. 
+For each concept represented in the photographs, one variation (e.g. shoe-1, shoe-2, or shoe-3) was selected for inclusion in a final list of stimuli that would be taken forward into subsequent recognition experiments. The normative naming data was assessed to establish which version best matched the existing line-drawn depictions of the concepts [@rossion2004]. Naming was favoured over all of the other variables as, if an item was found to primarily convey a different concept than was intended during the naming task (e.g. if a photograph of the fruit 'orange' was labelled 'grapefruit' by the majority of subjects), then it could not be sufficiently compared to its line-drawn (and written-word) counterpart during recognition studies. 
 
-Naming data from all participants was collated, resulting in at least 20 unique naming responses for each of the 816 photographs (408 colour items and 408 greyscale items). The proportion of 'correct' responses (i.e. names that were congruent with the intended label) and the proportion of 'don't know' responses were calculated for each item. Photographs were subjected to a number of criteria to determine whether they should be taken any further. First, items were excluded if they received a high proportion of "don't know" responses (20%) - all of the photographs depicted common, everyday objects, and so if a number of subjects were unable to name the item, that particular photograph was considered to be a poor representation of the item. Similarly, items were excluded if they were incorrectly named by the majority of subjects (i.e. if the proportion of correct responses equalled .50 or lower), since it was essential for the photograph items to depict the same concepts as those found in the line drawings and word stimuli. Finally, items with particularly poor naming agreement were also excluded (i.e. 20% or fewer subjects named the object similarly). A total of 54 photographs matched at least one of these criteria. Regardless of whether flagged items were grey or colour, both items had to be removed since it was necessary to have otherwise identical grey and colour versions in our final stimuli list. Thus, a total of 64 items (32 grey / 32 colour) were excluded at this stage.
+At least 20 unique naming responses were collected for each of the 816 photographs (408 grey items and 408 colour items). The proportion of 'correct' responses (i.e. names that were congruent with the intended concept) and the proportion of 'don't know' responses were calculated for each item. Photographs were excluded if they:
+
+- i) received a high proportion of "don't know" responses (20%; all of the photographs depicted common, everyday objects, and so if a number of subjects were unable to name the item, that particular photograph was considered to be a poor representation of the item);
+- ii) were incorrectly named by the majority of subjects (i.e. if the proportion of correct responses equalled ≤50%, since it was essential for the photographs to depict the same concepts as those found in the line drawings and word stimuli);
+- iii) had particularly poor naming agreement (≤20% subjects named the object similarly). Items may not have been flagged by the second criteria (e.g. if it received 4 different names, each with a 25% ratio), but could still be considered poor representations of the intended concepts.
+
+54 photographs were found to meet at least one of the above criteria, and therefore excluded. Regardless of whether these items were grey or colour, it was also necessary to remove its grey or colour partner (since both versions were needed to make comparisons across recognition experiments). Thus, a total of 64 items (32 grey / 32 colour) were excluded at this stage (many items already had both grey and colour versions flagged by the original criteria). 
 
 Next, the proportion of correct responses were compared between grey and colour photographs in order to identify items showing the lowest difference. In order to manipulate colour in later recognition experiments, it was important to select items where naming was congruent across colour/grey items; in other words, it would be difficult to attribute particular recognition response patterns to the addition of colour (if a difference were found) when the grey version could not be identified (or encoded) similarly. Variations exhibiting the least difference between colour and grey items (for the proportion of correct responses) were taken forward, while the rest were excluded. In a number of instances, multiple variations for the same object had the same 'difference' score. For example, all three variations of the item "balloon" exhibited perfect naming agreement, irrespective of whether they were presented in colour or grey (and thus "balloon1", "balloon2", and "balloon3" had a difference score of 0). For items where more than 1 variation remained, manual rankings were obtained from two of the researchers to determine which variation best depicted the intended concept. For each item, the researchers independently studied the remaining variations and provided a rank of which they thought was best (1) to worst (2 or 3, depending on the number of variations that remained). The ratings from both researchers were collated; items where there was agreement as to which variation best depicted the intended concept were selected for inclusion in the final stimuli list. For all the items where there was disagreement between the researchers rankings, one of the variations was simply selected at random.
 
