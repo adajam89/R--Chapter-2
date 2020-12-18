@@ -1140,18 +1140,26 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
             0.44, 0.38, 0.32, grey_naming_norms$grey_H_mean, col_naming_norms$col_H_mean,
         "SD - Naming agreement (H)",
             0.56, 0.52, 0.46, grey_naming_norms$grey_H_sd, col_naming_norms$col_H_sd,
+        "padding",
+            NA, NA, NA, NA, NA,
         "Mental imagery agreement",
             3.73, 3.76, 3.74, grey_men_ima_means$grey_menima_mean, col_men_ima_means$col_menima_mean,
         "SD - Mental imagery agreement",
             0.48, 0.55, 0.63, grey_men_ima_means$grey_menima_sd, col_men_ima_means$col_menima_sd,
+        "padding2",
+            NA, NA, NA, NA, NA,
         "Familiarity",
             3.59, 3.52, 3.44, grey_fam_means$grey_fam_mean, col_fam_means$col_fam_mean,
         "SD - Familiarity",
             0.94, 1.01, 1.01, grey_fam_means$grey_fam_sd, col_fam_means$col_fam_sd,
+        "padding3",
+            NA, NA, NA, NA, NA,
         "Visual complexity",
             2.76, 2.88, 2.70, grey_vis_com_means$grey_vis_com_mean, col_vis_com_means$col_vis_com_mean,
         "SD - Visual complexity",
             1.03, 1.03, 0.94, grey_vis_com_means$grey_vis_com_sd, col_vis_com_means$col_vis_com_sd,
+        "padding4",
+            NA, NA, NA, NA, NA,
         "Colour diagnosticity",
             NA, NA, NA, NA, col_dia_means$col_coldia_mean,
         "SD - Colour diagnosticity",
@@ -1203,13 +1211,33 @@ Mean ratings were calculated for familiarity, visual complexity, colour diagnost
         mutate(Variable = 
             ifelse(Variable == "SD - Naming accuracy" | Variable == "SD - Naming agreement (H)" |
                    Variable == "SD - Mental imagery agreement" | Variable == "SD - Familiarity" |
-                   Variable == "SD - Visual complexity" | Variable == "SD - Colour diagnosticity", 
-                   "", Variable)) %>%
+                   Variable == "SD - Visual complexity" | Variable == "SD - Colour diagnosticity" |
+                   Variable == "padding" | Variable == "padding2" | Variable == "padding3" |
+                   Variable == "padding4","", Variable)) %>%
         rename(" " = "Variable", "S&V lines" = "lines", "Grey shaded" = "grey_shaded",
                "Colour shaded" = "col_shaded", "Grey photos" = "grey_photo", 
                "Colour photos" = "col_photo") %>%
         mutate("  " = "") %>%
         select(" ", "S&V lines", "Grey shaded", "Colour shaded", "  ", "Grey photos", "Colour photos")
+    
+    colvsgreynorms_table[5,2] <- ""
+    colvsgreynorms_table[5,3] <- ""
+    colvsgreynorms_table[5,4] <- ""
+    colvsgreynorms_table[5,6] <- ""
+    colvsgreynorms_table[5,7] <- ""
+    
+    colvsgreynorms_table[8,2] <- ""
+    colvsgreynorms_table[8,3] <- ""
+    colvsgreynorms_table[8,4] <- ""
+    colvsgreynorms_table[8,6] <- ""
+    colvsgreynorms_table[8,7] <- ""
+    
+    colvsgreynorms_table[11,2] <- ""
+    colvsgreynorms_table[11,3] <- ""
+    colvsgreynorms_table[11,4] <- ""
+    colvsgreynorms_table[11,6] <- ""
+    colvsgreynorms_table[11,7] <- ""
+    
 ```
 
 ## Results
@@ -1217,7 +1245,7 @@ Summary statistics (mean and *SD*) for each of the measured variables are shown 
 
 ```{r define-exp2--colvsgreynorms--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp2--colvsgreynorms--tablecaption",
-                     caption = "Summary statistics for each of the measured variables. Mean values are presented in **bold**, while SDs are shown in parentheses.")
+                     caption = "Summary statistics for each of the measured variables. Mean values are presented in bold (SDs are shown in parentheses).")
 ```
 
 `r table_numbering("exp2--colvsgreynorms--tablecaption")`
@@ -1230,8 +1258,8 @@ Summary statistics (mean and *SD*) for each of the measured variables are shown 
       column_spec(2:4, width = "3.8em") %>%
       column_spec(5, width = "2em") %>%
       column_spec(6:7, width = "3.8em") %>%
-      row_spec(c(1,3,5,7,9,11), bold = TRUE) %>%
-      row_spec(c(2,4,6,8,10,12), italic = TRUE)
+      row_spec(c(1,3,6,9,12,15), bold = TRUE) %>%
+      row_spec(c(2,4,7,10,13,16), italic = TRUE)
 ```
 
 ### *Naming*
@@ -1255,16 +1283,13 @@ For each concept represented in the photographs, one variation (e.g. shoe-1, sho
 
 At least 20 unique naming responses were collected for each of the 816 photographs (408 grey items and 408 colour items). The proportion of 'correct' responses (i.e. names that were congruent with the intended concept) and the proportion of 'don't know' responses were calculated for each item. Photographs were excluded if they:
 
-- i) received a high proportion of "don't know" responses (20%; all of the photographs depicted common, everyday objects, and so if a number of subjects were unable to name the item, that particular photograph was considered to be a poor representation of the item);
-- ii) were incorrectly named by the majority of subjects (i.e. if the proportion of correct responses equalled ≤50%, since it was essential for the photographs to depict the same concepts as those found in the line drawings and word stimuli);
-- iii) had particularly poor naming agreement (≤20% subjects named the object similarly). Items may not have been flagged by the second criteria (e.g. if it received 4 different names, each with a 25% ratio), but could still be considered poor representations of the intended concepts.
+1. received a high proportion of "don't know" responses (20%; all of the photographs depicted common, everyday objects, and so if a number of subjects were unable to name the item, that particular photograph was considered to be a poor representation of the item);
+2. were incorrectly named by the majority of subjects (i.e. if the proportion of correct responses equalled ≤50%, since it was essential for the photographs to depict the same concepts as those found in the line drawings and word stimuli);
+3. had particularly poor naming agreement (≤20% subjects named the object similarly). Items may not have been flagged by the second criteria (e.g. if it received 4 different names, each with a 25% ratio), but could still be considered poor representations of the intended concepts.
 
 54 photographs were found to meet at least one of the above criteria, and therefore excluded. Regardless of whether these items were grey or colour, it was also necessary to remove its grey or colour partner (since both versions were needed to make comparisons across recognition experiments). Thus, a total of 64 items (32 grey / 32 colour) were excluded at this stage (many items already had both grey and colour versions flagged by the original criteria). 
 
 Next, the proportion of correct responses were compared between grey and colour photographs in order to identify items showing the lowest difference. In order to manipulate colour in later recognition experiments, it was important to select items where naming was congruent across colour/grey items; in other words, it would be difficult to attribute particular recognition response patterns to the addition of colour (if a difference were found) when the grey version could not be identified (or encoded) similarly. Variations exhibiting the least difference between colour and grey items (for the proportion of correct responses) were taken forward, while the rest were excluded. In a number of instances, multiple variations for the same object had the same 'difference' score. For example, all three variations of the item "balloon" exhibited perfect naming agreement, irrespective of whether they were presented in colour or grey (and thus "balloon1", "balloon2", and "balloon3" had a difference score of 0). For items where more than 1 variation remained, manual rankings were obtained from two of the researchers to determine which variation best depicted the intended concept. For each item, the researchers independently studied the remaining variations and provided a rank of which they thought was best (1) to worst (2 or 3, depending on the number of variations that remained). The ratings from both researchers were collated; items where there was agreement as to which variation best depicted the intended concept were selected for inclusion in the final stimuli list. For all the items where there was disagreement between the researchers rankings, one of the variations was simply selected at random.
-
-
-
 
 ## Discussion
 
@@ -1276,61 +1301,87 @@ In the current study, significant differences were observed between the grey and
 
 \newpage
 # Experiment 3
+## Effect of stimuli format and response option on recognition memory judgments.
+
+The specific methodologies utilised in recognition memory research are rarely consistent across studies. An often overlooked factor is the format to-be-remembered stimuli are presented in, with many studies utilising written or spoken words (???), line drawings or illustrations (???), or real world photographs (???).
+
+
+Another inconsistency across recognition memory experiments is the response options available to participants when reporting their recognition, for example: Remember/Know (???), Recollection/Familiarity (???), or Low/Med/High confidence (???).
+
+
+Such differences could account for the range of conclusions made about the recognition memory abilities of older adults and those presenting early memory impairment (amnestic Mild Cognitive Impairment; aMCI); despite general agreement that those with aMCI show recollection impairments, findings have been much less consistent in determining the preservation of familiarity processes.
+
+
+The current study systematically compares recognition memory performance toward three distinct stimuli formats (words, drawings, and photographs) in an effort to establish how stimuli of varying perceptual distinctiveness may affect recognition response patterns. 
+
+The availability of different response options when reporting recognition will also be examined, in order to study any further potential effects or interactions across: 1. Recollection/Familiarity/Guessing - the RFG condition; and 2. as previous, but with the addition of a Both category - the RFBG condition).
+
+Common, everyday objects will be presented in: i) word form (written in simple, black ink); ii) drawing form (line-drawn illustrations); or iii) photograph form (detail rich exemplars of the real world object). 
+To our knowledge, no study has systematically matched items across a number of formats in an effort to determine the point at which stimuli distinctiveness impacts recognition.
+
+@rossion2004 demonstrated that naming agreement could be improved by adding surface texture and shading
+only resulted in a small improvement 
+It is hypothesised that the grey photographs 
+
+Based on previous (as yet unpublished) data, we hypothesise that:
+
+- the number of hits (correctly recognised items) will increase as stimuli become more detailed (words < drawings < photographs);
+
+- the number of false alarms (FAs) will decrease as stimuli become more detailed (words < drawings < photographs);
+
+- the number of hits retrieved with “Recollection” will increase as stimuli become more detailed (words < drawings < photographs);
+
+- the number of hits retrieved with “Familiarity” will decrease as stimuli become less detailed (photographs > drawings > words);
+
+- the number of hits retrieved with “Guessing” will increase as stimuli become less detailed (photographs > drawings > words);
+
+- the number of FAs retrieved with “Recollection”, “Familiarity”, or “Guessing” hits will not change across stimuli formats);
+
+- the reporting of Recollection and Familiarity for the different stimuli formats will differ across response option conditions (RFG vs. RFBG).
+
+
 ```{r experiment-3-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
-####################################################################################################################
-##                                                                                                                ##
-##    Participant info:                                                                                           ##
-##                                                                                                                ##
-####################################################################################################################
+#################################################################################################################
+##    EXPERIMENT 3:                                                                                            ##
+#################################################################################################################
 ##  Import demographics, RFG justifications, and RFBG justifications:                       
-    p_info_files <-                                                                             # SONA - colour + grey (v123):
-      c("./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_questionnaire-hq4r.csv",   # Demographics (v123)
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_questionnaire-aaj1.csv",   # RFG justifications (v123)
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_questionnaire-n6oe.csv",   # RFBG justifications (v123)
-                                                                                                # Prolific - colour (v127):
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_questionnaire-hq4r.csv",   # Demographics (v127)
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_questionnaire-aaj1.csv",   # RFG justifications (v127)
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_questionnaire-n6oe.csv",   # RFBG justifications (v127)
-                                                                                                # Prolific - colour (v128):
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_questionnaire-hq4r.csv",   # Demographics (v128)
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_questionnaire-aaj1.csv",   # RFG justifications (v128)
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_questionnaire-n6oe.csv",   # RFBG justifications (v128)
-                                                                                                # Prolific - grey (v131):
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_questionnaire-hq4r.csv",   # Demographics (v131)
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_questionnaire-aaj1.csv",   # RFG justifications (v131)
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_questionnaire-n6oe.csv",   # RFBG justifications (v131)
-                                                                                                # Hanover - grey (v4):
-        "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_questionnaire-hq4r.csv",     # Demographics (v4)
-        "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_questionnaire-aaj1.csv",     # RFG justifications (v4)
-        "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_questionnaire-n6oe.csv")     # RFBG justifications (v4)
+    p_info_files <-
+##  SONA - colour + grey (v123):
+      c("./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_questionnaire-hq4r.csv",
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_questionnaire-aaj1.csv",
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_questionnaire-n6oe.csv",
+##  Prolific - colour (v127):
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_questionnaire-hq4r.csv",
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_questionnaire-aaj1.csv",
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_questionnaire-n6oe.csv",
+##  Prolific - colour (v128):
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_questionnaire-hq4r.csv",
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_questionnaire-aaj1.csv",
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_questionnaire-n6oe.csv",
+##  Prolific - grey (v131):
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_questionnaire-hq4r.csv",
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_questionnaire-aaj1.csv",
+        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_questionnaire-n6oe.csv",
+##  Hanover - grey (v4):
+        "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_questionnaire-hq4r.csv",
+        "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_questionnaire-aaj1.csv",
+        "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_questionnaire-n6oe.csv")
 
 ##  Create raw df from the above files, but only get the following columns:
     participant_info <- map_dfr(p_info_files,~read_csv(.x, col_types = cols_only("Participant Private ID"='c', 
-                                                                                 "Participant Public ID"='c',
-                                                                                 "UTC Date"='c',"Participant OS"='c',
-                                                                                 "Participant Browser"='c',
-                                                                                 "Participant Monitor Size"='c',          
-                                                                                 "randomiser-hr2x"='c',
-                                                                                 "randomiser-r7fb"='c',
-                                                                                 "randomiser-hr9o"='c',
-                                                                                 "randomiser-8myq"='c', 
-                                                                                 "randomiser-uhe4"='c',
-                                                                                 "randomiser-z5ou"='c', 
-                                                                                 "randomiser-kdpl"='c',
-                                                                                 "randomiser-fslx"='c', 
-                                                                                 "randomiser-1ls2"='c',
-                                                                                 "checkpoint-cks2"='c', 
-                                                                                 "checkpoint-lpef"='c',
-                                                                                 "checkpoint-n8cs"='c', 
-                                                                                 "checkpoint-8p6q"='c',
-                                                                                 "checkpoint-jk6r"='c', 
-                                                                                 "checkpoint-j7fq"='c',
-                                                                                 "checkpoint-n8cs"='c', 
-                                                                                 "Question Key"='c',"Response"='c'))) %>%
+                                "Participant Public ID"='c',"UTC Date"='c',"Participant OS"='c',
+                                "Participant Browser"='c',"Participant Monitor Size"='c',"randomiser-hr2x"='c',
+                                "randomiser-r7fb"='c',"randomiser-hr9o"='c',"randomiser-8myq"='c', 
+                                "randomiser-uhe4"='c',"randomiser-z5ou"='c',"randomiser-kdpl"='c',
+                                "randomiser-fslx"='c',"randomiser-1ls2"='c',"checkpoint-cks2"='c', 
+                                "checkpoint-lpef"='c',"checkpoint-n8cs"='c',"checkpoint-8p6q"='c',
+                                "checkpoint-jk6r"='c',"checkpoint-j7fq"='c',"checkpoint-n8cs"='c', 
+                                "Question Key"='c',"Response"='c'))) %>%
 ##  Merge columns that contain the same type of data, but were originally split into different columns:
-        unite(study_list,  "randomiser-r7fb", "randomiser-hr9o", remove = TRUE, na.rm = TRUE) %>%
-        unite(test_list,   "checkpoint-cks2", "checkpoint-lpef", "checkpoint-n8cs", "checkpoint-8p6q",
-                           "checkpoint-jk6r", "checkpoint-j7fq", "checkpoint-n8cs", remove = TRUE, na.rm = TRUE) %>%
+        unite(study_list, "randomiser-r7fb", "randomiser-hr9o", remove = TRUE, na.rm = TRUE) %>%
+        unite(test_list, "checkpoint-cks2", "checkpoint-lpef", "checkpoint-n8cs", "checkpoint-8p6q",
+                           "checkpoint-jk6r", "checkpoint-j7fq", "checkpoint-n8cs", remove = TRUE,
+              na.rm = TRUE) %>%
         unite(resp_option, "randomiser-kdpl", "randomiser-8myq", "randomiser-z5ou", "randomiser-uhe4",
                            "randomiser-fslx", "randomiser-1ls2", remove = TRUE, na.rm = TRUE) %>%
 ##  Rename some columns:    
@@ -1338,8 +1389,8 @@ In the current study, significant differences were observed between the grey and
                system = "Participant OS", browser = "Participant Browser", monitor = "Participant Monitor Size", 
                col_or_grey = "randomiser-hr2x", question = "Question Key", response = "Response") %>%   
 ##  Reorder columns:    
-        select(id, prolific_id, date, system, browser, monitor, col_or_grey, resp_option, study_list, test_list, question,
-               response) %>%
+        select(id, prolific_id, date, system, browser, monitor, col_or_grey, resp_option, study_list, 
+               test_list, question, response) %>%
 ##  Set participant ID as the grouping variable, and arrange data by participant ID:
         group_by(id) %>%
         arrange(id) %>%
@@ -1351,14 +1402,15 @@ In the current study, significant differences were observed between the grey and
         spread(key = question, value = response) %>%
 ##  Remove unimportant columns:    
         select(-"age-quantised", -"attention_check-quantised", -"EngFirstLang-quantised", -"ethnicity-quantised",
-               -"ethnicity2-quantised", -"ethnicity3-quantised", -"mem_skills_1-quantised", -"mem_skills_2-quantised",
-               -"response-6-quantised", -"response-9-quantised") %>%
+               -"ethnicity2-quantised", -"ethnicity3-quantised", -"mem_skills_1-quantised",
+               -"mem_skills_2-quantised", -"response-6-quantised", -"response-9-quantised") %>%
 ##  Merge multiple rows into one (per participant):
         summarise_all(coalesce_by_column) %>%
 ##  Rename more columns:
         rename(white = "ethnicity", mixed = "ethnicity2", asian = "ethnicity3", eng_first_lang = "EngFirstLang",
                mixed_other = "response-4", asian_other = "response-15", black = "response-6", 
-               black_other = "response-7", other_ethnic = "response-9", other_ethnic_specified = "response-4") %>%
+               black_other = "response-7", other_ethnic = "response-9", 
+               other_ethnic_specified = "response-4") %>%
 ##  Reorder columns again:   
         select(id, prolific_id, date, system, browser, monitor, col_or_grey, resp_option, study_list, test_list, 
                age, gender, eng_first_lang, white, white_other, mixed, mixed_other, asian, asian_other, black, 
@@ -1366,8 +1418,10 @@ In the current study, significant differences were observed between the grey and
                both_justification, guess_justification, mem_skills_1, mem_skills_2, attention_check) %>%
 ##  Recode attention check to show pass or fail:
         mutate(attention_check = str_replace(attention_check, "a lot better", "pass")) %>%
-        mutate(attention_check = str_replace_all(attention_check, c("a lot worse" = "fail", "a little worse" = "fail", 
-                                                                    "the same" = "fail", "a little better" = "fail"))) %>%
+        mutate(attention_check = str_replace_all(attention_check, c("a lot worse" = "fail", 
+                                                                    "a little worse" = "fail", 
+                                                                    "the same" = "fail", 
+                                                                    "a little better" = "fail"))) %>%
 ##  Tidy up responses for clarity:
         mutate_all(., tolower) %>%
         mutate(col_or_grey = str_remove_all(col_or_grey, "^(.*?)__")) %>%
@@ -1392,51 +1446,47 @@ In the current study, significant differences were observed between the grey and
         arrange(col_or_grey, desc(resp_option), study_list, test_list)
     
 ##  Calculate how many items P got correct during study:
-##  Import study data:                                                            # SONA - colour + grey (v123):
-    study_files <- c("./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-hqih.csv",    # Study_1_Grey (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-iwo1.csv",    # Study_2_Grey (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-zde5.csv",    # Study_3_Grey (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-gb72.csv",    # Study_4_Grey (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-6xh1.csv",    # Study_5_Grey (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-6t6c.csv",    # Study_6_Grey (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-hjvs.csv",    # Study_1_Col (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-ijsc.csv",    # Study_2_Col (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-rxq8.csv",    # Study_3_Col (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-41u6.csv",    # Study_4_Col (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-xfbn.csv",    # Study_5_Col (v123)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-qw7d.csv",    # Study_6_Col (v123)
-                                                                                  # --
-                                                                                  # Prolific - colour (v127):
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-hjvs.csv",    # Study_1_Grey (v127) 
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-ijsc.csv",    # Study_2_Grey (v127) 
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-rxq8.csv",    # Study_3_Grey (v127)  
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-41u6.csv",    # Study_4_Grey (v127) 
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-xfbn.csv",    # Study_5_Grey (v127)  
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-qw7d.csv",    # Study_6_Grey (v127) 
-                                                                                  # --
-                                                                                  # Prolific - colour (v128):
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-hjvs.csv",    # Study_1_Col (v128)  
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-ijsc.csv",    # Study_2_Col (v128) 
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-rxq8.csv",    # Study_3_Col (v128)  
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-41u6.csv",    # Study_4_Col (v128) 
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-xfbn.csv",    # Study_5_Col (v128)  
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-qw7d.csv",    # Study_6_Col (v128) 
-                                                                                  # --
-                                                                                  # Prolific - grey (v131):
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-hqih.csv",    # Study_1_Grey (v131)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-iwo1.csv",    # Study_2_Grey (v131)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-zde5.csv",    # Study_3_Grey (v131)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-gb72.csv",    # Study_4_Grey (v131)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-6xh1.csv",    # Study_5_Grey (v131)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-6t6c.csv",    # Study_6_Grey (v131)                                                                                                                 # --
-                                                                                  # Hanover - grey (v4):
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-hqih.csv",      # Study_1_Grey (v4)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-iwo1.csv",      # Study_2_Grey (v4)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-zde5.csv",      # Study_3_Grey (v4)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-gb72.csv",      # Study_4_Grey (v4)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-6xh1.csv",      # Study_5_Grey (v4)
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-6t6c.csv")      # Study_6_Grey (v4)
-
+##  Import study data:
+##  SONA - colour + grey (v123):
+    study_files <- c("./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-hqih.csv", # Study_1_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-iwo1.csv", # Study_2_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-zde5.csv", # Study_3_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-gb72.csv", # Study_4_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-6xh1.csv", # Study_5_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-6t6c.csv", # Study_6_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-hjvs.csv", # Study_1_Col
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-ijsc.csv", # Study_2_Col
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-rxq8.csv", # Study_3_Col
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-41u6.csv", # Study_4_Col
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-xfbn.csv", # Study_5_Col
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-qw7d.csv", # Study_6_Col
+##  Prolific - colour (v127):
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-hjvs.csv", # Study_1_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-ijsc.csv", # Study_2_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-rxq8.csv", # Study_3_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-41u6.csv", # Study_4_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-xfbn.csv", # Study_5_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-qw7d.csv", # Study_6_Grey
+##  Prolific - colour (v128):
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-hjvs.csv", # Study_1_Col
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-ijsc.csv", # Study_2_Col
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-rxq8.csv", # Study_3_Col
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-41u6.csv", # Study_4_Col
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-xfbn.csv", # Study_5_Col
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-qw7d.csv", # Study_6_Col
+##  Prolific - grey (v131):
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-hqih.csv", # Study_1_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-iwo1.csv", # Study_2_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-zde5.csv", # Study_3_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-gb72.csv", # Study_4_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-6xh1.csv", # Study_5_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-6t6c.csv", # Study_6_Grey ##  Hanover - grey (v4):
+                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-hqih.csv",   # Study_1_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-iwo1.csv",   # Study_2_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-zde5.csv",   # Study_3_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-gb72.csv",   # Study_4_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-6xh1.csv",   # Study_5_Grey
+                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-6t6c.csv")   # Study_6_Grey
     
 ##  Create raw df from the above files, but only get the following columns:
     study_data <- map_dfr(study_files,~read_csv(.x, col_types = cols_only("Participant Private ID" = 'c',
@@ -1446,8 +1496,9 @@ In the current study, significant differences were observed between the grey and
                                                                           "stim" = 'c', "correct_answer" = 'c',
                                                                           "Response" = 'c',"Reaction Time" = col_double()))) %>%
 ##  Rename some columns:
-        rename(id = "Participant Private ID", prolific_id = "Participant Public ID", exp_ver = "Experiment Version",
-               screen = "Screen Name", rt = "Reaction Time", response = "Response") %>%
+        rename(id = "Participant Private ID", prolific_id = "Participant Public ID", 
+               exp_ver = "Experiment Version",screen = "Screen Name", rt = "Reaction Time", 
+               response = "Response") %>%
 ##  Reorder columns:    
         select(id, prolific_id, exp_ver, screen, stim, correct_answer, response, rt) %>%
 ##  Set participant ID as the grouping variable, and arrange data by participant ID:
@@ -1500,11 +1551,9 @@ In the current study, significant differences were observed between the grey and
         select(-exp_ver.x, -exp_ver.y) %>%
         select(id, prolific_id, exp_ver, everything())
 
-####################################################################################################################
-##                                                                                                                ##
-##    Define study lists:                                                                                         ##
-##                                                                                                                ##
-####################################################################################################################
+#################################################################################################################
+##    Define study lists:                                                                                      ##
+#################################################################################################################
 ##  Define all possible study lists, so we can later calculate Hits, Misses, FA, CRs.  
     study_1_grey_list <- c("grey_photo_ashtray3","grey_photo_balloon3","grey_photo_barrel3","grey_photo_bear2",
                            "grey_photo_bowl2","grey_photo_brush2","grey_photo_camel3","grey_photo_clock3",
@@ -1513,13 +1562,13 @@ In the current study, significant differences were observed between the grey and
                            "grey_photo_pliers2","grey_photo_rabbit3","grey_photo_skunk2","grey_photo_table2",
                            "grey_photo_watch1","word_banana","word_boot","word_celery","word_chair","word_cloud",
                            "word_ladder","word_lips","word_peach","word_peacock","word_pencil","word_pepper",
-                           "word_piano","word_pipe","word_pumpkin","word_ring","word_seal","word_sheep","word_snail",
-                           "word_spider","word_tiger","word_train","grey_drawing_basket","grey_drawing_book",
-                           "grey_drawing_bottle","grey_drawing_broom","grey_drawing_cherry","grey_drawing_chicken",
-                           "grey_drawing_comb","grey_drawing_eagle","grey_drawing_flute","grey_drawing_goat",
-                           "grey_drawing_iron","grey_drawing_moon","grey_drawing_mouse","grey_drawing_ostrich",
-                           "grey_drawing_socks","grey_drawing_stool","grey_drawing_thumb","grey_drawing_toaster",
-                           "grey_drawing_tree","grey_drawing_violin","grey_drawing_well")
+                           "word_piano","word_pipe","word_pumpkin","word_ring","word_seal","word_sheep",
+                           "word_snail","word_spider","word_tiger","word_train","grey_drawing_basket",
+                           "grey_drawing_book","grey_drawing_bottle","grey_drawing_broom","grey_drawing_cherry",
+                           "grey_drawing_chicken","grey_drawing_comb","grey_drawing_eagle","grey_drawing_flute",
+                           "grey_drawing_goat","grey_drawing_iron","grey_drawing_moon","grey_drawing_mouse",
+                           "grey_drawing_ostrich","grey_drawing_socks","grey_drawing_stool","grey_drawing_thumb",
+                           "grey_drawing_toaster","grey_drawing_tree","grey_drawing_violin","grey_drawing_well")
     
     study_2_grey_list <- c("word_ashtray","word_balloon","word_barrel","word_bear","word_bowl","word_brush","word_camel",
                            "word_clock","word_deer","word_door","word_drum","word_fence","word_nail","word_needle",
@@ -2500,17 +2549,6 @@ In the current study, significant differences were observed between the grey and
 ```
 
 
-Common, everyday objects will be presented in: i) word form (written in simple, black ink); ii) drawing form (line-drawn illustrations); or iii) photograph form (detail rich exemplars of the real world object). 
-To our knowledge, no study has systematically matched items across a number of formats in an effort to determine the point at which stimuli distinctiveness impacts recognition. 
-
-## Method
-```{r exp3--age-gender--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
-    table_numbering(name = "exp3--age-gender--tablecaption", 
-                     caption = "Gender and age (*SD*) of the current sample.")
-```
-### Participants
-A total of `r nrow(grey_data)` subjects completed the online experiment (see `r table_numbering("exp3--age-gender--tablecaption", display = "cite")` for a breakdown of the gender and age of the sample).
-
 ```{r, echo=FALSE, cache=TRUE}
   grey_age_gender <- grey_data %>%
       select(age, gender) %>%
@@ -2561,15 +2599,9 @@ A total of `r nrow(grey_data)` subjects completed the online experiment (see `r 
     grey_n_eng_lang <- round((grey_n_eng_lang / nrow(grey_data)) * 100, 2)
 ```
 
-To meet our YA requirements, all participants were required to be between 18-59 years of age (actual range: `r min(grey_data$age, na.rm = TRUE)`-`r max(grey_data$age, na.rm = TRUE)`). As our experiment involved English word stimuli, we also asked subjects whether English was their first language; the vast majority (`r grey_n_eng_lang`%) reported that English was indeed their first language.
-
-The current sample was comprised of participants sourced from voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (`r grey_n_prolific`%), where payment at the rate of £5/hr was given, and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r grey_n_sona`%), where they received course participation credits. A small number of participants were also recruited from \href{https://psych.hanover.edu/research/exponnet.html}{Psychological Research on the Net} (`r grey_n_hanover`%). 
-
-
-@rossion2004 demonstrated that naming agreement could be improved sby adding surface texture and shading
-only resulted in a small improvement 
-It is hypothesised that the grey photographs 
-
+## Method
+### Participants
+A total of `r nrow(grey_data)` subjects completed the online experiment (see `r table_numbering("exp3--age-gender--tablecaption", display = "cite")` for a breakdown of the gender and age of the sample). To meet our YA requirements, all participants were required to be between 18-59 years of age (actual range: `r min(grey_data$age, na.rm = TRUE)`-`r max(grey_data$age, na.rm = TRUE)`). As our experiment involved English word stimuli, we also asked subjects whether English was their first language; the vast majority (`r grey_n_eng_lang`%) reported that English was indeed their first language. Subjects were recruited from voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (`r grey_n_prolific`%), where payment at the rate of £5/hr was given, and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r grey_n_sona`%), where they received course participation credits. A small number of participants were also recruited from \href{https://psych.hanover.edu/research/exponnet.html}{Psychological Research on the Net} (`r grey_n_hanover`%). In order to detect a medium effect size of Cohen’s f = 0.25 with 80% power (alpha = .05, two-tailed), G*Power indicated that we would need 79 participants per group (N = 158) in a 3x2 mixed ANOVA.
 
 `r table_numbering("exp3--age-gender--tablecaption")`
 ```{r, echo=FALSE, cache=TRUE}
@@ -2585,17 +2617,30 @@ It is hypothesised that the grey photographs
       row_spec(5, bold = TRUE)
 ```
 
+### Materials
+
+
+### Design
+The current study utilised a mixed design, with a 3-level within-subjects factor of stimuli format (words, drawings, photographs), and a 2-level between-subjects factor of response option (RFG, RFBG). Subjects passed through 2 levels of blocked randomization (equally sized, predetermined blocks). First, participants were randomly assigned one of six possible study lists (each of equal length, and containing an even number of word, drawing, and photograph items); second, subjects were either assigned a recognition test with three possible response options (RFG: “Recollection”, “Familiarity”,“Guessing”), or four possible response options (RFBG: “Recollection”, “Familiarity”, “Guessing”, “Both”). These randomisation processes were completed automatically by the experiment software using balanced randomisation methods.
+
+### Procedure
+Data was collected online using \href{https://gorilla.sc/}{Gorilla} - a platform for the builidng and hosting of online experiments. 
+
+
+### Data processing
+Measured variables included the total number of hits and FAs, and the total number of hits and FAs assigned to each of the available response options (R/F/G and R/F/B/G). In order to create a common dependant variable, proportions were calculated from these variables slightly differently depending on the response option group. In the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, however, the proportion of Both responses was separately added to R proportions and F proportions. Additional DVs included: i) d’ (d-prime, a signal detection measure of sensitivity); ii) c-value (a measure of response bias); iii) overall accuracy (hits / (hits + FAs)); iv) reaction times for all responses.
+
 \newpage
 ## Results
+A series of 3x2 repeated measures ANOVAs were conducted on each of the DVs using a within-subjects factor of stimuli format (photographs / drawings / words) and a between-subjects factor of response option (RFG / RFBG). Significant main effects and interaction effects were followed-up with pairwise comparisons.
+
+
+Follow-up comparisons for main effects of group employed a Bonferroni-adjusted alpha level of .017 for 3 comparisons, whilst comparisons for significant interactions employed a Bonferroni-adjusted alpha level of .005 for 9 comparisons.
 
 
 ### Overall hits, false alarms (FAs), and recognition
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
-###################################################################################################################
-##                                                                                                               ##
-##    Experiment 3 - Prop hits:                                                                                  ##
-##                                                                                                               ##
-###################################################################################################################
+##    Experiment 3 - Prop hits:                                                                                  
 ## Prep data for analysis:                                               
     grey__anova__PROP.HITS_data <- grey_data %>%
         select(id, resp_option, prop_word_hit, prop_drawing_hit, prop_photo_hit) %>%
@@ -2628,7 +2673,9 @@ It is hypothesised that the grey photographs
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
     grey__anova__PROP.HITS__stim.format.means <- emmeans(grey__anova__PROP.HITS, ~ stim_format)
-    grey__anova__PROP.HITS__stim.format.pairwise <- pairs(grey__anova__PROP.HITS__stim.format.means)
+    grey__anova__PROP.HITS__stim.format.pairwise <- pairs(grey__anova__PROP.HITS__stim.format.means, 
+                                                          adjust = "bonferroni")
+    
     ##  Format pairwise results for use in report:  
         apa__grey__anova__PROP.HITS__stim.format.means <- 
           papaja:::apa_print.emmGrid(grey__anova__PROP.HITS__stim.format.means) 
@@ -2743,7 +2790,8 @@ For the proportion of hits, there was a significant main effect of stimuli forma
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
     grey__anova__PROP.FA__stim.format.means <- emmeans(grey__anova__PROP.FA, ~ stim_format)
-    grey__anova__PROP.FA__stim.format.pairwise <- pairs(grey__anova__PROP.FA__stim.format.means)
+    grey__anova__PROP.FA__stim.format.pairwise <- pairs(grey__anova__PROP.FA__stim.format.means, 
+                                                        adjust = "bonferroni")
     ##  Format pairwise results for use in report:  
         apa__grey__anova__PROP.FA__stim.format.means <- papaja:::apa_print.emmGrid(grey__anova__PROP.FA__stim.format.means)
         apa__grey__anova__PROP.FA__words.mean <- 
@@ -2816,7 +2864,8 @@ words (`r apa__grey__anova__PROP.FA__words.mean`) [`r apa__grey__anova__PROP.FA_
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
     grey__anova__RECOG__stim.format.means <- emmeans(grey__anova__RECOG, ~ stim_format)
-    grey__anova__RECOG__stim.format.pairwise <- pairs(grey__anova__RECOG__stim.format.means)
+    grey__anova__RECOG__stim.format.pairwise <- pairs(grey__anova__RECOG__stim.format.means, 
+                                                      adjust = "bonferroni")
     ##  Format pairwise results for use in report:  
         apa__grey__anova__RECOG__stim.format.means <- papaja:::apa_print.emmGrid(grey__anova__RECOG__stim.format.means)
         apa__grey__anova__RECOG__words.mean <- apa__grey__anova__RECOG__stim.format.means$estimate$Words %>%
@@ -2884,7 +2933,8 @@ words (`r apa__grey__anova__RECOG__words.mean`) [`r apa__grey__anova__RECOG__wor
 #-----------------------------------------------------------------------------------------------------------------#
 ##  Interaction:
     grey__anova__D.PRIME__interaction.means <- emmeans(grey__anova__D.PRIME, ~ resp_option:stim_format)
-    grey__anova__D.PRIME__interaction.pairwise <- pairs(grey__anova__D.PRIME__interaction.means)
+    grey__anova__D.PRIME__interaction.pairwise <- pairs(grey__anova__D.PRIME__interaction.means, 
+                                                        adjust = "bonferroni")
     
     ##  Format pairwise results for use in report:  
         apa__grey__anova__D.PRIME__interaction.means <- 
@@ -3039,11 +3089,13 @@ Comparisons of stimuli format across the response-option groups showed that d' s
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Response-option:
     grey__anova__C.SCORES__resp.option.means <- emmeans(grey__anova__C.SCORES, ~ resp_option)
-    grey__anova__C.SCORES__resp.option.pairwise <- pairs(grey__anova__C.SCORES__resp.option.means)  
+    grey__anova__C.SCORES__resp.option.pairwise <- pairs(grey__anova__C.SCORES__resp.option.means, 
+                                                         adjust = "bonferroni")  
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
     grey__anova__C.SCORES__stim.format.means <- emmeans(grey__anova__C.SCORES, ~ stim_format)
-    grey__anova__C.SCORES__stim.format.pairwise <- pairs(grey__anova__C.SCORES__stim.format.means)
+    grey__anova__C.SCORES__stim.format.pairwise <- pairs(grey__anova__C.SCORES__stim.format.means, 
+                                                         adjust = "bonferroni")
     
     ##  Format pairwise results for use in report:  
         apa__grey__anova__C.SCORES__stim.format.means <- papaja:::apa_print.emmGrid(grey__anova__C.SCORES__stim.format.means)
@@ -3114,7 +3166,8 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
 ##  Interaction:
     grey__anova__PROP.REC.HITS__interaction.means <- 
         emmeans(grey__anova__PROP.REC.HITS, ~ resp_option:stim_format)
-    grey__anova__PROP.REC.HITS__interaction.pairwise <- pairs(grey__anova__PROP.REC.HITS__interaction.means)
+    grey__anova__PROP.REC.HITS__interaction.pairwise <- pairs(grey__anova__PROP.REC.HITS__interaction.means,
+                                                              adjust = "bonferroni")
     
     ##  Format pairwise results for use in report:  
         apa__grey__anova__PROP.REC.HITS__interaction.means <- 
@@ -3194,7 +3247,8 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
 ##  Interaction:
     grey__anova__PROP.FAM.HITS__interaction.means <- 
         emmeans(grey__anova__PROP.FAM.HITS, ~ resp_option:stim_format)
-    grey__anova__PROP.FAM.HITS__interaction.pairwise <- pairs(grey__anova__PROP.FAM.HITS__interaction.means)
+    grey__anova__PROP.FAM.HITS__interaction.pairwise <- pairs(grey__anova__PROP.FAM.HITS__interaction.means,
+                                                              adjust = "bonferroni")
     
     ##  Format pairwise results for use in report:  
         apa__grey__anova__PROP.FAM.HITS__interaction.means <- 
@@ -3276,7 +3330,7 @@ For c-scores, there was a significant main effect of stimuli format [`r apa__gre
 ##  Stimuli format:
     grey__anova__PROP.GUESS.HITS__stim.format.means <- emmeans(grey__anova__PROP.GUESS.HITS, ~ stim_format)
     grey__anova__PROP.GUESS.HITS__stim.format.pairwise <- 
-        pairs(grey__anova__PROP.GUESS.HITS__stim.format.means)
+        pairs(grey__anova__PROP.GUESS.HITS__stim.format.means, adjust = "bonferroni")
     
     ##  Format pairwise results for use in report:  
         apa__grey__anova__PROP.GUESS.HITS__stim.format.means <-   
@@ -3561,7 +3615,8 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
 ##  Interaction:
     grey__anova__PROP.FAM.FA__interaction.means <- 
         emmeans(grey__anova__PROP.FAM.FA, ~ resp_option:stim_format)
-    grey__anova__PROP.FAM.FA__interaction.pairwise <- pairs(grey__anova__PROP.FAM.FA__interaction.means)
+    grey__anova__PROP.FAM.FA__interaction.pairwise <- pairs(grey__anova__PROP.FAM.FA__interaction.means,
+                                                            adjust = "bonferroni")
     
     ##  Format pairwise results for use in report:  
         apa__grey__anova__PROP.FAM.FA__interaction.means <- 
@@ -3639,7 +3694,8 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - #
 ##  Stimuli format:
     grey__anova__PROP.GUESS.FA__stim.format.means <- emmeans(grey__anova__PROP.GUESS.FA, ~ stim_format)
-    grey__anova__PROP.GUESS.FA__stim.format.pairwise <- pairs(grey__anova__PROP.GUESS.FA__stim.format.means)
+    grey__anova__PROP.GUESS.FA__stim.format.pairwise <- pairs(grey__anova__PROP.GUESS.FA__stim.format.means,
+                                                              adjust = "bonferroni")
     ##  Format pairwise results for use in report:  
         apa__grey__anova__PROP.GUESS.FA__stim.format.means <- 
             papaja:::apa_print.emmGrid(grey__anova__PROP.GUESS.FA__stim.format.means)
