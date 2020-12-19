@@ -1279,20 +1279,15 @@ For each concept represented in the photographs, one variation (e.g. shoe-1, sho
 At least 20 unique naming responses were collected for each of the 816 photographs (408 grey items and 408 colour items). The proportion of 'correct' responses (i.e. names that were congruent with the intended concept) and the proportion of 'don't know' responses were calculated for each item. Photographs were excluded if they:
 
 1. received a high proportion of "don't know" responses (20%; all of the photographs depicted common, everyday objects, and so if a number of subjects were unable to name the item, that particular photograph was considered to be a poor representation of the item);
-2. were incorrectly named by the majority of subjects (i.e. if the proportion of correct responses equalled ≤50%, since it was essential for the photographs to depict the same concepts as those found in the line drawings and word stimuli);
-3. had particularly poor naming agreement (≤20% subjects named the object similarly). Items may not have been flagged by the second criteria (e.g. if it received 4 different names, each with a 25% ratio), but could still be considered poor representations of the intended concepts.
+2. were incorrectly named by the majority of subjects (i.e. if the proportion of correct responses equalled ≤ 50%, since it was essential for the photographs to depict the same concepts as those found in the line drawings and word stimuli);
+3. had particularly poor naming agreement (≤ 20% subjects named the object similarly). Items may not have been flagged by the second criteria (e.g. if it received 4 different names, each with a 25% ratio), but could still be considered poor representations of the intended concepts.
 
 54 photographs were found to meet at least one of the above criteria, and therefore excluded. Regardless of whether these items were grey or colour, it was also necessary to remove its grey or colour partner (since both versions were needed to make comparisons across recognition experiments). Thus, a total of 64 items (32 grey / 32 colour) were excluded at this stage (many items already had both grey and colour versions flagged by the original criteria). 
 
 Next, the proportion of correct responses were compared between grey and colour photographs in order to identify items showing the lowest difference. In order to manipulate colour in later recognition experiments, it was important to select items where naming was congruent across colour/grey items; in other words, it would be difficult to attribute particular recognition response patterns to the addition of colour (if a difference were found) when the grey version could not be identified (or encoded) similarly. Variations exhibiting the least difference between colour and grey items (for the proportion of correct responses) were taken forward, while the rest were excluded. In a number of instances, multiple variations for the same object had the same 'difference' score. For example, all three variations of the item "balloon" exhibited perfect naming agreement, irrespective of whether they were presented in colour or grey (and thus "balloon1", "balloon2", and "balloon3" had a difference score of 0). For items where more than 1 variation remained, manual rankings were obtained from two of the researchers to determine which variation best depicted the intended concept. For each item, the researchers independently studied the remaining variations and provided a rank of which they thought was best (1) to worst (2 or 3, depending on the number of variations that remained). The ratings from both researchers were collated; items where there was agreement as to which variation best depicted the intended concept were selected for inclusion in the final stimuli list. For all the items where there was disagreement between the researchers rankings, one of the variations was simply selected at random.
 
 ## Discussion
-The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. Matching items with previously established drawings (and words) would allow for the direct examination of stimuli format on recognition response patterns. 
-
-
-By sourcing photographs that matched the depictions of the same everyday objects 
-
-wherein each of the concepts depicted has been  across formats
+The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. By matching items with previously established drawings (and words), the effects of stimuli-format on recognition response patterns could be directly examined. Normative data was collected for 816 photographs in a range of areas. Naming data was used to determine which photographs best matched the intended concepts, among a number of possible variations.
 
 ### *The role of colour*
 For naming responses (accuracy, agreement [*H*], and RTs), no differences were observed between the grey and colour photographs. Such a result was expected for accuracy and agreement scores; the addition/absence of colour should not alter how participants identify (and thus label) items, except in rare instances whereby a lack of colour may lead to the misidentification of an object (e.g. incorrectly labelling a greyscale photograph of an orange as 'grapefruit'). The data indicates, however, that this was not common, with the grey set of photographs exhibiting equally high levels of naming accuracy as the colour photographs. The absence of RT differences between the colour and greyscale sets was not expected for naming responses. It is reasonable to assume that colour photographs - with an additional layer of contextual information compared to grey items - would be identified (and therefore named) quicker than grey photographs (e.g. a colour photograph of an orange should avoid the potential ambiguity that might accompany a greyscale depiction, which could initially be confused for another type of fruit). Indeed, @rossion2004 demonstrated RTs consistent with this hypotheses, with colour drawings showing significantly quicker RTs than grey items. The lack of difference in the current data could be attributable to ceiling effects, whereby all photographs were sufficiently unambiguous, and were quickly identified irrespective of whether they were presented in greyscale or colour. Examination of the other naming data, showing similarly high levels of accuracy and agreement across grey and colour, supports this notion.
@@ -1308,14 +1303,9 @@ There were no colour differences in familiarity scores. This result was expected
 
 The specific methodologies utilised in recognition memory research are rarely consistent across studies. An often overlooked factor is the format to-be-remembered stimuli are presented in, with many studies utilising written or spoken words (???), line drawings or illustrations [@stenberg2006; @wolk2008; @rollins2018, @ensor2019], or real world photographs [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. 
 
-
-
-
 Another inconsistency across recognition memory experiments is the response options available to participants when reporting their recognition, for example: Remember/Know (???), Recollection/Familiarity (???), or Low/Med/High confidence (???).
 
-
 Such differences could account for the range of conclusions made about the recognition memory abilities of older adults and those presenting early memory impairment (amnestic Mild Cognitive Impairment; aMCI); despite general agreement that those with aMCI show recollection impairments, findings have been much less consistent in determining the preservation of familiarity processes.
-
 
 The current study systematically compares recognition memory performance toward three distinct stimuli formats (words, drawings, and photographs) in an effort to establish how stimuli of varying perceptual distinctiveness may affect recognition response patterns. 
 
@@ -2371,11 +2361,11 @@ Based on previous (as yet unpublished) data, we hypothesise that:
                                               n_cr = temp$total_word_CR,      ##  Get number of CRs;
                                               n_targets = 63,                 ##  Always 63;
                                               n_distractors = 63,             ##  Always 63;
-                                              adjusted = TRUE))) %>%          ## Adjustments for extreme values 
+                                              adjusted = TRUE))) %>%          ##  Adjustments for extreme values 
                                                                               ##  are made following the 
-                                                                              ##  recommendations of Hautus(1995).
+                                                                              ##  recommendations ofHautus(1995).
             mutate("id" = i)                                    ##  Add current participant ID to "temp_d_prime"
-      temp <- temp %>% inner_join(temp_d_prime, by = "id")      ## join "temp" and "temp_d_prime" by id into one df                                                                  ## / single row.
+      temp <- temp %>% inner_join(temp_d_prime, by = "id")      ## join "temp" and "temp_d_prime" by id into one                                                                 ##  df / single row.
       word_d_prime <- bind_rows(word_d_prime, temp) }           ##  Add this row to the "word_d_prime" df. Loop 
                                                                 ##  again, until we've gone through each P. 
 ##  Additional tidying:     
@@ -2707,8 +2697,7 @@ grey__anova__PROP.HITS__table %>%
 ```
 &nbsp;
 
-#### Proportion of total hits
-For the proportion of hits, there was a significant main effect of stimuli format [`r apa__grey__anova__PROP.HITS__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__PROP.HITS__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that photographs (`r apa__grey__anova__PROP.HITS__photographs.mean`) produced a significantly higher proportion of hits than both words (`r apa__grey__anova__PROP.HITS__words.mean`) [`r apa__grey__anova__PROP.HITS__words.vs.photographs.pairwise`] and drawings (`r apa__grey__anova__PROP.HITS__drawings.mean`) [`r apa__grey__anova__PROP.HITS__drawings.vs.photographs.pairwise`]. Drawings (`r apa__grey__anova__PROP.HITS__drawings.mean`) also produced a significantly higher proportion of hits compared to words (`r apa__grey__anova__PROP.HITS__words.mean`) [`r apa__grey__anova__PROP.HITS__words.vs.drawings.pairwise`].
+For the proportion of total hits, there was a significant main effect of stimuli format [`r apa__grey__anova__PROP.HITS__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__PROP.HITS__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that photographs (`r apa__grey__anova__PROP.HITS__photographs.mean`) produced a significantly higher proportion of hits than both words (`r apa__grey__anova__PROP.HITS__words.mean`) [`r apa__grey__anova__PROP.HITS__words.vs.photographs.pairwise`] and drawings (`r apa__grey__anova__PROP.HITS__drawings.mean`) [`r apa__grey__anova__PROP.HITS__drawings.vs.photographs.pairwise`]. Drawings (`r apa__grey__anova__PROP.HITS__drawings.mean`) also produced a significantly higher proportion of hits compared to words (`r apa__grey__anova__PROP.HITS__words.mean`) [`r apa__grey__anova__PROP.HITS__words.vs.drawings.pairwise`]. 
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
@@ -2776,12 +2765,10 @@ papaja:::apa_print.emmGrid(grey__anova__PROP.FA__stim.format.pairwise)
 ##  Interaction:  Not significant.
 ```
 
-#### Proportion of total FAs
-For the proportion of FAs, there was a significant main effect of stimuli format [`r apa__grey__anova__PROP.FA__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__PROP.FA__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that 
-photographs (`r apa__grey__anova__PROP.FA__photographs.mean`) produced a significantly lower proportion of FAs than both 
+There was also a significant main effect of stimuli format for the proportion of total FAs [`r apa__grey__anova__PROP.FA__stim.format.main.effect`]; photographs (`r apa__grey__anova__PROP.FA__photographs.mean`) produced a significantly lower proportion of FAs than both 
 words (`r apa__grey__anova__PROP.FA__words.mean`) [`r apa__grey__anova__PROP.FA__words.vs.photographs.pairwise`] 
-and drawings (`r apa__grey__anova__PROP.FA__drawings.mean`) [`r apa__grey__anova__PROP.FA__drawings.vs.photographs.pairwise`]. Drawings (`r apa__grey__anova__PROP.FA__drawings.mean`) also produced a significantly lower proportion of FAs compared to 
-words (`r apa__grey__anova__PROP.FA__words.mean`) [`r apa__grey__anova__PROP.FA__words.vs.drawings.pairwise`]. 
+and drawings (`r apa__grey__anova__PROP.FA__drawings.mean`) [`r apa__grey__anova__PROP.FA__drawings.vs.photographs.pairwise`]; drawings (`r apa__grey__anova__PROP.FA__drawings.mean`) produced a significantly lower proportion of FAs compared to 
+words (`r apa__grey__anova__PROP.FA__words.mean`) [`r apa__grey__anova__PROP.FA__words.vs.drawings.pairwise`].  The interaction effect was not significant [`r apa__grey__anova__PROP.FA__interaction.main.effect`].
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
@@ -2844,7 +2831,6 @@ words (`r apa__grey__anova__PROP.FA__words.mean`) [`r apa__grey__anova__PROP.FA_
 ##  Interaction:  Not significant.
 ```
 
-#### Overall performance accuracy
 For overall performance accuracy, there was a significant main effect of stimuli format [`r apa__grey__anova__RECOG__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__RECOG__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that 
 photographs (`r apa__grey__anova__RECOG__photographs.mean`) produced significantly better performance accuracy than both 
 words (`r apa__grey__anova__RECOG__words.mean`) [`r apa__grey__anova__RECOG__words.vs.photographs.pairwise`] and drawings (`r apa__grey__anova__RECOG__drawings.mean`) [`r apa__grey__anova__RECOG__drawings.vs.photographs.pairwise`]. Drawings (`r apa__grey__anova__RECOG__drawings.mean`) also produced significantly better performance accuracy compared to 
@@ -2949,9 +2935,14 @@ words (`r apa__grey__anova__RECOG__words.mean`) [`r apa__grey__anova__RECOG__wor
         column_to_rownames(var = "Stim")
 ```
 
-To assess the roles of discrimination and response bias, separate 3 (stimuli format: words, drawings, photographs) x 2 (response-option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on d’ (d-prime; measure of sensitivity)  and c-scores (decision criterion; see `r table_numbering("grey__mean.d.and.c__table.caption", display = "cite")`).
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+    table_numbering(name = "exp3--mean-d-and-c--tablecaption",
+                     caption = "")
+```
 
-`r table_numbering("grey__mean.d.and.c__table.caption")`
+To assess the roles of discrimination and response bias, separate 3 (stimuli format: words, drawings, photographs) x 2 (response-option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the values of d’ (d-prime; measure of sensitivity) and c (decision criterion; see `r table_numbering("exp3--mean-d-and-c--tablecaption", display = "cite")`).
+
+`r table_numbering("exp3--mean-d-and-c--tablecaption")`
 ```{r, echo=FALSE, cache=TRUE}
     grey__anova__D.PRIME__table %>%
         kable("latex", booktabs = T) %>%
@@ -3811,6 +3802,10 @@ grey__PROP.FAM.FA__interaction.figure
 
 ####  Guessing (FAs)
 For FAs assigned Guessing, there was a significant main effect of stimuli format [`r apa__grey__anova__PROP.GUESS.FA__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__PROP.GUESS.FA__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that words (`r apa__grey__anova__PROP.GUESS.FA__words.mean`) produced significantly more Guessing FAs than both drawings (`r apa__grey__anova__PROP.GUESS.FA__drawings.mean`) [`r apa__grey__anova__PROP.GUESS.FA__words.vs.drawings.pairwise`] and photographs (`r apa__grey__anova__PROP.GUESS.FA__photographs.mean`) [`r apa__grey__anova__PROP.GUESS.FA__words.vs.photographs.pairwise`]. There was no difference in the proportion of FAs assigned Guessing between drawings (`r apa__grey__anova__PROP.GUESS.FA__drawings.mean`) and photographs (`r apa__grey__anova__PROP.GUESS.FA__photographs.mean`) [`r apa__grey__anova__PROP.GUESS.FA__drawings.vs.photographs.pairwise`].
+
+## Discussion
+
+Across a range of performance variables, there were clear effects of stimuli distinctiveness. As distinctiveness increased (from words, to drawings, to photographs), this produced more hits, less FAs, and better overall recognition. There was an absence of any interaction effects for these three variables, demonstrating stimuli format to be factor mediating recognition performance 
 
 \newpage
 
