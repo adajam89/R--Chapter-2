@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.12.17)  19 DEC 2020 12:53
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.12.17)  19 DEC 2020 13:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1039,23 +1039,23 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: ./resources/images/exp3-stimuli-examples.png Graphic file (type bmp)
 <./resources/images/exp3-stimuli-examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 980--982
+Underfull \hbox (badness 10000) in paragraph at lines 982--984
 [][]
  []
 
 [19] [20]
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 1091.
+(Font)              scaled to size 10.95pt on input line 1093.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 7.665pt on input line 1091.
+(Font)              scaled to size 7.665pt on input line 1093.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 5.475pt on input line 1091.
+(Font)              scaled to size 5.475pt on input line 1093.
 [21] [22]
 File: R--Chapter-2_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file (type
  pdf)
 <use R--Chapter-2_files/figure-latex/unnamed-chunk-15-1.pdf>
 
-Underfull \hbox (badness 1389) in paragraph at lines 1203--1214
+Underfull \hbox (badness 1389) in paragraph at lines 1205--1216
  []\TU/Helvetica(0)/b/n/10.95 c (response bias)[][] \TU/Helvetica(0)/m/n/10.95 
 For c-scores, there was a significant main effect of stimuli format
  []
@@ -1081,7 +1081,7 @@ File: R--Chapter-2_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type
  pdf)
 <use R--Chapter-2_files/figure-latex/unnamed-chunk-23-1.pdf>
 [28] [29] [30] [31]
-Underfull \hbox (badness 1661) in paragraph at lines 1598--1602
+Underfull \hbox (badness 1661) in paragraph at lines 1600--1604
  \TU/Helvetica(0)/m/it/10.95 European Journal of Cognitive Psychology\TU/Helvet
 ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 , 813–847. []$[][][][][] [] [] [] [][][] [] [][][] [] [][] [] [][][][] []
@@ -1089,18 +1089,18 @@ ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 
 [32] [33] [34]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 1739.
+(Font)              scaled to size 7.0pt on input line 1741.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 1746.
+(Font)              scaled to size 7.0pt on input line 1748.
 [35
 
 ] [36]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 1853.
+(Font)              scaled to size 8.0pt on input line 1855.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 1860.
+(Font)              scaled to size 8.0pt on input line 1862.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 8.0pt on input line 1870.
+(Font)              scaled to size 8.0pt on input line 1872.
 [37
 
 ] [38] [39] [40] [41] [42] [43] [44] [45] [46] [47] [48] [49] [50] [51] [52] [5
