@@ -12,6 +12,7 @@ fontsize: 11pt
 geometry: left=35mm, right=20mm, top=30mm, bottom=30mm
 bibliography: resources/refs.bib
 csl: resources/apa.csl
+subparagraph: yes
 header-includes:
 - \usepackage{fancyhdr}                           # Latex package for formatting PDFs.
 - \pagestyle{fancy}                               # Set page style.
@@ -28,6 +29,10 @@ header-includes:
 #- \usepackage{graphicx}
 #- \graphicspath{ {./resources/images/} }
 #- \usepackage{float}
+- \usepackage{titlesec}
+- \titlespacing{\section}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}         # Heading 1.
+- \titlespacing{\subsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}      # Heading 2.
+- \titlespacing{\subsubsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}   # Heading 3.
 ---
 
 ```{r load-packages, include=FALSE, cache=FALSE}
@@ -1036,7 +1041,7 @@ A pool of 136 line drawings [@rossion2004] - depicting common, everyday objects 
 
 ```{r exp2--stim-examples--caption, echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering(name = "exp2--stim-examples--caption",
-                     caption = "Example pictures from @snodgrass1980, @rossion2004, and photographs from the current study selected to match. Greyscale versions not shown here.")
+                     caption = "Examples of matching pictures across @snodgrass1980, @rossion2004, and photographs from the current study. Greyscale versions of the drawings and photographs are not presented in this example.")
 ```
 &nbsp;
 &nbsp;
@@ -1287,8 +1292,6 @@ At least 20 unique naming responses were collected for each of the 816 photograp
 Next, the proportion of correct responses were compared between grey and colour photographs in order to identify items showing the lowest difference. In order to manipulate colour in later recognition experiments, it was important to select items where naming was congruent across colour/grey items; in other words, it would be difficult to attribute particular recognition response patterns to the addition of colour (if a difference were found) when the grey version could not be identified (or encoded) similarly. Variations exhibiting the least difference between colour and grey items (for the proportion of correct responses) were taken forward, while the rest were excluded. In a number of instances, multiple variations for the same object had the same 'difference' score. For example, all three variations of the item "balloon" exhibited perfect naming agreement, irrespective of whether they were presented in colour or grey (and thus "balloon1", "balloon2", and "balloon3" had a difference score of 0). For items where more than 1 variation remained, manual rankings were obtained from two of the researchers to determine which variation best depicted the intended concept. For each item, the researchers independently studied the remaining variations and provided a rank of which they thought was best (1) to worst (2 or 3, depending on the number of variations that remained). The ratings from both researchers were collated; items where there was agreement as to which variation best depicted the intended concept were selected for inclusion in the final stimuli list. For all the items where there was disagreement between the researchers rankings, one of the variations was simply selected at random.
 
 ## Discussion
-The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. By matching items with previously established drawings (and words), the effects of stimuli-format on recognition response patterns could be directly examined. Normative data was collected for 816 photographs in a range of areas. Naming data was used to determine which photographs best matched the intended concepts, among a number of possible variations.
-
 ### *The role of colour*
 For naming responses (accuracy, agreement [*H*], and RTs), no differences were observed between the grey and colour photographs. Such a result was expected for accuracy and agreement scores; the addition/absence of colour should not alter how participants identify (and thus label) items, except in rare instances whereby a lack of colour may lead to the misidentification of an object (e.g. incorrectly labelling a greyscale photograph of an orange as 'grapefruit'). The data indicates, however, that this was not common, with the grey set of photographs exhibiting equally high levels of naming accuracy as the colour photographs. The absence of RT differences between the colour and greyscale sets was not expected for naming responses. It is reasonable to assume that colour photographs - with an additional layer of contextual information compared to grey items - would be identified (and therefore named) quicker than grey photographs (e.g. a colour photograph of an orange should avoid the potential ambiguity that might accompany a greyscale depiction, which could initially be confused for another type of fruit). Indeed, @rossion2004 demonstrated RTs consistent with this hypotheses, with colour drawings showing significantly quicker RTs than grey items. The lack of difference in the current data could be attributable to ceiling effects, whereby all photographs were sufficiently unambiguous, and were quickly identified irrespective of whether they were presented in greyscale or colour. Examination of the other naming data, showing similarly high levels of accuracy and agreement across grey and colour, supports this notion.
 
@@ -1297,9 +1300,9 @@ Grey photographs exhibited a significantly poorer match with subjects imagined p
 
 There were no colour differences in familiarity scores. This result was expected - participants were asked to rate the degree to which they came in contact with, or think about, the concept itself rather than the particular depiction shown, and there is no apparent reason why colour should influence such ratings. Visual complexity, on the other hand, where participants were required to directly rate the amount of detail in the picture, did show an expected difference. Colour photographs were rated as significantly more visually complex than grey items, presumably due to their additional layer of contextual information. When compared to the previous data obtained for drawings, the greyscale photographs showed comparable levels of visual complexity, while the colour photographs showed higher levels than any of the other formats. It is unclear why the photographs of the current study showed colour differences, when grey and colour drawings did not differ, though it may tie in with the hypotheses proposed to explain the mental imagery agreement data. Subjects may apply stricter internal criteria when rating stimuli that are perceived as being closer to how they would be experienced in real life - when viewing a colour photograph of a rabbit, it is difficult to see how we could make the item any more visually complex than it already is (at least in a 2D medium). It's probable that subjects notice the absence of colour when viewing the greyscale items, since they depict the items in a way that they are not usually seen, and thus determine that these items could be made more complex if they were shown in colour (and so give lower visual complexity ratings as a result). 
 
-\newpage
-# Experiment 3
-## Effect of stimuli format and response option on recognition memory judgments.
+### *Establishing a new set of stimuli*
+The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. By matching items with previously established drawings (and words), the effects of stimuli-format on recognition response patterns could be directly examined. Normative data was collected for 816 photographs in a range of areas. Naming data was used to determine which photographs best matched the intended concepts, among a number of possible variations.
+
 
 The specific methodologies utilised in recognition memory research are rarely consistent across studies. An often overlooked factor is the format to-be-remembered stimuli are presented in, with many studies utilising written or spoken words (???), line drawings or illustrations [@stenberg2006; @wolk2008; @rollins2018, @ensor2019], or real world photographs [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. 
 
@@ -1311,29 +1314,12 @@ The current study systematically compares recognition memory performance toward 
 
 The availability of different response options when reporting recognition will also be examined, in order to study any further potential effects or interactions across: 1. Recollection/Familiarity/Guessing - the RFG condition; and 2. as previous, but with the addition of a Both category - the RFBG condition).
 
-Common, everyday objects will be presented in: i) word form (written in simple, black ink); ii) drawing form (line-drawn illustrations); or iii) photograph form (detail rich exemplars of the real world object). 
-To our knowledge, no study has systematically matched items across a number of formats in an effort to determine the point at which stimuli distinctiveness impacts recognition.
+# Experiment 3
+## Effect of stimuli format and response option on recognition memory judgments.
 
-@rossion2004 demonstrated that naming agreement could be improved by adding surface texture and shading
-only resulted in a small improvement 
-It is hypothesised that the grey photographs 
+For the recognition memory experiment, everyday objects were presented in three stimuli formats: i) words (written in simple, black ink); ii) drawings (shaded line-drawn illustrations); and iii) photographs (detail rich exemplars of the real world object). To our knowledge, no study has systematically matched items across a number of formats in an effort to determine the point at which stimuli distinctiveness impacts recognition. 
 
-Based on previous (as yet unpublished) data, we hypothesise that:
-
-- the number of hits (correctly recognised items) will increase as stimuli become more detailed (words < drawings < photographs);
-
-- the number of false alarms (FAs) will decrease as stimuli become more detailed (words < drawings < photographs);
-
-- the number of hits retrieved with “Recollection” will increase as stimuli become more detailed (words < drawings < photographs);
-
-- the number of hits retrieved with “Familiarity” will decrease as stimuli become less detailed (photographs > drawings > words);
-
-- the number of hits retrieved with “Guessing” will increase as stimuli become less detailed (photographs > drawings > words);
-
-- the number of FAs retrieved with “Recollection”, “Familiarity”, or “Guessing” hits will not change across stimuli formats);
-
-- the reporting of Recollection and Familiarity for the different stimuli formats will differ across response option conditions (RFG vs. RFBG).
-
+@rossion2004 demonstrated that naming agreement could be improved by adding surface texture and shading to the original @snodgrass1980 items; however, it is unclear how such manipulations to distinctiveness might impact performance in recognition memory paradigms. Based on the results of Experiment 1, which compared recognition to for words and drawings only, a number of hypotheses are proposed as to the potential effects of adding a third stimuli format (highly distinctive photograph stimuli). As stimuli become increasingly distinctive (from words, to drawings, to photographs), it seems likely that the number of hits (correctly recognised items) will increase, and the number of false alarms (FAs) will decrease. RFG responses are expected to show a similar pattern, with the most detailed stimuli showing the highest number of hits assigned  “Recollection”, while the less detailed formats show increasing levels of "Familiarity" and "Guessing" hits. Whilst we expect the overall number of FAs to increase as stimuli become less distinctive (i.e. words will show the highest rate of FAs), there is no reason to believe that these FAs will be biased toward any particular RFG judgement across formats. It is also hypothesised that the rates of reported Recollection and Familiarity will differ across response option conditions (RFG / RFBG), though the direction of this difference is currently unclear. 
 
 ```{r experiment-3-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 #################################################################################################################
@@ -3745,7 +3731,7 @@ For hits assigned Guessing, there was a significant main effect of stimuli forma
         geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), 
                       width = 0.2, size = 0.3, position = position_dodge(0.9)) +
         facet_wrap(~resp_option, strip.position = "bottom") +
-        labs(x = "Response-option condition", y = "Mean proportion of FA") +
+        labs(x = "Response-option condition", y = "Mean proportion of FAs") +
         scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
         theme_classic() +    # Removes grey background and grid lines. 
             theme(
