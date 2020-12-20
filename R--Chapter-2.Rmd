@@ -1301,8 +1301,16 @@ Grey photographs exhibited a significantly poorer match with subjects imagined p
 There were no colour differences in familiarity scores. This result was expected - participants were asked to rate the degree to which they came in contact with, or think about, the concept itself rather than the particular depiction shown, and there is no apparent reason why colour should influence such ratings. Visual complexity, on the other hand, where participants were required to directly rate the amount of detail in the picture, did show an expected difference. Colour photographs were rated as significantly more visually complex than grey items, presumably due to their additional layer of contextual information. When compared to the previous data obtained for drawings, the greyscale photographs showed comparable levels of visual complexity, while the colour photographs showed higher levels than any of the other formats. It is unclear why the photographs of the current study showed colour differences, when grey and colour drawings did not differ, though it may tie in with the hypotheses proposed to explain the mental imagery agreement data. Subjects may apply stricter internal criteria when rating stimuli that are perceived as being closer to how they would be experienced in real life - when viewing a colour photograph of a rabbit, it is difficult to see how we could make the item any more visually complex than it already is (at least in a 2D medium). It's probable that subjects notice the absence of colour when viewing the greyscale items, since they depict the items in a way that they are not usually seen, and thus determine that these items could be made more complex if they were shown in colour (and so give lower visual complexity ratings as a result). 
 
 ### *Establishing a new set of stimuli*
-The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. By matching items with previously established drawings (and words), the effects of stimuli-format on recognition response patterns could be directly examined. Normative data was collected for 816 photographs in a range of areas. Naming data was used to determine which photographs best matched the intended concepts, among a number of possible variations.
+The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. Matching items with previously established drawings (and words) would allow for the effects of stimuli-format on recognition response patterns to be directly examined. A range of normative data was collected for 816 unique photograph items. These items may prove useful for a range of cognitive researchers that wish to utilise a set of high quality and realistic object stimuli, especially given the flexibility of items that can be filtered based on colour, naming agreement, familiarity, etc. For the needs of the current body of research, the naming data was used to determine which photographs best matched the intended concepts among a number of possible variations.
 
+The current study systematically compares recognition memory performance toward three distinct stimuli formats (words, drawings, and photographs) in an effort to establish how stimuli of varying perceptual distinctiveness may affect recognition response patterns. 
+
+The availability of different response options when reporting recognition will also be examined, in order to study any further potential effects or interactions across: 1. Recollection/Familiarity/Guessing - the RFG condition; and 2. as previous, but with the addition of a Both category - the RFBG condition).
+
+
+
+
+While the new set of photograph stimuli will contribute toward our understandings of 
 
 The specific methodologies utilised in recognition memory research are rarely consistent across studies. An often overlooked factor is the format to-be-remembered stimuli are presented in, with many studies utilising written or spoken words (???), line drawings or illustrations [@stenberg2006; @wolk2008; @rollins2018, @ensor2019], or real world photographs [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. 
 
@@ -1310,9 +1318,7 @@ Another inconsistency across recognition memory experiments is the response opti
 
 Such differences could account for the range of conclusions made about the recognition memory abilities of older adults and those presenting early memory impairment (amnestic Mild Cognitive Impairment; aMCI); despite general agreement that those with aMCI show recollection impairments, findings have been much less consistent in determining the preservation of familiarity processes.
 
-The current study systematically compares recognition memory performance toward three distinct stimuli formats (words, drawings, and photographs) in an effort to establish how stimuli of varying perceptual distinctiveness may affect recognition response patterns. 
 
-The availability of different response options when reporting recognition will also be examined, in order to study any further potential effects or interactions across: 1. Recollection/Familiarity/Guessing - the RFG condition; and 2. as previous, but with the addition of a Both category - the RFBG condition).
 
 # Experiment 3
 ## Effect of stimuli format and response option on recognition memory judgments.
@@ -2011,7 +2017,7 @@ For the recognition memory experiment, everyday objects were presented in three 
             add_tally((str_detect(stim, "^grey_photo") | str_detect(stim, "^col_photo"))
                       & response == "guessing", sort = FALSE, name = "photo_FA_guess")
     }
-################################################################################################################# 
+#################################################################################################################
 ##  Filter 'test_data' by each study list, one-at-a-time, resulting in x12 df (x6 grey + x6 col).              ##
 ##  For each, run our function that calculates the FA and CR totals, then rejoin into one df.                  ##
 #################################################################################################################
@@ -2351,7 +2357,7 @@ For the recognition memory experiment, everyday objects were presented in three 
                                                                               ##  are made following the 
                                                                               ##  recommendations ofHautus(1995).
             mutate("id" = i)                                    ##  Add current participant ID to "temp_d_prime"
-      temp <- temp %>% inner_join(temp_d_prime, by = "id")      ## join "temp" and "temp_d_prime" by id into one                                                                 ##  df / single row.
+      temp <- temp %>% inner_join(temp_d_prime, by = "id")      ##  join "temp" and "temp_d_prime" by id into one                                                                 ##  df / single row.
       word_d_prime <- bind_rows(word_d_prime, temp) }           ##  Add this row to the "word_d_prime" df. Loop 
                                                                 ##  again, until we've gone through each P. 
 ##  Additional tidying:     
@@ -2923,7 +2929,7 @@ words (`r apa__grey__anova__RECOG__words.mean`) [`r apa__grey__anova__RECOG__wor
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp3--mean-d-and-c--tablecaption",
-                     caption = "")
+                     caption = "d' and c values by stimuli format and response-option condition.")
 ```
 
 To assess the roles of discrimination and response bias, separate 3 (stimuli format: words, drawings, photographs) x 2 (response-option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the values of d’ (d-prime; measure of sensitivity) and c (decision criterion; see `r table_numbering("exp3--mean-d-and-c--tablecaption", display = "cite")`).
@@ -2939,37 +2945,13 @@ To assess the roles of discrimination and response bias, separate 3 (stimuli for
 ```
 &nbsp;
 
-#### d' (discrimination)
-For d' scores, there was a significant interaction between stimuli format and response-option [`r apa__grey__anova__D.PRIME__interaction.main.effect`] (see `r figure_numbering("grey__dprime_interaction_figure_caption", display = "cite")`). 
-
-Photographs
+For d' scores, there was a significant interaction between stimuli format and response-option [`r apa__grey__anova__D.PRIME__interaction.main.effect`] (see `r figure_numbering("grey__dprime_interaction_figure_caption", display = "cite")`). Photographs
 (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`)
-facilitated better discrimination between hits / FAs than both words
-(`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`)
-[`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFGWords_RFGPhotographs`] and drawings
-(`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) 
-[`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFGDrawings_RFGPhotographs`] in the RFG group. Drawings
-(`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) 
-also showed significantly higher d' scores compared to words 
-(`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`)
-[`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFGWords_RFGDrawings`]. In the RFBG group, the same pattern was evident; photographs
-(`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`)
-facilitated better discrimination than both words
-(`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`)
-[`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFBGWords_RFBGPhotographs`] 
-and drawings
-(`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) 
-[`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFBGDrawings_RFBGPhotographs`] 
-Again, drawings
-(`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) 
-also showed significantly higher d' scores than words 
-(`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`)
-[`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFBGWords_RFGDrawings`].
+facilitated better discrimination between hits / FAs than both words (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`) [`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFGWords_RFGPhotographs`] and drawings (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) [`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFGDrawings_RFGPhotographs`] in the RFG group. Drawings (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) also showed significantly higher d' scores compared to words (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`) [`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFGWords_RFGDrawings`]. In the RFBG group, the same pattern was evident; photographs (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) facilitated better discrimination than both words (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) [`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFBGWords_RFBGPhotographs`] and drawings (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) [`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFBGDrawings_RFBGPhotographs`]. Again, drawings (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) also showed significantly higher d' scores than words (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) [`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFBGWords_RFGDrawings`].
 
 Comparisons of stimuli format across the response-option groups showed that d' scores for photographs did not significantly differ between the RFG (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) and RFBG (`r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) conditions [`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFGPhotographs_RFBGPhotographs`], nor for drawings (RFG: `r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`, RFBG: `r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`, [`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFGDrawings_RFBGDrawings`], nor for words (RFG: `r apa__grey__anova__D.PRIME__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`, RFBG: `r apa__grey__anova__D.PRIME__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`, [`r apa__grey__anova__D.PRIME__interaction.full.pairwise$statistic$RFGWords_RFBGWords`]). 
 
 &nbsp;
-
 ```{r exp3--dprime-interaction--figurecaption, echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering(name = "exp3--dprime-interaction--figurecaption",
                      caption = "Interaction plot between stimuli format and response-option for d' scores.")
@@ -2979,7 +2961,6 @@ Comparisons of stimuli format across the response-option groups showed that d' s
     grey__D.PRIME__interaction.figure
 ```
 `r figure_numbering("exp3--dprime-interaction--figurecaption")`
-
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
@@ -3026,7 +3007,8 @@ Comparisons of stimuli format across the response-option groups showed that d' s
                                                          adjust = "bonferroni")
     
     ##  Format pairwise results for use in report:  
-        apa__grey__anova__C.SCORES__stim.format.means <- papaja:::apa_print.emmGrid(grey__anova__C.SCORES__stim.format.means)
+        apa__grey__anova__C.SCORES__stim.format.means <-     
+            papaja:::apa_print.emmGrid(grey__anova__C.SCORES__stim.format.means)
         apa__grey__anova__C.SCORES__words.mean <- 
           apa__grey__anova__C.SCORES__stim.format.means$estimate$Words %>% str_remove("\\,.*")
         apa__grey__anova__C.SCORES__drawings.mean <- 
@@ -3050,8 +3032,7 @@ Comparisons of stimuli format across the response-option groups showed that d' s
 #---------------------------------------------------------------------------------------------------------------#
 ```
 
-#### c (response bias)
-For c-scores, there was a significant main effect of stimuli format [`r apa__grey__anova__C.SCORES__stim.format.main.effect`]. The interaction effect was not significant [`r apa__grey__anova__C.SCORES__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that photographs (`r apa__grey__anova__C.SCORES__photographs.mean`) produced significantly lower c-scores (and thus a less conservative response bias) than both words (`r apa__grey__anova__C.SCORES__words.mean`) [`r apa__grey__anova__C.SCORES__words.vs.photographs.pairwise`] and drawings (`r apa__grey__anova__C.SCORES__drawings.mean`) [`r apa__grey__anova__C.SCORES__drawings.vs.photographs.pairwise`]. There was no difference in c-scores between drawings (`r apa__grey__anova__C.SCORES__drawings.mean`) and words (`r apa__grey__anova__C.SCORES__words.mean`) [`r apa__grey__anova__C.SCORES__words.vs.drawings.pairwise`].
+c-scores showed a significant main effect of stimuli format [`r apa__grey__anova__C.SCORES__stim.format.main.effect`], with photographs (`r apa__grey__anova__C.SCORES__photographs.mean`) demonstrating significantly lower c-scores (and thus a less conservative response bias) than words (`r apa__grey__anova__C.SCORES__words.mean`) [`r apa__grey__anova__C.SCORES__words.vs.photographs.pairwise`] and drawings (`r apa__grey__anova__C.SCORES__drawings.mean`) [`r apa__grey__anova__C.SCORES__drawings.vs.photographs.pairwise`]. Photographs may have uniquely provided subjects with additional confidence that their old/new response was correct in comparison to the other stimuli formats; there was no difference in c-scores between drawings (`r apa__grey__anova__C.SCORES__drawings.mean`) and words (`r apa__grey__anova__C.SCORES__words.mean`) [`r apa__grey__anova__C.SCORES__words.vs.drawings.pairwise`]. There were no significant interaction effects [`r apa__grey__anova__C.SCORES__interaction.main.effect`]. 
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
