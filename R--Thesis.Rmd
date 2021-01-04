@@ -65,7 +65,7 @@ Despite their widespread use, line drawings have been criticised for their relat
 #################################################################################################################
 ##    EXPERIMENT 2:                                                                                            ##
 #################################################################################################################
-    raw_data_files <- list.files(path = "./resources/raw_data/experiment_2/")
+    raw_data_files <- list.files(path = "./resources/experiment_2/experiment_2_data/")
 ##  Create 'do not import' list: 
     do_not_import <-
 ##  Experimenter test files: 
@@ -122,7 +122,7 @@ Despite their widespread use, line drawings have been criticised for their relat
 ##  Remove 'do not import' items from the to-be-imported "csv_file_list".
     raw_data_files <- raw_data_files[!(raw_data_files %in% do_not_import)] %>%
 ##  Add folder location to the start of each file name:
-        str_replace("PARTICIPANT", "./resources/raw_data/experiment_2/PARTICIPANT")    
+        str_replace("PARTICIPANT", "./resources/experiment_2/experiment_2_data/PARTICIPANT")    
 ##  Create raw df from the above files, but only get the following columns:
     raw_data <- map_dfr(raw_data_files,~read_csv(.x, col_types = cols_only("date"='c',"expName"='c',
                         "Prolific_ID"='c',"Age"='c',"Gender"='c',"EnglishFirstLang"='c',"Ethnicity"='c',
@@ -574,9 +574,9 @@ Despite their widespread use, line drawings have been criticised for their relat
         filter(tally_difference_values >1)
 ##  The "inter_rater" df was exported here so each rater could give their independent rankings for each object.
 ##  Import rating data: 
-    rater_1 <- read_csv("./resources/rater_1.csv", col_types = list(col_character(), col_double())) %>%
+    rater_1 <- read_csv("./resources/experiment_2/rater_1.csv", col_types = list(col_character(), col_double())) %>%
         rename(rater_1 = rating)
-    rater_2 <- read_csv("./resources/rater_2.csv", col_types = list(col_character(), col_double())) %>%
+    rater_2 <- read_csv("./resources/experiment_2/rater_2.csv", col_types = list(col_character(), col_double())) %>%
         rename(rater_2 = rating)
     agreements <- merge(rater_1, rater_2) %>%
         group_by(stim) %>%
@@ -598,7 +598,7 @@ Despite their widespread use, line drawings have been criticised for their relat
             #rename(stim = "disagreed")
         #write.csv(randomised_disagree_items,'~/Desktop/randomised_disagree_items.csv', row.names = FALSE)
 ##  Since we wrote our original randomised selection to .csv, we import that to get the same results.
-    randomised_disagree_items <- read_csv("./resources/randomised_disagree_items.csv", 
+    randomised_disagree_items <- read_csv("./resources/experiment_2/randomised_disagree_items.csv", 
                                           col_types = list(col_character()))
     inter_rater_items <- agreements %>%
         select(stim) %>%
@@ -1318,25 +1318,25 @@ Based on the results of Experiment 1, which compared recognition to for words an
 ##  Import demographics, RFG justifications, and RFBG justifications:                       
     p_info_files <-
 ##  SONA - colour + grey (v123):
-      c("./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_questionnaire-hq4r.csv",
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_questionnaire-aaj1.csv",
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_questionnaire-n6oe.csv",
+      c("./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_questionnaire-hq4r.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_questionnaire-aaj1.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_questionnaire-n6oe.csv",
 ##  Prolific - colour (v127):
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_questionnaire-hq4r.csv",
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_questionnaire-aaj1.csv",
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_questionnaire-n6oe.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_questionnaire-hq4r.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_questionnaire-aaj1.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_questionnaire-n6oe.csv",
 ##  Prolific - colour (v128):
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_questionnaire-hq4r.csv",
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_questionnaire-aaj1.csv",
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_questionnaire-n6oe.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_questionnaire-hq4r.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_questionnaire-aaj1.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_questionnaire-n6oe.csv",
 ##  Prolific - grey (v131):
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_questionnaire-hq4r.csv",
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_questionnaire-aaj1.csv",
-        "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_questionnaire-n6oe.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_questionnaire-hq4r.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_questionnaire-aaj1.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_questionnaire-n6oe.csv",
 ##  Hanover - grey (v4):
-        "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_questionnaire-hq4r.csv",
-        "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_questionnaire-aaj1.csv",
-        "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_questionnaire-n6oe.csv")
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_questionnaire-hq4r.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_questionnaire-aaj1.csv",
+        "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_questionnaire-n6oe.csv")
 
 ##  Create raw df from the above files, but only get the following columns:
     participant_info <- map_dfr(p_info_files,~read_csv(.x, col_types = cols_only("Participant Private ID"='c', 
@@ -1419,46 +1419,46 @@ Based on the results of Experiment 1, which compared recognition to for words an
 ##  Calculate how many items P got correct during study:
 ##  Import study data:
 ##  SONA - colour + grey (v123):
-    study_files <- c("./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-hqih.csv", # Study_1_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-iwo1.csv", # Study_2_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-zde5.csv", # Study_3_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-gb72.csv", # Study_4_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-6xh1.csv", # Study_5_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-6t6c.csv", # Study_6_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-hjvs.csv", # Study_1_Col
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-ijsc.csv", # Study_2_Col
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-rxq8.csv", # Study_3_Col
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-41u6.csv", # Study_4_Col
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-xfbn.csv", # Study_5_Col
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-qw7d.csv", # Study_6_Col
+    study_files <- c("./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-hqih.csv", # Study_1_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-iwo1.csv", # Study_2_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-zde5.csv", # Study_3_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-gb72.csv", # Study_4_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-6xh1.csv", # Study_5_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-6t6c.csv", # Study_6_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-hjvs.csv", # Study_1_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-ijsc.csv", # Study_2_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-rxq8.csv", # Study_3_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-41u6.csv", # Study_4_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-xfbn.csv", # Study_5_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-qw7d.csv", # Study_6_Col
 ##  Prolific - colour (v127):
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-hjvs.csv", # Study_1_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-ijsc.csv", # Study_2_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-rxq8.csv", # Study_3_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-41u6.csv", # Study_4_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-xfbn.csv", # Study_5_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-qw7d.csv", # Study_6_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-hjvs.csv", # Study_1_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-ijsc.csv", # Study_2_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-rxq8.csv", # Study_3_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-41u6.csv", # Study_4_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-xfbn.csv", # Study_5_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-qw7d.csv", # Study_6_Grey
 ##  Prolific - colour (v128):
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-hjvs.csv", # Study_1_Col
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-ijsc.csv", # Study_2_Col
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-rxq8.csv", # Study_3_Col
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-41u6.csv", # Study_4_Col
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-xfbn.csv", # Study_5_Col
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-qw7d.csv", # Study_6_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-hjvs.csv", # Study_1_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-ijsc.csv", # Study_2_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-rxq8.csv", # Study_3_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-41u6.csv", # Study_4_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-xfbn.csv", # Study_5_Col
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-qw7d.csv", # Study_6_Col
 ##  Prolific - grey (v131):
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-hqih.csv", # Study_1_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-iwo1.csv", # Study_2_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-zde5.csv", # Study_3_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-gb72.csv", # Study_4_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-6xh1.csv", # Study_5_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-6t6c.csv", # Study_6_Grey 
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-hqih.csv", # Study_1_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-iwo1.csv", # Study_2_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-zde5.csv", # Study_3_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-gb72.csv", # Study_4_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-6xh1.csv", # Study_5_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-6t6c.csv", # Study_6_Grey 
 ##  Hanover - grey (v4):
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-hqih.csv",   # Study_1_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-iwo1.csv",   # Study_2_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-zde5.csv",   # Study_3_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-gb72.csv",   # Study_4_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-6xh1.csv",   # Study_5_Grey
-                     "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-6t6c.csv")   # Study_6_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-hqih.csv",   # Study_1_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-iwo1.csv",   # Study_2_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-zde5.csv",   # Study_3_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-gb72.csv",   # Study_4_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-6xh1.csv",   # Study_5_Grey
+                     "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-6t6c.csv")   # Study_6_Grey
     
 ##  Create raw df from the above files, but only get the following columns:
     study_data <- map_dfr(study_files,~read_csv(.x, col_types = cols_only("Participant Private ID" = 'c',
@@ -1715,45 +1715,45 @@ Based on the results of Experiment 1, which compared recognition to for words an
 #################################################################################################################
 ##  Import test data:
 ##  SONA - colour + grey (v123):
-    test_files <- c("./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-7jjs.csv", # Grey-A-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-z4vm.csv", # Grey-A-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-7l32.csv", # Grey-B-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-fniu.csv", # Grey-B-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-3bwq.csv", # Grey-C-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-zkjc.csv", # Grey-C-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-q6iu.csv", # Colour-A-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-elbt.csv", # Colour-A-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-xfoj.csv", # Colour-B-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-hkci.csv", # Colour-B-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-kckb.csv", # Colour-C-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v123_task-6jyy.csv", # Colour-C-RFBG
+    test_files <- c("./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-7jjs.csv", # Grey-A-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-z4vm.csv", # Grey-A-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-7l32.csv", # Grey-B-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-fniu.csv", # Grey-B-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-3bwq.csv", # Grey-C-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-zkjc.csv", # Grey-C-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-q6iu.csv", # Colour-A-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-elbt.csv", # Colour-A-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-xfoj.csv", # Colour-B-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-hkci.csv", # Colour-B-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-kckb.csv", # Colour-C-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v123_task-6jyy.csv", # Colour-C-RFBG
 ##  Prolific - colour (v127):
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-q6iu.csv", # Colour-A-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-elbt.csv", # Colour-A-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-xfoj.csv", # Colour-B-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-hkci.csv", # Colour-B-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-kckb.csv", # Colour-C-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v127_task-6jyy.csv", # Colour-C-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-q6iu.csv", # Colour-A-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-elbt.csv", # Colour-A-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-xfoj.csv", # Colour-B-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-hkci.csv", # Colour-B-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-kckb.csv", # Colour-C-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v127_task-6jyy.csv", # Colour-C-RFBG
 ##  Prolific - colour (v128):
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-q6iu.csv", # Colour-A-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-elbt.csv", # Colour-A-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-xfoj.csv", # Colour-B-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-hkci.csv", # Colour-B-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-kckb.csv", # Colour-C-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v128_task-6jyy.csv", # Colour-C-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-q6iu.csv", # Colour-A-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-elbt.csv", # Colour-A-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-xfoj.csv", # Colour-B-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-hkci.csv", # Colour-B-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-kckb.csv", # Colour-C-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v128_task-6jyy.csv", # Colour-C-RFBG
 ##  Prolific - grey (v131):
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-7jjs.csv", # Grey-A-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-z4vm.csv", # Grey-A-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-7l32.csv", # Grey-B-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-fniu.csv", # Grey-B-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-3bwq.csv", # Grey-C-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_10169-v131_task-zkjc.csv", # Grey-C-RFBG       ##  Hanover - grey (v4):
-                    "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-7jjs.csv",   # Grey-A-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-z4vm.csv",   # Grey-A-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-7l32.csv",   # Grey-B-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-fniu.csv",   # Grey-B-RFBG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-3bwq.csv",   # Grey-C-RFG
-                    "./resources/raw_data/experiment_3_and_4/data_exp_19134-v4_task-zkjc.csv")   # Grey-C-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-7jjs.csv", # Grey-A-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-z4vm.csv", # Grey-A-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-7l32.csv", # Grey-B-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-fniu.csv", # Grey-B-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-3bwq.csv", # Grey-C-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_10169-v131_task-zkjc.csv", # Grey-C-RFBG       ##  Hanover - grey (v4):
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-7jjs.csv",   # Grey-A-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-z4vm.csv",   # Grey-A-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-7l32.csv",   # Grey-B-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-fniu.csv",   # Grey-B-RFBG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-3bwq.csv",   # Grey-C-RFG
+                    "./resources/experiment_3_and_4/experiment_3_and_4_data/data_exp_19134-v4_task-zkjc.csv")   # Grey-C-RFBG
     
     
 ##  Create raw df from the above files, but only get the following columns:
@@ -3783,7 +3783,7 @@ Across a range of performance variables, the results show a clear effect of stim
 ```
 
 ```{r include=FALSE, cache=TRUE}
-    spelling_corrections <- read_csv("./resources/spelling_corrections.csv") %>%
+    spelling_corrections <- read_csv("./resources/experiment_2/spelling_corrections.csv") %>%
         mutate(Response = replace_na(Response, "")) %>%
         mutate(Correction = replace_na(Correction, "")) %>%
         mutate(Response_1 = replace_na(Response_1, "")) %>%
@@ -3850,7 +3850,7 @@ Across a range of performance variables, the results show a clear effect of stim
         unite("Colour_Diagnosticity", ColDia_Mean:ColDia_SD, sep = " ", remove = TRUE) %>%
         mutate(Colour_Diagnosticity = str_replace(Colour_Diagnosticity, "NaN NA", "")) %>%
         rename("Colour Diagnosticity" = "Colour_Diagnosticity")
-#image_refs <- read_csv("./resources/image_refs.csv")
+#image_refs <- read_csv("./resources/experiment_2/image_refs.csv")
 #        norms2 <- (bind_cols(norms, image_refs))
 ```
 
