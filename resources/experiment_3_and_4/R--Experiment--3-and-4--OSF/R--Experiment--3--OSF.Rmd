@@ -1,0 +1,250 @@
+---
+title: "Experiment 3 + 4 OSF draft"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: 3
+    latex_engine: xelatex
+    extra_dependencies: ["xcolor"]
+mainfont: Helvetica
+font-family: Helvetica Neue
+fontsize: 12pt
+geometry: margin=1in
+header-includes: 
+  - \usepackage{fancyhdr}
+  - \pagestyle{fancy}
+  - \fancyfoot[CO,CE]{Exp. 3 + 4 - OSF Draft}
+  - \fancyfoot[LE,RO]{\thepage}         # "\thepage" = the number of the currentpage.
+  - \renewcommand{\headrulewidth}{2pt}
+  - \renewcommand{\footrulewidth}{1pt}
+  - \usepackage[dvipsnames]{xcolor}
+#bibliography: ./R--Exp3--OSF/common/references.bib
+#csl: "./R--Exp3--OSF/common/apa.csl"
+
+---
+  
+# Study Information
+
+## Title
+Provide the working title of your study. Informative titles are strongly encouraged.\
+E.g. Effect of sugar on brownie tastiness.\
+
+**Effect of stimuli-format and response-option on recognition memory judgments.**\
+
+**Other options:**\
+**Do different stimuli-formats affect recognition memory judgments?**\
+**How do different types of stimuli affect recognition?**
+
+## Authors
+**Jamie Adams**\
+**Helen Williams**\
+**Glen Bodner**\
+
+## Description
+Please give a brief description of your study, including some background, the purpose of the study, or broad research questions.\
+E.g. Though there is strong evidence to suggest that sugar affects taste preferences, the effect has never been demonstrated in brownies. Therefore, we will measure taste preference for four different levels of sugar concentration in a standard brownie recipe to determine if the effect exists in this pastry.\
+
+**The specific methodologies utilised in recognition memory research are rarely consistent across studies; the format of presented stimuli are often  very different (written or spoken words / simple line-drawings / detailed photographs), as are the response-options available to participants when reporting their recognition (e.g. Remember/Know; Recollection/Familiarity). Such differences could account for the range of conclusions made about the recognition memory abilities of older adults and those presenting early memory impairment (amnestic Mild Cognitive Impairment; aMCI); despite general agreement that those with aMCI show recollection impairments, findings have been much less consistent in determining the preservation of familiarity processes.**\
+  
+**We will systematically compare younger adults' recognition memory performance toward three distinct stimuli-formats (words, drawings, and photographs) in an effort to establish how stimuli of varying perceptual distinctiveness may affect baseline recognition response patterns. The effects of colour vs. greyscale will also be examined, in addition to the response-options available to participants whilst reporting their recognition (1. Recollection/Familiarity/Guessing; 2. as previous, only with the addition of a Both category), in order to study any further potential effects or interactions.**
+
+## Hypotheses
+List specific, concise, and testable hypotheses. Please state if the hypotheses are directional or non-directional. If directional, state the direction. A predicted effect is also appropriate here. If a specific interaction or moderation is important to your research, you can list that as a separate hypothesis.\
+E.g. If taste affects preference, then mean preference indices will be higher with higher concentrations of sugar.\
+
+**If stimuli format affects recognition performance, it is hypothesised that:**\
+
+- **the number of accurate hits will increase as stimuli become more detailed (words > drawings > photographs);**
+- **the number of false alarms (FAs) will increase as stimuli become less detailed (photographs > drawings > words);**\
+- **the number of "Recollection" hits will increase as stimuli become more detailed (words > drawings > photographs);**
+- **the number of "Familiarity" hits will increase as stimuli become less detailed (photographs > drawings > words);**
+- **the number of "Guessing" hits will increase as stimuli become less detailed (photographs > drawings > words);**\
+
+**If stimuli colour affects recognition performance, it is hypothesised that:**\
+
+- **the overall number of accurate hits will be higher in response to colour items, compared to greyscale items;**
+- **the overall number of FAs will be higher in response to greyscale items, compared to colour items;**
+- **the overall number of "Recollection" hits will be higher in response to colour items, compared to greyscale items;**
+- **the overall number of "Familiarity" hits will be higher in response to greyscale items, compared to colour items;**
+- **the overall number of "Guessing" hits will be higher in response to greyscale items, compared to colour items;**\
+
+**It is also hypothesised that there will be a difference in recognition response patterns depending on the response-options available to participants (RFG vs. RFBG).** 
+
+\newpage
+
+# Design Plan
+
+## Study type
+Please check one of the following statements:\
+
+- **Experiment - A researcher randomly assigns treatments to study subjects, this includes field or lab experiments. This is also known as an intervention experiment and includes randomized controlled trials.**\
+- Observational Study - Data is collected from study subjects that are not randomly assigned to a treatment. This includes surveys, “natural experiments,” and regression discontinuity designs.\
+- Meta-Analysis - A systematic review of published studies.\
+- Other\
+
+
+## Blinding
+Blinding describes who is aware of the experimental manipulations within a study. Mark all that apply:\
+
+- **No blinding is involved in this study.**\
+- For studies that involve human subjects, they will not know the treatment group to which they have been assigned.\
+- Personnel who interact directly with the study subjects (either human or non-human subjects) will not be aware of the assigned treatments. (Commonly known as “double blind”)\
+- Personnel who analyze the data collected from the study are not aware of the treatment applied to any given group.\
+
+## Is there any additional blinding in this study?
+Blinding (Other)
+
+- **None.**
+
+\newpage
+
+## Study design
+Describe your study design. The key is to be as detailed as is necessary given the specific parameters of the design. There may be some overlap between this question and the following questions. That is OK, as long as sufficient detail is given in one of the areas to provide all of the requested information.\
+Examples include two-group, factorial, randomized block, and repeated measures. Is it a between (unpaired), within-subject (paired), or mixed design? Describe any counterbalancing required.E.g. Between subjects design with 1 factor (sugar by mass) and 4 levels (none, 1 gram, 10 grams, and 100 grams).\
+
+**The study utilises a mixed design, with a 3-level within-subjects factor of stimuli-format (photographs, drawings, words), and a 2-level between-subjects factor of response-option (RFG, RFBG). Participants are randomly assigned into either: i) a version comprised of colour drawings and photographs; or ii) a version comprised of greyscale drawings and photos.** 
+
+## Randomization
+ If you are doing a randomized study, state how you will randomize, and at what level. Typical randomization techniques include: simple, block, stratified, and adaptive covariate randomization. If randomization is required for the study, the method should be specified here, not simply the source of random numbers.\
+E.g. We will use block randomization, where each participant will be randomly assigned to one of the four equally sized, predetermined blocks. The random number list used to create these four blocks will be created using the web applications available at http://random.org. \
+
+**Subjects pass through 3 levels of blocked randomization (equally sized, predetermined blocks):**\
+
+1. **a version of the experiment comprised of colour drawings and photographs, or a version comprised of greyscale drawings and photographs;**
+2. **1 of 6 different study lists (each list is of equal length, and contains an even number of word, drawing, and photograph items);**
+3. **a recognition test with "Recollection", "Familiarity", and "Guessing" response-options available, or a recognition test with "Recollection", "Familiarity", "Guessing", and "Both" response-options available.**
+
+**These randomisation processes are completed automatically by Gorilla (https://gorilla.sc/) - the platform used to build and host the online experiment. We are also making use of the "Balanced" randomisation mode to ensure all conditions / counterbalancing blocks received the necessary data.**
+
+\newpage
+
+# Sampling Plan
+
+## Existing Data
+Preregistration is designed to make clear the distinction between confirmatory tests, specified prior to seeing the data, and exploratory analyses conducted after observing the data. Therefore, creating a research plan in which existing data will be used presents unique challenges. Please select the description that best describes your situation. See https://cos.io/prereg for more information.\
+
+- Registration prior to creation of data.
+- Registration prior to any human observation of the data.
+- **Registration prior to accessing the data.**
+- Registration prior to analysis of the data.
+- Registration following analysis of the data.
+
+## Explanation of existing data
+If you indicate that you will be using some data that already exist in this study, please describe the steps you have taken to assure that you are unaware of any patterns or summary statistics in the data. This may include an explanation of how access to the data has been limited, who has observed the data, or how you have avoided observing any analysis of the specific data you will use in your study.\
+
+**No previously existing data will be used in this study.**
+  
+## Data collection procedures
+Please describe the process by which you will collect your data and your inclusion and exclusion criteria. If you are using human subjects, this should include the population from which you obtain subjects, recruitment efforts, payment for participation, how subjects will be selected for eligibility from the initial pool, and your study timeline. For studies that don't include human subjects, include information about how you will collect samples, duration of data gathering efforts, source or location of samples, or batch numbers you will use.\
+E.g. Participants will be recruited through advertisements at local pastry shops. Participants will be paid $10 for agreeing to participate (raised to $30 if our sample size is not reached within 15 days of beginning recruitment). Participants must be at least 18 years old and be able to eat the ingredients of the pastries.\
+
+**Online data collection is currently underway using Gorilla (https://gorilla.sc/). The experiment is advertised on (and thus may recruit participants from):**\
+
+1. **the Keele University School of Psychology research participation (RPT) scheme (in return for participation credit)**;
+2. **Paid participation websites (e.g. Prolific Academic: www.prolific.ac, at a rate of £5/hr)**.
+3. **in-school email lists**;
+4. **volunteer Psychology experiment websites (e.g. Reddit: r/samplesize)**;
+5. **social networking sites (e.g. Facebook)**;
+6. **posters in public spaces (confined to Keele University campus**.
+
+## Sample size
+Describe the sample size of your study. How many units will be analyzed in the study? This could be the number of people, birds, classrooms, plots, or countries included. If the units are not individuals, then describe the size requirements for each unit. If you are using a clustered or multilevel design, describe how many units are you collecting at each level of the analysis. This might be the number of samples or a range, minimum, or maximum.\
+E.g. Our target sample size is 280 participants. We will attempt to recruit up to 320, assuming that not all will complete the total task.\
+
+**The target sample size is 320 participants: 80 subjects in each response-option condition (RFG + RFBG), for both the colour and greyscale conditions.**
+
+## Sample size rationale
+This could include a power analysis or an arbitrary constraint such as time, money, or personnel.\
+E.g. We used the software program GPower to conduct a power analysis. Our goal was to obtain .95 power to detect a medium effect size of .25 at the standard .05 alpha error probability.\
+
+**The target sample size was determined after conducting a power analysis in the G\*Power software program. A compromise power analysis to detect a medium effect (Cohen’s f = .25) with 80 participants in each condition was calculated at .97, and power to detect a small effect (f = .10) with 80 participants in each condition was calculated at .72**. 
+
+
+## Stopping rule
+If your data collection procedures do not give you full control over your exact sample size, specify how you will decide when to terminate your data collection. If you are using sequential analysis, include your pre-specified thresholds.\
+E.g. We will post participant sign-up slots by week on the preceding Friday night, with 20 spots posted per week. We will post 20 new slots each week if, on that Friday night, we are below 320 participants.\
+
+**Data collection will cease when we have obtained full data-sets for the the target sample size of 320 participnts.**
+
+\newpage
+
+# Variables
+
+## Manipulated variables
+Precisely define all variables you plan to manipulate and the levels or treatment arms of each variable. This is not applicable to any observational study.\
+E.g. We manipulated the percentage of sugar by mass added to brownies. The four levels of this categorical variable are: 15%, 20%, 25%, or 40% cane sugar by mass.\
+
+- **We are manipulating the colour of stimuli presented throughout, with subjects being randomly assigned to either the colour or greyscale condition.**
+- **We are also manipulating the response-options available during the recognition test, with subjects being randomly assigned to either the RFG condition (where they were able to classify their recognition as "Recollection", "Familiarity", or "Guessing"), or the RFBG condition (where subjects were additionally provided with a "Both" option).**
+- **The 3-level within-subjects factor of stimuli format is not manipulated across participants, with all subjects viewing words, drawings, and photographs.**
+
+## Measured variables
+Precisely define each variable that you will measure. This will include outcome measures, as well as any measured predictors or covariates.\
+E.g. The single outcome variable will be the perceived tastiness of the single brownie each participant will eat. We will measure this by asking participants ‘How much did you enjoy eating the brownie’ (on a scale of 1-7, 1 being ‘not at all’, 7 being ‘a great deal’) and ‘How good did the brownie taste’ (on a scale of 1-7, 1 being ‘very bad’, 7 being ‘very good’).\
+
+**Measured variables include the total number of hits, FAs, misses, and correct rejections (CRs). Reaction times for all responses are also recorded. Age, Gender, Ethnicity, and whether English is a participants' first language are also being measured as potential covariates.**
+  
+## Indices
+If applicable, please define how measures will be combined into an index (or even a mean) and what measures will be used. Include either a formula or a precise description of the method. If you are using a more complicated statistical method to combine measures (e.g. a factor analysis), please note that here but describe the exact method in the analysis plan section.\
+E.g. We will take the mean of the two questions above to create a single measure of ‘brownie enjoyment’\
+
+**Prior to analysis, the variables measured above will be used to produce a series of outcome variables:**\
+  
+1. **total proportion of hits and FAs (for both stimuli-format and response-option condition);**
+2. **total proportion of Recollection, Familiarity, Both, and Guessing responses (for both stimuli-format and response-option condition);**
+3. **d'(prime), a signal detection measure of sensitivity;**
+4. **c(bias), a measure of decision criterion;**
+5. **z-scores;**
+6. **accuracy.**
+
+\newpage
+
+# Analysis Plan
+
+## Statistical models
+What statistical model will you use to test each hypothesis? Please include the type of model (e.g. ANOVA, RMANOVA, MANOVA, multiple regression, SEM, etc) and the specification of the model. This includes each variable that will be included, all interactions, subgroup analyses, pairwise or complex contrasts, and any follow-up tests from omnibus tests. If you plan on using any positive controls, negative controls, or manipulation checks you may mention that here. Provide enough detail so that another person could run the same analysis with the information provided. Remember that in your final article any test not included here must be noted as exploratory and that you must report the results of all tests.\
+E.g. We will use a  2 X 3 repeated measures ANOVA (RMANOVA) with both factors within subjects to analyze our results.  This is perhaps the most important and most complicated question within the preregistration. Ask yourself: is enough detail provided to run the same analysis again with the information provided by the user? Be aware for instances where the statistical models appear specific, but actually leave openings for the precise test.\
+
+**A series of 3x2 repeated measures ANOVAs will be conducted on each of the DVs using a within-subjects factor of stimuli-format (photographs, drawings, words) and a between-subjects factor of response-option (RFG, RFBG). Significant main effects and interaction effects will be followed-up with pairwise comparisons.**
+
+## Transformations
+If you plan on transforming, centering, recoding the data, or requiring a coding scheme for categorical variables, please describe that process.\
+E.g. The “Effect of sugar on brownie tastiness” does not require any additional transformations. However, if it were using a regression analysis and each level of sweet had been categorically described (e.g. not sweet, somewhat sweet, sweet, and very sweet), ‘sweet’ could be dummy coded with ‘not sweet’ as the reference category.  If any categorical predictors are included in a regression, indicate how those variables will be coded (e.g. dummy coding, summation coding, etc.) and what the reference category will be.\
+
+**The data will not need any additional transformations.**
+
+## Inference criteria
+What criteria will you use to make inferences? Please describe the information you’ll use (e.g. specify the p-values, Bayes factors, specific model fit indices), as well as cut-off criterion, where appropriate. Will you be using one or two tailed tests for each of your analyses? If you are comparing multiple conditions or testing multiple hypotheses, will you account for this?\
+E.g. We will use the standard p<.05 criteria for determining if the ANOVA and the post hoc test suggest that the results are significantly different from those expected if the null hypothesis were correct. The post-hoc Tukey-Kramer test adjusts for multiple comparisons.
+
+**We will use the standard p<.05 criteria for determining if the ANOVA (and post hoc tests) results are significantly different from those expected if the null hypothesis were correct.**
+
+## Data exclusion
+How will you determine which data points or samples if any to exclude from your analyses? How will outliers be handled? Will you use any awareness check?\
+E.g. We will verify that each subject answered each of the three tastiness indices. Outliers will be included in the analysis.\
+
+**Participants will be excluded from analysis on the basis of:**\
+
+1. **Low performance during the encoding task: subjects are required to report whether the current item is a photograph, drawing, or word - due to the ease of this task, subjects scoring below 90\% will be excluded from analyses (on the assumption they have not dedicated their full attention to the task.** 
+
+2. **Subjects with extreme z-scores: those presenting z-scores +/- 3 SDs from the mean (hits, misses, FAs, or CRs) will be considered outliers and thus excluded from analysis.**
+
+3. **Abnormally high number of FAs: data showing FAs to more than half of the lure items will be excluded from any analyses.**
+
+4. **Significant language effects: as our stimuli include written English words, subjects who report that English is not their first language will be excluded from analyses if their data is found to be significantly different from those whose first language is English.** 
+
+
+
+## Missing data
+How will you deal with incomplete or missing data?\
+E.g. If a subject does not complete any of the three indices of tastiness, that subject will not be included in the analysis.\
+
+**If a subject does not fully complete the recognition test, their data will not be included in the analysis.**
+
+
+## Exploratory analysis
+If you plan to explore your data to look for unspecified differences or relationships, you may include those plans here. If you list an exploratory test here, you are not obligated to report its results. But if you do report it you are obligated to describe it as an exploratory result.\
+E.g. We expect that certain demographic traits may be related to taste preferences. Therefore, we will look for relationships between demographic variables (age, gender, income, and marital status) and the primary outcome measures of taste preferences.
+
+# Other
+If there is any additional information that you feel needs to be included in your preregistration, please enter it here. Literature cited, disclosures of any related work such as replications or work that uses the same data, or other helpful context would be appropriate here.
