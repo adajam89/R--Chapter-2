@@ -101,6 +101,52 @@ Both used the same picture stim - colour photos.
 \newpage
 # Chapter 2
 ## Experiment 1 (Proof of concept)
+Research into recognition memory often focuses on methods of estimating recollection and familiarity - two independent processes theorised to support the successful recognition of previously encountered material [@yonelinas2002; schoemaker2014]. Recollection typically refers to the conscious recall of encoded information, whereby successful recognition is facilitated by contextual details surrounding a previous encounter with the stimulus. Familiarity, on the other hand, is a term used to describe recognition that occurs via an unsubstantiated feeling of having encountered the stimulus previously
+s
+despite  
+the inability to retrieve any associated contextual information.
+
+Despite the popularity of this dual-process model of recognition [@paivio1971; @paivio1972], there remains a disagreement throughout the literature regarding the extent to which recollection and
+familiarity are independent processes, and the methods used to measure them most effectively. 
+
+Experimental paradigms are generally categorized into two broad groups: task-dissociation and process-estimation methods. Task-dissociation methods combine two different task formats (e.g. old/new recognition paired with forced-choice recognition), and make comparisons in an attempt to isolate either recollection or familiarity (Yonelinas, 2002). Old/new recognition tests are thought to isolate recollection; stimuli are presented individually and participants attempt to make an accurate judgement about items they previously studied (targets) when presented amongst novel items with highly similar characteristics (lures). Forced-choice recognition paradigms, on the other hand, can rely on recollection or familiarity; discrimination between previously studied targets and highly similar lures is again required, however, recognition trials present target-lure pairs at the same time and require that participants select between them.s
+
+
+
+One of the most commonly used methods in recognition memory research is the Remember-
+Know (RK) paradigm [@gardiner2000; @jacoby1991; @jacoby1997; @tulving1985]
+
+
+. In the RK paradigm participants categorise an item on a recognition test as ‘Remember’ when recognition is accompanied by recollection, or as ‘Know’, when
+recognition is not accompanied by recollection and instead is accompanied by a feeling of
+familiarity or certainty. A ‘Guess’ option is also usually provided to try to ensure that participants
+can assign any guesses they make to that category (rather than assign them to Remember or
+Know). A second method of measurement is to ask participants to make confidence judgments
+or ratings and interpret high confidence as indicating recollection and low confidence as
+indicating familiarity. Instead of confidence, some researchers ask participants to make specific
+ratings of the amount of recollection and familiarity they have for each item they recognise on
+the memory test; here, rather than a binary Remember-Know judgment which means that the
+processes of recollection and familiarity are seen as mutually exclusive, in this method
+recollection and familiarity are viewed as processes that can occur conjointly. Finally, a forth
+method which uses judgments but permits participants to report that they have both recollection
+and familiarity for an item is the Recollect-Familiar-Both judgment task.
+The objective of my research is to better understand what these different methodologies can tell
+us about the underlying processes of recollection and familiarity. In order to achieve this
+objective my proposed research will compare different methodologies against each other in
+different ways:
+1. How to define the response options to participants: The way the ‘Know’ response is
+defined to participants can differ across researchers – some emphasise a feeling of ‘just
+knowing’ or ‘certainty’, whereas other labs use definitions that emphasise a ‘feeling of
+familiarity’. I want to know whether how we are defining ‘Knowing’ to participants when
+we use Remember-Know recognition tests changes how they use the response options.
+2. Are ratings tasks better than judgment tasks: Recollection and familiarity or
+confidence ratings allow for a more fine-grained examination of memory processes but
+perhaps they are more complicated for participants to use and perhaps they are no more
+‘accurate’ than more standard RK judgment tasks? I want to examine how patterns of
+responding differ across these methodologies.
+
+
+
 
 The picture superiority effect (PSE) – stimuli presented as pictures are markedly better remembered on tests of recall or recognition than stimuli presented as words (Shepard, 1967). 
 
@@ -123,12 +169,20 @@ Is the achieved pattern also evident in healthy older?
 What actually is magnitude? Difference between rec for words and rec for pics taken for each group (healthy vs. MCI), and then the difference of those compared??
 
 
-The magnitude of the PSE is greater in aMCI and AD patients when comapred to healthy older (Embree, Budson, & Ally, 2012). Understanding this phenomenon helps to conceptualise how memory breaks down in AD.
+The magnitude of the PSE is greater in aMCI and AD patients when compared to healthy older (Embree, Budson, & Ally, 2012). Understanding this phenomenon helps to conceptualise how memory breaks down in AD.
 
 However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009a; @ally2009b; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006. 
 
+Illustrative
+
+
+
+
+
 
 The objective of Experiment 1 was to establish baseline PSE response patterns in younger adults, and examine how PSE magnitudes differ across the three response-option conditions (RF-judgments / RFB-judgments / RF-Ratings). A 2x3 mixed factorial design was utilised, consisting of a within-subjects variable of stimulus type (words / grey-scale line-drawings) and a between-subjects variable of response-option (RF-judgments / RFBG-judgments / RF-Ratings).
+
+
 
 ```{r experiment-1-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 #################################################################################################################
