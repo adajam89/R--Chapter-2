@@ -50,9 +50,83 @@ header-includes:
 # Chapter 1
 ## Lit Review
 
+
+
+Hamilton and Geraci (2006)
+
+IMPLICIT MEMORY: 
+PSE results from conceptual processing of a picture’s distinctive features (rather than semantic information). 
+General semantic task:
+‘‘What is a used car sometimes called?’’
+No PSE.
+Distinctive conceptual information task:
+‘‘What fruit is egg shaped?’’
+PSE. 
+
+EXPLICIT RECOGNITION:
+PSE always evident? 
+
+
+############
+
+aMCI
+Show larger PSE effects than controls. 
+
+Impaired REC, so this PSE must rely on FAM? 
+
+Mixed findings whether fam is intact in aMCI.
+Intact - generally use picture stim.
+Impaired - generally use verbal stim. 
+
+Is PSE in aMCI driven by intact FAM for pictures, but impaired FAM for words?
+Yes (Embree, Budson, & Ally, 2012):
+aMCI - Picture FAM - same as healthy OAs
+aMCI - Word FAM - impaired compared to healthy OAs 
+
+Ally, McKeever, 2009:
+Examined early frontal old/new effect (FAM) in aMCI:
+Intact for pictures.
+Impaired for words.
+BUT, P did not provide subjective Rec/Fam reports. 
+
+Embree, Budson, & Ally, 2012:
+Deep encoding (verbal like/dislike response). 
+Modified Old/New (6-point rating scale):
+6. Certain the item is old - to -  1. Certain the item is new.
+	
+
+Both used the same picture stim - colour photos.
+
+
 \newpage
 # Chapter 2
 ## Experiment 1 (Proof of concept)
+
+The picture superiority effect (PSE) – stimuli presented as pictures are markedly better remembered on tests of recall or recognition than stimuli presented as words (Shepard, 1967). 
+
+
+Studies agree that pictures enhance recollection compared to words in healthy younger and older adults:
+
+Ally & Budson (2007); Ally et al. (2008); Curran & Doyle (2011); Rajaram (1996). 
+
+
+Is the magnitude of this enhanced recollection for pictures 
+consistent across RFG, RFBG, and RFRatings in healthy Ps?
+
+
+May further demonstrate how the different response options are affecting how people respond (e.g. may reveal if certain conditions over- or under-estimate recollection?)
+
+Are familiarity ratings also better for pics across the 3 conditions? 
+
+Is the achieved pattern also evident in healthy older? 
+
+What actually is magnitude? Difference between rec for words and rec for pics taken for each group (healthy vs. MCI), and then the difference of those compared??
+
+
+The magnitude of the PSE is greater in aMCI and AD patients when comapred to healthy older (Embree, Budson, & Ally, 2012). Understanding this phenomenon helps to conceptualise how memory breaks down in AD.
+
+However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009a; @ally2009b; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006. 
+
 
 The objective of Experiment 1 was to establish baseline PSE response patterns in younger adults, and examine how PSE magnitudes differ across the three response-option conditions (RF-judgments / RFB-judgments / RF-Ratings). A 2x3 mixed factorial design was utilised, consisting of a within-subjects variable of stimulus type (words / grey-scale line-drawings) and a between-subjects variable of response-option (RF-judgments / RFBG-judgments / RF-Ratings).
 
@@ -1794,6 +1868,19 @@ The ANOVA on Familiarity FAs did not yield any significant results; with no sign
 ```
 
 Finally, the ANOVA on Guessing FAs also showed no significant main effect of stimuli-format, `r exp1__apa_anova_prop_guess_FA$full$StimuliFormat`, but there was a significant main effect of response-option, `r exp1__apa_anova_prop_guess_FA$full$ResponseOption`, with the with the RF-ratings group (`r exp1__rfr_guess_FA_mean`) showing significantly fewer Guessing FAs than both the RFG (`r exp1__rfg_guess_FA_mean`), `r exp1__rfg_rfr_guess_FA_ttest`, and RFBG groups (`r exp1__rfbg_guess_FA_mean`), `r exp1__rfbg_rfr_guess_FA_ttest`. This again aligns with previous results, suggesting that those in the RF-Ratings group were less likely to report guesses than the other groups, whether accurate or not. There were no significant interaction effects, `r exp1__apa_anova_prop_guess_FA$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix K - ANOVA Guess FA][].
+
+
+## Discussion
+
+How do colour (vs. greyscale), and illustrations (vs. photographs) 
+differentially affect responses across RFG, RFBG, and RF Ratings?
+
+“perhaps the current study stimulus set of high-resolution colour images may have helped patients overcome visual processing deficits, and use distinctive information to improve memory for pictures over words” - (Ally, Gold, & Budson, 2009) – expected visual processing deficits to manifest as reduced PSE in MCI, but as the results did not support this, suggest the colour images may have helped to bypass this. 
+“Future studies can perhaps examine whether increasing the amount of detail present in a picture enhances discrimination” 
+
+Suzuki & Takahashi (1997): recognition performance was highest when colour pictures were used in both the study and test phases (compared with black and white).
+
+
 
 \newpage
 # Chapter 3
@@ -4338,6 +4425,7 @@ exp3__apa__grey__anova__PROP.HITS__stim.format.main.effect <- exp3__apa__grey__a
   str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 exp3__apa__grey__anova__PROP.HITS__resp.option.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$resp_option %>%
   str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+
 exp3__apa__grey__anova__PROP.HITS__interaction.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$resp_option_stim_format %>%
   str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #---------------------------------------------------------------------------------------------------------------#
@@ -5516,6 +5604,19 @@ Across a range of performance variables, the results show a clear effect of stim
 \newpage
 
 # Chapter 4 (Addition of colour)
+
+
+
+# Chapter 5 (Addition of colour)
+## Method
+All stimuli were presented as 500x500px image files at their actual size (i.e. without scaling) to ensure consistency across participants. Adobe Photoshop 2021 (22.0.0 Release) was used to create the image files, all on a plain white canvas. The Rossion and Pourtois (2004) line-drawings were sourced directly from the authors, and were trimmed of any preexisting background before being resized to fit the 500x500px canvas (for some items this was determined by a maximum width of 500px, whilst for others it was determined by a maximum height of 500px). 
+
+word stimuli 
+were created in 
+Roboto (light, 54pt)
+
+
+
 
 # References
 \setlength{\parindent}{-0.2in}
