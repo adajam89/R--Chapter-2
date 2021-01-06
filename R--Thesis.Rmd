@@ -4333,12 +4333,12 @@ exp3__grey__anova__PROP.HITS <- aov_ez("id", "hit", exp3__grey__anova__PROP.HITS
                                  between = "resp_option", within = "stim_format")
 
 ##  Format ANOVA main effects for use in report:  
-exp3__apa__exp3__grey__anova__PROP.HITS <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.HITS) 
-exp3__apa__exp3__grey__anova__PROP.HITS__stim.format.main.effect <- exp3__apa__exp3__grey__anova__PROP.HITS$full$stim_format %>%
+exp3__apa__grey__anova__PROP.HITS <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.HITS) 
+exp3__apa__grey__anova__PROP.HITS__stim.format.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$stim_format %>%
   str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-exp3__apa__exp3__grey__anova__PROP.HITS__resp.option.main.effect <- exp3__apa__exp3__grey__anova__PROP.HITS$full$resp_option %>%
+exp3__apa__grey__anova__PROP.HITS__resp.option.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$resp_option %>%
   str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-exp3__apa__exp3__grey__anova__PROP.HITS__interaction.main.effect <- exp3__apa__exp3__grey__anova__PROP.HITS$full$resp_option_stim_format %>%
+exp3__apa__grey__anova__PROP.HITS__interaction.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$resp_option_stim_format %>%
   str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 #---------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
@@ -4352,28 +4352,28 @@ exp3__grey__anova__PROP.HITS__stim.format.pairwise <- pairs(exp3__grey__anova__P
                                                       adjust = "bonferroni")
 
 ##  Format pairwise results for use in report:  
-exp3__apa__exp3__grey__anova__PROP.HITS__stim.format.means <- 
+exp3__apa__grey__anova__PROP.HITS__stim.format.means <- 
   papaja:::apa_print.emmGrid(exp3__grey__anova__PROP.HITS__stim.format.means) 
-exp3__apa__exp3__grey__anova__PROP.HITS__words.mean <- 
-  exp3__apa__exp3__grey__anova__PROP.HITS__stim.format.means$estimate$Words %>%
+exp3__apa__grey__anova__PROP.HITS__words.mean <- 
+  exp3__apa__grey__anova__PROP.HITS__stim.format.means$estimate$Words %>%
   str_remove("\\,.*")
-exp3__apa__exp3__grey__anova__PROP.HITS__drawings.mean <- 
-  exp3__apa__exp3__grey__anova__PROP.HITS__stim.format.means$estimate$Drawings %>%
+exp3__apa__grey__anova__PROP.HITS__drawings.mean <- 
+  exp3__apa__grey__anova__PROP.HITS__stim.format.means$estimate$Drawings %>%
   str_remove("\\,.*")
-exp3__apa__exp3__grey__anova__PROP.HITS__photographs.mean <- 
-  exp3__apa__exp3__grey__anova__PROP.HITS__stim.format.means$estimate$Photographs %>%
+exp3__apa__grey__anova__PROP.HITS__photographs.mean <- 
+  exp3__apa__grey__anova__PROP.HITS__stim.format.means$estimate$Photographs %>%
   str_remove("\\,.*")
-exp3__apa__exp3__grey__anova__PROP.HITS__stim.format.pairwise <- 
+exp3__apa__grey__anova__PROP.HITS__stim.format.pairwise <- 
   papaja:::apa_print.emmGrid(exp3__grey__anova__PROP.HITS__stim.format.pairwise)
 
-exp3__apa__exp3__grey__anova__PROP.HITS__words.vs.drawings.pairwise <-
-  exp3__apa__exp3__grey__anova__PROP.HITS__stim.format.pairwise$full$Words_Drawings %>% 
+exp3__apa__grey__anova__PROP.HITS__words.vs.drawings.pairwise <-
+  exp3__apa__grey__anova__PROP.HITS__stim.format.pairwise$full$Words_Drawings %>% 
   str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-exp3__apa__exp3__grey__anova__PROP.HITS__words.vs.photographs.pairwise <-
-  exp3__apa__exp3__grey__anova__PROP.HITS__stim.format.pairwise$full$Words_Photographs %>% 
+exp3__apa__grey__anova__PROP.HITS__words.vs.photographs.pairwise <-
+  exp3__apa__grey__anova__PROP.HITS__stim.format.pairwise$full$Words_Photographs %>% 
   str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-exp3__apa__exp3__grey__anova__PROP.HITS__drawings.vs.photographs.pairwise <-
-  exp3__apa__exp3__grey__anova__PROP.HITS__stim.format.pairwise$full$Drawings_Photographs %>% 
+exp3__apa__grey__anova__PROP.HITS__drawings.vs.photographs.pairwise <-
+  exp3__apa__grey__anova__PROP.HITS__stim.format.pairwise$full$Drawings_Photographs %>% 
   str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  #
 ##  Interaction:  Not significant.
@@ -5167,7 +5167,7 @@ Comparisons across response-option conditions showed that drawings produced sign
 `r figure_numbering("exp3__prop-fam-hits--figurecaption")`
 
 #### Guessing (hits)
-For hits assigned Guessing, there was a significant main effect of stimuli format [`r exp3__apa__grey__anova__PROP.GUESS.HITS__stim.format.main.effect`]. The interaction effect was not significant [`r exp3__apa__grey__anova__PROP.GUESS.HITS__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that words (`r exp3__apa__grey__anova__PROP.GUESS.HITS__words.mean`) produced significantly more Guessing hits than both drawings (`r apa__grey__anova__PROP.GUESS.HITS__drawings.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.HITS__words.vs.drawings.pairwise`] and photographs (`r exp3__apa__grey__anova__PROP.GUESS.HITS__photographs.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.HITS__words.vs.photographs.pairwise`]. Drawings (`r exp3__apa__grey__anova__PROP.GUESS.HITS__drawings.mean`) also produced significantly more Guessing hits compared to photographs (`r exp3__apa__grey__anova__PROP.GUESS.HITS__photographs.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.HITS__drawings.vs.photographs.pairwise`].
+For hits assigned Guessing, there was a significant main effect of stimuli format [`r exp3__apa__grey__anova__PROP.GUESS.HITS__stim.format.main.effect`]. The interaction effect was not significant [`r exp3__apa__grey__anova__PROP.GUESS.HITS__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that words (`r exp3__apa__grey__anova__PROP.GUESS.HITS__words.mean`) produced significantly more Guessing hits than both drawings (`r exp3__apa__grey__anova__PROP.GUESS.HITS__drawings.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.HITS__words.vs.drawings.pairwise`] and photographs (`r exp3__apa__grey__anova__PROP.GUESS.HITS__photographs.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.HITS__words.vs.photographs.pairwise`]. Drawings (`r exp3__apa__grey__anova__PROP.GUESS.HITS__drawings.mean`) also produced significantly more Guessing hits compared to photographs (`r exp3__apa__grey__anova__PROP.GUESS.HITS__photographs.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.HITS__drawings.vs.photographs.pairwise`].
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
