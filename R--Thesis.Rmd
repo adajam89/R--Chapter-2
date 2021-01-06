@@ -3054,29 +3054,6 @@ There were no colour differences in familiarity scores. This result was expected
 ### *Establishing a new set of stimuli*
 The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. Matching items with previously established drawings (and words) would allow for the effects of stimuli-format on recognition response patterns to be directly examined. A range of normative data was collected for 816 unique photograph items. These items may prove useful for a range of cognitive researchers that wish to utilise a set of high quality and realistic object stimuli, especially given the flexibility of items that can be filtered based on colour, naming agreement, familiarity, etc. For the needs of the current body of research, the naming data was used to determine which photographs best matched the intended concepts among a number of possible variations. This allowed for the systematic comparison of recognition memory performance toward three distinct stimuli formats (words, drawings, and photographs) in the following study, in an effort to establish how stimuli of varying perceptual distinctiveness may affect recognition response patterns. Such comparisons might help to reconcile the inconsistencies present across recognition memory research, such as those attempted to determine whether familiarity processes are preserved in those with amnestic Mild Cognitive Impairment (aMCI).
 
----
-title: "R Notebook"
-output:
-  html_document:
-    df_print: paged
----
-
-```{r load-packages, include=FALSE, cache=FALSE}
-##  Clear environment and list required packages:
-    rm(list=ls())  
-    required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", 
-                           "readr", "irr", "psycho", "afex", "emmeans", "janitor")
-    packages_to_install <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
-    if(length(packages_to_install)) install.packages(packages_to_install)
-    invisible(suppressPackageStartupMessages(lapply(required_packages, library, character.only = TRUE)))
-##  Define own function:
-    coalesce_by_column <- function(df) {return(dplyr::coalesce(!!! as.list(df)))}
-##  Captioner:
-    figure_numbering <- captioner()
-    table_numbering <- captioner(prefix = "Table")
-```
-
-
 # Experiment 3 (Grey drawings + photos)
 ## Effect of stimuli format and response option on recognition memory judgments.
 
