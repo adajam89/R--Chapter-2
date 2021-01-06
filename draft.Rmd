@@ -1,0 +1,1280 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r load-packages, include=FALSE, cache=FALSE}
+##  Clear environment and list required packages:
+    rm(list=ls())  
+    required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", 
+                           "readr", "irr", "psycho", "afex", "emmeans", "janitor")
+    packages_to_install <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
+    if(length(packages_to_install)) install.packages(packages_to_install)
+    invisible(suppressPackageStartupMessages(lapply(required_packages, library, character.only = TRUE)))
+##  Define own function:
+    coalesce_by_column <- function(df) {return(dplyr::coalesce(!!! as.list(df)))}
+##  Captioner:
+    figure_numbering <- captioner()
+    table_numbering <- captioner(prefix = "Table")
+```
+
+\newpage
+# Chapter 3
+## Experiment 2 (Image Norms)
+## Development of a new set of standardised photographic stimuli
+
+The Picture Superiority Effect (PSE) is a highly robust and replicable phenomenon. In recognition memory paradigms, the PSE has been shown to manifest as both increased recollection and familiarity [@rajaram1993; @rajaram1996; @dewhurst1994; @wagner1997; @yonelinas2002]. The effect is present in children, adolescents and healthy older adults [@whitehouse2006], though perhaps more striking is the fact that patients with Alzheimer’s disease or those presenting early isolated memory impairments, known as amnestic mild cognitive impairment (aMCI), also show memorial benefits toward pictures [@ally2012]. This is supported by ERP studies demonstrating comparable enhancements to recollection-based ERP components between healthy older and aMCI groups when pictures, rather than words, are utilised [@ally2009]. There is debate within the literature attempting to characterise the nature of memory deficits in aMCI, whereby despite general agreement that recollection processes are impaired in such individuals, findings show great inconsistency with regard to familiarity [@algarabel2012; @belleville2011; @pitarque2016; @wolk2013; @wolk2011]. The PSE may have been largely overlooked as an area for further research in an effort to help settle this debate, despite recent reviews highlighting methodological differences across studies as the potential source of inconsistent findings [@koen2014; @migo2012; @schoemaker2014]. The level at which stimuli distinctiveness impacts successful recognition is currently unclear, and there is little consistency across studies with regard to what is considered a 'picture'.
+
+Many experiments utilise illustrations for their picture stimuli [@vandermeulen2012; @westerberg2013; @wolk2011], with a standardised set of items published by @snodgrass1980 among the most-used illustrated picture stimuli within the domain of memory research [@weldon1987; @weldon1989; @wagner1997; @mcbride2002; @martins2006; @whitehouse2006; @hockley2008; @schmitter-edgecombe2009; @vandermeulen2012; @deason2015; @wammes2016; @bermudez-margaretto2018; @meade2019]. The set consists of 260 line drawings of common, everyday objects (in black ink), along with their written word counterpart (e.g. "shoe"). Items were selected on the basis of exemplifying a number of semantic categories, including animals, furniture, fruit, etc., and a range of normative data was collected for each item; indices of naming agreement, mental imagery agreement, visual complexity, and familiarity were all recorded for each drawing. The normative data for the @snodgrass1980 items has been continually revisited, with a number of studies gathering culturally-appropriate norms (e.g. in Spanish [@sanfeliu1996], Chinese [@yoon2004], and Russian [@tsaparina2011], and additional testing of the relationship between reaction time and naming agreement [@szekely2003]. There are multiple theories of object recognition; the recognition-by-components theory proposed by @biederman1987 identifies shape as the most crucial factor for successful recognition, in which case, the object outlines found in the set by @snodgrass1980 should be more than sufficient for experimental cognitive research. Other theories, however, posit that surface details such as colour and texture are just as crucial in forming object representations [@tanaka2001; @tarr1998]. The wide-ranging applicability of the @snodgrass1980 items throughout a number of cognitive disciplines has led to a more recent revision of the items by @rossion2004. This revision consists of the exact same objects, digitally re-drawn to include surface textures and shading. Additionally, this set provides greyscale and colour versions for all items, as opposed to the greyscale-only items found in the @snodgrass1980 set (see `r figure_numbering("stim-examples--caption", display = "cite")` for example items contained in the @snodgrass1980 and @rossion2004 stimuli sets). The @rossion2004 revision now appears to be favoured over the original @snodgrass1980 set among many cognitive researchers [@stenberg2006; @wolk2008; @rollins2018, @ensor2019], almost certainly attributable to the increased detail and ability to choose whether colour is a necessary condition.
+
+Despite their widespread use, line drawings have been criticised for their relative simplicity and lack of realism (@viggiano2004), with many researchers favouring the use of photographs as experimental stimuli [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. Photographs of faces are especially useful in research examining emotion and face recognition [@bowen2019; @cui2016; @herzmann2018; @barba1997], though a number of common-object photograph sets have also emerged as ecological alternatives to line-drawn items [@viggiano2004; @moreno-martinez2012; @adlington2009]. While the published sets of photographs are undoubtedly useful in a range of cognitive domains, they do not allow us to specifically examine stimuli format as a factor on its own, as the concepts depicted are unique to the set they derive from. In order to make such comparisons, and ensure any differences in performance (e.g. recognition memory ability) are indeed attributable to stimuli format, the objects depicted must be consistent across stimuli formats. The current study presents a new set of photographic stimuli that extend the set of words and drawings provided by @rossion2004, wherein each of the concepts depicted has been carefully matched across formats. These new stimuli will be utilised throughout a number of planned recognition experiments that aim to systematically compare measures of recognition against different ‘levels’ of stimuli. The curation of a new set of photographs - carefully matched to other formats - allows investigation into whether picture superiority magnitudes are mediated by the format pictures are presented in. The inconsistent use of different formats across studies has previously made it difficult to reconcile effects obtained in response to drawings with those obtained in response to photographs - an inherent problem when concepts are not matched across format. Normative data for the new set of photographs is also presented, allowing others who also wish to use our photograph stimuli to filter items by measures of naming agreement, mental imagery agreement, familiarity, visual complexity, and colour diagnosticity. 
+
+```{r experiment-2-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+#################################################################################################################
+##    EXPERIMENT 2:                                                                                            ##
+#################################################################################################################
+    exp2__raw_data_files <- list.files(path = "./resources/experiment_2/experiment_2_data/")
+##  Create 'do not import' list: 
+    exp2__do_not_import <-
+##  Experimenter test files: 
+        c("PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_17h24.58.448.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_13h50.57.226.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_09h35.46.685.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 04_2019-08-30_20h05.24.009.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 04_2019-08-30_17h30.37.570.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 04_2019-08-30_13h36.33.493.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-29_14h09.45.628.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-29_07h36.38.588.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-28_20h37.19.421.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-28_18h14.42.370.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-28_14h09.34.697.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-28_10h10.14.072.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-27_15h57.08.388.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 01_2019-08-27_10h48.32.252.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 01_2019-08-26_12h12.26.753.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-30_21h07.28.268.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-28_08h22.14.369.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_16h13.04.980.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-11-22_09h27.37.994.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_16h09.53.591.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_16h03.22.229.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_15h43.07.191.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_15h40.03.881.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_15h35.42.080.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h57.35.053.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h53.19.091.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h48.27.823.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h33.54.515.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h03.09.719.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_13h22.22.702.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h52.34.761.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h47.34.512.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h43.06.244.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h40.35.211.csv",
+##  Empty / incomplete data (not even a single block fully completed):
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-10-01_09h15.14.507.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_11h18.21.623.csv",   
+##  Experimental error: image stim P were responding to not recorded:
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-25_17h56.51.111.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-26_13h36.14.194.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_02h30.16.689.csv",
+##  2nd datasets of participants who took part more than once: 
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_22h19.30.823.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.25.233.csv",  
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_13h14.17.240.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.56.054.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.37.530.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_16h52.46.376.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.56.887.csv",
+          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_14h23.39.423.csv")
+##  Remove 'do not import' items from the to-be-imported "csv_file_list".
+    exp2__raw_data_files <- exp2__raw_data_files[!(exp2__raw_data_files %in% exp2__do_not_import)] %>%
+##  Add folder location to the start of each file name:
+        str_replace("PARTICIPANT", "./resources/experiment_2/experiment_2_data/PARTICIPANT")    
+##  Create raw df from the above files, but only get the following columns:
+    exp2__raw_data <- map_dfr(exp2__raw_data_files,~read_csv(.x, col_types = cols_only("date"='c',"expName"='c',
+                        "Prolific_ID"='c',"Age"='c',"Gender"='c',"EnglishFirstLang"='c',"Ethnicity"='c',
+                        "EthnicityOther"='c',"UsingMac"='c',"RetinaScreen"='c',"DidYouHearBeep"='c',
+                        "Debrief_Comments"='c',"B1__DoYouUnderstand"='c',"B2__DoYouUnderstand"='c',
+                        "B3__DoYouUnderstand"='c',"Order"='c',"images1"='c',"images2"='c',"images3"='c',
+                        "images4"='c',"images5"='c',"images6"='c',"Naming_Response"='c',"Naming_RT"='c',
+                        "Familiarity"='c',"FamResp__Mouse.time"='c',"VisualComplexity"='c',
+                        "VisCom__Mouse.time"='c',"ColourDiagnosticity"='c',"ColDia__Mouse.time"='c',
+                        "MentalImageryAgreement"='c',"MenIma__Mouse.time"='c'))) %>%
+##  Merge columns containing the same type of data, but were originally split into different columns:
+        unite(stim,  "images1", "images2", "images3", "images4", "images5", "images6", remove = TRUE,
+              na.rm = TRUE) %>%
+        rename_with(., tolower) %>%
+        mutate_all(tolower) %>%
+        rename(id = "prolific_id", exp_ver = "expname", fam_rt = "famresp__mouse.time", 
+             viscom_rt = "viscom__mouse.time", coldia_rt = "coldia__mouse.time", 
+             menima_rt = "menima__mouse.time") %>%
+        select(id, date, exp_ver, usingmac,	retinascreen, age, gender, englishfirstlang, ethnicity,
+               ethnicityother, didyouhearbeep, debrief_comments, b1__doyouunderstand,b2__doyouunderstand,
+               b3__doyouunderstand,order, stim, naming_response, familiarity, visualcomplexity, 
+               colourdiagnosticity,mentalimageryagreement, naming_rt, fam_rt, viscom_rt, coldia_rt, 
+               menima_rt) %>%
+        group_by(id) %>%
+        arrange(id) %>%
+        mutate(id = str_remove_all(id, "<br /><br /><span style=\"font-size:16px;\">")) %>%
+        mutate(id = str_remove_all(id, "<br><br><span style=\"font-size:16px;\">")) %>%
+        mutate(id = str_remove_all(id, "<(.*)")) %>%
+        mutate(exp_ver = str_remove_all(exp_ver, "subjective judgments for photographic stimuli --- 0")) %>%
+        mutate(usingmac = str_remove_all(usingmac, " (.*)")) %>%
+        mutate(retinascreen = str_remove_all(retinascreen, " (.*)")) %>%
+        mutate(retinascreen = str_replace(retinascreen, "not", "not_sure"))%>%
+        mutate(ethnicity = str_remove_all(ethnicity, "<span style=\"font-size:16px;\"><strong>")) %>%
+        mutate(ethnicity = str_remove_all(ethnicity, "<(.*)")) %>%
+        mutate(ethnicityother = str_remove_all(ethnicityother, "<span style=\"font-size:16px;\"><strong>")) %>%
+        mutate(ethnicityother = str_remove_all(ethnicityother, "<(.*)")) %>%
+        mutate(stim = str_remove_all(stim, "images/stimuli/photos/")) %>%
+        mutate(stim = str_remove_all(stim, ".png")) %>%
+        mutate(gender = str_replace(gender, "^m$", "male")) %>%
+        mutate(gender = str_replace(gender, "^cis male$", "male")) %>%
+        mutate(gender = str_replace(gender, "^f$", "female")) %>%
+        mutate(gender = str_replace(gender, "^femal$", "female")) %>%
+        mutate(gender = str_replace(gender, "^nonbinary$", "non-binary")) %>%
+##  When P did not provide gender, the software populated this column with their age instead:
+        mutate(gender = str_replace(gender, "^21$", "unspecified")) %>%
+        mutate(gender = str_replace(gender, "^28$", "unspecified")) %>%
+        mutate(gender = str_replace(gender, "^28$", "unspecified")) %>%
+        mutate(gender = str_replace(gender, "^29$", "unspecified")) %>%
+        mutate(gender = str_replace(gender, "^31$", "unspecified")) %>%
+        mutate(gender = str_replace(gender, "^38$", "unspecified")) %>%
+##  Some P were not automatically assigned an id. Populate with another subject-unique value (date):
+        mutate(id = str_replace(id, "\\{\\{%prolific_pid%\\}\\}", date)) %>%
+##  Two items had a number at the end of their name in some conditions, remove this: 
+        mutate(stim = str_replace(stim, "skunk3-photo-grey1.png", "skunk3-photo-grey.png")) %>%
+        mutate(stim = str_replace(stim, "skunk3-photo-colour1.png", "skunk3-photo-colour")) %>%
+##  An error in the experiment meant 'Order' column was not created for first 20p (all of whom did 'A'): 
+        mutate(order = ifelse(id == "5cd3a546fe890a00014dedd1" | id == "5ba2de5c962418000113e3c8" |
+                              id == "5d5ef53ea55e6a0016d2cae4" | id == "5d2945a4bc573b00185c8eed" |
+                              id == "56e6a66af6ed900006a5867c" | id == "5d39c8b48087000019f3e573" |
+                              id == "5bddd72b18f1b9000174109e" | id == "5aca4e27a3ba7a0001b4d415" |
+                              id == "5d3302e067a8ff0015dbff86" | id == "56ce42d9465e580006846f57" |
+                              id == "5bd2ddf325b7190001553305" | id == "5c81872942ff490016c7dc3f" |
+                              id == "5b9f7e3d00815d00010323f6" | id == "595e7974af78da0001a21c3a" |
+                              id == "5c90bb590d21a20017ec455d" | id == "593533d4ed2e9a0001d37c0b" |
+                              id == "5cd9dd09c8e37500018ab627" | id == "59d11f1519d3170001b1d679" |
+                              id == "59d65ad8e2762800015eb51b" | id == "5c03b6681a20110001e996a5" , 
+                              "A", order)) %>%
+##  Remove empty / unimportant rows:
+        mutate(stim = na_if(stim, "")) %>%
+        drop_na(stim) %>%
+        distinct(stim, .keep_all = TRUE) %>%
+        arrange(id, stim) %>%
+##  Add response counts (so we can exclude people that didn't finish a section):
+        mutate(naming_count = sum(!is.na(naming_response))) %>%
+        mutate(familiarity_count = sum(!is.na(familiarity))) %>%
+        mutate(viscom_count = sum(!is.na(visualcomplexity))) %>%
+        mutate(coldia_count = sum(!is.na(colourdiagnosticity))) %>%
+        mutate(menima_count = sum(!is.na(mentalimageryagreement)))
+    
+################################################################################################################
+##    Participant summary:                                                                                    ##
+################################################################################################################
+    exp2__participants <- exp2__raw_data %>%
+        select(id, age, gender, englishfirstlang, ethnicity, ethnicityother) %>%
+        summarise_all(coalesce_by_column)
+    
+################################################################################################################
+##    RTs for all vars except naming:                                                                         ##
+################################################################################################################
+    exp2__all_rts <- exp2__raw_data %>%
+        ungroup() %>%
+        select(stim, fam_rt, viscom_rt, coldia_rt, menima_rt) %>%
+        mutate(fam_rt = str_remove(fam_rt, "\\[")) %>%
+        mutate(fam_rt = str_remove(fam_rt, "\\]")) %>%
+        mutate(viscom_rt = str_remove(viscom_rt, "\\[")) %>%
+        mutate(viscom_rt = str_remove(viscom_rt, "\\]")) %>%
+        mutate(coldia_rt = str_remove(coldia_rt, "\\[")) %>%
+        mutate(coldia_rt = str_remove(coldia_rt, "\\]")) %>%
+        mutate(menima_rt = str_remove(menima_rt, "\\[")) %>%
+        mutate(menima_rt = str_remove(menima_rt, "\\]")) %>%
+        mutate_at(vars(fam_rt, viscom_rt, coldia_rt, menima_rt), as.numeric) %>%
+        group_by(stim) %>%
+        arrange(stim)
+    
+################################################################################################################
+##    NAMING:                                                                                                 ##
+################################################################################################################
+    exp2__naming <- exp2__raw_data %>%
+        filter(naming_count == 44 | naming_count == 48) %>%
+        ungroup() %>%
+        select(stim, naming_response, naming_rt) %>%
+        drop_na(naming_response) %>%
+        group_by(stim) %>%                      
+        arrange (stim, naming_response) %>%
+        mutate(correct_name = str_remove_all(stim, "[1-3](.*)")) %>%
+##  Spelling corrections:
+##  "No" responses:
+        mutate(naming_response = str_replace(naming_response, "^idk$", "no")) %>%
+        mutate(naming_response = str_replace(naming_response, "^none$", "no")) %>%
+        mutate(naming_response = str_replace(naming_response, "^a$", "no")) %>%
+##  General spelling errors:
+        mutate(naming_response = str_replace(naming_response, "^anker$", "anchor")) %>%         
+        mutate(naming_response = str_replace(naming_response, "^ancher$", "anchor")) %>%
+        mutate(naming_response = str_replace(naming_response, "^anchore$", "anchor")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ancor$", "anchor")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ashtry$", "ashtray")) %>%
+        mutate(naming_response = str_replace(naming_response, "^;ashtray$", "ashtray")) %>%
+        mutate(naming_response = str_replace(naming_response, "^aparagus$", "asparagus")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ballon$", "balloon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^baloon$", "balloon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ballone$", "balloon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ballun$", "balloon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^balloone$", "balloon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bannan$", "banana")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bamnna$", "banana")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bananna$", "banana")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bannana$", "banana")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bananaa$", "banana")) %>%
+        mutate(naming_response = str_replace(naming_response, "^barrell$", "barrel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^barrle$", "barrel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^barel$", "barrel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^barrow$", "barrel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^busket$", "basket")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bellpepp34$", "bellpepper")) %>%
+        mutate(naming_response = str_replace(naming_response, "^beatle$", "beetle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bettle$", "beetle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^blueberrys$", "blueberries")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bycycle$", "bicycle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bicucle$", "bicycle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bicyle$", "bicycle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bootle$", "bottle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^bolw$", "bowl")) %>%
+        mutate(naming_response = str_replace(naming_response, "^broon$", "broom")) %>%
+        mutate(naming_response = str_replace(naming_response, "^broon$", "broom")) %>%
+        mutate(naming_response = str_replace(naming_response, "^brum$", "broom")) %>%
+        mutate(naming_response = str_replace(naming_response, "^camal$", "camel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^canddle$", "candle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^canle$", "candle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^canon$", "cannon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^carrott$", "carrot")) %>%
+        mutate(naming_response = str_replace(naming_response, "^carott$", "carrot")) %>%
+        mutate(naming_response = str_replace(naming_response, "^cerlery$", "celery")) %>%
+        mutate(naming_response = str_replace(naming_response, "^celary$", "celery")) %>%
+        mutate(naming_response = str_replace(naming_response, "^cellary$", "celery")) %>%
+        mutate(naming_response = str_replace(naming_response, "^celeary$", "celery")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chain2$", "chain")) %>%
+        mutate(naming_response = str_replace(naming_response, "^cockrel$", "cockerel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^cockaroach$", "cockroach")) %>%
+        mutate(naming_response = str_replace(naming_response, "^cochroach$", "cockroach")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chissel$", "chisel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chizel$", "chisel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chestofdraws$", "chestofdrawers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chestofdrawerserss$", "chestofdrawers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^chisle$", "chisel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^claranet$", "clarinet")) %>%
+        mutate(naming_response = str_replace(naming_response, "^combe$", "comb")) %>%
+        mutate(naming_response = str_replace(naming_response, "^dear$", "deer")) %>%
+        mutate(naming_response = str_replace(naming_response, "^deere$", "deer")) %>%
+        mutate(naming_response = str_replace(naming_response, "^draws$", "drawers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^doormouse$", "dormouse")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eagal$", "eagle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eeagle$", "eagle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eclipses$", "eclipse")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eclipes$", "eclipse")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eclipsse$", "eclipse")) %>%
+        mutate(naming_response = str_replace(naming_response, "^falg$", "flag")) %>%
+        mutate(naming_response = str_replace(naming_response, "^footstall$", "footstool")) %>%
+        mutate(naming_response = str_replace(naming_response, "^fott$", "foot")) %>%
+        mutate(naming_response = str_replace(naming_response, "^frog/$", "frog")) %>%
+        mutate(naming_response = str_replace(naming_response, "^girafffe$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^giraffee$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^girrafe$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^girafe$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^giraff$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^giaffee$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^girraffe$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^giaraffe$", "giraffe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^glases$", "glasses")) %>%
+        mutate(naming_response = str_replace(naming_response, "^gutair$", "guitar")) %>%
+        mutate(naming_response = str_replace(naming_response, "^gitaur$", "guitar")) %>%
+        mutate(naming_response = str_replace(naming_response, "^gitter$", "guitar")) %>%
+        mutate(naming_response = str_replace(naming_response, "^hemmar$", "hammer")) %>%
+        mutate(naming_response = str_replace(naming_response, "^hand5$", "hand")) %>%
+        mutate(naming_response = str_replace(naming_response, "^hamp$", "harp")) %>%
+        mutate(naming_response = str_replace(naming_response, "^kacket$", "jacket")) %>%
+        mutate(naming_response = str_replace(naming_response, "^kangroo$", "kangaroo")) %>%
+        mutate(naming_response = str_replace(naming_response, "^lader$", "ladder")) %>%
+        mutate(naming_response = str_replace(naming_response, "^latter$", "ladder")) %>%
+        mutate(naming_response = str_replace(naming_response, "^leafe$", "leaf")) %>%
+        mutate(naming_response = str_replace(naming_response, "^lettace$", "lettuce")) %>%
+        mutate(naming_response = str_replace(naming_response, "^leamon$", "lemon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^leema$", "lemur")) %>%
+        mutate(naming_response = str_replace(naming_response, "^olobster$", "lobster")) %>%
+        mutate(naming_response = str_replace(naming_response, "^maledear$", "maledeer")) %>%
+        mutate(naming_response = str_replace(naming_response, "^mortle$", "mortar")) %>%        
+        mutate(naming_response = str_replace(naming_response, "^monkeybut$", "monkeynut")) %>%  
+        mutate(naming_response = str_replace(naming_response, "^mousse$", "moose")) %>%
+        mutate(naming_response = str_replace(naming_response, "^neddle$", "needle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^nectarinee$", "nectarine")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ostrage$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^osterich$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ostrige$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ostrisge$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ostritch$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ostridge$", "ostrich")) %>%
+        mutate(naming_response = str_replace(naming_response, "^apricorte$", "apricot")) %>%
+        mutate(naming_response = str_replace(naming_response, "^nectarin$", "nectarine")) %>%
+        mutate(naming_response = str_replace(naming_response, "^nectrine$", "nectarine")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pecock$", "peacock")) %>%
+        mutate(naming_response = str_replace(naming_response, "^peacck$", "peacock")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pair$", "pear")) %>%
+        mutate(naming_response = str_replace(naming_response, "^oencil$", "pencil")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pengiuin$", "penguin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pengiun$", "penguin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^penguine$", "penguin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^penquin$", "penguin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^peguin$", "penguin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^peper$", "pepper")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pestleandmorter$", "pestleandmortar")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tabaccopipe$", "tobaccopipe")) %>%
+        mutate(naming_response = str_replace(naming_response, "^piccalo$", "piccolo")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pliars$", "pliers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^plier$", "pliers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^plyers$", "pliers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pilers$", "pliers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pliyers$", "pliers")) %>%
+        mutate(naming_response = str_replace(naming_response, "^vicescripts$", "vicegrips")) %>%
+        mutate(naming_response = str_replace(naming_response, "^usplug$", "plug")) %>%  ##  United States plug? 
+        mutate(naming_response = str_replace(naming_response, "^potatoe$", "potato")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pottato$", "potato")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pumkin$", "pumpkin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^pumpkim$", "pumpkin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^punpkin$", "pumpkin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^rabit$", "rabbit")) %>%
+        mutate(naming_response = str_replace(naming_response, "^racoon$", "raccoon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^mercat$", "meerkat")) %>%
+        mutate(naming_response = str_replace(naming_response, "^meercat$", "meerkat")) %>%
+        mutate(naming_response = str_replace(naming_response, "^acoop$", "scoop")) %>%
+        mutate(naming_response = str_replace(naming_response, "^eele$", "seal")) %>%
+        mutate(naming_response = str_replace(naming_response, "^seel$", "seal")) %>%
+        mutate(naming_response = str_replace(naming_response, "^snakw$", "snake")) %>%
+        mutate(naming_response = str_replace(naming_response, "^ssnowman$", "snowman")) %>%
+        mutate(naming_response = str_replace(naming_response, "^showel$", "shovel")) %>%
+        mutate(naming_response = str_replace(naming_response, "^soak$", "socks")) %>%
+        mutate(naming_response = str_replace(naming_response, "^spon$", "spoon")) %>%
+        mutate(naming_response = str_replace(naming_response, "^steplader$", "stepladder")) %>%
+        mutate(naming_response = str_replace(naming_response, "^sterss$", "step")) %>%
+        mutate(naming_response = str_replace(naming_response, "^sweetcirn$", "sweetcorn")) %>%
+        mutate(naming_response = str_replace(naming_response, "^rubarb$", "rhubarb")) %>%
+        mutate(naming_response = str_replace(naming_response, "^thinbell$", "thimble")) %>%
+        mutate(naming_response = str_replace(naming_response, "^thmble$", "thimble")) %>%
+        mutate(naming_response = str_replace(naming_response, "^timble$", "thimble")) %>%
+        mutate(naming_response = str_replace(naming_response, "^timbil$", "thimble")) %>%
+        mutate(naming_response = str_replace(naming_response, "^thunb$", "thumb")) %>%
+        mutate(naming_response = str_replace(naming_response, "^toitouse$", "tortoise")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tomatoe$", "tomato")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tomoato$", "tomato")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tortiste$", "tortoise")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tortise$", "tortoise")) %>%
+        mutate(naming_response = str_replace(naming_response, "^tortus$", "tortoise")) %>%
+        mutate(naming_response = str_replace(naming_response, "^volion$", "violin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^vioin$", "violin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^violen$", "violin")) %>%
+        mutate(naming_response = str_replace(naming_response, "^valture$", "vulture")) %>%
+        mutate(naming_response = str_replace(naming_response, "^waistcoast$", "waistcoat")) %>%
+        mutate(naming_response = str_replace(naming_response, "^wastecoat$", "waistcoat")) %>%
+        mutate(naming_response = str_replace(naming_response, "^wale$", "well")) %>%
+        mutate(naming_response = str_replace(naming_response, "^whistel$", "whistle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^whsitle$", "whistle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^whisell$", "whistle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^whitle$", "whistle")) %>%
+        mutate(naming_response = str_replace(naming_response, "^windown$", "window")) %>%
+        mutate(naming_response = str_replace(naming_response, "^peneut$", "peanut")) %>%
+##  Sensible word responses, but based on the picture P were responding to, were probably typos: 
+        mutate(naming_response = str_replace(naming_response, "^beer$", "bear")) %>%
+        mutate(naming_response = str_replace(naming_response, "^dock$", "duck")) %>%        ## Item: swan.
+        mutate(naming_response = str_replace(naming_response,  "^frock$", "frog")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^glass$", "glasses")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^glassesbottle$", "bottle")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^hose$", "house")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^noise$", "nose")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^paper$", "pepper")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^harper$", "hamper")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^muscat$", "muskrat")) %>%  ## Item: raccoon.
+##  'bittle' appeared for both beetle and bottle. Check which item P were responding to before correcting:
+        mutate(naming_response = ifelse(naming_response == "bittle" & correct_name == "bottle", "bottle",
+                                 ifelse(naming_response == "bittle" & correct_name == "beetle", "beetle",
+                                        naming_response))) %>%   
+##  Plural to singular: 
+        mutate(naming_response = str_replace(naming_response,  "^carrots$", "carrot")) %>%   
+        mutate(naming_response = str_replace(naming_response,  "^clouds$", "cloud")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^draw$", "drawers")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^drawer$", "drawers")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^drums$", "drum")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^feet$", "foot")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^geese$", "goose")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^gloves$", "glove")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^grape$", "grapes")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^ladders$", "ladder")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^lip$", "lips")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^mice$", "mouse")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^mittens$", "mitten")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^onions$", "onion")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^onions$", "onion")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^peanuts$", "peanut")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^pears$", "pear")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^peppers$", "pepper")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^pumpkins$", "pumpkin")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^shoes$", "shoe")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^sock$", "socks")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^steps$", "step")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^babydoll$", "doll")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^broomstick$", "broom")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^cock$", "cockerel")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^cycle$", "bicycle")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^dolly$", "doll")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^eyeglass$", "eyeglasses")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^fencing$", "fence")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^haircomb$", "comb")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^longdress$", "dress")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^mit$", "mitten")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^plugin$", "plug")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^rule$", "ruler")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^specs$", "spectacles")) %>%
+        mutate(naming_response = str_replace(naming_response,  "^teakettle$", "kettle")) %>%
+          
+################################################################################################################
+##    Naming totals:                                                                                          ##
+################################################################################################################
+        add_count(stim, name = "total_responses") %>%
+        add_count(naming_response, name = "resp_count") %>%
+        mutate(naming_rt = as.double(naming_rt)) %>%
+        mutate(mean_rt = mean(naming_rt)) %>%
+        mutate(prop_resp = (resp_count / total_responses)) %>%
+        mutate(no_count = sum(naming_response == "no")) %>%    
+        mutate(prop_no = (no_count / total_responses)) %>%
+        mutate(correct_count = sum(naming_response == correct_name)) %>%
+        mutate(prop_correct = (correct_count / total_responses)) %>%
+        mutate(incorrect_count = sum(naming_response != correct_name)) %>%
+        mutate(prop_incorrect = (incorrect_count / total_responses)) %>%
+        select(-total_responses) %>%
+        distinct(naming_response, .keep_all = TRUE)
+    exp2__naming_rt <- exp2__naming %>%
+        select(stim, mean_rt) %>%
+        distinct(stim, .keep_all = TRUE)
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Selecting items to take forward:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Criteria 1: items with a “don’t know” score over 20%:
+    exp2__exclusion_1 <- exp2__naming %>% 
+        filter(prop_no >= 0.2) %>%    
+        distinct(stim, .keep_all = TRUE)
+##  Criteria 2: items incorrectly named by the majority of subjects (prop_correct equals .50 or lower).
+    exp2__exclusion_2 <- exp2__naming %>%
+        filter(prop_correct <= 0.5) %>%
+        distinct(stim, .keep_all = TRUE)
+##  Criteria 3: items where only 20% (or fewer) subjects named the object similarly (poor naming agreement). 
+    exp2__exclusion_3 <- exp2__naming %>%                                              
+        filter(prop_resp == max(prop_resp)) %>%     ##  Get the highest agreed upon name for each object.
+        filter(prop_resp <= 0.2)                    ##  Filter to see if any items received <20% agreement.
+##  Combine all to-be-excluded items into a single df:
+    exp2__all_exclusion <- bind_rows(exp2__exclusion_1, exp2__exclusion_2, exp2__exclusion_3) %>%
+        arrange(stim)                                                                 
+##  Simplified list of to-be-excluded item names (colour/greyscale taken out):       
+    exp2__items_to_exclude <- c(exp2__all_exclusion$stim) %>%
+##  It's not really important whether the grey or colour version of an item did not meet the inclusion criteria.
+##  Regardless of which is flagged, we remove both grey and colour (we need both versions going forward).
+        str_remove_all("[-](.*)") %>%
+        unique()
+##  Drop these items from naming data:
+    exp2__naming <- exp2__naming %>%
+        mutate(temp_stim = str_remove_all(stim, "[-](.*)")) %>%
+        filter(!temp_stim %in% exp2__items_to_exclude) %>%
+        select(-temp_stim)
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Identify items with least difference between colour and grey:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    exp2__grey <- exp2__naming %>%
+        select(stim, prop_correct) %>%
+        filter(str_detect(stim, "grey$")) %>%
+        distinct(stim, .keep_all = TRUE) %>%
+        rename(grey_correct = prop_correct) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)"))
+    exp2__col <- exp2__naming %>%
+        select(stim, prop_correct) %>%
+        filter(str_detect(stim, "colour$")) %>%
+        distinct(stim, .keep_all = TRUE) %>%
+        rename(col_correct = prop_correct) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)"))
+    exp2__col_and_grey <- right_join(exp2__grey, exp2__col, by = 'stim') %>%
+        mutate(difference = abs(col_correct - grey_correct))
+##  For each of the object names, give us the version with the least 'difference' (of % correct) between colour ##  and greyscale.
+##  List all object names to loop through:
+    exp2__item_names <- exp2__col_and_grey %>%
+        select(stim) %>%
+        mutate(stim = str_remove_all(stim, "[0-3]")) %>%
+        distinct(stim) %>%
+        pull()
+    exp2__selected_stimuli <- tibble()                ##  Create empty df to store results of for loop. 
+ 
+##  Define function that selects appropriate row(s), depending on whether items share the same difference value.
+    my_function <- function(i){
+        if (i[1,5] == 1) {        ##  If top row of "tally_difference_values" == 1,
+            i %>% .[1,] }         ##  that's the lowest difference, so only keep only that row.
+        else if (i[1,5] == 2) {   ##  If top row of "tally_difference_values" == 2,
+            i %>% .[1:2,] }       ##  then the lowest difference is shared by two rows, so keep both.
+        else if (i[1,5] == 3) {   ##  If top row of "tally_difference_values" == 3,
+            i %>% .[1:3,] }}      ##  then the lowest difference is shared by all 3 rows, so keep all.
+##  Run loop: 
+    for (i in exp2__item_names) {                                   ##  For each item (i) in exp2__item_names;
+        i <- exp2__col_and_grey %>%                                 ##  i equals the data from exp2__col_and_grey;
+            filter(str_detect(stim, i)) %>%                   ##  filter by each item separately;
+            group_by(difference) %>%                          ##  group by 'difference' col;
+            add_count(difference, 
+                      name = "tally_difference_values") %>%   ##  add column counting unique difference values;
+            arrange(difference) %>%                           ##  sort difference values (ascending);
+            my_function()                                     ##  Run above function.
+        exp2__selected_stimuli <- bind_rows(exp2__selected_stimuli, i) }  ##  Add row to exp2__selected_stimuli df before looping.
+    exp2__selected_stimuli <- exp2__selected_stimuli %>%
+        distinct(stim, .keep_all = TRUE) %>%
+        arrange(stim)
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Inter-rater selections:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  For objects where >1 variation remains (no difference between col/greyscale variations), we must manually
+##  select the variation we think is the best to be taken forward to the final stimuli set. 
+    exp2__inter_rater <- exp2__selected_stimuli %>%
+        select(stim, tally_difference_values) %>%
+        filter(tally_difference_values >1)
+##  The "exp2__inter_rater" df was exported here so each rater could give their independent rankings for each object.
+##  Import rating data: 
+    exp2__rater_1 <- read_csv("./resources/experiment_2/rater_1.csv", col_types = list(col_character(), col_double())) %>%
+        rename(exp2__rater_1 = rating)
+    exp2__rater_2 <- read_csv("./resources/experiment_2/rater_2.csv", col_types = list(col_character(), col_double())) %>%
+        rename(exp2__rater_2 = rating)
+    exp2__agreements <- merge(exp2__rater_1, exp2__rater_2) %>%
+        group_by(stim) %>%
+        filter(exp2__rater_1 == 1 & exp2__rater_2 == 1) %>%
+        mutate(stim_raw = str_remove(stim, "[1-3]"))
+##  For all the items where there was disagreement, we need to just select one of the options at random:
+        exp2__agree_items <- exp2__agreements %>%
+        pull(stim_raw)
+    exp2__disagreements <- merge(exp2__rater_1, exp2__rater_2) %>%
+        rename(disagreed = "stim") %>%
+        mutate(stim_raw = str_remove(disagreed, "[1-3]")) %>%
+        filter(!stim_raw %in% exp2__agree_items) %>%
+        filter(exp2__rater_1 != exp2__rater_2) %>%
+        group_by(stim_raw)
+##  The following code as used to randomise (but running this again would give different results!):
+        #exp2__randomised_disagree_items <- sample_n(disagreements, 1) %>%
+            #ungroup() %>%
+            #select(disagreed) %>%
+            #rename(stim = "disagreed")
+        #write.csv(exp2__randomised_disagree_items,'~/Desktop/exp2__randomised_disagree_items.csv', row.names = FALSE)
+##  Since we wrote our original randomised selection to .csv, we import that to get the same results.
+    exp2__randomised_disagree_items <- read_csv("./resources/experiment_2/randomised_disagree_items.csv", 
+                                          col_types = list(col_character()))
+    exp2__inter_rater_items <- exp2__agreements %>%
+        select(stim) %>%
+        bind_rows(exp2__randomised_disagree_items) %>%
+        arrange(stim) 
+
+##  We want to add these items back into the "exp2__selected_stimuli" df, so we have a complete list of final stim.
+##  First remove all variations of these items from "exp2__selected_stimuli" before adding "exp2__inter_rater_items" back in.
+    exp2__inter_rater_items_raw <- exp2__inter_rater_items %>%
+        pull(stim) %>%
+        str_remove("[1-3]")
+    exp2__final_stim_list <- exp2__selected_stimuli %>%
+        select(stim) %>%
+        mutate(stim_raw = str_remove(stim, "[1-3]")) %>%
+        filter(!stim_raw %in% exp2__inter_rater_items_raw) %>%
+        select(-stim_raw) %>%
+        bind_rows(exp2__inter_rater_items) %>%
+        arrange(stim)
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  H stat (naming agreement):
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    exp2__H_stat_all_items <- exp2__naming %>%
+        select(stim, naming_response, prop_resp, prop_correct) %>% 
+        filter(!naming_response == "no") %>%    ##  "Don't know" responses cannot be included in H calculations.
+        rename(pi = "prop_resp") %>%            ##  pi = proportion of subjects producing the i-th name.
+        mutate(one_divided_by_pi = 1 / pi) %>%
+        mutate(log_two = log2(one_divided_by_pi)) %>%     ##  Log of base 2 of 1 / prop.
+        mutate(multiplied = pi*log_two) %>%               ##  pi multiplied by 'log of base 2' of 1 / prop.
+        mutate(H = sum(multiplied)) %>%                   ##  Sum multiplied values for each item = H. 
+        arrange(stim, desc(pi)) %>%
+        select(stim, naming_response, prop_correct, H)%>%
+        distinct(stim, .keep_all = TRUE) %>%
+        rename(most_freq_name = naming_response) %>%
+        mutate_at(c("prop_correct", "H"), round, 2) %>%
+##  Two items still had a number at the end of their name in some conditions, remove this: 
+        mutate(stim = str_replace(stim, "skunk3-photo-grey1", "skunk3-photo-grey")) %>%
+        mutate(stim = str_replace(stim, "skunk3-photo-colour1", "skunk3-photo-colour"))
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Krippendorff's alpha (reliability coefficient) stat:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    exp2__kripp_exp2__rater_1 <- exp2__rater_1 %>%
+        spread(stim, exp2__rater_1)
+    exp2__kripp_exp2__rater_2 <- exp2__rater_2 %>%
+        spread(stim, exp2__rater_2)
+    exp2__kripp_ratings <- bind_rows(exp2__kripp_exp2__rater_1, exp2__kripp_exp2__rater_2)
+##  Loop that runs through each of the rated objects and individually calculates kripps alpha: 
+    exp2__kripps_alpha <- tibble()                  ##  Create empty df to store results of for loop. 
+    for (i in exp2__inter_rater_items_raw) {
+        exp2__kripp_calc <- exp2__kripp_ratings %>%
+            select(contains(i)) %>%                           ##  Select all ratings for each item in turn (i).
+            as.matrix() %>%                                   ##  Tibble to matrix, so "kripp.alpha" can run.
+            kripp.alpha("ordinal")                            ##  Run Krippendorff's Alpha calculation.
+        exp2__kripp_calc <- as.tibble(exp2__kripp_calc[c(2,3,5)]) %>%     ##  Convert result from "irrlist" to tibble. 
+            mutate(object = i)                                ##  Re-insert the object name.
+        exp2__kripps_alpha <- bind_rows(exp2__kripps_alpha, exp2__kripp_calc) }
+##  Final edits: 
+    exp2__kripps_alpha <- exp2__kripps_alpha %>%
+        mutate_at(c("value"), round, 2) %>%
+        select(object, subjects, value) %>%
+        rename("krippendorffs_alpha" = value, "variations" = subjects, "concept" = object)
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Naming norms:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+##  Naming accuracy:    
+    exp2__naming_acc <- exp2__H_stat_all_items %>%
+        select(stim, prop_correct) %>%
+        ungroup()
+    exp2__grey_naming_acc <- exp2__naming_acc %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("grey_naming_acc" = "prop_correct") %>%
+        select(-stim)
+    exp2__col_naming_acc <- exp2__naming_acc %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("col_naming_acc" = "prop_correct") %>%
+        select(-stim)
+    exp2__naming_acc__ttest <- t.test(exp2__grey_naming_acc, exp2__col_naming_acc)
+    exp2__apa__naming_acc__ttest <- papaja:::apa_print(exp2__naming_acc__ttest)
+    exp2__mean_naming_acc <- exp2__naming_acc %>% pull() %>% mean() %>% round(2) 
+    exp2__mean_grey_naming_acc <- exp2__grey_naming_acc %>% pull() %>% mean() %>% round(2) 
+    exp2__mean_col_naming_acc <- exp2__col_naming_acc %>% pull() %>% mean() %>% round(2)
+    
+##  H stat:
+    exp2__H_stat <- exp2__H_stat_all_items %>%
+        select(stim, H) %>%
+        ungroup()
+    exp2__grey_H_stat <- exp2__H_stat %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("grey_H" = "H") %>%
+        select(-stim)
+    exp2__col_H_stat <- exp2__H_stat %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("col_H" = "H") %>%
+        select(-stim)
+    exp2__H_stat__ttest <- t.test(exp2__grey_H_stat, exp2__col_H_stat)
+    exp2__apa__H_stat__ttest <- papaja:::apa_print(exp2__H_stat__ttest)
+    exp2__mean_H_stat <- exp2__H_stat %>% pull() %>% mean() %>% round(2) 
+    exp2__mean_grey_H_stat <- exp2__grey_H_stat %>% pull() %>% mean() %>% round(2) 
+    exp2__mean_col_H_stat <- exp2__col_H_stat %>% pull() %>% mean() %>% round(2)
+
+##  Naming RTs:    
+    exp2__grey_naming_rt <- exp2__naming_rt %>%
+        filter(str_detect(stim, "grey")) %>%
+        ungroup() %>%
+        select(-stim)
+    exp2__col_naming_rt <- exp2__naming_rt %>%
+        filter(str_detect(stim, "colour")) %>%
+        ungroup() %>%
+        select(-stim)
+    exp2__naming_rt__ttest <- t.test(exp2__grey_naming_rt, exp2__col_naming_rt)
+    exp2__apa__naming_rt__ttest <- papaja:::apa_print(exp2__naming_rt__ttest)
+    exp2__mean_naming_rt <- exp2__naming_rt$mean_rt %>% mean(., na.rm = TRUE) %>% round(2)
+    exp2__mean_grey_naming_rt <- exp2__grey_naming_rt %>% pull() %>% mean(., na.rm = TRUE) %>% round(2) 
+    exp2__mean_col_naming_rt <- exp2__col_naming_rt %>% pull() %>% mean(., na.rm = TRUE) %>% round(2)
+    
+    exp2__grey_naming_norms <- exp2__H_stat_all_items %>%
+        ungroup() %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(grey_naming_acc_mean = mean(prop_correct)) %>%
+        mutate(grey_naming_acc_sd = sd(prop_correct)) %>%
+        mutate(grey_H_mean = mean(H)) %>%
+        mutate(grey_H_sd = sd(H)) %>%
+        select(grey_naming_acc_mean, grey_naming_acc_sd, grey_H_mean, grey_H_sd) %>%
+        distinct()
+    exp2__col_naming_norms <- exp2__H_stat_all_items %>%
+        ungroup() %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(exp2__col_naming_acc_mean = mean(prop_correct)) %>%
+        mutate(exp2__col_naming_acc_sd = sd(prop_correct)) %>%
+        mutate(col_H_mean = mean(H)) %>%
+        mutate(col_H_sd = sd(H)) %>%
+        select(exp2__col_naming_acc_mean, exp2__col_naming_acc_sd, col_H_mean, col_H_sd) %>%
+        distinct()
+    
+################################################################################################################
+##   Familiarity:                                                                                             ##
+################################################################################################################
+    exp2__fam_norms <- exp2__raw_data %>%
+        ungroup() %>%
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        select(stim, familiarity, fam_rt) %>%
+        drop_na(familiarity) %>%
+        group_by(stim) %>%                      
+        arrange (stim, familiarity) %>%
+        mutate(fam_rt = str_remove(fam_rt, "\\[")) %>%
+        mutate(fam_rt = str_remove(fam_rt, "\\]")) %>%
+        mutate(fam_rt = str_remove(fam_rt, "\\,.*")) %>%
+        mutate(familiarity = str_remove(familiarity, "fam_")) %>%
+        mutate_at(vars(familiarity, fam_rt), as.numeric) %>%
+        group_by(stim) %>%
+        summarise_all(tibble::lst(mean), na.rm = TRUE)
+##  Grey photographs:
+    exp2__grey_fam_means <- exp2__fam_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(grey_fam_mean = mean(familiarity_mean)) %>%
+        mutate(grey_fam_sd = sd(familiarity_mean)) %>%
+        mutate(grey_fam_mean_rt = mean(fam_rt_mean)) %>%
+        mutate(grey_fam_sd_rt = sd(fam_rt_mean)) %>%
+        select(grey_fam_mean, grey_fam_sd, grey_fam_mean_rt, grey_fam_sd_rt) %>%
+        distinct()
+##  Colour photographs:
+    exp2__col_fam_means <- exp2__fam_norms %>%
+        filter(str_detect(stim, "col")) %>%
+        mutate(col_fam_mean = mean(familiarity_mean)) %>%
+        mutate(col_fam_sd = sd(familiarity_mean)) %>%
+        mutate(col_fam_mean_rt = mean(fam_rt_mean)) %>%
+        mutate(col_fam_sd_rt = sd(fam_rt_mean)) %>%
+        select(col_fam_mean, col_fam_sd, col_fam_mean_rt, col_fam_sd_rt) %>%
+        distinct()
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Familiarity analysis:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    exp2__fam <- exp2__fam_norms %>%
+        select(stim, familiarity_mean, fam_rt_mean) %>%
+        ungroup()
+    exp2__mean_fam <- exp2__fam$familiarity_mean %>% mean() %>% round(2)
+    exp2__mean_fam_rt <- exp2__fam$fam_rt_mean %>% mean() %>% round(2)
+
+    exp2__grey_fam <- exp2__fam_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("grey_fam" = "familiarity_mean") %>%
+        rename("grey_fam_rt" = "fam_rt_mean") %>%
+        select(-stim)
+    exp2__mean_grey_fam <- exp2__grey_fam$grey_fam %>% mean() %>% round(2) 
+    exp2__mean_grey_fam_rt <- exp2__grey_fam$grey_fam_rt %>% mean() %>% round(2) 
+
+    exp2__col_fam <- exp2__fam_norms %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("col_fam" = "familiarity_mean") %>%
+        rename("col_fam_rt" = "fam_rt_mean") %>%
+        select(-stim)
+    exp2__mean_col_fam <- exp2__col_fam$col_fam %>% mean() %>% round(2)
+    exp2__mean_col_fam_rt <- exp2__col_fam$col_fam_rt %>% mean() %>% round(2)
+
+    exp2__fam__ttest <- t.test(exp2__grey_fam$grey_fam, exp2__col_fam$col_fam)
+    exp2__apa__fam__ttest <- papaja:::apa_print(exp2__fam__ttest)
+    exp2__fam_rt__ttest <- t.test(exp2__grey_fam$grey_fam_rt, exp2__col_fam$col_fam_rt)
+    exp2__apa__fam_rt__ttest <- papaja:::apa_print(exp2__fam_rt__ttest)
+################################################################################################################
+##   Visual Complexity:                                                                                       ##
+################################################################################################################
+    exp2__vis_com_norms <- exp2__raw_data %>%
+        ungroup() %>%
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        select(stim, visualcomplexity, viscom_rt) %>%
+        drop_na(visualcomplexity) %>%
+        group_by(stim) %>%                      
+        arrange (stim, visualcomplexity) %>%
+        mutate(viscom_rt = str_remove(viscom_rt, "\\[")) %>%
+        mutate(viscom_rt = str_remove(viscom_rt, "\\]")) %>%
+        mutate(viscom_rt = str_remove(viscom_rt, "\\,.*")) %>%
+        mutate(visualcomplexity = str_remove(visualcomplexity, "viscom_")) %>%
+        mutate_at(vars(visualcomplexity, viscom_rt), as.numeric) %>%
+        group_by(stim) %>%
+        summarise_all(tibble::lst(mean), na.rm = TRUE)
+##  Grey photographs:
+    exp2__grey_vis_com_means <- exp2__vis_com_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(exp2__grey_vis_com_mean = mean(visualcomplexity_mean)) %>%
+        mutate(exp2__grey_vis_com_sd = sd(visualcomplexity_mean)) %>%
+        mutate(exp2__grey_vis_com_mean_rt = mean(viscom_rt_mean)) %>%
+        mutate(exp2__grey_vis_com_sd_rt = sd(viscom_rt_mean)) %>%
+        select(exp2__grey_vis_com_mean, exp2__grey_vis_com_sd, exp2__grey_vis_com_mean_rt, exp2__grey_vis_com_sd_rt) %>%
+        distinct()
+##  Colour photographs:
+    exp2__col_vis_com_means <- exp2__vis_com_norms %>%
+        filter(str_detect(stim, "col")) %>%
+        mutate(exp2__col_vis_com_mean = mean(visualcomplexity_mean)) %>%
+        mutate(exp2__col_vis_com_sd = sd(visualcomplexity_mean)) %>%
+        mutate(exp2__col_vis_com_mean_rt = mean(viscom_rt_mean)) %>%
+        mutate(exp2__col_vis_com_sd_rt = sd(viscom_rt_mean)) %>%
+        select(exp2__col_vis_com_mean, exp2__col_vis_com_sd, exp2__col_vis_com_mean_rt, exp2__col_vis_com_sd_rt) %>%
+        distinct()
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Visual Complexity analysis:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    exp2__vis_com <- exp2__vis_com_norms %>%
+        select(stim, visualcomplexity_mean, viscom_rt_mean) %>%
+        ungroup()
+    exp2__mean_viscom_rt <- exp2__vis_com$visualcomplexity_mean %>% mean() %>% round(2)
+    exp2__mean_viscom_rt <- exp2__vis_com$viscom_rt_mean %>% mean() %>% round(2)
+
+    exp2__grey_vis_com <- exp2__vis_com_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("exp2__grey_vis_com" = "visualcomplexity_mean") %>%
+        rename("grey_viscom_rt" = "viscom_rt_mean") %>%
+        select(-stim)
+    exp2__mean_grey_vis_com <- exp2__grey_vis_com$exp2__grey_vis_com %>% mean() %>% round(2) 
+    exp2__mean_grey_viscom_rt <- exp2__grey_vis_com$grey_viscom_rt %>% mean() %>% round(2) 
+
+    exp2__col_vis_com <- exp2__vis_com_norms %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("exp2__col_vis_com" = "visualcomplexity_mean") %>%
+        rename("col_viscom_rt" = "viscom_rt_mean") %>%
+        select(-stim)
+    exp2__mean_col_vis_com <- exp2__col_vis_com$exp2__col_vis_com %>% mean() %>% round(2)
+    exp2__mean_col_viscom_rt <- exp2__col_vis_com$col_viscom_rt %>% mean() %>% round(2)
+
+    exp2__vis_com__ttest <- t.test(exp2__grey_vis_com$exp2__grey_vis_com,
+                                   exp2__col_vis_com$exp2__col_vis_com)
+    exp2__apa__vis_com__ttest <- papaja:::apa_print(exp2__vis_com__ttest)
+    exp2__vis_com_rt__ttest <- t.test(exp2__grey_vis_com$grey_viscom_rt, exp2__col_vis_com$col_viscom_rt)
+    exp2__apa__vis_com_rt__ttest <- papaja:::apa_print(exp2__vis_com_rt__ttest)    
+    
+################################################################################################################
+##   Mental imagery agreement:                                                                                ##
+################################################################################################################
+    exp2__men_ima_norms <- exp2__raw_data %>%
+##  Software error: these participants were asked ColDia question for grey and colour stim. This must have been
+##  confusing, so we remove their ColDia data completely.  
+        filter(id != "56a3211edbe850000bfcedc6" | id != "55b567fbfdf99b4a11df33b9" |
+               id != "59b59d59f69f340001867454" | id != "59e46feb16ecc200016fef61" |
+               id != "5bebd4111296920001d55c5a" | id != "5c6205a724b1fc00019db2de" |
+               id != "5d0651c57c37bf001a987dc2" | id != "5d29c671bc573b00165c9014" |
+               id != "5d51c0efbbb1aa00170db6c8" | id != "5d542c3a5af5900019bc80c4") %>%
+        ungroup() %>%
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        select(stim, mentalimageryagreement, menima_rt) %>%
+        drop_na(mentalimageryagreement) %>%
+        group_by(stim) %>%                      
+        arrange (stim, mentalimageryagreement) %>%
+        mutate(menima_rt = str_remove(menima_rt, "\\[")) %>%
+        mutate(menima_rt = str_remove(menima_rt, "\\]")) %>%
+        mutate(menima_rt = str_remove(menima_rt, "\\,.*")) %>%
+        mutate(mentalimageryagreement = str_remove(mentalimageryagreement, "menima_")) %>%
+        mutate_at(vars(mentalimageryagreement, menima_rt), as.numeric) %>%
+        group_by(stim) %>%
+        summarise_all(tibble::lst(mean), na.rm = TRUE)
+##  Grey photographs:
+    exp2__grey_men_ima_means <- exp2__men_ima_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(grey_menima_mean = mean(mentalimageryagreement_mean)) %>%
+        mutate(grey_menima_sd = sd(mentalimageryagreement_mean)) %>%
+        mutate(grey_menima_mean_rt = mean(menima_rt_mean)) %>%
+        mutate(grey_menima_sd_rt = sd(menima_rt_mean)) %>%
+        select(grey_menima_mean, grey_menima_sd, grey_menima_mean_rt, grey_menima_sd_rt) %>%
+        distinct()
+##  Colour photographs:
+    exp2__col_exp2__men_ima_means <- exp2__men_ima_norms %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(col_menima_mean = mean(mentalimageryagreement_mean)) %>%
+        mutate(col_menima_sd = sd(mentalimageryagreement_mean)) %>%
+        mutate(col_menima_mean_rt = mean(menima_rt_mean)) %>%
+        mutate(col_menima_sd_rt = sd(menima_rt_mean)) %>%
+        select(col_menima_mean, col_menima_sd, col_menima_mean_rt, col_menima_sd_rt) %>%
+        distinct()
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Mental imagery analysis:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    exp2__men_ima <- exp2__men_ima_norms %>%
+        select(stim, mentalimageryagreement_mean, menima_rt_mean) %>%
+        ungroup()
+    exp2__mean_men_ima <- exp2__men_ima$mentalimageryagreement_mean %>% mean() %>% round(2)
+    exp2__mean_men_ima_rt <- exp2__men_ima$menima_rt_mean %>% mean() %>% round(2)
+
+    exp2__grey_men_ima <- exp2__men_ima_norms %>%
+        filter(str_detect(stim, "grey")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("exp2__grey_men_ima" = "mentalimageryagreement_mean") %>%
+        rename("exp2__grey_men_ima_rt" = "menima_rt_mean") %>%
+        select(-stim)
+    exp2__mean_grey_men_ima <- exp2__grey_men_ima$exp2__grey_men_ima %>% mean() %>% round(2) 
+    exp2__mean_grey_men_ima_rt <- exp2__grey_men_ima$exp2__grey_men_ima_rt %>% mean() %>% round(2) 
+
+    exp2__col_exp2__men_ima <- exp2__men_ima_norms %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(stim = str_remove_all(stim, "[-](.*)")) %>%
+        rename("col_exp2__men_ima" = "mentalimageryagreement_mean") %>%
+        rename("col_exp2__men_ima_rt" = "menima_rt_mean") %>%
+        select(-stim)
+    exp2__mean_col_men_ima <- exp2__col_exp2__men_ima$col_exp2__men_ima %>% mean() %>% round(2)
+    exp2__mean_col_men_ima_rt <- exp2__col_exp2__men_ima$col_exp2__men_ima_rt %>% mean() %>% round(2)
+
+    exp2__men_ima__ttest <- t.test(exp2__grey_men_ima$exp2__grey_men_ima, exp2__col_exp2__men_ima$col_exp2__men_ima)
+    exp2__apa__exp2__men_ima__ttest <- papaja:::apa_print(exp2__men_ima__ttest)
+    exp2__men_ima_rt__ttest <- t.test(exp2__grey_men_ima$exp2__grey_men_ima_rt, exp2__col_exp2__men_ima$col_exp2__men_ima_rt)
+    exp2__apa__exp2__men_ima_rt__ttest <- papaja:::apa_print(exp2__men_ima_rt__ttest)
+    
+################################################################################################################
+##   Colour diagnosticity:                                                                                    ##
+################################################################################################################
+    exp2__col_dia_norms <- exp2__raw_data %>%
+        ungroup() %>%
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        select(stim, colourdiagnosticity, coldia_rt) %>%
+        drop_na(colourdiagnosticity) %>%
+        group_by(stim) %>%                      
+        arrange (stim, colourdiagnosticity) %>%
+        mutate(coldia_rt = str_remove(coldia_rt, "\\[")) %>%
+        mutate(coldia_rt = str_remove(coldia_rt, "\\]")) %>%
+        mutate(coldia_rt = str_remove(coldia_rt, "\\,.*")) %>%
+        mutate(colourdiagnosticity = str_remove(colourdiagnosticity, "coldia_")) %>%
+        mutate_at(vars(colourdiagnosticity, coldia_rt), as.numeric) %>%
+        group_by(stim) %>%
+        summarise_all(tibble::lst(mean), na.rm = TRUE)
+##  Colour photographs:
+    exp2__col_dia_means <- exp2__col_dia_norms %>%
+        filter(str_detect(stim, "colour")) %>%
+        mutate(col_coldia_mean = mean(colourdiagnosticity_mean)) %>%
+        mutate(col_coldia_sd = sd(colourdiagnosticity_mean)) %>%
+        mutate(col_coldia_mean_rt = mean(coldia_rt_mean)) %>%
+        mutate(col_coldia_sd_rt = sd(coldia_rt_mean)) %>%
+        select(col_coldia_mean, col_coldia_sd, col_coldia_mean_rt, col_coldia_sd_rt) %>%
+        distinct()
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  Colour diagnosticity analysis:
+##  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    exp2__col_dia <- exp2__col_dia_norms %>%
+        select(stim, colourdiagnosticity_mean, coldia_rt_mean) %>%
+        ungroup()
+    exp2__mean_col_dia <- exp2__col_dia$colourdiagnosticity_mean %>% mean() %>% round(2)
+    exp2__mean_col_dia_rt <- exp2__col_dia$coldia_rt_mean %>% mean() %>% round(2)
+```
+
+\newpage
+## Method
+```{r exp2--age-gender--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
+    table_numbering(name = "exp2--age-gender--tablecaption", 
+                     caption = "Gender and age (*SD*) of the current sample.")
+```
+### Participants
+A total of `r nrow(exp2__participants)` subjects completed the online experiment (see `r table_numbering("exp2--age-gender--tablecaption", display = "cite")` for a breakdown of the gender and age of the sample). This sample size provided 20 data points for each of the five response types, while also ensuring the experiment did not last too long for participants (approx 25-mins). Subjects were recruited from both voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (where they received payment at the rate of £5/hr), and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits).
+
+```{r exp2-age-gend-table-data, include=FALSE, cache=TRUE}
+exp2__age_gender <- exp2__participants %>%
+  select(age, gender) %>%
+  mutate(age = as.double(age))
+
+exp2__age_gender_table <- tribble(
+  ~"Gender", ~N, ~Age, ~"",
+  "Female",
+  exp2__age_gender %>% filter(gender == "female") %>% nrow(),
+  exp2__age_gender %>% filter(gender == "female") %>% summarise(mean(age)) %>% pull() %>% round (2),
+  str_c("(",exp2__age_gender %>% filter(gender == "female") %>% summarise(sd(age)) %>% pull()
+        %>% round (2) %>% as.character(), ")"),
+  "Male",
+  exp2__age_gender %>% filter(gender == "male") %>% nrow(),
+  exp2__age_gender %>% filter(gender == "male") %>% summarise(mean(age)) %>% pull() %>% round (2),
+  str_c("(",exp2__age_gender %>% filter(gender == "male") %>% summarise(sd(age)) %>% pull()
+        %>% round (2) %>% as.character(), ")"),
+  "Non-binary",
+  exp2__age_gender %>% filter(gender == "non-binary") %>% nrow(),
+  exp2__age_gender %>% filter(gender == "non-binary") %>% summarise(mean(age)) %>% pull(),
+  "(-)",
+  "Unspecified",
+  exp2__age_gender %>% filter(gender == "unspecified") %>% nrow(),
+  exp2__age_gender %>% filter(gender == "unspecified") %>% summarise(mean(age)) %>% pull(),
+  str_c("(",exp2__age_gender %>% filter(gender == "unspecified") %>% summarise(sd(age)) %>% pull()
+        %>% round (2) %>% as.character(), ")"),
+  "Total",
+  exp2__age_gender %>% nrow(),
+  exp2__age_gender %>% summarise(mean(age)) %>% pull() %>% round (2),
+  str_c("(",exp2__age_gender %>% summarise(sd(age)) %>% pull() %>% round (2) %>% as.character(),")"))
+
+exp2__n_eng_lang <- nrow(exp2__participants %>% filter(englishfirstlang == "yes"))
+exp2__n_eng_lang <- round((exp2__n_eng_lang / nrow(exp2__participants)) * 100, 2)
+```
+
+`r table_numbering("exp2--age-gender--tablecaption")`
+```{r exp2-age-gend-table, echo=FALSE, cache=TRUE}
+exp2__age_gender_table %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position") %>%
+  column_spec(2, italic = TRUE) %>%
+  column_spec(4, italic = TRUE) %>%
+  row_spec(5, bold = TRUE)
+```
+
+To meet our YA requirements, all participants were required to be aged between 18-59 years (actual obtained range: `r min(exp2__participants$age, na.rm = TRUE)`-`r max(exp2__participants$age, na.rm = TRUE)` years). As our experiment involved typing the English labels for a range of image stimuli, subjects were also asked whether English was their first language; all but one participant indicated that English was indeed their first language (`r exp2__n_eng_lang`%). 
+
+### Materials
+A pool of 136 line drawings [@rossion2004] - depicting common, everyday objects - were brought forward from the previous experiment. These items (along with their written-word labels) would form two of the unique stimuli formats that would be used in future recognition experiments (words and drawings). In this study, the drawings from @rossion2004 were simply used as a reference in the photograph matching process. Corresponding photographs were obtained online with the aim of depicting the everyday objects in a similar manner to the drawings. The inherent subjectivity involved in this process may have led to images that were not a reliable ‘match’ to the concepts they were selected to depict (for example, the photograph chosen to depict the concept “bottle” may inadvertently provoke the majority of participants to give the label "wine", thus indicating that this particular photograph fails to accurately depict the intended concept). To address this issue, and ensure all photographs more objectively depict the same concepts as the line drawings, three different photograph variations were found for each everyday object, with the aim of taking the best ‘match’ forward. An emphasis was placed on variety across these variations, with the aim of obtaining at least one photograph that very closely resembled the line-drawn depiction, and another offering a more modern depiction. Some items were substituted due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs that depicted the same everyday objects as the line drawings (see Appendix B for the full list of image references). 
+
+```{r exp2--stim-examples--caption, echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp2--stim-examples--caption",
+                     caption = "Examples of matching pictures across @snodgrass1980, @rossion2004, and 
+                     photographs from the current study. Greyscale versions of the drawings and photographs are 
+                     not presented in this example.")
+```
+&nbsp;
+&nbsp;
+```{r echo=FALSE, out.width = '100%', cache=TRUE}
+    knitr::include_graphics("./resources/images/stim-examples.png")
+```
+&nbsp;
+&nbsp;
+`r figure_numbering("exp2--stim-examples--caption")`
+&nbsp;
+&nbsp;
+
+The matching process produced a total of 408 unique photographs. All were imported into Adobe Photoshop (20.0.04 Release), where the background was removed to isolate the object of interest from other potentially distracting visual details. This was completed manually using the magnetic lasso and polygonal lasso tools (edges were either feathered by 1px or left un-feathered). The orientation of isolated objects was adjusted to ensure they matched as closely as possible with their line-drawn counterpart (e.g. all photograph variations of the item 'boot' were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
+
+```{r define-photo-manipulation-caption, echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "photo-manipulation-examples",
+                     caption = "Examples of background and text removal in photograph items.")
+```
+
+Despite isolating objects from their background, a small number of photographs still contained irrelevant and potentially distracting details. For example, in one photograph variation of the item 'piano', there was a sign on the object that may have impacted how the item was named or rated. Such details were removed as best as possible using the clone stamp and content-aware fill tools. Any obvious text (e.g. brand names) and numbers were also removed from photographs using the same method (see `r figure_numbering("photo-manipulation-examples", display = "cite")`). The primary aim of the current study was to obtain photographs that could be clearly distinguished as a unique stimuli format among words and line drawings; it is conceivable that combining these formats (i.e. inadvertently including photographs that also contain written words) might affect recognition performance in ways that are not directly comparable to items defined only by a single category. Any text in our photographs was therefore removed, apart from a couple of exceptions whereby such details happened to be integral to the depiction of the object (e.g. the numbers found on a ruler or clock).
+
+All photographs were exported from Photoshop in “.png” format in both their original colour and in greyscale (by setting saturation levels to 0). Final edits were completed in Adobe Lightroom (Classic, 8.2 Release): exposure (brightness) adjustments were made on images that appeared too light or too dark; highlights were decreased if some areas were too bright compared to the rest of the photograph; shadows were raised if some areas were too dark compared to the rest of the photograph; noise reduction was applied to some items after isolating the subject had inadvertently made unwanted noise/grain more visible. The changes made to each image were systematically applied to both the colour and greyscale versions (e.g. if one variation of "shoe" had an exposure increase of .010 for the colour version, the greyscale version also received an exposure increase of .010). Some colour-specific adjustments were made to the colour photographs only, however; common photo artefacts such as chromatic aberration (purple fringing) were corrected, along with white balance normalisation. Finally, all photographs were placed on a 600x600 pixel white background, and made to fill this frame as much as possible (i.e. some items were restrained by height, whilst others were restrained by width).
+
+&nbsp;
+&nbsp;
+```{r photo-manipulation-examples-image, echo=FALSE, out.width = '100%', cache=TRUE}
+    knitr::include_graphics("./resources/images/photo-manipulation-examples.png")
+#\begin{figure}[H]
+#\centering
+#\includegraphics[width=\textwidth]{photo-manipulation-exmaples}
+#\caption{`r figure_numbering("photo-manipulation-examples")`}\label{photo-manipulation-exmaples}
+#\end{figure}
+```
+&nbsp;
+&nbsp;
+`r figure_numbering("photo-manipulation-examples")`
+&nbsp;
+&nbsp;
+
+### Design
+This was a descriptive study; a mix of qualitative and quantitative data were gathered. Across three blocks, all participants provided five types of response toward photograph stimuli: i) Naming; ii) Familiarity; iii) Visual Complexity, iv) Colour Diagnosticity; and v) Mental Imagery Agreement. Excluding the Naming task (consisting of a typed single-word answer), all responses were provided on a 5-point ordinal scale. Within participants, the maximum number of response type provided for any one item was two; Naming and Familiarity responses were paired in one block, Visual Complexity and Colour Diagnosticity responses were paired in another, and Mental Imagery Agreement responses were always presented in a separate block. The order of these three blocks was counterbalanced across participants. Toward each individual photograph, participants made only one or two types of response before moving on to the next item, and the same items were not repeated to participants. For each photograph, the five types of required data were obtained by counterbalancing between participants (e.g. for the first variation of the "cat" photograph, the Naming and Familiarity data was obtained from one participant, the Visual Complexity and Colour Diagnosticity data was obtained from another, and the Mental Imagery Agreement data was obtained from another). 
+
+### Procedure
+Data collection was conducted via two online platforms; i) \href{https://www.qualtrics.com/uk/}{Qualtrics} - a survey platform that allowed for straightforward collection of consent, demographics, and computer compatibility data, and ii) \href{https://pavlovia.org/}{Pavlovia} - an open-source experiment hosting platform for studies programmed in Javascript [@peirce2019].
+
+In the Naming and Familiarity block, participants were first asked "What is the name of the item depicted?". Subjects were instructed to name each photograph as briefly and unambiguously as possible, with one name only, and respond by typing their answer into the response box. If they did not know the name of an item, or had a tip-of-the-tongue experience, participants were instructed to type "no" for their answer (the term "don't know" was avoided so as not to encourage subjects to deviate from single-word responses, as instructed).Following the naming judgement, with the same photograph still present on-screen, participants were next asked "How familiar is the item depicted?". Subjects were instructed to judge each photo according to how usual or unusual the item was in their realm of experience; specifically, familiarity was defined as "the degree to which you come in contact with, or think about, the concept", and encouraged participants to rate the concept itself rather than the particular way it was currently shown. Participants selected one value from the 5-point scale, ranging from very unfamiliar (1) to very familiar (5), and were encouraged to use the full range of the scale throughout the set of photographs. 
+
+In the Visual Complexity and Colour Diagnosticity block, participants were first instructed to respond to the question "How visually complex is this picture?" using a 5-point scale that ranged from "very simple" (1) to "very complex" (5). Complexity was defined to subjects as "the amount of detail in the picture"; in contrast to the familiarity ratings, participants were encouraged here to rate the complexity of the picture itself, rather than the real-life item. If the photograph shown was greyscale, subjects would simply move on to the next item. If the item shown was in colour, however, participants were also required to make a colour diagnosticity judgement. This concept was defined as "how typical / normal the colour of the item is", instructing subjects to rate on a 5-point scale ranging from "Not at all diagnostic (i.e. this item could be in any other colour equally well)" (1) to "Highly diagnostic (i.e. this item appears only in this colour in real life). Participants were instructed to utilise the full range of options on the scale when making visual complexity and colour diagnosticity judgements. After making these ratings, a fixation cross was presented during a 1s interstimulus interval. 
+ 
+Due to the slight change in procedure and increased task complexity, Mental Imagery Agreement ratings were always acquired in an individual block (i.e. not alongside any other response types). First, participants were presented with a written label for 3s (e.g. "cat") and told to focus their attention on the word. Once the written word disappeared, a beep tone was played alongside the instruction "close your eyes and imagine this item" (subjects were encouraged to close their eyes and begin imagining the item as soon as they heard the tone, but the written instruction were included as a further prompt). After 3s a second beep tone sounded to alert subjects to open their eyes, where they were presented with a photograph of the item they had been instructed to imagine. On a 5-point scale, participants were asked to "rate the agreement between your mental image and the picture", from "low agreement" (1) to "high agreement" (5). The degree of agreement was defined as "how similar your mental image of the item is to the picture shown". A fixation cross was displayed for 1s before the next word item was shown.
+
+All responses were self-paced; the timing was only controlled during the study/imagine section of the Mental Imagery Agreement block.
+
+```{r define-men-ima-procedure-caption, echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp2__men_ima_procedure",
+                     caption = "Data collection procedure for Mental Imagery Agreement responses.")
+```
+
+&nbsp;
+&nbsp;
+```{r men-ima-procedure-image, echo=FALSE, out.width = '100%', cache=TRUE}
+    knitr::include_graphics("./resources/images/procedure.png")
+```
+&nbsp;
+&nbsp;
+`r figure_numbering("exp2__men_ima_procedure")`
+&nbsp;
+&nbsp;
+
+### Data processing
+The naming responses for each photograph item were manually assessed for spelling and typing errors. Automatic spell checking software was avoided in an effort to avoid inadvertently introducing unique names that were not actually given by participants. The vast majority of errors were unambiguous and easy to correct (e.g. "anker" = "anchor", "peguin" = "penguin", "ssnowman" = "snowman"), or consisted of transforming plural words to singular (or vice versa, depending on the form of the intended label - e.g. "sock" to "socks"). Some responses were a little more ambiguous, and necessitated comparison to the photographs they were in response to for additional clarity (e.g. a photograph depicting a plug that would fit into North American electrical sockets was labelled as "usplug" - given the nature of our UK-based sample, it's likely the subject was responding: "U.S. (i.e. United States) plug". 
+
+There were instances where subjects provided a sensible and correctly spelled English word, but that were clearly typos when examined against the photograph they were in response to (e.g. "dock" for a photograph depicting a duck, "frock" for a frog, and "beer" for a "bear", etc). The most ambiguous spelling error to correct was "bittle", which was provided by more than one participant and to more than one item; separate inspections of the photographs participants were responding to made this easy to correct though, with one participant clearly meaning to respond "bottle", whilst the other meant to respond "beetle". Though participants were instructed to only give a single label for each item, some multiple word responses were found (without spaces) during the spell checking process. On such occasions, a judgement was made regarding whether multiple words were retained, or whether the response could be shortened into a single word. A general rule was applied whereby if the other words provided additional information, they were retained (e.g."maledear" - presumably "male deer" - was kept as a two-word answer). Multiple word responses were generally shortened into a single word when the intended label for the item was clearly present, and no information was lost in the process (e.g. "haircomb" was shortened to the intended answer "comb"). It is noted that there was some inherent subjectivity in this process, though as such items were not common among straightforward responses, their overall effects are estimated to be negligible.
+
+Finally, there were some responses that were changed to "no" as they were clearly intended to signify that the responder did not know the name of the item shown; the experiment instructed participants to type "no" in these instances, though the labels "none" and "idk" (common abbreviation for "I don't know) were provided instead. There was also a single response that was manually changed to "no", as the provided label was a single letter and thus entirely unclear what the intended answer should be (see Appendix A for full list of manipulations to naming responses). This process yielded data that could be used to determine which photograph variation best matched the intended concepts (e.g. 100% of participants labelled the object “bottle”, indicating a perfect match), and which did not (e.g. only 50% of participants labelled the item “bottle”, whilst the other 50% gave the label “wine”, indicating a poor match). Photographs showing poor agreement across participant-generated labels, or those where the majority of labels differed from the intended concept, could be replaced with the variation demonstrating the most accurate depiction. 
+
+### Analysis preperation
+A number of variables were calculated prior to analysis. For familiarity, visual complexity, colour diagnosticity, and mental imagery agreement, mean ratings were calculated for each (see Appendix B). Mean reaction times (RTs) were also calculated for each photograph / response variable, including naming responses. For naming responses, accuracy was defined as the proportion of subjects reporting the correct/intended label for any given item (e.g. 80% of subjects correctly labelled a photograph of the moon as "moon"). Percentage agreement was also calculated (i.e. the proportion of subjects providing the most frequent name, regardless of whether it matched the correct/intended label) in order to compute *H* values for each item. The *H* statistic also reflects naming agreement, but it takes into account the total number of unique labels given for an item. This is especially useful for comparing similar items, as it captures information not provided by simple agreement proportions. For instance, if the first variation of the photo moon ('moon-1') demonstrated 90% naming agreement among subjects, and the second variation ('moon-2') also demonstrated 90% naming agreement, it would appear as if both versions offer the same level of agreement among participants. However, 'moon-1' may have received a total of 2 unique names (e.g. moon, planet), while 'moon-2' received a total of 4 unique names (e.g. moon, planet, earth, comet). *H* values utilise this useful information to determine which item shows the best naming agreement (in other words, the item with the least number of unique names). The original formula by @snodgrass1980 was used to calculate *H* values:
+
+```{r echo=FALSE, out.width = '50%', fig.pos="h"}
+    knitr::include_graphics("./resources/images/h_calculation.png")
+```
+
+A *H* value of 0 indicates perfect naming agreement (all subjects responded with the same label for that item). Items showing a *H* value of 1 signify two unique names were provided, with identical proportions (e.g. 10 subjects responded "moon" and 10 subjects responded "planet"). As the *H* value increases, overall naming agreement decreases.
+
+```{r naming-data, include=FALSE, cache=TRUE}
+##  Create norms table:
+    exp2__colvsgreynorms <- tribble( ~"Variable",
+                               ~"lines", ~"grey_shaded", ~"col_shaded", ~"grey_photo", ~"col_photo",
+        "Naming accuracy",
+            88.2, 89.2, 90.3, exp2__grey_naming_norms$grey_naming_acc_mean, exp2__col_naming_norms$exp2__col_naming_acc_mean,
+        "SD - Naming accuracy",
+            17.1, 17.2, 16.9, exp2__grey_naming_norms$grey_naming_acc_sd, exp2__col_naming_norms$exp2__col_naming_acc_sd,
+        "Naming agreement (H)",
+            0.44, 0.38, 0.32, exp2__grey_naming_norms$grey_H_mean, exp2__col_naming_norms$col_H_mean,
+        "SD - Naming agreement (H)",
+            0.56, 0.52, 0.46, exp2__grey_naming_norms$grey_H_sd, exp2__col_naming_norms$col_H_sd,
+        "padding",
+            NA, NA, NA, NA, NA,
+        "Mental imagery agreement",
+            3.73, 3.76, 3.74, exp2__grey_men_ima_means$grey_menima_mean, exp2__col_exp2__men_ima_means$col_menima_mean,
+        "SD - Mental imagery agreement",
+            0.48, 0.55, 0.63, exp2__grey_men_ima_means$grey_menima_sd, exp2__col_exp2__men_ima_means$col_menima_sd,
+        "padding2",
+            NA, NA, NA, NA, NA,
+        "Familiarity",
+            3.59, 3.52, 3.44, exp2__grey_fam_means$grey_fam_mean, exp2__col_fam_means$col_fam_mean,
+        "SD - Familiarity",
+            0.94, 1.01, 1.01, exp2__grey_fam_means$grey_fam_sd, exp2__col_fam_means$col_fam_sd,
+        "padding3",
+            NA, NA, NA, NA, NA,
+        "Visual complexity",
+            2.76, 2.88, 2.70, exp2__grey_vis_com_means$exp2__grey_vis_com_mean, exp2__col_vis_com_means$exp2__col_vis_com_mean,
+        "SD - Visual complexity",
+            1.03, 1.03, 0.94, exp2__grey_vis_com_means$exp2__grey_vis_com_sd, exp2__col_vis_com_means$exp2__col_vis_com_sd,
+        "padding4",
+            NA, NA, NA, NA, NA,
+        "Colour diagnosticity",
+            NA, NA, NA, NA, exp2__col_dia_means$col_coldia_mean,
+        "SD - Colour diagnosticity",
+            NA, NA, NA, NA, exp2__col_dia_means$col_coldia_sd)
+    
+    exp2__colvsgreynorms_table <- exp2__colvsgreynorms %>%
+        mutate_if(is.numeric, ~round(., 2)) %>%
+        mutate_all(as.character) %>%
+        mutate(lines = 
+            ifelse(Variable == "SD - Naming accuracy", str_c("(", lines, ")"),
+            ifelse(Variable == "SD - Naming agreement (H)", str_c("(", lines, ")"), 
+            ifelse(Variable == "SD - Mental imagery agreement", str_c("(", lines, ")"), 
+            ifelse(Variable == "SD - Familiarity", str_c("(", lines, ")"), 
+            ifelse(Variable == "SD - Visual complexity", str_c("(", lines, ")"), 
+            ifelse(Variable == "SD - Colour diagnosticity", str_c("(", lines, ")"), lines))))))) %>%
+        mutate(grey_shaded = 
+            ifelse(Variable == "SD - Naming accuracy", str_c("(", grey_shaded, ")"),
+            ifelse(Variable == "SD - Naming agreement (H)", str_c("(", grey_shaded, ")"), 
+            ifelse(Variable == "SD - Mental imagery agreement", str_c("(", grey_shaded, ")"), 
+            ifelse(Variable == "SD - Familiarity", str_c("(", grey_shaded, ")"), 
+            ifelse(Variable == "SD - Visual complexity", str_c("(", grey_shaded, ")"), 
+            ifelse(Variable == "SD - Colour diagnosticity", str_c("(", grey_shaded, ")"), grey_shaded))))))) %>%
+        mutate(col_shaded = 
+            ifelse(Variable == "SD - Naming accuracy", str_c("(", col_shaded, ")"),
+            ifelse(Variable == "SD - Naming agreement (H)", str_c("(", col_shaded, ")"), 
+            ifelse(Variable == "SD - Mental imagery agreement", str_c("(", col_shaded, ")"), 
+            ifelse(Variable == "SD - Familiarity", str_c("(", col_shaded, ")"), 
+            ifelse(Variable == "SD - Visual complexity", str_c("(", col_shaded, ")"), 
+            ifelse(Variable == "SD - Colour diagnosticity", str_c("(", col_shaded, ")"), col_shaded))))))) %>%
+        mutate(grey_photo = 
+            ifelse(Variable == "SD - Naming accuracy", str_c("(", grey_photo, ")"),
+            ifelse(Variable == "SD - Naming agreement (H)", str_c("(", grey_photo, ")"), 
+            ifelse(Variable == "SD - Mental imagery agreement", str_c("(", grey_photo, ")"), 
+            ifelse(Variable == "SD - Familiarity", str_c("(", grey_photo, ")"), 
+            ifelse(Variable == "SD - Visual complexity", str_c("(", grey_photo, ")"), 
+            ifelse(Variable == "SD - Colour diagnosticity", str_c("(", grey_photo, ")"), grey_photo))))))) %>%
+        mutate(col_photo = 
+            ifelse(Variable == "SD - Naming accuracy", str_c("(", col_photo, ")"),
+            ifelse(Variable == "SD - Naming agreement (H)", str_c("(", col_photo, ")"), 
+            ifelse(Variable == "SD - Mental imagery agreement", str_c("(", col_photo, ")"), 
+            ifelse(Variable == "SD - Familiarity", str_c("(", col_photo, ")"), 
+            ifelse(Variable == "SD - Visual complexity", str_c("(", col_photo, ")"), 
+            ifelse(Variable == "SD - Colour diagnosticity", str_c("(", col_photo, ")"), col_photo))))))) %>%
+        mutate(lines = replace_na(lines, "-")) %>%
+        mutate(grey_shaded = replace_na(grey_shaded, "-")) %>%
+        mutate(col_shaded = replace_na(col_shaded, "-")) %>%
+        mutate(grey_photo = replace_na(grey_photo, "-")) %>%
+        mutate(col_photo = replace_na(col_photo, "-")) %>%
+        mutate(Variable = 
+            ifelse(Variable == "SD - Naming accuracy" | Variable == "SD - Naming agreement (H)" |
+                   Variable == "SD - Mental imagery agreement" | Variable == "SD - Familiarity" |
+                   Variable == "SD - Visual complexity" | Variable == "SD - Colour diagnosticity" |
+                   Variable == "padding" | Variable == "padding2" | Variable == "padding3" |
+                   Variable == "padding4","", Variable)) %>%
+        rename(" " = "Variable", "S&V lines" = "lines", "Grey shaded" = "grey_shaded",
+               "Colour shaded" = "col_shaded", "Grey photos" = "grey_photo", 
+               "Colour photos" = "col_photo") %>%
+        mutate("  " = "") %>%
+        select(" ", "S&V lines", "Grey shaded", "Colour shaded", "  ", "Grey photos", "Colour photos")
+    
+    exp2__colvsgreynorms_table[5,2] <- ""
+    exp2__colvsgreynorms_table[5,3] <- ""
+    exp2__colvsgreynorms_table[5,4] <- ""
+    exp2__colvsgreynorms_table[5,6] <- ""
+    exp2__colvsgreynorms_table[5,7] <- ""
+    
+    exp2__colvsgreynorms_table[8,2] <- ""
+    exp2__colvsgreynorms_table[8,3] <- ""
+    exp2__colvsgreynorms_table[8,4] <- ""
+    exp2__colvsgreynorms_table[8,6] <- ""
+    exp2__colvsgreynorms_table[8,7] <- ""
+    
+    exp2__colvsgreynorms_table[11,2] <- ""
+    exp2__colvsgreynorms_table[11,3] <- ""
+    exp2__colvsgreynorms_table[11,4] <- ""
+    exp2__colvsgreynorms_table[11,6] <- ""
+    exp2__colvsgreynorms_table[11,7] <- ""
+    
+```
+
+## Results
+Summary statistics (mean and *SD*) for each of the measured variables are shown in `r table_numbering("exp2--exp2__colvsgreynorms--tablecaption", display = "cite")`. Data for the grey and colour photographs are presented alongside previously obtained normative values for a number of other stimuli formats (all obtained from @rossion2004, who published revised norms for @snodgrass1980's (S&V) original line drawings, as well as their own re-drawn versions that contained shading and texture detail). The data from previous studies were not used in any statistical analyses. To examine whether the grey and colour photographs from the current study demonstrated any differences, a series of independent samples t-tests were run on each variable, as well as their corresponding reaction times (excluding scores of colour diagnosticity, which were obtained only in response to the colour items and thus cannot be compared). Mean (and *SD*) values for all x816 unique photograph items are presented in Appendix B. 
+
+```{r , echo=FALSE, results = FALSE, cache=FALSE}
+    table_numbering(name = "exp2--exp2__colvsgreynorms--tablecaption",
+                     caption = "Summary statistics for each of the measured variables. Mean values are presented 
+                                in bold (SDs are shown in parentheses).")
+```
+
+### *Naming*
+Naming accuracy was very high for all photographs (*M* = `r exp2__mean_naming_acc`), indicating that overall, the selected items closely depicted the intended concepts. Compared with the other stimuli formats, there appears to be a steady increase in accuracy as items become more distinctive (see `r table_numbering("exp2--exp2__colvsgreynorms--tablecaption", display = "cite")`). Accuracy rates did not differ between the grey (*M* = `r exp2__mean_grey_naming_acc`) and colour (*M* = `r exp2__mean_col_naming_acc`) versions of the photographs [`r exp2__apa__naming_acc__ttest$statistic`].
+
+*H* values were also low across all items (*M* = `r exp2__mean_H_stat`), showing that subjects generally agreed on how the items should be named. Similar to naming accuracy, naming agreement also appears to steadily increase as items become more distinctive (as indicated by decreasing H values - see `r table_numbering("exp2--exp2__colvsgreynorms--tablecaption", display = "cite")`. While @rossion2004 observed significantly better naming agreement for their colour - rather than greyscale - items, this pattern did not reach significance with the current set of photographs; *H* values did not differ between the grey (*M* = `r exp2__mean_grey_H_stat`) and colour (*M* = `r exp2__mean_col_H_stat`) photographs [`r exp2__apa__H_stat__ttest$statistic`].
+
+A mean reaction time (RT) of (`r exp2__mean_naming_rt`s) was observed for naming responses. While this was of little interest on its own, and could not be compared to those obtained in response to the other stimuli formats as our methodology was slightly different (RTs were only recorded when subjects had typed their response *and* clicked the mouse to signify they had finished), they were useful for marking comparisons between the grey and colour items (though no difference was observed [*M* grey = `r exp2__mean_grey_naming_rt`s, *M* colour = `r exp2__mean_col_naming_rt`s, `r exp2__apa__naming_rt__ttest$statistic`]). Overall, these analyses suggest that the current photographs closely resemble the drawings they were designed to match, with high levels of naming accuracy and agreement among subjects. The absence of any colour differences indicates there were no naming advantages when photographs were made even more distinctive through the addition of colour. 
+
+`r table_numbering("exp2--exp2__colvsgreynorms--tablecaption")`
+```{r, echo=FALSE, cache=TRUE}
+  exp2__colvsgreynorms_table %>%
+      kable("latex", booktabs = T, align = "lcccccc") %>%
+      kable_styling(latex_options = c("hold_position", "condensed")) %>%
+      add_header_above(c(" " = 1, "Rossion & Pourtois (2004)" = 3, " " = 1, "Current study" = 2)) %>%
+      column_spec(1, width = "13em") %>%
+      column_spec(2:4, width = "3.8em") %>%
+      column_spec(5, width = "2em") %>%
+      column_spec(6:7, width = "3.8em") %>%
+      row_spec(c(1,3,6,9,12,15), bold = TRUE) %>%
+      row_spec(c(2,4,7,10,13,16), italic = TRUE)
+```
+
+### *Mental imagery agreement*
+Scores of mental imagery agreement were moderate across all items (*M* = `r exp2__mean_men_ima`). While no colour differences were previously observed between stimuli formats, the grey (*M* = `r exp2__mean_grey_men_ima`) photographs in the current study showed significantly lower mental imagery agreement scores than the colour (*M* = `r exp2__mean_col_men_ima`) items [`r exp2__apa__exp2__men_ima__ttest$statistic`]. Comparisons with previous normative data also highlight how the grey photographs exhibited uniquely poorer mental imagery agreement scores than any of the other stimuli formats (see `r table_numbering("exp2--exp2__colvsgreynorms--tablecaption", display = "cite")`). RTs between the grey (*M* = `r exp2__mean_grey_men_ima_rt`) and colour (*M* = `r exp2__mean_col_men_ima_rt`) items did not significantly differ [`r exp2__apa__exp2__men_ima_rt__ttest$statistic`].
+
+### *Familiarity*
+Familiarity scores were high overall (*M* = `r exp2__mean_fam`), and like previous findings, there was no difference between the grey (*M* = `r exp2__mean_grey_fam`) and colour (*M* = `r exp2__mean_col_fam`) items [`r exp2__apa__fam__ttest$statistic`]. However, familiarity scores for the current set of photographs were higher than those obtained for any of the other stimuli formats, and while there previously appeared to be a decline in familiarity as stimuli become more distinctive (from line drawings, to grey shaded, to colour shaded), such a pattern was not evident with the current photographs (see `r table_numbering("exp2--exp2__colvsgreynorms--tablecaption", display = "cite")`). RTs between the grey (*M* = `r exp2__mean_grey_fam_rt`) and colour (*M* = `r exp2__mean_col_fam_rt`) items did not significantly differ [`r exp2__apa__fam_rt__ttest$statistic`].
+
+### *Visual complexity*
+Visual complexity ratings were moderate across all of the items (*M* = `r exp2__mean_viscom_rt`). Colour (*M* = `r exp2__mean_col_vis_com`) photographs showed significantly higher scores of visual complexity than grey (*M* = `r exp2__mean_grey_vis_com`) photographs [`r exp2__apa__vis_com__ttest$statistic`]. This finding is further demonstrated when compared to the scores from the other stimuli formats (see `r table_numbering("exp2--exp2__colvsgreynorms--tablecaption", display = "cite")`); where grey photographs show comparable levels of visual complexity, the colour photographs show higher scores than all of the other formats. There was no significant difference between the RTs of grey (*M* = `r exp2__mean_grey_viscom_rt`) and colour (*M* = `r exp2__mean_col_viscom_rt`) items [`r exp2__apa__vis_com_rt__ttest$statistic`].
+
+### *Selection of final items*
+For each concept represented in the photographs, one variation (e.g. shoe-1, shoe-2, or shoe-3) was selected for inclusion in a final list of stimuli that would be taken forward into subsequent recognition experiments. The normative naming data was assessed to establish which version best matched the existing line-drawn depictions of the concepts [@rossion2004]. Naming was favoured over all of the other variables as, if an item was found to primarily convey a different concept than was intended during the naming task (e.g. if a photograph of the fruit 'orange' was labelled 'grapefruit' by the majority of subjects), then it could not be sufficiently compared to its line-drawn (and written-word) counterpart during recognition studies. 
+
+At least 20 unique naming responses were collected for each of the 816 photographs (408 grey items and 408 colour items). The proportion of 'correct' responses (i.e. names that were congruent with the intended concept) and the proportion of 'don't know' responses were calculated for each item. Photographs were excluded if they:
+
+1. received a high proportion of "don't know" responses (20%; all of the photographs depicted common, everyday objects, and so if a number of subjects were unable to name the item, that particular photograph was considered to be a poor representation of the item);
+2. were incorrectly named by the majority of subjects (i.e. if the proportion of correct responses equalled ≤ 50%, since it was essential for the photographs to depict the same concepts as those found in the line drawings and word stimuli);
+3. had particularly poor naming agreement (≤ 20% subjects named the object similarly). Items may not have been flagged by the second criteria (e.g. if it received 4 different names, each with a 25% ratio), but could still be considered poor representations of the intended concepts.
+
+54 photographs were found to meet at least one of the above criteria, and therefore excluded. Regardless of whether these items were grey or colour, it was also necessary to remove its grey or colour partner (since both versions were needed to make comparisons across recognition experiments). Thus, a total of 64 items (32 grey / 32 colour) were excluded at this stage (many items already had both grey and colour versions flagged by the original criteria). 
+
+Next, the proportion of correct responses were compared between grey and colour photographs in order to identify items showing the lowest difference. In order to manipulate colour in later recognition experiments, it was important to select items where naming was congruent across colour/grey items; in other words, it would be difficult to attribute particular recognition response patterns to the addition of colour (if a difference were found) when the grey version could not be identified (or encoded) similarly. Variations exhibiting the least difference between colour and grey items (for the proportion of correct responses) were taken forward, while the rest were excluded. In a number of instances, multiple variations for the same object had the same 'difference' score. For example, all three variations of the item "balloon" exhibited perfect naming agreement, irrespective of whether they were presented in colour or grey (and thus "balloon1", "balloon2", and "balloon3" had a difference score of 0). For items where more than 1 variation remained, manual rankings were obtained from two of the researchers to determine which variation best depicted the intended concept. For each item, the researchers independently studied the remaining variations and provided a rank of which they thought was best (1) to worst (2 or 3, depending on the number of variations that remained). The ratings from both researchers were collated; items where there was agreement as to which variation best depicted the intended concept were selected for inclusion in the final stimuli list. For all the items where there was disagreement between the researchers rankings, one of the variations was simply selected at random.
+
+## Discussion
+### *The role of colour*
+For naming responses (accuracy, agreement [*H*], and RTs), no differences were observed between the grey and colour photographs. Such a result was expected for accuracy and agreement scores; the addition/absence of colour should not alter how participants identify (and thus label) items, except in rare instances whereby a lack of colour may lead to the misidentification of an object (e.g. incorrectly labelling a greyscale photograph of an orange as 'grapefruit'). The data indicates, however, that this was not common, with the grey set of photographs exhibiting equally high levels of naming accuracy as the colour photographs. The absence of RT differences between the colour and greyscale sets was not expected for naming responses. It is reasonable to assume that colour photographs - with an additional layer of contextual information compared to grey items - would be identified (and therefore named) quicker than grey photographs (e.g. a colour photograph of an orange should avoid the potential ambiguity that might accompany a greyscale depiction, which could initially be confused for another type of fruit). Indeed, @rossion2004 demonstrated RTs consistent with this hypotheses, with colour drawings showing significantly quicker RTs than grey items. The lack of difference in the current data could be attributable to ceiling effects, whereby all photographs were sufficiently unambiguous, and were quickly identified irrespective of whether they were presented in greyscale or colour. Examination of the other naming data, showing similarly high levels of accuracy and agreement across grey and colour, supports this notion.
+
+Scores of mental imagery agreement produced particularly interesting results between the grey and colour items. 
+Grey photographs exhibited a significantly poorer match with subjects imagined presentation of the objects than the colour items. Colour differences were not observed previously between drawings [@rossion2004], and comparing the current data with that obtained in other studies (see `r table_numbering("exp2--exp2__colvsgreynorms--tablecaption", display = "cite")`) demonstrates how the greyscale photographs show uniquely lower mental imagery agreement scores compared with any of the other stimuli formats. To imagine the objects, it seems likely that subjects would conjure an image of how they naturally see the item in their everyday lives - which for the majority of subjects, would presumably be a colour representation. Therefore, when presented with greyscale depictions, subjects may have been more inclined to report that that item did not align quite as well as those presented in colour. However, it is unclear why a similar pattern is not also evident when comparing grey and colour drawings [@rossion2004]. It may be that photographs promote stricter internal criteria when subjects must decide whether an item is a good match to their mental image. With line-drawn / illustrated items, subjects may simply accept that the items are baseline depictions, and that they will only able to match their real-world mental images to a certain degree - thus leading to a generally more liberal response bias throughout. The addition of colour may therefore do very little to further reconcile the match between the drawing and real-world mental representation. When subjects are responding only to photographs, the ecological nature of the items may facilitate deeper critical evaluation of whether they offer a good match to mental images, and thus promote a more conservative response bias. Colour may therefore be a far more important factor in photographs than it is in line drawings for allowing participants to decide whether an item matches well with their mental image. 
+
+There were no colour differences in familiarity scores. This result was expected - participants were asked to rate the degree to which they came in contact with, or think about, the concept itself rather than the particular depiction shown, and there is no apparent reason why colour should influence such ratings. Visual complexity, on the other hand, where participants were required to directly rate the amount of detail in the picture, did show an expected difference. Colour photographs were rated as significantly more visually complex than grey items, presumably due to their additional layer of contextual information. When compared to the previous data obtained for drawings, the greyscale photographs showed comparable levels of visual complexity, while the colour photographs showed higher levels than any of the other formats. It is unclear why the photographs of the current study showed colour differences, when grey and colour drawings did not differ, though it may tie in with the hypotheses proposed to explain the mental imagery agreement data. Subjects may apply stricter internal criteria when rating stimuli that are perceived as being closer to how they would be experienced in real life - when viewing a colour photograph of a rabbit, it is difficult to see how we could make the item any more visually complex than it already is (at least in a 2D medium). It's probable that subjects notice the absence of colour when viewing the greyscale items, since they depict the items in a way that they are not usually seen, and thus determine that these items could be made more complex if they were shown in colour (and so give lower visual complexity ratings as a result). 
+
+### *Establishing a new set of stimuli*
+The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. Matching items with previously established drawings (and words) would allow for the effects of stimuli-format on recognition response patterns to be directly examined. A range of normative data was collected for 816 unique photograph items. These items may prove useful for a range of cognitive researchers that wish to utilise a set of high quality and realistic object stimuli, especially given the flexibility of items that can be filtered based on colour, naming agreement, familiarity, etc. For the needs of the current body of research, the naming data was used to determine which photographs best matched the intended concepts among a number of possible variations. This allowed for the systematic comparison of recognition memory performance toward three distinct stimuli formats (words, drawings, and photographs) in the following study, in an effort to establish how stimuli of varying perceptual distinctiveness may affect recognition response patterns. Such comparisons might help to reconcile the inconsistencies present across recognition memory research, such as those attempted to determine whether familiarity processes are preserved in those with amnestic Mild Cognitive Impairment (aMCI).
