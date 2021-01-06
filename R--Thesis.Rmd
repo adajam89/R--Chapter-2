@@ -101,27 +101,27 @@ Both used the same picture stim - colour photos.
 \newpage
 # Chapter 2
 ## Experiment 1 (Proof of concept)
-Research into recognition memory often focuses on methods of estimating recollection and familiarity - two independent processes theorised to support the successful recognition of previously encountered material [@yonelinas2002; schoemaker2014]. Recollection typically refers to the conscious recall of encoded information, whereby successful recognition is facilitated by contextual details surrounding a previous encounter with the stimulus. Familiarity, on the other hand, is a term used to describe recognition that occurs via an unsubstantiated feeling of having encountered the stimulus previously
-s
-despite  
-the inability to retrieve any associated contextual information.
+Research into recognition memory often focuses on methods of estimating recollection and familiarity - two independent processes theorised to support the successful recognition of previously encountered material [@yonelinas2002; schoemaker2014]. Recollection typically refers to the conscious recall of encoded information, whereby successful recognition is facilitated by contextual details surrounding a previous encounter with the stimulus. Familiarity, on the other hand, is a term used to describe recognition that occurs via an unsubstantiated feeling of having encountered the stimulus previously (despite the inability to retrieve any associated contextual information). While this dual-process model of recognition [@paivio1971; @paivio1972]
 
-Despite the popularity of this dual-process model of recognition [@paivio1971; @paivio1972], there remains a disagreement throughout the literature regarding the extent to which recollection and
+there remains a disagreement throughout the literature regarding the extent to which recollection and
 familiarity are independent processes, and the methods used to measure them most effectively. 
 
-Experimental paradigms are generally categorized into two broad groups: task-dissociation and process-estimation methods. Task-dissociation methods combine two different task formats (e.g. old/new recognition paired with forced-choice recognition), and make comparisons in an attempt to isolate either recollection or familiarity (Yonelinas, 2002). Old/new recognition tests are thought to isolate recollection; stimuli are presented individually and participants attempt to make an accurate judgement about items they previously studied (targets) when presented amongst novel items with highly similar characteristics (lures). Forced-choice recognition paradigms, on the other hand, can rely on recollection or familiarity; discrimination between previously studied targets and highly similar lures is again required, however, recognition trials present target-lure pairs at the same time and require that participants select between them.s
+Experimental paradigms are generally categorized into two broad groups: task-dissociation and process-estimation methods. Task-dissociation methods combine two different task formats (e.g. old/new recognition paired with forced-choice recognition), and make comparisons in an attempt to isolate either recollection or familiarity [yonelinas2002]. Old/new recognition tests are thought to isolate recollection; stimuli are presented individually and participants attempt to make an accurate judgement about items they previously studied (targets) when presented amongst novel items with highly similar characteristics (lures). Forced-choice recognition paradigms, on the other hand, can rely on recollection or familiarity; discrimination between previously studied targets and highly similar lures is again required, however, recognition trials present target-lure pairs at the same time and require that participants select between them.
+
+
+The wide range of studies utilising process-estimation methods generally use one of three main procedures. First, the process-dissociation procedure [PDP; @jacoby1991] is commonly used in recognition memory to separately estimate the contributions of recollection and familiarity by assessing whether participants are able to determine when and where an item was previously studied  [yonelinas2002].
 
 
 
-One of the most commonly used methods in recognition memory research is the Remember-
-Know (RK) paradigm [@gardiner2000; @jacoby1991; @jacoby1997; @tulving1985]
+Receiver Operating Characteristic (ROC) curves. 
 
 
-. In the RK paradigm participants categorise an item on a recognition test as ‘Remember’ when recognition is accompanied by recollection, or as ‘Know’, when
-recognition is not accompanied by recollection and instead is accompanied by a feeling of
-familiarity or certainty. A ‘Guess’ option is also usually provided to try to ensure that participants
-can assign any guesses they make to that category (rather than assign them to Remember or
-Know). A second method of measurement is to ask participants to make confidence judgments
+Third, and arguably the most commonly used process-estimation method is the Remember/Know (RK) paradigm - a task endorsed by a wide body of literature [@tulving1985; @yonelinas1995; @gardiner2000; @jacoby1991; @jacoby1997]. In a typical RK procedure, participants are generally tasked with making an ‘old’ vs. ‘new’ recognition decision, before introspectively categorising any recognised items (old) as either ‘Remember’ when recognition is accompanied by recollection, or as ‘Know’ when recognition is not accompanied by recollection, but instead is accompanied by a feeling of familiarity or certainty. Often a ‘Guess’ option is also provided to allow for uncertainty (RKG), in an effort to avoid biasing the total number of R and K responses (@belleville2011; @gardiner2008). 
+
+A large body of literature also reports that the RK procedure produces reliable estimations of recollection and familiarity in clinical populations [@lombardi2016]; for example, those with Mild Cognitive Impairment (MCI) typically show recollection impairments but intact familiarity compared to healthy older adults [@belleville2011; @wang2013; @lombardi2016; @hudon2009; @serra2010].
+
+
+A second method of measurement is to ask participants to make confidence judgments
 or ratings and interpret high confidence as indicating recollection and low confidence as
 indicating familiarity. Instead of confidence, some researchers ask participants to make specific
 ratings of the amount of recollection and familiarity they have for each item they recognise on
@@ -145,6 +145,8 @@ perhaps they are more complicated for participants to use and perhaps they are n
 ‘accurate’ than more standard RK judgment tasks? I want to examine how patterns of
 responding differ across these methodologies.
 
+
+The RK procedure has been criticized for its reliance on participants’ subjective understanding of the provided instructions [@schoemaker2014], and the introspective nature of recognition judgements make it difficult to confirm whether all participants have understood the definitions (and thus responded) similarly [@lombardi2016]. Indeed, slight differences in the experimental definition of “knowing” across studies and the way in which the subjective memory states are defined may affect the achieved pattern of results [@geraci2009; @williams2015]. 
 
 
 
