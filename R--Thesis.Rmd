@@ -3,7 +3,7 @@ output:
   #word_document:
   #  toc: yes
   #  toc_depth: '4'
-  html_notebook:
+  pdf_document:
     toc: yes
     toc_depth: 4
     number_sections: no
@@ -121,15 +121,15 @@ Third, and arguably the most commonly used process-estimation method is the Reme
 A large body of literature also reports that the RK procedure produces reliable estimations of recollection and familiarity in clinical populations [@lombardi2016]; for example, those with Mild Cognitive Impairment (MCI) typically show recollection impairments but intact familiarity compared to healthy older adults [@belleville2011; @wang2013; @lombardi2016; @hudon2009; @serra2010].
 
 
-A second method of measurement is to ask participants to make confidence judgments
+A second method of measurement is to ask participants to make confidence judgements
 or ratings and interpret high confidence as indicating recollection and low confidence as
 indicating familiarity. Instead of confidence, some researchers ask participants to make specific
 ratings of the amount of recollection and familiarity they have for each item they recognise on
-the memory test; here, rather than a binary Remember-Know judgment which means that the
+the memory test; here, rather than a binary Remember-Know judgement which means that the
 processes of recollection and familiarity are seen as mutually exclusive, in this method
 recollection and familiarity are viewed as processes that can occur conjointly. Finally, a forth
-method which uses judgments but permits participants to report that they have both recollection
-and familiarity for an item is the Recollect-Familiar-Both judgment task.
+method which uses judgements but permits participants to report that they have both recollection
+and familiarity for an item is the Recollect-Familiar-Both judgement task.
 The objective of my research is to better understand what these different methodologies can tell
 us about the underlying processes of recollection and familiarity. In order to achieve this
 objective my proposed research will compare different methodologies against each other in
@@ -139,10 +139,10 @@ defined to participants can differ across researchers – some emphasise a feeli
 knowing’ or ‘certainty’, whereas other labs use definitions that emphasise a ‘feeling of
 familiarity’. I want to know whether how we are defining ‘Knowing’ to participants when
 we use Remember-Know recognition tests changes how they use the response options.
-2. Are ratings tasks better than judgment tasks: Recollection and familiarity or
+2. Are ratings tasks better than judgement tasks: Recollection and familiarity or
 confidence ratings allow for a more fine-grained examination of memory processes but
 perhaps they are more complicated for participants to use and perhaps they are no more
-‘accurate’ than more standard RK judgment tasks? I want to examine how patterns of
+‘accurate’ than more standard RK judgement tasks? I want to examine how patterns of
 responding differ across these methodologies.
 
 
@@ -178,7 +178,7 @@ However, it has been demonstrated that certain methodological factors can mediat
 Illustrative
 
 
-The objective of Experiment 1 was to establish baseline PSE response patterns in younger adults, and examine how PSE magnitudes differ across the three response-option conditions (RF-judgments / RFB-judgments / RF-Ratings). A 2x3 mixed factorial design was utilised, consisting of a within-subjects variable of stimulus type (words / grey-scale line-drawings) and a between-subjects variable of response-option (RF-judgments / RFBG-judgments / RF-Ratings).
+The objective of Experiment 1 was to establish baseline PSE response patterns in younger adults, and examine how PSE magnitudes differ across the three response-option conditions (RF-judgements / RFB-judgements / RF-Ratings). A 2x3 mixed factorial design was utilised, consisting of a within-subjects variable of stimulus type (words / grey-scale line-drawings) and a between-subjects variable of response-option (RF-judgements / RFBG-judgements / RF-Ratings).
 
 
 
@@ -1463,7 +1463,7 @@ Data collection was conducted via the online survey platform \href{https://www.q
 The encoding phase was followed by a short distractor task, whereby participants completed 20 multiplication sums. This was followed by the recognition task, where subjects were again randomly presented with word and picture items on-at-a-time on-screen, and were required to respond "Old"/"New" depending on whether the recognised the item or not. "Old" responses were succeeded by a follow-up screen whereby participants were asked to report their recognition experience for the current item; the response-options available during this follow-up response page differed between participants, with random allocation into either the RFG, RFBG, or RF-Ratings response-option conditions. Instructions for the memory test were highly similar between conditions, deviating only to explain key changes such as: additional response options (i.e. "Both", in the RFBG condition), and how certain responses should be reported (i.e. 0 on both scales to represent "Guessing" in the RF-Ratings condition). 
 
 ## Data analysis
-DVs consisted of: i) the proportion of hits; ii) the proportion of FAs; iii) overall recognition (proportion of overall hits minus proportion of FAs), iv) d' (d-prime; discrimination); v) c (response-bias criterion). Proportions of hits and FAs were also calculated separately based upon follow-up recognition judgments: Recollection, Familiarity, and Guessing. To achieve comparable proportions across each of the response-option conditions - in order to examine the PSE across the different groups - each group had slightly different proportion calculations. For the RFG group, simple proportions were used (i.e. what proportion of hits / FAs were assigned Recollection, Familiarity, and Guessing). For the RFBG group, we separately added the proportion of "Both" to Recollection and Familiarity proportions, since it was defined as representing both processes simultaneously. For the RF-Ratings group, proportions were calculated based on the number of responses above the threshold of+>3; a response was classified as "Recollection" when subjects rated between 3-5 on that particular scale (any Familiarity rating was permissible), and a response was classified as "Familiarity" when subjects rated between 3-5 on that particular scale (any Recollection rating was permissible). Guessing responses were calculated as the proportion of responses where participants rated 0 on both scales toward a single item (participants were instructed to respond in this way if their response was a rec). 
+DVs consisted of: i) the proportion of hits; ii) the proportion of FAs; iii) overall recognition (proportion of overall hits minus proportion of FAs), iv) d' (d-prime; discrimination); v) c (response-bias criterion). Proportions of hits and FAs were also calculated separately based upon follow-up recognition judgements: Recollection, Familiarity, and Guessing. To achieve comparable proportions across each of the response-option conditions - in order to examine the PSE across the different groups - each group had slightly different proportion calculations. For the RFG group, simple proportions were used (i.e. what proportion of hits / FAs were assigned Recollection, Familiarity, and Guessing). For the RFBG group, we separately added the proportion of "Both" to Recollection and Familiarity proportions, since it was defined as representing both processes simultaneously. For the RF-Ratings group, proportions were calculated based on the number of responses above the threshold of+>3; a response was classified as "Recollection" when subjects rated between 3-5 on that particular scale (any Familiarity rating was permissible), and a response was classified as "Familiarity" when subjects rated between 3-5 on that particular scale (any Recollection rating was permissible). Guessing responses were calculated as the proportion of responses where participants rated 0 on both scales toward a single item (participants were instructed to respond in this way if their response was a rec). 
 
 Note: should we have a performance cut off? Some people have very low performance (like 0 or 1 hits) and should probably be excluded?
 
@@ -1476,7 +1476,7 @@ Note: should we have a performance cut off? Some people have very low performanc
 ```
 
 ## Overall hits, false alarms (FAs), and recognition
-Separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgments, RFBG-judgments, RF-ratings) mixed ANOVAs were conducted on the mean proportion of hits and false alarms (FAs; see `r table_numbering("exp1__hit_and_FA_caption", display = "cite")`).
+Separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the mean proportion of hits and false alarms (FAs; see `r table_numbering("exp1__hit_and_FA_caption", display = "cite")`).
 
 `r table_numbering("exp1__hit_and_FA_caption")`
 ```{r, echo=FALSE, cache=FALSE}
@@ -1593,7 +1593,7 @@ A similar pattern was again reflected in the ANOVA on overall performance accura
 ```
 
 ## Discrimination (d') and response bias (c)
-To assess the roles of discrimination and response bias, separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgments, RFBG-judgments, RF-ratings) mixed ANOVAs were conducted on d’ (d-prime; measure of sensitivity)  and c-scores (decision criterion; see `r table_numbering("exp1__dprime_and_c_caption", display = "cite")`).
+To assess the roles of discrimination and response bias, separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on d’ (d-prime; measure of sensitivity)  and c-scores (decision criterion; see `r table_numbering("exp1__dprime_and_c_caption", display = "cite")`).
 
 `r table_numbering("dprime_and_c_caption")`
 ```{r, echo=FALSE, cache=TRUE}
@@ -1658,10 +1658,10 @@ The ANOVA on d' scores was consistent with the hits, FAs, and overall recognitio
           str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 ```
 
-In the ANOVA on c-scores, there was no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, indicating response bias was unaffected regardless of whether participants were responding to words or pictures. There was, however, a significant main effect of response-option condition, `r exp1__apa_anova_prop_c$full$ResponseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative response bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`, suggesting participants were less likely to respond "Old" when they were required to provide more detailed follow-up recognition judgments (Recollection: 0-5 / Familiarity: 0-5), compared to simply selecting one of three options (R,F, or G). There were no significant interaction effects, `r exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix E - ANOVA c (bias)][].
+In the ANOVA on c-scores, there was no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, indicating response bias was unaffected regardless of whether participants were responding to words or pictures. There was, however, a significant main effect of response-option condition, `r exp1__apa_anova_prop_c$full$ResponseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative response bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`, suggesting participants were less likely to respond "Old" when they were required to provide more detailed follow-up recognition judgements (Recollection: 0-5 / Familiarity: 0-5), compared to simply selecting one of three options (R,F, or G). There were no significant interaction effects, `r exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix E - ANOVA c (bias)][].
 
 ## Hits assigned Recollection, Familiarity, and Guessing
-To determine the effects of stimuli-format and response-option on accurate recognition memory judgments, separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgments, RFBG-judgments, RF-ratings) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp1__prop_hit_caption", display = "cite")`). 
+To determine the effects of stimuli-format and response-option on accurate recognition memory judgements, separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp1__prop_hit_caption", display = "cite")`). 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
       figure_numbering("exp1__prop_hit_caption", "Proportion of hits assigned 
                        Recollection, Familiarity, and Guessing, by stimuli-format and 
@@ -1881,7 +1881,7 @@ Between response-option conditions, word stimuli produced significantly fewer Gu
 `r figure_numbering("exp1__guess_hit_interaction_figure_caption")`
 
 ## False alarms (FAs) assigned Recollection, Familiarity, and Guessing
-To determine the effects of stimuli-format and response-option on false recognition memory judgments, separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgments, RFBG-judgments, RF-ratings) mixed ANOVAs were conducted on the mean proportion of FAs assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp1__prop_FA_caption", display = "cite")`). 
+To determine the effects of stimuli-format and response-option on false recognition memory judgements, separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the mean proportion of FAs assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp1__prop_FA_caption", display = "cite")`). 
 
 &nbsp;
 
@@ -2013,56 +2013,56 @@ Despite their widespread use, line drawings have been criticised for their relat
 ##  Create 'do not import' list: 
     exp2__do_not_import <-
 ##  Experimenter test files: 
-        c("PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_17h24.58.448.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_13h50.57.226.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_09h35.46.685.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 04_2019-08-30_20h05.24.009.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 04_2019-08-30_17h30.37.570.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 04_2019-08-30_13h36.33.493.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-29_14h09.45.628.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-29_07h36.38.588.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-28_20h37.19.421.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 03_2019-08-28_18h14.42.370.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-28_14h09.34.697.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-28_10h10.14.072.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-27_15h57.08.388.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 01_2019-08-27_10h48.32.252.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 01_2019-08-26_12h12.26.753.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-30_21h07.28.268.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-08-28_08h22.14.369.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_16h13.04.980.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 02_2019-11-22_09h27.37.994.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_16h09.53.591.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_16h03.22.229.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_15h43.07.191.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_15h40.03.881.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_15h35.42.080.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h57.35.053.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h53.19.091.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h48.27.823.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h33.54.515.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_14h03.09.719.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_13h22.22.702.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h52.34.761.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h47.34.512.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h43.06.244.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_12h40.35.211.csv",
+        c("PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-08-31_17h24.58.448.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 05_2019-08-31_13h50.57.226.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 05_2019-08-31_09h35.46.685.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 04_2019-08-30_20h05.24.009.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 04_2019-08-30_17h30.37.570.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 04_2019-08-30_13h36.33.493.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 03_2019-08-29_14h09.45.628.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 03_2019-08-29_07h36.38.588.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 03_2019-08-28_20h37.19.421.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 03_2019-08-28_18h14.42.370.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 02_2019-08-28_14h09.34.697.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 02_2019-08-28_10h10.14.072.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 02_2019-08-27_15h57.08.388.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 01_2019-08-27_10h48.32.252.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 01_2019-08-26_12h12.26.753.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 05_2019-08-30_21h07.28.268.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 02_2019-08-28_08h22.14.369.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_16h13.04.980.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 02_2019-11-22_09h27.37.994.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_16h09.53.591.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_16h03.22.229.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_15h43.07.191.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_15h40.03.881.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_15h35.42.080.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_14h57.35.053.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_14h53.19.091.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_14h48.27.823.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_14h33.54.515.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_14h03.09.719.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_13h22.22.702.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_12h52.34.761.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_12h47.34.512.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_12h43.06.244.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_12h40.35.211.csv",
 ##  Empty / incomplete data (not even a single block fully completed):
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-10-01_09h15.14.507.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_11h18.21.623.csv",   
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-10-01_09h15.14.507.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 05_2019-08-31_11h18.21.623.csv",   
 ##  Experimental error: image stim P were responding to not recorded:
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-25_17h56.51.111.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-26_13h36.14.194.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-09-27_02h30.16.689.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-25_17h56.51.111.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-26_13h36.14.194.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-09-27_02h30.16.689.csv",
 ##  2nd datasets of participants who took part more than once: 
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_22h19.30.823.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.25.233.csv",  
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_13h14.17.240.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.56.054.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.37.530.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_16h52.46.376.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 06_2019-08-31_20h34.56.887.csv",
-          "PARTICIPANT_Subjective Judgments for Photographic Stimuli --- 05_2019-08-31_14h23.39.423.csv")
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-08-31_22h19.30.823.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-08-31_20h34.25.233.csv",  
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-08-31_13h14.17.240.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-08-31_20h34.56.054.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-08-31_20h34.37.530.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-08-31_16h52.46.376.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 06_2019-08-31_20h34.56.887.csv",
+          "PARTICIPANT_Subjective judgements for Photographic Stimuli --- 05_2019-08-31_14h23.39.423.csv")
 ##  Remove 'do not import' items from the to-be-imported "csv_file_list".
     exp2__raw_data_files <- exp2__raw_data_files[!(exp2__raw_data_files %in% exp2__do_not_import)] %>%
 ##  Add folder location to the start of each file name:
@@ -2095,7 +2095,7 @@ Despite their widespread use, line drawings have been criticised for their relat
         mutate(id = str_remove_all(id, "<br /><br /><span style=\"font-size:16px;\">")) %>%
         mutate(id = str_remove_all(id, "<br><br><span style=\"font-size:16px;\">")) %>%
         mutate(id = str_remove_all(id, "<(.*)")) %>%
-        mutate(exp_ver = str_remove_all(exp_ver, "subjective judgments for photographic stimuli --- 0")) %>%
+        mutate(exp_ver = str_remove_all(exp_ver, "subjective judgements for photographic stimuli --- 0")) %>%
         mutate(usingmac = str_remove_all(usingmac, " (.*)")) %>%
         mutate(retinascreen = str_remove_all(retinascreen, " (.*)")) %>%
         mutate(retinascreen = str_replace(retinascreen, "not", "not_sure"))%>%
@@ -3254,7 +3254,7 @@ There were no colour differences in familiarity scores. This result was expected
 The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. Matching items with previously established drawings (and words) would allow for the effects of stimuli-format on recognition response patterns to be directly examined. A range of normative data was collected for 816 unique photograph items. These items may prove useful for a range of cognitive researchers that wish to utilise a set of high quality and realistic object stimuli, especially given the flexibility of items that can be filtered based on colour, naming agreement, familiarity, etc. For the needs of the current body of research, the naming data was used to determine which photographs best matched the intended concepts among a number of possible variations. This allowed for the systematic comparison of recognition memory performance toward three distinct stimuli formats (words, drawings, and photographs) in the following study, in an effort to establish how stimuli of varying perceptual distinctiveness may affect recognition response patterns. Such comparisons might help to reconcile the inconsistencies present across recognition memory research, such as those attempted to determine whether familiarity processes are preserved in those with amnestic Mild Cognitive Impairment (aMCI).
 
 # Experiment 3 (Grey drawings + photos)
-## Effect of stimuli format and response option on recognition memory judgments.
+## Effect of stimuli format and response option on recognition memory judgements.
 
 For the recognition memory experiment, everyday objects were presented in three stimuli formats: i) words (written in simple, black ink); ii) drawings (shaded line-drawn illustrations); and iii) photographs (detail rich exemplars of the real world object). @rossion2004 demonstrated that naming agreement could be improved by adding surface texture and shading to the original @snodgrass1980 items; however, it is unclear how manipulations to distinctiveness actually impact performance in recognition memory paradigms. As well as general inconsistencies regarding the type of stimuli used in recognition memory experiments, there is also much variability in the response options available to participants when reporting their recognition, for example: Remember/Know (@lombardi2016), Recollection/Familiarity (???), or Low/Med/High confidence (???). In the current experiment, the availability of different response options when reporting recognition will also be examined by randomly assigning participants into a paradigm with three response options (Recollection / Familiarity / Guessing) or four response options (RFG + Both). 
 
@@ -4610,7 +4610,7 @@ exp3__grey__anova__PROP.HITS__table <- tribble(
     table_numbering(name = "exp3__prop-hits-and-FAs--tablecaption",
                      caption = "Mean proportion of hits and FAs by stimuli format and response-option condition.")
 ```
-Separate 3 (stimuli format: words, drawings, photographs) x 2 (response-option condition: RFG-judgments, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits and false alarms (FAs; see `r table_numbering("exp3__prop-hits-and-FAs--tablecaption", display = "cite")`).
+Separate 3 (stimuli format: words, drawings, photographs) x 2 (response-option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits and false alarms (FAs; see `r table_numbering("exp3__prop-hits-and-FAs--tablecaption", display = "cite")`).
 
 \newpage
 `r table_numbering("exp3__prop-hits-and-FAs--tablecaption")`
