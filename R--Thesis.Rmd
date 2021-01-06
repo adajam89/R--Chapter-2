@@ -178,10 +178,6 @@ However, it has been demonstrated that certain methodological factors can mediat
 Illustrative
 
 
-
-
-
-
 The objective of Experiment 1 was to establish baseline PSE response patterns in younger adults, and examine how PSE magnitudes differ across the three response-option conditions (RF-judgments / RFB-judgments / RF-Ratings). A 2x3 mixed factorial design was utilised, consisting of a within-subjects variable of stimulus type (words / grey-scale line-drawings) and a between-subjects variable of response-option (RF-judgments / RFBG-judgments / RF-Ratings).
 
 
@@ -191,117 +187,116 @@ The objective of Experiment 1 was to establish baseline PSE response patterns in
 ##    EXPERIMENT 1:                                                                                            ##
 #################################################################################################################
 ##  Import unique image URLs (to identify each stim):
-exp1__image_urls <- read_csv("./resources/experiment_1/image_urls.csv") %>%
-  mutate(url = str_replace(url,
-                           "https:\\/\\/keelepsych.co1.qualtrics.com\\/ControlPanel\\/Graphic.php\\?IM=IM_", ""))
+    exp1__image_urls <- read_csv("./resources/experiment_1/image_urls.csv") %>%
+        mutate(url = str_replace(url,
+                      "https:\\/\\/keelepsych.co1.qualtrics.com\\/ControlPanel\\/Graphic.php\\?IM=IM_", ""))
 
 ##  Import study data (which contains demographics info):                            
-exp1__participant_info <- read_csv(
-  "./resources/experiment_1/experiment_1_data/Jamie - RFG Images (1) - STUDY_March 19, 2020_06.28.csv") %>%
-  select(-"StartDate", -"EndDate", -"Status", -"Duration (in seconds)", -"Finished",
-         -"RecipientLastName", -"RecipientFirstName", -"RecipientEmail", -"ExternalReference",
-         -"LocationLatitude", -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -"Q1.3",
-         -"Q1.4", -"Q100", -"Q101", -contains("Last Click"), -contains("Page Submit"), 
-         -contains("Click Count"), -contains("Q4.5"), -contains("Q5.5"), -contains("Q6.5"),
-         -contains("Q7.5"), -contains("Q8.5"), -contains("Q9.5"), -contains("Q10.5"), -contains("Q11.5"),
-         -contains("Q12.5"), -contains("Q13.5"), -contains("Q14.5"), -contains("Q15.5"), 
-         -contains("Q16.5"), -contains("Q17.5")) %>%
-  row_to_names(row_number = 1) %>%
-  slice(-1) %>%
-  rename(ip = "IP Address", progress = "Progress", recorded_date = "Recorded Date", 
-         study_id = "Response ID", age = "Your age:", gender = "Your gender:",
-         eng_first_lang = "Is English your first language?", source = "Source") %>%
-  select(study_id, ip, recorded_date, progress, age, gender, eng_first_lang, source, 8:143, 164:571) %>%
-  mutate(study_id = str_remove_all(study_id, "R_")) %>%
-  mutate_all(tolower) %>%
-  group_by(study_id) %>%
-  gather(., "question", "response", -study_id) %>%
-  arrange(study_id) %>%
-  drop_na(response) %>%
-  mutate(question = str_remove(question, 
-                               "Timing - https:\\/\\/keelepsych.co1.qualtrics.com\\/ControlPanel\\/Graphic.php\\?IM=IM_")) %>%
-  mutate(question = str_remove(question, "- Timing - First Click")) %>%
-  mutate(question = str_remove(question, 
-                               "https:\\/\\/keelepsych.co1.qualtrics.com\\/ControlPanel\\/Graphic.php\\?IM=IM_")) %>%
-  mutate(question = str_remove(question, "\ .+")) %>%
-  mutate(question = str_trim(question))
+    exp1__participant_info <- read_csv(
+      "./resources/experiment_1/experiment_1_data/Jamie - RFG Images (1) - STUDY_March 19, 2020_06.28.csv") %>%
+        select(-"StartDate", -"EndDate", -"Status", -"Duration (in seconds)", -"Finished",
+               -"RecipientLastName", -"RecipientFirstName", -"RecipientEmail", -"ExternalReference",
+               -"LocationLatitude", -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -"Q1.3",
+               -"Q1.4", -"Q100", -"Q101", -contains("Last Click"), -contains("Page Submit"), 
+               -contains("Click Count"), -contains("Q4.5"), -contains("Q5.5"), -contains("Q6.5"),
+               -contains("Q7.5"), -contains("Q8.5"), -contains("Q9.5"), -contains("Q10.5"), -contains("Q11.5"),
+               -contains("Q12.5"), -contains("Q13.5"), -contains("Q14.5"), -contains("Q15.5"), 
+               -contains("Q16.5"), -contains("Q17.5")) %>%
+        row_to_names(row_number = 1) %>%
+        slice(-1) %>%
+        rename(ip = "IP Address", progress = "Progress", recorded_date = "Recorded Date", 
+               study_id = "Response ID", age = "Your age:", gender = "Your gender:",
+               eng_first_lang = "Is English your first language?", source = "Source") %>%
+        select(study_id, ip, recorded_date, progress, age, gender, eng_first_lang, source, 8:143, 164:571) %>%
+        mutate(study_id = str_remove_all(study_id, "R_")) %>%
+        mutate_all(tolower) %>%
+        group_by(study_id) %>%
+        gather(., "question", "response", -study_id) %>%
+        arrange(study_id) %>%
+        drop_na(response) %>%
+        mutate(question = str_remove(question, 
+               "Timing - https:\\/\\/keelepsych.co1.qualtrics.com\\/ControlPanel\\/Graphic.php\\?IM=IM_")) %>%
+        mutate(question = str_remove(question, "- Timing - First Click")) %>%
+        mutate(question = str_remove(question, 
+                "https:\\/\\/keelepsych.co1.qualtrics.com\\/ControlPanel\\/Graphic.php\\?IM=IM_")) %>%
+        mutate(question = str_remove(question, "\ .+")) %>%
+        mutate(question = str_trim(question))
 
 ##  Temporarily extract demographics info:
-exp1__demographics <- exp1__participant_info %>%
-  filter(question == "ip" | question == "recorded_date" | question == "progress" |
-           question == "age" | question == "gender" | question == "eng_first_lang" |
-           question == "source") %>%
-  spread(question, response) %>%
-  ##  Tidy exp1__demographics a bit:
-  rename(study_end_time = "recorded_date") %>%
-  mutate(study_end_time = str_replace_all(study_end_time, "-", "_")) %>%
-  mutate(study_end_time = str_replace_all(study_end_time, " ", "_")) %>%
-  mutate(gender = str_replace(gender, "^f$", "female")) %>%
-  mutate(gender = str_replace(gender, "woman", "female")) %>%
-  mutate(gender = str_replace(gender, "^m$", "male")) %>%
-  mutate(gender = str_replace(gender, "5a6f51ec46f0230001ce445f", "unspecified")) %>%
-  mutate(gender = replace_na(gender, "unspecified")) %>%
-  mutate(age = as.double(age)) %>%
-  mutate(age = na_if(age, 100))
+    exp1__demographics <- exp1__participant_info %>%
+        filter(question == "ip" | question == "recorded_date" | question == "progress" |
+                 question == "age" | question == "gender" | question == "eng_first_lang" |
+                 question == "source") %>%
+        spread(question, response) %>%
+##  Tidy exp1__demographics a bit:
+        rename(study_end_time = "recorded_date") %>%
+        mutate(study_end_time = str_replace_all(study_end_time, "-", "_")) %>%
+        mutate(study_end_time = str_replace_all(study_end_time, " ", "_")) %>%
+        mutate(gender = str_replace(gender, "^f$", "female")) %>%
+        mutate(gender = str_replace(gender, "woman", "female")) %>%
+        mutate(gender = str_replace(gender, "^m$", "male")) %>%
+        mutate(gender = str_replace(gender, "5a6f51ec46f0230001ce445f", "unspecified")) %>%
+        mutate(gender = replace_na(gender, "unspecified")) %>%
+        mutate(age = as.double(age)) %>%
+        mutate(age = na_if(age, 100))
 
 ##  Temporarily extract study data (so we can reshape and put RTs on the same row as responses).
-exp1__study_data <- exp1__participant_info %>%
-  filter(question != "ip" & question != "recorded_date" & question != "progress" &
-           question != "age" & question != "gender" & question != "eng_first_lang" &
-           question != "source") %>%
-  mutate(temp_index = as.double(response)) %>%
-  mutate(index = ifelse(is.na(temp_index),'response','rt')) %>%
-  select(-temp_index) %>%
-  as.data.frame()
-exp1__study_data <- reshape(exp1__study_data, idvar=c('study_id','question'), timevar='index', 
-                           direction="wide") %>%
-  as_tibble(exp1__study_data, .name_repair) %>%
-  rename(study_rt = "response.rt", study_response = "response.response") %>%
-  group_by(study_id) %>%
-  ##  We also do study calculations here, as it's easier when separated from exp1__demographics.
-  ##  First we merge with 'exp1__image_urls' to get proper item names:
-  merge(., exp1__image_urls, by.x="question", by.y="url") %>%
-  group_by(study_id) %>%
-  select(-question) %>%
-  arrange(study_id, study_list, stim) %>%
-  filter(!str_detect(study_list, 'FILLER')) %>%
-  ##  Split the 'stim' column up, so item name and stimuli format are seperate:
-  separate(stim, c("item_name", "stim_format")) %>%
-  ##  Clearly show which lists were studied as words and pics: 
-  mutate(studied_words = ifelse(stim_format == "word", study_list, NA)) %>%
-  mutate(studied_pics = ifelse(stim_format == "picture", study_list, NA)) %>%
-  select(-study_list) %>%
-  ##  Count total study responses (should be 60):
-  add_tally(stim_format == "word" | stim_format == "picture", sort = FALSE, name = "study_total_resp") %>%
-  ##  Count total study responses by stim-format (should be 30 each):
-  add_tally(stim_format == "word", sort = FALSE, name = "study_total_word_resp") %>%
-  add_tally(stim_format == "picture", sort = FALSE, name = "study_total_pic_resp") %>%
-  ##  Count total *correct* word responses (should be 30):
-  add_tally(stim_format == "word" & study_response == "word", sort = FALSE, 
-            name = "study_correct_total_word_resp") %>%
-  ##  Count total *correct* pic responses (should be 30):
-  add_tally(stim_format == "picture" & study_response == "picture", sort = FALSE, 
-            name = "study_correct_total_pic_resp") %>%
-  ##  Count total *correct* responses (should be 60):
-  mutate(study_correct_total_resp = study_correct_total_word_resp + study_correct_total_pic_resp) %>%
-  ##  Calculate mean overall reaction time:
-  mutate(study_rt = as.double(study_rt)) %>%
-  mutate(mean_study_rt_total = mean(study_rt)) %>%
-  ##  Calculate mean word reaction time (correct responses):
-  mutate(mean_study_rt_corr_word = mean(study_rt[stim_format == "word" & 
-                                                   study_response == "word"])) %>%
-  ##  Calculate mean pic reaction time (correct responses):
-  mutate(mean_study_rt_corr_pic = mean(study_rt[stim_format == "picture" & 
-                                                  study_response == "picture"])) %>%
-  ##  Remove columns with multiple unique values now we've done the totals:
-  select(-study_rt, -study_response, -item_name, -stim_format) %>%
-  ##  Reduce data so we have one row per participant:
-  summarise_all(coalesce_by_column)
+    exp1__study_data <- exp1__participant_info %>%
+        filter(question != "ip" & question != "recorded_date" & question != "progress" &
+                 question != "age" & question != "gender" & question != "eng_first_lang" &
+                 question != "source") %>%
+        mutate(temp_index = as.double(response)) %>%
+        mutate(index = ifelse(is.na(temp_index),'response','rt')) %>%
+        select(-temp_index) %>%
+        as.data.frame()
+    exp1__study_data <- reshape(exp1__study_data, idvar=c('study_id','question'), timevar='index', 
+                                 direction="wide") %>%
+        as_tibble(exp1__study_data, .name_repair) %>%
+        rename(study_rt = "response.rt", study_response = "response.response") %>%
+        group_by(study_id) %>%
+##  We also do study calculations here, as it's easier when separated from exp1__demographics.
+##  First we merge with 'exp1__image_urls' to get proper item names:
+        merge(., exp1__image_urls, by.x="question", by.y="url") %>%
+        group_by(study_id) %>%
+        select(-question) %>%
+        arrange(study_id, study_list, stim) %>%
+        filter(!str_detect(study_list, 'FILLER')) %>%
+##  Split the 'stim' column up, so item name and stimuli format are seperate:
+        separate(stim, c("item_name", "stim_format")) %>%
+##  Clearly show which lists were studied as words and pics: 
+        mutate(studied_words = ifelse(stim_format == "word", study_list, NA)) %>%
+        mutate(studied_pics = ifelse(stim_format == "picture", study_list, NA)) %>%
+        select(-study_list) %>%
+##  Count total study responses (should be 60):
+        add_tally(stim_format == "word" | stim_format == "picture", sort = FALSE, name = "study_total_resp") %>%
+##  Count total study responses by stim-format (should be 30 each):
+        add_tally(stim_format == "word", sort = FALSE, name = "study_total_word_resp") %>%
+        add_tally(stim_format == "picture", sort = FALSE, name = "study_total_pic_resp") %>%
+##  Count total *correct* word responses (should be 30):
+        add_tally(stim_format == "word" & study_response == "word", sort = FALSE, 
+                  name = "study_correct_total_word_resp") %>%
+##  Count total *correct* pic responses (should be 30):
+        add_tally(stim_format == "picture" & study_response == "picture", sort = FALSE, 
+                  name = "study_correct_total_pic_resp") %>%
+##  Count total *correct* responses (should be 60):
+        mutate(study_correct_total_resp = study_correct_total_word_resp + study_correct_total_pic_resp) %>%
+##  Calculate mean overall reaction time:
+        mutate(study_rt = as.double(study_rt)) %>%
+        mutate(mean_study_rt_total = mean(study_rt)) %>%
+##  Calculate mean word reaction time (correct responses):
+        mutate(mean_study_rt_corr_word = mean(study_rt[stim_format == "word" & study_response == "word"])) %>%
+##  Calculate mean pic reaction time (correct responses):
+        mutate(mean_study_rt_corr_pic = mean(study_rt[stim_format == "picture" & 
+                                                        study_response == "picture"])) %>%
+##  Remove columns with multiple unique values now we've done the totals:
+        select(-study_rt, -study_response, -item_name, -stim_format) %>%
+##  Reduce data so we have one row per participant:
+        summarise_all(coalesce_by_column)
 ##    Overwrite 'exp1__participant_info' with 'exp1__study_data' joined with 'exp1__demographics':
-exp1__participant_info <- right_join(exp1__demographics, exp1__study_data, by = "study_id") %>%
-  ##    Remove participants that have no study total (ie, did exp1__demographics but did not start study):
-  drop_na("study_total_resp") %>%
-  mutate_all(tolower)
+      exp1__participant_info <- right_join(exp1__demographics, exp1__study_data, by = "study_id") %>%
+##    Remove participants that have no study total (ie, did exp1__demographics but did not start study):
+        drop_na("study_total_resp") %>%
+        mutate_all(tolower)
 
 ################################################################################################################
 ##    Import and tidy test data:                                                                              ##
@@ -309,194 +304,197 @@ exp1__participant_info <- right_join(exp1__demographics, exp1__study_data, by = 
 ##    Import test data files (output from Qualtrics was too big and would fail, so has to be in 2 parts!).
 ##    We have to do some quick tidying to each before joining (colnames are the same right now (e.g. Q1.1),
 ##    but are different after we use row_to_names.
-exp1__full_data1 <- read_csv("./resources/experiment_1/experiment_1_data/AC_P_March 19, 2020_06.30.csv") %>%
-  select(-"EndDate", -"Status", -"Duration (in seconds)", -"Finished", -"RecipientLastName", 
-         -"RecipientFirstName", -"RecipientEmail", -"ExternalReference", -"LocationLatitude",
-         -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -contains("Last Click"),
-         -contains("Page Submit"), -contains("Click Count"), -contains("Q3.8"), -contains("Q4.8"),
-         -contains("Q5.8"), -contains("Q6.8"), -contains("Q7.8"), -contains("Q8.8"), 
-         -contains("Q11.9"), -contains("Q12.9")) %>%
-  ##    Merge justification columns from across the three response-option conditions:
-  unite("rec_justification", "Q5.2_1", "Q9.2_1", "Q13.2_1", na.rm = TRUE, remove = TRUE) %>%
-  unite("fam_justification", "Q5.2_2", "Q9.2_2", "Q13.2_2", na.rm = TRUE, remove = TRUE) %>%
-  unite("both_justification", "Q9.2_3", "Q13.2_3", na.rm = TRUE, remove = TRUE) %>%
-  unite("guess_justification", "Q5.2_3", "Q9.2_4", "Q13.2_4", na.rm = TRUE, remove = TRUE)
+      exp1__full_data1 <- read_csv(
+        "./resources/experiment_1/experiment_1_data/AC_P_March 19, 2020_06.30.csv") %>%
+          select(-"EndDate", -"Status", -"Duration (in seconds)", -"Finished", -"RecipientLastName", 
+                 -"RecipientFirstName", -"RecipientEmail", -"ExternalReference", -"LocationLatitude",
+                 -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -contains("Last Click"),
+                 -contains("Page Submit"), -contains("Click Count"), -contains("Q3.8"), -contains("Q4.8"),
+                 -contains("Q5.8"), -contains("Q6.8"), -contains("Q7.8"), -contains("Q8.8"), 
+                 -contains("Q11.9"), -contains("Q12.9")) %>%
+##    Merge justification columns from across the three response-option conditions:
+          unite("rec_justification", "Q5.2_1", "Q9.2_1", "Q13.2_1", na.rm = TRUE, remove = TRUE) %>%
+          unite("fam_justification", "Q5.2_2", "Q9.2_2", "Q13.2_2", na.rm = TRUE, remove = TRUE) %>%
+          unite("both_justification", "Q9.2_3", "Q13.2_3", na.rm = TRUE, remove = TRUE) %>%
+          unite("guess_justification", "Q5.2_3", "Q9.2_4", "Q13.2_4", na.rm = TRUE, remove = TRUE)
 ##    Add column identifiers to the lower rows (since we still have the Qualtrics 3x header rows here):
-exp1__full_data1$rec_justification[1:2] <- "rec_justification"
-exp1__full_data1$fam_justification[1:2] <- "fam_justification"
-exp1__full_data1$both_justification[1:2] <- "both_justification"
-exp1__full_data1$guess_justification[1:2] <- "guess_justification"
+      exp1__full_data1$rec_justification[1:2] <- "rec_justification"
+      exp1__full_data1$fam_justification[1:2] <- "fam_justification"
+      exp1__full_data1$both_justification[1:2] <- "both_justification"
+      exp1__full_data1$guess_justification[1:2] <- "guess_justification"
 ##    Set correct row for rownames (Qualtrics outputs with 3 header rows - we only want one): 
-exp1__full_data1 <- exp1__full_data1 %>% row_to_names(row_number = 1) %>% clean_names() %>% slice(-1) %>%
-  ##    Rename some columns:       
-  rename(ip = "ip_address", test_id = "response_id", 
-         comments = "if_you_have_any_comments_about_this_experiment_please_include_them_below") %>%
-  ##    Reorder columns:    
-  select(test_id, ip, start_date, rec_justification, fam_justification, 
-         both_justification, guess_justification, comments, 5:516, 520:1031, 1033:1672) %>%
-  ##    Set ID as the grouping variable:
-  mutate(test_id = str_remove_all(test_id, "R_")) %>%
-  mutate_all(tolower) %>%
-  group_by(test_id) %>%
-  ##    Reformat from long to wide:
-  gather(., "question", "response", -test_id) %>%
-  arrange(test_id)
-
-exp1__full_data2 <- read_csv("./resources/experiment_1/experiment_1_data/BD_P_March 19, 2020_06.29.csv") %>%
-  select(-"EndDate", -"Status", -"Duration (in seconds)", -"Finished", -"RecipientLastName", 
-         -"RecipientFirstName", -"RecipientEmail", -"ExternalReference", -"LocationLatitude",
-         -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -contains("Last Click"),
-         -contains("Page Submit"), -contains("Click Count"), -contains("Q3.8"), -contains("Q4.8"),
-         -contains("Q5.8"), -contains("Q6.8"), -contains("Q7.8"), -contains("Q8.8"), 
-         -contains("Q11.9"), -contains("Q12.9")) %>%
-  ##    Merge justification columns from across the three response-option conditions:
-  unite("rec_justification", "Q5.2_1", "Q9.2_1", "Q13.2_1", na.rm = TRUE, remove = TRUE) %>%
-  unite("fam_justification", "Q5.2_2", "Q9.2_2", "Q13.2_2", na.rm = TRUE, remove = TRUE) %>%
-  unite("both_justification", "Q9.2_3", "Q13.2_3", na.rm = TRUE, remove = TRUE) %>%
-  unite("guess_justification", "Q5.2_3", "Q9.2_4", "Q13.2_4", na.rm = TRUE, remove = TRUE)
+      exp1__full_data1 <- exp1__full_data1 %>% row_to_names(row_number = 1) %>% clean_names() %>% slice(-1) %>%
+##    Rename some columns:       
+          rename(ip = "ip_address", test_id = "response_id", 
+                 comments = "if_you_have_any_comments_about_this_experiment_please_include_them_below") %>%
+##    Reorder columns:    
+          select(test_id, ip, start_date, rec_justification, fam_justification, 
+                 both_justification, guess_justification, comments, 5:516, 520:1031, 1033:1672) %>%
+##    Set ID as the grouping variable:
+          mutate(test_id = str_remove_all(test_id, "R_")) %>%
+          mutate_all(tolower) %>%
+          group_by(test_id) %>%
+##    Reformat from long to wide:
+          gather(., "question", "response", -test_id) %>%
+          arrange(test_id)
+    
+      exp1__full_data2 <- read_csv(
+        "./resources/experiment_1/experiment_1_data/BD_P_March 19, 2020_06.29.csv") %>%
+          select(-"EndDate", -"Status", -"Duration (in seconds)", -"Finished", -"RecipientLastName", 
+                 -"RecipientFirstName", -"RecipientEmail", -"ExternalReference", -"LocationLatitude",
+                 -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -contains("Last Click"),
+                  -contains("Page Submit"), -contains("Click Count"), -contains("Q3.8"), -contains("Q4.8"),
+                 -contains("Q5.8"), -contains("Q6.8"), -contains("Q7.8"), -contains("Q8.8"), 
+                 -contains("Q11.9"), -contains("Q12.9")) %>%
+##    Merge justification columns from across the three response-option conditions:
+          unite("rec_justification", "Q5.2_1", "Q9.2_1", "Q13.2_1", na.rm = TRUE, remove = TRUE) %>%
+          unite("fam_justification", "Q5.2_2", "Q9.2_2", "Q13.2_2", na.rm = TRUE, remove = TRUE) %>%
+          unite("both_justification", "Q9.2_3", "Q13.2_3", na.rm = TRUE, remove = TRUE) %>%
+          unite("guess_justification", "Q5.2_3", "Q9.2_4", "Q13.2_4", na.rm = TRUE, remove = TRUE)
 ##    Add column identifiers to the lower rows (since we still have the Qualtrics 3x header rows here):
-exp1__full_data2$rec_justification[1:2] <- "rec_justification"
-exp1__full_data2$fam_justification[1:2] <- "fam_justification"
-exp1__full_data2$both_justification[1:2] <- "both_justification"
-exp1__full_data2$guess_justification[1:2] <- "guess_justification"
+      exp1__full_data2$rec_justification[1:2] <- "rec_justification"
+      exp1__full_data2$fam_justification[1:2] <- "fam_justification"
+      exp1__full_data2$both_justification[1:2] <- "both_justification"
+      exp1__full_data2$guess_justification[1:2] <- "guess_justification"
 ##    Set correct row for rownames (Qualtrics outputs with 3 header rows - we only want one): 
-exp1__full_data2 <- exp1__full_data2 %>% row_to_names(row_number = 1) %>% clean_names() %>% slice(-1) %>%
-  ##    Rename some columns:       
-  rename(ip = "ip_address", test_id = "response_id",
-         comments = "if_you_have_any_comments_about_this_experiment_please_include_them_below") %>%
-  ##    Reorder columns:    
-  select(test_id, ip, start_date, rec_justification, fam_justification, 
-         both_justification, guess_justification, comments, 5:516, 520:1031, 1033:1672) %>%
-  ##    Set ID as the grouping variable:
-  mutate(test_id = str_remove_all(test_id, "R_")) %>%
-  mutate_all(tolower) %>%
-  group_by(test_id) %>%
-  ##    Reformat from long to wide:
-  gather(., "question", "response", -test_id) %>%
-  arrange(test_id)
-
-exp1__full_data <- exp1__full_data1 %>%
-  bind_rows(exp1__full_data2) %>%
-  drop_na(response)
-
+      exp1__full_data2 <- exp1__full_data2 %>% row_to_names(row_number = 1) %>% 
+          clean_names() %>% slice(-1) %>%
+##    Rename some columns:       
+          rename(ip = "ip_address", test_id = "response_id",
+                 comments = "if_you_have_any_comments_about_this_experiment_please_include_them_below") %>%
+##    Reorder columns:    
+          select(test_id, ip, start_date, rec_justification, fam_justification, 
+                 both_justification, guess_justification, comments, 5:516, 520:1031, 1033:1672) %>%
+##    Set ID as the grouping variable:
+          mutate(test_id = str_remove_all(test_id, "R_")) %>%
+          mutate_all(tolower) %>%
+          group_by(test_id) %>%
+##    Reformat from long to wide:
+          gather(., "question", "response", -test_id) %>%
+          arrange(test_id)
+    
+      exp1__full_data <- exp1__full_data1 %>%
+          bind_rows(exp1__full_data2) %>%
+          drop_na(response)
+    
 ##    Temporarily extract justifications:
-exp1__justifications <- exp1__full_data %>%
-  filter(question == "ip" | question == "start_date" | question == "progress" |
-           question == "rec_justification" | question == "fam_justification" |
-           question == "both_justification" | question == "guess_justification" |
-           question == "comments") %>%
-  spread(question, response)
-
-##    Tidy test data:
-exp1__full_data <- exp1__full_data %>%
-  filter(question != "ip" & question != "start_date" & question != "progress" &
-           question != "rec_justification" & question != "fam_justification" &
-           question != "both_justification" & question != "guess_justification" & 
-           question != "comments") %>%
-  mutate(rfr_resp_type = question) %>%
-  mutate(rfr_resp_type = str_remove(rfr_resp_type, ".*_")) %>%
-  mutate(rfr_resp_type = ifelse(rfr_resp_type == "recollection" | rfr_resp_type == "familiarity",
-                                rfr_resp_type, "")) %>%
-  mutate(question = str_remove(question,
-                               "timing_https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
-  mutate(question = str_remove(question,
-                               "https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
-  mutate(question = str_remove_all(question, "_")) %>%
-  mutate(question_number = question) %>%
-  mutate(question = str_remove(question, "(?<=.{15}).+")) %>%
-  mutate(question_number = str_remove(question_number, "^.{0,15}")) %>%
-  mutate(question = str_trim(question)) %>%
-  mutate(resp_option = case_when(str_detect(question_number, "q3") ~ "rfg",
-                                 str_detect(question_number, "q4") ~ "rfg",
-                                 str_detect(question_number, "q7") ~ "rfbg",
-                                 str_detect(question_number, "q8") ~ "rfbg",
-                                 str_detect(question_number, "q11") ~ "rf_ratings",
-                                 str_detect(question_number, "q12") ~ "rf_ratings",
-                                 str_detect(question_number, "recollection") ~ "rf_ratings",
-                                 str_detect(question_number, "familiarity") ~ "rf_ratings")) %>%
-  fill(resp_option, .direction = "updown") %>%
-  ##    Reshape to put RTs on the same row as responses):
-  mutate(temp_index = as.double(response)) %>%
-  mutate(index = ifelse((is.na(temp_index) & resp_option == "rfg") & 
-                          (response == "old" | response == "new"), 'rfg_old_new','rt')) %>%
-  mutate(index = ifelse((is.na(temp_index) & resp_option == "rfbg") & 
-                          (response == "old" | response == "new"), 'rfbg_old_new', index)) %>%
-  mutate(index = ifelse((is.na(temp_index) & resp_option == "rf_ratings") & 
-                          (response == "old" | response == "new"), 'rf_ratings_old_new', index)) %>%
-  mutate(index = ifelse((is.na(temp_index) & resp_option == "rfg") & 
-                          (response != "old" & response != "new"), 'rfg', index)) %>%
-  mutate(index = ifelse((is.na(temp_index) & resp_option == "rfbg") & 
-                          (response != "old" & response != "new"), 'rfbg', index)) %>%
-  mutate(index = ifelse((is.na(temp_index) & 
-                           resp_option == "rf_ratings" & rfr_resp_type == "recollection") & 
-                          (response != "old" & response != "new"), 'rec_rating', index)) %>%
-  mutate(index = ifelse((is.na(temp_index) & 
-                           resp_option == "rf_ratings" & rfr_resp_type == "familiarity") & 
-                          (response != "old" & response != "new"), 'fam_rating', index)) %>%
-  select(-rfr_resp_type, -temp_index, -question_number) %>%
-  as.data.frame()
-
-exp1__full_data <- reshape(exp1__full_data, idvar=c('test_id','question'), timevar='index', direction="wide") %>%
-  as_tibble(exp1__study_data, .name_repair) %>%
-  unite("old_new", response.rfg_old_new, response.rfbg_old_new, 
-        response.rf_ratings_old_new, remove = TRUE, na.rm = TRUE) %>%
-  select(-resp_option.rfg_old_new, -resp_option.rfg, -resp_option.rf_ratings_old_new, 
-         -resp_option.rec_rating, -resp_option.fam_rating, -resp_option.rfbg_old_new, 
-         -resp_option.rfbg) %>%
-  ##    Recode RF-Ratings responses to better show rec/fam:
-  mutate(response.rec_rating = str_remove_all(response.rec_rating, " ")) %>%
-  mutate(response.rec_rating = str_remove_all(response.rec_rating, "(?<=.{1}).+")) %>%
-  mutate(response.rec_rating = str_c("rec_", response.rec_rating)) %>%
-  mutate(response.fam_rating = str_remove_all(response.fam_rating, " ")) %>%
-  mutate(response.fam_rating = str_remove_all(response.fam_rating, "(?<=.{1}).+")) %>%
-  mutate(response.fam_rating = str_c("fam_", response.fam_rating)) %>%
-  ##    Unite columns of the same response type:
-  unite("recfam_1", response.rfg, response.rfbg, response.rec_rating, remove = TRUE, na.rm = TRUE) %>%
-  mutate(recfam_1 = na_if(recfam_1, "")) %>%
-  rename(recfam_2 = "response.fam_rating")
-##    Merge with 'exp1__image_urls' to get proper item names:
-exp1__image_urls <- exp1__image_urls %>%
-  mutate_all(tolower)
-exp1__full_data <- exp1__full_data %>%
-  merge(., exp1__image_urls, by.x="question", by.y="url") %>%
-  group_by(test_id) %>%
-  select(-question) %>%
-  arrange(test_id, study_list, stim) %>%
-  rename(old_new_rt = "response.rt", resp_option = "resp_option.rt", 
-         belong_to_study_list = "study_list") %>%
-  ##    Remove filler items:
-  filter(!str_detect(belong_to_study_list, 'filler')) %>%
-  ##    Split the 'stim' column up, so item name and stimuli format are seperate:
-  separate(stim, c("item_name", "stim_format")) %>%
-  ##    Count total test responses (should be 120):
-  add_tally(stim_format == "word" | stim_format == "picture", sort = FALSE, name = "test_total_resp") %>%
-  ##    Count total test responses by stim-format (should be 60 each):
-  add_tally(stim_format == "word", sort = FALSE, name = "test_total_word_resp") %>%
-  add_tally(stim_format == "picture", sort = FALSE, name = "test_total_pic_resp") %>%
-  ##    Calculate mean overall reaction time:
-  mutate(old_new_rt = as.double(old_new_rt)) %>%
-  mutate(mean_old_new_rt_total = mean(old_new_rt)) %>%
-  ##    Calculate mean word reaction time (all responses):
-  mutate(mean_test_rt_word = mean(old_new_rt[stim_format == "word"])) %>%
-  ##    Calculate mean pic reaction time (all responses):
-  mutate(mean_test_rt_pic = mean(old_new_rt[stim_format == "picture"]))
-##    Add justifications back in: 
-exp1__full_data <- exp1__full_data %>%
-  merge(., exp1__justifications, by = "test_id") %>%
-  select(test_id, ip, start_date, rec_justification, fam_justification, both_justification,
-         guess_justification, comments, resp_option, item_name, stim_format, belong_to_study_list, 
-         old_new, old_new_rt, recfam_1, recfam_2, test_total_resp, test_total_word_resp, 
-         test_total_pic_resp, mean_old_new_rt_total, mean_test_rt_word, mean_test_rt_pic) %>%
-  mutate_if(is.character, list(~na_if(., ""))) %>%
-  rename( test_start_time = "start_date")
-##    Remove p's with incomplete test data:
-exp1__incomplete_exp1__full_data <- exp1__full_data %>%
-  select(test_id, test_total_resp) %>%
-  distinct(test_id, .keep_all = TRUE) %>%
-  filter(test_total_resp != 120) %>%
-  pull(test_id)
-exp1__full_data <- exp1__full_data %>%
-  filter(!test_id %in% exp1__incomplete_exp1__full_data)
+    exp1__justifications <- exp1__full_data %>%
+      filter(question == "ip" | question == "start_date" | question == "progress" |
+               question == "rec_justification" | question == "fam_justification" |
+               question == "both_justification" | question == "guess_justification" |
+               question == "comments") %>%
+      spread(question, response)
+    
+    ##    Tidy test data:
+    exp1__full_data <- exp1__full_data %>%
+      filter(question != "ip" & question != "start_date" & question != "progress" &
+               question != "rec_justification" & question != "fam_justification" &
+               question != "both_justification" & question != "guess_justification" & 
+               question != "comments") %>%
+      mutate(rfr_resp_type = question) %>%
+      mutate(rfr_resp_type = str_remove(rfr_resp_type, ".*_")) %>%
+      mutate(rfr_resp_type = ifelse(rfr_resp_type == "recollection" | rfr_resp_type == "familiarity",
+                                    rfr_resp_type, "")) %>%
+      mutate(question = str_remove(question,
+                                   "timing_https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
+      mutate(question = str_remove(question,
+                                   "https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
+      mutate(question = str_remove_all(question, "_")) %>%
+      mutate(question_number = question) %>%
+      mutate(question = str_remove(question, "(?<=.{15}).+")) %>%
+      mutate(question_number = str_remove(question_number, "^.{0,15}")) %>%
+      mutate(question = str_trim(question)) %>%
+      mutate(resp_option = case_when(str_detect(question_number, "q3") ~ "rfg",
+                                     str_detect(question_number, "q4") ~ "rfg",
+                                     str_detect(question_number, "q7") ~ "rfbg",
+                                     str_detect(question_number, "q8") ~ "rfbg",
+                                     str_detect(question_number, "q11") ~ "rf_ratings",
+                                     str_detect(question_number, "q12") ~ "rf_ratings",
+                                     str_detect(question_number, "recollection") ~ "rf_ratings",
+                                     str_detect(question_number, "familiarity") ~ "rf_ratings")) %>%
+      fill(resp_option, .direction = "updown") %>%
+      ##    Reshape to put RTs on the same row as responses):
+      mutate(temp_index = as.double(response)) %>%
+      mutate(index = ifelse((is.na(temp_index) & resp_option == "rfg") & 
+                              (response == "old" | response == "new"), 'rfg_old_new','rt')) %>%
+      mutate(index = ifelse((is.na(temp_index) & resp_option == "rfbg") & 
+                              (response == "old" | response == "new"), 'rfbg_old_new', index)) %>%
+      mutate(index = ifelse((is.na(temp_index) & resp_option == "rf_ratings") & 
+                              (response == "old" | response == "new"), 'rf_ratings_old_new', index)) %>%
+      mutate(index = ifelse((is.na(temp_index) & resp_option == "rfg") & 
+                              (response != "old" & response != "new"), 'rfg', index)) %>%
+      mutate(index = ifelse((is.na(temp_index) & resp_option == "rfbg") & 
+                              (response != "old" & response != "new"), 'rfbg', index)) %>%
+      mutate(index = ifelse((is.na(temp_index) & 
+                               resp_option == "rf_ratings" & rfr_resp_type == "recollection") & 
+                              (response != "old" & response != "new"), 'rec_rating', index)) %>%
+      mutate(index = ifelse((is.na(temp_index) & 
+                               resp_option == "rf_ratings" & rfr_resp_type == "familiarity") & 
+                              (response != "old" & response != "new"), 'fam_rating', index)) %>%
+      select(-rfr_resp_type, -temp_index, -question_number) %>%
+      as.data.frame()
+    
+    exp1__full_data <- reshape(exp1__full_data, idvar=c('test_id','question'), timevar='index', direction="wide") %>%
+      as_tibble(exp1__study_data, .name_repair) %>%
+      unite("old_new", response.rfg_old_new, response.rfbg_old_new, 
+            response.rf_ratings_old_new, remove = TRUE, na.rm = TRUE) %>%
+      select(-resp_option.rfg_old_new, -resp_option.rfg, -resp_option.rf_ratings_old_new, 
+             -resp_option.rec_rating, -resp_option.fam_rating, -resp_option.rfbg_old_new, 
+             -resp_option.rfbg) %>%
+      ##    Recode RF-Ratings responses to better show rec/fam:
+      mutate(response.rec_rating = str_remove_all(response.rec_rating, " ")) %>%
+      mutate(response.rec_rating = str_remove_all(response.rec_rating, "(?<=.{1}).+")) %>%
+      mutate(response.rec_rating = str_c("rec_", response.rec_rating)) %>%
+      mutate(response.fam_rating = str_remove_all(response.fam_rating, " ")) %>%
+      mutate(response.fam_rating = str_remove_all(response.fam_rating, "(?<=.{1}).+")) %>%
+      mutate(response.fam_rating = str_c("fam_", response.fam_rating)) %>%
+      ##    Unite columns of the same response type:
+      unite("recfam_1", response.rfg, response.rfbg, response.rec_rating, remove = TRUE, na.rm = TRUE) %>%
+      mutate(recfam_1 = na_if(recfam_1, "")) %>%
+      rename(recfam_2 = "response.fam_rating")
+    ##    Merge with 'exp1__image_urls' to get proper item names:
+    exp1__image_urls <- exp1__image_urls %>%
+      mutate_all(tolower)
+    exp1__full_data <- exp1__full_data %>%
+      merge(., exp1__image_urls, by.x="question", by.y="url") %>%
+      group_by(test_id) %>%
+      select(-question) %>%
+      arrange(test_id, study_list, stim) %>%
+      rename(old_new_rt = "response.rt", resp_option = "resp_option.rt", 
+             belong_to_study_list = "study_list") %>%
+      ##    Remove filler items:
+      filter(!str_detect(belong_to_study_list, 'filler')) %>%
+      ##    Split the 'stim' column up, so item name and stimuli format are seperate:
+      separate(stim, c("item_name", "stim_format")) %>%
+      ##    Count total test responses (should be 120):
+      add_tally(stim_format == "word" | stim_format == "picture", sort = FALSE, name = "test_total_resp") %>%
+      ##    Count total test responses by stim-format (should be 60 each):
+      add_tally(stim_format == "word", sort = FALSE, name = "test_total_word_resp") %>%
+      add_tally(stim_format == "picture", sort = FALSE, name = "test_total_pic_resp") %>%
+      ##    Calculate mean overall reaction time:
+      mutate(old_new_rt = as.double(old_new_rt)) %>%
+      mutate(mean_old_new_rt_total = mean(old_new_rt)) %>%
+      ##    Calculate mean word reaction time (all responses):
+      mutate(mean_test_rt_word = mean(old_new_rt[stim_format == "word"])) %>%
+      ##    Calculate mean pic reaction time (all responses):
+      mutate(mean_test_rt_pic = mean(old_new_rt[stim_format == "picture"]))
+    ##    Add justifications back in: 
+    exp1__full_data <- exp1__full_data %>%
+      merge(., exp1__justifications, by = "test_id") %>%
+      select(test_id, ip, start_date, rec_justification, fam_justification, both_justification,
+             guess_justification, comments, resp_option, item_name, stim_format, belong_to_study_list, 
+             old_new, old_new_rt, recfam_1, recfam_2, test_total_resp, test_total_word_resp, 
+             test_total_pic_resp, mean_old_new_rt_total, mean_test_rt_word, mean_test_rt_pic) %>%
+      mutate_if(is.character, list(~na_if(., ""))) %>%
+      rename( test_start_time = "start_date")
+    ##    Remove p's with incomplete test data:
+    exp1__incomplete_exp1__full_data <- exp1__full_data %>%
+      select(test_id, test_total_resp) %>%
+      distinct(test_id, .keep_all = TRUE) %>%
+      filter(test_total_resp != 120) %>%
+      pull(test_id)
+    exp1__full_data <- exp1__full_data %>%
+      filter(!test_id %in% exp1__incomplete_exp1__full_data)
 ################################################################################################################
 ##    Match study across seperate study and test files:                                                       ##
 ################################################################################################################
@@ -1474,8 +1472,7 @@ Note: should we have a performance cut off? Some people have very low performanc
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering("exp1__hit_and_FA_caption", "Mean proportion of hits and FAs 
-                    by stimuli-format and response-option condition.", 
-                    display = FALSE)
+                    by stimuli-format and response-option condition.", display = FALSE)
 ```
 
 ## Overall hits, false alarms (FAs), and recognition
@@ -1493,87 +1490,106 @@ Separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG
 
 
 ```{r, echo=FALSE, cache=TRUE}
-##  Total hits:
-    exp1__apa_anova_prop_hit <-
-      papaja:::apa_print.afex_aov(exp1__anova_prop_hit)
+##    Total hits:
+      exp1__apa_anova_prop_hit <-
+          papaja:::apa_print.afex_aov(exp1__anova_prop_hit)
     
-##  Main effects:
-    exp1__apa_anova_prop_hit$full$StimuliFormat <- exp1__apa_anova_prop_hit$full$StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_hit$full$ResponseOption <- exp1__apa_anova_prop_hit$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Main effects:
+      exp1__apa_anova_prop_hit$full$StimuliFormat <- exp1__apa_anova_prop_hit$full$StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_hit$full$ResponseOption <- exp1__apa_anova_prop_hit$full$ResponseOption %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat <- 
+          exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 
-##  Pairwise (stim-format):
-    exp1__apa_anova_prop_hit_stim_format_mmeans <- 
-      papaja:::apa_print.emmGrid(exp1__anova_prop_hit_stim_format_mmeans)
-    exp1__pics_prop_hit_mean <- exp1__apa_anova_prop_hit_stim_format_mmeans$estimate$Pictures %>% str_remove("\\,.*")
-    exp1__words_prop_hit_mean <- exp1__apa_anova_prop_hit_stim_format_mmeans$estimate$Words %>% str_remove("\\,.*")
-    exp1__apa_anova_prop_hit_stim_format_pairwise <- papaja:::apa_print.emmGrid(exp1__anova_prop_hit_stim_format_pairwise)
-    exp1__pics_words_hit_ttest <- exp1__apa_anova_prop_hit_stim_format_pairwise$full %>% str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+##    Pairwise (stim-format):
+      exp1__apa_anova_prop_hit_stim_format_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_stim_format_mmeans)
+      exp1__pics_prop_hit_mean <- exp1__apa_anova_prop_hit_stim_format_mmeans$estimate$Pictures %>%
+          str_remove("\\,.*")
+      exp1__words_prop_hit_mean <- exp1__apa_anova_prop_hit_stim_format_mmeans$estimate$Words %>%
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_hit_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_stim_format_pairwise)
+      exp1__pics_words_hit_ttest <- exp1__apa_anova_prop_hit_stim_format_pairwise$full %>%
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 
-##  Pairwise (resp-option):
-    exp1__apa_anova_prop_hit_resp_option_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_mmeans)
-    exp1__rfg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
-    exp1__rfbg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
-    exp1__rfratings_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RF_Ratings %>% str_remove("\\,.*")
-    exp1__apa_anova_prop_hit_resp_option_pairwise <- papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_pairwise)
-    exp1__rfg_rfr_hit_ttest <- exp1__apa_anova_prop_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
-      str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+##    Pairwise (resp-option):
+      exp1__apa_anova_prop_hit_resp_option_mmeans <-
+          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_mmeans)
+        exp1__rfg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFG %>%
+            str_remove("\\,.*")
+        exp1__rfbg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFBG %>%
+            str_remove("\\,.*")
+        exp1__rfratings_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RF_Ratings %>%
+            str_remove("\\,.*")
+        exp1__apa_anova_prop_hit_resp_option_pairwise <- 
+            papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_pairwise)
+        exp1__rfg_rfr_hit_ttest <- exp1__apa_anova_prop_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
+            str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 ```
-
-
 &nbsp;
 
 In the ANOVA on the proportion of hits, there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_hit$full$StimuliFormat`;  pictures (`r exp1__pics_prop_hit_mean`) produced a higher number of hits than words (`r exp1__words_prop_hit_mean`), `r exp1__pics_words_hit_ttest`, supporting the notion that stimuli-format plays a role in item recognition. There was also a significant main effect of response-option condition, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits compared to the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`, suggesting fewer available response-options may facilitate accurate recognition. There were no significant interaction effects, `r exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix A - ANOVA Prop hits][].
 
 \newpage
 ```{r, echo=FALSE, cache=TRUE}
-##  Total FAs:
-    exp1__apa_anova_prop_FA <- papaja:::apa_print.afex_aov(exp1__anova_prop_FA)
-##  Main effects:
-    exp1__apa_anova_prop_FA$full$StimuliFormat <- exp1__apa_anova_prop_FA$full$StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_FA$full$ResponseOption <- exp1__apa_anova_prop_FA$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-##  Pairwise (stim-format):
-    exp1__apa_anova_prop_FA_stim_format_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_mmeans)
-    exp1__pics_prop_FA_mean <- exp1__apa_anova_prop_FA_stim_format_mmeans$estimate$Pictures %>% str_remove("\\,.*")
-    exp1__words_prop_FA_mean <- exp1__apa_anova_prop_FA_stim_format_mmeans$estimate$Words %>% str_remove("\\,.*")
-    exp1__apa_anova_prop_FA_stim_format_pairwise <- papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_pairwise)
-    exp1__pics_words_FA_ttest <- exp1__apa_anova_prop_FA_stim_format_pairwise$full %>% str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+##    Total FAs:
+      exp1__apa_anova_prop_FA <- papaja:::apa_print.afex_aov(exp1__anova_prop_FA)
+##    Main effects:
+      exp1__apa_anova_prop_FA$full$StimuliFormat <- exp1__apa_anova_prop_FA$full$StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_FA$full$ResponseOption <- exp1__apa_anova_prop_FA$full$ResponseOption %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat <- 
+          exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Pairwise (stim-format):
+      exp1__apa_anova_prop_FA_stim_format_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_mmeans)
+      exp1__pics_prop_FA_mean <- exp1__apa_anova_prop_FA_stim_format_mmeans$estimate$Pictures %>% 
+          str_remove("\\,.*")
+      exp1__words_prop_FA_mean <- exp1__apa_anova_prop_FA_stim_format_mmeans$estimate$Words %>% 
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_FA_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_pairwise)
+      exp1__pics_words_FA_ttest <- exp1__apa_anova_prop_FA_stim_format_pairwise$full %>% 
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 ```
 
 The ANOVA on the proportion of FAs also highlights the role of stimuli-format on the memorability of items, with a significant main effect of stimuli-format `r exp1__apa_anova_prop_FA$full$StimuliFormat` showing words (`r exp1__words_prop_FA_mean`) produced more FAs than pictures (`r exp1__pics_prop_FA_mean`), `r exp1__pics_words_FA_ttest`. There was no significant main effect of response-option condition, `r exp1__apa_anova_prop_FA$full$ResponseOption`, or significant interaction, `r exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix B - ANOVA Prop FAs][].
 
 ```{r, echo=FALSE, cache=TRUE}
-##  Recog:
-    exp1__apa_anova_prop_recog <- papaja:::apa_print.afex_aov(exp1__anova_prop_recog)
-##  Main effects:
-    exp1__apa_anova_prop_recog$full$StimuliFormat <- exp1__apa_anova_prop_recog$full$StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_recog$full$ResponseOption <- exp1__apa_anova_prop_recog$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Recog:
+      exp1__apa_anova_prop_recog <- papaja:::apa_print.afex_aov(exp1__anova_prop_recog)
+##    Main effects:
+      exp1__apa_anova_prop_recog$full$StimuliFormat <- exp1__apa_anova_prop_recog$full$StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_recog$full$ResponseOption <- exp1__apa_anova_prop_recog$full$ResponseOption %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat <- 
+          exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 
-##  Pairwise (stim-format):
-    exp1__apa_anova_prop_recog_stim_format_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_mmeans)
-    exp1__pics_prop_recog_mean <- exp1__apa_anova_prop_recog_stim_format_mmeans$estimate$Pictures %>% str_remove("\\,.*")
-    exp1__words_prop_recog_mean <- exp1__apa_anova_prop_recog_stim_format_mmeans$estimate$Words %>% str_remove("\\,.*")
-    exp1__apa_anova_prop_recog_stim_format_pairwise <- papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_pairwise)
-    exp1__pics_words_recog_ttest <- exp1__apa_anova_prop_recog_stim_format_pairwise$full %>% str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+##    Pairwise (stim-format):
+      exp1__apa_anova_prop_recog_stim_format_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_mmeans)
+      exp1__pics_prop_recog_mean <- exp1__apa_anova_prop_recog_stim_format_mmeans$estimate$Pictures %>% 
+          str_remove("\\,.*")
+      exp1__words_prop_recog_mean <- exp1__apa_anova_prop_recog_stim_format_mmeans$estimate$Words %>% 
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_recog_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_pairwise)
+      exp1__pics_words_recog_ttest <- exp1__apa_anova_prop_recog_stim_format_pairwise$full %>% 
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 ```
 
 A similar pattern was again reflected in the ANOVA on overall performance accuracy; a significant main effect of stimuli-format `r exp1__apa_anova_prop_recog$full$StimuliFormat` revealed that pictures (`r exp1__pics_prop_recog_mean`) showed an increased overall task performance accuracy  compared with words (`r exp1__words_prop_recog_mean`), `r exp1__pics_words_recog_ttest`. There was no significant main effect of response-option condition, `r exp1__apa_anova_prop_recog$full$ResponseOption`, or significant interaction, `r exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix C - ANOVA Overall recognition][].
 
-
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
-    table_numbering("exp1__dprime_and_c_caption", "Mean d' and c scores by 
-                    stimuli-format and response-option condition.", display = FALSE)
+      table_numbering("exp1__dprime_and_c_caption", "Mean d' and c scores by 
+                      stimuli-format and response-option condition.", display = FALSE)
 ```
 
 ## Discrimination (d') and response bias (c)
@@ -1581,55 +1597,65 @@ To assess the roles of discrimination and response bias, separate 2 (stimuli for
 
 `r table_numbering("dprime_and_c_caption")`
 ```{r, echo=FALSE, cache=TRUE}
-    exp1__table_dprime_and_c %>%
-      kable("latex", booktabs = T) %>%
-        kable_styling(latex_options = "hold_position") %>%
-        pack_rows("Stimuli-format", 1, 2) %>%
-        pack_rows("Response-option", 3, 5) %>%
-        column_spec(1, width = "4cm")
+      exp1__table_dprime_and_c %>%
+          kable("latex", booktabs = T) %>%
+          kable_styling(latex_options = "hold_position") %>%
+          pack_rows("Stimuli-format", 1, 2) %>%
+          pack_rows("Response-option", 3, 5) %>%
+          column_spec(1, width = "4cm")
 ```
 
-
 ```{r, echo=FALSE, cache=TRUE}
-##  d':
-    exp1__apa_anova_prop_dprime <- papaja:::apa_print.afex_aov(exp1__anova_prop_dprime)
+##    d':
+      exp1__apa_anova_prop_dprime <- papaja:::apa_print.afex_aov(exp1__anova_prop_dprime)
 
-##  Main effects:
-    exp1__apa_anova_prop_dprime$full$StimuliFormat <- exp1__apa_anova_prop_dprime$full$StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_dprime$full$ResponseOption <- exp1__apa_anova_prop_dprime$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Main effects:
+      exp1__apa_anova_prop_dprime$full$StimuliFormat <- exp1__apa_anova_prop_dprime$full$StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_dprime$full$ResponseOption <- exp1__apa_anova_prop_dprime$full$ResponseOption %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat <- 
+          exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 
-##  Pairwise (stim-format):
-    exp1__apa_anova_prop_dprime_stim_format_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_mmeans)
-    exp1__pics_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_mmeans$estimate$Pictures %>% str_remove("\\,.*")
-    exp1__words_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_mmeans$estimate$Words %>% str_remove("\\,.*")
-    exp1__apa_anova_prop_dprime_stim_format_pairwise <- papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_pairwise)
-    exp1__pics_words_dprime_ttest <- exp1__apa_anova_prop_dprime_stim_format_pairwise$full %>% str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+##    Pairwise (stim-format):
+      exp1__apa_anova_prop_dprime_stim_format_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_mmeans)
+      exp1__pics_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_mmeans$estimate$Pictures %>% 
+          str_remove("\\,.*")
+      exp1__words_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_mmeans$estimate$Words %>% 
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_dprime_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_pairwise)
+      exp1__pics_words_dprime_ttest <- exp1__apa_anova_prop_dprime_stim_format_pairwise$full %>% 
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 ```
 
 The ANOVA on d' scores was consistent with the hits, FAs, and overall recognition findings; there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_dprime$full$StimuliFormat` showing pictures (`r exp1__pics_prop_dprime_mean`) facilitated better discrimination between hits and FAs than words (`r exp1__words_prop_dprime_mean`), `r exp1__pics_words_dprime_ttest`. There was again no significant main effect of response-option condition, `r exp1__apa_anova_prop_dprime$full$ResponseOption`, or significant interaction, `r exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix D - ANOVA d' (discrimination)][].
 
 ```{r, echo=FALSE, cache=TRUE}
-##  d':
-    exp1__apa_anova_prop_c <- papaja:::apa_print.afex_aov(exp1__anova_prop_c)
+##    d':
+      exp1__apa_anova_prop_c <- papaja:::apa_print.afex_aov(exp1__anova_prop_c)
 
-##  Main effects:
-    exp1__apa_anova_prop_c$full$StimuliFormat <- exp1__apa_anova_prop_c$full$StimuliFormat %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_c$full$ResponseOption <- exp1__apa_anova_prop_c$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Main effects:
+      exp1__apa_anova_prop_c$full$StimuliFormat <- exp1__apa_anova_prop_c$full$StimuliFormat %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_c$full$ResponseOption <- exp1__apa_anova_prop_c$full$ResponseOption %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat <- 
+          exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
   
-##  Pairwise (resp-option):
-    exp1__apa_anova_prop_c_resp_option_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_mmeans)
-    exp1__rfg_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
-    exp1__rfbg_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
-    exp1__rfr_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RF_Ratings %>% str_remove("\\,.*")
-    exp1__apa_anova_prop_c_resp_option_pairwise <- papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_pairwise)
-    exp1__rfg_rfr_c_ttest <- exp1__apa_anova_prop_c_resp_option_pairwise$full$RFG_RF_Ratings %>% str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+##    Pairwise (resp-option):
+      exp1__apa_anova_prop_c_resp_option_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_mmeans)
+      exp1__rfg_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
+      exp1__rfbg_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
+      exp1__rfr_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RF_Ratings %>% str_remove("\\,.*")
+      exp1__apa_anova_prop_c_resp_option_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_pairwise)
+      exp1__rfg_rfr_c_ttest <- exp1__apa_anova_prop_c_resp_option_pairwise$full$RFG_RF_Ratings %>% 
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 ```
 
 In the ANOVA on c-scores, there was no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, indicating response bias was unaffected regardless of whether participants were responding to words or pictures. There was, however, a significant main effect of response-option condition, `r exp1__apa_anova_prop_c$full$ResponseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative response bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`, suggesting participants were less likely to respond "Old" when they were required to provide more detailed follow-up recognition judgments (Recollection: 0-5 / Familiarity: 0-5), compared to simply selecting one of three options (R,F, or G). There were no significant interaction effects, `r exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix E - ANOVA c (bias)][].
@@ -1637,51 +1663,61 @@ In the ANOVA on c-scores, there was no significant main effect of stimuli-format
 ## Hits assigned Recollection, Familiarity, and Guessing
 To determine the effects of stimuli-format and response-option on accurate recognition memory judgments, separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgments, RFBG-judgments, RF-ratings) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp1__prop_hit_caption", display = "cite")`). 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
-    figure_numbering("exp1__prop_hit_caption", "Proportion of hits assigned 
-                     Recollection, Familiarity, and Guessing, by stimuli-format and 
-                     response-option condition.", display = FALSE)
+      figure_numbering("exp1__prop_hit_caption", "Proportion of hits assigned 
+                       Recollection, Familiarity, and Guessing, by stimuli-format and 
+                       response-option condition.", display = FALSE)
 ```
 
 ```{r fig.width=7, fig.height=5.5, echo=FALSE}
-    exp1__hit_figure
+      exp1__hit_figure
 ```
 `r figure_numbering("exp1__prop_hit_caption")`
 
 ### Recollection
 
 ```{r, echo=FALSE, cache=TRUE}
-##  Recollection hits:
-    exp1__apa_anova_prop_rec_hit <- papaja:::apa_print.afex_aov(exp1__anova_prop_rec_hit)
+##    Recollection hits:
+      exp1__apa_anova_prop_rec_hit <- papaja:::apa_print.afex_aov(exp1__anova_prop_rec_hit)
 
-##  Main effects:
-    exp1__apa_anova_prop_rec_hit$full$StimuliFormat <- exp1__apa_anova_prop_rec_hit$full$StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_rec_hit$full$ResponseOption <- exp1__apa_anova_prop_rec_hit$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat <-
-      exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Main effects:
+      exp1__apa_anova_prop_rec_hit$full$StimuliFormat <- exp1__apa_anova_prop_rec_hit$full$StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_rec_hit$full$ResponseOption <- exp1__apa_anova_prop_rec_hit$full$ResponseOption %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat <-
+          exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 
-##  Pairwise (stim-format):
-    exp1__apa_anova_prop_rec_hit_stim_format_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_stim_format_mmeans)
-    exp1__pics_prop_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_stim_format_mmeans$estimate$Pictures %>% str_remove("\\,.*")
-    exp1__words_prop_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_stim_format_mmeans$estimate$Words %>% str_remove("\\,.*")
-    exp1__apa_anova_prop_rec_hit_stim_format_pairwise <- papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_stim_format_pairwise)
-    exp1__pics_words_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_stim_format_pairwise$full %>% str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+##    Pairwise (stim-format):
+      exp1__apa_anova_prop_rec_hit_stim_format_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_stim_format_mmeans)
+      exp1__pics_prop_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_stim_format_mmeans$estimate$Pictures %>% 
+          str_remove("\\,.*")
+      exp1__words_prop_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_stim_format_mmeans$estimate$Words %>% 
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_rec_hit_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_stim_format_pairwise)
+      exp1__pics_words_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_stim_format_pairwise$full %>% 
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 
-##  Pairwise (resp-option):
-    exp1__apa_anova_prop_rec_hit_resp_option_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_resp_option_mmeans)
-    exp1__rfg_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
-    exp1__rfbg_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
-    exp1__rfr_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_mmeans$estimate$RF_Ratings %>% str_remove("\\,.*")
-    exp1__apa_anova_prop_rec_hit_resp_option_pairwise <- papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_resp_option_pairwise)
+##    Pairwise (resp-option):
+      exp1__apa_anova_prop_rec_hit_resp_option_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_resp_option_mmeans)
+      exp1__rfg_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_mmeans$estimate$RFG %>% 
+          str_remove("\\,.*")
+      exp1__rfbg_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_mmeans$estimate$RFBG %>% 
+          str_remove("\\,.*")
+      exp1__rfr_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_mmeans$estimate$RF_Ratings %>% 
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_rec_hit_resp_option_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_resp_option_pairwise)
 
-    exp1__rfg_rfbg_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_resp_option_pairwise$full$RFG_RFBG %>%
-      str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-    exp1__rfg_rfr_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
-      str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")  
-    exp1__rfbg_rfr_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_resp_option_pairwise$full$RFBG_RF_Ratings %>%
-      str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")  
+      exp1__rfg_rfbg_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_resp_option_pairwise$full$RFG_RFBG %>%
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+      exp1__rfg_rfr_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")  
+      exp1__rfbg_rfr_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_resp_option_pairwise$full$RFBG_RF_Ratings %>%
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")  
 ```
 
 The ANOVA on Recollected hits revealed a significant main effect of stimuli-format, `r exp1__apa_anova_prop_rec_hit$full$StimuliFormat`, with pictures (`r exp1__pics_prop_rec_hit_mean`) showing a higher proportion of Recollected hits than words (`r exp1__words_prop_rec_hit_mean`), `r exp1__pics_words_rec_hit_ttest` - consistent with the previous findings to suggest an enhanced memorability in pictures compared to words. There was also a significant main effect of response-option, `r exp1__apa_anova_prop_rec_hit$full$ResponseOption`; the RF-Ratings group (`r exp1__rfr_rec_hit_mean`) showed significantly more Recollected hits compared to both the RFG-group (`r exp1__rfg_rec_hit_mean`), `r exp1__rfg_rfr_rec_hit_ttest`, and the RFBG-group (`r exp1__rfbg_rec_hit_mean`), `r exp1__rfbg_rfr_rec_hit_ttest`. There were no significant interaction effects, `r exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix F - ANOVA Rec hits][].
@@ -1689,50 +1725,70 @@ The ANOVA on Recollected hits revealed a significant main effect of stimuli-form
 ### Familiarity
 
 ```{r, echo=FALSE, cache=TRUE}
-##  Familiarity hits:
-    exp1__apa_anova_prop_fam_hit <- papaja:::apa_print.afex_aov(exp1__anova_prop_fam_hit)
-##  Main effects:
-    exp1__apa_anova_prop_fam_hit$full$StimuliFormat <- exp1__apa_anova_prop_fam_hit$full$StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_fam_hit$full$ResponseOption <- exp1__apa_anova_prop_fam_hit$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Familiarity hits:
+      exp1__apa_anova_prop_fam_hit <- papaja:::apa_print.afex_aov(exp1__anova_prop_fam_hit)
+##    Main effects:
+      exp1__apa_anova_prop_fam_hit$full$StimuliFormat <- exp1__apa_anova_prop_fam_hit$full$StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_fam_hit$full$ResponseOption <- exp1__apa_anova_prop_fam_hit$full$ResponseOption %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat <- 
+          exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
 
-##  Pairwise (stim-format):
-    exp1__apa_anova_prop_fam_hit_stim_format_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_stim_format_mmeans)
-    exp1__pics_prop_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_stim_format_mmeans$estimate$Pictures %>% str_remove("\\,.*")
-    exp1__words_prop_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_stim_format_mmeans$estimate$Words %>% str_remove("\\,.*")
-    exp1__apa_anova_prop_fam_hit_stim_format_pairwise <- papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_stim_format_pairwise)
-    exp1__pics_words_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_stim_format_pairwise$full %>% str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+##    Pairwise (stim-format):
+      exp1__apa_anova_prop_fam_hit_stim_format_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_stim_format_mmeans)
+      exp1__pics_prop_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_stim_format_mmeans$estimate$Pictures %>% 
+          str_remove("\\,.*")
+      exp1__words_prop_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_stim_format_mmeans$estimate$Words %>% 
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_fam_hit_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_stim_format_pairwise)
+      exp1__pics_words_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_stim_format_pairwise$full %>% 
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 
-##  Pairwise (resp-option):
-    exp1__apa_anova_prop_fam_hit_resp_option_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_resp_option_mmeans)
-    exp1__rfg_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
-    exp1__rfbg_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
-    exp1__rfr_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_mmeans$estimate$RF_Ratings %>% str_remove("\\,.*")
-    exp1__apa_anova_prop_fam_hit_resp_option_pairwise <- papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_resp_option_pairwise)
+##    Pairwise (resp-option):
+      exp1__apa_anova_prop_fam_hit_resp_option_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_resp_option_mmeans)
+      exp1__rfg_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_mmeans$estimate$RFG %>% 
+          str_remove("\\,.*")
+      exp1__rfbg_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_mmeans$estimate$RFBG %>% 
+          str_remove("\\,.*")
+      exp1__rfr_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_mmeans$estimate$RF_Ratings %>% 
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_fam_hit_resp_option_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_resp_option_pairwise)
   
-    exp1__rfg_rfbg_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_resp_option_pairwise$full$RFG_RFBG %>%
-      str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-    exp1__rfg_rfr_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
-      str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-    exp1__rfbg_rfr_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_resp_option_pairwise$full$RFBG_RF_Ratings %>%
-      str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")  
+      exp1__rfg_rfbg_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_resp_option_pairwise$full$RFG_RFBG %>%
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+      exp1__rfg_rfr_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+      exp1__rfbg_rfr_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_resp_option_pairwise$full$RFBG_RF_Ratings %>%
+          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")  
   
-##  Pairwise (interaction):
-    exp1__apa_anova_prop_fam_hit_interaction_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_mmeans)
-    exp1__rfg_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFG_Words %>% str_remove("\\,.*")
-    exp1__rfg_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFG_Pictures %>% str_remove("\\,.*")
-    exp1__rfbg_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFBG_Words %>% str_remove("\\,.*")
-    exp1__rfbg_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFBG_Pictures %>% str_remove("\\,.*")
-   exp1__rfr_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RF_Ratings_Words %>% str_remove("\\,.*")
-    exp1__rfr_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RF_Ratings_Pictures %>% str_remove("\\,.*")
+##    Pairwise (interaction):
+      exp1__apa_anova_prop_fam_hit_interaction_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_mmeans)
+      exp1__rfg_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFG_Words %>% 
+          str_remove("\\,.*")
+      exp1__rfg_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFG_Pictures %>% 
+          str_remove("\\,.*")
+      exp1__rfbg_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFBG_Words %>% 
+          str_remove("\\,.*")
+      exp1__rfbg_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFBG_Pictures %>% 
+          str_remove("\\,.*")
+      exp1__rfr_words_fam_hit_mean <- 
+          exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RF_Ratings_Words %>% 
+          str_remove("\\,.*")
+      exp1__rfr_pics_fam_hit_mean <- 
+          exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RF_Ratings_Pictures %>% 
+          str_remove("\\,.*")
   
-    exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat <-
-      papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_pairwise_stimformat)
-    exp1__apa_anova_prop_fam_hit_interaction_pairwise_respoption <-
-      papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_pairwise_respoption)
+      exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat <-
+          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_pairwise_stimformat)
+      exp1__apa_anova_prop_fam_hit_interaction_pairwise_respoption <-
+          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_pairwise_respoption)
 ```
 
 In the ANOVA on Familiarity hits, there was again a significant main effect of stimuli-format, `r exp1__apa_anova_prop_fam_hit$full$StimuliFormat`;  words (`r exp1__words_prop_fam_hit_mean`) resulted in a higher proportion of familiarity hits than pictures (`r exp1__pics_prop_fam_hit_mean`), `r exp1__pics_words_fam_hit_ttest`, indicating that - when correctly recognised - words were not recognised in the the same context-rich nature as pictures. There was also a significant main effect of response-option, `r exp1__apa_anova_prop_fam_hit$full$ResponseOption`, with the RF-ratings group (`r exp1__rfr_fam_hit_mean`) showing more Familiarity hits than both the RFG-group (`r exp1__rfg_fam_hit_mean`), `r exp1__rfg_rfr_fam_hit_ttest`, and the RFBG-group (`r exp1__rfbg_fam_hit_mean`), `r exp1__rfbg_rfr_fam_hit_ttest`. The RFBG-group (`r exp1__rfbg_fam_hit_mean`) also showed significantly more Familiarity hits compared with the RFG-group (`r exp1__rfg_fam_hit_mean`), `r exp1__rfg_rfbg_fam_hit_ttest`
