@@ -5719,7 +5719,7 @@ Across a range of performance variables, the results show a clear effect of stim
 
 
 
-# Chapter 5 (Addition of colour)
+# Chapter 5 (Distinctive words)
 ## Method
 All stimuli were presented as 500x500px image files at their actual size (i.e. without scaling) to ensure consistency across participants. Adobe Photoshop 2021 (22.0.0 Release) was used to create the image files, all on a plain white canvas. The Rossion and Pourtois (2004) line-drawings were sourced directly from the authors, and were trimmed of any preexisting background before being resized to fit the 500x500px canvas (for some items this was determined by a maximum width of 500px, whilst for others it was determined by a maximum height of 500px). 
 
@@ -5728,6 +5728,1380 @@ were created in
 Roboto (light, 54pt)
 
 
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Participant info:                                                                                        ##
+#################################################################################################################
+##    Import demographics, RFG justifications, and RFBG justifications:
+      exp5__p_info_files <- c(
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_questionnaire-z6yh.csv", # Demog (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_questionnaire-z6yh.csv", # Demog (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_questionnaire-z6yh.csv", # Demog (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_questionnaire-z6yh.csv", # Demog (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_questionnaire-z6yh.csv", # Demog (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_questionnaire-z6yh.csv",  # Demog (v2)
+        
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_questionnaire-h32i.csv", # RFG just (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_questionnaire-h32i.csv", # RFG just (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_questionnaire-h32i.csv", # RFG just (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_questionnaire-h32i.csv", # RFG just (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_questionnaire-h32i.csv", # RFG just (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_questionnaire-h32i.csv")  # RFG just (v2)
+
+##    Create raw df from the above files, but only get the following columns:
+      exp5__participant_info <- map_dfr(exp5__p_info_files,~read_csv(.x, col_types = cols_only(
+          "Participant Private ID"='c', "Participant Public ID"='c', "UTC Date"='c', "Participant OS"='c',
+          "Participant Browser"='c', "Participant Monitor Size"='c', "branch-ebg9"='c', "randomiser-6j1g"='c',
+          "randomiser-rj7w"='c', "randomiser-enay"='c', "randomiser-gw7n"='c', "randomiser-uc11"='c',
+          "randomiser-hpp5"='c', "Question Key"='c', "Response"='c'))) %>%
+##    Merge columns that contain the same type of data, but were originally split into different columns:
+          unite(study_list, "randomiser-6j1g", "randomiser-rj7w", "randomiser-enay", "randomiser-gw7n",
+                "randomiser-uc11", "randomiser-hpp5", remove = TRUE, na.rm = TRUE) %>%
+##    Rename some columns:    
+          rename(id = "Participant Private ID", prolific_id = "Participant Public ID", date = "UTC Date", 
+                 system = "Participant OS", browser = "Participant Browser", 
+                 monitor = "Participant Monitor Size", test_list = "branch-ebg9", question = "Question Key",
+                 response = "Response") %>%   
+##    Reorder columns:    
+          select(id, prolific_id, date, system, browser, monitor, study_list, test_list, question,
+                 response) %>%
+##    Set participant ID as the grouping variable, and arrange data by participant ID:
+          group_by(id) %>%
+          arrange(id) %>%
+##    Remove empty / unimportant rows:
+          drop_na(id) %>%
+          filter(question != "BEGIN QUESTIONNAIRE") %>%    
+          filter(question != "END QUESTIONNAIRE") %>%
+##    Reformat from long to wide:
+          spread(key = question, value = response) %>%
+##    Remove unimportant columns:    
+          select(-"age-quantised", -"attention_check-quantised", -"EngFirstLang-quantised",
+                 -"ethnicity-quantised", -"ethnicity2-quantised", -"ethnicity3-quantised",
+                 -"mem_skills_1-quantised", -"mem_skills_2-quantised", -"response-6-quantised",
+                 -"response-9-quantised") %>%
+##    Merge multiple rows into one (per participant):
+          summarise_all(coalesce_by_column) %>%
+##    Rename more columns:
+          rename(white = "ethnicity", mixed = "ethnicity2", asian = "ethnicity3", 
+                 eng_first_lang = "EngFirstLang", mixed_other = "response-4", asian_other = "response-15",
+                 black = "response-6", black_other = "response-7", other_ethnic = "response-9",
+                 other_ethnic_specified = "response-4") %>%
+##    Reorder columns again:   
+          select(id, prolific_id, date, system, browser, monitor, study_list, test_list, age, gender, 
+                 eng_first_lang, white, white_other, mixed, mixed_other, asian, asian_other, black, 
+                 black_other, other_ethnic, other_ethnic_specified, rec_justification, fam_justification,
+                 guess_justification, mem_skills_1, mem_skills_2, attention_check) %>% 
+##    Recode attention check to show pass or fail:
+          mutate(attention_check = str_replace(attention_check, "a lot better", "pass")) %>%
+          mutate(attention_check = str_replace_all(attention_check, c("a lot worse" = "fail", 
+                                                                      "a little worse" = "fail", 
+                                                                      "the same" = "fail", 
+                                                                      "a little better" = "fail"))) %>%
+##    Tidy up responses for clarity:
+          mutate_all(., tolower) %>%
+          mutate(system = str_remove_all(system, "\\ .+")) %>%
+          mutate(browser = str_remove_all(browser, "\\ .+")) %>%
+          mutate(mixed = str_remove_all(mixed, "\\ .+")) %>%
+          mutate(asian = str_remove_all(asian, "\\ .+")) %>%
+          mutate(black = str_remove_all(black, "\\ .+")) %>%
+          mutate(gender = str_replace(gender, "^f$", "female")) %>%
+          mutate(gender = str_replace(gender, "femle", "female")) %>%
+          mutate(gender = str_replace(gender, "femal", "female")) %>%
+          mutate(gender = str_replace(gender, "femalee", "female")) %>%
+          mutate(gender = str_replace(gender, "woman", "female")) %>%
+          mutate(gender = str_replace(gender, "^m$", "male")) %>%
+          mutate(gender = str_replace(gender, "malw", "male")) %>%
+          mutate(gender = str_replace(gender, "mle", "male")) %>%
+          mutate(gender = str_replace(gender, "^[0-9]*$", "unspecified")) %>%
+          mutate(gender = replace_na(gender, "unspecified")) %>%
+          arrange(study_list, test_list)
+    
+##    Calculate how many items P got correct during study:
+##    Import study data:
+      exp5__study_files <- c(
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-4uo8.csv",  # Study Red A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-4uo8.csv", # Study Red A (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-4uo8.csv", # Study Red A (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-4uo8.csv", # Study Red A (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-4uo8.csv", # Study Red A (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-4uo8.csv", # Study Red A (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-j366.csv",  # Study Red B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-j366.csv", # Study Red B (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-j366.csv", # Study Red B (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-j366.csv", # Study Red B (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-j366.csv", # Study Red B (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-j366.csv", # Study Red B (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-25hn.csv",  # Study Green A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-25hn.csv", # Study Green A (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-25hn.csv", # Study Green A (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-25hn.csv", # Study Green A (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-25hn.csv", # Study Green A (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-25hn.csv", # Study Green A (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-qamv.csv",  # Study Green B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-qamv.csv", # Study Green B (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-qamv.csv", # Study Green B (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-qamv.csv", # Study Green B (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-qamv.csv", # Study Green B (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-qamv.csv", # Study Green B (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-wynt.csv",  # Study Blue A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-wynt.csv", # Study Blue A (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-wynt.csv", # Study Blue A (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-wynt.csv", # Study Blue A (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-wynt.csv", # Study Blue A (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-wynt.csv", # Study Blue A (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-x6zh.csv",  # Study Blue B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-x6zh.csv", # Study Blue B (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-x6zh.csv", # Study Blue B (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-x6zh.csv", # Study Blue B (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-x6zh.csv", # Study Blue B (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-x6zh.csv", # Study Blue B (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-peds.csv",  # Study Purple A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-peds.csv", # Study Purple A (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-peds.csv", # Study Purple A (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-peds.csv", # Study Purple A (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-peds.csv", # Study Purple A (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-peds.csv", # Study Purple A (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-tk6j.csv",  # Study Purple B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-tk6j.csv", # Study Purple B (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-tk6j.csv", # Study Purple B (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-tk6j.csv", # Study Purple B (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-tk6j.csv", # Study Purple B (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-tk6j.csv", # Study Purple B (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-u4ig.csv",  # Study Orange A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-u4ig.csv", # Study Orange A (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-u4ig.csv", # Study Orange A (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-u4ig.csv", # Study Orange A (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-u4ig.csv", # Study Orange A (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-u4ig.csv", # Study Orange A (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-d4d8.csv",  # Study Orange B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-d4d8.csv", # Study Orange B (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-d4d8.csv", # Study Orange B (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-d4d8.csv", # Study Orange B (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-d4d8.csv", # Study Orange B (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-d4d8.csv", # Study Orange B (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-t98p.csv",  # Study Yellow A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-t98p.csv", # Study Yellow A (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-t98p.csv", # Study Yellow A (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-t98p.csv", # Study Yellow A (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-t98p.csv", # Study Yellow A (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-t98p.csv", # Study Yellow A (v16)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-u43z.csv",  # Study Yellow B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-u43z.csv", # Study Yellow B (v11)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-u43z.csv", # Study Yellow B (v12)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-u43z.csv", # Study Yellow B (v14)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-u43z.csv", # Study Yellow B (v15)
+        "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-u43z.csv") # Study Yellow B (v16)
+
+##    Create raw df from the above files, but only get the following columns:
+      exp5__study_data <- map_dfr(exp5__study_files,~read_csv(.x, col_types = cols_only(
+        "Participant Private ID" = 'c', "Participant Public ID"='c', "Screen Name" = 'c', "stim" = 'c',
+        "correct_answer" = 'c', "Response" = 'c',"Reaction Time" = col_double()))) %>%
+##    Rename some columns:
+          rename(id = "Participant Private ID", prolific_id = "Participant Public ID", screen = "Screen Name",
+                 rt = "Reaction Time", response = "Response") %>%
+##    Reorder columns:    
+          select(id, prolific_id, screen, stim, correct_answer, response, rt) %>%
+##    Set participant ID as the grouping variable, and arrange data by participant ID:
+          group_by(id) %>%
+          arrange(id) %>%         
+##    Remove empty / unimportant rows:
+          drop_na(screen) %>%
+          filter(screen != "check") %>%
+          filter(screen != "fixation") %>%
+          filter(screen != "filler_start_fixation") %>%
+          filter(screen != "filler_start_stim") %>%
+          filter(screen != "filler_end_fixation") %>%
+          filter(screen != "filler_end_stim") %>%
+          add_count(screen, name = "total_resp")
+##    Calculate how many responses were correct for each stimuli format, then join these together:
+      exp5__grey_word <- exp5__study_data %>%
+          filter(str_detect(stim, "grey-word") & correct_answer == "word.png") %>%
+          add_count(screen, name = "study_grey_word_resps") %>%
+          filter(response == "word.png") %>%
+          add_count(screen, name = "study_grey_word_correct") %>%
+          distinct(id, .keep_all = TRUE) %>%
+          select(id, study_grey_word_resps, study_grey_word_correct)
+      exp5__distinctive_word <- exp5__study_data %>%
+          filter(str_detect(stim, "distinctive-word") & correct_answer == "word.png") %>%
+          add_count(screen, name = "study_distinctive_word_resps") %>%
+          filter(response == "word.png") %>%
+          add_count(screen, name = "study_distinctive_word_correct") %>%
+          distinct(id, .keep_all = TRUE) %>%
+          select(id, study_distinctive_word_resps, study_distinctive_word_correct)
+      exp5__grey_drawing <- exp5__study_data %>%
+          filter(str_detect(stim, "grey-drawing") & correct_answer == "drawing.png") %>%
+          add_count(screen, name = "study_grey_drawing_resps") %>%
+          filter(response == "drawing.png") %>%
+          add_count(screen, name = "study_grey_drawing_correct") %>%
+          distinct(id, .keep_all = TRUE) %>%
+          select(id, study_grey_drawing_resps, study_grey_drawing_correct)
+      exp5__col_drawing <- exp5__study_data %>%
+          filter(str_detect(stim, "col-drawing") & correct_answer == "drawing.png") %>%
+          add_count(screen, name = "study_col_drawing_resps") %>%
+          filter(response == "drawing.png") %>%
+          add_count(screen, name = "study_col_drawing_correct") %>%
+          distinct(id, .keep_all = TRUE) %>%
+          select(id, study_col_drawing_resps, study_col_drawing_correct)
+      exp5__grey_photo <- exp5__study_data %>%
+          filter(str_detect(stim, "grey-photo") & correct_answer == "photo.png") %>%
+          add_count(screen, name = "study_grey_photo_resps") %>%
+          filter(response == "photo.png") %>%
+          add_count(screen, name = "study_grey_photo_correct") %>%
+          distinct(id, .keep_all = TRUE) %>%
+          select(id, study_grey_photo_resps, study_grey_photo_correct)
+      exp5__col_photo <- exp5__study_data %>%
+          filter(str_detect(stim, "col-photo") & correct_answer == "photo.png") %>%
+          add_count(screen, name = "study_col_photo_resps") %>%
+          filter(response == "photo.png") %>%
+          add_count(screen, name = "study_col_photo_correct") %>%
+          distinct(id, .keep_all = TRUE) %>%
+          select(id, study_col_photo_resps, study_col_photo_correct)
+      exp5__study_totals <- right_join(exp5__grey_word, exp5__distinctive_word, by = "id") %>%
+          right_join(exp5__grey_drawing, by = "id") %>%
+          right_join(exp5__col_drawing, by = "id") %>%
+          right_join(exp5__grey_photo, by = "id") %>%
+          right_join(exp5__col_photo, by = "id")
+##    Add 'exp5__study_totals' to 'exp5__participant_info' df:
+      exp5__participant_info <- exp5__participant_info %>%
+          right_join(exp5__study_totals, by = "id") %>%
+          mutate(study_responses_total = study_grey_word_resps + study_distinctive_word_resps +
+                                         study_grey_drawing_resps + study_col_drawing_resps +
+                                         study_grey_photo_resps + study_col_photo_resps) %>%
+          mutate(study_correct = study_grey_word_correct + study_distinctive_word_correct +
+                                 study_grey_drawing_correct + study_col_drawing_correct +
+                                 study_grey_photo_correct + study_col_photo_correct) %>%
+          mutate(study_correct_percent = study_correct*(100/study_responses_total)) %>%
+          mutate(study_error = study_responses_total - study_correct) %>%
+          mutate(study_error_percent = study_error*(100/study_responses_total)) %>%
+          arrange(study_list, test_list) %>%
+          select(id, prolific_id, everything())
+#################################################################################################################
+##    Define study lists:                                                                                      ##
+#################################################################################################################
+##    Define all possible study lists, so we can later calculate Hits, Misses, FA, CRs.  
+      exp5__red_a_study_list <- c("ashtray--grey-drawing","balloon--distinctive-word","banana--grey-photo",
+                            "bear--grey-photo","belt--col-photo","bottle--col-photo","broom--col-photo",
+                            "brush--grey-word","cake--grey-word","cannon--col-drawing",
+                            "carrot--grey-drawing","celery--col-photo","chair--col-drawing","cloud--grey-photo",
+                            "crown--col-photo","deer--col-drawing","drum--distinctive-word","duck--grey-photo",
+                            "eagle--grey-word","fence--col-drawing","flower--grey-photo","flute--col-photo",
+                            "foot--col-photo","frog--grey-word","goat--grey-drawing","grapes--grey-drawing",
+                            "guitar--grey-photo","hammer--col-photo","horse--grey-drawing","iron--grey-drawing",
+                            "jacket--grey-drawing","kettle--grey-word","knife--distinctive-word",
+                            "ladder--col-photo","lion--grey-photo","lips--col-photo","lobster--grey-word",
+                            "moon--grey-word","mouse--grey-word","needle--distinctive-word","nose--grey-drawing",
+                            "orange--grey-drawing","ostrich--col-drawing","peach--col-drawing",
+                            "peanut--col-drawing","pencil--col-drawing","penguin--grey-photo","pipe--grey-word",
+                            "pliers--col-drawing","plug--distinctive-word","pumpkin--grey-drawing",
+                            "rabbit--col-drawing","ring--distinctive-word","skunk--grey-word",
+                            "spoon--distinctive-word","stool--distinctive-word","swing--grey-drawing",
+                            "thimble--distinctive-word","toaster--grey-photo","tomato--distinctive-word",
+                            "train--grey-photo","tree--col-photo","trumpet--distinctive-word",
+                            "window--grey-word")
+
+      exp5__red_b_study_list <- c("anchor--col-drawing","ashtray--grey-drawing","barrel--grey-drawing",
+                            "basket--distinctive-word","bell--grey-word","book--col-photo","boot--grey-photo",
+                            "bowl--grey-word","bread--col-drawing","broom--col-photo","button--grey-drawing",
+                            "cake--grey-word","camel--grey-word","chain--col-drawing","cherry--col-drawing",
+                            "chicken--grey-word","clock--distinctive-word","comb--grey-photo","corn--col-photo",
+                            "doll--distinctive-word","door--col-drawing","fish--col-drawing","flag--col-photo",
+                            "giraffe--col-photo","glasses--col-photo","hand--grey-drawing","harp--col-drawing",
+                            "house--grey-word","kite--distinctive-word","lamp--grey-photo","leaf--col-drawing",
+                            "lemon--col-photo","lock--grey-drawing","mitten--grey-photo","monkey--grey-word",
+                            "nail--grey-photo","onion--col-drawing","peacock--grey-photo","pear--col-photo",
+                            "pepper--grey-photo","piano--grey-drawing","potato--distinctive-word",
+                            "racoon--grey-word","screw--grey-drawing","seal--grey-photo","sheep--grey-word",
+                            "shirt--distinctive-word","shoe--grey-drawing","skirt--distinctive-word",
+                            "snail--grey-drawing","snake--grey-photo","snowman--col-photo","socks--grey-word",
+                            "spider--grey-photo","stool--distinctive-word","swan--distinctive-word",
+                            "table--grey-drawing","thumb--col-drawing","tiger--col-photo",
+                            "violin--distinctive-word","watch--grey-word","well--distinctive-word",
+                            "whistle--grey-drawing","zebra--col-photo")
+      
+      exp5__green_a_study_list <- c("ashtray--col-drawing","barrel--distinctive-word","bell--col-photo",
+                              "belt--grey-photo","book--grey-photo","boot--col-drawing","broom--grey-word",
+                              "brush--col-photo","cake--distinctive-word","camel--col-photo",
+                              "cannon--grey-photo", "chain--grey-drawing","chair--grey-drawing",
+                              "cherry--grey-drawing", "clock--grey-photo","comb--col-drawing","corn--grey-photo",
+                              "crown--grey-photo","doll--grey-word","door--grey-drawing","eagle--col-photo",
+                              "fence--grey-drawing","fish--grey-drawing","flower--col-drawing",
+                              "foot--grey-photo","goat--distinctive-word","hand--distinctive-word",
+                              "horse--distinctive-word","iron--distinctive-word","kettle--col-photo",
+                              "kite--grey-word","knife--grey-word","ladder--grey-photo","lamp--col-drawing",
+                              "leaf--grey-drawing","lobster--col-photo","lock--distinctive-word",
+                              "mouse--col-photo","onion--grey-drawing","peach--grey-drawing",
+                              "penguin--col-drawing","pepper--col-drawing","piano--distinctive-word",
+                              "pipe--col-photo","plug--grey-word","potato--grey-word","rabbit--grey-drawing",
+                              "screw--distinctive-word","seal--col-drawing","sheep--col-photo",
+                              "shirt--grey-word","shoe--distinctive-word","skirt--grey-word",
+                              "snail--distinctive-word","snake--col-drawing","spider--col-drawing",
+                              "spoon--grey-word","stool--grey-drawing","tiger--grey-photo",
+                              "toaster--col-drawing","tomato--grey-word","well--grey-word","whistle--col-photo",
+                              "zebra--grey-photo")
+      
+      exp5__green_b_study_list <- c("anchor--grey-drawing","ashtray--col-drawing","balloon--grey-word",
+                              "banana--col-drawing","basket--grey-word","bear--col-drawing","bottle--grey-photo",
+                              "bowl--col-photo","bread--grey-drawing","broom--grey-word",
+                              "button--distinctive-word","cake--distinctive-word","carrot--distinctive-word",
+                              "celery--grey-photo","chicken--col-photo","cloud--col-drawing",
+                              "deer--grey-drawing","drum--grey-word","duck--col-drawing",
+                              "flag--grey-photo","flute--grey-word","frog--distinctive-word",
+                              "giraffe--grey-photo","glasses--grey-photo","grapes--distinctive-word",
+                              "guitar--col-drawing","hammer--grey-photo","harp--grey-drawing","house--col-photo",
+                              "jacket--distinctive-word","lemon--grey-photo","lion--col-drawing",
+                              "lips--grey-photo","mitten--col-drawing","monkey--col-photo","moon--col-photo",
+                              "nail--col-drawing","needle--grey-word","nose--distinctive-word",
+                              "orange--distinctive-word","ostrich--grey-drawing","peacock--col-drawing",
+                              "peanut--grey-drawing","pear--grey-photo","pencil--grey-drawing",
+                              "pliers--grey-drawing","pumpkin--distinctive-word","racoon--col-photo",
+                              "ring--grey-word","skunk--col-photo","snowman--grey-photo","socks--col-photo",
+                              "stool--grey-drawing","swan--grey-word","swing--distinctive-word",
+                              "table--distinctive-word","thimble--grey-word","thumb--grey-drawing",
+                              "train--col-drawing","tree--grey-drawing","trumpet--grey-word",
+                              "violin--grey-word","watch--col-photo","window--col-photo")
+      
+      
+      exp5__blue_a_study_list <- c("anchor--distinctive-word","ashtray--grey-photo","balloon--col-photo",
+                             "bell--grey-photo","boot--grey-drawing","bottle--col-drawing","bowl--grey-photo",
+                             "broom--distinctive-word","cake--grey-drawing","camel--grey-photo",
+                             "cannon--grey-word","cherry--distinctive-word","clock--col-photo",
+                             "cloud--grey-drawing","comb--grey-drawing","corn--col-drawing","doll--col-photo",
+                             "door--distinctive-word","eagle--grey-photo","fence--distinctive-word",
+                             "fish--distinctive-word","flag--col-drawing","flower--grey-drawing",
+                             "flute--grey-photo","frog--col-photo","giraffe--col-drawing","grapes--grey-word",
+                             "guitar--grey-drawing","hand--grey-word","house--grey-photo","jacket--grey-word",
+                             "knife--col-photo","lamp--grey-drawing","leaf--distinctive-word",
+                             "lemon--col-drawing","lips--col-drawing","lobster--grey-photo","lock--grey-word",
+                             "mitten--grey-drawing","nail--grey-drawing","needle--col-photo","orange--grey-word",
+                             "peach--distinctive-word","pear--grey-word","pencil--distinctive-word",
+                             "penguin--grey-drawing","piano--grey-word","pipe--grey-photo",
+                             "pliers--distinctive-word","pumpkin--col-drawing","rabbit--distinctive-word",
+                             "shirt--col-photo","skirt--col-photo","snail--grey-word","snowman--col-drawing",
+                             "spider--grey-drawing","stool--col-drawing","swan--col-photo","tiger--col-drawing",
+                             "tree--col-drawing","violin--col-photo","watch--grey-photo","whistle--grey-word",
+                             "window--grey-photo")
+      
+      exp5__blue_b_study_list <- c("ashtray--grey-photo","banana--grey-drawing","barrel--grey-word",
+                                   "basket--col-photo","bear--grey-drawing","belt--col-drawing",
+                                   "book--col-drawing","bread--distinctive-word","broom--distinctive-word",
+                                   "brush--grey-photo","button--grey-word","cake--grey-drawing",
+                                   "carrot--grey-word","celery--col-drawing","chain--distinctive-word",
+                                   "chair--distinctive-word","chicken--grey-photo","crown--col-drawing",
+                                   "deer--distinctive-word","drum--col-photo","duck--grey-drawing",
+                                   "foot--col-drawing","glasses--col-drawing","goat--grey-word",
+                                   "hammer--col-drawing","harp--distinctive-word","horse--grey-word",
+                                   "iron--col-drawing","kettle--grey-photo","kite--col-photo",
+                                   "ladder--col-drawing","lion--grey-drawing","monkey--grey-photo",
+                                   "moon--grey-photo","mouse--grey-photo","nose--grey-word",
+                                   "onion--distinctive-word","ostrich--distinctive-word","peacock--grey-drawing",
+                                   "peanut--distinctive-word","pepper--grey-drawing","plug--col-photo",
+                                   "potato--col-photo","racoon--distinctive-word","ring--grey-photo",
+                                   "screw--grey-word","seal--grey-drawing","sheep--grey-photo",
+                                   "shoe--grey-word","skunk--grey-photo","snake--grey-drawing",
+                                   "socks--grey-photo","spoon--col-photo","stool--col-drawing",
+                                   "swing--grey-word","table--grey-word","thimble--col-photo",
+                                   "thumb--distinctive-word","toaster--grey-drawing","tomato--col-photo",
+                                   "train--grey-drawing","trumpet--col-photo","well--col-photo",
+                                   "zebra--col-drawing")
+      
+      exp5__purple_a_study_list <- c("ashtray--col-photo","balloon--grey-photo","banana--distinctive-word",
+                               "barrel--col-photo","basket--grey-photo","bottle--grey-drawing",
+                               "broom--grey-drawing","brush--col-drawing","cake--col-drawing",
+                               "cannon--grey-drawing","carrot--col-photo","celery--grey-drawing",
+                               "chain--grey-word","chicken--col-drawing","comb--col-photo","corn--grey-drawing",
+                               "crown--grey-drawing","deer--grey-word","door--grey-word","drum--grey-photo",
+                               "duck--distinctive-word","fish--grey-word","flag--grey-drawing",
+                               "flute--col-drawing","giraffe--grey-drawing","glasses--grey-drawing",
+                               "grapes--col-photo","guitar--distinctive-word","harp--grey-word",
+                               "horse--col-photo","iron--col-photo","kettle--col-drawing","kite--grey-photo",
+                               "knife--grey-photo","ladder--grey-drawing","lamp--distinctive-word",
+                               "lion--distinctive-word","nail--distinctive-word","needle--grey-photo",
+                               "nose--col-photo","onion--grey-word","orange--col-photo","ostrich--grey-word",
+                               "peach--grey-word","pepper--distinctive-word","pipe--col-drawing",
+                               "pliers--grey-word","potato--grey-photo","pumpkin--col-photo","ring--col-drawing",
+                               "sheep--col-drawing","skunk--col-drawing","snake--distinctive-word",
+                               "snowman--grey-drawing","socks--col-drawing","spider--distinctive-word",
+                               "spoon--grey-photo","stool--grey-photo","swing--col-photo",
+                               "toaster--distinctive-word","train--grey-word","violin--grey-photo",
+                               "watch--col-drawing","well--grey-photo")
+        
+      exp5__purple_b_study_list <- c("anchor--grey-word","ashtray--col-photo","bear--distinctive-word",
+                               "bell--col-drawing","belt--grey-drawing","book--grey-drawing",
+                               "boot--distinctive-word","bowl--col-drawing","bread--grey-word",
+                               "broom--grey-drawing","button--col-photo","cake--col-drawing",
+                               "camel--col-drawing","chair--grey-word","cherry--grey-word","clock--grey-drawing",
+                               "cloud--distinctive-word","doll--grey-photo","eagle--col-drawing",
+                               "fence--grey-word","flower--distinctive-word","foot--grey-drawing",
+                               "frog--grey-photo","goat--col-photo","hammer--grey-drawing","hand--col-photo",
+                               "house--col-drawing","jacket--col-photo","leaf--grey-word","lemon--grey-drawing",
+                               "lips--grey-drawing","lobster--col-drawing","lock--col-photo",
+                               "mitten--distinctive-word","monkey--col-drawing","moon--col-drawing",
+                               "mouse--col-drawing","peacock--distinctive-word","peanut--grey-word",
+                               "pear--grey-drawing","pencil--grey-word","penguin--distinctive-word",
+                               "piano--col-photo","plug--grey-photo","rabbit--grey-word","racoon--grey-photo",
+                               "screw--col-photo","seal--distinctive-word","shirt--grey-photo","shoe--col-photo",
+                               "skirt--grey-photo","snail--col-photo","stool--grey-photo","swan--grey-photo",
+                               "table--col-photo","thimble--grey-photo","thumb--grey-word","tiger--grey-drawing",
+                               "tomato--grey-photo","tree--distinctive-word","trumpet--grey-photo",
+                               "whistle--distinctive-word","window--col-drawing","zebra--grey-drawing")
+      
+      exp5__orange_a_study_list <- c("anchor--col-photo","ashtray--grey-word","barrel--grey-photo",
+                               "belt--distinctive-word","boot--grey-word","broom--col-drawing",
+                               "brush--grey-drawing","button--grey-photo","cake--grey-photo",
+                               "camel--grey-drawing","celery--distinctive-word","chain--col-photo",
+                               "chair--col-photo","chicken--grey-drawing","corn--distinctive-word",
+                               "crown--distinctive-word","deer--col-photo","doll--col-drawing","duck--grey-word",
+                               "fence--col-photo","fish--col-photo","flag--distinctive-word","flower--grey-word",
+                               "flute--grey-drawing","frog--col-drawing","giraffe--distinctive-word",
+                               "goat--grey-photo","hand--grey-photo","horse--grey-photo","house--grey-drawing",
+                               "iron--grey-photo","kettle--grey-drawing","knife--col-drawing",
+                               "ladder--distinctive-word","lamp--grey-word","lion--grey-word",
+                               "lips--distinctive-word","lock--grey-photo","monkey--grey-drawing",
+                               "moon--grey-drawing","nail--grey-word","onion--col-photo","ostrich--col-photo",
+                               "peacock--grey-word","peanut--col-photo","pear--distinctive-word",
+                               "penguin--grey-word","pipe--grey-drawing","plug--col-drawing",
+                               "pumpkin--grey-photo","snake--grey-word","snowman--distinctive-word",
+                               "socks--grey-drawing","spoon--col-drawing","stool--col-photo","swan--col-drawing",
+                               "table--grey-photo","thimble--col-drawing","thumb--col-photo","tomato--col-drawing",
+                               "tree--grey-word","trumpet--col-drawing","violin--col-drawing","whistle--grey-photo")
+      
+      exp5__orange_b_study_list <- c("ashtray--grey-word","balloon--col-drawing","banana--grey-word",
+                               "basket--col-drawing","bear--grey-word","bell--grey-drawing",
+                               "book--distinctive-word","bottle--distinctive-word","bowl--grey-drawing",
+                               "bread--col-photo","broom--col-drawing","cake--grey-photo",
+                               "cannon--distinctive-word","carrot--grey-photo","cherry--col-photo",
+                               "clock--grey-word","cloud--grey-word","comb--distinctive-word","door--col-photo",
+                               "drum--col-drawing","eagle--grey-drawing","foot--distinctive-word",
+                               "glasses--distinctive-word","grapes--grey-photo","guitar--grey-word",
+                               "hammer--distinctive-word","harp--col-photo","jacket--grey-photo",
+                               "kite--col-drawing","leaf--col-photo","lemon--distinctive-word",
+                               "lobster--grey-drawing","mitten--grey-word","mouse--grey-drawing",
+                               "needle--col-drawing","nose--grey-photo","orange--grey-photo","peach--col-photo",
+                               "pencil--col-photo","pepper--grey-word","piano--grey-photo","pliers--col-photo",
+                               "potato--col-drawing","rabbit--col-photo","racoon--col-drawing",
+                               "ring--grey-drawing","screw--grey-photo","seal--grey-word","sheep--grey-drawing",
+                               "shirt--col-drawing","shoe--grey-photo","skirt--col-drawing","skunk--grey-drawing",
+                               "snail--grey-photo","spider--grey-word","stool--col-photo","swing--grey-photo",
+                               "tiger--distinctive-word","toaster--grey-word","train--col-photo",
+                               "watch--grey-drawing","well--col-drawing","window--grey-drawing",
+                               "zebra--distinctive-word")
+        
+      exp5__yellow_a_study_list <- c("anchor--grey-photo","ashtray--distinctive-word","banana--col-photo",
+                               "bell--distinctive-word","boot--col-photo","bottle--grey-word",
+                               "bread--grey-photo","broom--grey-photo","cake--col-photo","cannon--col-photo",
+                               "carrot--col-drawing","chair--grey-photo","chicken--distinctive-word",
+                               "corn--grey-word","crown--grey-word","deer--grey-photo","doll--grey-drawing",
+                               "door--grey-photo","drum--grey-drawing","duck--col-photo","fence--grey-photo",
+                               "flute--distinctive-word","foot--grey-word","frog--grey-drawing",
+                               "giraffe--grey-word","goat--col-drawing","guitar--col-photo","hammer--grey-word",
+                               "hand--col-drawing","harp--grey-photo","house--distinctive-word","iron--grey-word",
+                               "jacket--col-drawing","kettle--distinctive-word","knife--grey-drawing",
+                               "ladder--grey-word","lamp--col-photo","monkey--distinctive-word","nail--col-photo",
+                               "needle--grey-drawing","peach--grey-photo","peacock--col-photo","pepper--col-photo",
+                               "piano--col-drawing","pipe--distinctive-word","plug--grey-drawing",
+                               "pumpkin--grey-word","racoon--grey-drawing","screw--col-drawing",
+                               "shirt--grey-drawing","shoe--col-drawing","skunk--distinctive-word",
+                               "snail--col-drawing","socks--distinctive-word","spider--col-photo",
+                               "spoon--grey-drawing","stool--grey-word","swing--col-drawing",
+                               "table--col-drawing","thumb--grey-photo","train--distinctive-word",
+                               "tree--grey-photo","trumpet--grey-drawing","zebra--grey-word")
+      
+      exp5__yellow_b_study_list <- c("ashtray--distinctive-word","balloon--grey-drawing","barrel--col-drawing",
+                               "basket--grey-drawing","bear--col-photo","belt--grey-word","book--grey-word",
+                               "bowl--distinctive-word","broom--grey-photo","brush--distinctive-word",
+                               "button--col-drawing","cake--col-photo","camel--distinctive-word",
+                               "celery--grey-word","chain--grey-photo","cherry--grey-photo","clock--col-drawing",
+                               "cloud--col-photo","comb--grey-word","eagle--distinctive-word","fish--grey-photo",
+                               "flag--grey-word","flower--col-photo","glasses--grey-word","grapes--col-drawing",
+                               "horse--col-drawing","kite--grey-drawing","leaf--grey-photo","lemon--grey-word",
+                               "lion--col-photo","lips--grey-word","lobster--distinctive-word",
+                               "lock--col-drawing","mitten--col-photo","moon--distinctive-word",
+                               "mouse--distinctive-word","nose--col-drawing","onion--grey-photo",
+                               "orange--col-drawing","ostrich--grey-photo","peanut--grey-photo","pear--col-drawing",
+                               "pencil--grey-photo","penguin--col-photo","pliers--grey-photo",
+                               "potato--grey-drawing","rabbit--grey-photo","ring--col-photo","seal--col-photo",
+                               "sheep--distinctive-word","skirt--grey-drawing","snake--col-photo",
+                               "snowman--grey-word","stool--grey-word","swan--grey-drawing",
+                               "thimble--grey-drawing","tiger--grey-word","toaster--col-photo",
+                               "tomato--grey-drawing","violin--grey-drawing","watch--distinctive-word",
+                               "well--grey-drawing","whistle--col-drawing","window--distinctive-word")
+#################################################################################################################
+##    Test data:                                                                                               ##
+#################################################################################################################
+    ##  Import test data:
+    exp5__test_files <- c("./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-yxhp.csv", # Red
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-yxhp.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-yxhp.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-yxhp.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-yxhp.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-yxhp.csv",
+
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-6vny.csv", # Green
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-6vny.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-6vny.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-6vny.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-6vny.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-6vny.csv",
+
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-kh1z.csv", # Blue
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-kh1z.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-kh1z.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-kh1z.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-kh1z.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-kh1z.csv",
+                          
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-267u.csv", # Purple
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-267u.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-267u.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-267u.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-267u.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-267u.csv",
+                    
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-fzx3.csv", # Orange
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-fzx3.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-fzx3.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-fzx3.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-fzx3.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-fzx3.csv",
+                                                                     
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-vyg3.csv", # Yellow
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-vyg3.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-vyg3.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-vyg3.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-vyg3.csv",
+                          "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-vyg3.csv")
+##    Create raw df from the above files, but only get the following columns:
+      exp5__test_data <- map_dfr(exp5__test_files,~read_csv(.x, col_types = cols_only(
+        "Participant Private ID" = 'c', "Participant Public ID"='c', "Task Name" = 'c', "Screen Name" = 'c',
+        "randomiser-6j1g"='c', "randomiser-rj7w"='c', "randomiser-enay"='c', "randomiser-gw7n"='c',
+        "randomiser-uc11"='c', "randomiser-hpp5"='c', "stim" = 'c', "Response" = 'c', 
+        "Reaction Time" = col_double()))) %>%
+##    Merge columns that contain the same type of data, but were originally split into different columns:
+          unite(study_list,  "randomiser-6j1g", "randomiser-rj7w", "randomiser-enay",
+                "randomiser-gw7n", "randomiser-uc11", "randomiser-hpp5", remove = TRUE, na.rm = TRUE) %>% 
+##    Rename some columns:    
+          rename(id = "Participant Private ID", prolific_id = "Participant Public ID", test_list = "Task Name", 
+                 screen = "Screen Name", response = "Response", rt = "Reaction Time") %>%
+##    Reorder columns:    
+          select(id, prolific_id, study_list, test_list, screen, stim, response, rt) %>%
+##    Set participant ID as the grouping variable, and arrange data by participant ID:
+          group_by(id) %>%
+          arrange(id) %>%
+##    Remove empty / unimportant rows:
+          drop_na(screen) %>%
+          filter(screen != "check") %>% 
+          filter(screen != "Screen 1") %>% 
+          filter(screen != "Fixation") %>% 
+          filter(response != "old.png") %>%
+##    Tidy up responses for clarity:
+          mutate_all(., tolower) %>%
+          mutate(stim = str_remove_all(stim, ".png")) %>%
+          mutate(response = str_remove_all(response, ".png")) %>%
+          arrange(id, response, stim) %>%
+          mutate(test_list= str_remove_all(test_list, " test"))
+    
+##    Remove filler responses:
+      exp5__filler_stim <- c("apple--col-drawing","apple--col-photo","apple--distinctive-word",
+                             "apple--grey-drawing","apple--grey-photo","apple--grey-word",
+                             "ashtray--col-drawing","ashtray--col-photo","ashtray--distinctive-word",
+                             "ashtray--grey-drawing","ashtray--grey-photo","ashtray--grey-word",
+                             "bicycle--col-drawing","bicycle--col-photo","bicycle--distinctive-word",
+                             "bicycle--grey-drawing","bicycle--grey-photo","bicycle--grey-word",
+                             "broom--col-drawing","broom--col-photo","broom--distinctive-word",
+                             "broom--grey-drawing","broom--grey-photo","broom--grey-word","cake--col-drawing",
+                             "cake--col-photo","cake--distinctive-word","cake--grey-drawing","cake--grey-photo",
+                             "cake--grey-word","candle--col-drawing","candle--col-photo",
+                             "candle--distinctive-word","candle--grey-drawing","candle--grey-photo",
+                             "candle--grey-word","dresser--col-drawing","dresser--col-photo",
+                             "dresser--distinctive-word","dresser--grey-drawing","dresser--grey-photo",
+                             "dresser--grey-word","stool--col-drawing","stool--col-photo",
+                             "stool--distinctive-word","stool--grey-drawing","stool--grey-photo",
+                             "stool--grey-word")
+      exp5__test_data <- exp5__test_data %>%
+          filter(!stim %in% exp5__filler_stim)
+#################################################################################################################
+##    Hit and miss calculations:                                                                               ##
+#################################################################################################################
+##    Define our own function that calculates hit and miss totals. 
+      exp5__hit_and_miss_calc_function <- function(x){
+##    Count general totals:
+          x <- x %>%
+              add_tally(response != "new", sort = FALSE, name = "total_hits") %>%
+              add_tally(response == "new", sort = FALSE, name = "total_miss") %>%
+              add_tally(response == "recollection", sort = FALSE, name = "r_hit") %>%
+              add_tally(response == "familiarity", sort = FALSE, name = "f_hit") %>%
+              add_tally(response == "guessing", sort = FALSE, name = "g_hit") %>%
+##    Count stim-format totals:
+          ##  Grey words:
+              add_tally(str_detect(stim, "grey-word") & response != "new", sort = FALSE, 
+                        name = "total_grey_word_hit") %>%
+              add_tally(str_detect(stim, "grey-word") & response == "new", sort = FALSE, 
+                        name = "total_grey_word_miss") %>%
+          ##  Distinctive words:
+              add_tally(str_detect(stim, "distinctive-word") & response != "new",
+                        sort = FALSE, name = "total_distinctive_word_hit") %>%
+              add_tally(str_detect(stim, "distinctive-word") & response == "new",
+                        sort = FALSE, name = "total_distinctive_word_miss") %>%
+          ##  Grey drawings:
+              add_tally(str_detect(stim, "grey-drawing") & response != "new",
+                        sort = FALSE, name = "total_grey_drawing_hit") %>%
+              add_tally(str_detect(stim, "grey-drawing") & response == "new",
+                        sort = FALSE, name = "total_grey_drawing_miss") %>%
+          ##  Col drawings:
+              add_tally(str_detect(stim, "col-drawing") & response != "new",
+                        sort = FALSE, name = "total_col_drawing_hit") %>%
+              add_tally(str_detect(stim, "col-drawing") & response == "new",
+                        sort = FALSE, name = "total_col_drawing_miss") %>%
+          ##  Grey photos:
+              add_tally(str_detect(stim, "grey-photo") & response != "new",
+                        sort = FALSE, name = "total_grey_photo_hit") %>%
+              add_tally(str_detect(stim, "grey-photo") & response == "new",
+                        sort = FALSE, name = "total_grey_photo_miss") %>%
+          ##  Col photos:
+              add_tally(str_detect(stim, "col-photo") & response != "new",
+                        sort = FALSE, name = "total_col_photo_hit") %>%
+              add_tally(str_detect(stim, "col-photo") & response == "new",
+                        sort = FALSE, name = "total_col_photo_miss") %>%
+          
+##    Count stim-format totals by response-option:
+          ##  Grey words:
+              add_tally(str_detect(stim, "grey-word") & response == "recollection", sort = FALSE, 
+                        name = "grey_word_hit_rec") %>%
+              add_tally(str_detect(stim, "grey-word") & response == "familiarity", sort = FALSE, 
+                        name = "grey_word_hit_fam") %>%
+              add_tally(str_detect(stim, "grey-word") & response == "guessing", sort = FALSE, 
+                        name = "grey_word_hit_guess") %>%
+          ##  Distinctive words:
+              add_tally(str_detect(stim, "distinctive-word") & 
+                          response == "recollection", sort = FALSE, name = "distinctive_word_hit_rec") %>%
+              add_tally(str_detect(stim, "distinctive-word") & 
+                          response == "familiarity", sort = FALSE, name = "distinctive_word_hit_fam") %>%
+              add_tally(str_detect(stim, "distinctive-word") & 
+                          response == "guessing", sort = FALSE, name = "distinctive_word_hit_guess") %>%
+          ##  Grey drawings:
+              add_tally(str_detect(stim, "grey-drawing") & response == "recollection", sort = FALSE, 
+                        name = "grey_drawing_hit_rec") %>%
+              add_tally(str_detect(stim, "grey-drawing") & response == "familiarity", sort = FALSE, 
+                        name = "grey_drawing_hit_fam") %>%
+              add_tally(str_detect(stim, "grey-drawing") & response == "guessing", sort = FALSE, 
+                        name = "grey_drawing_hit_guess") %>%
+          ##  Col drawings:
+              add_tally(str_detect(stim, "col-drawing") & response == "recollection", sort = FALSE, 
+                        name = "col_drawing_hit_rec") %>%
+              add_tally(str_detect(stim, "col-drawing") & response == "familiarity", sort = FALSE, 
+                        name = "col_drawing_hit_fam") %>%
+              add_tally(str_detect(stim, "col-drawing") & response == "guessing", sort = FALSE, 
+                        name = "col_drawing_hit_guess") %>%
+          ##  Grey photos:
+              add_tally(str_detect(stim, "grey-photo") & response == "recollection", sort = FALSE, 
+                        name = "grey_photo_hit_rec") %>%
+              add_tally(str_detect(stim, "grey-photo") & response == "familiarity", sort = FALSE, 
+                        name = "grey_photo_hit_fam") %>%
+              add_tally(str_detect(stim, "grey-photo") & response == "guessing", sort = FALSE, 
+                        name = "grey_photo_hit_guess") %>%
+          ##  Col photos:
+              add_tally(str_detect(stim, "col-photo") & response == "recollection", sort = FALSE, 
+                        name = "col_photo_hit_rec") %>%
+              add_tally(str_detect(stim, "col-photo") & response == "familiarity", sort = FALSE, 
+                        name = "col_photo_hit_fam") %>%
+              add_tally(str_detect(stim, "col-photo") & response == "guessing", sort = FALSE, 
+                        name = "col_photo_hit_guess")}
+      
+##  Filter 'exp5__test_data' by each study list, one-at-a-time, resulting in x12 df (x2 red, green, blue, 
+##  purple, orange, yellow).
+##  For each, run our function that calculates the hit and miss totals, then rejoin into one df.
+      
+#################################################################################################################
+##    Study Red A:                                                                                             ##
+#################################################################################################################
+      exp5__hit_miss_study_red_a <- exp5__test_data %>%
+          filter(study_list == "red_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__red_a_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function
+#################################################################################################################
+##    Study Red B:                                                                                             ##
+#################################################################################################################
+      exp5__hit_miss_study_red_b <- exp5__test_data %>%
+          filter(study_list == "red_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__red_b_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()    
+#################################################################################################################
+##    Study Green A:                                                                                           ##
+#################################################################################################################
+      exp5__hit_miss_study_green_a <- exp5__test_data %>%
+          filter(study_list == "green_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__green_a_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()    
+#################################################################################################################
+##    Study Green B:                                                                                           ##
+#################################################################################################################
+      exp5__hit_miss_study_green_b <- exp5__test_data %>%
+          filter(study_list == "green_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__green_b_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()        
+#################################################################################################################
+##    Study Blue A:                                                                                            ##
+#################################################################################################################
+      exp5__hit_miss_study_blue_a <- exp5__test_data %>%
+          filter(study_list == "blue_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__blue_a_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()       
+#################################################################################################################
+##    Study Blue B:                                                                                            ##
+#################################################################################################################
+      exp5__hit_miss_study_blue_b <- exp5__test_data %>%
+          filter(study_list == "blue_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__blue_b_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()         
+#################################################################################################################
+##    Study Purple A:                                                                                          ##
+#################################################################################################################
+      exp5__hit_miss_study_purple_a <- exp5__test_data %>%
+          filter(study_list == "purple_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__purple_a_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()     
+#################################################################################################################
+##    Study Purple B:                                                                                          ##
+#################################################################################################################
+      exp5__hit_miss_study_purple_b <- exp5__test_data %>%
+          filter(study_list == "purple_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__purple_b_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()       
+#################################################################################################################
+##    Study Orange A:                                                                                          ##
+#################################################################################################################
+      exp5__hit_miss_study_orange_a <- exp5__test_data %>%
+          filter(study_list == "orange_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__orange_a_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()   
+#################################################################################################################
+##    Study Orange B:                                                                                          ##
+#################################################################################################################
+      exp5__hit_miss_study_orange_b <- exp5__test_data %>%
+          filter(study_list == "orange_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__orange_b_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()       
+#################################################################################################################
+##    Study Yellow A:                                                                                          ##
+#################################################################################################################
+      exp5__hit_miss_study_yellow_a <- exp5__test_data %>%
+          filter(study_list == "yellow_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__yellow_a_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()
+#################################################################################################################
+##    Study Yellow B:                                                                                          ##
+#################################################################################################################
+      exp5__hit_miss_study_yellow_b <- exp5__test_data %>%
+          filter(study_list == "yellow_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__yellow_b_study_list) %>%    # Remove lures (new) items.
+          exp5__hit_and_miss_calc_function()
+#################################################################################################################
+##    Combine into one df:                                                                                     ##
+#################################################################################################################
+      exp5__hit_and_miss <- bind_rows(exp5__hit_miss_study_red_a, exp5__hit_miss_study_red_b,
+                                exp5__hit_miss_study_green_a, exp5__hit_miss_study_green_b,
+                                exp5__hit_miss_study_blue_a, exp5__hit_miss_study_blue_b,
+                                exp5__hit_miss_study_purple_a, exp5__hit_miss_study_purple_b,
+                                exp5__hit_miss_study_orange_a, exp5__hit_miss_study_orange_b,
+                                exp5__hit_miss_study_yellow_a, exp5__hit_miss_study_yellow_b) %>%
+##    Merge multiple rows into one (per participant):
+          summarise_all(coalesce_by_column) %>%
+##    Remove redundant rows: 
+          select(-screen, -stim, -response, -rt)
+#################################################################################################################
+##    FA and CR calculations:                                                                                  ##
+#################################################################################################################
+##    Define our own function that calculates FA and CR totals. 
+      exp5__FA_and_CR_calc_function <- function(x){
+    ##  Count general totals:
+          x <- x %>%
+              add_tally(response != "new", sort = FALSE, name = "total_FA") %>%
+              add_tally(response == "new", sort = FALSE, name = "total_CR") %>%
+              add_tally(response == "recollection", sort = FALSE, name = "r_FA") %>%
+              add_tally(response == "familiarity", sort = FALSE, name = "f_FA") %>%
+              add_tally(response == "guessing", sort = FALSE, name = "g_FA") %>%   
+    ##  Count stim-format totals:
+          ##  Grey words:
+              add_tally(str_detect(stim, "grey-word") & response != "new", sort = FALSE, 
+                        name = "total_grey_word_FA") %>%
+              add_tally(str_detect(stim, "grey-word") & response == "new", sort = FALSE, 
+                        name = "total_grey_word_CR") %>%
+          ##  Distinctive words:
+              add_tally(str_detect(stim, "distinctive-word") & response != "new",
+                        sort = FALSE, name = "total_distinctive_word_FA") %>%
+              add_tally(str_detect(stim, "distinctive-word") & response == "new",
+                        sort = FALSE, name = "total_distinctive_word_CR") %>%
+          ##  Grey drawings:
+              add_tally(str_detect(stim, "grey-drawing") & response != "new",
+                        sort = FALSE, name = "total_grey_drawing_FA") %>%
+              add_tally(str_detect(stim, "grey-drawing") & response == "new",
+                        sort = FALSE, name = "total_grey_drawing_CR") %>%
+          ##  Col drawings:
+              add_tally(str_detect(stim, "col-drawing") & response != "new",
+                        sort = FALSE, name = "total_col_drawing_FA") %>%
+              add_tally(str_detect(stim, "col-drawing") & response == "new",
+                        sort = FALSE, name = "total_col_drawing_CR") %>%
+          ##  Grey photos:
+              add_tally(str_detect(stim, "grey-photo") & response != "new",
+                        sort = FALSE, name = "total_grey_photo_FA") %>%
+              add_tally(str_detect(stim, "grey-photo") & response == "new",
+                        sort = FALSE, name = "total_grey_photo_CR") %>%
+          ##  Col photos:
+              add_tally(str_detect(stim, "col-photo") & response != "new",
+                        sort = FALSE, name = "total_col_photo_FA") %>%
+              add_tally(str_detect(stim, "col-photo") & response == "new",
+                        sort = FALSE, name = "total_col_photo_CR") %>%
+          
+      ##  Count stim-format totals by response-option:
+          ##  Grey words:
+              add_tally(str_detect(stim, "grey-word") & response == "recollection", sort = FALSE,
+                        name = "grey_word_FA_rec") %>%
+              add_tally(str_detect(stim, "grey-word") & response == "familiarity", sort = FALSE,
+                        name = "grey_word_FA_fam") %>%
+              add_tally(str_detect(stim, "grey-word") & response == "guessing", sort = FALSE,
+                        name = "grey_word_FA_guess") %>%
+          ##  Distinctive words:
+              add_tally(str_detect(stim, "distinctive-word") & 
+                          response == "recollection", sort = FALSE, name = "distinctive_word_FA_rec") %>%
+              add_tally(str_detect(stim, "distinctive-word") & 
+                          response == "familiarity", sort = FALSE, name = "distinctive_word_FA_fam") %>%
+              add_tally(str_detect(stim, "distinctive-word") & 
+                          response == "guessing", sort = FALSE, name = "distinctive_word_FA_guess") %>%
+          ##  Grey drawings:
+              add_tally(str_detect(stim, "grey-drawing") & response == "recollection", sort = FALSE,
+                        name = "grey_drawing_FA_rec") %>%
+              add_tally(str_detect(stim, "grey-drawing") & response == "familiarity", sort = FALSE,
+                        name = "grey_drawing_FA_fam") %>%
+              add_tally(str_detect(stim, "grey-drawing") & response == "guessing", sort = FALSE,
+                        name = "grey_drawing_FA_guess") %>%
+          ##  Col drawings:
+              add_tally(str_detect(stim, "col-drawing") & response == "recollection", sort = FALSE,
+                        name = "col_drawing_FA_rec") %>%
+              add_tally(str_detect(stim, "col-drawing") & response == "familiarity", sort = FALSE,
+                        name = "col_drawing_FA_fam") %>%
+              add_tally(str_detect(stim, "col-drawing") & response == "guessing", sort = FALSE,
+                        name = "col_drawing_FA_guess") %>%
+          ##  Grey photos:
+              add_tally(str_detect(stim, "grey-photo") & response == "recollection", sort = FALSE,
+                        name = "grey_photo_FA_rec") %>%
+              add_tally(str_detect(stim, "grey-photo") & response == "familiarity", sort = FALSE,
+                        name = "grey_photo_FA_fam") %>%
+              add_tally(str_detect(stim, "grey-photo") & response == "guessing", sort = FALSE,
+                        name = "grey_photo_FA_guess") %>%
+          ##  Col photos:
+              add_tally(str_detect(stim, "col-photo") & response == "recollection", sort = FALSE,
+                        name = "col_photo_FA_rec") %>%
+              add_tally(str_detect(stim, "col-photo") & response == "familiarity", sort = FALSE,
+                        name = "col_photo_FA_fam") %>%
+              add_tally(str_detect(stim, "col-photo") & response == "guessing", sort = FALSE,
+                        name = "col_photo_FA_guess")}  
+ 
+##  Filter 'exp5__test_data' by each study list, one-at-a-time, resulting in x12 df (x2 red, green, blue, 
+##  purple, orange, yellow).
+##  For each, run our function that calculates the FA and CR totals, then rejoin into one df.
+#################################################################################################################
+##    Study Red A:                                                                                             ##
+#################################################################################################################
+      exp5__FA_CR_study_red_a <- exp5__test_data %>%
+          filter(study_list == "red_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__red_b_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()
+#################################################################################################################
+##    Study Red B:                                                                                             ##
+#################################################################################################################
+      exp5__FA_CR_study_red_b <- exp5__test_data %>%
+          filter(study_list == "red_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__red_a_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()
+#################################################################################################################
+##    Study Green A:                                                                                           ##
+#################################################################################################################
+      exp5__FA_CR_study_green_a <- exp5__test_data %>%
+          filter(study_list == "green_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__green_b_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()    
+#################################################################################################################
+##    Study Green B:                                                                                           ##
+#################################################################################################################
+      exp5__FA_CR_study_green_b <- exp5__test_data %>%
+          filter(study_list == "green_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__green_a_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()        
+#################################################################################################################
+##    Study Blue A:                                                                                            ##
+#################################################################################################################
+      exp5__FA_CR_study_blue_a <- exp5__test_data %>%
+          filter(study_list == "blue_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__blue_b_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()       
+#################################################################################################################
+##    Study Blue B:                                                                                            ##
+#################################################################################################################
+      exp5__FA_CR_study_blue_b <- exp5__test_data %>%
+          filter(study_list == "blue_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__blue_a_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()         
+#################################################################################################################
+##    Study Purple A:                                                                                          ##
+#################################################################################################################
+      exp5__FA_CR_study_purple_a <- exp5__test_data %>%
+          filter(study_list == "purple_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__purple_b_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()     
+#################################################################################################################
+##    Study Purple B:                                                                                          ##
+#################################################################################################################
+      exp5__FA_CR_study_purple_b <- exp5__test_data %>%
+          filter(study_list == "purple_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__purple_a_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()       
+#################################################################################################################
+##    Study Orange A:                                                                                          ##
+#################################################################################################################
+      exp5__FA_CR_study_orange_a <- exp5__test_data %>%
+          filter(study_list == "orange_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__orange_b_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()   
+#################################################################################################################
+##    Study Orange B:                                                                                          ##
+#################################################################################################################
+      exp5__FA_CR_study_orange_b <- exp5__test_data %>%
+          filter(study_list == "orange_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__orange_a_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()       
+#################################################################################################################
+##    Study Yellow A:                                                                                          ##
+#################################################################################################################
+      exp5__FA_CR_study_yellow_a <- exp5__test_data %>%
+          filter(study_list == "yellow_a") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__yellow_b_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()
+#################################################################################################################
+##    Study Yellow B:                                                                                          ##
+#################################################################################################################
+      exp5__FA_CR_study_yellow_b <- exp5__test_data %>%
+          filter(study_list == "yellow_b") %>%         # Lures are still here after this step.
+          filter(stim %in% exp5__yellow_a_study_list) %>%    # Remove lures (new) items.
+          exp5__FA_and_CR_calc_function()
+#################################################################################################################
+##    Combine into one df:                                                                                     ##
+#################################################################################################################
+      exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
+                                exp5__FA_CR_study_green_a, exp5__FA_CR_study_green_b,
+                                exp5__FA_CR_study_blue_a, exp5__FA_CR_study_blue_b,
+                                exp5__FA_CR_study_purple_a, exp5__FA_CR_study_purple_b,
+                                exp5__FA_CR_study_orange_a, exp5__FA_CR_study_orange_b,
+                                exp5__FA_CR_study_yellow_a, exp5__FA_CR_study_yellow_b) %>%
+##    Merge multiple rows into one (per participant):
+          summarise_all(coalesce_by_column) %>%
+##    Remove redundant rows: 
+          select(-screen, -stim, -response, -rt)
+#################################################################################################################
+##    Proportions, z-scores, d', c:                                                                            ##
+#################################################################################################################
+##    Join 'exp5__hit_and_miss' and 'exp5__FA_and_CR' dfs:
+      exp5__test_stats <- exp5__hit_and_miss %>%
+          right_join(exp5__FA_and_CR) %>%
+##    Calculate hit proportions:
+##    Grey words:
+          mutate(prop_grey_word_hit = total_grey_word_hit / (total_grey_word_hit + total_grey_word_miss)) %>%
+          mutate(prop_grey_word_miss = total_grey_word_miss / (total_grey_word_hit + total_grey_word_miss)) %>%
+          mutate(prop_grey_word_hit_rec = grey_word_hit_rec / total_grey_word_hit) %>%
+          mutate(prop_grey_word_hit_fam = grey_word_hit_fam / total_grey_word_hit) %>%
+          mutate(prop_grey_word_hit_guess = grey_word_hit_guess / total_grey_word_hit) %>%
+##    Distinctive words:
+          mutate(prop_distinctive_word_hit = total_distinctive_word_hit / 
+                   (total_distinctive_word_hit + total_distinctive_word_miss)) %>%
+          mutate(prop_distinctive_word_miss = total_distinctive_word_miss / 
+                   (total_distinctive_word_hit + total_distinctive_word_miss)) %>%
+          mutate(prop_distinctive_word_hit_rec = distinctive_word_hit_rec / total_distinctive_word_hit) %>%
+          mutate(prop_distinctive_word_hit_fam = distinctive_word_hit_fam / total_distinctive_word_hit) %>%
+          mutate(prop_distinctive_word_hit_guess = distinctive_word_hit_guess / total_distinctive_word_hit) %>%
+##    Grey drawings:
+          mutate(prop_grey_drawing_hit = total_grey_drawing_hit / 
+                   (total_grey_drawing_hit + total_grey_drawing_miss)) %>%
+          mutate(prop_grey_drawing_miss = total_grey_drawing_miss / 
+                   (total_grey_drawing_hit + total_grey_drawing_miss)) %>%
+          mutate(prop_grey_drawing_hit_rec = grey_drawing_hit_rec / total_grey_drawing_hit) %>%
+          mutate(prop_grey_drawing_hit_fam = grey_drawing_hit_fam / total_grey_drawing_hit) %>%
+          mutate(prop_grey_drawing_hit_guess = grey_drawing_hit_guess / total_grey_drawing_hit) %>%   
+##    Col drawings:
+          mutate(prop_col_drawing_hit = total_col_drawing_hit / 
+                   (total_col_drawing_hit + total_col_drawing_miss)) %>%
+          mutate(prop_col_drawing_miss = total_col_drawing_miss / 
+                   (total_col_drawing_hit + total_col_drawing_miss)) %>%
+          mutate(prop_col_drawing_hit_rec = col_drawing_hit_rec / total_col_drawing_hit) %>%
+          mutate(prop_col_drawing_hit_fam = col_drawing_hit_fam / total_col_drawing_hit) %>%
+          mutate(prop_col_drawing_hit_guess = col_drawing_hit_guess / total_col_drawing_hit) %>%      
+##    Grey photos:
+          mutate(prop_grey_photo_hit = total_grey_photo_hit / 
+                   (total_grey_photo_hit + total_grey_photo_miss)) %>%
+          mutate(prop_grey_photo_miss = total_grey_photo_miss / 
+                   (total_grey_photo_hit + total_grey_photo_miss)) %>%
+          mutate(prop_grey_photo_hit_rec = grey_photo_hit_rec / total_grey_photo_hit) %>%
+          mutate(prop_grey_photo_hit_fam = grey_photo_hit_fam / total_grey_photo_hit) %>%
+          mutate(prop_grey_photo_hit_guess = grey_photo_hit_guess / total_grey_photo_hit) %>%      
+##    Col photos:
+          mutate(prop_col_photo_hit = total_col_photo_hit / (total_col_photo_hit + total_col_photo_miss)) %>%
+          mutate(prop_col_photo_miss = total_col_photo_miss / (total_col_photo_hit + total_col_photo_miss)) %>%
+          mutate(prop_col_photo_hit_rec = col_photo_hit_rec / total_col_photo_hit) %>%
+          mutate(prop_col_photo_hit_fam = col_photo_hit_fam / total_col_photo_hit) %>%
+          mutate(prop_col_photo_hit_guess = col_photo_hit_guess / total_col_photo_hit) %>%
+#################################################################################################################
+##    Calculate FA proportions:                                                                                ##
+#################################################################################################################
+##    Grey words:
+          mutate(prop_grey_word_FA = total_grey_word_FA / (total_grey_word_FA + total_grey_word_CR)) %>%
+          mutate(prop_grey_word_CR = total_grey_word_CR / (total_grey_word_FA + total_grey_word_CR)) %>%
+          mutate(prop_grey_word_FA_rec = grey_word_FA_rec / total_grey_word_FA) %>%
+          mutate(prop_grey_word_FA_fam = grey_word_FA_fam / total_grey_word_FA) %>%
+          mutate(prop_grey_word_FA_guess = grey_word_FA_guess / total_grey_word_FA) %>%
+##    Distinctive words:
+          mutate(prop_distinctive_word_FA = total_distinctive_word_FA / 
+                 (total_distinctive_word_FA + total_distinctive_word_CR)) %>%
+          mutate(prop_distinctive_word_CR = total_distinctive_word_CR / 
+                 (total_distinctive_word_FA + total_distinctive_word_CR)) %>%
+          mutate(prop_distinctive_word_FA_rec = distinctive_word_FA_rec / total_distinctive_word_FA) %>%
+          mutate(prop_distinctive_word_FA_fam = distinctive_word_FA_fam / total_distinctive_word_FA) %>%
+          mutate(prop_distinctive_word_FA_guess = distinctive_word_FA_guess / total_distinctive_word_FA) %>%
+##    Grey drawings:
+          mutate(prop_grey_drawing_FA = total_grey_drawing_FA / 
+                 (total_grey_drawing_FA + total_grey_drawing_CR)) %>%
+          mutate(prop_grey_drawing_CR = total_grey_drawing_CR / 
+                 (total_grey_drawing_FA + total_grey_drawing_CR)) %>%
+          mutate(prop_grey_drawing_FA_rec = grey_drawing_FA_rec / total_grey_drawing_FA) %>%
+          mutate(prop_grey_drawing_FA_fam = grey_drawing_FA_fam / total_grey_drawing_FA) %>%
+          mutate(prop_grey_drawing_FA_guess = grey_drawing_FA_guess / total_grey_drawing_FA) %>%
+##    Col drawings:
+          mutate(prop_col_drawing_FA = total_col_drawing_FA / (total_col_drawing_FA + total_col_drawing_CR)) %>%
+          mutate(prop_col_drawing_CR = total_col_drawing_CR / (total_col_drawing_FA + total_col_drawing_CR)) %>%
+          mutate(prop_col_drawing_FA_rec = col_drawing_FA_rec / total_col_drawing_FA) %>%
+          mutate(prop_col_drawing_FA_fam = col_drawing_FA_fam / total_col_drawing_FA) %>%
+          mutate(prop_col_drawing_FA_guess = col_drawing_FA_guess / total_col_drawing_FA) %>%
+##    Grey photos:
+          mutate(prop_grey_photo_FA = total_grey_photo_FA / (total_grey_photo_FA + total_grey_photo_CR)) %>%
+          mutate(prop_grey_photo_CR = total_grey_photo_CR / (total_grey_photo_FA + total_grey_photo_CR)) %>%
+          mutate(prop_grey_photo_FA_rec = grey_photo_FA_rec / total_grey_photo_FA) %>%
+          mutate(prop_grey_photo_FA_fam = grey_photo_FA_fam / total_grey_photo_FA) %>%
+          mutate(prop_grey_photo_FA_guess = grey_photo_FA_guess / total_grey_photo_FA) %>%
+##    Col photos:
+          mutate(prop_col_photo_FA = total_col_photo_FA / (total_col_photo_FA + total_col_photo_CR)) %>%
+          mutate(prop_col_photo_CR = total_col_photo_CR / (total_col_photo_FA + total_col_photo_CR)) %>%
+          mutate(prop_col_photo_FA_rec = col_photo_FA_rec / total_col_photo_FA) %>%
+          mutate(prop_col_photo_FA_fam = col_photo_FA_fam / total_col_photo_FA) %>%
+          mutate(prop_col_photo_FA_guess = col_photo_FA_guess / total_col_photo_FA) %>%
+#################################################################################################################
+##    Calculate overall recognition:                                                                           ##
+#################################################################################################################
+##    HITS - FAs = overall measure of recognition:
+          mutate(grey_word_recog = prop_grey_word_hit - prop_grey_word_FA) %>%
+          mutate(distinctive_word_recog = prop_distinctive_word_hit - prop_distinctive_word_FA) %>%
+          mutate(grey_drawing_recog = prop_grey_drawing_hit - prop_grey_drawing_FA) %>%
+          mutate(col_drawing_recog = prop_col_drawing_hit - prop_col_drawing_FA) %>%
+          mutate(grey_photo_recog = prop_grey_photo_hit - prop_grey_photo_FA) %>%
+          mutate(col_photo_recog = prop_col_photo_hit - prop_col_photo_FA) %>%
+##    Classic z-score calculations (take Ps score, subtract the mean, and divide the difference by the SD). 
+          #mutate(classic_z_hit_word = (total_word_hit - mean(total_word_hit)) / sd(total_word_hit)) %>%
+          #mutate(classic_z_FA_word = (total_word_FA - mean(total_word_FA)) / sd(total_word_FA)) %>%
+          #mutate(classic_z_hit_drawing = (total_drawing_hit - mean(total_drawing_hit)) / 
+          #sd(total_drawing_hit)) %>%
+          #mutate(classic_z_FA_drawing = (total_drawing_FA - mean(total_drawing_FA)) / sd(total_drawing_FA)) %>%
+          #mutate(classic_z_hit_photo = (total_photo_hit - mean(total_photo_hit)) / sd(total_photo_hit)) %>%
+          #mutate(classic_z_FA_photo = (total_photo_FA - mean(total_photo_FA)) / sd(total_photo_FA)) %>%
+##    z-scores (how we previously calculated them in Excel (=NORMSINV((ES8+0.5) / SUM(ES8:ET8,1)). "qnorm" is the ##    r equivelant of "=NORMSINV": Inverse of the standard normal cumulative distribution, with a probability of ##    x (the value we calculated).):
+          mutate("z_total_grey_word_hit" = qnorm((total_grey_word_hit + 0.5) / 
+                                                 (total_grey_word_hit + total_grey_word_miss + 1))) %>%
+          mutate("z_total_grey_word_FA" = qnorm((total_grey_word_FA + 0.5) / 
+                                                (total_grey_word_FA + total_grey_word_CR + 1))) %>%
+          mutate("z_total_distinctive_word_hit" = qnorm((total_distinctive_word_hit + 0.5) / 
+                (total_distinctive_word_hit + total_distinctive_word_miss + 1))) %>%
+          mutate("z_total_distinctive_word_FA" = qnorm((total_distinctive_word_FA + 0.5) / 
+                (total_distinctive_word_FA + total_distinctive_word_CR + 1))) %>%
+          mutate("z_total_grey_drawing_hit" = qnorm((total_grey_drawing_hit + 0.5) / 
+                                                 (total_grey_drawing_hit + total_grey_drawing_miss + 1))) %>%
+          mutate("z_total_grey_drawing_FA" = qnorm((total_grey_drawing_FA + 0.5) / 
+                                                (total_grey_drawing_FA + total_grey_drawing_CR + 1))) %>%
+          mutate("z_total_col_drawing_hit" = qnorm((total_col_drawing_hit + 0.5) / 
+                                                 (total_col_drawing_hit + total_col_drawing_miss + 1))) %>%
+          mutate("z_total_col_drawing_FA" = qnorm((total_col_drawing_FA + 0.5) / 
+                                                (total_col_drawing_FA + total_col_drawing_CR + 1))) %>%
+          mutate("z_total_grey_photo_hit" = qnorm((total_grey_photo_hit + 0.5) / 
+                                               (total_grey_photo_hit + total_grey_photo_miss + 1))) %>%
+          mutate("z_total_grey_photo_FA" = qnorm((total_grey_photo_FA + 0.5) / 
+                                              (total_grey_photo_FA + total_grey_photo_CR + 1))) %>%
+          mutate("z_total_col_photo_hit" = qnorm((total_col_photo_hit + 0.5) / 
+                                               (total_col_photo_hit + total_col_photo_miss + 1))) %>%
+          mutate("z_total_col_photo_FA" = qnorm((total_col_photo_FA + 0.5) / 
+                                              (total_col_photo_FA + total_col_photo_CR + 1))) %>%
+##    Grey word accuracy:
+          mutate(grey_word_accuracy_rec_raw = grey_word_hit_rec / (grey_word_hit_rec + grey_word_FA_rec)) %>%
+          mutate(grey_word_accuracy_fam_raw = grey_word_hit_fam / (grey_word_hit_fam + grey_word_FA_fam)) %>%
+          mutate(grey_word_accuracy_guessing_raw = grey_word_hit_guess / 
+                   (grey_word_hit_guess + grey_word_FA_guess)) %>%
+##    Distinctive word accuracy:
+          mutate(distinctive_word_accuracy_rec_raw = distinctive_word_hit_rec / 
+                   (distinctive_word_hit_rec + distinctive_word_FA_rec)) %>%
+          mutate(distinctive_word_accuracy_fam_raw = distinctive_word_hit_fam / 
+                   (distinctive_word_hit_fam + distinctive_word_FA_fam)) %>%
+          mutate(distinctive_word_accuracy_guessing_raw = distinctive_word_hit_guess / 
+                   (distinctive_word_hit_guess + distinctive_word_FA_guess)) %>%          
+##    Grey drawing accuracy:
+          mutate(grey_drawing_accuracy_rec_raw = grey_drawing_hit_rec / 
+                   (grey_drawing_hit_rec + grey_drawing_FA_rec)) %>%
+          mutate(grey_drawing_accuracy_fam_raw = grey_drawing_hit_fam / 
+                   (grey_drawing_hit_fam + grey_drawing_FA_fam)) %>%
+          mutate(grey_drawing_accuracy_guessing_raw = grey_drawing_hit_guess / 
+                   (grey_drawing_hit_guess + grey_drawing_FA_guess)) %>%
+##    Grey drawing accuracy:
+          mutate(col_drawing_accuracy_rec_raw = col_drawing_hit_rec / 
+                   (col_drawing_hit_rec + col_drawing_FA_rec)) %>%
+          mutate(col_drawing_accuracy_fam_raw = col_drawing_hit_fam / 
+                   (col_drawing_hit_fam + col_drawing_FA_fam)) %>%
+          mutate(col_drawing_accuracy_guessing_raw = col_drawing_hit_guess / 
+                   (col_drawing_hit_guess + col_drawing_FA_guess)) %>%
+##    Grey photo accuracy:
+          mutate(grey_photo_accuracy_rec_raw = grey_photo_hit_rec / (grey_photo_hit_rec + grey_photo_FA_rec)) %>%
+          mutate(grey_photo_accuracy_fam_raw = grey_photo_hit_fam / (grey_photo_hit_fam + grey_photo_FA_fam)) %>%
+          mutate(grey_photo_accuracy_guessing_raw = grey_photo_hit_guess / 
+                   (grey_photo_hit_guess + grey_photo_FA_guess)) %>%
+##    Col photo accuracy:
+          mutate(col_photo_accuracy_rec_raw = col_photo_hit_rec / (col_photo_hit_rec + col_photo_FA_rec)) %>%
+          mutate(col_photo_accuracy_fam_raw = col_photo_hit_fam / (col_photo_hit_fam + col_photo_FA_fam)) %>%
+          mutate(col_photo_accuracy_guessing_raw = col_photo_hit_guess / 
+                   (col_photo_hit_guess + col_photo_FA_guess)) %>%  
+##    d'prime (calculated in the same way as we did previously in Excel):
+          mutate("old_grey_word_d_prime" = z_total_grey_word_hit - z_total_grey_word_FA) %>%
+          mutate("old_distinctive_word_d_prime" = z_total_distinctive_word_hit - z_total_distinctive_word_FA) %>%
+          mutate("old_grey_drawing_d_prime" = z_total_grey_drawing_hit - z_total_grey_drawing_FA) %>%
+          mutate("old_col_drawing_d_prime" = z_total_col_drawing_hit - z_total_col_drawing_FA) %>%
+          mutate("old_grey_photo_d_prime" = z_total_grey_photo_hit - z_total_grey_photo_FA) %>%
+          mutate("old_col_photo_d_prime" = z_total_col_photo_hit - z_total_col_photo_FA)
+##    d'prime (calculated by R package):
+    ##  List unique participant IDs to loop through:
+        exp5__participant_IDs <- unique(exp5__test_stats$id)
+#---------------------------------------------------------------------------------------------------------------#
+##    Grey word d'prime (calculated by R package):
+    ##  Create empty df to store word dprime calculations:
+        exp5__grey_word_d_prime <- tibble()
+        ##  Initiate for loop that iterates through exp5__participant_IDs:
+            for (i in exp5__participant_IDs) {
+            ##  Create a exp5__temporary df (that gets overwritten each time the loop iterates), with data from
+            ##  "exp5__test_stats":
+                exp5__temp <- exp5__test_stats %>%
+                ##  Filter "grey_calculations" data by the currently iterated participant id:
+                    filter(id == i) %>%     
+                ##  Select only the columns necessary for dprime calculations:
+                    select(id, total_grey_word_hit, total_grey_word_FA, total_grey_word_miss, total_grey_word_CR)
+            
+                    exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$total_grey_word_hit,
+                                                            n_fa = exp5__temp$total_grey_word_FA,
+                                                            n_miss = exp5__temp$total_grey_word_miss,
+                                                            n_cr = exp5__temp$total_grey_word_CR,
+                                                            n_targets = 10,
+                                                            n_distractors = 10,
+                                                            adjusted = TRUE))) %>%
+                    mutate("id" = i)
+                exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
+                exp5__grey_word_d_prime <- bind_rows(exp5__grey_word_d_prime, exp5__temp) }
+    ##  Additional tidying:     
+        exp5__grey_word_d_prime <- exp5__grey_word_d_prime %>%                                        
+            select(id, dprime, beta, aprime, bppd, c) %>%                       # Select only the new columns. 
+            rename(exp5__grey_word_d_prime = "dprime", grey_word_beta = "beta", # Rename these columns to reflect
+                   grey_word_a_prime = "aprime", grey_word_bppd = "bppd",   # the stimulus format.     
+                   grey_word_c = "c")
+#---------------------------------------------------------------------------------------------------------------#
+##    Distinctive word d'prime (calculated by R package):
+##    Create empty df to store word dprime calculations:
+      exp5__distinctive_word_d_prime <- tibble()
+##  Initiate for loop that iterates through exp5__participant_IDs:
+          for (i in exp5__participant_IDs) {
+            ##  Create a exp5__temporary df (that gets overwritten each time the loop iterates), with data 
+            ##  from "exp5__test_stats":
+              exp5__temp <- exp5__test_stats %>%
+                ##  Filter "grey_calculations" data by the currently iterated participant id:
+                  filter(id == i) %>%     
+                ##  Select only the columns necessary for dprime calculations:
+                  select(id, total_distinctive_word_hit, total_distinctive_word_FA, total_distinctive_word_miss,
+                         total_distinctive_word_CR)
+            
+              exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$total_distinctive_word_hit,
+                                                      n_fa = exp5__temp$total_distinctive_word_FA,
+                                                      n_miss = exp5__temp$total_distinctive_word_miss,
+                                                      n_cr = exp5__temp$total_distinctive_word_CR,
+                                                      n_targets = 10,
+                                                      n_distractors = 10,
+                                                      adjusted = TRUE))) %>%
+                  mutate("id" = i)
+              exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
+              exp5__distinctive_word_d_prime <- bind_rows(exp5__distinctive_word_d_prime, exp5__temp) }
+    ##  Additional tidying:     
+        exp5__distinctive_word_d_prime <- exp5__distinctive_word_d_prime %>%
+            select(id, dprime, beta, aprime, bppd, c) %>%
+            rename(exp5__distinctive_word_d_prime = "dprime", distinctive_word_beta = "beta",
+                   distinctive_word_a_prime = "aprime", distinctive_word_bppd = "bppd",
+                   distinctive_word_c = "c")
+#---------------------------------------------------------------------------------------------------------------#
+##    Grey drawing d'prime (calculated by R package):
+    ##  Create empty df to store word dprime calculations:
+        exp5__grey_drawing_d_prime <- tibble()
+        # Initiate for loop that iterates through exp5__participant_IDs:
+          for (i in exp5__participant_IDs) {
+            # Create a exp5__temporary df (that gets overwritten each time the loop iterates), with data from "exp5__test_stats":
+            exp5__temp <- exp5__test_stats %>%
+                # Filter "grey_calculations" data by the currently iterated participant id:
+                filter(id == i) %>%     
+                # Select only the columns necessary for dprime calculations:
+                select(id, total_grey_drawing_hit, total_grey_drawing_FA, total_grey_drawing_miss, total_grey_drawing_CR)
+            
+                exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$total_grey_drawing_hit,
+                                                  n_fa = exp5__temp$total_grey_drawing_FA,
+                                                  n_miss = exp5__temp$total_grey_drawing_miss,
+                                                  n_cr = exp5__temp$total_grey_drawing_CR,
+                                                  n_targets = 10,
+                                                  n_distractors = 10,
+                                                  adjusted = TRUE))) %>%
+                    mutate("id" = i)
+            exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
+            exp5__grey_drawing_d_prime <- bind_rows(exp5__grey_drawing_d_prime, exp5__temp) }
+    ##    Additional tidying:     
+          exp5__grey_drawing_d_prime <- exp5__grey_drawing_d_prime %>%                                        
+              select(id, dprime, beta, aprime, bppd, c) %>%
+              rename(exp5__grey_drawing_d_prime = "dprime", grey_drawing_beta = "beta",
+                   grey_drawing_a_prime = "aprime", grey_drawing_bppd = "bppd",
+                   grey_drawing_c = "c")
+#---------------------------------------------------------------------------------------------------------------###    Colour drawing d'prime (calculated by R package):
+    ##  Create empty df to store word dprime calculations:
+        exp5__col_drawing_d_prime <- tibble()
+        # Initiate for loop that iterates through exp5__participant_IDs:
+          for (i in exp5__participant_IDs) {
+            # Create a exp5__temporary df (that gets overwritten each time the loop iterates), with data from "exp5__test_stats":
+            exp5__temp <- exp5__test_stats %>%
+                # Filter "grey_calculations" data by the currently iterated participant id:
+                filter(id == i) %>%     
+                # Select only the columns necessary for dprime calculations:
+                select(id, total_col_drawing_hit, total_col_drawing_FA, total_col_drawing_miss, total_col_drawing_CR)
+            
+                exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$total_col_drawing_hit,
+                                                  n_fa = exp5__temp$total_col_drawing_FA,
+                                                  n_miss = exp5__temp$total_col_drawing_miss,
+                                                  n_cr = exp5__temp$total_col_drawing_CR,
+                                                  n_targets = 10,
+                                                  n_distractors = 10,
+                                                  adjusted = TRUE))) %>%
+                mutate("id" = i)
+            exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
+            exp5__col_drawing_d_prime <- bind_rows(exp5__col_drawing_d_prime, exp5__temp) }
+##    Additional tidying:     
+        exp5__col_drawing_d_prime <- exp5__col_drawing_d_prime %>%                                        
+            select(id, dprime, beta, aprime, bppd, c) %>%
+            rename(exp5__col_drawing_d_prime = "dprime", col_drawing_beta = "beta",
+                   col_drawing_a_prime = "aprime", col_drawing_bppd = "bppd",
+                   col_drawing_c = "c")
+#---------------------------------------------------------------------------------------------------------------###  Grey photo d'prime (calculated by R package):
+    # Create empty df to store word dprime calculations:
+        exp5__grey_photo_d_prime <- tibble()
+        # Initiate for loop that iterates through exp5__participant_IDs:
+          for (i in exp5__participant_IDs) {
+            # Create a exp5__temporary df (that gets overwritten each time the loop iterates), with data from "exp5__test_stats":
+            exp5__temp <- exp5__test_stats %>%
+                # Filter "grey_calculations" data by the currently iterated participant id:
+                filter(id == i) %>%     
+                # Select only the columns necessary for dprime calculations:
+                select(id, total_grey_photo_hit, total_grey_photo_FA, total_grey_photo_miss, total_grey_photo_CR)
+            
+                exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$total_grey_photo_hit,
+                                                  n_fa = exp5__temp$total_grey_photo_FA,
+                                                  n_miss = exp5__temp$total_grey_photo_miss,
+                                                  n_cr = exp5__temp$total_grey_photo_CR,
+                                                  n_targets = 10,
+                                                  n_distractors = 10,
+                                                  adjusted = TRUE))) %>%
+                mutate("id" = i)
+            exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
+            exp5__grey_photo_d_prime <- bind_rows(exp5__grey_photo_d_prime, exp5__temp) }
+    ##  Additional tidying:     
+        exp5__grey_photo_d_prime <- exp5__grey_photo_d_prime %>%                                        
+            select(id, dprime, beta, aprime, bppd, c) %>% 
+            rename(exp5__grey_photo_d_prime = "dprime", grey_photo_beta = "beta",
+                   grey_photo_a_prime = "aprime", grey_photo_bppd = "bppd",    
+                   grey_photo_c = "c")
+#---------------------------------------------------------------------------------------------------------------###    Colour photo d'prime (calculated by R package):
+##    Create empty df to store word dprime calculations:
+      exp5__col_photo_d_prime <- tibble()
+##    Initiate for loop that iterates through exp5__participant_IDs:
+          for (i in exp5__participant_IDs) {
+##    Create a exp5__temporary df (gets overwritten each time the loop iterates), from "exp5__test_stats":
+      exp5__temp <- exp5__test_stats %>%
+##    Filter "grey_calculations" data by the currently iterated participant id:
+          filter(id == i) %>%     
+##    Select only the columns necessary for dprime calculations:
+          select(id, total_col_photo_hit, total_col_photo_FA, total_col_photo_miss, total_col_photo_CR)
+      exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$total_col_photo_hit,
+                                              n_fa = exp5__temp$total_col_photo_FA,
+                                              n_miss = exp5__temp$total_col_photo_miss,
+                                              n_cr = exp5__temp$total_col_photo_CR,
+                                              n_targets = 10,
+                                              n_distractors = 10,
+                                              adjusted = TRUE))) %>% mutate("id" = i)
+      exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
+      exp5__col_photo_d_prime <- bind_rows(exp5__col_photo_d_prime, exp5__temp) }
+##    Additional tidying:     
+      exp5__col_photo_d_prime <- exp5__col_photo_d_prime %>%                                        
+          select(id, dprime, beta, aprime, bppd, c) %>%
+          rename(exp5__col_photo_d_prime = "dprime", col_photo_beta = "beta", col_photo_a_prime = "aprime",
+                 col_photo_bppd = "bppd", col_photo_c = "c")
+##    Add new d'prime calculations to 'exp5__test_stats' df: 
+      exp5__test_stats <- exp5__test_stats %>%
+          right_join(exp5__grey_word_d_prime) %>%
+          right_join(exp5__distinctive_word_d_prime) %>%
+          right_join(exp5__grey_drawing_d_prime) %>%
+          right_join(exp5__col_drawing_d_prime) %>%
+          right_join(exp5__grey_photo_d_prime) %>%
+          right_join(exp5__col_photo_d_prime)
+##    Merge 'exp5__participant_info' and 'exp5__test_stats' to create final tidy df: 
+      exp5__final_data <- exp5__participant_info %>%
+          right_join(exp5__test_stats) %>%
+          arrange(prolific_id, study_list, test_list)
+#################################################################################################################
+##    Apply exclusion criteria:                                                                                ##
+#################################################################################################################
+##    Anyone with less than 90% toward encoding questions:
+      exp5__exclude1 <- exp5__final_data %>%
+          filter(study_correct_percent < 90)
+##    Anyone + or - 3.0 z-score for total hits:
+      exp5__exclude2 <- exp5__final_data %>%
+          mutate("z_total_hit" = qnorm((total_hits + 0.5) / (total_hits + total_miss + 1))) %>%
+          filter(z_total_hit >= 3.0 | z_total_hit <= -3.0)
+##    Anyone + or - 3.0 z-score for total FAs:
+      exp5__exclude3 <- exp5__final_data %>%
+          mutate("z_total_FA" = qnorm((total_FA + 0.5) / (total_FA + total_CR + 1))) %>%
+          filter(z_total_FA >= 3.0 | z_total_FA <= -3.0)
+##    Anyone + or - 3.0 z-score for total recognition:
+      exp5__exclude4 <- exp5__final_data %>%
+          mutate("prop_total_hit" = total_hits / (total_hits + total_miss)) %>%
+          mutate("prop_total_FA" = total_FA / (total_FA + total_CR)) %>%
+          mutate("total_recog" = prop_total_hit - prop_total_FA) %>%
+          mutate("z_recog" = (total_recog - mean(total_recog)) / sd(total_recog)) %>%
+          filter(z_recog >= 3.0 | z_recog <= -3.0)
+##    Join all to-be-excluded participants into single df:
+      exp5__all_exclude <- exp5__exclude1 %>%
+          bind_rows(exp5__exclude2, exp5__exclude3, exp5__exclude4)
+##    Just get the id's for the to-be-excluded participants:
+      exp5__p_to_exclude <- exp5__all_exclude$id
+##    Remove these participants from 'exp5__final_data':
+      exp5__final_data <- exp5__final_data %>%
+          filter(!id %in% exp5__p_to_exclude) %>%
+          arrange(test_list, study_list)
+      write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
+
+      exp5__DATA_COUNT <- exp5__final_data %>%
+          select(study_list) %>%
+          group_by(study_list) %>%
+          add_tally(., sort = FALSE, name = "n") %>%
+          distinct()
+      write.csv(exp5__DATA_COUNT,'~/Desktop/exp5__DATA_COUNT.csv', row.names = FALSE)
+```
 
 
 # References
