@@ -116,7 +116,7 @@ The wide range of studies utilising process-estimation methods generally use one
 Receiver Operating Characteristic (ROC) curves. 
 
 
-Third, and arguably the most commonly used process-estimation method is the Remember/Know (RK) paradigm - a task endorsed by a wide body of literature [@tulving1985; @yonelinas1995; @gardiner2000; @jacoby1991; @jacoby1997]. In a typical RK procedure, participants are generally tasked with making an ‘old’ vs. ‘new’ recognition decision, before introspectively categorising any recognised items (old) as either ‘Remember’ when recognition is accompanied by recollection, or as ‘Know’ when recognition is not accompanied by recollection, but instead is accompanied by a feeling of familiarity or certainty. Often a ‘Guess’ option is also provided to allow for uncertainty (RKG), in an effort to avoid biasing the total number of R and K responses (@belleville2011; @gardiner2008). 
+Third, and arguably the most commonly used process-estimation method is the Remember/Know (RK) paradigm - a task endorsed by a wide body of literature [@tulving1985; @yonelinas1995; @gardiner2000; @jacoby1991; @jacoby1997]. In a typical RK procedure, participants are generally tasked with making an ‘old’ vs. ‘new’ recognition decision, before introspectively categorising any recognised items (old) as either ‘Remember’ when recognition is accompanied by recollection, or as ‘Know’ when recognition is not accompanied by recollection, but instead is accompanied by a feeling of familiarity or certainty. Often a ‘Guess’ option is also provided to allow for uncertainty (RKG), in an effort to avoid biasing the total number of R and K responses (@belleville2011; @gardiner2008; @gardiner2002). 
 
 A large body of literature also reports that the RK procedure produces reliable estimations of recollection and familiarity in clinical populations [@lombardi2016]; for example, those with Mild Cognitive Impairment (MCI) typically show recollection impairments but intact familiarity compared to healthy older adults [@belleville2011; @wang2013; @lombardi2016; @hudon2009; @serra2010].
 
@@ -173,7 +173,7 @@ What actually is magnitude? Difference between rec for words and rec for pics ta
 
 The magnitude of the PSE is greater in aMCI and AD patients when compared to healthy older (Embree, Budson, & Ally, 2012). Understanding this phenomenon helps to conceptualise how memory breaks down in AD.
 
-However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009a; @ally2009b; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006. 
+However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009; @ally2009a; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006]. 
 
 Illustrative
 
