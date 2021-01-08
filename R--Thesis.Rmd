@@ -5754,13 +5754,16 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_questionnaire-z6yh.csv", # Demog (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_questionnaire-z6yh.csv", # Demog (v16)
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_questionnaire-z6yh.csv",  # Demog (v2)
-        
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_questionnaire-z6yh.csv",  # Demog (v3)
+
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_questionnaire-h32i.csv", # RFG just (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_questionnaire-h32i.csv", # RFG just (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_questionnaire-h32i.csv", # RFG just (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_questionnaire-h32i.csv", # RFG just (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_questionnaire-h32i.csv", # RFG just (v16)
-        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_questionnaire-h32i.csv")  # RFG just (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_questionnaire-h32i.csv",  # RFG just (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_questionnaire-h32i.csv")  # RFG just (v3)
+
 
 ##    Create raw df from the above files, but only get the following columns:
       exp5__participant_info <- map_dfr(exp5__p_info_files,~read_csv(.x, col_types = cols_only(
@@ -5834,72 +5837,95 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
 ##    Import study data:
       exp5__study_files <- c(
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-4uo8.csv",  # Study Red A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-4uo8.csv",  # Study Red A (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-4uo8.csv", # Study Red A (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-4uo8.csv", # Study Red A (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-4uo8.csv", # Study Red A (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-4uo8.csv", # Study Red A (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-4uo8.csv", # Study Red A (v16)
+        
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-j366.csv",  # Study Red B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-j366.csv",  # Study Red B (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-j366.csv", # Study Red B (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-j366.csv", # Study Red B (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-j366.csv", # Study Red B (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-j366.csv", # Study Red B (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-j366.csv", # Study Red B (v16)
+        
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-25hn.csv",  # Study Green A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-25hn.csv",  # Study Green A (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-25hn.csv", # Study Green A (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-25hn.csv", # Study Green A (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-25hn.csv", # Study Green A (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-25hn.csv", # Study Green A (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-25hn.csv", # Study Green A (v16)
+      
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-qamv.csv",  # Study Green B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-qamv.csv",  # Study Green B (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-qamv.csv", # Study Green B (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-qamv.csv", # Study Green B (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-qamv.csv", # Study Green B (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-qamv.csv", # Study Green B (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-qamv.csv", # Study Green B (v16)
+        
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-wynt.csv",  # Study Blue A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-wynt.csv",  # Study Blue A (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-wynt.csv", # Study Blue A (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-wynt.csv", # Study Blue A (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-wynt.csv", # Study Blue A (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-wynt.csv", # Study Blue A (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-wynt.csv", # Study Blue A (v16)
+        
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-x6zh.csv",  # Study Blue B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-x6zh.csv",  # Study Blue B (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-x6zh.csv", # Study Blue B (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-x6zh.csv", # Study Blue B (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-x6zh.csv", # Study Blue B (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-x6zh.csv", # Study Blue B (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-x6zh.csv", # Study Blue B (v16)
+        
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-peds.csv",  # Study Purple A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-peds.csv",  # Study Purple A (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-peds.csv", # Study Purple A (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-peds.csv", # Study Purple A (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-peds.csv", # Study Purple A (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-peds.csv", # Study Purple A (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-peds.csv", # Study Purple A (v16)
+        
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-tk6j.csv",  # Study Purple B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-tk6j.csv",  # Study Purple B (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-tk6j.csv", # Study Purple B (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-tk6j.csv", # Study Purple B (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-tk6j.csv", # Study Purple B (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-tk6j.csv", # Study Purple B (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-tk6j.csv", # Study Purple B (v16)
+        
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-u4ig.csv",  # Study Orange A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-u4ig.csv",  # Study Orange A (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-u4ig.csv", # Study Orange A (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-u4ig.csv", # Study Orange A (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-u4ig.csv", # Study Orange A (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-u4ig.csv", # Study Orange A (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-u4ig.csv", # Study Orange A (v16)
+        
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-d4d8.csv",  # Study Orange B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-d4d8.csv",  # Study Orange B (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-d4d8.csv", # Study Orange B (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-d4d8.csv", # Study Orange B (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-d4d8.csv", # Study Orange B (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-d4d8.csv", # Study Orange B (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-d4d8.csv", # Study Orange B (v16)
+        
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-t98p.csv",  # Study Yellow A (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-t98p.csv",  # Study Yellow A (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-t98p.csv", # Study Yellow A (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-t98p.csv", # Study Yellow A (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-t98p.csv", # Study Yellow A (v14)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v15_task-t98p.csv", # Study Yellow A (v15)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-t98p.csv", # Study Yellow A (v16)
+        
         "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-u43z.csv",  # Study Yellow B (v2)
+        "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-u43z.csv",  # Study Yellow B (v3)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-u43z.csv", # Study Yellow B (v11)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-u43z.csv", # Study Yellow B (v12)
         "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-u43z.csv", # Study Yellow B (v14)
@@ -6244,6 +6270,7 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
 #################################################################################################################
     ##  Import test data:
     exp5__test_files <- c("./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-yxhp.csv", # Red
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-yxhp.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-yxhp.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-yxhp.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-yxhp.csv",
@@ -6251,6 +6278,7 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-yxhp.csv",
 
                           "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-6vny.csv", # Green
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-6vny.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-6vny.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-6vny.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-6vny.csv",
@@ -6258,6 +6286,7 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-6vny.csv",
 
                           "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-kh1z.csv", # Blue
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-kh1z.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-kh1z.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-kh1z.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-kh1z.csv",
@@ -6265,6 +6294,7 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-kh1z.csv",
                           
                           "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-267u.csv", # Purple
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-267u.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-267u.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-267u.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-267u.csv",
@@ -6272,6 +6302,7 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-267u.csv",
                     
                           "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-fzx3.csv", # Orange
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-fzx3.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-fzx3.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-fzx3.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-fzx3.csv",
@@ -6279,6 +6310,7 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v16_task-fzx3.csv",
                                                                      
                           "./resources/experiment_5/experiment_5_data/data_exp_37334-v2_task-vyg3.csv", # Yellow
+                          "./resources/experiment_5/experiment_5_data/data_exp_37334-v3_task-vyg3.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v11_task-vyg3.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v12_task-vyg3.csv",
                           "./resources/experiment_5/experiment_5_data/data_exp_30809-v14_task-vyg3.csv",
