@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.12.17)  6 JAN 2021 16:46
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.12.17)  8 JAN 2021 10:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1209,45 +1209,73 @@ f)
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
 (hyperref)                be the same. Added a new anchor on input line 2048.
 
-[45] [46] [47]
-Underfull \hbox (badness 1661) in paragraph at lines 2348--2352
+
+Overfull \hbox (30.83879pt too wide) in paragraph at lines 2071--2071
+[]                  \TU/lmtt/m/n/10.95 vs. grey drawings       (are they as dis
+tinctive as grey drawings?)[] 
+ []
+
+
+Overfull \hbox (19.3413pt too wide) in paragraph at lines 2071--2071
+[]                  \TU/lmtt/m/n/10.95 vs. grey photos         (are they as dis
+tinctive as grey photos?)[] 
+ []
+
+
+Overfull \hbox (42.33629pt too wide) in paragraph at lines 2071--2071
+[]                  \TU/lmtt/m/n/10.95 vs. colour drawings     (are they as dis
+tinctive as colour drawings?)[] 
+ []
+
+
+Overfull \hbox (30.83879pt too wide) in paragraph at lines 2071--2071
+[]                  \TU/lmtt/m/n/10.95 vs. colour photos       (are they as dis
+tinctive as colour photos?)[] 
+ []
+
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 2078.
+
+[45] [46] [47] [48]
+Underfull \hbox (badness 1661) in paragraph at lines 2385--2389
  \TU/Helvetica(0)/m/it/10.95 European Journal of Cognitive Psychology\TU/Helvet
 ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 , 813–847. []$[][][][][] [] [] [] [][][] [] [][][] [] [][] [] [][][][] []
  []
 
-[48] [49] [50]
+[49] [50] [51]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2516.
+(hyperref)                be the same. Added a new anchor on input line 2553.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 2519.
+(Font)              scaled to size 7.0pt on input line 2556.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 2526.
-[51
+(Font)              scaled to size 7.0pt on input line 2563.
+[52
 
-] [52]
+] [53]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 2633.
+(Font)              scaled to size 8.0pt on input line 2670.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 2640.
+(Font)              scaled to size 8.0pt on input line 2677.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 8.0pt on input line 2650.
-[53
+(Font)              scaled to size 8.0pt on input line 2687.
+[54
 
-] [54] [55] [56] [57] [58] [59] [60] [61] [62] [63] [64] [65] [66] [67] [68] [6
-9] [70] (./R--Thesis.aux)
+] [55] [56] [57] [58] [59] [60] [61] [62] [63] [64] [65] [66] [67] [68] [69] [7
+0] [71] (./R--Thesis.aux)
 Package rerunfilecheck Info: File `R--Thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 2FF740FFC2494B0D9554E7F647C06B3B;10728.
+(rerunfilecheck)             Checksum: 7FB22F1ABBC35831BA6A3565D07AEF96;11138.
  ) 
 Here is how much of TeX's memory you used:
- 18342 strings out of 479290
- 320398 string characters out of 5876329
- 866112 words of memory out of 5000000
- 37518 multiletter control sequences out of 15000+600000
+ 18345 strings out of 479290
+ 320470 string characters out of 5876329
+ 865648 words of memory out of 5000000
+ 37521 multiletter control sequences out of 15000+600000
  410160 words of font info for 102 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  94i,12n,121p,521b,531s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on R--Thesis.pdf (70 pages).
+Output written on R--Thesis.pdf (71 pages).

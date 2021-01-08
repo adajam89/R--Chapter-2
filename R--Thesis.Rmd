@@ -3253,7 +3253,7 @@ There were no colour differences in familiarity scores. This result was expected
 ### *Establishing a new set of stimuli*
 The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. Matching items with previously established drawings (and words) would allow for the effects of stimuli-format on recognition response patterns to be directly examined. A range of normative data was collected for 816 unique photograph items. These items may prove useful for a range of cognitive researchers that wish to utilise a set of high quality and realistic object stimuli, especially given the flexibility of items that can be filtered based on colour, naming agreement, familiarity, etc. For the needs of the current body of research, the naming data was used to determine which photographs best matched the intended concepts among a number of possible variations. This allowed for the systematic comparison of recognition memory performance toward three distinct stimuli formats (words, drawings, and photographs) in the following study, in an effort to establish how stimuli of varying perceptual distinctiveness may affect recognition response patterns. Such comparisons might help to reconcile the inconsistencies present across recognition memory research, such as those attempted to determine whether familiarity processes are preserved in those with amnestic Mild Cognitive Impairment (aMCI).
 
-# Experiment 3 (Grey drawings + photos)
+## Experiment 3 (Grey drawings + photos)
 ## Effect of stimuli format and response option on recognition memory judgements.
 
 For the recognition memory experiment, everyday objects were presented in three stimuli formats: i) words (written in simple, black ink); ii) drawings (shaded line-drawn illustrations); and iii) photographs (detail rich exemplars of the real world object). @rossion2004 demonstrated that naming agreement could be improved by adding surface texture and shading to the original @snodgrass1980 items; however, it is unclear how manipulations to distinctiveness actually impact performance in recognition memory paradigms. As well as general inconsistencies regarding the type of stimuli used in recognition memory experiments, there is also much variability in the response options available to participants when reporting their recognition, for example: Remember/Know (@lombardi2016), Recollection/Familiarity (???), or Low/Med/High confidence (???). In the current experiment, the availability of different response options when reporting recognition will also be examined by randomly assigning participants into a paradigm with three response options (Recollection / Familiarity / Guessing) or four response options (RFG + Both). 
@@ -4052,8 +4052,8 @@ exp3and4__FA_and_CR <- bind_rows(exp3and4__FA_CR_study_1_grey, exp3and4__FA_CR_s
 ##  Join 'exp3and4__hit_and_miss' and 'exp3and4__FA_and_CR' dfs:
 exp3and4__test_stats <- exp3and4__hit_and_miss %>%
   right_join(exp3and4__FA_and_CR) %>%
-  ##  Calculate hit proportions:
-  #################################################################################################################
+##  Calculate hit proportions:
+#################################################################################################################
 ##    Words:                                                                                                   ##
 #################################################################################################################
 ##  Proportion of word hits: total number of word items (word hits + word miss) / word hits:
@@ -4112,7 +4112,7 @@ mutate(prop_photo_hit = total_photo_hit / (total_photo_hit + total_photo_miss)) 
   mutate(prop_photo_hit_rec_total = prop_photo_hit_rec + prop_photo_hit_both) %>%
   ##  Out of all total_photo hits, what proportion were Fam (including Both responses):
   mutate(prop_photo_hit_fam_total = prop_photo_hit_fam + prop_photo_hit_both) %>%
-  #################################################################################################################
+#################################################################################################################
 ##    Calculate FA proportions:                                                                                ##
 #################################################################################################################
 #################################################################################################################
@@ -4138,7 +4138,7 @@ mutate(prop_word_FA = total_word_FA / (total_word_FA + total_word_CR)) %>%
   mutate(prop_word_FA_rec_total = prop_word_FA_rec + prop_word_FA_both) %>%
   ##  Out of all total_word FAs, what proportion were Fam (including Both responses):
   mutate(prop_word_FA_fam_total = prop_word_FA_fam + prop_word_FA_both) %>%
-  #################################################################################################################
+#################################################################################################################
 ##    Drawings:                                                                                                ##
 #################################################################################################################
 ##  Proportion of drawing FAs: total number of drawing items (drawing FAs + drawing CR) / drawing FAs. 
@@ -4161,7 +4161,7 @@ mutate(prop_drawing_FA = total_drawing_FA / (total_drawing_FA + total_drawing_CR
   mutate(prop_drawing_FA_rec_total = prop_drawing_FA_rec + prop_drawing_FA_both) %>%
   ##  Out of all total_drawing FAs, what proportion were Fam (including Both responses):
   mutate(prop_drawing_FA_fam_total = prop_drawing_FA_fam + prop_drawing_FA_both) %>%
-  #################################################################################################################
+#################################################################################################################
 ##    Photos:                                                                                                  ##
 #################################################################################################################
 ##  Proportion of photo FAs: total number of photo items (photo FAs + photo CR) / photo FAs:
@@ -4514,8 +4514,10 @@ A series of 3x2 repeated measures ANOVAs were conducted on each of the DVs using
 
 ### Overall hits, false alarms (FAs), and recognition
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
-##    Experiment 3 - Prop hits:                                                                                  
-##  Prep data for analysis:                                                 
+#################################################################################################################
+##    Experiment 3 - Prop hits:                                                                                ##
+#################################################################################################################                                                                               
+##    Prep data for analysis:                                                 
 exp3__grey__anova__PROP.HITS_data <- exp3__grey_data %>%
   select(id, resp_option, prop_word_hit, prop_drawing_hit, prop_photo_hit) %>%
   rename(word = "prop_word_hit", drawing = "prop_drawing_hit", photo = "prop_photo_hit") %>%
@@ -5718,7 +5720,6 @@ Across a range of performance variables, the results show a clear effect of stim
 # Chapter 4 (Addition of colour)
 
 
-
 # Chapter 5 (Distinctive words)
 ## Method
 All stimuli were presented as 500x500px image files at their actual size (i.e. without scaling) to ensure consistency across participants. Adobe Photoshop 2021 (22.0.0 Release) was used to create the image files, all on a plain white canvas. The Rossion and Pourtois (2004) line-drawings were sourced directly from the authors, and were trimmed of any preexisting background before being resized to fit the 500x500px canvas (for some items this was determined by a maximum width of 500px, whilst for others it was determined by a maximum height of 500px). 
@@ -5727,6 +5728,18 @@ word stimuli
 were created in 
 Roboto (light, 54pt)
 
+
+
+Planned comparisons:
+
+
+Distinctive words     vs. grey words          (are they actually more distinctive?)
+
+                      vs. grey drawings       (are they as distinctive as grey drawings?)
+                      vs. grey photos         (are they as distinctive as grey photos?)
+                      
+                      vs. colour drawings     (are they as distinctive as colour drawings?)
+                      vs. colour photos       (are they as distinctive as colour photos?)
 
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -7092,9 +7105,10 @@ Roboto (light, 54pt)
 ##    Remove these participants from 'exp5__final_data':
       exp5__final_data <- exp5__final_data %>%
           filter(!id %in% exp5__p_to_exclude) %>%
-          arrange(test_list, study_list)
+          arrange(test_list, study_list) %>%
+          mutate_at(vars(prop_grey_word_hit:prop_col_photo_FA_guess), ~replace_na(., 0))
       write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
-
+      
       exp5__DATA_COUNT <- exp5__final_data %>%
           select(study_list) %>%
           group_by(study_list) %>%
@@ -7103,7 +7117,907 @@ Roboto (light, 54pt)
       write.csv(exp5__DATA_COUNT,'~/Desktop/exp5__DATA_COUNT.csv', row.names = FALSE)
 ```
 
+## Results
+### Overall hits, false alarms (FAs), and recognition
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - Prop hits:                                                                                ##
+################################################################################################################# ##  Prep data for analysis:                                                 
+    exp5__anova__PROP.HITS_data <- exp5__final_data %>%
+        select(id, prop_grey_word_hit, prop_distinctive_word_hit, prop_grey_drawing_hit, 
+               prop_col_drawing_hit, prop_grey_photo_hit, prop_col_photo_hit) %>%
+        rename("Grey words" = "prop_grey_word_hit", "Distinctive words" = "prop_distinctive_word_hit",
+               "Grey drawings" = "prop_grey_drawing_hit", "Colour drawings" = "prop_col_drawing_hit",
+               "Grey photos" = "prop_grey_photo_hit", "Colour photos" = "prop_col_photo_hit") %>%
+        gather(key = "stim_format", value = "hit", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__PROP.HITS <- aov_ez('id', 'hit', exp5__anova__PROP.HITS_data, within = "stim_format")
 
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__PROP.HITS <- papaja:::apa_print.afex_aov(exp5__anova__PROP.HITS)
+    exp5__apa__anova__PROP.HITS__stim.format.main.effect <- exp5__apa__anova__PROP.HITS$full$stim_format %>%
+        str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#---------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__PROP.HITS__stim.format.means <- emmeans(exp5__anova__PROP.HITS, ~ stim_format)
+##  Planned contrasts:
+    ##  (1) = location of distinctive word value, 2nd row.
+    ##  (-1) = location of variable for comparison. 
+    planned_contrasts <- list(DistWord__vs__GreyWord= c(-1,1,0,0,0,0),
+                              DistWord__vs__GreyDrawing = c(0,1,-1,0,0,0),
+                              DistWord__vs__GreyPhoto = c(0,1,0,0,-1,0),
+                              DistWord__vs__ColDrawing = c(0,1,0,-1,0,0),
+                              DistWord__vs__ColPhoto = c(0,1,0,0,0,-1))
+    
+    exp5__anova__PROP.HITS__planned_contrasts <- emmeans(exp5__anova__PROP.HITS, list(~ stim_format), 
+                                                         contr = planned_contrasts, adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__PROP.HITS__stim.format.means <-     ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.HITS__stim.format.means)
+    exp5__apa__anova__PROP.HITS__grey.word.mean <-        ##  Grey words mean:
+        exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.HITS__dist.word.mean <-        ##  Distinctive words mean:
+        exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.HITS__grey.drawing.mean <-     ##  Grey drawings mean:
+        exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.HITS__colour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.HITS__grey.photo.mean <-       ##  Grey photos mean:
+        exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__PROP.HITS__colour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__PROP.HITS__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.HITS__planned_contrasts$` of stim_format`)
+    exp5__apa__anova__PROP.HITS__dist.word.vs.grey.word <-
+        exp5__apa__anova__PROP.HITS__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__PROP.HITS__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__PROP.HITS__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__PROP.HITS__dist.word.vs.grey.photo <-
+        exp5__apa__anova__PROP.HITS__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__PROP.HITS__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__PROP.HITS__stim.format.contrasts$statistic$DistWord_vs_ColDrawing
+    exp5__apa__anova__PROP.HITS__dist.word.vs.colour.photo <-
+        exp5__apa__anova__PROP.HITS__stim.format.contrasts$statistic$DistWord_vs_ColPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__PROP.HITS__dist.word.mean`) vs. grey words (`r exp5__apa__anova__PROP.HITS__grey.word.mean`), `r exp5__apa__anova__PROP.HITS__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.HITS__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__PROP.HITS__grey.drawing.mean`), `r exp5__apa__anova__PROP.HITS__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__PROP.HITS__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__PROP.HITS__grey.photo.mean`), `r exp5__apa__anova__PROP.HITS__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.HITS__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__PROP.HITS__colour.drawing.mean`), `r exp5__apa__anova__PROP.HITS__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__PROP.HITS__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__PROP.HITS__colour.photo.mean`), `r exp5__apa__anova__PROP.HITS__dist.word.vs.colour.photo`.
+
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - Prop FA:                                                                                ##
+#################################################################################################################  Prep data for analysis:                                                 
+    exp5__anova__PROP.FA_data <- exp5__final_data %>%
+        select(id, prop_grey_word_FA, prop_distinctive_word_FA, prop_grey_drawing_FA, 
+               prop_col_drawing_FA, prop_grey_photo_FA, prop_col_photo_FA) %>%
+        rename("Grey words" = "prop_grey_word_FA", "Distinctive words" = "prop_distinctive_word_FA",
+               "Grey drawings" = "prop_grey_drawing_FA", "Colour drawings" = "prop_col_drawing_FA",
+               "Grey photos" = "prop_grey_photo_FA", "Colour photos" = "prop_col_photo_FA") %>%
+        gather(key = "stim_format", value = "FA", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__PROP.FA <- aov_ez('id', 'FA', exp5__anova__PROP.FA_data, within = "stim_format")
+
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__PROP.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.FA)
+    exp5__apa__anova__PROP.FA__stim.format.main.effect <- exp5__apa__anova__PROP.FA$full$stim_format %>%
+        str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#---------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__PROP.FA__stim.format.means <- emmeans(exp5__anova__PROP.FA, ~ stim_format)
+##  Planned contrasts:
+    exp5__anova__PROP.FA__planned_contrasts <- emmeans(exp5__anova__PROP.FA, list(~ stim_format), 
+                                                         contr = planned_contrasts, adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__PROP.FA__stim.format.means <-     ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.FA__stim.format.means)
+    exp5__apa__anova__PROP.FA__grey.word.mean <-        ##  Grey words mean:
+        exp5__apa__anova__PROP.FA__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FA__dist.word.mean <-        ##  Distinctive words mean:
+        exp5__apa__anova__PROP.FA__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FA__grey.drawing.mean <-     ##  Grey drawings mean:
+        exp5__apa__anova__PROP.FA__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FA__colour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__PROP.FA__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FA__grey.photo.mean <-       ##  Grey photos mean:
+        exp5__apa__anova__PROP.FA__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__PROP.FA__colour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__PROP.FA__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__PROP.FA__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.FA__planned_contrasts$` of stim_format`)
+    exp5__apa__anova__PROP.FA__dist.word.vs.grey.word <-
+        exp5__apa__anova__PROP.FA__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__PROP.FA__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__PROP.FA__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__PROP.FA__dist.word.vs.grey.photo <-
+        exp5__apa__anova__PROP.FA__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__PROP.FA__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__PROP.FA__stim.format.contrasts$statistic$DistWord_vs_ColDrawing
+    exp5__apa__anova__PROP.FA__dist.word.vs.colour.photo <-
+        exp5__apa__anova__PROP.FA__stim.format.contrasts$statistic$DistWord_vs_ColPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__PROP.FA__dist.word.mean`) vs. grey words (`r exp5__apa__anova__PROP.FA__grey.word.mean`), `r exp5__apa__anova__PROP.FA__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.FA__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__PROP.FA__grey.drawing.mean`), `r exp5__apa__anova__PROP.FA__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__PROP.FA__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__PROP.FA__grey.photo.mean`), `r exp5__apa__anova__PROP.FA__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.FA__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__PROP.FA__colour.drawing.mean`), `r exp5__apa__anova__PROP.FA__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__PROP.FA__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__PROP.FA__colour.photo.mean`), `r exp5__apa__anova__PROP.FA__dist.word.vs.colour.photo`.
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - Overall recognition:                                                                      ##
+#################################################################################################################  Prep data for analysis:                                                 
+    exp5__anova__PROP.RECOG_data <- exp5__final_data %>%
+        select(id, grey_word_recog, distinctive_word_recog, grey_drawing_recog, 
+               col_drawing_recog, grey_photo_recog, col_photo_recog) %>%
+        rename("Grey words" = "grey_word_recog", "Distinctive words" = "distinctive_word_recog",
+               "Grey drawings" = "grey_drawing_recog", "Colour drawings" = "col_drawing_recog",
+               "Grey photos" = "grey_photo_recog", "Colour photos" = "col_photo_recog") %>%
+        gather(key = "stim_format", value = "recog", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__PROP.RECOG <- aov_ez('id', 'recog', exp5__anova__PROP.RECOG_data, within = "stim_format")
+
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__PROP.RECOG <- papaja:::apa_print.afex_aov(exp5__anova__PROP.RECOG)
+    exp5__apa__anova__PROP.RECOG__stim.format.main.effect <- exp5__apa__anova__PROP.RECOG$full$stim_format %>%
+        str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#---------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__PROP.RECOG__stim.format.means <- emmeans(exp5__anova__PROP.RECOG, ~ stim_format)
+##  Planned contrasts:    
+    exp5__anova__PROP.RECOG__planned_contrasts <- emmeans(exp5__anova__PROP.RECOG, list(~ stim_format), 
+                                                         contr = planned_contrasts, adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__PROP.RECOG__stim.format.means <-     ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.RECOG__stim.format.means)
+    exp5__apa__anova__PROP.RECOG__grey.word.mean <-        ##  Grey words mean:
+        exp5__apa__anova__PROP.RECOG__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.RECOG__dist.word.mean <-        ##  Distinctive words mean:
+        exp5__apa__anova__PROP.RECOG__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.RECOG__grey.drawing.mean <-     ##  Grey drawings mean:
+        exp5__apa__anova__PROP.RECOG__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.RECOG__colour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__PROP.RECOG__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.RECOG__grey.photo.mean <-       ##  Grey photos mean:
+        exp5__apa__anova__PROP.RECOG__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__PROP.RECOG__colour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__PROP.RECOG__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__PROP.RECOG__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.RECOG__planned_contrasts$` of stim_format`)
+    exp5__apa__anova__PROP.RECOG__dist.word.vs.grey.word <-
+        exp5__apa__anova__PROP.RECOG__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__PROP.RECOG__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__PROP.RECOG__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__PROP.RECOG__dist.word.vs.grey.photo <-
+        exp5__apa__anova__PROP.RECOG__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__PROP.RECOG__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__PROP.RECOG__stim.format.contrasts$statistic$DistWord_vs_ColDrawing
+    exp5__apa__anova__PROP.RECOG__dist.word.vs.colour.photo <-
+        exp5__apa__anova__PROP.RECOG__stim.format.contrasts$statistic$DistWord_vs_ColPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__PROP.RECOG__dist.word.mean`) vs. grey words (`r exp5__apa__anova__PROP.RECOG__grey.word.mean`), `r exp5__apa__anova__PROP.RECOG__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.RECOG__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__PROP.RECOG__grey.drawing.mean`), `r exp5__apa__anova__PROP.RECOG__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__PROP.RECOG__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__PROP.RECOG__grey.photo.mean`), `r exp5__apa__anova__PROP.RECOG__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.RECOG__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__PROP.RECOG__colour.drawing.mean`), `r exp5__apa__anova__PROP.RECOG__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__PROP.RECOG__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__PROP.RECOG__colour.photo.mean`), `r exp5__apa__anova__PROP.RECOG__dist.word.vs.colour.photo`.
+
+
+### Discrimination (d') and response bias (c)
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - d':                                                                                       ##
+################################################################################################################# ##  Prep data for analysis:                                                 
+    exp5__anova__D.PRIME_data <- exp5__final_data %>%
+        select(id, exp5__grey_word_d_prime, exp5__distinctive_word_d_prime, exp5__grey_drawing_d_prime, 
+               exp5__col_drawing_d_prime, exp5__grey_photo_d_prime, exp5__col_photo_d_prime) %>%
+        rename("Grey words" = "exp5__grey_word_d_prime", "Distinctive words" = "exp5__distinctive_word_d_prime",
+               "Grey drawings" = "exp5__grey_drawing_d_prime", "Colour drawings" = "exp5__col_drawing_d_prime",
+               "Grey photos" = "exp5__grey_photo_d_prime", "Colour photos" = "exp5__col_photo_d_prime") %>%
+        gather(key = "stim_format", value = "d_prime", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__D.PRIME <- aov_ez('id', 'd_prime', exp5__anova__D.PRIME_data, within = "stim_format")
+
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__D.PRIME <- papaja:::apa_print.afex_aov(exp5__anova__D.PRIME)
+    exp5__apa__anova__D.PRIME__stim.format.main.effect <- exp5__apa__anova__D.PRIME$full$stim_format %>%
+        str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#---------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__D.PRIME__stim.format.means <- emmeans(exp5__anova__D.PRIME, ~ stim_format)
+##  Planned contrasts:    
+    exp5__anova__D.PRIME__planned_contrasts <- emmeans(exp5__anova__D.PRIME, list(~ stim_format), 
+                                                         contr = planned_contrasts, adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__D.PRIME__stim.format.means <-     ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__D.PRIME__stim.format.means)
+    exp5__apa__anova__D.PRIME__grey.word.mean <-        ##  Grey words mean:
+        exp5__apa__anova__D.PRIME__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__D.PRIME__dist.word.mean <-        ##  Distinctive words mean:
+        exp5__apa__anova__D.PRIME__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__D.PRIME__grey.drawing.mean <-     ##  Grey drawings mean:
+        exp5__apa__anova__D.PRIME__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__D.PRIME__colour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__D.PRIME__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__D.PRIME__grey.photo.mean <-       ##  Grey photos mean:
+        exp5__apa__anova__D.PRIME__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__D.PRIME__colour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__D.PRIME__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__D.PRIME__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__D.PRIME__planned_contrasts$` of stim_format`)
+    exp5__apa__anova__D.PRIME__dist.word.vs.grey.word <-
+        exp5__apa__anova__D.PRIME__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__D.PRIME__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__D.PRIME__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__D.PRIME__dist.word.vs.grey.photo <-
+        exp5__apa__anova__D.PRIME__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__D.PRIME__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__D.PRIME__stim.format.contrasts$statistic$DistWord_vs_ColDrawing
+    exp5__apa__anova__D.PRIME__dist.word.vs.colour.photo <-
+        exp5__apa__anova__D.PRIME__stim.format.contrasts$statistic$DistWord_vs_ColPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__D.PRIME__dist.word.mean`) vs. grey words (`r exp5__apa__anova__D.PRIME__grey.word.mean`), `r exp5__apa__anova__D.PRIME__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__D.PRIME__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__D.PRIME__grey.drawing.mean`), `r exp5__apa__anova__D.PRIME__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__D.PRIME__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__D.PRIME__grey.photo.mean`), `r exp5__apa__anova__D.PRIME__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__D.PRIME__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__D.PRIME__colour.drawing.mean`), `r exp5__apa__anova__D.PRIME__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__D.PRIME__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__D.PRIME__colour.photo.mean`), `r exp5__apa__anova__D.PRIME__dist.word.vs.colour.photo`.
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - c:                                                                                       ##
+################################################################################################################# ##  Prep data for analysis:                                                 
+    exp5__anova__C_data <- exp5__final_data %>%
+        select(id, grey_word_c, distinctive_word_c, grey_drawing_c, 
+               col_drawing_c, grey_photo_c, col_photo_c) %>%
+        rename("Grey words" = "grey_word_c", "Distinctive words" = "distinctive_word_c",
+               "Grey drawings" = "grey_drawing_c", "Colour drawings" = "col_drawing_c",
+               "Grey photos" = "grey_photo_c", "Colour photos" = "col_photo_c") %>%
+        gather(key = "stim_format", value = "c", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__C <- aov_ez('id', 'c', exp5__anova__C_data, within = "stim_format")
+
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__C <- papaja:::apa_print.afex_aov(exp5__anova__C)
+    exp5__apa__anova__C__stim.format.main.effect <- exp5__apa__anova__C$full$stim_format %>%
+        str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#---------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__C__stim.format.means <- emmeans(exp5__anova__C, ~ stim_format)
+##  Planned contrasts:    
+    exp5__anova__C__planned_contrasts <- emmeans(exp5__anova__C, list(~ stim_format), 
+                                                         contr = planned_contrasts, adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__C__stim.format.means <-     ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__C__stim.format.means)
+    exp5__apa__anova__C__grey.word.mean <-        ##  Grey words mean:
+        exp5__apa__anova__C__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__C__dist.word.mean <-        ##  Distinctive words mean:
+        exp5__apa__anova__C__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__C__grey.drawing.mean <-     ##  Grey drawings mean:
+        exp5__apa__anova__C__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__C__colour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__C__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__C__grey.photo.mean <-       ##  Grey photos mean:
+        exp5__apa__anova__C__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__C__colour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__C__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__C__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__C__planned_contrasts$` of stim_format`)
+    exp5__apa__anova__C__dist.word.vs.grey.word <-
+        exp5__apa__anova__C__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__C__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__C__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__C__dist.word.vs.grey.photo <-
+        exp5__apa__anova__C__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__C__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__C__stim.format.contrasts$statistic$DistWord_vs_ColDrawing
+    exp5__apa__anova__C__dist.word.vs.colour.photo <-
+        exp5__apa__anova__C__stim.format.contrasts$statistic$DistWord_vs_ColPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__C__dist.word.mean`) vs. grey words (`r exp5__apa__anova__C__grey.word.mean`), `r exp5__apa__anova__C__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__C__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__C__grey.drawing.mean`), `r exp5__apa__anova__C__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__C__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__C__grey.photo.mean`), `r exp5__apa__anova__C__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__C__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__C__colour.drawing.mean`), `r exp5__apa__anova__C__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__C__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__C__colour.photo.mean`), `r exp5__apa__anova__C__dist.word.vs.colour.photo`.
+
+### Hits assigned Recollection, Familiarity, and Guessing
+#### Recollection (hits)
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - Rec hits:                                                                                 ##
+################################################################################################################# ##  Prep data for analysis:                                                 
+    exp5__anova__PROP.REC.HIT_data <- exp5__final_data %>%
+        select(id, prop_grey_word_hit_rec, prop_distinctive_word_hit_rec, prop_grey_drawing_hit_rec, 
+               prop_col_drawing_hit_rec, prop_grey_photo_hit_rec, prop_col_photo_hit_rec) %>%
+        rename("Grey words" = "prop_grey_word_hit_rec", "Distinctive words" = "prop_distinctive_word_hit_rec",
+               "Grey drawings" = "prop_grey_drawing_hit_rec", "Colour drawings" = "prop_col_drawing_hit_rec",
+               "Grey photos" = "prop_grey_photo_hit_rec", "Colour photos" = "prop_col_photo_hit_rec") %>%
+        gather(key = "stim_format", value = "rec_hit", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__PROP.REC.HIT <- aov_ez('id', 'rec_hit', exp5__anova__PROP.REC.HIT_data, within = "stim_format")
+
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__PROP.REC.HIT <- papaja:::apa_print.afex_aov(exp5__anova__PROP.REC.HIT)
+    exp5__apa__anova__PROP.REC.HIT__stim.format.main.effect <- 
+      exp5__apa__anova__PROP.REC.HIT$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#---------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__PROP.REC.HIT__stim.format.means <- emmeans(exp5__anova__PROP.REC.HIT, ~ stim_format)
+##  Planned contrasts:    
+    exp5__anova__PROP.REC.HIT__planned_PROP.REC.HITontrasts <- emmeans(exp5__anova__PROP.REC.HIT, 
+                                                                       list(~ stim_format), 
+                                                                       contr = planned_contrasts,
+                                                                       adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__PROP.REC.HIT__stim.format.means <-     ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.HIT__stim.format.means)
+    exp5__apa__anova__PROP.REC.HIT__grey.word.mean <-        ##  Grey words mean:
+        exp5__apa__anova__PROP.REC.HIT__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.REC.HIT__dist.word.mean <-        ##  Distinctive words mean:
+        exp5__apa__anova__PROP.REC.HIT__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.REC.HIT__grey.drawing.mean <-     ##  Grey drawings mean:
+        exp5__apa__anova__PROP.REC.HIT__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.REC.HIT__PROP.REC.HITolour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__PROP.REC.HIT__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.REC.HIT__grey.photo.mean <-       ##  Grey photos mean:
+        exp5__apa__anova__PROP.REC.HIT__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__PROP.REC.HIT__PROP.REC.HITolour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__PROP.REC.HIT__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__PROP.REC.HIT__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.HIT__planned_PROP.REC.HITontrasts$` of stim_format`)
+    exp5__apa__anova__PROP.REC.HIT__dist.word.vs.grey.word <-
+        exp5__apa__anova__PROP.REC.HIT__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__PROP.REC.HIT__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__PROP.REC.HIT__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__PROP.REC.HIT__dist.word.vs.grey.photo <-
+        exp5__apa__anova__PROP.REC.HIT__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__PROP.REC.HIT__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__PROP.REC.HIT__stim.format.contrasts$statistic$DistWord_vs_PROP.REC.HITolDrawing
+    exp5__apa__anova__PROP.REC.HIT__dist.word.vs.colour.photo <-
+        exp5__apa__anova__PROP.REC.HIT__stim.format.contrasts$statistic$DistWord_vs_PROP.REC.HITolPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__PROP.REC.HIT__dist.word.mean`) vs. grey words (`r exp5__apa__anova__PROP.REC.HIT__grey.word.mean`), `r exp5__apa__anova__PROP.REC.HIT__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.REC.HIT__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__PROP.REC.HIT__grey.drawing.mean`), `r exp5__apa__anova__PROP.REC.HIT__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__PROP.REC.HIT__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__PROP.REC.HIT__grey.photo.mean`), `r exp5__apa__anova__PROP.REC.HIT__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.REC.HIT__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__PROP.REC.HIT__PROP.REC.HITolour.drawing.mean`), `r exp5__apa__anova__PROP.REC.HIT__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__PROP.REC.HIT__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__PROP.REC.HIT__PROP.REC.HITolour.photo.mean`), `r exp5__apa__anova__PROP.REC.HIT__dist.word.vs.colour.photo`.
+
+#### Familiarity (hits)
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - Fam hits:                                                                                 ##
+################################################################################################################# ##  Prep data for analysis:                                                 
+    exp5__anova__PROP.FAM.HIT_data <- exp5__final_data %>%
+        select(id, prop_grey_word_hit_fam, prop_distinctive_word_hit_fam, prop_grey_drawing_hit_fam, 
+               prop_col_drawing_hit_fam, prop_grey_photo_hit_fam, prop_col_photo_hit_fam) %>%
+        rename("Grey words" = "prop_grey_word_hit_fam", "Distinctive words" = "prop_distinctive_word_hit_fam",
+               "Grey drawings" = "prop_grey_drawing_hit_fam", "Colour drawings" = "prop_col_drawing_hit_fam",
+               "Grey photos" = "prop_grey_photo_hit_fam", "Colour photos" = "prop_col_photo_hit_fam") %>%
+        gather(key = "stim_format", value = "fam_hit", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__PROP.FAM.HIT <- aov_ez('id', 'fam_hit', exp5__anova__PROP.FAM.HIT_data, within = "stim_format")
+
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__PROP.FAM.HIT <- papaja:::apa_print.afex_aov(exp5__anova__PROP.FAM.HIT)
+    exp5__apa__anova__PROP.FAM.HIT__stim.format.main.effect <- 
+      exp5__apa__anova__PROP.FAM.HIT$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#---------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__PROP.FAM.HIT__stim.format.means <- emmeans(exp5__anova__PROP.FAM.HIT, ~ stim_format)
+##  Planned contrasts:    
+    exp5__anova__PROP.FAM.HIT__planned_PROP.FAM.HITontrasts <- emmeans(exp5__anova__PROP.FAM.HIT, 
+                                                                       list(~ stim_format), 
+                                                                       contr = planned_contrasts,
+                                                                       adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__PROP.FAM.HIT__stim.format.means <-     ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.HIT__stim.format.means)
+    exp5__apa__anova__PROP.FAM.HIT__grey.word.mean <-        ##  Grey words mean:
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FAM.HIT__dist.word.mean <-        ##  Distinctive words mean:
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FAM.HIT__grey.drawing.mean <-     ##  Grey drawings mean:
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FAM.HIT__PROP.FAM.HITolour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FAM.HIT__grey.photo.mean <-       ##  Grey photos mean:
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__PROP.FAM.HIT__PROP.FAM.HITolour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__PROP.FAM.HIT__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.HIT__planned_PROP.FAM.HITontrasts$` of stim_format`)
+    exp5__apa__anova__PROP.FAM.HIT__dist.word.vs.grey.word <-
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__PROP.FAM.HIT__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__PROP.FAM.HIT__dist.word.vs.grey.photo <-
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__PROP.FAM.HIT__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.contrasts$statistic$DistWord_vs_PROP.FAM.HITolDrawing
+    exp5__apa__anova__PROP.FAM.HIT__dist.word.vs.colour.photo <-
+        exp5__apa__anova__PROP.FAM.HIT__stim.format.contrasts$statistic$DistWord_vs_PROP.FAM.HITolPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__PROP.FAM.HIT__dist.word.mean`) vs. grey words (`r exp5__apa__anova__PROP.FAM.HIT__grey.word.mean`), `r exp5__apa__anova__PROP.FAM.HIT__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.FAM.HIT__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__PROP.FAM.HIT__grey.drawing.mean`), `r exp5__apa__anova__PROP.FAM.HIT__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__PROP.FAM.HIT__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__PROP.FAM.HIT__grey.photo.mean`), `r exp5__apa__anova__PROP.FAM.HIT__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.FAM.HIT__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__PROP.FAM.HIT__PROP.FAM.HITolour.drawing.mean`), `r exp5__apa__anova__PROP.FAM.HIT__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__PROP.FAM.HIT__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__PROP.FAM.HIT__PROP.FAM.HITolour.photo.mean`), `r exp5__apa__anova__PROP.FAM.HIT__dist.word.vs.colour.photo`.
+
+#### Guessing (hits)
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - GUESS hits:                                                                               ##
+################################################################################################################# ##  Prep data for analysis:                                                 
+    exp5__anova__PROP.GUESS.HIT_data <- exp5__final_data %>%
+        select(id, prop_grey_word_hit_guess, prop_distinctive_word_hit_guess, prop_grey_drawing_hit_guess, 
+               prop_col_drawing_hit_guess, prop_grey_photo_hit_guess, prop_col_photo_hit_guess) %>%
+        rename("Grey words" = "prop_grey_word_hit_guess", 
+               "Distinctive words" = "prop_distinctive_word_hit_guess", 
+               "Grey drawings" = "prop_grey_drawing_hit_guess", "Colour drawings" = "prop_col_drawing_hit_guess",
+               "Grey photos" = "prop_grey_photo_hit_guess", "Colour photos" = "prop_col_photo_hit_guess") %>%
+        gather(key = "stim_format", value = "GUESS_hit", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__PROP.GUESS.HIT <- aov_ez('id', 'GUESS_hit', exp5__anova__PROP.GUESS.HIT_data, 
+                                          within = "stim_format")
+
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__PROP.GUESS.HIT <- papaja:::apa_print.afex_aov(exp5__anova__PROP.GUESS.HIT)
+    exp5__apa__anova__PROP.GUESS.HIT__stim.format.main.effect <- 
+        exp5__apa__anova__PROP.GUESS.HIT$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#---------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__PROP.GUESS.HIT__stim.format.means <- emmeans(exp5__anova__PROP.GUESS.HIT, ~ stim_format)
+##  Planned contrasts:    
+    exp5__anova__PROP.GUESS.HIT__planned_PROP.GUESS.HITontrasts <- emmeans(exp5__anova__PROP.GUESS.HIT, 
+                                                                       list(~ stim_format), 
+                                                                       contr = planned_contrasts,
+                                                                       adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__PROP.GUESS.HIT__stim.format.means <-     ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.HIT__stim.format.means)
+    exp5__apa__anova__PROP.GUESS.HIT__grey.word.mean <-        ##  Grey words mean:
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.GUESS.HIT__dist.word.mean <-        ##  Distinctive words mean:
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.GUESS.HIT__grey.drawing.mean <-     ##  Grey drawings mean:
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.GUESS.HIT__PROP.GUESS.HITolour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.GUESS.HIT__grey.photo.mean <-       ##  Grey photos mean:
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__PROP.GUESS.HIT__PROP.GUESS.HITolour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__PROP.GUESS.HIT__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.HIT__planned_PROP.GUESS.HITontrasts$` of stim_format`)
+    exp5__apa__anova__PROP.GUESS.HIT__dist.word.vs.grey.word <-
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__PROP.GUESS.HIT__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__PROP.GUESS.HIT__dist.word.vs.grey.photo <-
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__PROP.GUESS.HIT__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.contrasts$statistic$DistWord_vs_PROP.GUESS.HITolDrawing
+    exp5__apa__anova__PROP.GUESS.HIT__dist.word.vs.colour.photo <-
+        exp5__apa__anova__PROP.GUESS.HIT__stim.format.contrasts$statistic$DistWord_vs_PROP.GUESS.HITolPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__PROP.GUESS.HIT__dist.word.mean`) vs. grey words (`r exp5__apa__anova__PROP.GUESS.HIT__grey.word.mean`), `r exp5__apa__anova__PROP.GUESS.HIT__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.GUESS.HIT__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__PROP.GUESS.HIT__grey.drawing.mean`), `r exp5__apa__anova__PROP.GUESS.HIT__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__PROP.GUESS.HIT__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__PROP.GUESS.HIT__grey.photo.mean`), `r exp5__apa__anova__PROP.GUESS.HIT__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.GUESS.HIT__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__PROP.GUESS.HIT__PROP.GUESS.HITolour.drawing.mean`), `r exp5__apa__anova__PROP.GUESS.HIT__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__PROP.GUESS.HIT__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__PROP.GUESS.HIT__PROP.GUESS.HITolour.photo.mean`), `r exp5__apa__anova__PROP.GUESS.HIT__dist.word.vs.colour.photo`.
+
+### FAs assigned Recollection, Familiarity, and Guessing
+#### Recollection (FAs)
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - GUESS FAs:                                                                               ##
+################################################################################################################# 
+##  Prep data for analysis:                                                 
+    exp5__anova__PROP.REC.FA_data <- exp5__final_data %>%
+        select(id, prop_grey_word_FA_rec, prop_distinctive_word_FA_rec, prop_grey_drawing_FA_rec, 
+               prop_col_drawing_FA_rec, prop_grey_photo_FA_rec, prop_col_photo_FA_rec) %>%
+        rename("Grey words" = "prop_grey_word_FA_rec", 
+               "Distinctive words" = "prop_distinctive_word_FA_rec", 
+               "Grey drawings" = "prop_grey_drawing_FA_rec", "Colour drawings" = "prop_col_drawing_FA_rec",
+               "Grey photos" = "prop_grey_photo_FA_rec", "Colour photos" = "prop_col_photo_FA_rec") %>%
+        gather(key = "stim_format", value = "rec_FA", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__PROP.REC.FA <- aov_ez('id', 'rec_FA', exp5__anova__PROP.REC.FA_data, 
+                                          within = "stim_format")
+
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__PROP.REC.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.REC.FA)
+    exp5__apa__anova__PROP.REC.FA__stim.format.main.effect <- 
+        exp5__apa__anova__PROP.REC.FA$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#--------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__PROP.REC.FA__stim.format.means <- emmeans(exp5__anova__PROP.REC.FA, ~ stim_format)
+##  Planned contrasts:    
+    exp5__anova__PROP.REC.FA__planned_PROP.REC.contrasts <- emmeans(exp5__anova__PROP.REC.FA, 
+                                                                       list(~ stim_format), 
+                                                                       contr = planned_contrasts,
+                                                                       adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__PROP.REC.FA__stim.format.means <-     ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.FA__stim.format.means)
+    exp5__apa__anova__PROP.REC.FA__grey.word.mean <-        ##  Grey words mean:
+        exp5__apa__anova__PROP.REC.FA__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.REC.FA__dist.word.mean <-        ##  Distinctive words mean:
+        exp5__apa__anova__PROP.REC.FA__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.REC.FA__grey.drawing.mean <-     ##  Grey drawings mean:
+        exp5__apa__anova__PROP.REC.FA__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.REC.FA__PROP.REC.FAolour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__PROP.REC.FA__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.REC.FA__grey.photo.mean <-       ##  Grey photos mean:
+        exp5__apa__anova__PROP.REC.FA__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__PROP.REC.FA__PROP.REC.FAolour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__PROP.REC.FA__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__PROP.REC.FA__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.FA__planned_PROP.REC.contrasts$` of stim_format`)
+    exp5__apa__anova__PROP.REC.FA__dist.word.vs.grey.word <-
+        exp5__apa__anova__PROP.REC.FA__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__PROP.REC.FA__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__PROP.REC.FA__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__PROP.REC.FA__dist.word.vs.grey.photo <-
+        exp5__apa__anova__PROP.REC.FA__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__PROP.REC.FA__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__PROP.REC.FA__stim.format.contrasts$statistic$DistWord_vs_ColDrawing
+    exp5__apa__anova__PROP.REC.FA__dist.word.vs.colour.photo <-
+        exp5__apa__anova__PROP.REC.FA__stim.format.contrasts$statistic$DistWord_vs_ColPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__PROP.REC.FA__dist.word.mean`) vs. grey words (`r exp5__apa__anova__PROP.REC.FA__grey.word.mean`), `r exp5__apa__anova__PROP.REC.FA__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.REC.FA__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__PROP.REC.FA__grey.drawing.mean`), `r exp5__apa__anova__PROP.REC.FA__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__PROP.REC.FA__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__PROP.REC.FA__grey.photo.mean`), `r exp5__apa__anova__PROP.REC.FA__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.REC.FA__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__PROP.REC.FA__PROP.REC.FAolour.drawing.mean`), `r exp5__apa__anova__PROP.REC.FA__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__PROP.REC.FA__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__PROP.REC.FA__PROP.REC.FAolour.photo.mean`), `r exp5__apa__anova__PROP.REC.FA__dist.word.vs.colour.photo`.
+
+#### Familiarity (FAs)
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - GUESS FAs:                                                                               ##
+################################################################################################################# 
+##  Prep data for analysis:                                                 
+    exp5__anova__PROP.FAM.FA_data <- exp5__final_data %>%
+        select(id, prop_grey_word_FA_fam, prop_distinctive_word_FA_fam, prop_grey_drawing_FA_fam, 
+               prop_col_drawing_FA_fam, prop_grey_photo_FA_fam, prop_col_photo_FA_fam) %>%
+        rename("Grey words" = "prop_grey_word_FA_fam", 
+               "Distinctive words" = "prop_distinctive_word_FA_fam", 
+               "Grey drawings" = "prop_grey_drawing_FA_fam", "Colour drawings" = "prop_col_drawing_FA_fam",
+               "Grey photos" = "prop_grey_photo_FA_fam", "Colour photos" = "prop_col_photo_FA_fam") %>%
+        gather(key = "stim_format", value = "fam_FA", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__PROP.FAM.FA <- aov_ez('id', 'fam_FA', exp5__anova__PROP.FAM.FA_data, 
+                                          within = "stim_format")
+
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__PROP.FAM.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.FAM.FA)
+    exp5__apa__anova__PROP.FAM.FA__stim.format.main.effect <- 
+        exp5__apa__anova__PROP.FAM.FA$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#--------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__PROP.FAM.FA__stim.format.means <- emmeans(exp5__anova__PROP.FAM.FA, ~ stim_format)
+##  Planned contrasts:    
+    exp5__anova__PROP.FAM.FA__planned_PROP.FAM.contrasts <- emmeans(exp5__anova__PROP.FAM.FA, 
+                                                                       list(~ stim_format), 
+                                                                       contr = planned_contrasts,
+                                                                       adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__PROP.FAM.FA__stim.format.means <-     ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.FA__stim.format.means)
+    exp5__apa__anova__PROP.FAM.FA__grey.word.mean <-        ##  Grey words mean:
+        exp5__apa__anova__PROP.FAM.FA__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FAM.FA__dist.word.mean <-        ##  Distinctive words mean:
+        exp5__apa__anova__PROP.FAM.FA__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FAM.FA__grey.drawing.mean <-     ##  Grey drawings mean:
+        exp5__apa__anova__PROP.FAM.FA__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FAM.FA__PROP.FAM.FAolour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__PROP.FAM.FA__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.FAM.FA__grey.photo.mean <-       ##  Grey photos mean:
+        exp5__apa__anova__PROP.FAM.FA__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__PROP.FAM.FA__PROP.FAM.FAolour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__PROP.FAM.FA__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__PROP.FAM.FA__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.FA__planned_PROP.FAM.contrasts$` of stim_format`)
+    exp5__apa__anova__PROP.FAM.FA__dist.word.vs.grey.word <-
+        exp5__apa__anova__PROP.FAM.FA__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__PROP.FAM.FA__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__PROP.FAM.FA__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__PROP.FAM.FA__dist.word.vs.grey.photo <-
+        exp5__apa__anova__PROP.FAM.FA__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__PROP.FAM.FA__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__PROP.FAM.FA__stim.format.contrasts$statistic$DistWord_vs_ColDrawing
+    exp5__apa__anova__PROP.FAM.FA__dist.word.vs.colour.photo <-
+        exp5__apa__anova__PROP.FAM.FA__stim.format.contrasts$statistic$DistWord_vs_ColPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__PROP.FAM.FA__dist.word.mean`) vs. grey words (`r exp5__apa__anova__PROP.FAM.FA__grey.word.mean`), `r exp5__apa__anova__PROP.FAM.FA__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.FAM.FA__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__PROP.FAM.FA__grey.drawing.mean`), `r exp5__apa__anova__PROP.FAM.FA__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__PROP.FAM.FA__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__PROP.FAM.FA__grey.photo.mean`), `r exp5__apa__anova__PROP.FAM.FA__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.FAM.FA__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__PROP.FAM.FA__PROP.FAM.FAolour.drawing.mean`), `r exp5__apa__anova__PROP.FAM.FA__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__PROP.FAM.FA__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__PROP.FAM.FA__PROP.FAM.FAolour.photo.mean`), `r exp5__apa__anova__PROP.FAM.FA__dist.word.vs.colour.photo`.
+
+#### Guessing (FAs)
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Experiment 5 - GUESS FAs:                                                                               ##
+################################################################################################################# 
+##  Prep data for analysis:                                                 
+    exp5__anova__PROP.GUESS.FA_data <- exp5__final_data %>%
+        select(id, prop_grey_word_FA_guess, prop_distinctive_word_FA_guess, prop_grey_drawing_FA_guess, 
+               prop_col_drawing_FA_guess, prop_grey_photo_FA_guess, prop_col_photo_FA_guess) %>%
+        rename("Grey words" = "prop_grey_word_FA_guess", 
+               "Distinctive words" = "prop_distinctive_word_FA_guess", 
+               "Grey drawings" = "prop_grey_drawing_FA_guess", "Colour drawings" = "prop_col_drawing_FA_guess",
+               "Grey photos" = "prop_grey_photo_FA_guess", "Colour photos" = "prop_col_photo_FA_guess") %>%
+        gather(key = "stim_format", value = "guess_FA", "Grey words", "Distinctive words", "Grey drawings", 
+               "Colour drawings", "Grey photos", "Colour photos") %>%
+        transform(stim_format = factor(stim_format, levels=c("Grey words", "Distinctive words", 
+                                                             "Grey drawings", "Colour drawings", 
+                                                             "Grey photos", "Colour photos")))
+#----------------------------------------------------------------------------------------------------------------
+#   Run 1-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+    exp5__anova__PROP.GUESS.FA <- aov_ez('id', 'guess_FA', exp5__anova__PROP.GUESS.FA_data, 
+                                          within = "stim_format")
+
+##  Format ANOVA main effect for use in report:
+    exp5__apa__anova__PROP.GUESS.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.GUESS.FA)
+    exp5__apa__anova__PROP.GUESS.FA__stim.format.main.effect <- 
+        exp5__apa__anova__PROP.GUESS.FA$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+#---------------------------------------------------------------------------------------------------------------#
+#   Run post-hoc contrasts                                                                                      
+#--------------------------------------------------------------------------------------------------------------#
+##  Stimuli format:
+    exp5__anova__PROP.GUESS.FA__stim.format.means <- emmeans(exp5__anova__PROP.GUESS.FA, ~ stim_format)
+##  Planned contrasts:    
+    exp5__anova__PROP.GUESS.FA__planned_PROP.GUESS.contrasts <- emmeans(exp5__anova__PROP.GUESS.FA, 
+                                                                       list(~ stim_format), 
+                                                                       contr = planned_contrasts,
+                                                                       adjust = "bonferroni")
+#---------------------------------------------------------------------------------------------------------------#
+#   Format results for use in report:                                                                           
+#---------------------------------------------------------------------------------------------------------------#
+    exp5__apa__anova__PROP.GUESS.FA__stim.format.means <-                 ##  All means:
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.FA__stim.format.means)
+    exp5__apa__anova__PROP.GUESS.FA__grey.word.mean <-                    ##  Grey words mean:
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.means$estimate$Greywords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.GUESS.FA__dist.word.mean <-                    ##  Distinctive words mean:
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.means$estimate$Distinctivewords %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.GUESS.FA__grey.drawing.mean <-                 ##  Grey drawings mean:
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.means$estimate$Greydrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.GUESS.FA__PROP.GUESS.FAolour.drawing.mean <-   ##  Colour drawings mean:
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.means$estimate$Colourdrawings %>% str_remove("\\,.*")
+    exp5__apa__anova__PROP.GUESS.FA__grey.photo.mean <-                   ##  Grey photos mean:
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.means$estimate$Greyphotos %>% str_remove("\\,.*")    
+     exp5__apa__anova__PROP.GUESS.FA__PROP.GUESS.FAolour.photo.mean <-    ##  Colour photos mean:
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.means$estimate$Colourphotos %>% str_remove("\\,.*")   
+    
+    exp5__apa__anova__PROP.GUESS.FA__stim.format.contrasts <- 
+        papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.FA__planned_PROP.GUESS.contrasts$` of stim_format`)
+    exp5__apa__anova__PROP.GUESS.FA__dist.word.vs.grey.word <-
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.contrasts$statistic$DistWord_vs_GreyWord
+    exp5__apa__anova__PROP.GUESS.FA__dist.word.vs.grey.drawing <-
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.contrasts$statistic$DistWord_vs_GreyDrawing
+    exp5__apa__anova__PROP.GUESS.FA__dist.word.vs.grey.photo <-
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.contrasts$statistic$DistWord_vs_GreyPhoto
+    exp5__apa__anova__PROP.GUESS.FA__dist.word.vs.colour.drawing <-
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.contrasts$statistic$DistWord_vs_ColDrawing
+    exp5__apa__anova__PROP.GUESS.FA__dist.word.vs.colour.photo <-
+        exp5__apa__anova__PROP.GUESS.FA__stim.format.contrasts$statistic$DistWord_vs_ColPhoto
+```    
+
+**Were the distinctive words actually distinctive compared to normal words?**
+Distinctive words (`r exp5__apa__anova__PROP.GUESS.FA__dist.word.mean`) vs. grey words (`r exp5__apa__anova__PROP.GUESS.FA__grey.word.mean`), `r exp5__apa__anova__PROP.GUESS.FA__dist.word.vs.grey.word`. 
+
+**Were the distinctive words close to grey drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.GUESS.FA__dist.word.mean`) vs. grey drawings (`r exp5__apa__anova__PROP.GUESS.FA__grey.drawing.mean`), `r exp5__apa__anova__PROP.GUESS.FA__dist.word.vs.grey.drawing`. 
+
+Distinctive words (`r exp5__apa__anova__PROP.GUESS.FA__dist.word.mean`) vs. grey photos (`r exp5__apa__anova__PROP.GUESS.FA__grey.photo.mean`), `r exp5__apa__anova__PROP.GUESS.FA__dist.word.vs.grey.photo`. 
+
+**Were the distinctive words close to colour drawings or photos?**
+Distinctive words (`r exp5__apa__anova__PROP.GUESS.FA__dist.word.mean`) vs. colour drawings (`r exp5__apa__anova__PROP.GUESS.FA__PROP.GUESS.FAolour.drawing.mean`), `r exp5__apa__anova__PROP.GUESS.FA__dist.word.vs.colour.drawing`.
+
+Distinctive words (`r exp5__apa__anova__PROP.GUESS.FA__dist.word.mean`) vs. colour photos (`r exp5__apa__anova__PROP.GUESS.FA__PROP.GUESS.FAolour.photo.mean`), `r exp5__apa__anova__PROP.GUESS.FA__dist.word.vs.colour.photo`.
+
+
+
+
+
+
+
+
+
+
+\newpage
 # References
 \setlength{\parindent}{-0.2in}
 \setlength{\leftskip}{0.2in}
