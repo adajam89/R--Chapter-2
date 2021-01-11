@@ -7172,23 +7172,23 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 
-##  Prep data for table:  
-    exp5__prop_hit <- exp5__final_data %>%
-        select(prop_grey_word_hit, prop_distinctive_word_hit, prop_grey_drawing_hit, 
-               prop_col_drawing_hit, prop_grey_photo_hit, prop_col_photo_hit) %>%
-        summarise_each(mean)
+##    Prep data for table:  
+      exp5__prop_hit <- exp5__final_data %>%
+          select(prop_grey_word_hit, prop_distinctive_word_hit, prop_grey_drawing_hit, 
+                 prop_col_drawing_hit, prop_grey_photo_hit, prop_col_photo_hit) %>%
+          summarise_each(mean)
   
 
-    exp5__prop_hit__table <- tribble(
-        ~" ", ~"Grey Words", ~"Distinctive Words", ~"Grey Drawings", 
-             ~"Colour Drawings", ~"Grey Photos", ~"Colour Photos",
-        "Hits", exp5__prop_hit$prop_grey_word_hit, 
-            exp5__prop_hit$prop_distinctive_word_hit,
-            exp5__prop_hit$prop_grey_drawing_hit,
-            exp5__prop_hit$prop_col_drawing_hit,
-            exp5__prop_hit$prop_grey_photo_hit,
-            exp5__prop_hit$prop_col_photo_hit) %>%
-        mutate_if(is.numeric, round, 2)
+      exp5__prop_hit__table <- tribble(
+          ~" ", ~"Grey Words", ~"Distinctive Words", ~"Grey Drawings", 
+               ~"Colour Drawings", ~"Grey Photos", ~"Colour Photos",
+          "Hits", exp5__prop_hit$prop_grey_word_hit, 
+              exp5__prop_hit$prop_distinctive_word_hit,
+              exp5__prop_hit$prop_grey_drawing_hit,
+              exp5__prop_hit$prop_col_drawing_hit,
+              exp5__prop_hit$prop_grey_photo_hit,
+              exp5__prop_hit$prop_col_photo_hit) %>%
+          mutate_if(is.numeric, round, 2)
 ```
 
 
@@ -7197,53 +7197,49 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
 
 
 \newpage
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
 ##    Experiment 5 - Prop hits:                                                                                ##
 ################################################################################################################# 
 #----------------------------------------------------------------------------------------------------------------
 #   Prep data for analysis:
 #----------------------------------------------------------------------------------------------------------------
-    exp5__anova__PROP.HITS_data <- exp5__final_data %>%
-        select(id, prop_grey_word_hit, prop_distinctive_word_hit, prop_grey_drawing_hit, 
-               prop_col_drawing_hit, prop_grey_photo_hit, prop_col_photo_hit) %>%
-        rename("Grey words" = "prop_grey_word_hit", "Distinctive words" = "prop_distinctive_word_hit",
-               "Grey drawings" = "prop_grey_drawing_hit", "Colour drawings" = "prop_col_drawing_hit",
-               "Grey photos" = "prop_grey_photo_hit", "Colour photos" = "prop_col_photo_hit") %>%
-        gather(key = "stim_format", value = "hit", "Grey words", "Distinctive words", "Grey drawings", 
-               "Colour drawings", "Grey photos", "Colour photos") %>%
-        mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
-                                        ifelse(str_detect(stim_format, "^Distinctive"), "High", 
-                                               ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
-        mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
-        mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
-        mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
-        mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
-        mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
-        mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
-        arrange(id) %>%
-        transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
-        transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
-        transform(id = factor(id))
+      exp5__anova__PROP.HITS_data <- exp5__final_data %>%
+            select(id, prop_grey_word_hit, prop_distinctive_word_hit, prop_grey_drawing_hit, 
+                   prop_col_drawing_hit, prop_grey_photo_hit, prop_col_photo_hit) %>%
+            rename("Grey words" = "prop_grey_word_hit", "Distinctive words" = "prop_distinctive_word_hit",
+                   "Grey drawings" = "prop_grey_drawing_hit", "Colour drawings" = "prop_col_drawing_hit",
+                   "Grey photos" = "prop_grey_photo_hit", "Colour photos" = "prop_col_photo_hit") %>%
+            gather(key = "stim_format", value = "hit", "Grey words", "Distinctive words", "Grey drawings", 
+                   "Colour drawings", "Grey photos", "Colour photos") %>%
+            mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
+                                            ifelse(str_detect(stim_format, "^Distinctive"), "High", 
+                                                   ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
+            mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
+            mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
+            mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
+            mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
+            mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
+            mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
+            arrange(id) %>%
+            transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
+            transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
+            transform(id = factor(id))
 #----------------------------------------------------------------------------------------------------------------
 #   Summary stats:
 #----------------------------------------------------------------------------------------------------------------
-    exp5__anova__PROP.HITS_data_summary <- exp5__anova__PROP.HITS_data %>%
-        group_by(stim_format, distinctiveness) %>%
-        get_summary_stats(hit, type = "mean_sd")
-
-
-
+        exp5__anova__PROP.HITS_data_summary <- exp5__anova__PROP.HITS_data %>%
+            group_by(stim_format, distinctiveness) %>%
+            get_summary_stats(hit, type = "mean_sd")
 #----------------------------------------------------------------------------------------------------------------
 #   Run two-way repeated measures ANOVA:
 #----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.HITS <- aov_car(hit ~ stim_format*distinctiveness 
-                                  + Error(id / stim_format*distinctiveness), 
-                                  data = exp5__anova__PROP.HITS_data)
+        exp5__anova__PROP.HITS <- aov_car(hit ~ stim_format*distinctiveness 
+                                          + Error(id / stim_format*distinctiveness), 
+                                          data = exp5__anova__PROP.HITS_data)
 # We need to specify an error term that accounts for natural variation from participant to participant. We do 
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
-
 #----------------------------------------------------------------------------------------------------------------
 #   Identify outliers:
 #----------------------------------------------------------------------------------------------------------------
@@ -7262,6 +7258,51 @@ exp5__anova__PROP.HITS <- aov_car(hit ~ stim_format*distinctiveness
       exp5__anova__PROP.HITS__outliers.removed <- aov_car(hit ~ stim_format*distinctiveness
                                                           + Error(id / stim_format*distinctiveness), 
                                                           data = exp5__anova__PROP.HITS_data__outliers.removed)
+
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.HITS__stim.format.means <- emmeans(exp5__anova__PROP.HITS, ~ stim_format)
+      exp5__anova__PROP.HITS__distinctiveness.means <- emmeans(exp5__anova__PROP.HITS, ~ distinctiveness)
+      exp5__anova__PROP.HITS__interaction.means <- emmeans(exp5__anova__PROP.HITS, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.HITS__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.HITS__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.HITS__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.HITS__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.HITS <- papaja:::apa_print.afex_aov(exp5__anova__PROP.HITS)
+      exp5__apa__anova__PROP.HITS__stim.format.main.effect <-
+          exp5__apa__anova__PROP.HITS$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.HITS__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.HITS$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.HITS__interaction.main.effect <- 
+          exp5__apa__anova__PROP.HITS$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.HITS__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.HITS__stim.format.means) 
+      exp5__apa__anova__PROP.HITS__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.HITS__distinctiveness.means) 
+      exp5__apa__anova__PROP.HITS__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.HITS__interaction.means) 
+      
+      exp5__apa__anova__PROP.HITS__words.mean <-
+          exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.HITS__drawings.mean <-
+          exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.HITS__photos.mean <-
+          exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.HITS__low_dist.mean <-
+          exp5__apa__anova__PROP.HITS__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.HITS__high_dist.mean <-
+          exp5__apa__anova__PROP.HITS__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
 # Proportion of total hits
@@ -7277,9 +7318,8 @@ exp5__anova__PROP.HITS <- aov_car(hit ~ stim_format*distinctiveness
       knitr::kable(nice(exp5__anova__PROP.HITS__outliers.removed))
 ```
 
-
 \newpage
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE} 
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
 #----------------------------------------------------------------------------------------------------------------
 #   Prep data for analysis:
 #----------------------------------------------------------------------------------------------------------------
@@ -7310,9 +7350,6 @@ exp5__anova__PROP.FA_data <- exp5__final_data %>%
 exp5__anova__PROP.FA_data_summary <- exp5__anova__PROP.FA_data %>%
   group_by(stim_format, distinctiveness) %>%
   get_summary_stats(FA, type = "mean_sd")
-
-
-
 #----------------------------------------------------------------------------------------------------------------
 #   Run two-way repeated measures ANOVA:
 #----------------------------------------------------------------------------------------------------------------
@@ -7322,7 +7359,6 @@ exp5__anova__PROP.FA <- aov_car(FA ~ stim_format*distinctiveness
 # We need to specify an error term that accounts for natural variation from participant to participant. We do 
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
-
 #----------------------------------------------------------------------------------------------------------------
 #   Identify outliers:
 #----------------------------------------------------------------------------------------------------------------
@@ -7341,6 +7377,51 @@ exp5__anova__PROP.FA_data__outliers.removed <- exp5__anova__PROP.FA_data__row.id
 exp5__anova__PROP.FA__outliers.removed <- aov_car(FA ~ stim_format*distinctiveness
                                                     + Error(id / stim_format*distinctiveness), 
                                                     data = exp5__anova__PROP.FA_data__outliers.removed)
+
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.FA__stim.format.means <- emmeans(exp5__anova__PROP.FA, ~ stim_format)
+      exp5__anova__PROP.FA__distinctiveness.means <- emmeans(exp5__anova__PROP.FA, ~ distinctiveness)
+      exp5__anova__PROP.FA__interaction.means <- emmeans(exp5__anova__PROP.FA, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.FA__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.FA__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.FA__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.FA__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.FA)
+      exp5__apa__anova__PROP.FA__stim.format.main.effect <-
+          exp5__apa__anova__PROP.FA$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.FA__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.FA$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.FA__interaction.main.effect <- 
+          exp5__apa__anova__PROP.FA$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.FA__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.FA__stim.format.means) 
+      exp5__apa__anova__PROP.FA__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.FA__distinctiveness.means) 
+      exp5__apa__anova__PROP.FA__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.FA__interaction.means) 
+      
+      exp5__apa__anova__PROP.FA__words.mean <-
+          exp5__apa__anova__PROP.FA__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.FA__drawings.mean <-
+          exp5__apa__anova__PROP.FA__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.FA__photos.mean <-
+          exp5__apa__anova__PROP.FA__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.FA__low_dist.mean <-
+          exp5__apa__anova__PROP.FA__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.FA__high_dist.mean <-
+          exp5__apa__anova__PROP.FA__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
 # Proportion of total FA
@@ -7357,6 +7438,1074 @@ knitr::kable(nice(exp5__anova__PROP.FA__outliers.removed))
 ```
 
 
+\newpage
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
+#----------------------------------------------------------------------------------------------------------------
+#   Prep data for analysis:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.RECOG_data <- exp5__final_data %>%
+  select(id, grey_word_recog, distinctive_word_recog, grey_drawing_recog, 
+         col_drawing_recog, grey_photo_recog, col_photo_recog) %>%
+  rename("Grey words" = "grey_word_recog", "Distinctive words" = "distinctive_word_recog",
+         "Grey drawings" = "grey_drawing_recog", "Colour drawings" = "col_drawing_recog",
+         "Grey photos" = "grey_photo_recog", "Colour photos" = "col_photo_recog") %>%
+  gather(key = "stim_format", value = "recog", "Grey words", "Distinctive words", "Grey drawings", 
+         "Colour drawings", "Grey photos", "Colour photos") %>%
+  mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
+                                  ifelse(str_detect(stim_format, "^Distinctive"), "High", 
+                                         ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
+  arrange(id) %>%
+  transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
+  transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
+  transform(id = factor(id))
+#----------------------------------------------------------------------------------------------------------------
+#   Summary stats:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.RECOG_data_summary <- exp5__anova__PROP.RECOG_data %>%
+  group_by(stim_format, distinctiveness) %>%
+  get_summary_stats(recog, type = "mean_sd")
+#----------------------------------------------------------------------------------------------------------------
+#   Run two-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.RECOG <- aov_car(recog ~ stim_format*distinctiveness 
+                                + Error(id / stim_format*distinctiveness), 
+                                data = exp5__anova__PROP.RECOG_data)
+# We need to specify an error term that accounts for natural variation from participant to participant. We do 
+# this with the Error() function: specifically, we are saying that we want to control for that 
+# between-participant variation over all of our within-subjects variables.
+#----------------------------------------------------------------------------------------------------------------
+#   Identify outliers:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.RECOG_data__row.id <- exp5__anova__PROP.RECOG_data %>%
+  rowid_to_column(., "temp")
+
+exp5__anova__PROP.RECOG_data__outliers <- exp5__anova__PROP.RECOG_data__row.id %>%
+  group_by(stim_format, distinctiveness) %>%
+  identify_outliers(recog) %>%
+  filter(is.extreme == TRUE) %>%
+  pull(temp)
+
+exp5__anova__PROP.RECOG_data__outliers.removed <- exp5__anova__PROP.RECOG_data__row.id %>%
+  filter(!temp %in% exp5__anova__PROP.RECOG_data__outliers)
+
+exp5__anova__PROP.RECOG__outliers.removed <- aov_car(recog ~ stim_format*distinctiveness
+                                                  + Error(id / stim_format*distinctiveness), 
+                                                  data = exp5__anova__PROP.RECOG_data__outliers.removed)
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.RECOG__stim.format.means <- emmeans(exp5__anova__PROP.RECOG, ~ stim_format)
+      exp5__anova__PROP.RECOG__distinctiveness.means <- emmeans(exp5__anova__PROP.RECOG, ~ distinctiveness)
+      exp5__anova__PROP.RECOG__interaction.means <- emmeans(exp5__anova__PROP.RECOG, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.RECOG__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.RECOG__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.RECOG__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.RECOG__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.RECOG <- papaja:::apa_print.afex_aov(exp5__anova__PROP.RECOG)
+      exp5__apa__anova__PROP.RECOG__stim.format.main.effect <-
+          exp5__apa__anova__PROP.RECOG$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.RECOG__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.RECOG$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.RECOG__interaction.main.effect <- 
+          exp5__apa__anova__PROP.RECOG$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.RECOG__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.RECOG__stim.format.means) 
+      exp5__apa__anova__PROP.RECOG__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.RECOG__distinctiveness.means) 
+      exp5__apa__anova__PROP.RECOG__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.RECOG__interaction.means) 
+      
+      exp5__apa__anova__PROP.RECOG__words.mean <-
+          exp5__apa__anova__PROP.RECOG__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.RECOG__drawings.mean <-
+          exp5__apa__anova__PROP.RECOG__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.RECOG__photos.mean <-
+          exp5__apa__anova__PROP.RECOG__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.RECOG__low_dist.mean <-
+          exp5__apa__anova__PROP.RECOG__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.RECOG__high_dist.mean <-
+          exp5__apa__anova__PROP.RECOG__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
+```
+
+# Overall recognition:
+```{r, echo=FALSE, cache=FALSE}
+exp5__anova__PROP.RECOG_data_summary %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position")
+
+knitr::kable(nice(exp5__anova__PROP.RECOG))
+```
+# Outliers removed:
+```{r, echo=FALSE, cache=FALSE}
+knitr::kable(nice(exp5__anova__PROP.RECOG__outliers.removed))
+```
+
+
+\newpage
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
+#----------------------------------------------------------------------------------------------------------------
+#   Prep data for analysis:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.D.PRIME_data <- exp5__final_data %>%
+  select(id, exp5__grey_word_d_prime, exp5__distinctive_word_d_prime, exp5__grey_drawing_d_prime, 
+         exp5__col_drawing_d_prime, exp5__grey_photo_d_prime, exp5__col_photo_d_prime) %>%
+  rename("Grey words" = "exp5__grey_word_d_prime", "Distinctive words" = "exp5__distinctive_word_d_prime",
+         "Grey drawings" = "exp5__grey_drawing_d_prime", "Colour drawings" = "exp5__col_drawing_d_prime",
+         "Grey photos" = "exp5__grey_photo_d_prime", "Colour photos" = "exp5__col_photo_d_prime") %>%
+  gather(key = "stim_format", value = "d.prime", "Grey words", "Distinctive words", "Grey drawings", 
+         "Colour drawings", "Grey photos", "Colour photos") %>%
+  mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
+                                  ifelse(str_detect(stim_format, "^Distinctive"), "High", 
+                                         ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
+  arrange(id) %>%
+  transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
+  transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
+  transform(id = factor(id))
+#----------------------------------------------------------------------------------------------------------------
+#   Summary stats:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.D.PRIME_data_summary <- exp5__anova__PROP.D.PRIME_data %>%
+  group_by(stim_format, distinctiveness) %>%
+  get_summary_stats(d.prime, type = "mean_sd")
+#----------------------------------------------------------------------------------------------------------------
+#   Run two-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.D.PRIME <- aov_car(d.prime ~ stim_format*distinctiveness 
+                                + Error(id / stim_format*distinctiveness), 
+                                data = exp5__anova__PROP.D.PRIME_data)
+# We need to specify an error term that accounts for natural variation from participant to participant. We do 
+# this with the Error() function: specifically, we are saying that we want to control for that 
+# between-participant variation over all of our within-subjects variables.
+#----------------------------------------------------------------------------------------------------------------
+#   Identify outliers:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.D.PRIME_data__row.id <- exp5__anova__PROP.D.PRIME_data %>%
+  rowid_to_column(., "temp")
+
+exp5__anova__PROP.D.PRIME_data__outliers <- exp5__anova__PROP.D.PRIME_data__row.id %>%
+  group_by(stim_format, distinctiveness) %>%
+  identify_outliers(d.prime) %>%
+  filter(is.extreme == TRUE) %>%
+  pull(temp)
+
+exp5__anova__PROP.D.PRIME_data__outliers.removed <- exp5__anova__PROP.D.PRIME_data__row.id %>%
+  filter(!temp %in% exp5__anova__PROP.D.PRIME_data__outliers)
+
+exp5__anova__PROP.D.PRIME__outliers.removed <- aov_car(d.prime ~ stim_format*distinctiveness
+                                                  + Error(id / stim_format*distinctiveness), 
+                                                  data = exp5__anova__PROP.D.PRIME_data__outliers.removed)
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.D.PRIME__stim.format.means <- emmeans(exp5__anova__PROP.D.PRIME, ~ stim_format)
+      exp5__anova__PROP.D.PRIME__distinctiveness.means <- emmeans(exp5__anova__PROP.D.PRIME, ~ distinctiveness)
+      exp5__anova__PROP.D.PRIME__interaction.means <- emmeans(exp5__anova__PROP.D.PRIME, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.D.PRIME__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.D.PRIME__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.D.PRIME__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.D.PRIME__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.D.PRIME <- papaja:::apa_print.afex_aov(exp5__anova__PROP.D.PRIME)
+      exp5__apa__anova__PROP.D.PRIME__stim.format.main.effect <-
+          exp5__apa__anova__PROP.D.PRIME$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.D.PRIME__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.D.PRIME$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.D.PRIME__interaction.main.effect <- 
+          exp5__apa__anova__PROP.D.PRIME$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.D.PRIME__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.D.PRIME__stim.format.means) 
+      exp5__apa__anova__PROP.D.PRIME__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.D.PRIME__distinctiveness.means) 
+      exp5__apa__anova__PROP.D.PRIME__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.D.PRIME__interaction.means) 
+      
+      exp5__apa__anova__PROP.D.PRIME__words.mean <-
+          exp5__apa__anova__PROP.D.PRIME__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.D.PRIME__drawings.mean <-
+          exp5__apa__anova__PROP.D.PRIME__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.D.PRIME__photos.mean <-
+          exp5__apa__anova__PROP.D.PRIME__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.D.PRIME__low_dist.mean <-
+          exp5__apa__anova__PROP.D.PRIME__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.D.PRIME__high_dist.mean <-
+          exp5__apa__anova__PROP.D.PRIME__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
+```
+
+# d' scores
+```{r, echo=FALSE, cache=FALSE}
+exp5__anova__PROP.D.PRIME_data_summary %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position")
+
+knitr::kable(nice(exp5__anova__PROP.D.PRIME))
+```
+# Outliers removed:
+```{r, echo=FALSE, cache=FALSE}
+knitr::kable(nice(exp5__anova__PROP.D.PRIME__outliers.removed))
+```
+
+
+\newpage
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
+#----------------------------------------------------------------------------------------------------------------
+#   Prep data for analysis:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.C_data <- exp5__final_data %>%
+  select(id, grey_word_c, distinctive_word_c, grey_drawing_c, 
+         col_drawing_c, grey_photo_c, col_photo_c) %>%
+  rename("Grey words" = "grey_word_c", "Distinctive words" = "distinctive_word_c",
+         "Grey drawings" = "grey_drawing_c", "Colour drawings" = "col_drawing_c",
+         "Grey photos" = "grey_photo_c", "Colour photos" = "col_photo_c") %>%
+  gather(key = "stim_format", value = "c", "Grey words", "Distinctive words", "Grey drawings", 
+         "Colour drawings", "Grey photos", "Colour photos") %>%
+  mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
+                                  ifelse(str_detect(stim_format, "^Distinctive"), "High", 
+                                         ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
+  arrange(id) %>%
+  transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
+  transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
+  transform(id = factor(id))
+#----------------------------------------------------------------------------------------------------------------
+#   Summary stats:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.C_data_summary <- exp5__anova__PROP.C_data %>%
+  group_by(stim_format, distinctiveness) %>%
+  get_summary_stats(c, type = "mean_sd")
+#----------------------------------------------------------------------------------------------------------------
+#   Run two-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.C <- aov_car(c ~ stim_format*distinctiveness 
+                                   + Error(id / stim_format*distinctiveness), 
+                                   data = exp5__anova__PROP.C_data)
+# We need to specify an error term that accounts for natural variation from participant to participant. We do 
+# this with the Error() function: specifically, we are saying that we want to control for that 
+# between-participant variation over all of our within-subjects variables.
+#----------------------------------------------------------------------------------------------------------------
+#   Identify outliers:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.C_data__row.id <- exp5__anova__PROP.C_data %>%
+  rowid_to_column(., "temp")
+
+exp5__anova__PROP.C_data__outliers <- exp5__anova__PROP.C_data__row.id %>%
+  group_by(stim_format, distinctiveness) %>%
+  identify_outliers(c) %>%
+  filter(is.extreme == TRUE) %>%
+  pull(temp)
+
+exp5__anova__PROP.C_data__outliers.removed <- exp5__anova__PROP.C_data__row.id %>%
+  filter(!temp %in% exp5__anova__PROP.C_data__outliers)
+
+exp5__anova__PROP.C__outliers.removed <- aov_car(c ~ stim_format*distinctiveness
+                                                     + Error(id / stim_format*distinctiveness), 
+                                                     data = exp5__anova__PROP.C_data__outliers.removed)
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.C__stim.format.means <- emmeans(exp5__anova__PROP.C, ~ stim_format)
+      exp5__anova__PROP.C__distinctiveness.means <- emmeans(exp5__anova__PROP.C, ~ distinctiveness)
+      exp5__anova__PROP.C__interaction.means <- emmeans(exp5__anova__PROP.C, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.C__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.C__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.C__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.C__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.C <- papaja:::apa_print.afex_aov(exp5__anova__PROP.C)
+      exp5__apa__anova__PROP.C__stim.format.main.effect <-
+          exp5__apa__anova__PROP.C$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.C__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.C$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.C__interaction.main.effect <- 
+          exp5__apa__anova__PROP.C$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.C__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.C__stim.format.means) 
+      exp5__apa__anova__PROP.C__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.C__distinctiveness.means) 
+      exp5__apa__anova__PROP.C__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.C__interaction.means) 
+      
+      exp5__apa__anova__PROP.C__words.mean <-
+          exp5__apa__anova__PROP.C__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.C__drawings.mean <-
+          exp5__apa__anova__PROP.C__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.C__photos.mean <-
+          exp5__apa__anova__PROP.C__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.C__low_dist.mean <-
+          exp5__apa__anova__PROP.C__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.C__high_dist.mean <-
+          exp5__apa__anova__PROP.C__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
+```
+
+# C scores:
+```{r, echo=FALSE, cache=FALSE}
+exp5__anova__PROP.C_data_summary %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position")
+
+knitr::kable(nice(exp5__anova__PROP.C))
+```
+# Outliers removed:
+```{r, echo=FALSE, cache=FALSE}
+knitr::kable(nice(exp5__anova__PROP.C__outliers.removed))
+```
+
+\newpage
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
+#----------------------------------------------------------------------------------------------------------------
+#   Prep data for analysis:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.REC.HIT_data <- exp5__final_data %>%
+  select(id, prop_grey_word_hit_rec, prop_distinctive_word_hit_rec, prop_grey_drawing_hit_rec, 
+         prop_col_drawing_hit_rec, prop_grey_photo_hit_rec, prop_col_photo_hit_rec) %>%
+  rename("Grey words" = "prop_grey_word_hit_rec", "Distinctive words" = "prop_distinctive_word_hit_rec",
+         "Grey drawings" = "prop_grey_drawing_hit_rec", "Colour drawings" = "prop_col_drawing_hit_rec",
+         "Grey photos" = "prop_grey_photo_hit_rec", "Colour photos" = "prop_col_photo_hit_rec") %>%
+  gather(key = "stim_format", value = "rec_hit", "Grey words", "Distinctive words", "Grey drawings", 
+         "Colour drawings", "Grey photos", "Colour photos") %>%
+  mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
+                                  ifelse(str_detect(stim_format, "^Distinctive"), "High", 
+                                         ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
+  arrange(id) %>%
+  transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
+  transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
+  transform(id = factor(id))
+#----------------------------------------------------------------------------------------------------------------
+#   Summary stats:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.REC.HIT_data_summary <- exp5__anova__PROP.REC.HIT_data %>%
+  group_by(stim_format, distinctiveness) %>%
+  get_summary_stats(rec_hit, type = "mean_sd")
+#----------------------------------------------------------------------------------------------------------------
+#   Run two-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.REC.HIT <- aov_car(rec_hit ~ stim_format*distinctiveness 
+                                   + Error(id / stim_format*distinctiveness), 
+                                   data = exp5__anova__PROP.REC.HIT_data)
+# We need to specify an error term that accounts for natural variation from participant to participant. We do 
+# this with the Error() function: specifically, we are saying that we want to control for that 
+# between-participant variation over all of our within-subjects variables.
+#----------------------------------------------------------------------------------------------------------------
+#   Identify outliers:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.REC.HIT_data__row.id <- exp5__anova__PROP.REC.HIT_data %>%
+  rowid_to_column(., "temp")
+
+exp5__anova__PROP.REC.HIT_data__outliers <- exp5__anova__PROP.REC.HIT_data__row.id %>%
+  group_by(stim_format, distinctiveness) %>%
+  identify_outliers(rec_hit) %>%
+  filter(is.extreme == TRUE) %>%
+  pull(temp)
+
+exp5__anova__PROP.REC.HIT_data__outliers.removed <- exp5__anova__PROP.REC.HIT_data__row.id %>%
+  filter(!temp %in% exp5__anova__PROP.REC.HIT_data__outliers)
+
+exp5__anova__PROP.REC.HIT__outliers.removed <- aov_car(rec_hit ~ stim_format*distinctiveness
+                                                     + Error(id / stim_format*distinctiveness), 
+                                                     data = exp5__anova__PROP.REC.HIT_data__outliers.removed)
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.REC.HIT__stim.format.means <- emmeans(exp5__anova__PROP.REC.HIT, ~ stim_format)
+      exp5__anova__PROP.REC.HIT__distinctiveness.means <- emmeans(exp5__anova__PROP.REC.HIT, ~ distinctiveness)
+      exp5__anova__PROP.REC.HIT__interaction.means <- emmeans(exp5__anova__PROP.REC.HIT, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.REC.HIT__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.REC.HIT__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.REC.HIT__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.REC.HIT__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.REC.HIT <- papaja:::apa_print.afex_aov(exp5__anova__PROP.REC.HIT)
+      exp5__apa__anova__PROP.REC.HIT__stim.format.main.effect <-
+          exp5__apa__anova__PROP.REC.HIT$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.REC.HIT__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.REC.HIT$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.REC.HIT__interaction.main.effect <- 
+          exp5__apa__anova__PROP.REC.HIT$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.REC.HIT__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.HIT__stim.format.means) 
+      exp5__apa__anova__PROP.REC.HIT__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.HIT__distinctiveness.means) 
+      exp5__apa__anova__PROP.REC.HIT__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.HIT__interaction.means) 
+      
+      exp5__apa__anova__PROP.REC.HIT__words.mean <-
+          exp5__apa__anova__PROP.REC.HIT__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.REC.HIT__drawings.mean <-
+          exp5__apa__anova__PROP.REC.HIT__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.REC.HIT__photos.mean <-
+          exp5__apa__anova__PROP.REC.HIT__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.REC.HIT__low_dist.mean <-
+          exp5__apa__anova__PROP.REC.HIT__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.REC.HIT__high_dist.mean <-
+          exp5__apa__anova__PROP.REC.HIT__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
+```
+
+# Prop Rec hit:
+```{r, echo=FALSE, cache=FALSE}
+exp5__anova__PROP.REC.HIT_data_summary %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position")
+
+knitr::kable(nice(exp5__anova__PROP.REC.HIT))
+```
+# Outliers removed:
+```{r, echo=FALSE, cache=FALSE}
+knitr::kable(nice(exp5__anova__PROP.REC.HIT__outliers.removed))
+```
+
+\newpage
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
+#----------------------------------------------------------------------------------------------------------------
+#   Prep data for analysis:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.FAM.HIT_data <- exp5__final_data %>%
+  select(id, prop_grey_word_hit_fam, prop_distinctive_word_hit_fam, prop_grey_drawing_hit_fam, 
+         prop_col_drawing_hit_fam, prop_grey_photo_hit_fam, prop_col_photo_hit_fam) %>%
+  rename("Grey words" = "prop_grey_word_hit_fam", "Distinctive words" = "prop_distinctive_word_hit_fam",
+         "Grey drawings" = "prop_grey_drawing_hit_fam", "Colour drawings" = "prop_col_drawing_hit_fam",
+         "Grey photos" = "prop_grey_photo_hit_fam", "Colour photos" = "prop_col_photo_hit_fam") %>%
+  gather(key = "stim_format", value = "fam_hit", "Grey words", "Distinctive words", "Grey drawings", 
+         "Colour drawings", "Grey photos", "Colour photos") %>%
+  mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
+                                  ifelse(str_detect(stim_format, "^Distinctive"), "High", 
+                                         ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
+  arrange(id) %>%
+  transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
+  transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
+  transform(id = factor(id))
+#----------------------------------------------------------------------------------------------------------------
+#   Summary stats:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.FAM.HIT_data_summary <- exp5__anova__PROP.FAM.HIT_data %>%
+  group_by(stim_format, distinctiveness) %>%
+  get_summary_stats(fam_hit, type = "mean_sd")
+#----------------------------------------------------------------------------------------------------------------
+#   Run two-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.FAM.HIT <- aov_car(fam_hit ~ stim_format*distinctiveness 
+                                     + Error(id / stim_format*distinctiveness), 
+                                     data = exp5__anova__PROP.FAM.HIT_data)
+# We need to specify an error term that accounts for natural variation from participant to participant. We do 
+# this with the Error() function: specifically, we are saying that we want to control for that 
+# between-participant variation over all of our within-subjects variables.
+#----------------------------------------------------------------------------------------------------------------
+#   Identify outliers:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.FAM.HIT_data__row.id <- exp5__anova__PROP.FAM.HIT_data %>%
+  rowid_to_column(., "temp")
+
+exp5__anova__PROP.FAM.HIT_data__outliers <- exp5__anova__PROP.FAM.HIT_data__row.id %>%
+  group_by(stim_format, distinctiveness) %>%
+  identify_outliers(fam_hit) %>%
+  filter(is.extreme == TRUE) %>%
+  pull(temp)
+
+exp5__anova__PROP.FAM.HIT_data__outliers.removed <- exp5__anova__PROP.FAM.HIT_data__row.id %>%
+  filter(!temp %in% exp5__anova__PROP.FAM.HIT_data__outliers)
+
+exp5__anova__PROP.FAM.HIT__outliers.removed <- aov_car(fam_hit ~ stim_format*distinctiveness
+                                                       + Error(id / stim_format*distinctiveness), 
+                                                       data = exp5__anova__PROP.FAM.HIT_data__outliers.removed)
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.FAM.HIT__stim.format.means <- emmeans(exp5__anova__PROP.FAM.HIT, ~ stim_format)
+      exp5__anova__PROP.FAM.HIT__distinctiveness.means <- emmeans(exp5__anova__PROP.FAM.HIT, ~ distinctiveness)
+      exp5__anova__PROP.FAM.HIT__interaction.means <- emmeans(exp5__anova__PROP.FAM.HIT, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.FAM.HIT__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.FAM.HIT__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.FAM.HIT__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.FAM.HIT__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.FAM.HIT <- papaja:::apa_print.afex_aov(exp5__anova__PROP.FAM.HIT)
+      exp5__apa__anova__PROP.FAM.HIT__stim.format.main.effect <-
+          exp5__apa__anova__PROP.FAM.HIT$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.FAM.HIT__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.FAM.HIT$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.FAM.HIT__interaction.main.effect <- 
+          exp5__apa__anova__PROP.FAM.HIT$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.FAM.HIT__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.HIT__stim.format.means) 
+      exp5__apa__anova__PROP.FAM.HIT__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.HIT__distinctiveness.means) 
+      exp5__apa__anova__PROP.FAM.HIT__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.HIT__interaction.means) 
+      
+      exp5__apa__anova__PROP.FAM.HIT__words.mean <-
+          exp5__apa__anova__PROP.FAM.HIT__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.FAM.HIT__drawings.mean <-
+          exp5__apa__anova__PROP.FAM.HIT__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.FAM.HIT__photos.mean <-
+          exp5__apa__anova__PROP.FAM.HIT__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.FAM.HIT__low_dist.mean <-
+          exp5__apa__anova__PROP.FAM.HIT__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.FAM.HIT__high_dist.mean <-
+          exp5__apa__anova__PROP.FAM.HIT__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
+```
+
+# Prop FAM hit:
+```{r, echo=FALSE, cache=FALSE}
+exp5__anova__PROP.FAM.HIT_data_summary %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position")
+
+knitr::kable(nice(exp5__anova__PROP.FAM.HIT))
+```
+# Outliers removed:
+```{r, echo=FALSE, cache=FALSE}
+knitr::kable(nice(exp5__anova__PROP.FAM.HIT__outliers.removed))
+```
+
+
+\newpage
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
+#----------------------------------------------------------------------------------------------------------------
+#   Prep data for analysis:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.GUESS.HIT_data <- exp5__final_data %>%
+  select(id, prop_grey_word_hit_guess, prop_distinctive_word_hit_guess, prop_grey_drawing_hit_guess, 
+         prop_col_drawing_hit_guess, prop_grey_photo_hit_guess, prop_col_photo_hit_guess) %>%
+  rename("Grey words" = "prop_grey_word_hit_guess", "Distinctive words" = "prop_distinctive_word_hit_guess",
+         "Grey drawings" = "prop_grey_drawing_hit_guess", "Colour drawings" = "prop_col_drawing_hit_guess",
+         "Grey photos" = "prop_grey_photo_hit_guess", "Colour photos" = "prop_col_photo_hit_guess") %>%
+  gather(key = "stim_format", value = "guess_hit", "Grey words", "Distinctive words", "Grey drawings", 
+         "Colour drawings", "Grey photos", "Colour photos") %>%
+  mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
+                                  ifelse(str_detect(stim_format, "^Distinctive"), "High", 
+                                         ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
+  arrange(id) %>%
+  transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
+  transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
+  transform(id = factor(id))
+#----------------------------------------------------------------------------------------------------------------
+#   Summary stats:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.GUESS.HIT_data_summary <- exp5__anova__PROP.GUESS.HIT_data %>%
+  group_by(stim_format, distinctiveness) %>%
+  get_summary_stats(guess_hit, type = "mean_sd")
+#----------------------------------------------------------------------------------------------------------------
+#   Run two-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.GUESS.HIT <- aov_car(guess_hit ~ stim_format*distinctiveness 
+                                     + Error(id / stim_format*distinctiveness), 
+                                     data = exp5__anova__PROP.GUESS.HIT_data)
+# We need to specify an error term that accounts for natural variation from participant to participant. We do 
+# this with the Error() function: specifically, we are saying that we want to control for that 
+# between-participant variation over all of our within-subjects variables.
+#----------------------------------------------------------------------------------------------------------------
+#   Identify outliers:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.GUESS.HIT_data__row.id <- exp5__anova__PROP.GUESS.HIT_data %>%
+  rowid_to_column(., "temp")
+
+exp5__anova__PROP.GUESS.HIT_data__outliers <- exp5__anova__PROP.GUESS.HIT_data__row.id %>%
+  group_by(stim_format, distinctiveness) %>%
+  identify_outliers(guess_hit) %>%
+  filter(is.extreme == TRUE) %>%
+  pull(temp)
+
+exp5__anova__PROP.GUESS.HIT_data__outliers.removed <- exp5__anova__PROP.GUESS.HIT_data__row.id %>%
+  filter(!temp %in% exp5__anova__PROP.GUESS.HIT_data__outliers)
+
+exp5__anova__PROP.GUESS.HIT__outliers.removed <- aov_car(guess_hit ~ stim_format*distinctiveness
+                                                       + Error(id / stim_format*distinctiveness), 
+                                                       data = exp5__anova__PROP.GUESS.HIT_data__outliers.removed)
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.GUESS.HIT__stim.format.means <- emmeans(exp5__anova__PROP.GUESS.HIT, ~ stim_format)
+      exp5__anova__PROP.GUESS.HIT__distinctiveness.means <- emmeans(exp5__anova__PROP.GUESS.HIT, ~ distinctiveness)
+      exp5__anova__PROP.GUESS.HIT__interaction.means <- emmeans(exp5__anova__PROP.GUESS.HIT, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.GUESS.HIT__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.GUESS.HIT__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.GUESS.HIT__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.GUESS.HIT__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.GUESS.HIT <- papaja:::apa_print.afex_aov(exp5__anova__PROP.GUESS.HIT)
+      exp5__apa__anova__PROP.GUESS.HIT__stim.format.main.effect <-
+          exp5__apa__anova__PROP.GUESS.HIT$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.GUESS.HIT__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.GUESS.HIT$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.GUESS.HIT__interaction.main.effect <- 
+          exp5__apa__anova__PROP.GUESS.HIT$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.GUESS.HIT__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.HIT__stim.format.means) 
+      exp5__apa__anova__PROP.GUESS.HIT__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.HIT__distinctiveness.means) 
+      exp5__apa__anova__PROP.GUESS.HIT__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.HIT__interaction.means) 
+      
+      exp5__apa__anova__PROP.GUESS.HIT__words.mean <-
+          exp5__apa__anova__PROP.GUESS.HIT__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.GUESS.HIT__drawings.mean <-
+          exp5__apa__anova__PROP.GUESS.HIT__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.GUESS.HIT__photos.mean <-
+          exp5__apa__anova__PROP.GUESS.HIT__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.GUESS.HIT__low_dist.mean <-
+          exp5__apa__anova__PROP.GUESS.HIT__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.GUESS.HIT__high_dist.mean <-
+          exp5__apa__anova__PROP.GUESS.HIT__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
+```
+
+# Prop GUESS hit:
+```{r, echo=FALSE, cache=FALSE}
+exp5__anova__PROP.GUESS.HIT_data_summary %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position")
+
+knitr::kable(nice(exp5__anova__PROP.GUESS.HIT))
+```
+# Outliers removed:
+```{r, echo=FALSE, cache=FALSE}
+knitr::kable(nice(exp5__anova__PROP.GUESS.HIT__outliers.removed))
+```
+
+
+\newpage
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
+#----------------------------------------------------------------------------------------------------------------
+#   Prep data for analysis:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.REC.FA_data <- exp5__final_data %>%
+  select(id, prop_grey_word_FA_rec, prop_distinctive_word_FA_rec, prop_grey_drawing_FA_rec, 
+         prop_col_drawing_FA_rec, prop_grey_photo_FA_rec, prop_col_photo_FA_rec) %>%
+  rename("Grey words" = "prop_grey_word_FA_rec", "Distinctive words" = "prop_distinctive_word_FA_rec",
+         "Grey drawings" = "prop_grey_drawing_FA_rec", "Colour drawings" = "prop_col_drawing_FA_rec",
+         "Grey photos" = "prop_grey_photo_FA_rec", "Colour photos" = "prop_col_photo_FA_rec") %>%
+  gather(key = "stim_format", value = "rec_FA", "Grey words", "Distinctive words", "Grey drawings", 
+         "Colour drawings", "Grey photos", "Colour photos") %>%
+  mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
+                                  ifelse(str_detect(stim_format, "^Distinctive"), "High", 
+                                         ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
+  arrange(id) %>%
+  transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
+  transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
+  transform(id = factor(id))
+#----------------------------------------------------------------------------------------------------------------
+#   Summary stats:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.REC.FA_data_summary <- exp5__anova__PROP.REC.FA_data %>%
+  group_by(stim_format, distinctiveness) %>%
+  get_summary_stats(rec_FA, type = "mean_sd")
+#----------------------------------------------------------------------------------------------------------------
+#   Run two-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.REC.FA <- aov_car(rec_FA ~ stim_format*distinctiveness 
+                                     + Error(id / stim_format*distinctiveness), 
+                                     data = exp5__anova__PROP.REC.FA_data)
+# We need to specify an error term that accounts for natural variation from participant to participant. We do 
+# this with the Error() function: specifically, we are saying that we want to control for that 
+# between-participant variation over all of our within-subjects variables.
+#----------------------------------------------------------------------------------------------------------------
+#   Identify outliers:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.REC.FA_data__row.id <- exp5__anova__PROP.REC.FA_data %>%
+  rowid_to_column(., "temp")
+
+exp5__anova__PROP.REC.FA_data__outliers <- exp5__anova__PROP.REC.FA_data__row.id %>%
+  group_by(stim_format, distinctiveness) %>%
+  identify_outliers(rec_FA) %>%
+  filter(is.extreme == TRUE) %>%
+  pull(temp)
+
+exp5__anova__PROP.REC.FA_data__outliers.removed <- exp5__anova__PROP.REC.FA_data__row.id %>%
+  filter(!temp %in% exp5__anova__PROP.REC.FA_data__outliers)
+
+exp5__anova__PROP.REC.FA__outliers.removed <- aov_car(rec_FA ~ stim_format*distinctiveness
+                                                       + Error(id / stim_format*distinctiveness), 
+                                                       data = exp5__anova__PROP.REC.FA_data__outliers.removed)
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.REC.FA__stim.format.means <- emmeans(exp5__anova__PROP.REC.FA, ~ stim_format)
+      exp5__anova__PROP.REC.FA__distinctiveness.means <- emmeans(exp5__anova__PROP.REC.FA, ~ distinctiveness)
+      exp5__anova__PROP.REC.FA__interaction.means <- emmeans(exp5__anova__PROP.REC.FA, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.REC.FA__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.REC.FA__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.REC.FA__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.REC.FA__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.REC.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.REC.FA)
+      exp5__apa__anova__PROP.REC.FA__stim.format.main.effect <-
+          exp5__apa__anova__PROP.REC.FA$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.REC.FA__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.REC.FA$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.REC.FA__interaction.main.effect <- 
+          exp5__apa__anova__PROP.REC.FA$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.REC.FA__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.FA__stim.format.means) 
+      exp5__apa__anova__PROP.REC.FA__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.FA__distinctiveness.means) 
+      exp5__apa__anova__PROP.REC.FA__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.FA__interaction.means) 
+      
+      exp5__apa__anova__PROP.REC.FA__words.mean <-
+          exp5__apa__anova__PROP.REC.FA__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.REC.FA__drawings.mean <-
+          exp5__apa__anova__PROP.REC.FA__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.REC.FA__photos.mean <-
+          exp5__apa__anova__PROP.REC.FA__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.REC.FA__low_dist.mean <-
+          exp5__apa__anova__PROP.REC.FA__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.REC.FA__high_dist.mean <-
+          exp5__apa__anova__PROP.REC.FA__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
+```
+
+# Prop REC FA:
+```{r, echo=FALSE, cache=FALSE}
+exp5__anova__PROP.REC.FA_data_summary %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position")
+
+knitr::kable(nice(exp5__anova__PROP.REC.FA))
+```
+# Outliers removed:
+```{r, echo=FALSE, cache=FALSE}
+knitr::kable(nice(exp5__anova__PROP.REC.FA__outliers.removed))
+```
+
+
+\newpage
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
+#----------------------------------------------------------------------------------------------------------------
+#   Prep data for analysis:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.FAM.FA_data <- exp5__final_data %>%
+  select(id, prop_grey_word_FA_fam, prop_distinctive_word_FA_fam, prop_grey_drawing_FA_fam, 
+         prop_col_drawing_FA_fam, prop_grey_photo_FA_fam, prop_col_photo_FA_fam) %>%
+  rename("Grey words" = "prop_grey_word_FA_fam", "Distinctive words" = "prop_distinctive_word_FA_fam",
+         "Grey drawings" = "prop_grey_drawing_FA_fam", "Colour drawings" = "prop_col_drawing_FA_fam",
+         "Grey photos" = "prop_grey_photo_FA_fam", "Colour photos" = "prop_col_photo_FA_fam") %>%
+  gather(key = "stim_format", value = "fam_FA", "Grey words", "Distinctive words", "Grey drawings", 
+         "Colour drawings", "Grey photos", "Colour photos") %>%
+  mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
+                                  ifelse(str_detect(stim_format, "^Distinctive"), "High", 
+                                         ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
+  arrange(id) %>%
+  transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
+  transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
+  transform(id = factor(id))
+#----------------------------------------------------------------------------------------------------------------
+#   Summary stats:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.FAM.FA_data_summary <- exp5__anova__PROP.FAM.FA_data %>%
+  group_by(stim_format, distinctiveness) %>%
+  get_summary_stats(fam_FA, type = "mean_sd")
+#----------------------------------------------------------------------------------------------------------------
+#   Run two-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.FAM.FA <- aov_car(fam_FA ~ stim_format*distinctiveness 
+                                     + Error(id / stim_format*distinctiveness), 
+                                     data = exp5__anova__PROP.FAM.FA_data)
+# We need to specify an error term that accounts for natural variation from participant to participant. We do 
+# this with the Error() function: specifically, we are saying that we want to control for that 
+# between-participant variation over all of our within-subjects variables.
+#----------------------------------------------------------------------------------------------------------------
+#   Identify outliers:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.FAM.FA_data__row.id <- exp5__anova__PROP.FAM.FA_data %>%
+  rowid_to_column(., "temp")
+
+exp5__anova__PROP.FAM.FA_data__outliers <- exp5__anova__PROP.FAM.FA_data__row.id %>%
+  group_by(stim_format, distinctiveness) %>%
+  identify_outliers(fam_FA) %>%
+  filter(is.extreme == TRUE) %>%
+  pull(temp)
+
+exp5__anova__PROP.FAM.FA_data__outliers.removed <- exp5__anova__PROP.FAM.FA_data__row.id %>%
+  filter(!temp %in% exp5__anova__PROP.FAM.FA_data__outliers)
+
+exp5__anova__PROP.FAM.FA__outliers.removed <- aov_car(fam_FA ~ stim_format*distinctiveness
+                                                       + Error(id / stim_format*distinctiveness), 
+                                                       data = exp5__anova__PROP.FAM.FA_data__outliers.removed)
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.FAM.FA__stim.format.means <- emmeans(exp5__anova__PROP.FAM.FA, ~ stim_format)
+      exp5__anova__PROP.FAM.FA__distinctiveness.means <- emmeans(exp5__anova__PROP.FAM.FA, ~ distinctiveness)
+      exp5__anova__PROP.FAM.FA__interaction.means <- emmeans(exp5__anova__PROP.FAM.FA, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.FAM.FA__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.FAM.FA__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.FAM.FA__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.FAM.FA__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.FAM.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.FAM.FA)
+      exp5__apa__anova__PROP.FAM.FA__stim.format.main.effect <-
+          exp5__apa__anova__PROP.FAM.FA$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.FAM.FA__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.FAM.FA$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.FAM.FA__interaction.main.effect <- 
+          exp5__apa__anova__PROP.FAM.FA$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.FAM.FA__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.FA__stim.format.means) 
+      exp5__apa__anova__PROP.FAM.FA__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.FA__distinctiveness.means) 
+      exp5__apa__anova__PROP.FAM.FA__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.FA__interaction.means) 
+      
+      exp5__apa__anova__PROP.FAM.FA__words.mean <-
+          exp5__apa__anova__PROP.FAM.FA__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.FAM.FA__drawings.mean <-
+          exp5__apa__anova__PROP.FAM.FA__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.FAM.FA__photos.mean <-
+          exp5__apa__anova__PROP.FAM.FA__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.FAM.FA__low_dist.mean <-
+          exp5__apa__anova__PROP.FAM.FA__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.FAM.FA__high_dist.mean <-
+          exp5__apa__anova__PROP.FAM.FA__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
+```
+
+# Prop FAM FA:
+```{r, echo=FALSE, cache=FALSE}
+exp5__anova__PROP.FAM.FA_data_summary %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position")
+
+knitr::kable(nice(exp5__anova__PROP.FAM.FA))
+```
+# Outliers removed:
+```{r, echo=FALSE, cache=FALSE}
+knitr::kable(nice(exp5__anova__PROP.FAM.FA__outliers.removed))
+```
+
+
+\newpage
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
+#----------------------------------------------------------------------------------------------------------------
+#   Prep data for analysis:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.GUESS.FA_data <- exp5__final_data %>%
+  select(id, prop_grey_word_FA_guess, prop_distinctive_word_FA_guess, prop_grey_drawing_FA_guess, 
+         prop_col_drawing_FA_guess, prop_grey_photo_FA_guess, prop_col_photo_FA_guess) %>%
+  rename("Grey words" = "prop_grey_word_FA_guess", "Distinctive words" = "prop_distinctive_word_FA_guess",
+         "Grey drawings" = "prop_grey_drawing_FA_guess", "Colour drawings" = "prop_col_drawing_FA_guess",
+         "Grey photos" = "prop_grey_photo_FA_guess", "Colour photos" = "prop_col_photo_FA_guess") %>%
+  gather(key = "stim_format", value = "guess_FA", "Grey words", "Distinctive words", "Grey drawings", 
+         "Colour drawings", "Grey photos", "Colour photos") %>%
+  mutate(distinctiveness = ifelse(str_detect(stim_format, "^Grey"), "Low", 
+                                  ifelse(str_detect(stim_format, "^Distinctive"), "High", 
+                                         ifelse(str_detect(stim_format, "^Colour"), "High", "")))) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Distinctive words", "Words")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour drawings", "Drawings")) %>%
+  mutate(stim_format = str_replace(stim_format, "Grey photos", "Photos")) %>%
+  mutate(stim_format = str_replace(stim_format, "Colour photos", "Photos")) %>%
+  arrange(id) %>%
+  transform(stim_format = factor(stim_format, levels=c("Words", "Drawings", "Photos"))) %>%
+  transform(distinctiveness = factor(distinctiveness, levels=c("Low", "High"))) %>%
+  transform(id = factor(id))
+#----------------------------------------------------------------------------------------------------------------
+#   Summary stats:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.GUESS.FA_data_summary <- exp5__anova__PROP.GUESS.FA_data %>%
+  group_by(stim_format, distinctiveness) %>%
+  get_summary_stats(guess_FA, type = "mean_sd")
+#----------------------------------------------------------------------------------------------------------------
+#   Run two-way repeated measures ANOVA:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.GUESS.FA <- aov_car(guess_FA ~ stim_format*distinctiveness 
+                                     + Error(id / stim_format*distinctiveness), 
+                                     data = exp5__anova__PROP.GUESS.FA_data)
+# We need to specify an error term that accounts for natural variation from participant to participant. We do 
+# this with the Error() function: specifically, we are saying that we want to control for that 
+# between-participant variation over all of our within-subjects variables.
+
+#----------------------------------------------------------------------------------------------------------------
+#   Identify outliers:
+#----------------------------------------------------------------------------------------------------------------
+exp5__anova__PROP.GUESS.FA_data__row.id <- exp5__anova__PROP.GUESS.FA_data %>%
+  rowid_to_column(., "temp")
+
+exp5__anova__PROP.GUESS.FA_data__outliers <- exp5__anova__PROP.GUESS.FA_data__row.id %>%
+  group_by(stim_format, distinctiveness) %>%
+  identify_outliers(guess_FA) %>%
+  filter(is.extreme == TRUE) %>%
+  pull(temp)
+
+exp5__anova__PROP.GUESS.FA_data__outliers.removed <- exp5__anova__PROP.GUESS.FA_data__row.id %>%
+  filter(!temp %in% exp5__anova__PROP.GUESS.FA_data__outliers)
+
+exp5__anova__PROP.GUESS.FA__outliers.removed <- aov_car(guess_FA ~ stim_format*distinctiveness
+                                                       + Error(id / stim_format*distinctiveness), 
+                                                       data = exp5__anova__PROP.GUESS.FA_data__outliers.removed)
+#----------------------------------------------------------------------------------------------------------------
+#   Contrasts:
+#----------------------------------------------------------------------------------------------------------------
+      exp5__anova__PROP.GUESS.FA__stim.format.means <- emmeans(exp5__anova__PROP.GUESS.FA, ~ stim_format)
+      exp5__anova__PROP.GUESS.FA__distinctiveness.means <- emmeans(exp5__anova__PROP.GUESS.FA, ~ distinctiveness)
+      exp5__anova__PROP.GUESS.FA__interaction.means <- emmeans(exp5__anova__PROP.GUESS.FA, ~ stim_format:distinctiveness)
+
+      exp5__anova__PROP.GUESS.FA__stim.format.pairwise <- 
+          pairs(exp5__anova__PROP.GUESS.FA__stim.format.means, adjust = "bonferroni")
+      exp5__anova__PROP.GUESS.FA__distinctiveness.pairwise <- 
+          pairs(exp5__anova__PROP.GUESS.FA__distinctiveness.means, adjust = "bonferroni")
+#----------------------------------------------------------------------------------------------------------------
+#   Format results for use in report:
+#----------------------------------------------------------------------------------------------------------------
+##    Main effects:
+      exp5__apa__anova__PROP.GUESS.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.GUESS.FA)
+      exp5__apa__anova__PROP.GUESS.FA__stim.format.main.effect <-
+          exp5__apa__anova__PROP.GUESS.FA$full$stim_format %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.GUESS.FA__distinctiveness.main.effect <- 
+          exp5__apa__anova__PROP.GUESS.FA$full$distinctiveness %>% 
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp5__apa__anova__PROP.GUESS.FA__interaction.main.effect <- 
+          exp5__apa__anova__PROP.GUESS.FA$full$stim_format_distinctiveness %>%
+          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+##    Contrasts:
+      exp5__apa__anova__PROP.GUESS.FA__stim.format.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.FA__stim.format.means) 
+      exp5__apa__anova__PROP.GUESS.FA__distinctiveness.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.FA__distinctiveness.means) 
+      exp5__apa__anova__PROP.GUESS.FA__interaction.means <- 
+          papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.FA__interaction.means) 
+      
+      exp5__apa__anova__PROP.GUESS.FA__words.mean <-
+          exp5__apa__anova__PROP.GUESS.FA__stim.format.means$estimate$Words %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.GUESS.FA__drawings.mean <-
+          exp5__apa__anova__PROP.GUESS.FA__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.GUESS.FA__photos.mean <-
+          exp5__apa__anova__PROP.GUESS.FA__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
+
+      exp5__apa__anova__PROP.GUESS.FA__low_dist.mean <-
+          exp5__apa__anova__PROP.GUESS.FA__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
+      exp5__apa__anova__PROP.GUESS.FA__high_dist.mean <-
+          exp5__apa__anova__PROP.GUESS.FA__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
+```
+
+# Prop GUESS FA:
+```{r, echo=FALSE, cache=FALSE}
+exp5__anova__PROP.GUESS.FA_data_summary %>%
+  kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = "hold_position")
+
+knitr::kable(nice(exp5__anova__PROP.GUESS.FA))
+```
+# Outliers removed:
+```{r, echo=FALSE, cache=FALSE}
+knitr::kable(nice(exp5__anova__PROP.GUESS.FA__outliers.removed))
+```
 
 
 \newpage
