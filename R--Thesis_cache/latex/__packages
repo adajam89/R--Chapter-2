@@ -20,3 +20,6 @@ lme4
 afex
 emmeans
 janitor
+psych
+rstatix
+ggpubr
