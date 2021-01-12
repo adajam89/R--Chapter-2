@@ -1498,13 +1498,10 @@ Separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG
           papaja:::apa_print.afex_aov(exp1__anova_prop_hit)
     
 ##    Main effects:
-      exp1__apa_anova_prop_hit$full$StimuliFormat <- exp1__apa_anova_prop_hit$full$StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-      exp1__apa_anova_prop_hit$full$ResponseOption <- exp1__apa_anova_prop_hit$full$ResponseOption %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_hit$full$StimuliFormat <- exp1__apa_anova_prop_hit$full$StimuliFormat
+      exp1__apa_anova_prop_hit$full$ResponseOption <- exp1__apa_anova_prop_hit$full$ResponseOption
       exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat
 
 ##    Pairwise (stim-format):
       exp1__apa_anova_prop_hit_stim_format_mmeans <- 
@@ -1541,13 +1538,10 @@ In the ANOVA on the proportion of hits, there was a significant main effect of s
 ##    Total FAs:
       exp1__apa_anova_prop_FA <- papaja:::apa_print.afex_aov(exp1__anova_prop_FA)
 ##    Main effects:
-      exp1__apa_anova_prop_FA$full$StimuliFormat <- exp1__apa_anova_prop_FA$full$StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-      exp1__apa_anova_prop_FA$full$ResponseOption <- exp1__apa_anova_prop_FA$full$ResponseOption %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_FA$full$StimuliFormat <- exp1__apa_anova_prop_FA$full$StimuliFormat
+      exp1__apa_anova_prop_FA$full$ResponseOption <- exp1__apa_anova_prop_FA$full$ResponseOption
       exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat
 ##    Pairwise (stim-format):
       exp1__apa_anova_prop_FA_stim_format_mmeans <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_mmeans)
@@ -1567,13 +1561,10 @@ The ANOVA on the proportion of FAs also highlights the role of stimuli-format on
 ##    Recog:
       exp1__apa_anova_prop_recog <- papaja:::apa_print.afex_aov(exp1__anova_prop_recog)
 ##    Main effects:
-      exp1__apa_anova_prop_recog$full$StimuliFormat <- exp1__apa_anova_prop_recog$full$StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-      exp1__apa_anova_prop_recog$full$ResponseOption <- exp1__apa_anova_prop_recog$full$ResponseOption %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_recog$full$StimuliFormat <- exp1__apa_anova_prop_recog$full$StimuliFormat
+      exp1__apa_anova_prop_recog$full$ResponseOption <- exp1__apa_anova_prop_recog$full$ResponseOption
       exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat
 
 ##    Pairwise (stim-format):
       exp1__apa_anova_prop_recog_stim_format_mmeans <- 
@@ -1613,13 +1604,10 @@ To assess the roles of discrimination and response bias, separate 2 (stimuli for
       exp1__apa_anova_prop_dprime <- papaja:::apa_print.afex_aov(exp1__anova_prop_dprime)
 
 ##    Main effects:
-      exp1__apa_anova_prop_dprime$full$StimuliFormat <- exp1__apa_anova_prop_dprime$full$StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-      exp1__apa_anova_prop_dprime$full$ResponseOption <- exp1__apa_anova_prop_dprime$full$ResponseOption %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_dprime$full$StimuliFormat <- exp1__apa_anova_prop_dprime$full$StimuliFormat
+      exp1__apa_anova_prop_dprime$full$ResponseOption <- exp1__apa_anova_prop_dprime$full$ResponseOption
       exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat
 
 ##    Pairwise (stim-format):
       exp1__apa_anova_prop_dprime_stim_format_mmeans <- 
@@ -1641,13 +1629,10 @@ The ANOVA on d' scores was consistent with the hits, FAs, and overall recognitio
       exp1__apa_anova_prop_c <- papaja:::apa_print.afex_aov(exp1__anova_prop_c)
 
 ##    Main effects:
-      exp1__apa_anova_prop_c$full$StimuliFormat <- exp1__apa_anova_prop_c$full$StimuliFormat %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-      exp1__apa_anova_prop_c$full$ResponseOption <- exp1__apa_anova_prop_c$full$ResponseOption %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_c$full$StimuliFormat <- exp1__apa_anova_prop_c$full$StimuliFormat
+      exp1__apa_anova_prop_c$full$ResponseOption <- exp1__apa_anova_prop_c$full$ResponseOption
       exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat
   
 ##    Pairwise (resp-option):
       exp1__apa_anova_prop_c_resp_option_mmeans <- 
@@ -1683,13 +1668,10 @@ To determine the effects of stimuli-format and response-option on accurate recog
       exp1__apa_anova_prop_rec_hit <- papaja:::apa_print.afex_aov(exp1__anova_prop_rec_hit)
 
 ##    Main effects:
-      exp1__apa_anova_prop_rec_hit$full$StimuliFormat <- exp1__apa_anova_prop_rec_hit$full$StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-      exp1__apa_anova_prop_rec_hit$full$ResponseOption <- exp1__apa_anova_prop_rec_hit$full$ResponseOption %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_rec_hit$full$StimuliFormat <- exp1__apa_anova_prop_rec_hit$full$StimuliFormat
+      exp1__apa_anova_prop_rec_hit$full$ResponseOption <- exp1__apa_anova_prop_rec_hit$full$ResponseOption
       exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat <-
-          exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat
 
 ##    Pairwise (stim-format):
       exp1__apa_anova_prop_rec_hit_stim_format_mmeans <- 
@@ -1731,13 +1713,10 @@ The ANOVA on Recollected hits revealed a significant main effect of stimuli-form
 ##    Familiarity hits:
       exp1__apa_anova_prop_fam_hit <- papaja:::apa_print.afex_aov(exp1__anova_prop_fam_hit)
 ##    Main effects:
-      exp1__apa_anova_prop_fam_hit$full$StimuliFormat <- exp1__apa_anova_prop_fam_hit$full$StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-      exp1__apa_anova_prop_fam_hit$full$ResponseOption <- exp1__apa_anova_prop_fam_hit$full$ResponseOption %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+      exp1__apa_anova_prop_fam_hit$full$StimuliFormat <- exp1__apa_anova_prop_fam_hit$full$StimuliFormat
+      exp1__apa_anova_prop_fam_hit$full$ResponseOption <- exp1__apa_anova_prop_fam_hit$full$ResponseOption
       exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat
 
 ##    Pairwise (stim-format):
       exp1__apa_anova_prop_fam_hit_stim_format_mmeans <- 
@@ -1822,12 +1801,9 @@ Between response-option conditions, word stimuli produced significantly more Fam
     exp1__apa_anova_prop_guess_hit <- papaja:::apa_print.afex_aov(exp1__anova_prop_guess_hit)
 
 ##  Main effects:
-    exp1__apa_anova_prop_guess_hit$full$StimuliFormat <- exp1__apa_anova_prop_guess_hit$full$StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_guess_hit$full$ResponseOption <- exp1__apa_anova_prop_guess_hit$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-  exp1__apa_anova_prop_guess_hit$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_guess_hit$full$ResponseOption_StimuliFormat %>%
-    str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+    exp1__apa_anova_prop_guess_hit$full$StimuliFormat <- exp1__apa_anova_prop_guess_hit$full$StimuliFormat
+    exp1__apa_anova_prop_guess_hit$full$ResponseOption <- exp1__apa_anova_prop_guess_hit$full$ResponseOption
+  exp1__apa_anova_prop_guess_hit$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_guess_hit$full$ResponseOption_StimuliFormat
   
 ##  Pairwise (stim-format):
     exp1__apa_anova_prop_guess_hit_stim_format_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_stim_format_mmeans)
@@ -1907,12 +1883,9 @@ To determine the effects of stimuli-format and response-option on false recognit
     exp1__apa_anova_prop_rec_FA <- papaja:::apa_print.afex_aov(exp1__anova_prop_rec_FA)
 
 ##  Main effects:
-    exp1__apa_anova_prop_rec_FA$full$StimuliFormat <- exp1__apa_anova_prop_rec_FA$full$StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_rec_FA$full$ResponseOption <- exp1__apa_anova_prop_rec_FA$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_rec_FA$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_rec_FA$full$ResponseOption_StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+    exp1__apa_anova_prop_rec_FA$full$StimuliFormat <- exp1__apa_anova_prop_rec_FA$full$StimuliFormat
+    exp1__apa_anova_prop_rec_FA$full$ResponseOption <- exp1__apa_anova_prop_rec_FA$full$ResponseOption
+    exp1__apa_anova_prop_rec_FA$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_rec_FA$full$ResponseOption_StimuliFormat
 
 ##  Pairwise (resp-option):
     exp1__apa_anova_prop_rec_FA_resp_option_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_rec_FA_resp_option_mmeans)
@@ -1943,12 +1916,9 @@ Click here to see output: [Appendix I - ANOVA Rec FA][].
     exp1__apa_anova_prop_fam_FA <- papaja:::apa_print.afex_aov(exp1__anova_prop_fam_FA)
 
 ##  Main effects:
-    exp1__apa_anova_prop_fam_FA$full$StimuliFormat <- exp1__apa_anova_prop_fam_FA$full$StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_fam_FA$full$ResponseOption <- exp1__apa_anova_prop_fam_FA$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_fam_FA$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_fam_FA$full$ResponseOption_StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+    exp1__apa_anova_prop_fam_FA$full$StimuliFormat <- exp1__apa_anova_prop_fam_FA$full$StimuliFormat
+    exp1__apa_anova_prop_fam_FA$full$ResponseOption <- exp1__apa_anova_prop_fam_FA$full$ResponseOption
+    exp1__apa_anova_prop_fam_FA$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_fam_FA$full$ResponseOption_StimuliFormat
 ```
 
 The ANOVA on Familiarity FAs did not yield any significant results; with no significant main effect of stimuli-format, `r exp1__apa_anova_prop_fam_FA$full$StimuliFormat`, no significant main effect of response-option, `r exp1__apa_anova_prop_fam_FA$full$ResponseOption`, and no significant interaction effects, `r exp1__apa_anova_prop_fam_FA$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix J - ANOVA Fam FA][].
@@ -1960,12 +1930,9 @@ The ANOVA on Familiarity FAs did not yield any significant results; with no sign
     exp1__apa_anova_prop_guess_FA <- papaja:::apa_print.afex_aov(exp1__anova_prop_guess_FA)
 
 ##  Main effects:
-    exp1__apa_anova_prop_guess_FA$full$StimuliFormat <- exp1__apa_anova_prop_guess_FA$full$StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_guess_FA$full$ResponseOption <- exp1__apa_anova_prop_guess_FA$full$ResponseOption %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-    exp1__apa_anova_prop_guess_FA$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_guess_FA$full$ResponseOption_StimuliFormat %>%
-      str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+    exp1__apa_anova_prop_guess_FA$full$StimuliFormat <- exp1__apa_anova_prop_guess_FA$full$StimuliFormat
+    exp1__apa_anova_prop_guess_FA$full$ResponseOption <- exp1__apa_anova_prop_guess_FA$full$ResponseOption
+    exp1__apa_anova_prop_guess_FA$full$ResponseOption_StimuliFormat <- exp1__apa_anova_prop_guess_FA$full$ResponseOption_StimuliFormat
 
 ##  Pairwise (resp-option):
     exp1__apa_anova_prop_guess_FA_resp_option_mmeans <- papaja:::apa_print.emmGrid(exp1__anova_prop_guess_FA_resp_option_mmeans)
@@ -4538,13 +4505,10 @@ exp3__grey__anova__PROP.HITS <- aov_ez("id", "hit", exp3__grey__anova__PROP.HITS
 
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__PROP.HITS <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.HITS) 
-exp3__apa__grey__anova__PROP.HITS__stim.format.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-exp3__apa__grey__anova__PROP.HITS__resp.option.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$resp_option %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+exp3__apa__grey__anova__PROP.HITS__stim.format.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$stim_format 
+exp3__apa__grey__anova__PROP.HITS__resp.option.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$resp_option 
 
-exp3__apa__grey__anova__PROP.HITS__interaction.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$resp_option_stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+exp3__apa__grey__anova__PROP.HITS__interaction.main.effect <- exp3__apa__grey__anova__PROP.HITS$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
 #---------------------------------------------------------------------------------------------------------------#
@@ -4653,13 +4617,10 @@ exp3__grey__anova__PROP.FA <- aov_ez("id", "FA", exp3__grey__anova__PROP.FA_data
 
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__PROP.FA <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.FA) 
-exp3__apa__grey__anova__PROP.FA__stim.format.main.effect <- exp3__apa__grey__anova__PROP.FA$full$stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-exp3__apa__grey__anova__PROP.FA__resp.option.main.effect <- exp3__apa__grey__anova__PROP.FA$full$resp_option %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+exp3__apa__grey__anova__PROP.FA__stim.format.main.effect <- exp3__apa__grey__anova__PROP.FA$full$stim_format
+exp3__apa__grey__anova__PROP.FA__resp.option.main.effect <- exp3__apa__grey__anova__PROP.FA$full$resp_option
 exp3__apa__grey__anova__PROP.FA__interaction.main.effect <- 
-  exp3__apa__grey__anova__PROP.FA$full$resp_option_stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.FA$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
 #---------------------------------------------------------------------------------------------------------------#
@@ -4724,12 +4685,10 @@ exp3__grey__anova__RECOG <- aov_ez("id", "recog", exp3__grey__anova__RECOG_data,
 
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__RECOG <- papaja:::apa_print.afex_aov(exp3__grey__anova__RECOG) 
-exp3__apa__grey__anova__RECOG__stim.format.main.effect <- exp3__apa__grey__anova__RECOG$full$stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-exp3__apa__grey__anova__RECOG__resp.option.main.effect <- exp3__apa__grey__anova__RECOG$full$resp_option %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+exp3__apa__grey__anova__RECOG__stim.format.main.effect <- exp3__apa__grey__anova__RECOG$full$stim_format
+exp3__apa__grey__anova__RECOG__resp.option.main.effect <- exp3__apa__grey__anova__RECOG$full$resp_option
 exp3__apa__grey__anova__RECOG__interaction.main.effect <- 
-  exp3__apa__grey__anova__RECOG$full$resp_option_stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__RECOG$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
 #---------------------------------------------------------------------------------------------------------------#
@@ -4791,13 +4750,10 @@ exp3__grey__anova__D.PRIME <- aov_ez("id", "d.prime", exp3__grey__anova__D.PRIME
 
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__D.PRIME <- papaja:::apa_print.afex_aov(exp3__grey__anova__D.PRIME) 
-exp3__apa__grey__anova__D.PRIME__stim.format.main.effect <- exp3__apa__grey__anova__D.PRIME$full$stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-exp3__apa__grey__anova__D.PRIME__resp.option.main.effect <- exp3__apa__grey__anova__D.PRIME$full$resp_option %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+exp3__apa__grey__anova__D.PRIME__stim.format.main.effect <- exp3__apa__grey__anova__D.PRIME$full$stim_format
+exp3__apa__grey__anova__D.PRIME__resp.option.main.effect <- exp3__apa__grey__anova__D.PRIME$full$resp_option
 exp3__apa__grey__anova__D.PRIME__interaction.main.effect <- 
-  exp3__apa__grey__anova__D.PRIME$full$resp_option_stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__D.PRIME$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
 #---------------------------------------------------------------------------------------------------------------#
@@ -4925,13 +4881,10 @@ exp3__grey__anova__C.SCORES <- aov_ez("id", "C.SCORES", exp3__grey__anova__C.SCO
 
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__C.SCORES <- papaja:::apa_print.afex_aov(exp3__grey__anova__C.SCORES) 
-exp3__apa__grey__anova__C.SCORES__stim.format.main.effect <- exp3__apa__grey__anova__C.SCORES$full$stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-exp3__apa__grey__anova__C.SCORES__resp.option.main.effect <- exp3__apa__grey__anova__C.SCORES$full$resp_option %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+exp3__apa__grey__anova__C.SCORES__stim.format.main.effect <- exp3__apa__grey__anova__C.SCORES$full$stim_format
+exp3__apa__grey__anova__C.SCORES__resp.option.main.effect <- exp3__apa__grey__anova__C.SCORES$full$resp_option
 exp3__apa__grey__anova__C.SCORES__interaction.main.effect <-
-  exp3__apa__grey__anova__C.SCORES$full$resp_option_stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__C.SCORES$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
 #---------------------------------------------------------------------------------------------------------------#
@@ -5000,12 +4953,11 @@ exp3__grey__anova__PROP.REC.HITS <- aov_ez("id", "PROP.REC.HITS", exp3__grey__an
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__PROP.REC.HITS <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.REC.HITS) 
 exp3__apa__grey__anova__PROP.REC.HITS__stim.format.main.effect <-
-  exp3__apa__grey__anova__PROP.REC.HITS$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.REC.HITS$full$stim_format
 exp3__apa__grey__anova__PROP.REC.HITS__resp.option.main.effect <-
-  exp3__apa__grey__anova__PROP.REC.HITS$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.REC.HITS$full$resp_option
 exp3__apa__grey__anova__PROP.REC.HITS__interaction.main.effect <-
-  exp3__apa__grey__anova__PROP.REC.HITS$full$resp_option_stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.REC.HITS$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 #  Run post-hoc contrasts                                                                                         
 #---------------------------------------------------------------------------------------------------------------#
@@ -5078,12 +5030,11 @@ exp3__grey__anova__PROP.FAM.HITS <- aov_ez("id", "PROP.FAM.HITS", exp3__grey__an
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__PROP.FAM.HITS <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.FAM.HITS) 
 exp3__apa__grey__anova__PROP.FAM.HITS__stim.format.main.effect <-
-  exp3__apa__grey__anova__PROP.FAM.HITS$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.FAM.HITS$full$stim_format
 exp3__apa__grey__anova__PROP.FAM.HITS__resp.option.main.effect <-
-  exp3__apa__grey__anova__PROP.FAM.HITS$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.FAM.HITS$full$resp_option
 exp3__apa__grey__anova__PROP.FAM.HITS__interaction.main.effect <-
-  exp3__apa__grey__anova__PROP.FAM.HITS$full$resp_option_stim_format %>%   
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.FAM.HITS$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 ##  Run post-hoc contrasts:
 #---------------------------------------------------------------------------------------------------------------#
@@ -5155,12 +5106,11 @@ exp3__grey__anova__PROP.GUESS.HITS <- aov_ez("id", "PROP.GUESS.HITS", exp3__grey
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__PROP.GUESS.HITS <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.GUESS.HITS) 
 exp3__apa__grey__anova__PROP.GUESS.HITS__stim.format.main.effect <- 
-  exp3__apa__grey__anova__PROP.GUESS.HITS$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.GUESS.HITS$full$stim_format
 exp3__apa__grey__anova__PROP.GUESS.HITS__resp.option.main.effect <- 
-  exp3__apa__grey__anova__PROP.GUESS.HITS$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.GUESS.HITS$full$resp_option
 exp3__apa__grey__anova__PROP.GUESS.HITS__interaction.main.effect <-
-  exp3__apa__grey__anova__PROP.GUESS.HITS$full$resp_option_stim_format %>% 
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.GUESS.HITS$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 ##  Run post-hoc contrasts:
 #---------------------------------------------------------------------------------------------------------------#
@@ -5399,12 +5349,11 @@ exp3__grey__anova__PROP.REC.FA <- aov_ez("id", "PROP.REC.FA", exp3__grey__anova_
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__PROP.REC.FA <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.REC.FA) 
 exp3__apa__grey__anova__PROP.REC.FA__stim.format.main.effect <-
-  exp3__apa__grey__anova__PROP.REC.FA$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.REC.FA$full$stim_format
 exp3__apa__grey__anova__PROP.REC.FA__resp.option.main.effect <-
-  exp3__apa__grey__anova__PROP.REC.FA$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.REC.FA$full$resp_option
 exp3__apa__grey__anova__PROP.REC.FA__interaction.main.effect <-
-  exp3__apa__grey__anova__PROP.REC.FA$full$resp_option_stim_format %>% 
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.REC.FA$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 ##  Run post-hoc contrasts:
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  #
@@ -5438,12 +5387,11 @@ exp3__grey__anova__PROP.FAM.FA <- aov_ez("id", "PROP.FAM.FA", exp3__grey__anova_
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__PROP.FAM.FA <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.FAM.FA) 
 exp3__apa__grey__anova__PROP.FAM.FA__stim.format.main.effect <-
-  exp3__apa__grey__anova__PROP.FAM.FA$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.FAM.FA$full$stim_format
 exp3__apa__grey__anova__PROP.FAM.FA__resp.option.main.effect <-
-  exp3__apa__grey__anova__PROP.FAM.FA$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.FAM.FA$full$resp_option
 exp3__apa__grey__anova__PROP.FAM.FA__interaction.main.effect <-
-  exp3__apa__grey__anova__PROP.FAM.FA$full$resp_option_stim_format %>%   
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.FAM.FA$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 ##  Run post-hoc contrasts:
 ##  Interaction:
@@ -5512,12 +5460,11 @@ exp3__grey__anova__PROP.GUESS.FA <- aov_ez("id", "PROP.GUESS.FA", exp3__grey__an
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__PROP.GUESS.FA <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.GUESS.FA) 
 exp3__apa__grey__anova__PROP.GUESS.FA__stim.format.main.effect <-
-  exp3__apa__grey__anova__PROP.GUESS.FA$full$stim_format %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.GUESS.FA$full$stim_format
 exp3__apa__grey__anova__PROP.GUESS.FA__resp.option.main.effect <-
-  exp3__apa__grey__anova__PROP.GUESS.FA$full$resp_option %>% str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.GUESS.FA$full$resp_option
 exp3__apa__grey__anova__PROP.GUESS.FA__interaction.main.effect <-
-  exp3__apa__grey__anova__PROP.GUESS.FA$full$resp_option_stim_format %>%
-  str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+  exp3__apa__grey__anova__PROP.GUESS.FA$full$resp_option_stim_format
 #---------------------------------------------------------------------------------------------------------------#
 ##  Run post-hoc contrasts:
 #-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  #
@@ -7167,8 +7114,10 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
       write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
 ```
 
-## Results
-### Overall hits, false alarms (FAs), and recognition
+
+
+
+
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 
@@ -7178,7 +7127,6 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
                  prop_col_drawing_hit, prop_grey_photo_hit, prop_col_photo_hit) %>%
           summarise_each(mean)
   
-
       exp5__prop_hit__table <- tribble(
           ~" ", ~"Grey Words", ~"Distinctive Words", ~"Grey Drawings", 
                ~"Colour Drawings", ~"Grey Photos", ~"Colour Photos",
@@ -7192,11 +7140,6 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
 ```
 
 
-
-
-
-
-\newpage
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
 ##    Experiment 5 - Prop hits:                                                                                ##
@@ -7241,25 +7184,6 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
 #----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-      exp5__anova__PROP.HITS_data__row.id <- exp5__anova__PROP.HITS_data %>%
-          rowid_to_column(., "temp")
-
-      exp5__anova__PROP.HITS_data__outliers <- exp5__anova__PROP.HITS_data__row.id %>%
-          group_by(stim_format, distinctiveness) %>%
-          identify_outliers(hit) %>%
-          filter(is.extreme == TRUE) %>%
-          pull(temp)
-      
-      exp5__anova__PROP.HITS_data__outliers.removed <- exp5__anova__PROP.HITS_data__row.id %>%
-          filter(!temp %in% exp5__anova__PROP.HITS_data__outliers)
-
-      exp5__anova__PROP.HITS__outliers.removed <- aov_car(hit ~ stim_format*distinctiveness
-                                                          + Error(id / stim_format*distinctiveness), 
-                                                          data = exp5__anova__PROP.HITS_data__outliers.removed)
-
-#----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
       exp5__anova__PROP.HITS__stim.format.means <- emmeans(exp5__anova__PROP.HITS, ~ stim_format)
@@ -7268,29 +7192,20 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
 
       exp5__anova__PROP.HITS__stim.format.pairwise <- 
           pairs(exp5__anova__PROP.HITS__stim.format.means, adjust = "bonferroni")
-      exp5__anova__PROP.HITS__distinctiveness.pairwise <- 
-          pairs(exp5__anova__PROP.HITS__distinctiveness.means, adjust = "bonferroni")
 #----------------------------------------------------------------------------------------------------------------
 #   Format results for use in report:
 #----------------------------------------------------------------------------------------------------------------
 ##    Main effects:
       exp5__apa__anova__PROP.HITS <- papaja:::apa_print.afex_aov(exp5__anova__PROP.HITS)
       exp5__apa__anova__PROP.HITS__stim.format.main.effect <-
-          exp5__apa__anova__PROP.HITS$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-      exp5__apa__anova__PROP.HITS__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.HITS$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
-      exp5__apa__anova__PROP.HITS__interaction.main.effect <- 
-          exp5__apa__anova__PROP.HITS$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.HITS$full$stim_format
+      exp5__apa__anova__PROP.HITS__distinctiveness.main.effect <-
+          exp5__apa__anova__PROP.HITS$full$distinctiveness
+      exp5__apa__anova__PROP.HITS__interaction.main.effect <-
+          exp5__apa__anova__PROP.HITS$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.HITS__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.HITS__stim.format.means) 
-      exp5__apa__anova__PROP.HITS__distinctiveness.means <- 
-          papaja:::apa_print.emmGrid(exp5__anova__PROP.HITS__distinctiveness.means) 
-      exp5__apa__anova__PROP.HITS__interaction.means <- 
-          papaja:::apa_print.emmGrid(exp5__anova__PROP.HITS__interaction.means) 
       
       exp5__apa__anova__PROP.HITS__words.mean <-
           exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Words %>% str_remove("\\,.*")
@@ -7298,25 +7213,24 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
           exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
       exp5__apa__anova__PROP.HITS__photos.mean <-
           exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
-
-      exp5__apa__anova__PROP.HITS__low_dist.mean <-
-          exp5__apa__anova__PROP.HITS__distinctiveness.means$estimate$Low %>% str_remove("\\,.*")
-      exp5__apa__anova__PROP.HITS__high_dist.mean <-
-          exp5__apa__anova__PROP.HITS__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
 # Proportion of total hits
 ```{r, echo=FALSE, cache=FALSE}
     exp5__anova__PROP.HITS_data_summary %>%
       kable("latex", booktabs = T) %>%
-      kable_styling(latex_options = "hold_position")
+      kable_styling(latex_options = "hold_position") %>%
+      column_spec(1:6, width = "2cm")
 
       knitr::kable(nice(exp5__anova__PROP.HITS))
 ```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-      knitr::kable(nice(exp5__anova__PROP.HITS__outliers.removed))
-```
+
+Significant main effect of stimuli format: `r exp5__apa__anova__PROP.HITS__stim.format.main.effect`. 
+
+No main effect of distinctiveness: `r exp5__apa__anova__PROP.HITS__distinctiveness.main.effect`.
+
+No interaction effects: `r exp5__apa__anova__PROP.HITS__interaction.main.effect`. 
+
 
 \newpage
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
@@ -7360,25 +7274,6 @@ exp5__anova__PROP.FA <- aov_car(FA ~ stim_format*distinctiveness
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
 #----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.FA_data__row.id <- exp5__anova__PROP.FA_data %>%
-  rowid_to_column(., "temp")
-
-exp5__anova__PROP.FA_data__outliers <- exp5__anova__PROP.FA_data__row.id %>%
-  group_by(stim_format, distinctiveness) %>%
-  identify_outliers(FA) %>%
-  filter(is.extreme == TRUE) %>%
-  pull(temp)
-
-exp5__anova__PROP.FA_data__outliers.removed <- exp5__anova__PROP.FA_data__row.id %>%
-  filter(!temp %in% exp5__anova__PROP.FA_data__outliers)
-
-exp5__anova__PROP.FA__outliers.removed <- aov_car(FA ~ stim_format*distinctiveness
-                                                    + Error(id / stim_format*distinctiveness), 
-                                                    data = exp5__anova__PROP.FA_data__outliers.removed)
-
-#----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
       exp5__anova__PROP.FA__stim.format.means <- emmeans(exp5__anova__PROP.FA, ~ stim_format)
@@ -7395,14 +7290,11 @@ exp5__anova__PROP.FA__outliers.removed <- aov_car(FA ~ stim_format*distinctivene
 ##    Main effects:
       exp5__apa__anova__PROP.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.FA)
       exp5__apa__anova__PROP.FA__stim.format.main.effect <-
-          exp5__apa__anova__PROP.FA$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.FA$full$stim_format
       exp5__apa__anova__PROP.FA__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.FA$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.FA$full$distinctiveness
       exp5__apa__anova__PROP.FA__interaction.main.effect <- 
-          exp5__apa__anova__PROP.FA$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.FA$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.FA__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.FA__stim.format.means) 
@@ -7432,11 +7324,6 @@ exp5__anova__PROP.FA_data_summary %>%
 
 knitr::kable(nice(exp5__anova__PROP.FA))
 ```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-knitr::kable(nice(exp5__anova__PROP.FA__outliers.removed))
-```
-
 
 \newpage
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
@@ -7480,24 +7367,6 @@ exp5__anova__PROP.RECOG <- aov_car(recog ~ stim_format*distinctiveness
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
 #----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.RECOG_data__row.id <- exp5__anova__PROP.RECOG_data %>%
-  rowid_to_column(., "temp")
-
-exp5__anova__PROP.RECOG_data__outliers <- exp5__anova__PROP.RECOG_data__row.id %>%
-  group_by(stim_format, distinctiveness) %>%
-  identify_outliers(recog) %>%
-  filter(is.extreme == TRUE) %>%
-  pull(temp)
-
-exp5__anova__PROP.RECOG_data__outliers.removed <- exp5__anova__PROP.RECOG_data__row.id %>%
-  filter(!temp %in% exp5__anova__PROP.RECOG_data__outliers)
-
-exp5__anova__PROP.RECOG__outliers.removed <- aov_car(recog ~ stim_format*distinctiveness
-                                                  + Error(id / stim_format*distinctiveness), 
-                                                  data = exp5__anova__PROP.RECOG_data__outliers.removed)
-#----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
       exp5__anova__PROP.RECOG__stim.format.means <- emmeans(exp5__anova__PROP.RECOG, ~ stim_format)
@@ -7514,14 +7383,11 @@ exp5__anova__PROP.RECOG__outliers.removed <- aov_car(recog ~ stim_format*distinc
 ##    Main effects:
       exp5__apa__anova__PROP.RECOG <- papaja:::apa_print.afex_aov(exp5__anova__PROP.RECOG)
       exp5__apa__anova__PROP.RECOG__stim.format.main.effect <-
-          exp5__apa__anova__PROP.RECOG$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.RECOG$full$stim_format
       exp5__apa__anova__PROP.RECOG__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.RECOG$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.RECOG$full$distinctiveness
       exp5__apa__anova__PROP.RECOG__interaction.main.effect <- 
-          exp5__apa__anova__PROP.RECOG$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.RECOG$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.RECOG__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.RECOG__stim.format.means) 
@@ -7551,11 +7417,6 @@ exp5__anova__PROP.RECOG_data_summary %>%
 
 knitr::kable(nice(exp5__anova__PROP.RECOG))
 ```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-knitr::kable(nice(exp5__anova__PROP.RECOG__outliers.removed))
-```
-
 
 \newpage
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
@@ -7599,24 +7460,6 @@ exp5__anova__PROP.D.PRIME <- aov_car(d.prime ~ stim_format*distinctiveness
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
 #----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.D.PRIME_data__row.id <- exp5__anova__PROP.D.PRIME_data %>%
-  rowid_to_column(., "temp")
-
-exp5__anova__PROP.D.PRIME_data__outliers <- exp5__anova__PROP.D.PRIME_data__row.id %>%
-  group_by(stim_format, distinctiveness) %>%
-  identify_outliers(d.prime) %>%
-  filter(is.extreme == TRUE) %>%
-  pull(temp)
-
-exp5__anova__PROP.D.PRIME_data__outliers.removed <- exp5__anova__PROP.D.PRIME_data__row.id %>%
-  filter(!temp %in% exp5__anova__PROP.D.PRIME_data__outliers)
-
-exp5__anova__PROP.D.PRIME__outliers.removed <- aov_car(d.prime ~ stim_format*distinctiveness
-                                                  + Error(id / stim_format*distinctiveness), 
-                                                  data = exp5__anova__PROP.D.PRIME_data__outliers.removed)
-#----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
       exp5__anova__PROP.D.PRIME__stim.format.means <- emmeans(exp5__anova__PROP.D.PRIME, ~ stim_format)
@@ -7633,14 +7476,11 @@ exp5__anova__PROP.D.PRIME__outliers.removed <- aov_car(d.prime ~ stim_format*dis
 ##    Main effects:
       exp5__apa__anova__PROP.D.PRIME <- papaja:::apa_print.afex_aov(exp5__anova__PROP.D.PRIME)
       exp5__apa__anova__PROP.D.PRIME__stim.format.main.effect <-
-          exp5__apa__anova__PROP.D.PRIME$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.D.PRIME$full$stim_format
       exp5__apa__anova__PROP.D.PRIME__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.D.PRIME$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.D.PRIME$full$distinctiveness
       exp5__apa__anova__PROP.D.PRIME__interaction.main.effect <- 
-          exp5__apa__anova__PROP.D.PRIME$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.D.PRIME$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.D.PRIME__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.D.PRIME__stim.format.means) 
@@ -7670,11 +7510,6 @@ exp5__anova__PROP.D.PRIME_data_summary %>%
 
 knitr::kable(nice(exp5__anova__PROP.D.PRIME))
 ```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-knitr::kable(nice(exp5__anova__PROP.D.PRIME__outliers.removed))
-```
-
 
 \newpage
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
@@ -7718,24 +7553,6 @@ exp5__anova__PROP.C <- aov_car(c ~ stim_format*distinctiveness
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
 #----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.C_data__row.id <- exp5__anova__PROP.C_data %>%
-  rowid_to_column(., "temp")
-
-exp5__anova__PROP.C_data__outliers <- exp5__anova__PROP.C_data__row.id %>%
-  group_by(stim_format, distinctiveness) %>%
-  identify_outliers(c) %>%
-  filter(is.extreme == TRUE) %>%
-  pull(temp)
-
-exp5__anova__PROP.C_data__outliers.removed <- exp5__anova__PROP.C_data__row.id %>%
-  filter(!temp %in% exp5__anova__PROP.C_data__outliers)
-
-exp5__anova__PROP.C__outliers.removed <- aov_car(c ~ stim_format*distinctiveness
-                                                     + Error(id / stim_format*distinctiveness), 
-                                                     data = exp5__anova__PROP.C_data__outliers.removed)
-#----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
       exp5__anova__PROP.C__stim.format.means <- emmeans(exp5__anova__PROP.C, ~ stim_format)
@@ -7752,14 +7569,11 @@ exp5__anova__PROP.C__outliers.removed <- aov_car(c ~ stim_format*distinctiveness
 ##    Main effects:
       exp5__apa__anova__PROP.C <- papaja:::apa_print.afex_aov(exp5__anova__PROP.C)
       exp5__apa__anova__PROP.C__stim.format.main.effect <-
-          exp5__apa__anova__PROP.C$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.C$full$stim_format
       exp5__apa__anova__PROP.C__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.C$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.C$full$distinctiveness
       exp5__apa__anova__PROP.C__interaction.main.effect <- 
-          exp5__apa__anova__PROP.C$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.C$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.C__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.C__stim.format.means) 
@@ -7788,10 +7602,6 @@ exp5__anova__PROP.C_data_summary %>%
   kable_styling(latex_options = "hold_position")
 
 knitr::kable(nice(exp5__anova__PROP.C))
-```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-knitr::kable(nice(exp5__anova__PROP.C__outliers.removed))
 ```
 
 \newpage
@@ -7836,24 +7646,6 @@ exp5__anova__PROP.REC.HIT <- aov_car(rec_hit ~ stim_format*distinctiveness
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
 #----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.REC.HIT_data__row.id <- exp5__anova__PROP.REC.HIT_data %>%
-  rowid_to_column(., "temp")
-
-exp5__anova__PROP.REC.HIT_data__outliers <- exp5__anova__PROP.REC.HIT_data__row.id %>%
-  group_by(stim_format, distinctiveness) %>%
-  identify_outliers(rec_hit) %>%
-  filter(is.extreme == TRUE) %>%
-  pull(temp)
-
-exp5__anova__PROP.REC.HIT_data__outliers.removed <- exp5__anova__PROP.REC.HIT_data__row.id %>%
-  filter(!temp %in% exp5__anova__PROP.REC.HIT_data__outliers)
-
-exp5__anova__PROP.REC.HIT__outliers.removed <- aov_car(rec_hit ~ stim_format*distinctiveness
-                                                     + Error(id / stim_format*distinctiveness), 
-                                                     data = exp5__anova__PROP.REC.HIT_data__outliers.removed)
-#----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
       exp5__anova__PROP.REC.HIT__stim.format.means <- emmeans(exp5__anova__PROP.REC.HIT, ~ stim_format)
@@ -7870,14 +7662,11 @@ exp5__anova__PROP.REC.HIT__outliers.removed <- aov_car(rec_hit ~ stim_format*dis
 ##    Main effects:
       exp5__apa__anova__PROP.REC.HIT <- papaja:::apa_print.afex_aov(exp5__anova__PROP.REC.HIT)
       exp5__apa__anova__PROP.REC.HIT__stim.format.main.effect <-
-          exp5__apa__anova__PROP.REC.HIT$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.REC.HIT$full$stim_format
       exp5__apa__anova__PROP.REC.HIT__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.REC.HIT$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.REC.HIT$full$distinctiveness
       exp5__apa__anova__PROP.REC.HIT__interaction.main.effect <- 
-          exp5__apa__anova__PROP.REC.HIT$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.REC.HIT$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.REC.HIT__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.HIT__stim.format.means) 
@@ -7906,10 +7695,6 @@ exp5__anova__PROP.REC.HIT_data_summary %>%
   kable_styling(latex_options = "hold_position")
 
 knitr::kable(nice(exp5__anova__PROP.REC.HIT))
-```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-knitr::kable(nice(exp5__anova__PROP.REC.HIT__outliers.removed))
 ```
 
 \newpage
@@ -7954,24 +7739,6 @@ exp5__anova__PROP.FAM.HIT <- aov_car(fam_hit ~ stim_format*distinctiveness
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
 #----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.FAM.HIT_data__row.id <- exp5__anova__PROP.FAM.HIT_data %>%
-  rowid_to_column(., "temp")
-
-exp5__anova__PROP.FAM.HIT_data__outliers <- exp5__anova__PROP.FAM.HIT_data__row.id %>%
-  group_by(stim_format, distinctiveness) %>%
-  identify_outliers(fam_hit) %>%
-  filter(is.extreme == TRUE) %>%
-  pull(temp)
-
-exp5__anova__PROP.FAM.HIT_data__outliers.removed <- exp5__anova__PROP.FAM.HIT_data__row.id %>%
-  filter(!temp %in% exp5__anova__PROP.FAM.HIT_data__outliers)
-
-exp5__anova__PROP.FAM.HIT__outliers.removed <- aov_car(fam_hit ~ stim_format*distinctiveness
-                                                       + Error(id / stim_format*distinctiveness), 
-                                                       data = exp5__anova__PROP.FAM.HIT_data__outliers.removed)
-#----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
       exp5__anova__PROP.FAM.HIT__stim.format.means <- emmeans(exp5__anova__PROP.FAM.HIT, ~ stim_format)
@@ -7988,14 +7755,11 @@ exp5__anova__PROP.FAM.HIT__outliers.removed <- aov_car(fam_hit ~ stim_format*dis
 ##    Main effects:
       exp5__apa__anova__PROP.FAM.HIT <- papaja:::apa_print.afex_aov(exp5__anova__PROP.FAM.HIT)
       exp5__apa__anova__PROP.FAM.HIT__stim.format.main.effect <-
-          exp5__apa__anova__PROP.FAM.HIT$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.FAM.HIT$full$stim_format
       exp5__apa__anova__PROP.FAM.HIT__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.FAM.HIT$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.FAM.HIT$full$distinctiveness
       exp5__apa__anova__PROP.FAM.HIT__interaction.main.effect <- 
-          exp5__apa__anova__PROP.FAM.HIT$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.FAM.HIT$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.FAM.HIT__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.HIT__stim.format.means) 
@@ -8025,11 +7789,6 @@ exp5__anova__PROP.FAM.HIT_data_summary %>%
 
 knitr::kable(nice(exp5__anova__PROP.FAM.HIT))
 ```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-knitr::kable(nice(exp5__anova__PROP.FAM.HIT__outliers.removed))
-```
-
 
 \newpage
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
@@ -8073,24 +7832,6 @@ exp5__anova__PROP.GUESS.HIT <- aov_car(guess_hit ~ stim_format*distinctiveness
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
 #----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.GUESS.HIT_data__row.id <- exp5__anova__PROP.GUESS.HIT_data %>%
-  rowid_to_column(., "temp")
-
-exp5__anova__PROP.GUESS.HIT_data__outliers <- exp5__anova__PROP.GUESS.HIT_data__row.id %>%
-  group_by(stim_format, distinctiveness) %>%
-  identify_outliers(guess_hit) %>%
-  filter(is.extreme == TRUE) %>%
-  pull(temp)
-
-exp5__anova__PROP.GUESS.HIT_data__outliers.removed <- exp5__anova__PROP.GUESS.HIT_data__row.id %>%
-  filter(!temp %in% exp5__anova__PROP.GUESS.HIT_data__outliers)
-
-exp5__anova__PROP.GUESS.HIT__outliers.removed <- aov_car(guess_hit ~ stim_format*distinctiveness
-                                                       + Error(id / stim_format*distinctiveness), 
-                                                       data = exp5__anova__PROP.GUESS.HIT_data__outliers.removed)
-#----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
       exp5__anova__PROP.GUESS.HIT__stim.format.means <- emmeans(exp5__anova__PROP.GUESS.HIT, ~ stim_format)
@@ -8107,14 +7848,11 @@ exp5__anova__PROP.GUESS.HIT__outliers.removed <- aov_car(guess_hit ~ stim_format
 ##    Main effects:
       exp5__apa__anova__PROP.GUESS.HIT <- papaja:::apa_print.afex_aov(exp5__anova__PROP.GUESS.HIT)
       exp5__apa__anova__PROP.GUESS.HIT__stim.format.main.effect <-
-          exp5__apa__anova__PROP.GUESS.HIT$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.GUESS.HIT$full$stim_format
       exp5__apa__anova__PROP.GUESS.HIT__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.GUESS.HIT$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.GUESS.HIT$full$distinctiveness
       exp5__apa__anova__PROP.GUESS.HIT__interaction.main.effect <- 
-          exp5__apa__anova__PROP.GUESS.HIT$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.GUESS.HIT$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.GUESS.HIT__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.HIT__stim.format.means) 
@@ -8144,11 +7882,6 @@ exp5__anova__PROP.GUESS.HIT_data_summary %>%
 
 knitr::kable(nice(exp5__anova__PROP.GUESS.HIT))
 ```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-knitr::kable(nice(exp5__anova__PROP.GUESS.HIT__outliers.removed))
-```
-
 
 \newpage
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
@@ -8192,24 +7925,6 @@ exp5__anova__PROP.REC.FA <- aov_car(rec_FA ~ stim_format*distinctiveness
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
 #----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.REC.FA_data__row.id <- exp5__anova__PROP.REC.FA_data %>%
-  rowid_to_column(., "temp")
-
-exp5__anova__PROP.REC.FA_data__outliers <- exp5__anova__PROP.REC.FA_data__row.id %>%
-  group_by(stim_format, distinctiveness) %>%
-  identify_outliers(rec_FA) %>%
-  filter(is.extreme == TRUE) %>%
-  pull(temp)
-
-exp5__anova__PROP.REC.FA_data__outliers.removed <- exp5__anova__PROP.REC.FA_data__row.id %>%
-  filter(!temp %in% exp5__anova__PROP.REC.FA_data__outliers)
-
-exp5__anova__PROP.REC.FA__outliers.removed <- aov_car(rec_FA ~ stim_format*distinctiveness
-                                                       + Error(id / stim_format*distinctiveness), 
-                                                       data = exp5__anova__PROP.REC.FA_data__outliers.removed)
-#----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
       exp5__anova__PROP.REC.FA__stim.format.means <- emmeans(exp5__anova__PROP.REC.FA, ~ stim_format)
@@ -8226,14 +7941,11 @@ exp5__anova__PROP.REC.FA__outliers.removed <- aov_car(rec_FA ~ stim_format*disti
 ##    Main effects:
       exp5__apa__anova__PROP.REC.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.REC.FA)
       exp5__apa__anova__PROP.REC.FA__stim.format.main.effect <-
-          exp5__apa__anova__PROP.REC.FA$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.REC.FA$full$stim_format
       exp5__apa__anova__PROP.REC.FA__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.REC.FA$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.REC.FA$full$distinctiveness
       exp5__apa__anova__PROP.REC.FA__interaction.main.effect <- 
-          exp5__apa__anova__PROP.REC.FA$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.REC.FA$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.REC.FA__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.REC.FA__stim.format.means) 
@@ -8263,11 +7975,6 @@ exp5__anova__PROP.REC.FA_data_summary %>%
 
 knitr::kable(nice(exp5__anova__PROP.REC.FA))
 ```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-knitr::kable(nice(exp5__anova__PROP.REC.FA__outliers.removed))
-```
-
 
 \newpage
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
@@ -8311,24 +8018,6 @@ exp5__anova__PROP.FAM.FA <- aov_car(fam_FA ~ stim_format*distinctiveness
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
 #----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.FAM.FA_data__row.id <- exp5__anova__PROP.FAM.FA_data %>%
-  rowid_to_column(., "temp")
-
-exp5__anova__PROP.FAM.FA_data__outliers <- exp5__anova__PROP.FAM.FA_data__row.id %>%
-  group_by(stim_format, distinctiveness) %>%
-  identify_outliers(fam_FA) %>%
-  filter(is.extreme == TRUE) %>%
-  pull(temp)
-
-exp5__anova__PROP.FAM.FA_data__outliers.removed <- exp5__anova__PROP.FAM.FA_data__row.id %>%
-  filter(!temp %in% exp5__anova__PROP.FAM.FA_data__outliers)
-
-exp5__anova__PROP.FAM.FA__outliers.removed <- aov_car(fam_FA ~ stim_format*distinctiveness
-                                                       + Error(id / stim_format*distinctiveness), 
-                                                       data = exp5__anova__PROP.FAM.FA_data__outliers.removed)
-#----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
       exp5__anova__PROP.FAM.FA__stim.format.means <- emmeans(exp5__anova__PROP.FAM.FA, ~ stim_format)
@@ -8345,14 +8034,11 @@ exp5__anova__PROP.FAM.FA__outliers.removed <- aov_car(fam_FA ~ stim_format*disti
 ##    Main effects:
       exp5__apa__anova__PROP.FAM.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.FAM.FA)
       exp5__apa__anova__PROP.FAM.FA__stim.format.main.effect <-
-          exp5__apa__anova__PROP.FAM.FA$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.FAM.FA$full$stim_format
       exp5__apa__anova__PROP.FAM.FA__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.FAM.FA$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.FAM.FA$full$distinctiveness
       exp5__apa__anova__PROP.FAM.FA__interaction.main.effect <- 
-          exp5__apa__anova__PROP.FAM.FA$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.FAM.FA$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.FAM.FA__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.FAM.FA__stim.format.means) 
@@ -8382,11 +8068,6 @@ exp5__anova__PROP.FAM.FA_data_summary %>%
 
 knitr::kable(nice(exp5__anova__PROP.FAM.FA))
 ```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-knitr::kable(nice(exp5__anova__PROP.FAM.FA__outliers.removed))
-```
-
 
 \newpage
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
@@ -8429,25 +8110,6 @@ exp5__anova__PROP.GUESS.FA <- aov_car(guess_FA ~ stim_format*distinctiveness
 # We need to specify an error term that accounts for natural variation from participant to participant. We do 
 # this with the Error() function: specifically, we are saying that we want to control for that 
 # between-participant variation over all of our within-subjects variables.
-
-#----------------------------------------------------------------------------------------------------------------
-#   Identify outliers:
-#----------------------------------------------------------------------------------------------------------------
-exp5__anova__PROP.GUESS.FA_data__row.id <- exp5__anova__PROP.GUESS.FA_data %>%
-  rowid_to_column(., "temp")
-
-exp5__anova__PROP.GUESS.FA_data__outliers <- exp5__anova__PROP.GUESS.FA_data__row.id %>%
-  group_by(stim_format, distinctiveness) %>%
-  identify_outliers(guess_FA) %>%
-  filter(is.extreme == TRUE) %>%
-  pull(temp)
-
-exp5__anova__PROP.GUESS.FA_data__outliers.removed <- exp5__anova__PROP.GUESS.FA_data__row.id %>%
-  filter(!temp %in% exp5__anova__PROP.GUESS.FA_data__outliers)
-
-exp5__anova__PROP.GUESS.FA__outliers.removed <- aov_car(guess_FA ~ stim_format*distinctiveness
-                                                       + Error(id / stim_format*distinctiveness), 
-                                                       data = exp5__anova__PROP.GUESS.FA_data__outliers.removed)
 #----------------------------------------------------------------------------------------------------------------
 #   Contrasts:
 #----------------------------------------------------------------------------------------------------------------
@@ -8459,20 +8121,20 @@ exp5__anova__PROP.GUESS.FA__outliers.removed <- aov_car(guess_FA ~ stim_format*d
           pairs(exp5__anova__PROP.GUESS.FA__stim.format.means, adjust = "bonferroni")
       exp5__anova__PROP.GUESS.FA__distinctiveness.pairwise <- 
           pairs(exp5__anova__PROP.GUESS.FA__distinctiveness.means, adjust = "bonferroni")
+      exp5__anova__PROP.GUESS.FA__interaction.pairwise <- 
+          pairs(exp5__anova__PROP.GUESS.FA__interaction.means, adjust = "bonferroni")
+      
 #----------------------------------------------------------------------------------------------------------------
 #   Format results for use in report:
 #----------------------------------------------------------------------------------------------------------------
 ##    Main effects:
       exp5__apa__anova__PROP.GUESS.FA <- papaja:::apa_print.afex_aov(exp5__anova__PROP.GUESS.FA)
       exp5__apa__anova__PROP.GUESS.FA__stim.format.main.effect <-
-          exp5__apa__anova__PROP.GUESS.FA$full$stim_format %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.GUESS.FA$full$stim_format
       exp5__apa__anova__PROP.GUESS.FA__distinctiveness.main.effect <- 
-          exp5__apa__anova__PROP.GUESS.FA$full$distinctiveness %>% 
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.GUESS.FA$full$distinctiveness
       exp5__apa__anova__PROP.GUESS.FA__interaction.main.effect <- 
-          exp5__apa__anova__PROP.GUESS.FA$full$stim_format_distinctiveness %>%
-          str_extract("^(?:[^\\,]*\\,){3}([^\\,]*)")
+          exp5__apa__anova__PROP.GUESS.FA$full$stim_format_distinctiveness
 ##    Contrasts:
       exp5__apa__anova__PROP.GUESS.FA__stim.format.means <- 
           papaja:::apa_print.emmGrid(exp5__anova__PROP.GUESS.FA__stim.format.means) 
@@ -8502,10 +8164,24 @@ exp5__anova__PROP.GUESS.FA_data_summary %>%
 
 knitr::kable(nice(exp5__anova__PROP.GUESS.FA))
 ```
-# Outliers removed:
-```{r, echo=FALSE, cache=FALSE}
-knitr::kable(nice(exp5__anova__PROP.GUESS.FA__outliers.removed))
-```
+
+
+
+
+
+\newpage
+## Results
+### Manipulation check
+To examine whether the distinctiveness manipulation for word stimuli was effective, a series of two-way repeated measures ANOVAs (Greenhouse-Geisser corrected) were run on the mean proportion of hits, mean proportion of false alarms (FAs), and overall recognition scores (hits - FAs). 
+
+While there was no significant main effect of distinctiveness in the ANOVA on the mean proportion of hits [`r exp5__apa__anova__PROP.HITS__distinctiveness.main.effect`], significant effects were demonstrated in the ANOVA on the mean proportion of FAs [`r exp5__apa__anova__PROP.FA__distinctiveness.main.effect`] and overall recognition scores [`r exp5__apa__anova__PROP.RECOG__distinctiveness.main.effect`].
+
+
+
+
+
+\newpage
+
 
 
 \newpage
