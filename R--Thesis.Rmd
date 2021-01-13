@@ -189,7 +189,7 @@ The objective of Experiment 1 was to establish baseline PSE response patterns in
                             "https:\\/\\/keelepsych.co1.qualtrics.com\\/ControlPanel\\/Graphic.php\\?IM=IM_", ""))
 ##    Import study data (which contains demographics info):                            
       exp1__participant_info <- read_csv(
-        "./resources/experiment_1/experiment_1_data/Jamie - RFG Images (1) - STUDY_March 19, 2020_06.28.csv") %>%
+        "./resources/experiment_1/experiment_1_data/Jamie - RFG Images (1) - STUDY_January 13, 2021_08.21.csv") %>%
           select(-"StartDate", -"EndDate", -"Status", -"Duration (in seconds)", -"Finished",
                  -"RecipientLastName", -"RecipientFirstName", -"RecipientEmail", -"ExternalReference",
                  -"LocationLatitude", -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -"Q1.3",
@@ -302,7 +302,7 @@ The objective of Experiment 1 was to establish baseline PSE response patterns in
 ##    We have to do some quick tidying to each before joining (colnames are the same right now (e.g. Q1.1),
 ##    but are different after we use row_to_names.
       exp1__full_data1 <- read_csv(
-        "./resources/experiment_1/experiment_1_data/AC_P_March 19, 2020_06.30.csv") %>%
+        "./resources/experiment_1/experiment_1_data/ AC_P_January 13, 2021_08.23.csv") %>%
           select(-"EndDate", -"Status", -"Duration (in seconds)", -"Finished", -"RecipientLastName", 
                  -"RecipientFirstName", -"RecipientEmail", -"ExternalReference", -"LocationLatitude",
                  -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -contains("Last Click"),
@@ -335,7 +335,8 @@ The objective of Experiment 1 was to establish baseline PSE response patterns in
           gather(., "question", "response", -test_id) %>%
           arrange(test_id)
 #------------------------------------------------------------------------------------------------------------------
-      exp1__full_data2 <- read_csv("./resources/experiment_1/experiment_1_data/BD_P_March 19, 2020_06.29.csv") %>%
+      exp1__full_data2 <- 
+        read_csv("./resources/experiment_1/experiment_1_data/ BD_P_January 13, 2021_08.22.csv") %>%
           select(-"EndDate", -"Status", -"Duration (in seconds)", -"Finished", -"RecipientLastName", 
                  -"RecipientFirstName", -"RecipientEmail", -"ExternalReference", -"LocationLatitude",
                  -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -contains("Last Click"),
@@ -879,8 +880,9 @@ The objective of Experiment 1 was to establish baseline PSE response patterns in
 ```
 ### Participants
 A total of `r nrow(exp1__full_data)` subjects completed the online experiment (*M* = `r exp1__age_gender_table[5,3]` years (*SD* = `r exp1__age.sd` years; see `r table_numbering("exp1--age-gender--tablecaption", display = "cite")` for a comprehensive breakdown of the sample). The current sample was primarily comprised of participants sourced from voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (`r exp1__n_prolific`%)
-(where they received payment at the rate of £5/hr) and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits; `r exp1__n_rpt`%). A small number of participants were also recruited from social media and other online sources (Facebook: `r exp1__n_facebook`%; Call For Participants: `r exp1__n_c4p`%; Reddit: `r exp1__n_reddit`%; unspecified: `r exp1__n_unspecified`%). To meet our YA requirements, all participants were required to be between 18-59 years of age (actual range: `r exp1__min.age`-`r exp1__max.age`). As our experiment involved English word stimuli, we also asked subjects whether English was their first language; the vast majority (`r exp1__n_eng_lang`%) reported that English was indeed their first language.
+(where they received payment at the rate of £5/hr) and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits; `r exp1__n_rpt`%). A small number of participants were also recruited from social media and other online sources (Facebook: `r exp1__n_facebook`%; Call For Participants: `r exp1__n_c4p`%; Reddit: `r exp1__n_reddit`%; unspecified: `r exp1__n_unspecified`%). To meet our YA requirements, all participants were required to be between 18-59 years of age (actual range: `r exp1__min.age`-`r exp1__max.age`). As our experiment involved English word stimuli, we also asked subjects whether English was their first language; the vast majority (`r exp1__n_eng_lang`%) reported that English was indeed their first language.  
 
+<br>
 `r table_numbering("exp1--age-gender--tablecaption")`
 ```{r, echo=FALSE, cache=TRUE}
     exp1__age_gender_table %>%
@@ -896,6 +898,22 @@ A total of `r nrow(exp1__full_data)` subjects completed the online experiment (*
 Pictures of innocuous, everyday objects (e.g. clock, rabbit, shoe) and their written-word names were sourced from @rossion2004. The picture stimuli consisted of greyscale line-drawn illustrations (containing shaded surface details), while word stimuli were simply the written-word names of each object presented in a clear Sans-serif typeface. A total of 136 unique items were randomly selected for use in the current experiment, from a pool consisting of: i) items with a written name between 4 and 7 letters; ii) items that would conjure the same intended concept in our UK-based sample (e.g. "ladder" should be universally understood across English-speaking cultures, whereas "wagon" or "pants" can be interpreted differently); iii) items that were not unknown, or uncommon, for our sample (e.g. Americanisms such as "wrench"); and iv) non-specific concepts such as "bird" (since the pool of items already contained specific exemplars of birds, such as "peacock" and "penguin"). As the current experiment involved memorising word stimuli, a single item ("glass") was also removed as it shared too many letters with another item ("glasses"). Selected items were split into four separate lists for counterbalancing purposes; using the normative data provided by @rossion2004, each list was balanced based on the length of the written name, as well as scores of naming accuracy, familiarity, visual complexity, and mental imagery agreement. A series of independent samples t-tests confirmed that no list was significantly different from another on any of the aforementioned criteria. 
 
 The picture stimuli utilised in the current study were created in Photoshop CC (20.0.04 Release), by importing the greyscale, surface-shaded, line-drawings onto a plain 250x250px white canvas. Written word stimuli were created using the Calibri sans-serif typeface on the same size canvas (see XXXX for example stimuli). All items were exported as .pngs files for presentation by the online survey platform.
+
+```{r, echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp1__stim_examples",
+                     caption = "Examples of @rossion2004 picture and word stimuli used in the current study.")
+```
+&nbsp;
+&nbsp;
+```{r echo=FALSE, out.width = '100%', cache=TRUE}
+    knitr::include_graphics("./resources/images/exp1__stim_examples.png")
+```
+&nbsp;
+&nbsp;
+`r figure_numbering("exp1__stim_examples")`
+&nbsp;
+&nbsp;
+
 
 ### Design
 The current study utilised a mixed design, with a 2-level within-subjects factor of stimuli format (words, drawings), and a 3-level between-subjects factor of response option (RFG, RFBG, RF-Ratings). Subjects completed two study blocks - one consisting only of word stimuli, the other consisting only of picture stimuli - before completing a single mixed format recognition test, where previously studied word and picture items were randomly shown among new, unseen items. Subjects passed through 2 levels of blocked randomization during the experiment (equally sized, predetermined blocks). First, subjects were randomly allocated into one of two study block orders, which determined the order in which they were presented with the picture and word blocks at study. Second, subjects were assigned into one of three possible recognition tests (identical aside from the response-options available when categorising recognition experiences): 1) RFG: “Recollection”, “Familiarity”,“Guessing”; 2) RFBG: “Recollection”, “Familiarity”, “Guessing”, “Both”, or 3) RF-Ratings: two independent 0-5 rating scales to separately report the contribution of Recollection and Familiarity. These randomisation processes were completed automatically by the experiment software using balanced methods.
@@ -930,6 +948,23 @@ The Picture Superiority Effect (PSE) is a highly robust and replicable phenomeno
 Many experiments utilise illustrations for their picture stimuli [@vandermeulen2012; @westerberg2013; @wolk2011], with a standardised set of items published by @snodgrass1980 among the most-used illustrated picture stimuli within the domain of memory research [@weldon1987; @weldon1989; @wagner1997; @mcbride2002; @martins2006; @whitehouse2006; @hockley2008; @schmitter-edgecombe2009; @vandermeulen2012; @deason2015; @wammes2016; @bermudez-margaretto2018; @meade2019]. The set consists of 260 line drawings of common, everyday objects (in black ink), along with their written word counterpart (e.g. "shoe"). Items were selected on the basis of exemplifying a number of semantic categories, including animals, furniture, fruit, etc., and a range of normative data was collected for each item; indices of naming agreement, mental imagery agreement, visual complexity, and familiarity were all recorded for each drawing. The normative data for the @snodgrass1980 items has been continually revisited, with a number of studies gathering culturally-appropriate norms (e.g. in Spanish [@sanfeliu1996], Chinese [@yoon2004], and Russian [@tsaparina2011], and additional testing of the relationship between reaction time and naming agreement [@szekely2003]. There are multiple theories of object recognition; the recognition-by-components theory proposed by @biederman1987 identifies shape as the most crucial factor for successful recognition, in which case, the object outlines found in the set by @snodgrass1980 should be more than sufficient for experimental cognitive research. Other theories, however, posit that surface details such as colour and texture are just as crucial in forming object representations [@tanaka2001; @tarr1998]. The wide-ranging applicability of the @snodgrass1980 items throughout a number of cognitive disciplines has led to a more recent revision of the items by @rossion2004. This revision consists of the exact same objects, digitally re-drawn to include surface textures and shading. Additionally, this set provides greyscale and colour versions for all items, as opposed to the greyscale-only items found in the @snodgrass1980 set (see `r figure_numbering("stim-examples--caption", display = "cite")` for example items contained in the @snodgrass1980 and @rossion2004 stimuli sets). The @rossion2004 revision now appears to be favoured over the original @snodgrass1980 set among many cognitive researchers [@stenberg2006; @wolk2008; @rollins2018, @ensor2019], almost certainly attributable to the increased detail and ability to choose whether colour is a necessary condition.
 
 Despite their widespread use, line drawings have been criticised for their relative simplicity and lack of realism (@viggiano2004), with many researchers favouring the use of photographs as experimental stimuli [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. Photographs of faces are especially useful in research examining emotion and face recognition [@bowen2019; @cui2016; @herzmann2018; @barba1997], though a number of common-object photograph sets have also emerged as ecological alternatives to line-drawn items [@viggiano2004; @moreno-martinez2012; @adlington2009]. While the published sets of photographs are undoubtedly useful in a range of cognitive domains, they do not allow us to specifically examine stimuli format as a factor on its own, as the concepts depicted are unique to the set they derive from. In order to make such comparisons, and ensure any differences in performance (e.g. recognition memory ability) are indeed attributable to stimuli format, the objects depicted must be consistent across stimuli formats. The current study presents a new set of photographic stimuli that extend the set of words and drawings provided by @rossion2004, wherein each of the concepts depicted has been carefully matched across formats. These new stimuli will be utilised throughout a number of planned recognition experiments that aim to systematically compare measures of recognition against different ‘levels’ of stimuli. The curation of a new set of photographs - carefully matched to other formats - allows investigation into whether picture superiority magnitudes are mediated by the format pictures are presented in. The inconsistent use of different formats across studies has previously made it difficult to reconcile effects obtained in response to drawings with those obtained in response to photographs - an inherent problem when concepts are not matched across format. Normative data for the new set of photographs is also presented, allowing others who also wish to use our photograph stimuli to filter items by measures of naming agreement, mental imagery agreement, familiarity, visual complexity, and colour diagnosticity. 
+
+```{r exp2--stim-examples--caption, echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp2__stim_examples",
+                     caption = "Examples of matching pictures across @snodgrass1980, @rossion2004, and 
+                     photographs from the current study. Greyscale versions of the drawings and photographs are 
+                     not presented in this example.")
+```
+&nbsp;
+&nbsp;
+```{r echo=FALSE, out.width = '100%', cache=TRUE}
+    knitr::include_graphics("./resources/images/exp2__stim_examples.png")
+```
+&nbsp;
+&nbsp;
+`r figure_numbering("exp2__stim_examples")`
+&nbsp;
+&nbsp;
 
 ```{r experiment-2-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 #################################################################################################################
@@ -1912,23 +1947,6 @@ To meet our YA requirements, all participants were required to be aged between 1
 
 ### Materials
 A pool of 136 line drawings [@rossion2004] - depicting common, everyday objects - were brought forward from the previous experiment. These items (along with their written-word labels) would form two of the unique stimuli formats that would be used in future recognition experiments (words and drawings). In this study, the drawings from @rossion2004 were simply used as a reference in the photograph matching process. Corresponding photographs were obtained online with the aim of depicting the everyday objects in a similar manner to the drawings. The inherent subjectivity involved in this process may have led to images that were not a reliable ‘match’ to the concepts they were selected to depict (for example, the photograph chosen to depict the concept “bottle” may inadvertently provoke the majority of participants to give the label "wine", thus indicating that this particular photograph fails to accurately depict the intended concept). To address this issue, and ensure all photographs more objectively depict the same concepts as the line drawings, three different photograph variations were found for each everyday object, with the aim of taking the best ‘match’ forward. An emphasis was placed on variety across these variations, with the aim of obtaining at least one photograph that very closely resembled the line-drawn depiction, and another offering a more modern depiction. Some items were substituted due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs that depicted the same everyday objects as the line drawings (see Appendix B for the full list of image references). 
-
-```{r exp2--stim-examples--caption, echo=FALSE, results = FALSE, cache=FALSE}
-    figure_numbering(name = "exp2--stim-examples--caption",
-                     caption = "Examples of matching pictures across @snodgrass1980, @rossion2004, and 
-                     photographs from the current study. Greyscale versions of the drawings and photographs are 
-                     not presented in this example.")
-```
-&nbsp;
-&nbsp;
-```{r echo=FALSE, out.width = '100%', cache=TRUE}
-    knitr::include_graphics("./resources/images/stim-examples.png")
-```
-&nbsp;
-&nbsp;
-`r figure_numbering("exp2--stim-examples--caption")`
-&nbsp;
-&nbsp;
 
 The matching process produced a total of 408 unique photographs. All were imported into Adobe Photoshop (20.0.04 Release), where the background was removed to isolate the object of interest from other potentially distracting visual details. This was completed manually using the magnetic lasso and polygonal lasso tools (edges were either feathered by 1px or left un-feathered). The orientation of isolated objects was adjusted to ensure they matched as closely as possible with their line-drawn counterpart (e.g. all photograph variations of the item 'boot' were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
 
@@ -3412,18 +3430,18 @@ A total of 126 innocuous, everyday objects (e.g. clock, rabbit, shoe) were prese
 The current study utilised a mixed design, with a 3-level within-subjects factor of stimuli format (words, drawings, photographs), and a 2-level between-subjects factor of response option (RFG, RFBG). Subjects passed through 2 levels of blocked randomization (equally sized, predetermined blocks); first, participants were randomly assigned one of six possible study lists (of equal length, and containing an even number of word, drawing, and photograph items) for counterbalancing purposes. Subjects were then either assigned into a recognition test with three possible response options (RFG: “Recollection”, “Familiarity”,“Guessing”), or four possible response options (RFBG: “Recollection”, “Familiarity”, “Guessing”, “Both”). These randomisation processes were completed automatically by the experiment software using balanced methods.
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
-    figure_numbering(name = "exp3__stimuli_examples",
+    figure_numbering(name = "exp3__stim_examples",
                      caption = "Example stimuli from the three formats.")
 ```
 
 &nbsp;
 &nbsp;
 ```{r echo=FALSE, out.width = '100%', cache=TRUE}
-    knitr::include_graphics("./resources/images/exp3-stimuli-examples.png")
+    knitr::include_graphics("./resources/images/exp3__stim_examples.png")
 ```
 &nbsp;
 &nbsp;
-`r figure_numbering("exp3__stimuli_examples")`
+`r figure_numbering("exp3__stim_examples")`
 &nbsp;
 &nbsp;
 
