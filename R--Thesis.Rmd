@@ -929,7 +929,7 @@ A series of exclusion criteria were defined before analysis. First, subjects wer
 \newpage
 ## Results
 
-```{r echo=FALSE, results = FALSE, cache=TRUE}
+```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
         RFG__totals <- exp1__full_data %>% 
             filter (ResponseOption == "RFG") %>% 
             select(total_hit, total_miss, total_FA, total_CR) %>%
@@ -977,16 +977,19 @@ A series of exclusion criteria were defined before analysis. First, subjects wer
 
 
 ### Picture superiority
-To establish baseline picture superiority effects in the current paradigm, and assess whether there were any interactions with the availability of different response options at test, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on a number of outcome variables. Namely, the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp1__hit.FA.recog.table", display = "cite")`]. Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
+To establish baseline picture superiority effects in the current paradigm, and assess whether there were any interactions with the availability of different response options at test, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on a number of outcome variables. Namely, the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp1__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between pictures and words, ANOVAs were also run on the signal detection measures of *d'* (measure of sensitivity) and *C* (decision criterion). Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
 
 `r table_numbering("exp1__hit.FA.recog.table")`
 ```{r, echo=FALSE, cache=TRUE}
     exp1__hit.FA.recog.table %>%
-        kable("latex", booktabs = T) %>%
+        kable("latex", booktabs = T, align = "lccc") %>%
         kable_styling(latex_options = "hold_position") %>%
         pack_rows("Stimuli-format", 1, 2) %>%
-        pack_rows("Response-option", 3, 5) #%>%
-        #column_spec(1, width = "4cm")
+        pack_rows("Response-option", 3, 5) %>%
+        column_spec(1, width = "3.6cm") %>%
+        column_spec(2, width = "1cm") %>%
+        column_spec(3, width = "1cm") %>%
+        column_spec(4, width = "2cm")
 ```
 
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
@@ -1023,7 +1026,7 @@ To establish baseline picture superiority effects in the current paradigm, and a
 ##    Main effects:
       exp1__apa_anova_prop_hit$full$StimuliFormat <- exp1__apa_anova_prop_hit$full$StimuliFormat
       exp1__apa_anova_prop_hit$full$ResponseOption <- exp1__apa_anova_prop_hit$full$ResponseOption
-      exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat <- 
+      exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat <-
           exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat
 ##    Pairwise (stim-format):
       exp1__apa_anova_prop_hit_stim_format_mmeans <- 
@@ -1035,20 +1038,20 @@ To establish baseline picture superiority effects in the current paradigm, and a
       exp1__apa_anova_prop_hit_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_hit_stim_format_pairwise)
       exp1__pics_words_hit_ttest <- exp1__apa_anova_prop_hit_stim_format_pairwise$full %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+          str_remove("^[\\w\\W]+?(?=\\$t)")      
 ##    Pairwise (resp-option):
       exp1__apa_anova_prop_hit_resp_option_mmeans <-
           papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_mmeans)
-        exp1__rfg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFG %>%
-            str_remove("\\,.*")
-        exp1__rfbg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFBG %>%
-            str_remove("\\,.*")
-        exp1__rfratings_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RF_Ratings %>%
-            str_remove("\\,.*")
-        exp1__apa_anova_prop_hit_resp_option_pairwise <- 
-            papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_pairwise)
-        exp1__rfg_rfr_hit_ttest <- exp1__apa_anova_prop_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
-            str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+      exp1__rfg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFG %>%
+          str_remove("\\,.*")
+      exp1__rfbg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFBG %>%
+          str_remove("\\,.*")
+      exp1__rfratings_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RF_Ratings %>%
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_hit_resp_option_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_pairwise)
+      exp1__rfg_rfr_hit_ttest <- exp1__apa_anova_prop_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
+          str_remove("^[\\w\\W]+?(?=\\$t)")      
 ###################################################################################################################
 ##    Analysis - Prop FA ANOVA:                                                                                  ##
 ###################################################################################################################
@@ -1088,7 +1091,7 @@ To establish baseline picture superiority effects in the current paradigm, and a
       exp1__apa_anova_prop_FA_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_pairwise)
       exp1__pics_words_FA_ttest <- exp1__apa_anova_prop_FA_stim_format_pairwise$full %>% 
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
+          str_remove("^[\\w\\W]+?(?=\\$t)")      
 ###################################################################################################################
 ##    Analysis - Overall recognition:                                                                            ##
 ###################################################################################################################
@@ -1129,22 +1132,103 @@ To establish baseline picture superiority effects in the current paradigm, and a
       exp1__apa_anova_prop_recog_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_pairwise)
       exp1__pics_words_recog_ttest <- exp1__apa_anova_prop_recog_stim_format_pairwise$full %>% 
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")      
+          str_remove("^[\\w\\W]+?(?=\\$t)")      
 ```     
 
-The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, [`r exp1__apa_anova_prop_hit$full$StimuliFormat`]; a PSE was evident, with pictures (`r exp1__pics_prop_hit_mean`) showing a higher number of overall hits compared to words (`r exp1__words_prop_hit_mean`), `r exp1__pics_words_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a PSE; a significant main effect of stimuli-format [`r exp1__apa_anova_prop_FA$full$StimuliFormat`] showed that words (`r exp1__words_prop_FA_mean`) produced more FAs than pictures (`r exp1__pics_prop_FA_mean`), [`r exp1__pics_words_FA_ttest`]. Scores of overall recognition performance (taking into account hits and FAs) further demonstrated a PSE in the current paradigm; a significant main effect of stimuli-format [`r exp1__apa_anova_prop_recog$full$StimuliFormat`] showed pictures (`r exp1__pics_prop_recog_mean`) produced better overall task performance compared to words (`r exp1__words_prop_recog_mean`), [`r exp1__pics_words_recog_ttest`]. Taken together, the findings highlight the role of stimuli-format on the memorability of items in the current recognition memory paradigm. 
+The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, `r exp1__apa_anova_prop_hit$full$StimuliFormat`; a PSE was evident, with pictures (`r exp1__pics_prop_hit_mean`) showing a higher number of overall hits compared to words (`r exp1__words_prop_hit_mean`), `r exp1__pics_words_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a PSE; a significant main effect of stimuli-format `r exp1__apa_anova_prop_FA$full$StimuliFormat` showed that words (`r exp1__words_prop_FA_mean`) produced more FAs than pictures (`r exp1__pics_prop_FA_mean`), `r exp1__pics_words_FA_ttest`. Overall recognition performance (taking into account hits and FAs) offered further support for a PSE in the current paradigm; a significant main effect of stimuli-format `r exp1__apa_anova_prop_recog$full$StimuliFormat` showed pictures (`r exp1__pics_prop_recog_mean`) produced better overall task performance compared to words (`r exp1__words_prop_recog_mean`), `r exp1__pics_words_recog_ttest`. No interaction effects were found between stimuli format and response option for the proportion of hits, FAs, or overall recognition. Taken together, the findings demonstrate a replication of the PSE in the current memory paradigm, and suggest stimuli format plays a key role in memorability that is independent of response option.
+
+```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+###################################################################################################################
+##    Analysis - d':                                                                                             ##
+###################################################################################################################
+      exp1__dprime_anova_data <- exp1__full_data %>%
+          select(id, ResponseOption, exp1__pic_d_prime, exp1__word_d_prime) %>%
+          rename(picture = "exp1__pic_d_prime", word = "exp1__word_d_prime") %>%
+          gather(key = "StimuliFormat", value = "dprime", picture, word) %>%
+          ungroup() %>%
+          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
+          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
+          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
+          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
+          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
+##    2-way mixed ANOVA:
+      exp1__anova_prop_dprime <- aov_ez("id", "dprime", exp1__dprime_anova_data, 
+                                        between = "ResponseOption", within = "StimuliFormat")
+##    Post-hoc contrasts:
+##    Stimuli-format:
+      exp1__anova_prop_dprime_stim_format_mmeans <- emmeans(exp1__anova_prop_dprime, ~ StimuliFormat)
+      exp1__anova_prop_dprime_stim_format_pairwise <- pairs(exp1__anova_prop_dprime_stim_format_mmeans)
+       exp1__c_anova_data <- exp1__full_data %>%
+          select(id, ResponseOption, pic_c, word_c) %>%
+          rename(picture = "pic_c", word = "word_c") %>%
+          gather(key = "StimuliFormat", value = "c", picture, word) %>%
+          ungroup() %>%
+          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
+          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
+          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
+          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
+          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp1__apa_anova_prop_dprime <- papaja:::apa_print.afex_aov(exp1__anova_prop_dprime)
+##    Main effects:
+      exp1__apa_anova_prop_dprime$full$StimuliFormat <- exp1__apa_anova_prop_dprime$full$StimuliFormat
+      exp1__apa_anova_prop_dprime$full$ResponseOption <- exp1__apa_anova_prop_dprime$full$ResponseOption
+      exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat <- 
+          exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat
+##    Pairwise (stim-format):
+      exp1__apa_anova_prop_dprime_stim_format_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_mmeans)
+      exp1__pics_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_mmeans$estimate$Pictures %>% 
+          str_remove("\\,.*")
+      exp1__words_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_mmeans$estimate$Words %>% 
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_dprime_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_pairwise)
+      exp1__pics_words_dprime_ttest <- exp1__apa_anova_prop_dprime_stim_format_pairwise$full %>% 
+          str_remove("^[\\w\\W]+?(?=\\$t)")
+###################################################################################################################
+##    Analysis - C:                                                                                             ##
+###################################################################################################################
+##    2-way mixed ANOVA:
+      exp1__anova_prop_c <- aov_ez("id", "c", exp1__c_anova_data, 
+                                   between = "ResponseOption", within = "StimuliFormat")
+##    Post-hoc contrasts:
+##    Stimuli-format:
+      exp1__anova_prop_c_resp_option_mmeans <- emmeans(exp1__anova_prop_c, ~ ResponseOption)
+      exp1__anova_prop_c_resp_option_pairwise <- pairs(exp1__anova_prop_c_resp_option_mmeans)
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp1__apa_anova_prop_c <- papaja:::apa_print.afex_aov(exp1__anova_prop_c)
+##    Main effects:
+      exp1__apa_anova_prop_c$full$StimuliFormat <- exp1__apa_anova_prop_c$full$StimuliFormat
+      exp1__apa_anova_prop_c$full$ResponseOption <- exp1__apa_anova_prop_c$full$ResponseOption
+      exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat <- 
+          exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat
+##    Pairwise (resp-option):
+      exp1__apa_anova_prop_c_resp_option_mmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_mmeans)
+      exp1__rfg_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
+      exp1__rfbg_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
+      exp1__rfr_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RF_Ratings %>% str_remove("\\,.*")
+      exp1__apa_anova_prop_c_resp_option_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_pairwise)
+      exp1__rfg_rfr_c_ttest <- exp1__apa_anova_prop_c_resp_option_pairwise$full$RFG_RF_Ratings %>% 
+          str_remove("^[\\w\\W]+?(?=\\$t)")      
+```
+ 
+The ANOVA on *d'* scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_dprime$full$StimuliFormat`, whereby pictures (`r exp1__pics_prop_dprime_mean`) facilitated better discrimination between hits and FAs than words (`r exp1__words_prop_dprime_mean`), `r exp1__pics_words_dprime_ttest`. *C* scores, however, showed no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, suggesting response biases were similarly conservative/liberal between pictures and words. 
+
+### Response option availability
+In the ANOVAs on the proportion of hits, FAs, and overall recognition, the main effects of response option were also examined to determine whether the availability of different response option had an impact on task performance. There was a significant main effect of response option only in the ANOVA for the proportion of hits, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits than the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`. The ANOVAs on the proportion of FAs and overall recognition showed no significant main effect of response option. This finding might indicate fewer available response options facilitate accurate recognition compared to more response options - however, the absence of a main effect for overall recognition (a measure that takes into account both hits and FAs) suggests this interpretation should be treated with caution. 
 
 
 
 
 
-
-
-
-There was also a significant main effect of response option condition, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits compared to the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`, suggesting fewer available response options may facilitate accurate recognition. There were no significant interaction effects, `r exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat`.
-There was no significant main effect of response-option condition, `r exp1__apa_anova_prop_FA$full$ResponseOption`, or significant interaction, `r exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix B - ANOVA Prop FAs][].
- There was no significant main effect of response-option condition, `r exp1__apa_anova_prop_recog$full$ResponseOption`, or significant interaction, `r exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix C - ANOVA Overall recognition][].
-
+There was, however, a significant main effect of response-option condition, `r exp1__apa_anova_prop_c$full$ResponseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative response bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`, suggesting participants were less likely to respond "Old" when they were required to provide more detailed follow-up recognition judgements (Recollection: 0-5 / Familiarity: 0-5), compared to simply selecting one of three options (R,F, or G). There were no significant interaction effects, `r exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix E - ANOVA c (bias)][].
 
 
 

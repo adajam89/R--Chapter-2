@@ -4,24 +4,9 @@ output: html_notebook
 ---
 
 
-
-
-
-
-
-
-\newpage
-## Results
-
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-    table_numbering("exp1__hit_and_FA_caption", "Mean proportion of hits and FAs 
-                    by stimuli-format and response-option condition.", display = FALSE)
-```
-
-
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
-##    Hits figure:                                                                                               ##
+##    Rec / Fam / Guess figure:                                                                                  ##
 ###################################################################################################################
       exp1__hit_figure_data <- tribble(~"ResponseOption", ~"StimuliFormat", ~"rfg", ~"emmean", ~"SE",
           as.character(pull(exp1__rec_hit_figure_data[1,1])), 
@@ -82,9 +67,6 @@ output: html_notebook
           transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
           transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures")))
 
-
-
-
 ##    Hit figure:
       exp1__hit_figure <- ggplot(exp1__hit_figure_data, aes(x = StimuliFormat, y = emmean, fill = rfg)) +
           scale_fill_manual("legend", values = c("Recollection" = "#1B4251", "Familiarity" = "#6A6C93",
@@ -130,15 +112,7 @@ output: html_notebook
           mutate(total_hit = word_hit + pic_hit) %>%
           mutate(total_FA = word_FA + pic_FA)
 
-      exp1__table_hits_and_FAs <- tribble(
-          ~"Stim", ~Hits,  ~FAs,
-          "Words", mean(exp1__full_data$prop_word_hit), mean(exp1__full_data$prop_word_FA),
-          "Pictures", mean(exp1__full_data$prop_pic_hit), mean(exp1__full_data$prop_pic_FA),
-          "RFG", mean(exp1__rfg_totals$total_hit) / 60, mean(exp1__rfg_totals$total_FA) / 60,
-          "RFBG", mean(exp1__rfbg_totals$total_hit) / 60, mean(exp1__rfbg_totals$total_FA) / 60,
-          "RF-Ratings", mean(exp1__rf_r_totals$total_hit) / 60, mean(exp1__rf_r_totals$total_FA) / 60) %>%
-          mutate_if(is.numeric, round, 2) %>%
-          column_to_rownames(var = "Stim")
+
       
       
       
@@ -280,111 +254,11 @@ output: html_notebook
 
 
 
-```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
-###################################################################################################################
-##    Analysis - Prop Hits ANOVA:                                                                                ##
-###################################################################################################################
-      exp1__hit_anova_data <- exp1__full_data %>%
-          select(id, ResponseOption, prop_pic_hit, prop_word_hit) %>%
-          rename(picture = "prop_pic_hit", word = "prop_word_hit") %>%
-          gather(key = "StimuliFormat", value = "hit", picture, word) %>%
-          ungroup() %>%
-          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
-          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
-          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
-##    2-way mixed ANOVA:
-      exp1__anova_prop_hit <- aov_ez("id", "hit", exp1__hit_anova_data, 
-                                     between = "ResponseOption", within = "StimuliFormat")
-##    Post-hoc contrasts:
-##    Stimuli-format:
-      exp1__anova_prop_hit_stim_format_mmeans <- emmeans(exp1__anova_prop_hit, ~ StimuliFormat)
-      exp1__anova_prop_hit_stim_format_pairwise <- pairs(exp1__anova_prop_hit_stim_format_mmeans)
-##    Response-option:
-      exp1__anova_prop_hit_resp_option_mmeans <- emmeans(exp1__anova_prop_hit, ~ ResponseOption)
-      exp1__anova_prop_hit_resp_option_pairwise <- pairs(exp1__anova_prop_hit_resp_option_mmeans)
-##    Interaction means (for figure): 
-      exp1__anova_prop_hit_interaction_mmeans <- 
-        emmeans(exp1__anova_prop_hit, c("ResponseOption", "StimuliFormat"))
-###################################################################################################################
-##    Analysis - Prop FA ANOVA:                                                                                  ##
-###################################################################################################################
-      exp1__FA_anova_data <- exp1__full_data %>%
-          select(id, ResponseOption, prop_pic_FA, prop_word_FA) %>%
-          rename(picture = "prop_pic_FA", word = "prop_word_FA") %>%
-          gather(key = "StimuliFormat", value = "FA", picture, word) %>%
-          ungroup() %>%
-          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>% 
-          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
-          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
-          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
-##    2-way mixed ANOVA:
-      exp1__anova_prop_FA <- aov_ez("id", "FA", exp1__FA_anova_data, 
-                                    between = "ResponseOption", within = "StimuliFormat")
-##    Post-hoc contrasts:
-##    Stimuli-format:
-      exp1__anova_prop_FA_stim_format_mmeans <- emmeans(exp1__anova_prop_FA, ~ StimuliFormat)
-      exp1__anova_prop_FA_stim_format_pairwise <- pairs(exp1__anova_prop_FA_stim_format_mmeans)
-###################################################################################################################
-##    Analysis - Overall recognition:                                                                            ##
-###################################################################################################################
-      exp1__overall_recog_anova_data <- exp1__full_data %>%
-          select(id, ResponseOption, pic_recog, word_recog) %>%
-          rename(picture = "pic_recog", word = "word_recog") %>%
-          gather(key = "StimuliFormat", value = "recog", picture, word) %>%
-          ungroup() %>%
-          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
-          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
-          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
-##    2-way mixed ANOVA:
-      exp1__anova_prop_recog <- aov_ez("id", "recog", exp1__overall_recog_anova_data, 
-                                       between = "ResponseOption", within = "StimuliFormat")
-##    Post-hoc contrasts:
-##    Stimuli-format:
-      exp1__anova_prop_recog_stim_format_mmeans <- emmeans(exp1__anova_prop_recog, ~ StimuliFormat)
-      exp1__anova_prop_recog_stim_format_pairwise <- pairs(exp1__anova_prop_recog_stim_format_mmeans)
-###################################################################################################################
-##    Analysis - d' and c:                                                                                       ##
-###################################################################################################################
-      exp1__dprime_anova_data <- exp1__full_data %>%
-          select(id, ResponseOption, exp1__pic_d_prime, exp1__word_d_prime) %>%
-          rename(picture = "exp1__pic_d_prime", word = "exp1__word_d_prime") %>%
-          gather(key = "StimuliFormat", value = "dprime", picture, word) %>%
-          ungroup() %>%
-          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
-          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
-          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
-##    2-way mixed ANOVA:
-      exp1__anova_prop_dprime <- aov_ez("id", "dprime", exp1__dprime_anova_data, 
-                                        between = "ResponseOption", within = "StimuliFormat")
-##    Post-hoc contrasts:
-##    Stimuli-format:
-      exp1__anova_prop_dprime_stim_format_mmeans <- emmeans(exp1__anova_prop_dprime, ~ StimuliFormat)
-      exp1__anova_prop_dprime_stim_format_pairwise <- pairs(exp1__anova_prop_dprime_stim_format_mmeans)
-#------------------------------------------------------------------------------------------------------------------
-      exp1__c_anova_data <- exp1__full_data %>%
-          select(id, ResponseOption, pic_c, word_c) %>%
-          rename(picture = "pic_c", word = "word_c") %>%
-          gather(key = "StimuliFormat", value = "c", picture, word) %>%
-          ungroup() %>%
-          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
-          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
-          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
-##    2-way mixed ANOVA:
-      exp1__anova_prop_c <- aov_ez("id", "c", exp1__c_anova_data, 
-                                   between = "ResponseOption", within = "StimuliFormat")
-##    Post-hoc contrasts:
-##    Stimuli-format:
-      exp1__anova_prop_c_resp_option_mmeans <- emmeans(exp1__anova_prop_c, ~ ResponseOption)
-      exp1__anova_prop_c_resp_option_pairwise <- pairs(exp1__anova_prop_c_resp_option_mmeans)
+
+
+
+
+
 ###################################################################################################################
 ##    Analysis - Prop Rec hits ANOVA:                                                                            ##
 ###################################################################################################################
@@ -575,82 +449,21 @@ output: html_notebook
 ```
 
 
-### Overall hits, false alarms (FAs), and recognition
-Separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the mean proportion of hits and false alarms (FAs; see `r table_numbering("exp1__hit_and_FA_caption", display = "cite")`).
-
-`r table_numbering("exp1__hit_and_FA_caption")`
-```{r, echo=FALSE, cache=FALSE}
-    exp1__table_hits_and_FAs %>%
-        kable("latex", booktabs = T) %>%
-        kable_styling(latex_options = "hold_position") %>%
-        pack_rows("Stimuli-format", 1, 2) %>%
-        pack_rows("Response-option", 3, 5) %>%
-        column_spec(1, width = "4cm")
-```
 
 
-```{r, echo=FALSE, cache=TRUE}
-##    Total hits:
-      exp1__apa_anova_prop_hit <-
-          papaja:::apa_print.afex_aov(exp1__anova_prop_hit)
-    
-##    Main effects:
-      exp1__apa_anova_prop_hit$full$StimuliFormat <- exp1__apa_anova_prop_hit$full$StimuliFormat
-      exp1__apa_anova_prop_hit$full$ResponseOption <- exp1__apa_anova_prop_hit$full$ResponseOption
-      exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat
 
-##    Pairwise (stim-format):
-      exp1__apa_anova_prop_hit_stim_format_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_stim_format_mmeans)
-      exp1__pics_prop_hit_mean <- exp1__apa_anova_prop_hit_stim_format_mmeans$estimate$Pictures %>%
-          str_remove("\\,.*")
-      exp1__words_prop_hit_mean <- exp1__apa_anova_prop_hit_stim_format_mmeans$estimate$Words %>%
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_hit_stim_format_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_stim_format_pairwise)
-      exp1__pics_words_hit_ttest <- exp1__apa_anova_prop_hit_stim_format_pairwise$full %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 
-##    Pairwise (resp-option):
-      exp1__apa_anova_prop_hit_resp_option_mmeans <-
-          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_mmeans)
-        exp1__rfg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFG %>%
-            str_remove("\\,.*")
-        exp1__rfbg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFBG %>%
-            str_remove("\\,.*")
-        exp1__rfratings_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RF_Ratings %>%
-            str_remove("\\,.*")
-        exp1__apa_anova_prop_hit_resp_option_pairwise <- 
-            papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_pairwise)
-        exp1__rfg_rfr_hit_ttest <- exp1__apa_anova_prop_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
-            str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-```
-&nbsp;
 
-In the ANOVA on the proportion of hits, there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_hit$full$StimuliFormat`;  pictures (`r exp1__pics_prop_hit_mean`) produced a higher number of hits than words (`r exp1__words_prop_hit_mean`), `r exp1__pics_words_hit_ttest`, supporting the notion that stimuli-format plays a role in item recognition. There was also a significant main effect of response-option condition, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits compared to the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`, suggesting fewer available response-options may facilitate accurate recognition. There were no significant interaction effects, `r exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix A - ANOVA Prop hits][].
 
-\newpage
-```{r, echo=FALSE, cache=TRUE}
-##    Total FAs:
-      exp1__apa_anova_prop_FA <- papaja:::apa_print.afex_aov(exp1__anova_prop_FA)
-##    Main effects:
-      exp1__apa_anova_prop_FA$full$StimuliFormat <- exp1__apa_anova_prop_FA$full$StimuliFormat
-      exp1__apa_anova_prop_FA$full$ResponseOption <- exp1__apa_anova_prop_FA$full$ResponseOption
-      exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat
-##    Pairwise (stim-format):
-      exp1__apa_anova_prop_FA_stim_format_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_mmeans)
-      exp1__pics_prop_FA_mean <- exp1__apa_anova_prop_FA_stim_format_mmeans$estimate$Pictures %>% 
-          str_remove("\\,.*")
-      exp1__words_prop_FA_mean <- exp1__apa_anova_prop_FA_stim_format_mmeans$estimate$Words %>% 
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_FA_stim_format_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_pairwise)
-      exp1__pics_words_FA_ttest <- exp1__apa_anova_prop_FA_stim_format_pairwise$full %>% 
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-```
+
+
+
+
+
+
+
+
+
 
 
 
@@ -774,31 +587,13 @@ In the ANOVA on the proportion of hits, there was a significant main effect of s
 ```
 
 
-The ANOVA on the proportion of FAs also highlights the role of stimuli-format on the memorability of items, with a significant main effect of stimuli-format `r exp1__apa_anova_prop_FA$full$StimuliFormat` showing words (`r exp1__words_prop_FA_mean`) produced more FAs than pictures (`r exp1__pics_prop_FA_mean`), `r exp1__pics_words_FA_ttest`. There was no significant main effect of response-option condition, `r exp1__apa_anova_prop_FA$full$ResponseOption`, or significant interaction, `r exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix B - ANOVA Prop FAs][].
 
-```{r, echo=FALSE, cache=TRUE}
-##    Recog:
-      exp1__apa_anova_prop_recog <- papaja:::apa_print.afex_aov(exp1__anova_prop_recog)
-##    Main effects:
-      exp1__apa_anova_prop_recog$full$StimuliFormat <- exp1__apa_anova_prop_recog$full$StimuliFormat
-      exp1__apa_anova_prop_recog$full$ResponseOption <- exp1__apa_anova_prop_recog$full$ResponseOption
-      exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat
 
-##    Pairwise (stim-format):
-      exp1__apa_anova_prop_recog_stim_format_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_mmeans)
-      exp1__pics_prop_recog_mean <- exp1__apa_anova_prop_recog_stim_format_mmeans$estimate$Pictures %>% 
-          str_remove("\\,.*")
-      exp1__words_prop_recog_mean <- exp1__apa_anova_prop_recog_stim_format_mmeans$estimate$Words %>% 
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_recog_stim_format_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_pairwise)
-      exp1__pics_words_recog_ttest <- exp1__apa_anova_prop_recog_stim_format_pairwise$full %>% 
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-```
 
-A similar pattern was again reflected in the ANOVA on overall performance accuracy; a significant main effect of stimuli-format `r exp1__apa_anova_prop_recog$full$StimuliFormat` revealed that pictures (`r exp1__pics_prop_recog_mean`) showed an increased overall task performance accuracy  compared with words (`r exp1__words_prop_recog_mean`), `r exp1__pics_words_recog_ttest`. There was no significant main effect of response-option condition, `r exp1__apa_anova_prop_recog$full$ResponseOption`, or significant interaction, `r exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat`. Click here to see output: [Appendix C - ANOVA Overall recognition][].
+
+
+
+
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
       table_numbering("exp1__dprime_and_c_caption", "Mean d' and c scores by 
@@ -869,6 +664,8 @@ In the ANOVA on c-scores, there was no significant main effect of stimuli-format
 
 ### Hits assigned Recollection, Familiarity, and Guessing
 To determine the effects of stimuli-format and response-option on accurate recognition memory judgements, separate 2 (stimuli format: words, pictures) x 3 (response-option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp1__prop_hit_caption", display = "cite")`). 
+
+
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
       figure_numbering("exp1__prop_hit_caption", "Proportion of hits assigned 
                        Recollection, Familiarity, and Guessing, by stimuli-format and 
