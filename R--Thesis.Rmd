@@ -5792,17 +5792,17 @@ Subjects were excluded according to a two key criteria; 1) less than 90% accurac
           "Photographs",  mean(exp4__colour_data$prop_photo_hit), 
                           mean(exp4__colour_data$prop_photo_FA),
                           mean(exp4__colour_data$photo_recog),
-          "RFG",          mean(exp4__colour__anova__PROP.HITS__rfg.totals$total_hit) / 60,
-                          mean(exp4__colour__anova__PROP.HITS__rfg.totals$total_FA) / 60,
-                          mean(exp4__RFG__totals$prop_RFG_hit),
-          "RFBG",         mean(exp4__colour__anova__PROP.HITS__rfbg.totals$total_hit) / 60,
-                          mean(exp4__colour__anova__PROP.HITS__rfbg.totals$total_FA) / 60,
-                          mean(exp4__RFBG__totals$prop_RFBG_hit)) %>%
+          "RFG",          mean(exp4__RFG__totals$prop_RFG_hit),
+                          mean(exp4__RFG__totals$prop_RFG_FA),
+                          mean(exp4__RFG__totals$prop_RFG_recog),
+          "RFBG",         mean(exp4__RFBG__totals$prop_RFBG_hit),
+                          mean(exp4__RFBG__totals$prop_RFBG_FA),
+                          mean(exp4__RFBG__totals$prop_RFBG_recog)) %>%
           mutate_if(is.numeric, round, 2) %>%
           column_to_rownames(var = "Stim")
 ```
 
-```{r echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=TRUE}
       table_numbering(name = "exp4__hit.FA.recog.table",
                       caption = "Mean proportion of hits, FAs, and overall recognition, by stimuli format and response option condition.")
 ```
@@ -5810,30 +5810,26 @@ Subjects were excluded according to a two key criteria; 1) less than 90% accurac
 ### Distinctiveness
 To determine whether colour photographs were more distinctive than colour drawings, and examine any potential interactions with response-option condition, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp4__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between the stimuli formats, ANOVAs were also run on the signal detection measures of *d'* (measure of sensitivity) and *c* (decision criterion). Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
 
+\newpage
 `r table_numbering("exp4__hit.FA.recog.table")`
-```{r, echo=FALSE, cache=TRUE}
+```{r, echo=FALSE, cache=FALSE}
       exp4__hit.FA.recog.table %>%
-          kable("latex", booktabs = T) %>%
+          kable("latex", booktabs = T, align = "lccc") %>%
           kable_styling(latex_options = "hold_position") %>%
           pack_rows("Stimuli format", 1, 3) %>%
           pack_rows("Response option", 4, 5) %>%
-          column_spec(1, width = "4cm")
+          column_spec(1, width = "3.6cm") %>%
+          column_spec(2, width = "1cm") %>%
+          column_spec(3, width = "1cm") %>%
+          column_spec(4, width = "2cm")
 ```
 &nbsp;
 
-
-
-
-
-        
-        
-        
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
-#################################################################################################################
-##    Experiment 3 - Prop hits:                                                                                ##
-#################################################################################################################  
-##    Prep data for analysis:                                                 
-      exp4__colour__anova__PROP.HITS_data <- exp4__colour_data %>%
+###################################################################################################################
+##    Analysis - Prop Hits ANOVA:                                                                                ##
+###################################################################################################################
+      exp4__hit_anova_data <- exp4__colour_data %>%
           select(id, resp_option, prop_word_hit, prop_drawing_hit, prop_photo_hit) %>%
           rename(word = "prop_word_hit", drawing = "prop_drawing_hit", photo = "prop_photo_hit") %>%
           gather(key = "stim_format", value = "hit", word, drawing, photo) %>%
@@ -5843,87 +5839,231 @@ To determine whether colour photographs were more distinctive than colour drawin
           mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
           transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
           transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
-#---------------------------------------------------------------------------------------------------------------#
-##    Run 2-way mixed ANOVA:
-      exp4__colour__anova__PROP.HITS <- aov_ez("id", "hit", exp4__colour__anova__PROP.HITS_data,
+##    2-way mixed ANOVA:
+      exp4__anova_prop_hit <- aov_ez("id", "hit", exp4__hit_anova_data,
                                                between = "resp_option", within = "stim_format")
-
-##    Format ANOVA main effects for use in report:  
-      exp4__apa__colour__anova__PROP.HITS <- papaja:::apa_print.afex_aov(exp4__colour__anova__PROP.HITS)
-      exp4__apa__colour__anova__PROP.HITS__stim.format.main.effect <- 
-          exp4__apa__colour__anova__PROP.HITS$full$stim_format 
-      exp4__apa__colour__anova__PROP.HITS__resp.option.main.effect <- 
-          exp4__apa__colour__anova__PROP.HITS$full$resp_option 
-      exp4__apa__colour__anova__PROP.HITS__interaction.main.effect <- 
-          exp4__apa__colour__anova__PROP.HITS$full$resp_option_stim_format
-#---------------------------------------------------------------------------------------------------------------#
-#     Run post-hoc contrasts                                                                                    
-#---------------------------------------------------------------------------------------------------------------#
-#-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  #
-##    Response option:  Not significant.
-#-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  #
+##    Post-hoc contrasts:
 ##    Stimuli format:
-      exp4__colour__anova__PROP.HITS__stim.format.means <- emmeans(exp4__colour__anova__PROP.HITS, ~ stim_format)
-      exp4__colour__anova__PROP.HITS__stim.format.pairwise <-
-          pairs(exp4__colour__anova__PROP.HITS__stim.format.means, adjust = "bonferroni")
-
-##    Format pairwise results for use in report:  
-      exp4__apa__colour__anova__PROP.HITS__stim.format.means <- 
-          papaja:::apa_print.emmGrid(exp4__colour__anova__PROP.HITS__stim.format.means) 
-      exp4__apa__colour__anova__PROP.HITS__words.mean <- 
-          exp4__apa__colour__anova__PROP.HITS__stim.format.means$estimate$Words %>% str_remove("\\,.*")
-      exp4__apa__colour__anova__PROP.HITS__drawings.mean <- 
-          exp4__apa__colour__anova__PROP.HITS__stim.format.means$estimate$Drawings %>% str_remove("\\,.*")
-      exp4__apa__colour__anova__PROP.HITS__photographs.mean <- 
-          exp4__apa__colour__anova__PROP.HITS__stim.format.means$estimate$Photographs %>% str_remove("\\,.*")
-      exp4__apa__colour__anova__PROP.HITS__stim.format.pairwise <- 
-          papaja:::apa_print.emmGrid(exp4__colour__anova__PROP.HITS__stim.format.pairwise)
-
-      exp4__apa__colour__anova__PROP.HITS__words.vs.drawings.pairwise <-
-          exp4__apa__colour__anova__PROP.HITS__stim.format.pairwise$full$Words_Drawings %>% 
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-      exp4__apa__colour__anova__PROP.HITS__words.vs.photographs.pairwise <-
-        exp4__apa__colour__anova__PROP.HITS__stim.format.pairwise$full$Words_Photographs %>% 
-        str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-      exp4__apa__colour__anova__PROP.HITS__drawings.vs.photographs.pairwise <-
-        exp4__apa__colour__anova__PROP.HITS__stim.format.pairwise$full$Drawings_Photographs %>% 
-        str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-#-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  #
-##    Interaction:  Not significant.
-#---------------------------------------------------------------------------------------------------------------#
-##    Prep data for figure:
-      exp4__colour__anova__PROP.HITS__all.means <- emmeans(exp4__colour__anova__PROP.HITS,
-                                                           c("resp_option", "stim_format"))
-      exp4__colour__anova__PROP.HITS__figure.data <- as_tibble(exp4__colour__anova__PROP.HITS__all.means) %>%
-        select(-df, -lower.CL, -upper.CL)
-
-##    Prep data for table:  
-      exp4__colour__anova__PROP.HITS__rfg.totals <- exp4__colour_data %>%
-          filter(resp_option == "RFG") %>%
-          mutate(total_hit = total_word_hit + total_drawing_hit + total_photo_hit) %>%
-          mutate(total_FA = total_word_FA + total_drawing_FA + total_photo_FA)
-      exp4__colour__anova__PROP.HITS__rfbg.totals <- exp4__colour_data %>%
-          filter(resp_option == "RFBG") %>%
-          mutate(total_hit = total_word_hit + total_drawing_hit + total_photo_hit) %>%
-          mutate(total_FA = total_word_FA + total_drawing_FA + total_photo_FA)
-
-
+      exp4__anova_prop_hit_stim_format_mmeans <- emmeans(exp4__anova_prop_hit, ~ stim_format)
+      exp4__anova_prop_hit_stim_format_pairwise <-pairs(exp4__anova_prop_hit_stim_format_mmeans, 
+                                                        adjust = "bonferroni")
+##    Interaction means (for figure): 
+      exp4__anova_prop_hit_interaction_mmeans <- 
+        emmeans(exp4__anova_prop_hit, ~ resp_option:stim_format)
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp4__apa_anova_prop_hit <- papaja:::apa_print.afex_aov(exp4__anova_prop_hit)
+##    Main effects:
+      exp4__apa_anova_prop_hit__stim_format <- exp4__apa_anova_prop_hit$full_result$stim_format
+      exp4__apa_anova_prop_hit__resp_option <- exp4__apa_anova_prop_hit$full_result$resp_option
+      exp4__apa_anova_prop_hit__interaction <- exp4__apa_anova_prop_hit$full_result$resp_option_stim_format
+##    Stim format pairwise:
+      exp4__apa_anova_prop_hit_stim_format_mmeans <- papaja:::apa_print.emmGrid(
+                                                     exp4__anova_prop_hit_stim_format_mmeans)
+      exp4__drawings_prop_hit_mean <- exp4__apa_anova_prop_hit_stim_format_mmeans$estimate$Drawings %>%
+                                      str_remove("\\,.*")
+      exp4__photos_prop_hit_mean <- exp4__apa_anova_prop_hit_stim_format_mmeans$estimate$Photographs %>%
+                                      str_remove("\\,.*")
+      exp4__apa_anova_prop_hit_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_prop_hit_stim_format_pairwise)
+      exp4__drawings_photo_hit_ttest <-exp4__apa_anova_prop_hit_stim_format_pairwise$statistic$Drawings_Photographs
+###################################################################################################################
+##    Analysis - Prop FA ANOVA:                                                                                  ##
+###################################################################################################################
+      exp4__FA_anova_data <- exp4__colour_data %>%
+          select(id, resp_option, prop_word_FA, prop_drawing_FA, prop_photo_FA) %>%
+          rename(word = "prop_word_FA", drawing = "prop_drawing_FA", photo = "prop_photo_FA") %>%
+          gather(key = "stim_format", value = "FA", word, drawing, photo) %>%
+          mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+          mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+          mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+          transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+          transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
+##    2-way mixed ANOVA:
+      exp4__anova_prop_FA <- aov_ez("id", "FA", exp4__FA_anova_data,
+                                               between = "resp_option", within = "stim_format")
+##    Post-hoc contrasts:
+##    Stimuli format:
+      exp4__anova_prop_FA_stim_format_mmeans <- emmeans(exp4__anova_prop_FA, ~ stim_format)
+      exp4__anova_prop_FA_stim_format_pairwise <-pairs(exp4__anova_prop_FA_stim_format_mmeans, 
+                                                        adjust = "bonferroni")
+##    Response option:
+      exp4__anova_prop_FA_resp_option_mmeans <- emmeans(exp4__anova_prop_FA, ~ resp_option)
+      exp4__anova_prop_FA_resp_option_pairwise <-pairs(exp4__anova_prop_FA_resp_option_mmeans, 
+                                                        adjust = "bonferroni")
+##    Interaction means (for figure): 
+      exp4__anova_prop_FA_interaction_mmeans <- 
+        emmeans(exp4__anova_prop_FA, ~ resp_option:stim_format)
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp4__apa_anova_prop_FA <- papaja:::apa_print.afex_aov(exp4__anova_prop_FA)
+##    Main effects:
+      exp4__apa_anova_prop_FA__stim_format <- exp4__apa_anova_prop_FA$full_result$stim_format
+      exp4__apa_anova_prop_FA__resp_option <- exp4__apa_anova_prop_FA$full_result$resp_option
+      exp4__apa_anova_prop_FA__interaction <- exp4__apa_anova_prop_FA$full_result$resp_option_stim_format
+##    Stim format pairwise:
+      exp4__apa_anova_prop_FA_stim_format_mmeans <- papaja:::apa_print.emmGrid(
+                                                    exp4__anova_prop_FA_stim_format_mmeans)
+      exp4__drawings_prop_FA_mean <- exp4__apa_anova_prop_FA_stim_format_mmeans$estimate$Drawings %>%
+                                      str_remove("\\,.*")
+      exp4__photos_prop_FA_mean <- exp4__apa_anova_prop_FA_stim_format_mmeans$estimate$Photographs %>%
+                                      str_remove("\\,.*")
+      exp4__apa_anova_prop_FA_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_prop_FA_stim_format_pairwise)
+      exp4__drawings_photo_FA_ttest <- exp4__apa_anova_prop_FA_stim_format_pairwise$statistic$Drawings_Photographs
+##    Resp option pairwise:
+      exp4__apa_anova_prop_FA_resp_option_mmeans <- 
+          papaja:::apa_print.emmGrid(exp4__anova_prop_FA_resp_option_mmeans)
+      exp4__RFG_prop_FA_mean <- exp4__apa_anova_prop_FA_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
+      exp4__RFBG_prop_FA_mean <- exp4__apa_anova_prop_FA_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
+      exp4__apa_anova_prop_FA_resp_option_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_prop_FA_resp_option_pairwise)
+      exp4__RFG_RFBG_FA_ttest <- exp4__apa_anova_prop_FA_resp_option_pairwise$statistic$RFG_RFBG
+###################################################################################################################
+##    Analysis - Overall recognition ANOVA:                                                                      ##
+###################################################################################################################
+      exp4__recog_anova_data <- exp4__colour_data %>%
+          select(id, resp_option, word_recog, drawing_recog, photo_recog) %>%
+          rename(word = "word_recog", drawing = "drawing_recog", photo = "photo_recog") %>%
+          gather(key = "stim_format", value = "recog", word, drawing, photo) %>%
+          mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+          mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+          mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+          transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+          transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
+##    2-way mixed ANOVA:
+      exp4__anova_recog <- aov_ez("id", "recog", exp4__recog_anova_data,
+                                               between = "resp_option", within = "stim_format")
+##    Post-hoc contrasts:
+##    Stimuli format:
+      exp4__anova_recog_stim_format_mmeans <- emmeans(exp4__anova_recog, ~ stim_format)
+      exp4__anova_recog_stim_format_pairwise <-pairs(exp4__anova_recog_stim_format_mmeans, 
+                                                        adjust = "bonferroni")
+##    Interaction means (for figure): 
+      exp4__anova_recog_interaction_mmeans <- 
+        emmeans(exp4__anova_recog, ~ resp_option:stim_format)
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp4__apa_anova_recog <- papaja:::apa_print.afex_aov(exp4__anova_recog)
+##    Main effects:
+      exp4__apa_anova_recog__stim_format <- exp4__apa_anova_recog$full_result$stim_format
+      exp4__apa_anova_recog__resp_option <- exp4__apa_anova_recog$full_result$resp_option
+      exp4__apa_anova_recog__interaction <- exp4__apa_anova_recog$full_result$resp_option_stim_format
+##    Stim format pairwise:
+      exp4__apa_anova_recog_stim_format_mmeans <- papaja:::apa_print.emmGrid(
+                                                    exp4__anova_recog_stim_format_mmeans)
+      exp4__drawings_recog_mean <- exp4__apa_anova_recog_stim_format_mmeans$estimate$Drawings %>%
+                                      str_remove("\\,.*")
+      exp4__photos_recog_mean <- exp4__apa_anova_recog_stim_format_mmeans$estimate$Photographs %>%
+                                      str_remove("\\,.*")
+      exp4__apa_anova_recog_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_recog_stim_format_pairwise)
+      exp4__drawings_photo_recog_ttest <- 
+          exp4__apa_anova_recog_stim_format_pairwise$statistic$Drawings_Photographs
 ```
 
+The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, `r exp4__apa_anova_prop_hit__stim_format`; a distinctiveness effect was apparent, with colour photographs (`r exp4__photos_prop_hit_mean`) showing a higher number of overall hits compared to colour drawings (`r exp4__drawings_prop_hit_mean`), `r exp4__drawings_photo_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a distinctiveness effect; a significant main effect of stimuli-format `r exp4__apa_anova_prop_FA__stim_format` showed that drawings (`r exp4__drawings_prop_FA_mean`) produced more FAs than photographs (`r exp4__photos_prop_FA_mean`), `r exp4__drawings_photo_FA_ttest`. Overall recognition performance (taking into account hits and FAs) offered further support for a distinctiveness effect; a significant main effect of stimuli-format `r exp4__apa_anova_recog__stim_format` showed photographs (`r exp4__photos_recog_mean`) produced better overall task performance compared to drawings (`r exp4__drawings_recog_mean`), `r exp4__drawings_photo_recog_ttest`. Taken together, the findings support the distinctiveness hypothesis, in that colour photographs were recognised better than colour drawings. 
 
+```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+###################################################################################################################
+##    Analysis - d' and c:                                                                                       ##
+###################################################################################################################
+      exp4__d_prime_anova_data <- exp4__colour_data %>%
+          select(id, resp_option, word_d_prime, drawing_d_prime, photo_d_prime) %>%
+          rename(word = "word_d_prime", drawing = "drawing_d_prime", photo = "photo_d_prime") %>%
+          gather(key = "stim_format", value = "d_prime", word, drawing, photo) %>%
+          mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+          mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+          mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+          transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+          transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
+##    2-way mixed ANOVA:
+      exp4__anova_d_prime <- aov_ez("id", "d_prime", exp4__d_prime_anova_data,
+                                    between = "resp_option", within = "stim_format")
+##    Post-hoc contrasts:
+##    Stimuli format:
+      exp4__anova_d_prime_stim_format_mmeans <- emmeans(exp4__anova_d_prime, ~ stim_format)
+      exp4__anova_d_prime_stim_format_pairwise <- pairs(exp4__anova_d_prime_stim_format_mmeans, 
+                                                        adjust = "bonferroni")
+##    Interaction means (for figure): 
+      exp4__anova_d_prime_interaction_mmeans <- 
+        emmeans(exp4__anova_d_prime, ~ resp_option:stim_format)
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp4__apa_anova_d_prime <- papaja:::apa_print.afex_aov(exp4__anova_d_prime)
+##    Main effects:
+      exp4__apa_anova_d_prime__stim_format <- exp4__apa_anova_d_prime$full_result$stim_format
+      exp4__apa_anova_d_prime__resp_option <- exp4__apa_anova_d_prime$full_result$resp_option
+      exp4__apa_anova_d_prime__interaction <- exp4__apa_anova_d_prime$full_result$resp_option_stim_format
+##    Stim format pairwise:
+      exp4__apa_anova_d_prime_stim_format_mmeans <- papaja:::apa_print.emmGrid(
+                                                     exp4__anova_d_prime_stim_format_mmeans)
+      exp4__drawings_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_mmeans$estimate$Drawings %>%
+                                      str_remove("\\,.*")
+      exp4__photos_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_mmeans$estimate$Photographs %>%
+                                      str_remove("\\,.*")
+      exp4__apa_anova_d_prime_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_d_prime_stim_format_pairwise)
+      exp4__drawings_photo_d_prime_ttest <- 
+          exp4__apa_anova_d_prime_stim_format_pairwise$statistic$Drawings_Photographs
+#------------------------------------------------------------------------------------------------------------------
+#   c:
+#------------------------------------------------------------------------------------------------------------------
+      exp4__c_anova_data <- exp4__colour_data %>%
+          select(id, resp_option, word_c, drawing_c, photo_c) %>%
+          rename(word = "word_c", drawing = "drawing_c", photo = "photo_c") %>%
+          gather(key = "stim_format", value = "c", word, drawing, photo) %>%
+          mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+          mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+          mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+          transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+          transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
+##    2-way mixed ANOVA:
+      exp4__anova_c <- aov_ez("id", "c", exp4__c_anova_data, between = "resp_option", within = "stim_format")
+##    Post-hoc contrasts:
+##    Stimuli format:
+      exp4__anova_c_stim_format_mmeans <- emmeans(exp4__anova_c, ~ stim_format)
+      exp4__anova_c_stim_format_pairwise <- pairs(exp4__anova_c_stim_format_mmeans, adjust = "bonferroni")
+##    Stimuli format:
+      exp4__anova_c_resp_option_mmeans <- emmeans(exp4__anova_c, ~ resp_option)
+      exp4__anova_c_resp_option_pairwise <- pairs(exp4__anova_c_resp_option_mmeans, adjust = "bonferroni")      
+##    Interaction means (for figure): 
+      exp4__anova_c_interaction_mmeans <- emmeans(exp4__anova_c, ~ resp_option:stim_format)
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp4__apa_anova_c <- papaja:::apa_print.afex_aov(exp4__anova_c)
+##    Main effects:
+      exp4__apa_anova_c__stim_format <- exp4__apa_anova_c$full_result$stim_format
+      exp4__apa_anova_c__resp_option <- exp4__apa_anova_c$full_result$resp_option
+      exp4__apa_anova_c__interaction <- exp4__apa_anova_c$full_result$resp_option_stim_format
+##    Stim format pairwise:
+      exp4__apa_anova_c_stim_format_mmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_stim_format_mmeans)
+      exp4__drawings_c_mean <- exp4__apa_anova_c_stim_format_mmeans$estimate$Drawings %>% str_remove("\\,.*")
+      exp4__photos_c_mean <- exp4__apa_anova_c_stim_format_mmeans$estimate$Photographs %>% str_remove("\\,.*")
+      exp4__apa_anova_c_stim_format_pairwise <- papaja:::apa_print.emmGrid(exp4__anova_c_stim_format_pairwise)
+      exp4__drawings_photo_c_ttest <- exp4__apa_anova_c_stim_format_pairwise$statistic$Drawings_Photographs      
+##    Resp option pairwise:
+      exp4__apa_anovac_resp_option_mmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_resp_option_mmeans)
+      exp4__RFG_c_mean <- exp4__apa_anovac_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
+      exp4__RFBG_c_mean <- exp4__apa_anovac_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
+      exp4__apa_anova_c_resp_option_pairwise <- papaja:::apa_print.emmGrid(exp4__anova_c_resp_option_pairwise)
+      exp4__RFG_RFBG_c_ttest <- exp4__apa_anova_c_resp_option_pairwise$statistic$RFG_RFBG
+```
 
+The ANOVA on *d'* scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp4__apa_anova_d_prime__stim_format`, whereby photographs (`r exp4__photos_d_prime_mean`) facilitated better discrimination between hits and FAs than drawings (`r exp4__drawings_d_prime_mean`), `r exp4__drawings_photo_d_prime_ttest`. *c* scores also showed a significant main effect of stimuli-format, `r exp4__apa_anova_c__stim_format`, with drawings (`r exp4__drawings_c_mean`) showing higher c-scores (and thus a more conservative response bias) than photographs (`r exp4__photos_c_mean`),
+`r exp4__drawings_photo_c_ttest`. 
 
-
-
-
-For the proportion of total hits, there was a significant main effect of stimuli format [`r exp4__apa__colour__anova__PROP.HITS__stim.format.main.effect`]. The interaction effect was not significant [`r exp4__apa__colour__anova__PROP.HITS__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that photographs (`r exp4__apa__colour__anova__PROP.HITS__photographs.mean`) produced a significantly higher proportion of hits than both words (`r exp4__apa__colour__anova__PROP.HITS__words.mean`) [`r exp4__apa__colour__anova__PROP.HITS__words.vs.photographs.pairwise`] and drawings (`r exp4__apa__colour__anova__PROP.HITS__drawings.mean`) [`r exp4__apa__colour__anova__PROP.HITS__drawings.vs.photographs.pairwise`]. Drawings (`r exp4__apa__colour__anova__PROP.HITS__drawings.mean`) also produced a significantly higher proportion of hits compared to words (`r exp4__apa__colour__anova__PROP.HITS__words.mean`) [`r exp4__apa__colour__anova__PROP.HITS__words.vs.drawings.pairwise`]. 
-
-
-
-
-
-
-
+### Response option
+No interaction effects were found between stimuli format and response option for: 1) proportion of hits; 2) proportion of FAs; 3) overall recognition; 4) *d'* scores; 5) *c*-scores.
 
 
 
