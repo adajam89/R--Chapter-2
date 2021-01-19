@@ -38,7 +38,7 @@ header-includes:
     rm(list=ls())  
     required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", 
                            "readr", "irr", "psycho", "afex", "emmeans", "janitor", "psych", "rstatix", 
-                           "ggpubr", "ggridges", "gridExtra")
+                           "ggpubr", "ggridges", "grid", "gridExtra")
     packages_to_install <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
     if(length(packages_to_install)) install.packages(packages_to_install)
     invisible(suppressPackageStartupMessages(lapply(required_packages, library, character.only = TRUE)))
@@ -6168,68 +6168,131 @@ Visual inspection of the data from *Experiment 3*, which used greyscale drawings
 In turn, this further implicates the stimuli format as the 
 
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+##    Rec hits:
+      exp3__prop_drawing_hit_rec <- exp3__grey_data %>%
+          select(prop_drawing_hit_rec) %>%
+          rename(Grey = "prop_drawing_hit_rec") %>%
+          gather(key = "Response", value = "Hits")
+      exp4__prop_drawing_hit_rec <- exp4__colour_data %>%
+          select(prop_drawing_hit_rec) %>%
+          rename(Colour = "prop_drawing_hit_rec") %>%
+          gather(key = "Response", value = "Hits")
+      exp3.vs.exp4__rec.hits.data <- bind_rows(exp3__prop_drawing_hit_rec, exp4__prop_drawing_hit_rec)
+##    Fam hits:
+      exp3__prop_drawing_hit_fam <- exp3__grey_data %>%
+          select(prop_drawing_hit_fam) %>%
+          rename(Grey = "prop_drawing_hit_fam") %>%
+          gather(key = "Response", value = "Hits")
+      exp4__prop_drawing_hit_fam <- exp4__colour_data %>%
+          select(prop_drawing_hit_fam) %>%
+          rename(Colour = "prop_drawing_hit_fam") %>%
+          gather(key = "Response", value = "Hits")
+      exp3.vs.exp4__fam.hits.data <- bind_rows(exp3__prop_drawing_hit_fam, exp4__prop_drawing_hit_fam)
+##    Guess hits:
+      exp3__prop_drawing_hit_guess <- exp3__grey_data %>%
+          select(prop_drawing_hit_guess) %>%
+          rename(Grey = "prop_drawing_hit_guess") %>%
+          gather(key = "Response", value = "Hits")
+      exp4__prop_drawing_hit_guess <- exp4__colour_data %>%
+          select(prop_drawing_hit_guess) %>%
+          rename(Colour = "prop_drawing_hit_guess") %>%
+          gather(key = "Response", value = "Hits")
+      exp3.vs.exp4__guess.hits.data <- bind_rows(exp3__prop_drawing_hit_guess, exp4__prop_drawing_hit_guess)
+      
+##    Rec FAs:
+      exp3__prop_drawing_FA_rec <- exp3__grey_data %>%
+          select(prop_drawing_FA_rec) %>%
+          rename(Grey = "prop_drawing_FA_rec") %>%
+          gather(key = "Response", value = "FAs")
+      exp4__prop_drawing_FA_rec <- exp4__colour_data %>%
+          select(prop_drawing_FA_rec) %>%
+          rename(Colour = "prop_drawing_FA_rec") %>%
+          gather(key = "Response", value = "FAs")
+      exp3.vs.exp4__rec.FAs.data <- bind_rows(exp3__prop_drawing_FA_rec, exp4__prop_drawing_FA_rec)
+##    Fam FAs:
+      exp3__prop_drawing_FA_fam <- exp3__grey_data %>%
+          select(prop_drawing_FA_fam) %>%
+          rename(Grey = "prop_drawing_FA_fam") %>%
+          gather(key = "Response", value = "FAs")
+      exp4__prop_drawing_FA_fam <- exp4__colour_data %>%
+          select(prop_drawing_FA_fam) %>%
+          rename(Colour = "prop_drawing_FA_fam") %>%
+          gather(key = "Response", value = "FAs")
+      exp3.vs.exp4__fam.FAs.data <- bind_rows(exp3__prop_drawing_FA_fam, exp4__prop_drawing_FA_fam)
+##    Guess FAs:
+      exp3__prop_drawing_FA_guess <- exp3__grey_data %>%
+          select(prop_drawing_FA_guess) %>%
+          rename(Grey = "prop_drawing_FA_guess") %>%
+          gather(key = "Response", value = "FAs")
+      exp4__prop_drawing_FA_guess <- exp4__colour_data %>%
+          select(prop_drawing_FA_guess) %>%
+          rename(Colour = "prop_drawing_FA_guess") %>%
+          gather(key = "Response", value = "FAs")
+      exp3.vs.exp4__guess.FAs.data <- bind_rows(exp3__prop_drawing_FA_guess, exp4__prop_drawing_FA_guess)      
+      
+##    Plots:
+      exp3.vs.exp4__rec.hits <- ggplot(exp3.vs.exp4__rec.hits.data, aes(x=Hits,y=Response,fill = Response))+
+          geom_density_ridges(scale = 3, alpha=0.8) + 
+          theme_ridges() +
+          scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
+          labs(x = "Recollection", y = "Stimuli format") +
+          #ggtitle("Density estimation of circumference of different types of Trees") +
+          theme(
+              legend.position = "none",
+              strip.placement = "outside",
+              strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+              #plot.title = element_text(vjust= 6, hjust = 0.5),
+              axis.title.x = element_text(vjust=-2, hjust = 0.5),
+              axis.title.y = element_text(vjust=4, hjust = 0.5),
+              axis.text.x = element_text(size = 6),
+              axis.text.y = element_text(size = 6),
+              plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+              plot.margin = margin(20, 20, 24, 30))
+      exp3.vs.exp4__fam.hits <- ggplot(exp3.vs.exp4__fam.hits.data, aes(x=Hits,y=Response,fill = Response))+
+          geom_density_ridges(scale = 3, alpha=0.8) + 
+          theme_ridges() +
+          scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
+          labs(x = "Familiarity", y = "Stimuli format") +
+          #ggtitle("Density estimation of circumference of different types of Trees") +
+          theme(
+              legend.position = "none",
+              strip.placement = "outside",
+              strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+              #plot.title = element_text(vjust= 6, hjust = 0.5),
+              axis.title.x = element_text(vjust=-2, hjust = 0.5),
+              axis.title.y = element_text(vjust=4, hjust = 0.5),
+              axis.text.x = element_text(size = 6),
+              axis.text.y = element_text(size = 6),
+              plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+              plot.margin = margin(20, 20, 24, 30))
+      exp3.vs.exp4__guess.hits <- ggplot(exp3.vs.exp4__guess.hits.data, aes(x=Hits,y=Response,fill = Response))+
+          geom_density_ridges(scale = 3, alpha=0.8) + 
+          theme_ridges() +
+          scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
+          scale_y_discrete(expand = c(0.01, 0)) +
+          labs(x = "Guessing", y = "Stimuli format") +
+          theme(
+                legend.position = "none",
+                strip.placement = "outside",
+                strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+                axis.title.x = element_text(vjust=-2, hjust = 0.5),
+                axis.title.y = element_text(vjust=4, hjust = 0.5),
+                axis.text.x = element_text(size = 6),
+                axis.text.y = element_text(size = 6),
+                plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+                plot.margin = margin(20, 20, 24, 30))
+```
 
-    exp3__prop_drawing_hit_rec <- exp3__grey_data %>%
-        select(prop_drawing_hit_rec) %>%
-        rename(Grey = "prop_drawing_hit_rec") %>%
-        gather(key = "Response", value = "Hits")
-    exp4__prop_drawing_hit_rec <- exp4__colour_data %>%
-        select(prop_drawing_hit_rec) %>%
-        rename(Colour = "prop_drawing_hit_rec") %>%
-        gather(key = "Response", value = "Hits")
-    rec_data <- bind_rows(exp3__prop_drawing_hit_rec, exp4__prop_drawing_hit_rec)
-    exp3__prop_drawing_hit_fam <- exp3__grey_data %>%
-        select(prop_drawing_hit_fam) %>%
-        rename(Grey = "prop_drawing_hit_fam") %>%
-        gather(key = "Response", value = "Hits")
-    exp4__prop_drawing_hit_fam <- exp4__colour_data %>%
-        select(prop_drawing_hit_fam) %>%
-        rename(Colour = "prop_drawing_hit_fam") %>%
-        gather(key = "Response", value = "Hits")
-    fam_data <- bind_rows(exp3__prop_drawing_hit_fam, exp4__prop_drawing_hit_fam)
-    
-  
-    rec <- ggplot(rec_data, aes(x=Hits,y=Response,fill = Response))+
-        geom_density_ridges(scale = 3, alpha=0.8) + 
-        theme_ridges() +
-        scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
-        labs(x = "Mean proportion of Familiarity hits", y = "Stimuli format") +
-        #ggtitle("Density estimation of circumference of different types of Trees") +
-        theme(
-            legend.position = "none",
-            strip.placement = "outside",
-            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
-            #plot.title = element_text(vjust= 6, hjust = 0.5),
-            axis.title.x = element_text(vjust=-2, hjust = 0.5),
-            axis.title.y = element_text(vjust=4, hjust = 0.5),
-            axis.text.x = element_text(size = 9),
-            axis.text.y = element_text(size = 9),
-            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
-            plot.margin = margin(20, 20, 24, 30))
-    fam <- ggplot(fam_data, aes(x=Hits,y=Response,fill = Response))+
-        geom_density_ridges(scale = 3, alpha=0.8) + 
-        theme_ridges() +
-        scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
-        labs(x = "Mean proportion of Familiarity hits", y = "Stimuli format") +
-        #ggtitle("Density estimation of circumference of different types of Trees") +
-        theme(
-            legend.position = "none",
-            strip.placement = "outside",
-            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
-            #plot.title = element_text(vjust= 6, hjust = 0.5),
-            axis.title.x = element_text(vjust=-2, hjust = 0.5),
-            axis.title.y = element_text(vjust=4, hjust = 0.5),
-            axis.text.x = element_text(size = 9),
-            axis.text.y = element_text(size = 9),
-            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
-            plot.margin = margin(20, 20, 24, 30))
-    
-grid.arrange(rec, fam, ncol=2)
+```{r fig.width=5, fig.height=6.4, echo=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+      grid.arrange(exp3.vs.exp4__rec.hits, 
+                   exp3.vs.exp4__fam.hits, 
+                   exp3.vs.exp4__guess.hits, nrow=3, top = textGrob("Mean proportion of hits"))
 ```
 
 ## Discussion
 
 
+\newpage
 # Chapter 5 (Distinctive words)
 ## Method
 All stimuli were presented as 500x500px image files at their actual size (i.e. without scaling) to ensure consistency across participants. Adobe Photoshop 2021 (22.0.0 Release) was used to create the image files, all on a plain white canvas. The Rossion and Pourtois (2004) line-drawings were sourced directly from the authors, and were trimmed of any preexisting background before being resized to fit the 500x500px canvas (for some items this was determined by a maximum width of 500px, whilst for others it was determined by a maximum height of 500px). 

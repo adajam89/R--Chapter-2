@@ -23,7 +23,6 @@ print("P value adjustment: bonferroni method for 15 tests")
     - Are distinctive words actually more distinctive?
     - If its not significant, might as well stop analysis.
     - low word vs high word.
-    
 
 
 2) Have I established a PSE? (2 + 3 in same Bonferroni pool)

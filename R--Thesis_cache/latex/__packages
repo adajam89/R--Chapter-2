@@ -23,3 +23,5 @@ janitor
 psych
 rstatix
 ggpubr
+ggridges
+gridExtra
