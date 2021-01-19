@@ -17,6 +17,8 @@ bibliography: resources/refs.bib
 csl: resources/apa.csl
 subparagraph: yes
 header-includes:
+- \usepackage{setspace}
+- \doublespacing
 - \usepackage{fancyhdr}
 - \pagestyle{fancy}
 - \renewcommand{\headrulewidth}{1.5pt}
@@ -35,7 +37,8 @@ header-includes:
 ##  Clear environment and list required packages:
     rm(list=ls())  
     required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", 
-                           "readr", "irr", "psycho", "afex", "emmeans", "janitor", "psych", "rstatix", "ggpubr")
+                           "readr", "irr", "psycho", "afex", "emmeans", "janitor", "psych", "rstatix", 
+                           "ggpubr", "ggridges", "gridExtra")
     packages_to_install <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
     if(length(packages_to_install)) install.packages(packages_to_install)
     invisible(suppressPackageStartupMessages(lapply(required_packages, library, character.only = TRUE)))
@@ -1007,13 +1010,13 @@ To establish baseline picture superiority effects in the current paradigm, and a
                                      between = "ResponseOption", within = "StimuliFormat")
 ##    Post-hoc contrasts:
 ##    Stimuli-format:
-      exp1__anova_prop_hit_stim_format_mmeans <- emmeans(exp1__anova_prop_hit, ~ StimuliFormat)
-      exp1__anova_prop_hit_stim_format_pairwise <- pairs(exp1__anova_prop_hit_stim_format_mmeans)
+      exp1__anova_prop_hit_stim_format_emmeans <- emmeans(exp1__anova_prop_hit, ~ StimuliFormat)
+      exp1__anova_prop_hit_stim_format_pairwise <- pairs(exp1__anova_prop_hit_stim_format_emmeans)
 ##    Response option:
-      exp1__anova_prop_hit_resp_option_mmeans <- emmeans(exp1__anova_prop_hit, ~ ResponseOption)
-      exp1__anova_prop_hit_resp_option_pairwise <- pairs(exp1__anova_prop_hit_resp_option_mmeans)
+      exp1__anova_prop_hit_resp_option_emmeans <- emmeans(exp1__anova_prop_hit, ~ ResponseOption)
+      exp1__anova_prop_hit_resp_option_pairwise <- pairs(exp1__anova_prop_hit_resp_option_emmeans)
 ##    Interaction means (for figure): 
-      exp1__anova_prop_hit_interaction_mmeans <- 
+      exp1__anova_prop_hit_interaction_emmeans <- 
         emmeans(exp1__anova_prop_hit, c("ResponseOption", "StimuliFormat"))
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
@@ -1025,24 +1028,24 @@ To establish baseline picture superiority effects in the current paradigm, and a
       exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat <-
           exp1__apa_anova_prop_hit$full$ResponseOption_StimuliFormat
 ##    Pairwise (stim-format):
-      exp1__apa_anova_prop_hit_stim_format_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_stim_format_mmeans)
-      exp1__pics_prop_hit_mean <- exp1__apa_anova_prop_hit_stim_format_mmeans$estimate$Pictures %>%
+      exp1__apa_anova_prop_hit_stim_format_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_stim_format_emmeans)
+      exp1__pics_prop_hit_mean <- exp1__apa_anova_prop_hit_stim_format_emmeans$estimate$Pictures %>%
           str_remove("\\,.*")
-      exp1__words_prop_hit_mean <- exp1__apa_anova_prop_hit_stim_format_mmeans$estimate$Words %>%
+      exp1__words_prop_hit_mean <- exp1__apa_anova_prop_hit_stim_format_emmeans$estimate$Words %>%
           str_remove("\\,.*")
       exp1__apa_anova_prop_hit_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_hit_stim_format_pairwise)
       exp1__pics_words_hit_ttest <- exp1__apa_anova_prop_hit_stim_format_pairwise$full %>%
           str_remove("^[\\w\\W]+?(?=\\$t)")      
 ##    Pairwise (resp-option):
-      exp1__apa_anova_prop_hit_resp_option_mmeans <-
-          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_mmeans)
-      exp1__rfg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFG %>%
+      exp1__apa_anova_prop_hit_resp_option_emmeans <-
+          papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_emmeans)
+      exp1__rfg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_emmeans$estimate$RFG %>%
           str_remove("\\,.*")
-      exp1__rfbg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RFBG %>%
+      exp1__rfbg_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_emmeans$estimate$RFBG %>%
           str_remove("\\,.*")
-      exp1__rfratings_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_mmeans$estimate$RF_Ratings %>%
+      exp1__rfratings_prop_hit_mean <- exp1__apa_anova_prop_hit_resp_option_emmeans$estimate$RF_Ratings %>%
           str_remove("\\,.*")
       exp1__apa_anova_prop_hit_resp_option_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_hit_resp_option_pairwise)
@@ -1066,8 +1069,8 @@ To establish baseline picture superiority effects in the current paradigm, and a
                                     between = "ResponseOption", within = "StimuliFormat")
 ##    Post-hoc contrasts:
 ##    Stimuli-format:
-      exp1__anova_prop_FA_stim_format_mmeans <- emmeans(exp1__anova_prop_FA, ~ StimuliFormat)
-      exp1__anova_prop_FA_stim_format_pairwise <- pairs(exp1__anova_prop_FA_stim_format_mmeans)
+      exp1__anova_prop_FA_stim_format_emmeans <- emmeans(exp1__anova_prop_FA, ~ StimuliFormat)
+      exp1__anova_prop_FA_stim_format_pairwise <- pairs(exp1__anova_prop_FA_stim_format_emmeans)
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
 #------------------------------------------------------------------------------------------------------------------
@@ -1078,11 +1081,11 @@ To establish baseline picture superiority effects in the current paradigm, and a
       exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat <- 
           exp1__apa_anova_prop_FA$full$ResponseOption_StimuliFormat
 ##    Pairwise (stim-format):
-      exp1__apa_anova_prop_FA_stim_format_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_mmeans)
-      exp1__pics_prop_FA_mean <- exp1__apa_anova_prop_FA_stim_format_mmeans$estimate$Pictures %>% 
+      exp1__apa_anova_prop_FA_stim_format_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_emmeans)
+      exp1__pics_prop_FA_mean <- exp1__apa_anova_prop_FA_stim_format_emmeans$estimate$Pictures %>% 
           str_remove("\\,.*")
-      exp1__words_prop_FA_mean <- exp1__apa_anova_prop_FA_stim_format_mmeans$estimate$Words %>% 
+      exp1__words_prop_FA_mean <- exp1__apa_anova_prop_FA_stim_format_emmeans$estimate$Words %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_FA_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_FA_stim_format_pairwise)
@@ -1106,8 +1109,8 @@ To establish baseline picture superiority effects in the current paradigm, and a
                                        between = "ResponseOption", within = "StimuliFormat")
 ##    Post-hoc contrasts:
 ##    Stimuli-format:
-      exp1__anova_prop_recog_stim_format_mmeans <- emmeans(exp1__anova_prop_recog, ~ StimuliFormat)
-      exp1__anova_prop_recog_stim_format_pairwise <- pairs(exp1__anova_prop_recog_stim_format_mmeans)
+      exp1__anova_prop_recog_stim_format_emmeans <- emmeans(exp1__anova_prop_recog, ~ StimuliFormat)
+      exp1__anova_prop_recog_stim_format_pairwise <- pairs(exp1__anova_prop_recog_stim_format_emmeans)
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
 #------------------------------------------------------------------------------------------------------------------
@@ -1119,11 +1122,11 @@ To establish baseline picture superiority effects in the current paradigm, and a
           exp1__apa_anova_prop_recog$full$ResponseOption_StimuliFormat
 
 ##    Pairwise (stim-format):
-      exp1__apa_anova_prop_recog_stim_format_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_mmeans)
-      exp1__pics_prop_recog_mean <- exp1__apa_anova_prop_recog_stim_format_mmeans$estimate$Pictures %>% 
+      exp1__apa_anova_prop_recog_stim_format_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_emmeans)
+      exp1__pics_prop_recog_mean <- exp1__apa_anova_prop_recog_stim_format_emmeans$estimate$Pictures %>% 
           str_remove("\\,.*")
-      exp1__words_prop_recog_mean <- exp1__apa_anova_prop_recog_stim_format_mmeans$estimate$Words %>% 
+      exp1__words_prop_recog_mean <- exp1__apa_anova_prop_recog_stim_format_emmeans$estimate$Words %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_recog_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_pairwise)
@@ -1152,8 +1155,8 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
                                         between = "ResponseOption", within = "StimuliFormat")
 ##    Post-hoc contrasts:
 ##    Stimuli-format:
-      exp1__anova_prop_dprime_stim_format_mmeans <- emmeans(exp1__anova_prop_dprime, ~ StimuliFormat)
-      exp1__anova_prop_dprime_stim_format_pairwise <- pairs(exp1__anova_prop_dprime_stim_format_mmeans)
+      exp1__anova_prop_dprime_stim_format_emmeans <- emmeans(exp1__anova_prop_dprime, ~ StimuliFormat)
+      exp1__anova_prop_dprime_stim_format_pairwise <- pairs(exp1__anova_prop_dprime_stim_format_emmeans)
        exp1__c_anova_data <- exp1__full_data %>%
           select(id, ResponseOption, pic_c, word_c) %>%
           rename(picture = "pic_c", word = "word_c") %>%
@@ -1174,11 +1177,11 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
       exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat <- 
           exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat
 ##    Pairwise (stim-format):
-      exp1__apa_anova_prop_dprime_stim_format_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_mmeans)
-      exp1__pics_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_mmeans$estimate$Pictures %>% 
+      exp1__apa_anova_prop_dprime_stim_format_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_emmeans)
+      exp1__pics_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_emmeans$estimate$Pictures %>% 
           str_remove("\\,.*")
-      exp1__words_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_mmeans$estimate$Words %>% 
+      exp1__words_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_emmeans$estimate$Words %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_dprime_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_pairwise)
@@ -1192,8 +1195,8 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
                                    between = "ResponseOption", within = "StimuliFormat")
 ##    Post-hoc contrasts:
 ##    Stimuli-format:
-      exp1__anova_prop_c_resp_option_mmeans <- emmeans(exp1__anova_prop_c, ~ ResponseOption)
-      exp1__anova_prop_c_resp_option_pairwise <- pairs(exp1__anova_prop_c_resp_option_mmeans)
+      exp1__anova_prop_c_resp_option_emmeans <- emmeans(exp1__anova_prop_c, ~ ResponseOption)
+      exp1__anova_prop_c_resp_option_pairwise <- pairs(exp1__anova_prop_c_resp_option_emmeans)
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
 #------------------------------------------------------------------------------------------------------------------
@@ -1204,11 +1207,11 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
       exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat <- 
           exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat
 ##    Pairwise (resp-option):
-      exp1__apa_anova_prop_c_resp_option_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_mmeans)
-      exp1__rfg_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
-      exp1__rfbg_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
-      exp1__rfr_c_mean <- exp1__apa_anova_prop_c_resp_option_mmeans$estimate$RF_Ratings %>% str_remove("\\,.*")
+      exp1__apa_anova_prop_c_resp_option_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_emmeans)
+      exp1__rfg_c_mean <- exp1__apa_anova_prop_c_resp_option_emmeans$estimate$RFG %>% str_remove("\\,.*")
+      exp1__rfbg_c_mean <- exp1__apa_anova_prop_c_resp_option_emmeans$estimate$RFBG %>% str_remove("\\,.*")
+      exp1__rfr_c_mean <- exp1__apa_anova_prop_c_resp_option_emmeans$estimate$RF_Ratings %>% str_remove("\\,.*")
       exp1__apa_anova_prop_c_resp_option_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_pairwise)
       exp1__rfg_rfr_c_ttest <- exp1__apa_anova_prop_c_resp_option_pairwise$full$RFG_RF_Ratings %>% 
@@ -1241,13 +1244,13 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
                                          within = "StimuliFormat")
 ##    Post-hoc contrasts:
 ##    Stimuli-format:
-      exp1__anova_prop_rec_hit_stim_format_mmeans <- emmeans(exp1__anova_prop_rec_hit, ~ StimuliFormat)
-      exp1__anova_prop_rec_hit_stim_format_pairwise <- pairs(exp1__anova_prop_rec_hit_stim_format_mmeans)
+      exp1__anova_prop_rec_hit_stim_format_emmeans <- emmeans(exp1__anova_prop_rec_hit, ~ StimuliFormat)
+      exp1__anova_prop_rec_hit_stim_format_pairwise <- pairs(exp1__anova_prop_rec_hit_stim_format_emmeans)
 ##    Response-options:
-      exp1__anova_prop_rec_hit_resp_option_mmeans <- emmeans(exp1__anova_prop_rec_hit, ~ ResponseOption)
-      exp1__anova_prop_rec_hit_resp_option_pairwise <- pairs(exp1__anova_prop_rec_hit_resp_option_mmeans)
+      exp1__anova_prop_rec_hit_resp_option_emmeans <- emmeans(exp1__anova_prop_rec_hit, ~ ResponseOption)
+      exp1__anova_prop_rec_hit_resp_option_pairwise <- pairs(exp1__anova_prop_rec_hit_resp_option_emmeans)
 ##    Interaction: 
-      exp1__anova_prop_rec_hit_interaction_mmeans <- 
+      exp1__anova_prop_rec_hit_interaction_emmeans <- 
         emmeans(exp1__anova_prop_rec_hit, c("ResponseOption", "StimuliFormat"))
       exp1__anova_prop_rec_hit_interaction_pairwise_respoption <- 
           emmeans(exp1__anova_prop_rec_hit, "ResponseOption", by = "StimuliFormat")
@@ -1267,24 +1270,24 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
       exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat <-
           exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat
 ##    Pairwise (stim-format):
-      exp1__apa_anova_prop_rec_hit_stim_format_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_stim_format_mmeans)
-      exp1__pics_prop_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_stim_format_mmeans$estimate$Pictures %>% 
+      exp1__apa_anova_prop_rec_hit_stim_format_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_stim_format_emmeans)
+      exp1__pics_prop_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_stim_format_emmeans$estimate$Pictures %>% 
           str_remove("\\,.*")
-      exp1__words_prop_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_stim_format_mmeans$estimate$Words %>% 
+      exp1__words_prop_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_stim_format_emmeans$estimate$Words %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_rec_hit_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_stim_format_pairwise)
       exp1__pics_words_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_stim_format_pairwise$full %>% 
           str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 ##    Pairwise (resp-option):
-      exp1__apa_anova_prop_rec_hit_resp_option_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_resp_option_mmeans)
-      exp1__rfg_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_mmeans$estimate$RFG %>% 
+      exp1__apa_anova_prop_rec_hit_resp_option_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_resp_option_emmeans)
+      exp1__rfg_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_emmeans$estimate$RFG %>% 
           str_remove("\\,.*")
-      exp1__rfbg_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_mmeans$estimate$RFBG %>% 
+      exp1__rfbg_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_emmeans$estimate$RFBG %>% 
           str_remove("\\,.*")
-      exp1__rfr_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_mmeans$estimate$RF_Ratings %>% 
+      exp1__rfr_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_emmeans$estimate$RF_Ratings %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_rec_hit_resp_option_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_resp_option_pairwise)
@@ -1294,7 +1297,7 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
           str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
       exp1__rfbg_rfr_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_resp_option_pairwise$full$RFBG_RF_Ratings %>%
           str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-      exp1__rec_hit_figure_data <- as.tibble(exp1__anova_prop_rec_hit_interaction_mmeans) %>%
+      exp1__rec_hit_figure_data <- as.tibble(exp1__anova_prop_rec_hit_interaction_emmeans) %>%
           select(-df, -lower.CL, -upper.CL)
 ###################################################################################################################
 ##    Analysis - Prop Fam hits ANOVA:                                                                            ##
@@ -1314,13 +1317,13 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
                                          between = "ResponseOption", within = "StimuliFormat")
 ##    Post-hoc contrasts:
 ##    Stimuli-format:
-      exp1__anova_prop_fam_hit_stim_format_mmeans <- emmeans(exp1__anova_prop_fam_hit, ~ StimuliFormat)
-      exp1__anova_prop_fam_hit_stim_format_pairwise <- pairs(exp1__anova_prop_fam_hit_stim_format_mmeans)
+      exp1__anova_prop_fam_hit_stim_format_emmeans <- emmeans(exp1__anova_prop_fam_hit, ~ StimuliFormat)
+      exp1__anova_prop_fam_hit_stim_format_pairwise <- pairs(exp1__anova_prop_fam_hit_stim_format_emmeans)
 ##    Response-options:
-      exp1__anova_prop_fam_hit_resp_option_mmeans <- emmeans(exp1__anova_prop_fam_hit, ~ ResponseOption)
-      exp1__anova_prop_fam_hit_resp_option_pairwise <- pairs(exp1__anova_prop_fam_hit_resp_option_mmeans)
+      exp1__anova_prop_fam_hit_resp_option_emmeans <- emmeans(exp1__anova_prop_fam_hit, ~ ResponseOption)
+      exp1__anova_prop_fam_hit_resp_option_pairwise <- pairs(exp1__anova_prop_fam_hit_resp_option_emmeans)
 ##    Interaction: 
-      exp1__anova_prop_fam_hit_interaction_mmeans <- 
+      exp1__anova_prop_fam_hit_interaction_emmeans <- 
           emmeans(exp1__anova_prop_fam_hit, c("ResponseOption", "StimuliFormat"))
       exp1__anova_prop_fam_hit_interaction_pairwise_respoption <- 
           emmeans(exp1__anova_prop_fam_hit, "ResponseOption", by = "StimuliFormat")
@@ -1340,24 +1343,24 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
       exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat <- 
           exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat
 ##    Pairwise (stim-format):
-      exp1__apa_anova_prop_fam_hit_stim_format_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_stim_format_mmeans)
-      exp1__pics_prop_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_stim_format_mmeans$estimate$Pictures %>% 
+      exp1__apa_anova_prop_fam_hit_stim_format_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_stim_format_emmeans)
+      exp1__pics_prop_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_stim_format_emmeans$estimate$Pictures %>% 
           str_remove("\\,.*")
-      exp1__words_prop_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_stim_format_mmeans$estimate$Words %>% 
+      exp1__words_prop_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_stim_format_emmeans$estimate$Words %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_fam_hit_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_stim_format_pairwise)
       exp1__pics_words_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_stim_format_pairwise$full %>% 
           str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 ##    Pairwise (resp-option):
-      exp1__apa_anova_prop_fam_hit_resp_option_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_resp_option_mmeans)
-      exp1__rfg_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_mmeans$estimate$RFG %>% 
+      exp1__apa_anova_prop_fam_hit_resp_option_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_resp_option_emmeans)
+      exp1__rfg_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_emmeans$estimate$RFG %>% 
           str_remove("\\,.*")
-      exp1__rfbg_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_mmeans$estimate$RFBG %>% 
+      exp1__rfbg_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_emmeans$estimate$RFBG %>% 
           str_remove("\\,.*")
-      exp1__rfr_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_mmeans$estimate$RF_Ratings %>% 
+      exp1__rfr_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_emmeans$estimate$RF_Ratings %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_fam_hit_resp_option_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_resp_option_pairwise)
@@ -1368,21 +1371,21 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
       exp1__rfbg_rfr_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_resp_option_pairwise$full$RFBG_RF_Ratings %>%
           str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")  
 ##    Pairwise (interaction):
-      exp1__apa_anova_prop_fam_hit_interaction_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_mmeans)
-      exp1__rfg_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFG_Words %>% 
+      exp1__apa_anova_prop_fam_hit_interaction_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_emmeans)
+      exp1__rfg_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RFG_Words %>% 
           str_remove("\\,.*")
-      exp1__rfg_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFG_Pictures %>% 
+      exp1__rfg_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RFG_Pictures %>% 
           str_remove("\\,.*")
-      exp1__rfbg_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFBG_Words %>% 
+      exp1__rfbg_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RFBG_Words %>% 
           str_remove("\\,.*")
-      exp1__rfbg_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RFBG_Pictures %>% 
+      exp1__rfbg_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RFBG_Pictures %>% 
           str_remove("\\,.*")
       exp1__rfr_words_fam_hit_mean <- 
-          exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RF_Ratings_Words %>% 
+          exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RF_Ratings_Words %>% 
           str_remove("\\,.*")
       exp1__rfr_pics_fam_hit_mean <- 
-          exp1__apa_anova_prop_fam_hit_interaction_mmeans$estimate$RF_Ratings_Pictures %>% 
+          exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RF_Ratings_Pictures %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat <-
           papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_pairwise_stimformat)
@@ -1391,7 +1394,7 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
 #------------------------------------------------------------------------------------------------------------------
 #   Interaction figure:
 #------------------------------------------------------------------------------------------------------------------
-      exp1__fam_hit_figure_data <- as.tibble(exp1__anova_prop_fam_hit_interaction_mmeans) %>%
+      exp1__fam_hit_figure_data <- as.tibble(exp1__anova_prop_fam_hit_interaction_emmeans) %>%
           select(-df, -lower.CL, -upper.CL)
 ##    Labels (replaces plot legend):
       exp1__fam_hit_interaction_figure_labels <- exp1__fam_hit_figure_data %>%
@@ -1441,13 +1444,13 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
                                            between = "ResponseOption", within = "StimuliFormat")
 ##    Post-hoc contrasts:
 ##    Stimuli-format:
-      exp1__anova_prop_guess_hit_stim_format_mmeans <- emmeans(exp1__anova_prop_guess_hit, ~ StimuliFormat)
-      exp1__anova_prop_guess_hit_stim_format_pairwise <- pairs(exp1__anova_prop_guess_hit_stim_format_mmeans)
+      exp1__anova_prop_guess_hit_stim_format_emmeans <- emmeans(exp1__anova_prop_guess_hit, ~ StimuliFormat)
+      exp1__anova_prop_guess_hit_stim_format_pairwise <- pairs(exp1__anova_prop_guess_hit_stim_format_emmeans)
 ##    Response-options:
-      exp1__anova_prop_guess_hit_resp_option_mmeans <- emmeans(exp1__anova_prop_guess_hit, ~ ResponseOption)
-      exp1__anova_prop_guess_hit_resp_option_pairwise <- pairs(exp1__anova_prop_guess_hit_resp_option_mmeans)
+      exp1__anova_prop_guess_hit_resp_option_emmeans <- emmeans(exp1__anova_prop_guess_hit, ~ ResponseOption)
+      exp1__anova_prop_guess_hit_resp_option_pairwise <- pairs(exp1__anova_prop_guess_hit_resp_option_emmeans)
 ##    Interaction (not significant, but used in bar chart):
-      exp1__anova_prop_guess_hit_interaction_mmeans <- 
+      exp1__anova_prop_guess_hit_interaction_emmeans <- 
           emmeans(exp1__anova_prop_guess_hit, c("ResponseOption", "StimuliFormat"))
       exp1__anova_prop_guess_hit_interaction_pairwise_respoption <- 
           emmeans(exp1__anova_prop_guess_hit, "ResponseOption", by = "StimuliFormat")
@@ -1467,24 +1470,24 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
       exp1__apa_anova_prop_guess_hit$full$ResponseOption_StimuliFormat <- 
           exp1__apa_anova_prop_guess_hit$full$ResponseOption_StimuliFormat
 ##    Pairwise (stim-format):
-      exp1__apa_anova_prop_guess_hit_stim_format_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_stim_format_mmeans)
-      exp1__pics_prop_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_stim_format_mmeans$estimate$Pictures %>%
+      exp1__apa_anova_prop_guess_hit_stim_format_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_stim_format_emmeans)
+      exp1__pics_prop_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_stim_format_emmeans$estimate$Pictures %>%
           str_remove("\\,.*")
-      exp1__words_prop_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_stim_format_mmeans$estimate$Words %>%
+      exp1__words_prop_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_stim_format_emmeans$estimate$Words %>%
           str_remove("\\,.*")
       exp1__apa_anova_prop_guess_hit_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_stim_format_pairwise)
       exp1__pics_words_guess_hit_ttest <- exp1__apa_anova_prop_guess_hit_stim_format_pairwise$full %>%
           str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
 ##    Pairwise (resp-option):
-      exp1__apa_anova_prop_guess_hit_resp_option_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_resp_option_mmeans)
-      exp1__rfg_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_resp_option_mmeans$estimate$RFG %>% 
+      exp1__apa_anova_prop_guess_hit_resp_option_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_resp_option_emmeans)
+      exp1__rfg_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_resp_option_emmeans$estimate$RFG %>% 
           str_remove("\\,.*")
-      exp1__rfbg_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_resp_option_mmeans$estimate$RFBG %>% 
+      exp1__rfbg_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_resp_option_emmeans$estimate$RFBG %>% 
           str_remove("\\,.*")
-      exp1__rfr_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_resp_option_mmeans$estimate$RF_Ratings %>% 
+      exp1__rfr_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_resp_option_emmeans$estimate$RF_Ratings %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_guess_hit_resp_option_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_resp_option_pairwise)
@@ -1496,20 +1499,20 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
           exp1__apa_anova_prop_guess_hit_resp_option_pairwise$full$RFBG_RF_Ratings %>% 
           str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")  
 ##    Pairwise (interaction):
-      exp1__apa_anova_prop_guess_hit_interaction_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_interaction_mmeans)
-      exp1__rfg_words_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_interaction_mmeans$estimate$RFG_Words %>% 
+      exp1__apa_anova_prop_guess_hit_interaction_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_interaction_emmeans)
+      exp1__rfg_words_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RFG_Words %>% 
           str_remove("\\,.*")
-      exp1__rfg_pics_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_interaction_mmeans$estimate$RFG_Pictures %>% 
+      exp1__rfg_pics_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RFG_Pictures %>% 
           str_remove("\\,.*")
-      exp1__rfbg_words_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_interaction_mmeans$estimate$RFBG_Words %>% 
+      exp1__rfbg_words_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RFBG_Words %>% 
           str_remove("\\,.*")
       exp1__rfbg_pics_guess_hit_mean <- 
-          exp1__apa_anova_prop_guess_hit_interaction_mmeans$estimate$RFBG_Pictures %>% str_remove("\\,.*")
+          exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RFBG_Pictures %>% str_remove("\\,.*")
       exp1__rfr_words_guess_hit_mean <- 
-          exp1__apa_anova_prop_guess_hit_interaction_mmeans$estimate$RF_Ratings_Words %>% str_remove("\\,.*")
+          exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RF_Ratings_Words %>% str_remove("\\,.*")
       exp1__rfr_pics_guess_hit_mean <- 
-          exp1__apa_anova_prop_guess_hit_interaction_mmeans$estimate$RF_Ratings_Pictures %>% str_remove("\\,.*")
+          exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RF_Ratings_Pictures %>% str_remove("\\,.*")
       exp1__apa_anova_prop_guess_hit_interaction_pairwise_stimformat <-
           papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_interaction_pairwise_stimformat)
       exp1__apa_anova_prop_guess_hit_interaction_pairwise_respoption <-
@@ -1517,7 +1520,7 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
 #------------------------------------------------------------------------------------------------------------------
 #   Interaction figure:
 #------------------------------------------------------------------------------------------------------------------
-      exp1__guess_hit_figure_data <- as.tibble(exp1__anova_prop_guess_hit_interaction_mmeans) %>%
+      exp1__guess_hit_figure_data <- as.tibble(exp1__anova_prop_guess_hit_interaction_emmeans) %>%
           select(-df, -lower.CL, -upper.CL)
 ##    Labels (replaces plot legend):
       exp1__guess_hit_interaction_figure_labels <- exp1__guess_hit_figure_data %>%
@@ -1567,13 +1570,13 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
                                         between = "ResponseOption", within = "StimuliFormat")
 ##    Post-hoc contrasts:
 ##    Response-options:
-      exp1__anova_prop_rec_FA_resp_option_mmeans <- emmeans(exp1__anova_prop_rec_FA, ~ ResponseOption)
-      exp1__anova_prop_rec_FA_resp_option_pairwise <- pairs(exp1__anova_prop_rec_FA_resp_option_mmeans)
+      exp1__anova_prop_rec_FA_resp_option_emmeans <- emmeans(exp1__anova_prop_rec_FA, ~ ResponseOption)
+      exp1__anova_prop_rec_FA_resp_option_pairwise <- pairs(exp1__anova_prop_rec_FA_resp_option_emmeans)
 ##    Interaction:
-      exp1__anova_prop_rec_FA_interaction_mmeans <- 
+      exp1__anova_prop_rec_FA_interaction_emmeans <- 
           emmeans(exp1__anova_prop_rec_FA, c("ResponseOption", "StimuliFormat"))
-      exp1__anova_prop_rec_FA_interaction_pairwise <- pairs(exp1__anova_prop_rec_FA_interaction_mmeans)
-      exp1__anova_prop_rec_FA_interaction_mmeans <- 
+      exp1__anova_prop_rec_FA_interaction_pairwise <- pairs(exp1__anova_prop_rec_FA_interaction_emmeans)
+      exp1__anova_prop_rec_FA_interaction_emmeans <- 
           emmeans(exp1__anova_prop_rec_FA, c("ResponseOption", "StimuliFormat"))
       exp1__anova_prop_rec_FA_interaction_pairwise_respoption <- 
           emmeans(exp1__anova_prop_rec_FA, "ResponseOption", by = "StimuliFormat")
@@ -1593,12 +1596,12 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
       exp1__apa_anova_prop_rec_FA$full$ResponseOption_StimuliFormat <- 
           exp1__apa_anova_prop_rec_FA$full$ResponseOption_StimuliFormat
 ##    Pairwise (resp-option):
-      exp1__apa_anova_prop_rec_FA_resp_option_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_FA_resp_option_mmeans)
-      exp1__rfg_rec_FA_mean <- exp1__apa_anova_prop_rec_FA_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
-      exp1__rfbg_rec_FA_mean <- exp1__apa_anova_prop_rec_FA_resp_option_mmeans$estimate$RFBG %>% 
+      exp1__apa_anova_prop_rec_FA_resp_option_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_FA_resp_option_emmeans)
+      exp1__rfg_rec_FA_mean <- exp1__apa_anova_prop_rec_FA_resp_option_emmeans$estimate$RFG %>% str_remove("\\,.*")
+      exp1__rfbg_rec_FA_mean <- exp1__apa_anova_prop_rec_FA_resp_option_emmeans$estimate$RFBG %>% 
           str_remove("\\,.*")
-      exp1__rfr_rec_FA_mean <- exp1__apa_anova_prop_rec_FA_resp_option_mmeans$estimate$RF_Ratings %>% 
+      exp1__rfr_rec_FA_mean <- exp1__apa_anova_prop_rec_FA_resp_option_emmeans$estimate$RF_Ratings %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_rec_FA_resp_option_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_rec_FA_resp_option_pairwise)
@@ -1626,9 +1629,9 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
       exp1__anova_prop_fam_FA <- aov_ez("id", "fam_FA", exp1__anova_prop_fam_FA, 
                                         between = "ResponseOption", within = "StimuliFormat")
 ##    Interaction:
-      exp1__anova_prop_fam_FA_interaction_mmeans <- 
+      exp1__anova_prop_fam_FA_interaction_emmeans <- 
           emmeans(exp1__anova_prop_fam_FA, c("ResponseOption", "StimuliFormat"))
-      exp1__anova_prop_fam_FA_interaction_pairwise <- pairs(exp1__anova_prop_fam_FA_interaction_mmeans)
+      exp1__anova_prop_fam_FA_interaction_pairwise <- pairs(exp1__anova_prop_fam_FA_interaction_emmeans)
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
 #------------------------------------------------------------------------------------------------------------------
@@ -1657,12 +1660,12 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
                                           between = "ResponseOption", within = "StimuliFormat")
 ##    Post-hoc contrasts:
 ##    Response-option:
-      exp1__anova_prop_guess_FA_resp_option_mmeans <- emmeans(exp1__anova_prop_guess_FA, ~ ResponseOption)
-      exp1__anova_prop_guess_FA_resp_option_pairwise <- pairs(exp1__anova_prop_guess_FA_resp_option_mmeans)
+      exp1__anova_prop_guess_FA_resp_option_emmeans <- emmeans(exp1__anova_prop_guess_FA, ~ ResponseOption)
+      exp1__anova_prop_guess_FA_resp_option_pairwise <- pairs(exp1__anova_prop_guess_FA_resp_option_emmeans)
 ##    Interaction:
-      exp1__anova_prop_guess_FA_interaction_mmeans <- 
+      exp1__anova_prop_guess_FA_interaction_emmeans <- 
           emmeans(exp1__anova_prop_guess_FA, c("ResponseOption", "StimuliFormat"))
-      exp1__anova_prop_guess_FA_interaction_pairwise <- pairs(exp1__anova_prop_guess_FA_interaction_mmeans)
+      exp1__anova_prop_guess_FA_interaction_pairwise <- pairs(exp1__anova_prop_guess_FA_interaction_emmeans)
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
 #------------------------------------------------------------------------------------------------------------------
@@ -1673,13 +1676,13 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
       exp1__apa_anova_prop_guess_FA$full$ResponseOption_StimuliFormat <- 
           exp1__apa_anova_prop_guess_FA$full$ResponseOption_StimuliFormat
 ##    Pairwise (resp-option):
-      exp1__apa_anova_prop_guess_FA_resp_option_mmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_FA_resp_option_mmeans)
-      exp1__rfg_guess_FA_mean <- exp1__apa_anova_prop_guess_FA_resp_option_mmeans$estimate$RFG %>% 
+      exp1__apa_anova_prop_guess_FA_resp_option_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_FA_resp_option_emmeans)
+      exp1__rfg_guess_FA_mean <- exp1__apa_anova_prop_guess_FA_resp_option_emmeans$estimate$RFG %>% 
           str_remove("\\,.*")
-      exp1__rfbg_guess_FA_mean <- exp1__apa_anova_prop_guess_FA_resp_option_mmeans$estimate$RFBG %>% 
+      exp1__rfbg_guess_FA_mean <- exp1__apa_anova_prop_guess_FA_resp_option_emmeans$estimate$RFBG %>% 
           str_remove("\\,.*")
-      exp1__rfr_guess_FA_mean <- exp1__apa_anova_prop_guess_FA_resp_option_mmeans$estimate$RF_Ratings %>% 
+      exp1__rfr_guess_FA_mean <- exp1__apa_anova_prop_guess_FA_resp_option_emmeans$estimate$RF_Ratings %>% 
           str_remove("\\,.*")
       exp1__apa_anova_prop_guess_FA_resp_option_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_guess_FA_resp_option_pairwise)               
@@ -1779,11 +1782,11 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
 ###################################################################################################################
 ##    Rec / Fam / Guess FAs figure:                                                                              ##
 ###################################################################################################################
-      exp1__rec_FA_figure_data <- as.tibble(exp1__anova_prop_rec_FA_interaction_mmeans) %>%
+      exp1__rec_FA_figure_data <- as.tibble(exp1__anova_prop_rec_FA_interaction_emmeans) %>%
           select(-df, -lower.CL, -upper.CL)
-      exp1__fam_FA_figure_data <- as.tibble(exp1__anova_prop_fam_FA_interaction_mmeans) %>%
+      exp1__fam_FA_figure_data <- as.tibble(exp1__anova_prop_fam_FA_interaction_emmeans) %>%
           select(-df, -lower.CL, -upper.CL)
-      exp1__guess_FA_figure_data <- as.tibble(exp1__anova_prop_guess_FA_interaction_mmeans) %>%
+      exp1__guess_FA_figure_data <- as.tibble(exp1__anova_prop_guess_FA_interaction_emmeans) %>%
           select(-df, -lower.CL, -upper.CL)
   
       exp1__FA_figure_data <- tribble(~"ResponseOption", ~"StimuliFormat", ~"rfg", ~"emmean", ~"SE",
@@ -4476,22 +4479,21 @@ A series of 3x2 repeated measures ANOVAs were conducted on each of the DVs using
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
 ##    Experiment 3 - Prop hits:                                                                                ##
-#################################################################################################################                                                                               
-##    Prep data for analysis:                                                 
-exp3__grey__anova__PROP.HITS_data <- exp3__grey_data %>%
-  select(id, resp_option, prop_word_hit, prop_drawing_hit, prop_photo_hit) %>%
-  rename(word = "prop_word_hit", drawing = "prop_drawing_hit", photo = "prop_photo_hit") %>%
-  gather(key = "stim_format", value = "hit", word, drawing, photo) %>%
-  mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
-  mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
-  mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
-  mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
-  transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
-  transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
+################################################################################################################# ##    Prep data for analysis:                                                 
+      exp3__grey__anova__PROP.HITS_data <- exp3__grey_data %>%
+          select(id, resp_option, prop_word_hit, prop_drawing_hit, prop_photo_hit) %>%
+          rename(word = "prop_word_hit", drawing = "prop_drawing_hit", photo = "prop_photo_hit") %>%
+          gather(key = "stim_format", value = "hit", word, drawing, photo) %>%
+          mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+          mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+          mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+          transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+          transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
 #---------------------------------------------------------------------------------------------------------------#
-##  Run 2-way mixed ANOVA:
-exp3__grey__anova__PROP.HITS <- aov_ez("id", "hit", exp3__grey__anova__PROP.HITS_data,
-                                 between = "resp_option", within = "stim_format")
+##    Run 2-way mixed ANOVA:
+      exp3__grey__anova__PROP.HITS <- aov_ez("id", "hit", exp3__grey__anova__PROP.HITS_data,
+                                             between = "resp_option", within = "stim_format")
 
 ##  Format ANOVA main effects for use in report:  
 exp3__apa__grey__anova__PROP.HITS <- papaja:::apa_print.afex_aov(exp3__grey__anova__PROP.HITS) 
@@ -5766,6 +5768,7 @@ The primary DVs consisted of the proportion of total hits, false alarms (FAs), a
 
 Subjects were excluded according to a two key criteria; 1) less than 90% accuracy during the encoding task ("Is this a word, drawing, or photograph?"); 2) extreme z-scores (those presenting z-scores of +/- 3 for total hits, total FAs, or overall recognition [hits minus FAs]). A total of `r exp3and4__all_exclude %>% filter(col_or_grey == "col") %>% nrow()` participants were found to meet (at least) one of such criteria, and were thus considered outliers and excluded from analysis.
 
+\newpage
 ## Results
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
         exp4__RFG__totals <- exp4__colour_data %>% 
@@ -5802,17 +5805,17 @@ Subjects were excluded according to a two key criteria; 1) less than 90% accurac
           column_to_rownames(var = "Stim")
 ```
 
-```{r echo=FALSE, results = FALSE, cache=TRUE}
-      table_numbering(name = "exp4__hit.FA.recog.table",
-                      caption = "Mean proportion of hits, FAs, and overall recognition, by stimuli format and response option condition.")
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+      table_numbering(name = "exp4__hit.FA.recog.table", caption = "Mean proportion of hits, FAs, and overall recognition, by stimuli format and response option condition.")
 ```
 
 ### Distinctiveness
-To determine whether colour photographs were more distinctive than colour drawings, and examine any potential interactions with response-option condition, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp4__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between the stimuli formats, ANOVAs were also run on the signal detection measures of *d'* (measure of sensitivity) and *c* (decision criterion). Significant main effects were followed up with single pairwise comparisons (drawings vs. photographs).  
+To determine whether colour photographs were more distinctive than colour drawings, and examine any potential interactions with response-option condition, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp4__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between the stimuli formats, 2x3 mixed ANOVAs were also run on the signal detection measures of *d'* (sensitivity) and *c* (decision criterion). Significant main effects were followed up with single pairwise comparisons (drawings vs. photographs).
 
-\newpage
+&nbsp;
+&nbsp;
 `r table_numbering("exp4__hit.FA.recog.table")`
-```{r, echo=FALSE, cache=FALSE}
+```{r, echo=FALSE, cache=TRUE}
       exp4__hit.FA.recog.table %>%
           kable("latex", booktabs = T, align = "lccc") %>%
           kable_styling(latex_options = "hold_position") %>%
@@ -5849,7 +5852,7 @@ To determine whether colour photographs were more distinctive than colour drawin
       exp4__anova_prop_hit_drawing_photo_pairwise <- pairs(exp4__anova_prop_hit_drawing_photo_emmeans,
                                                            adjust = "bonferroni")
 ##    Interaction means (for figure): 
-      exp4__anova_prop_hit_interaction_mmeans <- 
+      exp4__anova_prop_hit_interaction_emmeans <- 
         emmeans(exp4__anova_prop_hit, ~ resp_option:stim_format)
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
@@ -5860,11 +5863,11 @@ To determine whether colour photographs were more distinctive than colour drawin
       exp4__apa_anova_prop_hit__resp_option <- exp4__apa_anova_prop_hit$full_result$resp_option
       exp4__apa_anova_prop_hit__interaction <- exp4__apa_anova_prop_hit$full_result$resp_option_stim_format
 ##    Stim format pairwise:
-      exp4__apa_anova_prop_hit_stim_format_mmeans <- papaja:::apa_print.emmGrid(
-                                                     exp4__anova_prop_hit_stim_format_mmeans)
-      exp4__drawings_prop_hit_mean <- exp4__apa_anova_prop_hit_stim_format_mmeans$estimate$Drawings %>%
+      exp4__apa_anova_prop_hit_stim_format_emmeans <- papaja:::apa_print.emmGrid(
+                                                     exp4__anova_prop_hit_stim_format_emmeans)
+      exp4__drawings_prop_hit_mean <- exp4__apa_anova_prop_hit_stim_format_emmeans$estimate$Drawings %>%
                                       str_remove("\\,.*")
-      exp4__photos_prop_hit_mean <- exp4__apa_anova_prop_hit_stim_format_mmeans$estimate$Photographs %>%
+      exp4__photos_prop_hit_mean <- exp4__apa_anova_prop_hit_stim_format_emmeans$estimate$Photographs %>%
                                       str_remove("\\,.*")
       exp4__apa_anova_prop_hit_drawing_photo_pairwise <- 
           papaja:::apa_print.emmGrid(exp4__anova_prop_hit_drawing_photo_pairwise)
@@ -5888,17 +5891,17 @@ To determine whether colour photographs were more distinctive than colour drawin
                                                between = "resp_option", within = "stim_format")
 ##    Post-hoc contrasts:
 ##    Stimuli format:
-      exp4__anova_prop_FA_stim_format_mmeans <- emmeans(exp4__anova_prop_FA, ~ stim_format)
-      exp4__anova_prop_FA_drawing_photo_emmeans <- exp4__anova_prop_FA_stim_format_mmeans[2:3]
+      exp4__anova_prop_FA_stim_format_emmeans <- emmeans(exp4__anova_prop_FA, ~ stim_format)
+      exp4__anova_prop_FA_drawing_photo_emmeans <- exp4__anova_prop_FA_stim_format_emmeans[2:3]
       exp4__anova_prop_FA_drawing_photo_pairwise <- pairs(exp4__anova_prop_FA_drawing_photo_emmeans,
                                                            adjust = "bonferroni")
       
 ##    Response option:
-      exp4__anova_prop_FA_resp_option_mmeans <- emmeans(exp4__anova_prop_FA, ~ resp_option)
-      exp4__anova_prop_FA_resp_option_pairwise <-pairs(exp4__anova_prop_FA_resp_option_mmeans, 
+      exp4__anova_prop_FA_resp_option_emmeans <- emmeans(exp4__anova_prop_FA, ~ resp_option)
+      exp4__anova_prop_FA_resp_option_pairwise <-pairs(exp4__anova_prop_FA_resp_option_emmeans, 
                                                         adjust = "bonferroni")
 ##    Interaction means (for figure): 
-      exp4__anova_prop_FA_interaction_mmeans <- 
+      exp4__anova_prop_FA_interaction_emmeans <- 
         emmeans(exp4__anova_prop_FA, ~ resp_option:stim_format)
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
@@ -5909,21 +5912,21 @@ To determine whether colour photographs were more distinctive than colour drawin
       exp4__apa_anova_prop_FA__resp_option <- exp4__apa_anova_prop_FA$full_result$resp_option
       exp4__apa_anova_prop_FA__interaction <- exp4__apa_anova_prop_FA$full_result$resp_option_stim_format
 ##    Stim format pairwise:
-      exp4__apa_anova_prop_FA_stim_format_mmeans <- papaja:::apa_print.emmGrid(
-                                                    exp4__anova_prop_FA_stim_format_mmeans)
-      exp4__drawings_prop_FA_mean <- exp4__apa_anova_prop_FA_stim_format_mmeans$estimate$Drawings %>%
+      exp4__apa_anova_prop_FA_stim_format_emmeans <- papaja:::apa_print.emmGrid(
+                                                    exp4__anova_prop_FA_stim_format_emmeans)
+      exp4__drawings_prop_FA_mean <- exp4__apa_anova_prop_FA_stim_format_emmeans$estimate$Drawings %>%
                                       str_remove("\\,.*")
-      exp4__photos_prop_FA_mean <- exp4__apa_anova_prop_FA_stim_format_mmeans$estimate$Photographs %>%
+      exp4__photos_prop_FA_mean <- exp4__apa_anova_prop_FA_stim_format_emmeans$estimate$Photographs %>%
                                       str_remove("\\,.*")
       exp4__apa_anova_prop_FA_drawing_photo_pairwise <- 
           papaja:::apa_print.emmGrid(exp4__anova_prop_FA_drawing_photo_pairwise)
       exp4__drawings_photo_FA_ttest <- 
           exp4__apa_anova_prop_FA_drawing_photo_pairwise$statistic$Drawings_Photographs
 ##    Resp option pairwise:
-      exp4__apa_anova_prop_FA_resp_option_mmeans <- 
-          papaja:::apa_print.emmGrid(exp4__anova_prop_FA_resp_option_mmeans)
-      exp4__RFG_prop_FA_mean <- exp4__apa_anova_prop_FA_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
-      exp4__RFBG_prop_FA_mean <- exp4__apa_anova_prop_FA_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
+      exp4__apa_anova_prop_FA_resp_option_emmeans <- 
+          papaja:::apa_print.emmGrid(exp4__anova_prop_FA_resp_option_emmeans)
+      exp4__RFG_prop_FA_mean <- exp4__apa_anova_prop_FA_resp_option_emmeans$estimate$RFG %>% str_remove("\\,.*")
+      exp4__RFBG_prop_FA_mean <- exp4__apa_anova_prop_FA_resp_option_emmeans$estimate$RFBG %>% str_remove("\\,.*")
       exp4__apa_anova_prop_FA_resp_option_pairwise <- 
           papaja:::apa_print.emmGrid(exp4__anova_prop_FA_resp_option_pairwise)
       exp4__RFG_RFBG_FA_ttest <- exp4__apa_anova_prop_FA_resp_option_pairwise$statistic$RFG_RFBG
@@ -5945,12 +5948,12 @@ To determine whether colour photographs were more distinctive than colour drawin
                                                between = "resp_option", within = "stim_format")
 ##    Post-hoc contrasts:
 ##    Stimuli format:
-      exp4__anova_recog_stim_format_mmeans <- emmeans(exp4__anova_recog, ~ stim_format)
-      exp4__anova_recog_drawing_photo_emmeans <- exp4__anova_recog_stim_format_mmeans[2:3]
+      exp4__anova_recog_stim_format_emmeans <- emmeans(exp4__anova_recog, ~ stim_format)
+      exp4__anova_recog_drawing_photo_emmeans <- exp4__anova_recog_stim_format_emmeans[2:3]
       exp4__anova_recog_drawing_photo_pairwise <- pairs(exp4__anova_recog_drawing_photo_emmeans,
                                                            adjust = "bonferroni")
 ##    Interaction means (for figure): 
-      exp4__anova_recog_interaction_mmeans <- 
+      exp4__anova_recog_interaction_emmeans <- 
         emmeans(exp4__anova_recog, ~ resp_option:stim_format)
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
@@ -5961,11 +5964,11 @@ To determine whether colour photographs were more distinctive than colour drawin
       exp4__apa_anova_recog__resp_option <- exp4__apa_anova_recog$full_result$resp_option
       exp4__apa_anova_recog__interaction <- exp4__apa_anova_recog$full_result$resp_option_stim_format
 ##    Stim format pairwise:
-      exp4__apa_anova_recog_stim_format_mmeans <- papaja:::apa_print.emmGrid(
-                                                    exp4__anova_recog_stim_format_mmeans)
-      exp4__drawings_recog_mean <- exp4__apa_anova_recog_stim_format_mmeans$estimate$Drawings %>%
+      exp4__apa_anova_recog_stim_format_emmeans <- papaja:::apa_print.emmGrid(
+                                                    exp4__anova_recog_stim_format_emmeans)
+      exp4__drawings_recog_mean <- exp4__apa_anova_recog_stim_format_emmeans$estimate$Drawings %>%
                                       str_remove("\\,.*")
-      exp4__photos_recog_mean <- exp4__apa_anova_recog_stim_format_mmeans$estimate$Photographs %>%
+      exp4__photos_recog_mean <- exp4__apa_anova_recog_stim_format_emmeans$estimate$Photographs %>%
                                       str_remove("\\,.*")
       exp4__apa_anova_recog_drawing_photo_pairwise <- 
           papaja:::apa_print.emmGrid(exp4__anova_recog_drawing_photo_pairwise)
@@ -5973,7 +5976,7 @@ To determine whether colour photographs were more distinctive than colour drawin
           exp4__apa_anova_recog_drawing_photo_pairwise$statistic$Drawings_Photographs
 ```
 
-The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, `r exp4__apa_anova_prop_hit__stim_format`; a distinctiveness effect was apparent, with colour photographs (`r exp4__photos_prop_hit_mean`) showing a higher number of overall hits compared to colour drawings (`r exp4__drawings_prop_hit_mean`), `r exp4__drawings_photo_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a distinctiveness effect; a significant main effect of stimuli-format `r exp4__apa_anova_prop_FA__stim_format` showed that drawings (`r exp4__drawings_prop_FA_mean`) produced more FAs than photographs (`r exp4__photos_prop_FA_mean`), `r exp4__drawings_photo_FA_ttest`. Overall recognition performance (taking into account hits and FAs) offered further support for a distinctiveness effect; a significant main effect of stimuli-format `r exp4__apa_anova_recog__stim_format` showed photographs (`r exp4__photos_recog_mean`) produced better overall task performance compared to drawings (`r exp4__drawings_recog_mean`), `r exp4__drawings_photo_recog_ttest`. Taken together, the findings support the distinctiveness hypothesis, in that colour photographs were recognised better than colour drawings. 
+Visual inspection of the data (`r table_numbering("exp4__hit.FA.recog.table", display = "cite")`) shows some expected patterns with regard to stimuli distinctiveness. As the intended distinctiveness increases across the formats (from words, to drawings, to photographs), the mean proportion of hits increases, the mean proportion of FAs decreases, and overall scores of recognition (hits - FAs) also increases. These patterns support the notion that distinctiveness plays a key role in the memorability of stimuli, and also that the current stimuli indeed appear to capture different 'levels' of stimuli distinctiveness. The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, `r exp4__apa_anova_prop_hit__stim_format`; a distinctiveness effect was apparent, with colour photographs (`r exp4__photos_prop_hit_mean`) showing a higher number of overall hits compared to colour drawings (`r exp4__drawings_prop_hit_mean`), `r exp4__drawings_photo_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a distinctiveness effect; a significant main effect of stimuli-format `r exp4__apa_anova_prop_FA__stim_format` showed that drawings (`r exp4__drawings_prop_FA_mean`) produced more FAs than photographs (`r exp4__photos_prop_FA_mean`), `r exp4__drawings_photo_FA_ttest`. Overall recognition performance (taking into account hits and FAs) offered further support for a distinctiveness effect; a significant main effect of stimuli-format `r exp4__apa_anova_recog__stim_format` showed photographs (`r exp4__photos_recog_mean`) produced better overall task performance compared to drawings (`r exp4__drawings_recog_mean`), `r exp4__drawings_photo_recog_ttest`. Taken together, the findings support the distinctiveness hypothesis, in that colour photographs were recognised better than colour drawings. 
 
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
@@ -5994,12 +5997,12 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
                                     between = "resp_option", within = "stim_format")
 ##    Post-hoc contrasts:
 ##    Stimuli format:
-      exp4__anova_d_prime_stim_format_mmeans <- emmeans(exp4__anova_d_prime, ~ stim_format)
-      exp4__anova_d_prime_drawing_photo_emmeans <- exp4__anova_d_prime_stim_format_mmeans[2:3]
+      exp4__anova_d_prime_stim_format_emmeans <- emmeans(exp4__anova_d_prime, ~ stim_format)
+      exp4__anova_d_prime_drawing_photo_emmeans <- exp4__anova_d_prime_stim_format_emmeans[2:3]
       exp4__anova_d_prime_drawing_photo_pairwise <- pairs(exp4__anova_d_prime_drawing_photo_emmeans,
                                                           adjust = "bonferroni")      
 ##    Interaction means (for figure): 
-      exp4__anova_d_prime_interaction_mmeans <- 
+      exp4__anova_d_prime_interaction_emmeans <- 
         emmeans(exp4__anova_d_prime, ~ resp_option:stim_format)
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
@@ -6010,11 +6013,11 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
       exp4__apa_anova_d_prime__resp_option <- exp4__apa_anova_d_prime$full_result$resp_option
       exp4__apa_anova_d_prime__interaction <- exp4__apa_anova_d_prime$full_result$resp_option_stim_format
 ##    Stim format pairwise:
-      exp4__apa_anova_d_prime_stim_format_mmeans <- papaja:::apa_print.emmGrid(
-                                                     exp4__anova_d_prime_stim_format_mmeans)
-      exp4__drawings_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_mmeans$estimate$Drawings %>%
+      exp4__apa_anova_d_prime_stim_format_emmeans <- papaja:::apa_print.emmGrid(
+                                                     exp4__anova_d_prime_stim_format_emmeans)
+      exp4__drawings_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_emmeans$estimate$Drawings %>%
                                       str_remove("\\,.*")
-      exp4__photos_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_mmeans$estimate$Photographs %>%
+      exp4__photos_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_emmeans$estimate$Photographs %>%
                                       str_remove("\\,.*")
       exp4__apa_anova_d_prime_drawing_photo_pairwise <- 
           papaja:::apa_print.emmGrid(exp4__anova_d_prime_drawing_photo_pairwise)
@@ -6037,14 +6040,14 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
       exp4__anova_c <- aov_ez("id", "c", exp4__c_anova_data, between = "resp_option", within = "stim_format")
 ##    Post-hoc contrasts:
 ##    Stimuli format:
-      exp4__anova_c_stim_format_mmeans <- emmeans(exp4__anova_c, ~ stim_format)
-      exp4__anova_c_drawing_photo_emmeans <- exp4__anova_c_stim_format_mmeans[2:3]
+      exp4__anova_c_stim_format_emmeans <- emmeans(exp4__anova_c, ~ stim_format)
+      exp4__anova_c_drawing_photo_emmeans <- exp4__anova_c_stim_format_emmeans[2:3]
       exp4__anova_c_drawing_photo_pairwise <- pairs(exp4__anova_c_drawing_photo_emmeans, adjust = "bonferroni")   
 ##    Response option:
-      exp4__anova_c_resp_option_mmeans <- emmeans(exp4__anova_c, ~ resp_option)
-      exp4__anova_c_resp_option_pairwise <- pairs(exp4__anova_c_resp_option_mmeans, adjust = "bonferroni")      
+      exp4__anova_c_resp_option_emmeans <- emmeans(exp4__anova_c, ~ resp_option)
+      exp4__anova_c_resp_option_pairwise <- pairs(exp4__anova_c_resp_option_emmeans, adjust = "bonferroni")      
 ##    Interaction means (for figure): 
-      exp4__anova_c_interaction_mmeans <- emmeans(exp4__anova_c, ~ resp_option:stim_format)
+      exp4__anova_c_interaction_emmeans <- emmeans(exp4__anova_c, ~ resp_option:stim_format)
 #------------------------------------------------------------------------------------------------------------------
 #   Format results for report:
 #------------------------------------------------------------------------------------------------------------------
@@ -6054,15 +6057,15 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
       exp4__apa_anova_c__resp_option <- exp4__apa_anova_c$full_result$resp_option
       exp4__apa_anova_c__interaction <- exp4__apa_anova_c$full_result$resp_option_stim_format
 ##    Stim format pairwise:
-      exp4__apa_anova_c_stim_format_mmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_stim_format_mmeans)
-      exp4__drawings_c_mean <- exp4__apa_anova_c_stim_format_mmeans$estimate$Drawings %>% str_remove("\\,.*")
-      exp4__photos_c_mean <- exp4__apa_anova_c_stim_format_mmeans$estimate$Photographs %>% str_remove("\\,.*")
+      exp4__apa_anova_c_stim_format_emmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_stim_format_emmeans)
+      exp4__drawings_c_mean <- exp4__apa_anova_c_stim_format_emmeans$estimate$Drawings %>% str_remove("\\,.*")
+      exp4__photos_c_mean <- exp4__apa_anova_c_stim_format_emmeans$estimate$Photographs %>% str_remove("\\,.*")
       exp4__apa_anova_c_drawing_photo_pairwise <- papaja:::apa_print.emmGrid(exp4__anova_c_drawing_photo_pairwise)
       exp4__drawings_photo_c_ttest <- exp4__apa_anova_c_drawing_photo_pairwise$statistic$Drawings_Photographs      
 ##    Resp option pairwise:
-      exp4__apa_anovac_resp_option_mmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_resp_option_mmeans)
-      exp4__RFG_c_mean <- exp4__apa_anovac_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
-      exp4__RFBG_c_mean <- exp4__apa_anovac_resp_option_mmeans$estimate$RFBG %>% str_remove("\\,.*")
+      exp4__apa_anovac_resp_option_emmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_resp_option_emmeans)
+      exp4__RFG_c_mean <- exp4__apa_anovac_resp_option_emmeans$estimate$RFG %>% str_remove("\\,.*")
+      exp4__RFBG_c_mean <- exp4__apa_anovac_resp_option_emmeans$estimate$RFBG %>% str_remove("\\,.*")
       exp4__apa_anova_c_resp_option_pairwise <- papaja:::apa_print.emmGrid(exp4__anova_c_resp_option_pairwise)
       exp4__RFG_RFBG_c_ttest <- exp4__apa_anova_c_resp_option_pairwise$statistic$RFG_RFBG
 ```
@@ -6071,9 +6074,158 @@ The ANOVA on *d'*-scores produced findings consistent with those found for hits,
 `r exp4__drawings_photo_c_ttest`. 
 
 ### Response option
-In each of the previously discussed ANOVAs, the role of response option was also assessed. However, there were no significant interaction effects between stimuli format and response option for: i) proportion of hits; ii) proportion of FAs; iii) overall recognition; iv) *d'*-scores; v) *c*-scores. 
+In each of the previously discussed ANOVAs, the role of response option was also assessed. However, there were no significant interaction effects between stimuli format and response option for any of the examined DVs: i) proportion of hits; ii) proportion of FAs; iii) overall recognition; iv) *d'*-scores; v) *c*-scores. There was only a significant main effect of response option in the ANOVA on the mean proportion of FAs, `r exp4__apa_anova_prop_FA__resp_option` (with the RFG group, `r exp4__RFG_prop_FA_mean`, showing more FAs than the RFBG group, `r exp4__RFBG_prop_FA_mean`, `r exp4__RFG_RFBG_FA_ttest`), and the ANOVA on *c*-scores, `r exp4__apa_anova_c__resp_option` (with the RFBG group, `r exp4__RFBG_c_mean`, showing a more conservative response bias than the RFG group, `r exp4__RFG_c_mean`, `r exp4__RFG_RFBG_c_ttest`)
 
-for response option: RFG vs. RFBG).
+```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+##    Prep data for figures:  
+      exp3__hits__data <- as.tibble(emmeans(exp3__grey__anova__PROP.HITS, ~ stim_format)) %>%
+          select(stim_format, emmean, SE) %>%
+          filter(stim_format != "Words") %>%
+          mutate(stim_format = str_replace(stim_format, "Drawings", "Grey Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "Photographs", "Grey Photographs"))
+      exp4__hits__data <- as.tibble(emmeans(exp4__anova_prop_hit, ~ stim_format)) %>%
+          select(stim_format, emmean, SE) %>%
+          filter(stim_format != "Words") %>%
+          mutate(stim_format = str_replace(stim_format, "Drawings", "Colour Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "Photographs", "Colour Photographs"))
+      exp3.and.exp4__hits__data <- bind_rows(exp3__hits__data, exp4__hits__data) %>%
+          mutate(DV = "Hits")
+      
+      exp3__FA__data <- as.tibble(emmeans(exp3__grey__anova__PROP.FA, ~ stim_format)) %>%
+          select(stim_format, emmean, SE) %>%
+          filter(stim_format != "Words") %>%
+          mutate(stim_format = str_replace(stim_format, "Drawings", "Grey Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "Photographs", "Grey Photographs"))
+      exp4__FA__data <- as.tibble(emmeans(exp4__anova_prop_FA, ~ stim_format)) %>%
+          select(stim_format, emmean, SE) %>%
+          filter(stim_format != "Words") %>%
+          mutate(stim_format = str_replace(stim_format, "Drawings", "Colour Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "Photographs", "Colour Photographs"))
+      exp3.and.exp4__FA__data <- bind_rows(exp3__FA__data, exp4__FA__data) %>%
+          mutate(DV = "FAs")
+      
+      exp3__recog__data <- as.tibble(emmeans(exp3__grey__anova__RECOG, ~ stim_format)) %>%
+          select(stim_format, emmean, SE) %>%
+          filter(stim_format != "Words") %>%
+          mutate(stim_format = str_replace(stim_format, "Drawings", "Grey Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "Photographs", "Grey Photographs"))
+      exp4__recog__data <- as.tibble(emmeans(exp4__anova_recog, ~ stim_format)) %>%
+          select(stim_format, emmean, SE) %>%
+          filter(stim_format != "Words") %>%
+          mutate(stim_format = str_replace(stim_format, "Drawings", "Colour Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "Photographs", "Colour Photographs"))
+      exp3.and.exp4__recog__data <- bind_rows(exp3__recog__data, exp4__recog__data) %>%
+          mutate(DV = "Overall recognition accuracy")
+    
+      exp3.and.exp4__figure.data <- bind_rows(exp3.and.exp4__hits__data, 
+                                              exp3.and.exp4__FA__data, 
+                                              exp3.and.exp4__recog__data) %>%
+          separate(., stim_format, into = c("Distinctiveness", "stim_format"), sep = "\\s", extra = "merge") %>%
+          transform(DV = factor(DV, levels=c("Hits","FAs", "Overall recognition accuracy"))) %>%
+          transform(stim_format = factor(stim_format, levels=c("Drawings", "Photographs"))) %>%
+          transform(Distinctiveness = factor(Distinctiveness, levels=c("Grey","Colour")))
+      
+      exp3.and.exp4__figure <-
+          ggplot(exp3.and.exp4__figure.data, aes(x = stim_format, y = emmean, fill = Distinctiveness)) +
+          scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", 
+                                                 "Colour" = "#6A6C93")) + 
+          geom_col(position = position_dodge()) +
+          geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), 
+                        width = 0.2, size = 0.3, position = position_dodge(0.9)) +
+          facet_wrap(~DV, strip.position = "bottom") +
+          labs(x = "DV", y = "Mean proportion") +
+          scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+          theme_classic() +    # Removes grey background and grid lines. 
+          theme(
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
+            axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            legend.background = element_rect(fill = "white", size = 0.2, linetype = "solid", colour = "black"),
+            legend.title = element_blank(),
+            legend.position = c(0.5, 0.896),
+            legend.margin = margin(6, 6, 6, 6),
+            legend.spacing.y = unit(-1, "pt"),
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))
+```
+
+### Role of colour
+Visual inspection of the data from *Experiment 3*, which used greyscale drawings and photographs, alongside that obtained in the current study (`r figure_numbering("exp3.and.exp4__figure", display = "cite")`) suggests the effects of colour on distinctiveness are negligible. Performance, in terms of the proportion of hits, FAs, and overall recognition accuracy, appears the same irrespective of whether greyscale or colour pictures were used. 
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp3.and.exp4__figure",
+                     caption = "Grey vs. colour")
+```
+
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
+    exp3.and.exp4__figure
+```
+`r figure_numbering("exp3.and.exp4__figure")`
+
+In turn, this further implicates the stimuli format as the 
+
+```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+
+    exp3__prop_drawing_hit_rec <- exp3__grey_data %>%
+        select(prop_drawing_hit_rec) %>%
+        rename(Grey = "prop_drawing_hit_rec") %>%
+        gather(key = "Response", value = "Hits")
+    exp4__prop_drawing_hit_rec <- exp4__colour_data %>%
+        select(prop_drawing_hit_rec) %>%
+        rename(Colour = "prop_drawing_hit_rec") %>%
+        gather(key = "Response", value = "Hits")
+    rec_data <- bind_rows(exp3__prop_drawing_hit_rec, exp4__prop_drawing_hit_rec)
+    exp3__prop_drawing_hit_fam <- exp3__grey_data %>%
+        select(prop_drawing_hit_fam) %>%
+        rename(Grey = "prop_drawing_hit_fam") %>%
+        gather(key = "Response", value = "Hits")
+    exp4__prop_drawing_hit_fam <- exp4__colour_data %>%
+        select(prop_drawing_hit_fam) %>%
+        rename(Colour = "prop_drawing_hit_fam") %>%
+        gather(key = "Response", value = "Hits")
+    fam_data <- bind_rows(exp3__prop_drawing_hit_fam, exp4__prop_drawing_hit_fam)
+    
+  
+    rec <- ggplot(rec_data, aes(x=Hits,y=Response,fill = Response))+
+        geom_density_ridges(scale = 3, alpha=0.8) + 
+        theme_ridges() +
+        scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
+        labs(x = "Mean proportion of Familiarity hits", y = "Stimuli format") +
+        #ggtitle("Density estimation of circumference of different types of Trees") +
+        theme(
+            legend.position = "none",
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            #plot.title = element_text(vjust= 6, hjust = 0.5),
+            axis.title.x = element_text(vjust=-2, hjust = 0.5),
+            axis.title.y = element_text(vjust=4, hjust = 0.5),
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))
+    fam <- ggplot(fam_data, aes(x=Hits,y=Response,fill = Response))+
+        geom_density_ridges(scale = 3, alpha=0.8) + 
+        theme_ridges() +
+        scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
+        labs(x = "Mean proportion of Familiarity hits", y = "Stimuli format") +
+        #ggtitle("Density estimation of circumference of different types of Trees") +
+        theme(
+            legend.position = "none",
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            #plot.title = element_text(vjust= 6, hjust = 0.5),
+            axis.title.x = element_text(vjust=-2, hjust = 0.5),
+            axis.title.y = element_text(vjust=4, hjust = 0.5),
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))
+    
+grid.arrange(rec, fam, ncol=2)
+```
 
 ## Discussion
 

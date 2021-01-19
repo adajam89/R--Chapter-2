@@ -1,11 +1,11 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.12.17)  18 JAN 2021 16:08
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.1.19)  19 JAN 2021 13:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **R--Thesis.tex
 (./R--Thesis.tex
-LaTeX2e <2020-10-01> patch level 2
-L3 programming layer <2020-12-07> xparse <2020-03-03> (/Users/home/Library/Tiny
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-01-09> xparse <2020-03-03> (/Users/home/Library/Tiny
 TeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/base/size11.clo
@@ -128,14 +128,18 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 )
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/unicode-math/unicode-math.sty
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2020-12-07 L3 programming layer (loader) 
+Package: expl3 2021-01-09 L3 programming layer (loader) 
 
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
-File: l3backend-xetex.def 2020-09-24 L3 backend support: XeTeX
-\g__graphics_track_int=\count193
+File: l3backend-xetex.def 2021-01-09 L3 backend support: XeTeX
+(|extractbb --version)
+\c__kernel_sys_dvipdfmx_version_int=\count193
+\l__kernel_color_stack_int=\count194
+\g__graphics_track_int=\count195
 \l__pdf_internal_box=\box49
-\g__pdf_backend_object_int=\count194
-\g__pdf_backend_annotation_int=\count195
+\g__pdf_backend_object_int=\count196
+\g__pdf_backend_annotation_int=\count197
+\g__pdf_backend_link_int=\count198
 ))
 Package: unicode-math 2020/01/31 v0.8q Unicode maths in XeLaTeX and LuaLaTeX
 
@@ -156,17 +160,17 @@ Package: fontspec 2020/02/21 v2.7i Font selection for XeLaTeX and LuaLaTeX
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
 Package: fontspec-xetex 2020/02/21 v2.7i Font selection for XeLaTeX and LuaLaTe
 X
-\l__fontspec_script_int=\count196
-\l__fontspec_language_int=\count197
-\l__fontspec_strnum_int=\count198
-\l__fontspec_tmp_int=\count199
-\l__fontspec_tmpa_int=\count266
-\l__fontspec_tmpb_int=\count267
-\l__fontspec_tmpc_int=\count268
-\l__fontspec_em_int=\count269
-\l__fontspec_emdef_int=\count270
-\l__fontspec_strong_int=\count271
-\l__fontspec_strongdef_int=\count272
+\l__fontspec_script_int=\count199
+\l__fontspec_language_int=\count266
+\l__fontspec_strnum_int=\count267
+\l__fontspec_tmp_int=\count268
+\l__fontspec_tmpa_int=\count269
+\l__fontspec_tmpb_int=\count270
+\l__fontspec_tmpc_int=\count271
+\l__fontspec_em_int=\count272
+\l__fontspec_emdef_int=\count273
+\l__fontspec_strong_int=\count274
+\l__fontspec_strongdef_int=\count275
 \l__fontspec_tmpa_dim=\dimen148
 \l__fontspec_tmpb_dim=\dimen149
 \l__fontspec_tmpc_dim=\dimen150
@@ -179,9 +183,9 @@ Package: fix-cm 2015/01/14 v1.1t fixes to LaTeX
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding TS1 on input line 47.
 ))
-\g__um_fam_int=\count273
-\g__um_fonts_used_int=\count274
-\l__um_primecount_int=\count275
+\g__um_fam_int=\count276
+\g__um_fonts_used_int=\count277
+\l__um_primecount_int=\count278
 \g__um_primekern_muskip=\muskip17
 
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/unicode-math/unicode-math-tab
@@ -317,8 +321,8 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
 \@linkdim=\dimen151
-\Hy@linkcounter=\count276
-\Hy@pagecounter=\count277
+\Hy@linkcounter=\count279
+\Hy@pagecounter=\count280
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2020-05-15 v7.00e Hyperref: PDFDocEncoding definition (HO)
 ) (/Users/home/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
@@ -326,7 +330,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 ) (/Users/home/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count278
+\Hy@SavedSpaceFactor=\count281
 Package hyperref Info: Option `unicode' set `true' on input line 4338.
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2020-05-15 v7.00e Hyperref: PDF Unicode definition (HO)
@@ -338,7 +342,7 @@ Package hyperref Info: Plain pages OFF on input line 4479.
 Package hyperref Info: Backreferencing OFF on input line 4484.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4717.
-\c@Hy@tempcnt=\count279
+\c@Hy@tempcnt=\count282
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
@@ -351,7 +355,7 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count280
+\Fld@menulength=\count283
 \Field@Width=\dimen153
 \Fld@charsize=\dimen154
 Package hyperref Info: Hyper figures OFF on input line 6347.
@@ -368,9 +372,9 @@ Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi packa
 ge
 with kernel methods
 )
-\Hy@abspage=\count281
-\c@Item=\count282
-\c@Hfootnote=\count283
+\Hy@abspage=\count284
+\c@Item=\count285
+\c@Hfootnote=\count286
 )
 Package hyperref Info: Driver (autodetected): hxetex.
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hxetex.def
@@ -380,10 +384,10 @@ Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
 \pdfm@box=\box50
-\c@Hy@AnnotLevel=\count284
-\HyField@AnnotCount=\count285
-\Fld@listcount=\count286
-\c@bookmark@seq@number=\count287
+\c@Hy@AnnotLevel=\count287
+\HyField@AnnotCount=\count288
+\Fld@listcount=\count289
+\c@bookmark@seq@number=\count290
 
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck
 .sty
@@ -406,9 +410,9 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
 (/Users/home/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count288
-\Gm@cntv=\count289
-\c@Gm@tempcnt=\count290
+\Gm@cnth=\count291
+\Gm@cntv=\count292
+\c@Gm@tempcnt=\count293
 \Gm@bindingoffset=\dimen155
 \Gm@wd@mp=\dimen156
 \Gm@odd@mp=\dimen157
@@ -436,9 +440,11 @@ Package: grffile 2019/11/11 v2.1 Extended file name support for graphics (legac
 y)
 Package grffile Info: This package is an empty stub for compatibility on input 
 line 40.
+) (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
 ) (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
-Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footer
-s
+Package: fancyhdr 2021/01/04 v4.0 Extensive control of page headers and footers
+
 \f@nch@headwidth=\skip53
 \f@nch@O@elh=\skip54
 \f@nch@O@erh=\skip55
@@ -478,12 +484,12 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen177
 \cmidrulekern=\dimen178
 \defaultaddspace=\dimen179
-\@cmidla=\count291
-\@cmidlb=\count292
+\@cmidla=\count294
+\@cmidlb=\count295
 \@aboverulesep=\dimen180
 \@belowrulesep=\dimen181
-\@thisruleclass=\count293
-\@lastruleclass=\count294
+\@thisruleclass=\count296
+\@lastruleclass=\count297
 \@thisrulewidth=\dimen182
 ) (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
@@ -491,16 +497,16 @@ Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
 \LTright=\skip65
 \LTpre=\skip66
 \LTpost=\skip67
-\LTchunksize=\count295
+\LTchunksize=\count298
 \LTcapwidth=\dimen183
 \LT@head=\box52
 \LT@firsthead=\box53
 \LT@foot=\box54
 \LT@lastfoot=\box55
-\LT@cols=\count296
-\LT@rows=\count297
-\c@LT@tables=\count298
-\c@LT@chunks=\count299
+\LT@cols=\count299
+\LT@rows=\count300
+\c@LT@tables=\count301
+\c@LT@chunks=\count302
 \LT@p@ftn=\toks24
 ) (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
 Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
@@ -512,21 +518,21 @@ Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
 \backup@length=\skip69
 \ar@cellbox=\box57
 ) (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
-Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
+Package: multirow 2021/01/02 v2.6 Span multiple rows of a table
 \multirow@colwidth=\skip70
-\multirow@cntb=\count300
+\multirow@cntb=\count303
 \multirow@dima=\skip71
 \bigstrutjot=\dimen186
 ) (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen187
 \WF@size=\dimen188
-\c@WF@wrappedlines=\count301
+\c@WF@wrappedlines=\count304
 \WF@box=\box58
 \WF@everypar=\toks26
 Package: wrapfig 2003/01/31  v 3.6
 ) (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count302
+\c@float@type=\count305
 \float@exts=\toks27
 \float@box=\box59
 \@float@everytoks=\toks28
@@ -540,16 +546,16 @@ Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box61
-\sift@deathcycles=\count303
+\sift@deathcycles=\count306
 \@vwid@loff=\dimen189
 \@vwid@roff=\dimen190
 )
-\c@taburow=\count304
-\tabu@nbcols=\count305
-\tabu@cnt=\count306
-\tabu@Xcol=\count307
-\tabu@alloc=\count308
-\tabu@nested=\count309
+\c@taburow=\count307
+\tabu@nbcols=\count308
+\tabu@cnt=\count309
+\tabu@Xcol=\count310
+\tabu@alloc=\count311
+\tabu@nested=\count312
 \tabu@target=\dimen191
 \tabu@spreadtarget=\dimen192
 \tabu@naturalX=\dimen193
@@ -587,7 +593,7 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \UL@skip=\skip75
 \UL@hook=\toks32
 \UL@height=\dimen256
-\UL@pe=\count310
+\UL@pe=\count313
 \UL@pixel=\dimen257
 \ULC@box=\box69
 Package: ulem 2019/11/18
@@ -595,39 +601,39 @@ Package: ulem 2019/11/18
 ) (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen259
-\c@nlinenum=\count311
+\c@nlinenum=\count314
 \TeXr@lab=\toks33
 ) (./R--Thesis.aux)
 \openout1 = `R--Thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 92.
+(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 94.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/lmss/b/n on input line 92.
+(Font)                  OT1/lmss/bx/n --> TU/lmss/b/n on input line 94.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 92.
+(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 94.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/b/n on input line 92.
+(Font)                  OT1/lmtt/m/n --> TU/lmtt/b/n on input line 94.
 
 Package fontspec Info: latinmodern-math scale = 1.208800659564493.
 
@@ -656,7 +662,7 @@ t=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(0)/m/n' will be
-(Font)              scaled to size 13.23636pt on input line 92.
+(Font)              scaled to size 13.23636pt on input line 94.
 
 Package fontspec Info: latinmodern-math scale = 1.208800659564493.
 
@@ -695,17 +701,17 @@ t=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 13.23636pt on input line 92.
+(Font)              scaled to size 13.23636pt on input line 94.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 92.
+(Font)              `operators' in the math version `normal' on input line 94.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> TU/latinmodern-math.otf(1)/m/n on input
- line 92.
+ line 94.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 92.
+(Font)              `operators' in the math version `bold' on input line 94.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/lmr/bx/n --> TU/latinmodern-math.otf(1)/b/n on inpu
-t line 92.
+t line 94.
 
 Package fontspec Info: latinmodern-math scale = 1.208800659564493.
 
@@ -792,15 +798,15 @@ t=math;language=dflt;"
 (fontspec)             =0pt\relax \fontdimen 21\font =0pt\relax 
 
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `normal' on input line 92.
+(Font)              `symbols' in the math version `normal' on input line 94.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
 (Font)                  OMS/lmsy/m/n --> TU/latinmodern-math.otf(2)/m/n on inpu
-t line 92.
+t line 94.
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `bold' on input line 92.
+(Font)              `symbols' in the math version `bold' on input line 94.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
 (Font)                  OMS/lmsy/b/n --> TU/latinmodern-math.otf(2)/b/n on inpu
-t line 92.
+t line 94.
 
 Package fontspec Info: latinmodern-math scale = 1.208800659564493.
 
@@ -870,17 +876,17 @@ t=math;language=dflt;"
 
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
 (Font)              `largesymbols' in the math version `normal' on input line 9
-2.
+4.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/m/n on inpu
-t line 92.
+t line 94.
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
-(Font)              `largesymbols' in the math version `bold' on input line 92.
+(Font)              `largesymbols' in the math version `bold' on input line 94.
 
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/b/n on inpu
-t line 92.
-Package hyperref Info: Link coloring OFF on input line 92.
+t line 94.
+Package hyperref Info: Link coloring OFF on input line 94.
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
@@ -890,11 +896,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ng.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count312
+\c@section@level=\count315
 )
-LaTeX Info: Redefining \ref on input line 92.
-LaTeX Info: Redefining \pageref on input line 92.
-LaTeX Info: Redefining \nameref on input line 92.
+LaTeX Info: Redefining \ref on input line 94.
+LaTeX Info: Redefining \pageref on input line 94.
+LaTeX Info: Redefining \nameref on input line 94.
 (./R--Thesis.out) (./R--Thesis.out)
 \@outlinefile=\write3
 \openout3 = `R--Thesis.out'.
@@ -934,9 +940,9 @@ LaTeX Info: Redefining \nameref on input line 92.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 14.4pt on input line 96.
+(Font)              scaled to size 14.4pt on input line 98.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 14.4pt on input line 96.
+(Font)              scaled to size 14.4pt on input line 98.
 (./R--Thesis.toc
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
 (Font)              scaled to size 10.95pt on input line 1.
@@ -969,97 +975,94 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 2.
 (/Users/home/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 27.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/sl' in size <10.95> not avail
 able
 (Font)              Font shape `TU/Helvetica(0)/m/it' tried instead on input li
-ne 33.
+ne 23.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 33.
+(Font)              scaled to size 10.95pt on input line 23.
 [1
 
-] [2])
+] [2] [3])
 \tf@toc=\write4
 \openout4 = `R--Thesis.toc'.
 
-[3]
+[4] [5]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 12.0pt on input line 104.
+(Font)              scaled to size 12.0pt on input line 106.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 12.0pt on input line 104.
+(Font)              scaled to size 12.0pt on input line 106.
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 104.
+(hyperref)                be the same. Added a new anchor on input line 106.
 
-[4]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 144.
-
-[5] [6]
+[6]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 299.
+(hyperref)                be the same. Added a new anchor on input line 146.
+
+[7] [8] [9]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 301.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 305.
+(Font)              scaled to size 7.665pt on input line 307.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 9.0pt on input line 305.
+(Font)              scaled to size 9.0pt on input line 307.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.87921pt on input line 305.
+(Font)              scaled to size 10.87921pt on input line 307.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.2528pt on input line 305.
+(Font)              scaled to size 7.2528pt on input line 307.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.044pt on input line 305.
+(Font)              scaled to size 6.044pt on input line 307.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.88031pt on input line 305.
+(Font)              scaled to size 10.88031pt on input line 307.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.25354pt on input line 305.
+(Font)              scaled to size 7.25354pt on input line 307.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.04462pt on input line 305.
+(Font)              scaled to size 6.04462pt on input line 307.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.87811pt on input line 305.
+(Font)              scaled to size 10.87811pt on input line 307.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.25208pt on input line 305.
+(Font)              scaled to size 7.25208pt on input line 307.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.0434pt on input line 305.
+(Font)              scaled to size 6.0434pt on input line 307.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 305.
+(Font)              scaled to size 6.0pt on input line 307.
+[10]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/it' will be
-(Font)              scaled to size 10.95pt on input line 330.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[7]
+(Font)              scaled to size 10.95pt on input line 332.
+[11]
 File: ./resources/images/exp1__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp1__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--376
+Underfull \hbox (badness 10000) in paragraph at lines 375--378
 [][]
  []
 
-[8] [9]
+[12] [13]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 472.
+(hyperref)                be the same. Added a new anchor on input line 474.
 
+[14]
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 511.
+(Font)              scaled to size 10.95pt on input line 513.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 7.665pt on input line 511.
+(Font)              scaled to size 7.665pt on input line 513.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 5.475pt on input line 511.
-[10] [11]
+(Font)              scaled to size 5.475pt on input line 513.
+[15] [16]
 File: R--Thesis_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-13-1.pdf>
-[12]
+[17] [18]
 File: R--Thesis_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-15-1.pdf>
-[13]
-Underfull \hbox (badness 1354) in paragraph at lines 658--666
+[19]
+Underfull \hbox (badness 1354) in paragraph at lines 660--668
 []\TU/Helvetica(0)/m/n/10.95 Between response-option conditions, word stimuli p
 roduced significantly fewer Guessing
  []
@@ -1067,231 +1070,236 @@ roduced significantly fewer Guessing
 File: R--Thesis_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-17-1.pdf>
-[14]
+[20]
 File: R--Thesis_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-19-1.pdf>
-[15] [16] [17]
+[21] [22]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 726.
+(hyperref)                be the same. Added a new anchor on input line 728.
 
-[18]
+[23] [24]
 File: ./resources/images/exp2__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp2__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 838--843
-[][]
- []
-
-[19] [20]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 850.
-
-LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 9.0pt on input line 858.
-LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 6.0pt on input line 858.
-LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 5.0pt on input line 858.
-[21]
-File: ./resources/images/photo-manipulation-examples.png Graphic file (type bmp
-)
-<./resources/images/photo-manipulation-examples.png>
-
-Underfull \hbox (badness 10000) in paragraph at lines 972--975
-[][]
- []
-
-[22] [23] [24]
-File: ./resources/images/procedure.png Graphic file (type bmp)
-<./resources/images/procedure.png>
-
-Underfull \hbox (badness 10000) in paragraph at lines 1072--1075
+Underfull \hbox (badness 10000) in paragraph at lines 840--845
 [][]
  []
 
 [25] [26]
-File: ./resources/images/h_calculation.png Graphic file (type bmp)
-<./resources/images/h_calculation.png>
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1193.
+(hyperref)                be the same. Added a new anchor on input line 852.
 
-[27] [28] [29]
+LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
+(Font)              scaled to size 9.0pt on input line 860.
+LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
+(Font)              scaled to size 6.0pt on input line 860.
+LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
+(Font)              scaled to size 5.0pt on input line 860.
+[27] [28]
+File: ./resources/images/photo-manipulation-examples.png Graphic file (type bmp
+)
+<./resources/images/photo-manipulation-examples.png>
 
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1390.
-
-[30] [31]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1549.
-
-[32] [33]
-File: ./resources/images/exp3__stim_examples.png Graphic file (type bmp)
-<./resources/images/exp3__stim_examples.png>
-
-Underfull \hbox (badness 10000) in paragraph at lines 1622--1624
+Underfull \hbox (badness 10000) in paragraph at lines 974--977
 [][]
  []
 
-[34]
+[29] [30] [31] [32]
+File: ./resources/images/procedure.png Graphic file (type bmp)
+<./resources/images/procedure.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 1074--1077
+[][]
+ []
+
+[33] [34]
+File: ./resources/images/h_calculation.png Graphic file (type bmp)
+<./resources/images/h_calculation.png>
+[35]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1698.
+(hyperref)                be the same. Added a new anchor on input line 1195.
 
-[35]
-Underfull \hbox (badness 2521) in paragraph at lines 1731--1741
+[36] [37] [38] [39]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 1392.
+
+[40] [41] [42] [43]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 1551.
+
+[44] [45]
+File: ./resources/images/exp3__stim_examples.png Graphic file (type bmp)
+<./resources/images/exp3__stim_examples.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 1624--1626
+[][]
+ []
+
+[46] [47]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 1700.
+
+[48]
+Underfull \hbox (badness 2521) in paragraph at lines 1733--1743
 []\TU/Helvetica(0)/m/n/10.95 For the proportion of total hits, there was a sign
 ificant main effect of stimuli format
  []
 
 
-Underfull \hbox (badness 1189) in paragraph at lines 1742--1753
+Underfull \hbox (badness 1189) in paragraph at lines 1744--1755
 \TU/lmtt/m/n/10.95 apa__grey__anova__PROP.FA__words.mean\TU/Helvetica(0)/m/n/10
 .95 ) [] and drawings ($[] [] [][][][]$) []; drawings
  []
 
 
-Underfull \hbox (badness 1348) in paragraph at lines 1754--1764
+Underfull \hbox (badness 1348) in paragraph at lines 1756--1766
 []\TU/Helvetica(0)/m/n/10.95 For overall performance accuracy, there was a sign
 ificant main effect of stimuli format
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[36]
+[49] [50]
 File: R--Thesis_files/figure-latex/unnamed-chunk-35-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-35-1.pdf>
-[37]
+[51]
 File: R--Thesis_files/figure-latex/unnamed-chunk-38-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-38-1.pdf>
-[38]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1858.
+(hyperref)                be the same. Added a new anchor on input line 1860.
 
-[39]
+[52]
 File: R--Thesis_files/figure-latex/unnamed-chunk-39-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-39-1.pdf>
-[40]
+[53] [54]
 File: R--Thesis_files/figure-latex/unnamed-chunk-40-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-40-1.pdf>
-[41]
+[55]
 File: R--Thesis_files/figure-latex/unnamed-chunk-42-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-42-1.pdf>
+[56]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1956.
+(hyperref)                be the same. Added a new anchor on input line 1958.
 
-[42]
+[57]
 File: R--Thesis_files/figure-latex/unnamed-chunk-43-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-43-1.pdf>
-[43] [44]
+[58] [59] [60]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2037.
+(hyperref)                be the same. Added a new anchor on input line 2039.
 
-[45]
+[61]
 File: ./resources/images/exp4__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp4__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 2113--2115
+Underfull \hbox (badness 10000) in paragraph at lines 2115--2117
 [][]
  []
 
-[46]
+[62] [63] [64]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2174.
+(hyperref)                be the same. Added a new anchor on input line 2178.
 
-[47]
+[65] [66]
+File: R--Thesis_files/figure-latex/unnamed-chunk-57-1.pdf Graphic file (type pd
+f)
+<use R--Thesis_files/figure-latex/unnamed-chunk-57-1.pdf>
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2254.
+(hyperref)                be the same. Added a new anchor on input line 2293.
 
-[48]
-Overfull \hbox (30.83879pt too wide) in paragraph at lines 2277--2277
+[67]
+Overfull \hbox (30.83879pt too wide) in paragraph at lines 2316--2316
 []                  \TU/lmtt/m/n/10.95 vs. grey drawings       (are they as dis
 tinctive as grey drawings?)[] 
  []
 
 
-Overfull \hbox (19.3413pt too wide) in paragraph at lines 2277--2277
+Overfull \hbox (19.3413pt too wide) in paragraph at lines 2316--2316
 []                  \TU/lmtt/m/n/10.95 vs. grey photos         (are they as dis
 tinctive as grey photos?)[] 
  []
 
 
-Overfull \hbox (42.33629pt too wide) in paragraph at lines 2277--2277
+Overfull \hbox (42.33629pt too wide) in paragraph at lines 2316--2316
 []                  \TU/lmtt/m/n/10.95 vs. colour drawings     (are they as dis
 tinctive as colour drawings?)[] 
  []
 
 
-Overfull \hbox (30.83879pt too wide) in paragraph at lines 2277--2277
+Overfull \hbox (30.83879pt too wide) in paragraph at lines 2316--2316
 []                  \TU/lmtt/m/n/10.95 vs. colour photos       (are they as dis
 tinctive as colour photos?)[] 
  []
 
 
-Overfull \hbox (14.30156pt too wide) in paragraph at lines 2286--2286
+Overfull \hbox (14.30156pt too wide) in paragraph at lines 2325--2325
 []|\TU/Helvetica(0)/m/n/10.95 distinctiveness|  
  []
 
-[49] [50] [51] [52] [53] [54] [55] [56] [57] [58] [59]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78] [79]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2663.
+(hyperref)                be the same. Added a new anchor on input line 2702.
 
-[60] [61] [62] [63]
-Underfull \hbox (badness 1661) in paragraph at lines 2974--2978
+[80] [81] [82] [83] [84] [85]
+Underfull \hbox (badness 1661) in paragraph at lines 3013--3017
  \TU/Helvetica(0)/m/it/10.95 European Journal of Cognitive Psychology\TU/Helvet
 ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 , 813–847. []$[][][][][] [] [] [] [][][] [] [][][] [] [][] [] [][][][] []
  []
 
-[64] [65] [66]
+[86] [87] [88] [89]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 3142.
+(hyperref)                be the same. Added a new anchor on input line 3181.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 3145.
+(Font)              scaled to size 7.0pt on input line 3184.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 3152.
-[67
+(Font)              scaled to size 7.0pt on input line 3191.
+[90
 
-] [68]
+] [91] [92]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 3259.
+(Font)              scaled to size 8.0pt on input line 3298.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 3266.
+(Font)              scaled to size 8.0pt on input line 3305.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 8.0pt on input line 3276.
-[69
+(Font)              scaled to size 8.0pt on input line 3315.
+[93
 
-] [70] [71] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [8
-5] [86] (./R--Thesis.aux)
+] [94] [95] [96] [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107]
+[108] [109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120] [
+121] (./R--Thesis.aux)
 Package rerunfilecheck Info: File `R--Thesis.out' has not changed.
-(rerunfilecheck)             Checksum: AB81D57AE2E51B6E2914541E791D882C;11733.
+(rerunfilecheck)             Checksum: A4378E8D5D777287B2E7910A090C8DC3;12108.
  ) 
 Here is how much of TeX's memory you used:
- 18380 strings out of 479290
- 321460 string characters out of 5876329
- 869792 words of memory out of 5000000
- 37554 multiletter control sequences out of 15000+600000
+ 18538 strings out of 479212
+ 324309 string characters out of 5874241
+ 849865 words of memory out of 5000000
+ 37782 multiletter control sequences out of 15000+600000
  410160 words of font info for 102 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 94i,12n,121p,520b,531s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 98i,12n,125p,520b,531s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on R--Thesis.pdf (86 pages).
+Output written on R--Thesis.pdf (121 pages).
