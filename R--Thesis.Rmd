@@ -5808,7 +5808,7 @@ Subjects were excluded according to a two key criteria; 1) less than 90% accurac
 ```
 
 ### Distinctiveness
-To determine whether colour photographs were more distinctive than colour drawings, and examine any potential interactions with response-option condition, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp4__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between the stimuli formats, ANOVAs were also run on the signal detection measures of *d'* (measure of sensitivity) and *c* (decision criterion). Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
+To determine whether colour photographs were more distinctive than colour drawings, and examine any potential interactions with response-option condition, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp4__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between the stimuli formats, ANOVAs were also run on the signal detection measures of *d'* (measure of sensitivity) and *c* (decision criterion). Significant main effects were followed up with single pairwise comparisons (drawings vs. photographs).  
 
 \newpage
 `r table_numbering("exp4__hit.FA.recog.table")`
@@ -5844,9 +5844,10 @@ To determine whether colour photographs were more distinctive than colour drawin
                                                between = "resp_option", within = "stim_format")
 ##    Post-hoc contrasts:
 ##    Stimuli format:
-      exp4__anova_prop_hit_stim_format_mmeans <- emmeans(exp4__anova_prop_hit, ~ stim_format)
-      exp4__anova_prop_hit_stim_format_pairwise <-pairs(exp4__anova_prop_hit_stim_format_mmeans, 
-                                                        adjust = "bonferroni")
+      exp4__anova_prop_hit_stim_format_emmeans <- emmeans(exp4__anova_prop_hit, ~ stim_format)
+      exp4__anova_prop_hit_drawing_photo_emmeans <- exp4__anova_prop_hit_stim_format_emmeans[2:3]
+      exp4__anova_prop_hit_drawing_photo_pairwise <- pairs(exp4__anova_prop_hit_drawing_photo_emmeans,
+                                                           adjust = "bonferroni")
 ##    Interaction means (for figure): 
       exp4__anova_prop_hit_interaction_mmeans <- 
         emmeans(exp4__anova_prop_hit, ~ resp_option:stim_format)
@@ -5865,9 +5866,10 @@ To determine whether colour photographs were more distinctive than colour drawin
                                       str_remove("\\,.*")
       exp4__photos_prop_hit_mean <- exp4__apa_anova_prop_hit_stim_format_mmeans$estimate$Photographs %>%
                                       str_remove("\\,.*")
-      exp4__apa_anova_prop_hit_stim_format_pairwise <- 
-          papaja:::apa_print.emmGrid(exp4__anova_prop_hit_stim_format_pairwise)
-      exp4__drawings_photo_hit_ttest <-exp4__apa_anova_prop_hit_stim_format_pairwise$statistic$Drawings_Photographs
+      exp4__apa_anova_prop_hit_drawing_photo_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_prop_hit_drawing_photo_pairwise)
+      exp4__drawings_photo_hit_ttest <- 
+          exp4__apa_anova_prop_hit_drawing_photo_pairwise$statistic$Drawings_Photographs
 ###################################################################################################################
 ##    Analysis - Prop FA ANOVA:                                                                                  ##
 ###################################################################################################################
@@ -5887,8 +5889,10 @@ To determine whether colour photographs were more distinctive than colour drawin
 ##    Post-hoc contrasts:
 ##    Stimuli format:
       exp4__anova_prop_FA_stim_format_mmeans <- emmeans(exp4__anova_prop_FA, ~ stim_format)
-      exp4__anova_prop_FA_stim_format_pairwise <-pairs(exp4__anova_prop_FA_stim_format_mmeans, 
-                                                        adjust = "bonferroni")
+      exp4__anova_prop_FA_drawing_photo_emmeans <- exp4__anova_prop_FA_stim_format_mmeans[2:3]
+      exp4__anova_prop_FA_drawing_photo_pairwise <- pairs(exp4__anova_prop_FA_drawing_photo_emmeans,
+                                                           adjust = "bonferroni")
+      
 ##    Response option:
       exp4__anova_prop_FA_resp_option_mmeans <- emmeans(exp4__anova_prop_FA, ~ resp_option)
       exp4__anova_prop_FA_resp_option_pairwise <-pairs(exp4__anova_prop_FA_resp_option_mmeans, 
@@ -5911,9 +5915,10 @@ To determine whether colour photographs were more distinctive than colour drawin
                                       str_remove("\\,.*")
       exp4__photos_prop_FA_mean <- exp4__apa_anova_prop_FA_stim_format_mmeans$estimate$Photographs %>%
                                       str_remove("\\,.*")
-      exp4__apa_anova_prop_FA_stim_format_pairwise <- 
-          papaja:::apa_print.emmGrid(exp4__anova_prop_FA_stim_format_pairwise)
-      exp4__drawings_photo_FA_ttest <- exp4__apa_anova_prop_FA_stim_format_pairwise$statistic$Drawings_Photographs
+      exp4__apa_anova_prop_FA_drawing_photo_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_prop_FA_drawing_photo_pairwise)
+      exp4__drawings_photo_FA_ttest <- 
+          exp4__apa_anova_prop_FA_drawing_photo_pairwise$statistic$Drawings_Photographs
 ##    Resp option pairwise:
       exp4__apa_anova_prop_FA_resp_option_mmeans <- 
           papaja:::apa_print.emmGrid(exp4__anova_prop_FA_resp_option_mmeans)
@@ -5941,8 +5946,9 @@ To determine whether colour photographs were more distinctive than colour drawin
 ##    Post-hoc contrasts:
 ##    Stimuli format:
       exp4__anova_recog_stim_format_mmeans <- emmeans(exp4__anova_recog, ~ stim_format)
-      exp4__anova_recog_stim_format_pairwise <-pairs(exp4__anova_recog_stim_format_mmeans, 
-                                                        adjust = "bonferroni")
+      exp4__anova_recog_drawing_photo_emmeans <- exp4__anova_recog_stim_format_mmeans[2:3]
+      exp4__anova_recog_drawing_photo_pairwise <- pairs(exp4__anova_recog_drawing_photo_emmeans,
+                                                           adjust = "bonferroni")
 ##    Interaction means (for figure): 
       exp4__anova_recog_interaction_mmeans <- 
         emmeans(exp4__anova_recog, ~ resp_option:stim_format)
@@ -5961,10 +5967,10 @@ To determine whether colour photographs were more distinctive than colour drawin
                                       str_remove("\\,.*")
       exp4__photos_recog_mean <- exp4__apa_anova_recog_stim_format_mmeans$estimate$Photographs %>%
                                       str_remove("\\,.*")
-      exp4__apa_anova_recog_stim_format_pairwise <- 
-          papaja:::apa_print.emmGrid(exp4__anova_recog_stim_format_pairwise)
+      exp4__apa_anova_recog_drawing_photo_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_recog_drawing_photo_pairwise)
       exp4__drawings_photo_recog_ttest <- 
-          exp4__apa_anova_recog_stim_format_pairwise$statistic$Drawings_Photographs
+          exp4__apa_anova_recog_drawing_photo_pairwise$statistic$Drawings_Photographs
 ```
 
 The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, `r exp4__apa_anova_prop_hit__stim_format`; a distinctiveness effect was apparent, with colour photographs (`r exp4__photos_prop_hit_mean`) showing a higher number of overall hits compared to colour drawings (`r exp4__drawings_prop_hit_mean`), `r exp4__drawings_photo_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a distinctiveness effect; a significant main effect of stimuli-format `r exp4__apa_anova_prop_FA__stim_format` showed that drawings (`r exp4__drawings_prop_FA_mean`) produced more FAs than photographs (`r exp4__photos_prop_FA_mean`), `r exp4__drawings_photo_FA_ttest`. Overall recognition performance (taking into account hits and FAs) offered further support for a distinctiveness effect; a significant main effect of stimuli-format `r exp4__apa_anova_recog__stim_format` showed photographs (`r exp4__photos_recog_mean`) produced better overall task performance compared to drawings (`r exp4__drawings_recog_mean`), `r exp4__drawings_photo_recog_ttest`. Taken together, the findings support the distinctiveness hypothesis, in that colour photographs were recognised better than colour drawings. 
@@ -5989,8 +5995,9 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
 ##    Post-hoc contrasts:
 ##    Stimuli format:
       exp4__anova_d_prime_stim_format_mmeans <- emmeans(exp4__anova_d_prime, ~ stim_format)
-      exp4__anova_d_prime_stim_format_pairwise <- pairs(exp4__anova_d_prime_stim_format_mmeans, 
-                                                        adjust = "bonferroni")
+      exp4__anova_d_prime_drawing_photo_emmeans <- exp4__anova_d_prime_stim_format_mmeans[2:3]
+      exp4__anova_d_prime_drawing_photo_pairwise <- pairs(exp4__anova_d_prime_drawing_photo_emmeans,
+                                                          adjust = "bonferroni")      
 ##    Interaction means (for figure): 
       exp4__anova_d_prime_interaction_mmeans <- 
         emmeans(exp4__anova_d_prime, ~ resp_option:stim_format)
@@ -6009,10 +6016,10 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
                                       str_remove("\\,.*")
       exp4__photos_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_mmeans$estimate$Photographs %>%
                                       str_remove("\\,.*")
-      exp4__apa_anova_d_prime_stim_format_pairwise <- 
-          papaja:::apa_print.emmGrid(exp4__anova_d_prime_stim_format_pairwise)
+      exp4__apa_anova_d_prime_drawing_photo_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_d_prime_drawing_photo_pairwise)
       exp4__drawings_photo_d_prime_ttest <- 
-          exp4__apa_anova_d_prime_stim_format_pairwise$statistic$Drawings_Photographs
+          exp4__apa_anova_d_prime_drawing_photo_pairwise$statistic$Drawings_Photographs
 #------------------------------------------------------------------------------------------------------------------
 #   c:
 #------------------------------------------------------------------------------------------------------------------
@@ -6031,8 +6038,9 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
 ##    Post-hoc contrasts:
 ##    Stimuli format:
       exp4__anova_c_stim_format_mmeans <- emmeans(exp4__anova_c, ~ stim_format)
-      exp4__anova_c_stim_format_pairwise <- pairs(exp4__anova_c_stim_format_mmeans, adjust = "bonferroni")
-##    Stimuli format:
+      exp4__anova_c_drawing_photo_emmeans <- exp4__anova_c_stim_format_mmeans[2:3]
+      exp4__anova_c_drawing_photo_pairwise <- pairs(exp4__anova_c_drawing_photo_emmeans, adjust = "bonferroni")   
+##    Response option:
       exp4__anova_c_resp_option_mmeans <- emmeans(exp4__anova_c, ~ resp_option)
       exp4__anova_c_resp_option_pairwise <- pairs(exp4__anova_c_resp_option_mmeans, adjust = "bonferroni")      
 ##    Interaction means (for figure): 
@@ -6049,8 +6057,8 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
       exp4__apa_anova_c_stim_format_mmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_stim_format_mmeans)
       exp4__drawings_c_mean <- exp4__apa_anova_c_stim_format_mmeans$estimate$Drawings %>% str_remove("\\,.*")
       exp4__photos_c_mean <- exp4__apa_anova_c_stim_format_mmeans$estimate$Photographs %>% str_remove("\\,.*")
-      exp4__apa_anova_c_stim_format_pairwise <- papaja:::apa_print.emmGrid(exp4__anova_c_stim_format_pairwise)
-      exp4__drawings_photo_c_ttest <- exp4__apa_anova_c_stim_format_pairwise$statistic$Drawings_Photographs      
+      exp4__apa_anova_c_drawing_photo_pairwise <- papaja:::apa_print.emmGrid(exp4__anova_c_drawing_photo_pairwise)
+      exp4__drawings_photo_c_ttest <- exp4__apa_anova_c_drawing_photo_pairwise$statistic$Drawings_Photographs      
 ##    Resp option pairwise:
       exp4__apa_anovac_resp_option_mmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_resp_option_mmeans)
       exp4__RFG_c_mean <- exp4__apa_anovac_resp_option_mmeans$estimate$RFG %>% str_remove("\\,.*")
@@ -6059,13 +6067,15 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
       exp4__RFG_RFBG_c_ttest <- exp4__apa_anova_c_resp_option_pairwise$statistic$RFG_RFBG
 ```
 
-The ANOVA on *d'* scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp4__apa_anova_d_prime__stim_format`, whereby photographs (`r exp4__photos_d_prime_mean`) facilitated better discrimination between hits and FAs than drawings (`r exp4__drawings_d_prime_mean`), `r exp4__drawings_photo_d_prime_ttest`. *c* scores also showed a significant main effect of stimuli-format, `r exp4__apa_anova_c__stim_format`, with drawings (`r exp4__drawings_c_mean`) showing higher c-scores (and thus a more conservative response bias) than photographs (`r exp4__photos_c_mean`),
+The ANOVA on *d'*-scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp4__apa_anova_d_prime__stim_format`, whereby photographs (`r exp4__photos_d_prime_mean`) facilitated better discrimination between hits and FAs than drawings (`r exp4__drawings_d_prime_mean`), `r exp4__drawings_photo_d_prime_ttest`. *c*-scores also showed a significant main effect of stimuli-format, `r exp4__apa_anova_c__stim_format`, with drawings (`r exp4__drawings_c_mean`) showing higher *c*-scores (and thus a more conservative response bias) than photographs (`r exp4__photos_c_mean`),
 `r exp4__drawings_photo_c_ttest`. 
 
 ### Response option
-No interaction effects were found between stimuli format and response option for: 1) proportion of hits; 2) proportion of FAs; 3) overall recognition; 4) *d'* scores; 5) *c*-scores.
+In each of the previously discussed ANOVAs, the role of response option was also assessed. However, there were no significant interaction effects between stimuli format and response option for: i) proportion of hits; ii) proportion of FAs; iii) overall recognition; iv) *d'*-scores; v) *c*-scores. 
 
+for response option: RFG vs. RFBG).
 
+## Discussion
 
 
 # Chapter 5 (Distinctive words)
