@@ -47,6 +47,12 @@ header-includes:
 ##  Captioner:
     figure_numbering <- captioner()
     table_numbering <- captioner(prefix = "Table")
+    appendix_numbering <- captioner(prefix = "Appendix", type = "C")
+    appendix_numbering("d.prime.calc", "*d'* calculations", display = FALSE)
+    appendix_numbering("spelling.corrections", "Spelling corrections / manipulations to naming responses.", 
+                       display = FALSE)
+    appendix_numbering("exp2.full.norms", "Normative data for all photograph items.", 
+                       display = FALSE)
 ```
 
 \newpage
@@ -178,10 +184,34 @@ However, it has been demonstrated that certain methodological factors can mediat
 
 Illustrative
 
-
 The objective of Experiment 1 was to establish baseline PSE response patterns in younger adults, and examine how PSE magnitudes differ across the three response option conditions (RF-judgements / RFB-judgements / RF-Ratings). A 2x3 mixed factorial design was utilised, consisting of a within-subjects variable of stimulus type (words / greyscale line-drawings) and a between-subjects variable of response option (RF-judgements / RFBG-judgements / RF-Ratings).
 
-## Experiment: Proof of concept. 
+
+
+To determine whether a PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and lack of signal (i.e. false alarms); in other words, *d'* offers a representation of participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743].
+
+
+[see `r appendix_numbering("d.prime.calc", display = "cite")`]
+
+
+
+
+
+
+Within the currently proposed paradigm, the following results are hypothesised:
+  1. A PSE will be evident, manifesting as higher overall *d'* scores for picture stimuli compared to word stimuli. 
+
+  
+  measure of sensitivity.
+  
+
+
+  
+  It is also expected that the picture stimuli will produce a higher proportion of correct hits, lower proportion of false alarms, and better overall recognition (hits - FA) than word stimuli.
+  2. 
+  
+
+## Experiment: Proof of concept.
 
 ```{r experiment-1-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
@@ -1135,7 +1165,7 @@ To establish baseline picture superiority effects in the current paradigm, and a
           str_remove("^[\\w\\W]+?(?=\\$t)")      
 ```     
 
-The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, `r exp1__apa_anova_prop_hit$full$StimuliFormat`; a PSE was evident, with pictures (`r exp1__pics_prop_hit_mean`) showing a higher number of overall hits compared to words (`r exp1__words_prop_hit_mean`), `r exp1__pics_words_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a PSE; a significant main effect of stimuli-format `r exp1__apa_anova_prop_FA$full$StimuliFormat` showed that words (`r exp1__words_prop_FA_mean`) produced more FAs than pictures (`r exp1__pics_prop_FA_mean`), `r exp1__pics_words_FA_ttest`. Overall recognition performance (taking into account hits and FAs) offered further support for a PSE in the current paradigm; a significant main effect of stimuli-format `r exp1__apa_anova_prop_recog$full$StimuliFormat` showed pictures (`r exp1__pics_prop_recog_mean`) produced better overall task performance compared to words (`r exp1__words_prop_recog_mean`), `r exp1__pics_words_recog_ttest`. No interaction effects were found between stimuli format and response option for the proportion of hits, FAs, or overall recognition. Taken together, the findings demonstrate a replication of the PSE in the current memory paradigm, and suggest stimuli format plays a key role in memorability that is independent of response option.
+The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, `r exp1__apa_anova_prop_hit$full$StimuliFormat`; a PSE was evident, with pictures (`r exp1__pics_prop_hit_mean`) showing a higher number of overall hits compared to words (`r exp1__words_prop_hit_mean`), `r exp1__pics_words_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a PSE; a significant main effect of stimuli-format `r exp1__apa_anova_prop_FA$full$StimuliFormat` showed that words (`r exp1__words_prop_FA_mean`) produced more FAs than pictures (`r exp1__pics_prop_FA_mean`), `r exp1__pics_words_FA_ttest`. Overall recognition performance (a measure that takes into account both hits and FAs) offered further support for a PSE in the current paradigm; a significant main effect of stimuli-format `r exp1__apa_anova_prop_recog$full$StimuliFormat` showed pictures (`r exp1__pics_prop_recog_mean`) produced better overall recognition on the task compared to words (`r exp1__words_prop_recog_mean`), `r exp1__pics_words_recog_ttest`. No interaction effects were found between stimuli format and response option for any of these variables. Taken together, the findings demonstrate a replication of the PSE in the current memory paradigm, and suggest stimuli format plays a key role in memorability that is independent of response option.
 
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
@@ -1218,8 +1248,10 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
       exp1__rfg_rfr_c_ttest <- exp1__apa_anova_prop_c_resp_option_pairwise$full$RFG_RF_Ratings %>% 
           str_remove("^[\\w\\W]+?(?=\\$t)")      
 ```
- 
-The ANOVA on *d'* scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_dprime$full$StimuliFormat`, whereby pictures (`r exp1__pics_prop_dprime_mean`) facilitated better discrimination between hits and FAs than words (`r exp1__words_prop_dprime_mean`), `r exp1__pics_words_dprime_ttest`. *C* scores, however, showed no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, suggesting response biases were similarly conservative/liberal between pictures and words. Neither the ANOVA on *d'* or *C* scores showed any significant interaction effects. 
+&nbsp;
+&nbsp;
+
+The ANOVA on *d'* scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_dprime$full$StimuliFormat`, whereby pictures (`r exp1__pics_prop_dprime_mean`) facilitated better discrimination between hits and FAs than words (`r exp1__words_prop_dprime_mean`), `r exp1__pics_words_dprime_ttest`. *C* scores, however, showed no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, suggesting response biases were similarly conservative between pictures and words. Neither the ANOVA on *d'* or *C* scores showed any significant interaction effects. 
 
 #### Response option availability
 In the ANOVAs on the proportion of hits, FAs, and overall recognition, the main effects of response option were also examined to determine whether the availability of different response option had an impact on task performance. There was a significant main effect of response option only in the ANOVA for the proportion of hits, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits than the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`. The ANOVAs on the proportion of FAs and overall recognition showed no significant main effect of response option. This finding might indicate fewer available response options facilitate accurate recognition compared to more response options - however, the absence of a main effect for overall recognition (a measure that takes into account both hits and FAs) suggests this interpretation should be treated with caution. 
@@ -2964,7 +2996,7 @@ exp2__age_gender_table %>%
 To meet our YA requirements, all participants were required to be aged between 18-59 years (actual obtained range: `r min(exp2__participants$age, na.rm = TRUE)`-`r max(exp2__participants$age, na.rm = TRUE)` years). As our experiment involved typing the English labels for a range of image stimuli, subjects were also asked whether English was their first language; all but one participant indicated that English was indeed their first language (`r exp2__n_eng_lang`%). 
 
 #### Materials
-A pool of 136 line drawings [@rossion2004] - depicting common, everyday objects - were brought forward from the previous experiment. These items (along with their written-word labels) would form two of the unique stimuli formats that would be used in future recognition experiments (words and drawings). In this study, the drawings from @rossion2004 were simply used as a reference in the photograph matching process. Corresponding photographs were obtained online with the aim of depicting the everyday objects in a similar manner to the drawings. The inherent subjectivity involved in this process may have led to images that were not a reliable ‘match’ to the concepts they were selected to depict (for example, the photograph chosen to depict the concept “bottle” may inadvertently provoke the majority of participants to give the label "wine", thus indicating that this particular photograph fails to accurately depict the intended concept). To address this issue, and ensure all photographs more objectively depict the same concepts as the line drawings, three different photograph variations were found for each everyday object, with the aim of taking the best ‘match’ forward. An emphasis was placed on variety across these variations, with the aim of obtaining at least one photograph that very closely resembled the line-drawn depiction, and another offering a more modern depiction. Some items were substituted due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs that depicted the same everyday objects as the line drawings (see Appendix B for the full list of image references). 
+A pool of 136 line drawings [@rossion2004] - depicting common, everyday objects - were brought forward from the previous experiment. These items (along with their written-word labels) would form two of the unique stimuli formats that would be used in future recognition experiments (words and drawings). In this study, the drawings from @rossion2004 were simply used as a reference in the photograph matching process. Corresponding photographs were obtained online with the aim of depicting the everyday objects in a similar manner to the drawings. The inherent subjectivity involved in this process may have led to images that were not a reliable ‘match’ to the concepts they were selected to depict (for example, the photograph chosen to depict the concept “bottle” may inadvertently provoke the majority of participants to give the label "wine", thus indicating that this particular photograph fails to accurately depict the intended concept). To address this issue, and ensure all photographs more objectively depict the same concepts as the line drawings, three different photograph variations were found for each everyday object, with the aim of taking the best ‘match’ forward. An emphasis was placed on variety across these variations, with the aim of obtaining at least one photograph that very closely resembled the line-drawn depiction, and another offering a more modern depiction. Some items were substituted due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs that depicted the same everyday objects as the line drawings (see `r appendix_numbering("exp2.full.norms", display = "cite")` for the full list of image references). 
 
 The matching process produced a total of 408 unique photographs. All were imported into Adobe Photoshop (20.0.04 Release), where the background was removed to isolate the object of interest from other potentially distracting visual details. This was completed manually using the magnetic lasso and polygonal lasso tools (edges were either feathered by 1px or left un-feathered). The orientation of isolated objects was adjusted to ensure they matched as closely as possible with their line-drawn counterpart (e.g. all photograph variations of the item 'boot' were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
 
@@ -3028,10 +3060,10 @@ The naming responses for each photograph item were manually assessed for spellin
 
 There were instances where subjects provided a sensible and correctly spelled English word, but that were clearly typos when examined against the photograph they were in response to (e.g. "dock" for a photograph depicting a duck, "frock" for a frog, and "beer" for a "bear", etc). The most ambiguous spelling error to correct was "bittle", which was provided by more than one participant and to more than one item; separate inspections of the photographs participants were responding to made this easy to correct though, with one participant clearly meaning to respond "bottle", whilst the other meant to respond "beetle". Though participants were instructed to only give a single label for each item, some multiple word responses were found (without spaces) during the spell checking process. On such occasions, a judgement was made regarding whether multiple words were retained, or whether the response could be shortened into a single word. A general rule was applied whereby if the other words provided additional information, they were retained (e.g."maledear" - presumably "male deer" - was kept as a two-word answer). Multiple word responses were generally shortened into a single word when the intended label for the item was clearly present, and no information was lost in the process (e.g. "haircomb" was shortened to the intended answer "comb"). It is noted that there was some inherent subjectivity in this process, though as such items were not common among straightforward responses, their overall effects are estimated to be negligible.
 
-Finally, there were some responses that were changed to "no" as they were clearly intended to signify that the responder did not know the name of the item shown; the experiment instructed participants to type "no" in these instances, though the labels "none" and "idk" (common abbreviation for "I don't know) were provided instead. There was also a single response that was manually changed to "no", as the provided label was a single letter and thus entirely unclear what the intended answer should be (see Appendix A for full list of manipulations to naming responses). This process yielded data that could be used to determine which photograph variation best matched the intended concepts (e.g. 100% of participants labelled the object “bottle”, indicating a perfect match), and which did not (e.g. only 50% of participants labelled the item “bottle”, whilst the other 50% gave the label “wine”, indicating a poor match). Photographs showing poor agreement across participant-generated labels, or those where the majority of labels differed from the intended concept, could be replaced with the variation demonstrating the most accurate depiction. 
+Finally, there were some responses that were changed to "no" as they were clearly intended to signify that the responder did not know the name of the item shown; the experiment instructed participants to type "no" in these instances, though the labels "none" and "idk" (common abbreviation for "I don't know) were provided instead. There was also a single response that was manually changed to "no", as the provided label was a single letter and thus entirely unclear what the intended answer should be (see `r appendix_numbering("spelling.corrections", display = "cite")` for full list of manipulations to naming responses). This process yielded data that could be used to determine which photograph variation best matched the intended concepts (e.g. 100% of participants labelled the object “bottle”, indicating a perfect match), and which did not (e.g. only 50% of participants labelled the item “bottle”, whilst the other 50% gave the label “wine”, indicating a poor match). Photographs showing poor agreement across participant-generated labels, or those where the majority of labels differed from the intended concept, could be replaced with the variation demonstrating the most accurate depiction. 
 
 #### Analysis preperation
-A number of variables were calculated prior to analysis. For familiarity, visual complexity, colour diagnosticity, and mental imagery agreement, mean ratings were calculated for each (see Appendix B). Mean reaction times (RTs) were also calculated for each photograph / response variable, including naming responses. For naming responses, accuracy was defined as the proportion of subjects reporting the correct/intended label for any given item (e.g. 80% of subjects correctly labelled a photograph of the moon as "moon"). Percentage agreement was also calculated (i.e. the proportion of subjects providing the most frequent name, regardless of whether it matched the correct/intended label) in order to compute *H* values for each item. The *H* statistic also reflects naming agreement, but it takes into account the total number of unique labels given for an item. This is especially useful for comparing similar items, as it captures information not provided by simple agreement proportions. For instance, if the first variation of the photo moon ('moon-1') demonstrated 90% naming agreement among subjects, and the second variation ('moon-2') also demonstrated 90% naming agreement, it would appear as if both versions offer the same level of agreement among participants. However, 'moon-1' may have received a total of 2 unique names (e.g. moon, planet), while 'moon-2' received a total of 4 unique names (e.g. moon, planet, earth, comet). *H* values utilise this useful information to determine which item shows the best naming agreement (in other words, the item with the least number of unique names). The original formula by @snodgrass1980 was used to calculate *H* values:
+A number of variables were calculated prior to analysis. For familiarity, visual complexity, colour diagnosticity, and mental imagery agreement, mean ratings were calculated for each (see `r appendix_numbering("exp2.full.norms", display = "cite")`). Mean reaction times (RTs) were also calculated for each photograph / response variable, including naming responses. For naming responses, accuracy was defined as the proportion of subjects reporting the correct/intended label for any given item (e.g. 80% of subjects correctly labelled a photograph of the moon as "moon"). Percentage agreement was also calculated (i.e. the proportion of subjects providing the most frequent name, regardless of whether it matched the correct/intended label) in order to compute *H* values for each item. The *H* statistic also reflects naming agreement, but it takes into account the total number of unique labels given for an item. This is especially useful for comparing similar items, as it captures information not provided by simple agreement proportions. For instance, if the first variation of the photo moon ('moon-1') demonstrated 90% naming agreement among subjects, and the second variation ('moon-2') also demonstrated 90% naming agreement, it would appear as if both versions offer the same level of agreement among participants. However, 'moon-1' may have received a total of 2 unique names (e.g. moon, planet), while 'moon-2' received a total of 4 unique names (e.g. moon, planet, earth, comet). *H* values utilise this useful information to determine which item shows the best naming agreement (in other words, the item with the least number of unique names). The original formula by @snodgrass1980 was used to calculate *H* values:
 
 ```{r echo=FALSE, out.width = '50%', fig.pos="h"}
     knitr::include_graphics("./resources/images/h_calculation.png")
@@ -3152,7 +3184,7 @@ A *H* value of 0 indicates perfect naming agreement (all subjects responded with
 ```
 
 ### Results
-Summary statistics (mean and *SD*) for each of the measured variables are shown in `r table_numbering("exp2__colvsgreynorms--tablecaption", display = "cite")`. Data for the grey and colour photographs are presented alongside previously obtained normative values for a number of other stimuli formats (all obtained from @rossion2004, who published revised norms for @snodgrass1980's (S&V) original line drawings, as well as their own re-drawn versions that contained shading and texture detail). The data from previous studies were not used in any statistical analyses. To examine whether the grey and colour photographs from the current study demonstrated any differences, a series of independent samples t-tests were run on each variable, as well as their corresponding reaction times (excluding scores of colour diagnosticity, which were obtained only in response to the colour items and thus cannot be compared). Mean (and *SD*) values for all x816 unique photograph items are presented in Appendix B. 
+Summary statistics (mean and *SD*) for each of the measured variables are shown in `r table_numbering("exp2__colvsgreynorms--tablecaption", display = "cite")`. Data for the grey and colour photographs are presented alongside previously obtained normative values for a number of other stimuli formats (all obtained from @rossion2004, who published revised norms for @snodgrass1980's (S&V) original line drawings, as well as their own re-drawn versions that contained shading and texture detail). The data from previous studies were not used in any statistical analyses. To examine whether the grey and colour photographs from the current study demonstrated any differences, a series of independent samples t-tests were run on each variable, as well as their corresponding reaction times (excluding scores of colour diagnosticity, which were obtained only in response to the colour items and thus cannot be compared). Mean (and *SD*) values for all x816 unique photograph items are presented in  `r appendix_numbering("exp2.full.norms", display = "cite")`. 
 
 ```{r , echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp2__colvsgreynorms--tablecaption",
@@ -8879,14 +8911,17 @@ While there was no significant main effect of distinctiveness in the ANOVA on th
   
 \newpage
 \blandscape
-# Appendices
-## Appendix A
-```{r exp2__spelling-corrections--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
-    table_numbering(name = "exp2__spelling-corrections--tablecaption", 
-                     caption = "Spelling corrections / manipulations to naming responses.")
-```
 
-```{r include=FALSE, cache=TRUE}
+
+
+
+# Appendices
+## `r appendix_numbering("d.prime.calc")`
+
+
+\newpage
+## `r appendix_numbering("spelling.corrections")`
+```{r echo=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
     exp2__spelling_corrections <- read_csv("./resources/experiment_2/spelling_corrections.csv") %>%
         mutate(Response = replace_na(Response, "")) %>%
         mutate(Correction = replace_na(Correction, "")) %>%
@@ -8896,9 +8931,6 @@ While there was no significant main effect of distinctiveness in the ANOVA on th
         mutate(Correction_2 = replace_na(Correction_2, "")) %>%
         rename("Response " = "Response_1", "Correction " = "Correction_1",
                "Response  " = "Response_2", "Correction  " = "Correction_2")
-```
-`r table_numbering("exp2__spelling-corrections--tablecaption")`
-```{r spelling-corrections-table, echo=FALSE, cache=TRUE}
     exp2__spelling_corrections %>%
         kable("latex", longtable = T, booktabs = T) %>%
         kable_styling(bootstrap_options = c("striped","condensed")) %>%
@@ -8911,15 +8943,10 @@ While there was no significant main effect of distinctiveness in the ANOVA on th
         column_spec(6, width = "2.6cm")
 ```
 \elandscape
-\newpage
-## Appendix B
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-    table_numbering(name = "exp2__full-norms-data--tablecaption", 
-                     caption = "Normative data for all photograph items.")
-```
 
-`r table_numbering("exp2__full-norms-data--tablecaption")`
-```{r norms-table, include=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
+\newpage
+## `r appendix_numbering("exp2.full.norms")`
+```{r echo=FALSE, cache=TRUE, warnings=FALSE}
     exp2__norms <- exp2__raw_data %>%
         ungroup() %>% 
         select(stim, familiarity, visualcomplexity, colourdiagnosticity, mentalimageryagreement) %>%
@@ -8956,9 +8983,7 @@ While there was no significant main effect of distinctiveness in the ANOVA on th
         rename("Colour Diagnosticity" = "Colour_Diagnosticity")
 #image_refs <- read_csv("./resources/experiment_2/image_refs.csv")
 #        norms2 <- (bind_cols(norms, image_refs))
-```
 
-```{r echo=FALSE, cache=TRUE}
     exp2__norms %>%
         kable("latex", longtable = T, booktabs = T) %>%
         kable_styling(bootstrap_options = c("striped","condensed")) %>%
