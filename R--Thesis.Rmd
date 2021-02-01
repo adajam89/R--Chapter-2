@@ -98,10 +98,10 @@ Modified Old/New (6-point rating scale):
 
 Both used the same picture stim - colour photos.
 
+###----------------------------------------
 
 \newpage
 # Chapter 2
-## Experiment 1 (Proof of concept)
 Research into recognition memory often focuses on methods of estimating recollection and familiarity - two independent processes theorised to support the successful recognition of previously encountered material [@yonelinas2002; schoemaker2014]. Recollection typically refers to the conscious recall of encoded information, whereby successful recognition is facilitated by contextual details surrounding a previous encounter with the stimulus. Familiarity, on the other hand, is a term used to describe recognition that occurs via an unsubstantiated feeling of having encountered the stimulus previously (despite the inability to retrieve any associated contextual information). While this dual-process model of recognition [@paivio1971; @paivio1972]
 
 there remains a disagreement throughout the literature regarding the extent to which recollection and
@@ -181,6 +181,7 @@ Illustrative
 
 The objective of Experiment 1 was to establish baseline PSE response patterns in younger adults, and examine how PSE magnitudes differ across the three response option conditions (RF-judgements / RFB-judgements / RF-Ratings). A 2x3 mixed factorial design was utilised, consisting of a within-subjects variable of stimulus type (words / greyscale line-drawings) and a between-subjects variable of response option (RF-judgements / RFBG-judgements / RF-Ratings).
 
+## Experiment: Proof of concept. 
 
 ```{r experiment-1-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
@@ -875,13 +876,13 @@ The objective of Experiment 1 was to establish baseline PSE response patterns in
   exp1__n_eng_lang <- round((exp1__n_eng_lang / nrow(exp1__full_data)) * 100, 2)
 ```
 
-## Method
+### Method
 
 ```{r, echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp1--age-gender--tablecaption", 
                      caption = "Gender and age (*SD*) of the current sample.")
 ```
-### Participants
+#### Participants
 A total of `r nrow(exp1__full_data)` subjects completed the online experiment (*M* = `r exp1__age_gender_table[5,3]` years (*SD* = `r exp1__age.sd` years; see `r table_numbering("exp1--age-gender--tablecaption", display = "cite")` for a comprehensive breakdown of the sample). The current sample was primarily comprised of participants sourced from voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (`r exp1__n_prolific`%)
 (where they received payment at the rate of £5/hr) and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits; `r exp1__n_rpt`%). A small number of participants were also recruited from social media and other online sources (Facebook: `r exp1__n_facebook`%; Call For Participants: `r exp1__n_c4p`%; Reddit: `r exp1__n_reddit`%; unspecified: `r exp1__n_unspecified`%). To meet our YA requirements, all participants were required to be between 18-59 years of age (actual range: `r exp1__min.age`-`r exp1__max.age`). As our experiment involved English word stimuli, we also asked subjects whether English was their first language; the vast majority (`r exp1__n_eng_lang`%) reported that English was indeed their first language.  
 
@@ -895,7 +896,7 @@ A total of `r nrow(exp1__full_data)` subjects completed the online experiment (*
         row_spec(5, bold = TRUE)
 ```
 
-### Materials
+#### Materials
 
 Pictures of innocuous, everyday objects (e.g. clock, rabbit, shoe) and their written-word names were sourced from @rossion2004. The picture stimuli consisted of greyscale line-drawn illustrations (containing shaded surface details), while word stimuli were simply the written-word names of each object presented in a clear Sans-serif typeface. A total of 136 unique items were randomly selected for use in the current experiment, from a pool consisting of: i) items with a written name between 4 and 7 letters; ii) items that would conjure the same intended concept in our UK-based sample (e.g. "ladder" should be universally understood across English-speaking cultures, whereas "wagon" or "pants" can be interpreted differently); iii) items that were not unknown, or uncommon, for our sample (e.g. Americanisms such as "wrench"); and iv) non-specific concepts such as "bird" (since the pool of items already contained specific exemplars of birds, such as "peacock" and "penguin"). As the current experiment involved memorising word stimuli, a single item ("glass") was also removed as it shared too many letters with another item ("glasses"). Selected items were split into four separate lists for counterbalancing purposes; using the normative data provided by @rossion2004, each list was balanced based on the length of the written name, as well as scores of naming accuracy, familiarity, visual complexity, and mental imagery agreement. A series of independent samples t-tests confirmed that no list was significantly different from another on any of the aforementioned criteria. 
 
@@ -917,18 +918,18 @@ The picture stimuli utilised in the current study were created in Photoshop CC (
 &nbsp;
 
 
-### Design
+#### Design
 The current study utilised a mixed design, with a 2-level within-subjects factor of stimuli format (words, drawings), and a 3-level between-subjects factor of response option (RFG, RFBG, RF-Ratings). Subjects completed two study blocks - one consisting only of word stimuli, the other consisting only of picture stimuli - before completing a single mixed format recognition test, where previously studied word and picture items were randomly shown among new, unseen items. Subjects passed through 2 levels of blocked randomization during the experiment (equally sized, predetermined blocks). First, subjects were randomly allocated into one of two study block orders, which determined the order in which they were presented with the picture and word blocks at study. Second, subjects were assigned into one of three possible recognition tests (identical aside from the response options available when categorising recognition experiences): 1) RFG: “Recollection”, “Familiarity”,“Guessing”; 2) RFBG: “Recollection”, “Familiarity”, “Guessing”, “Both”, or 3) RF-Ratings: two independent 0-5 rating scales to separately report the contribution of Recollection and Familiarity. These randomisation processes were completed automatically by the experiment software using balanced methods.
 
-### Procedure
+#### Procedure
 Data collection was conducted via the online survey platform \href{https://www.qualtrics.com/uk/}{Qualtrics}. Subjects initially completed an encoding block, where target words and pictures were randomly presented one-at-a-time on-screen. To ensure attention was directed to the presented stimuli, participants were required to respond to a simple encoding question toward each item at study: "Is this a picture or a word?". This question allowed for the assessment of performance during the study block (to determine whether participants were concentrating at study), whilst also avoiding potential levels-of-processing effects that can accompany deeper encoding judgements (e.g. pleasantness ratings). The encoding phase was followed by a short distractor task comprised of 20 multiplication sums. Finally, subjects completed the recognition task, where they were again randomly presented with word and picture items one-at-a-time on-screen, and were required to respond "Old"/"New" depending on whether they recognised the item or not. "Old" responses were succeeded by a follow-up screen whereby participants were asked to report their recognition experience for the current item; the response options available during this follow-up response page differed between participants, with random allocation into either the RFG, RFBG, or RF-Ratings response option conditions. Recollection and Familiarity were defined identically across conditions, and the only deviations in instructions were: i) to define the additional "Both" response option in the RFBG condition; and ii) explain how certain responses should be reported in the RF-Ratings condition (i.e. subjects could still report a "Guess" in this condition by providing a 0-rating on both of the scales). 
 
-### Data processing
+#### Data processing
 Measured variables included the total number of hits and FAs, and the total number of hits and FAs assigned to each of the available response options (RFG, RFBG, and RF Ratings). In order to create a common dependant variable, proportions were calculated from these variables in slightly different ways depending on the response option group. In the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, similar proportions were calculated by separately adding the proportion of Both responses to the proportion of R and proportion of F responses. In the RF-Ratings group, proportions of R and F were calculated based on the number of responses scoring +>3; a response was classified R when subjects rated between 3-5 on the "Recollection" scale (regardless of the Familiarity rating), and a response was classified F when subjects rated between 3-5 on the "Familiarity" scale (regardless of the Recollection rating). The scales therefore allowed for pure R responses (R=3-5 + F=0-2), pure F responses (F=3-5 + R=0-2), both responses (R=3-5 + F=3-5) and Guessing responses (R=0 + F=0). Additional DVs included: i) d’ (d-prime, a signal detection measure of sensitivity); ii) c-value (a measure of response bias); iii) overall accuracy (hits / (hits + FAs)); iv) reaction times for all responses.
 
 A series of exclusion criteria were defined before analysis. First, subjects were to be excluded from analysis if they showed poor performance during the encoding task; the relative ease of reporting whether each item was shown as a word or picture prompted a performance cut off of 90% accuracy. This would allow for some accidental clicks, though subjects scoring less than 90% were to be excluded on the assumption they did not dedicate their full attention to the task. Second, subjects would be considered outliers (and thus excluded from analysis) if they presented extreme z-scores of +/- 3 for total hits, total FAs, or overall recognition (hits minus FAs). However, no subjects were found to meet any of these criteria. 
 
-## Results
+### Results
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
         RFG__totals <- exp1__full_data %>% 
             filter (ResponseOption == "RFG") %>% 
@@ -975,7 +976,7 @@ A series of exclusion criteria were defined before analysis. First, subjects wer
                       by stimuli-format and response-option condition.", display = FALSE)
 ```
 
-### Picture superiority
+#### Picture superiority
 To establish baseline picture superiority effects in the current paradigm, and assess whether there were any interactions with the availability of different response options at test, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on a number of outcome variables. Namely, the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp1__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between pictures and words, ANOVAs were also run on the signal detection measures of *d'* (measure of sensitivity) and *c* (decision criterion). Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
 
 `r table_numbering("exp1__hit.FA.recog.table")`
@@ -1220,7 +1221,7 @@ The ANOVA on the proportion of hits demonstrated a significant main effect of st
  
 The ANOVA on *d'* scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_dprime$full$StimuliFormat`, whereby pictures (`r exp1__pics_prop_dprime_mean`) facilitated better discrimination between hits and FAs than words (`r exp1__words_prop_dprime_mean`), `r exp1__pics_words_dprime_ttest`. *C* scores, however, showed no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, suggesting response biases were similarly conservative/liberal between pictures and words. Neither the ANOVA on *d'* or *C* scores showed any significant interaction effects. 
 
-### Response option availability
+#### Response option availability
 In the ANOVAs on the proportion of hits, FAs, and overall recognition, the main effects of response option were also examined to determine whether the availability of different response option had an impact on task performance. There was a significant main effect of response option only in the ANOVA for the proportion of hits, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits than the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`. The ANOVAs on the proportion of FAs and overall recognition showed no significant main effect of response option. This finding might indicate fewer available response options facilitate accurate recognition compared to more response options - however, the absence of a main effect for overall recognition (a measure that takes into account both hits and FAs) suggests this interpretation should be treated with caution. 
 
 Discriminability (*d'*) between hits and FAs showed no significant main effect of response option, however, scores of response bias (*C*) did, `r exp1__apa_anova_prop_c$full$ResponseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative response bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`. This indicates subjects were less likely to respond "Old" when they were required to provide more detailed follow-up recognition judgements (i.e., using separate 0-5 scales for R and F), compared to simply selecting one of three options (R,F, or G). 
@@ -1874,7 +1875,7 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
               plot.margin = margin(20, 20, 24, 30))
 ```          
           
-### Recollection and Familiarity
+#### Recollection and Familiarity
 To determine whether stimuli format, or the availability of different response options, had an impact on rates of R and F, additional a series of 2 (words, pictures) x 3 (RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the mean proportion of hits and FAs assigned R, F, and G. 
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
@@ -1936,7 +1937,7 @@ Finally, the ANOVA on Guessing FAs also showed no significant main effect of sti
 `r figure_numbering("exp1__prop_FA_caption")`
 
 
-## Discussion
+### Discussion
 
 How do colour (vs. greyscale), and illustrations (vs. photographs) 
 differentially affect responses across RFG, RFBG, and RF Ratings?
@@ -1955,15 +1956,13 @@ are consistent with the notion that pictures offer an enhanced memorability in c
 When they were correctly recognised, words were not recognised in the the same context-rich nature as pictures, evidenced by a higher proportion of F responses. 
 Despite 'Guessing' responses being permissable in any of the response-option groups, it seems when two independent rating scales were required participants were less likely to report a "Guess". This could be because those in the RF-Ratings condition selected "New" more often than "Old" when they were having a complete guess, or instead, subjects might have opted to report lower levels of Recollection and Familiarity ratings (i.e., 1-3), rather than responding 0 on both scales. 
 
+######----------------------------------------
 
 \newpage
 # Chapter 3
-## Experiment 2 (Image Norms)
-## Development of a new set of standardised photographic stimuli
-
 The Picture Superiority Effect (PSE) is a highly robust and replicable phenomenon. In recognition memory paradigms, the PSE has been shown to manifest as both increased recollection and familiarity [@rajaram1993; @rajaram1996; @dewhurst1994; @wagner1997; @yonelinas2002]. The effect is present in children, adolescents and healthy older adults [@whitehouse2006], though perhaps more striking is the fact that patients with Alzheimer’s disease or those presenting early isolated memory impairments, known as amnestic mild cognitive impairment (aMCI), also show memorial benefits toward pictures [@ally2012]. This is supported by ERP studies demonstrating comparable enhancements to recollection-based ERP components between healthy older and aMCI groups when pictures, rather than words, are utilised [@ally2009]. There is debate within the literature attempting to characterise the nature of memory deficits in aMCI, whereby despite general agreement that recollection processes are impaired in such individuals, findings show great inconsistency with regard to familiarity [@algarabel2012; @belleville2011; @pitarque2016; @wolk2013; @wolk2011]. The PSE may have been largely overlooked as an area for further research in an effort to help settle this debate, despite recent reviews highlighting methodological differences across studies as the potential source of inconsistent findings [@koen2014; @migo2012; @schoemaker2014]. The level at which stimuli distinctiveness impacts successful recognition is currently unclear, and there is little consistency across studies with regard to what is considered a 'picture'.
 
-Many experiments utilise illustrations for their picture stimuli [@vandermeulen2012; @westerberg2013; @wolk2011], with a standardised set of items published by @snodgrass1980 among the most-used illustrated picture stimuli within the domain of memory research [@weldon1987; @weldon1989; @wagner1997; @mcbride2002; @martins2006; @whitehouse2006; @hockley2008; @schmitter-edgecombe2009; @vandermeulen2012; @deason2015; @wammes2016; @bermudez-margaretto2018; @meade2019]. The set consists of 260 line drawings of common, everyday objects (in black ink), along with their written word counterpart (e.g. "shoe"). Items were selected on the basis of exemplifying a number of semantic categories, including animals, furniture, fruit, etc., and a range of normative data was collected for each item; indices of naming agreement, mental imagery agreement, visual complexity, and familiarity were all recorded for each drawing. The normative data for the @snodgrass1980 items has been continually revisited, with a number of studies gathering culturally-appropriate norms (e.g. in Spanish [@sanfeliu1996], Chinese [@yoon2004], and Russian [@tsaparina2011], and additional testing of the relationship between reaction time and naming agreement [@szekely2003]. There are multiple theories of object recognition; the recognition-by-components theory proposed by @biederman1987 identifies shape as the most crucial factor for successful recognition, in which case, the object outlines found in the set by @snodgrass1980 should be more than sufficient for experimental cognitive research. Other theories, however, posit that surface details such as colour and texture are just as crucial in forming object representations [@tanaka2001; @tarr1998]. The wide-ranging applicability of the @snodgrass1980 items throughout a number of cognitive disciplines has led to a more recent revision of the items by @rossion2004. This revision consists of the exact same objects, digitally re-drawn to include surface textures and shading. Additionally, this set provides greyscale and colour versions for all items, as opposed to the greyscale-only items found in the @snodgrass1980 set (see `r figure_numbering("stim-examples--caption", display = "cite")` for example items contained in the @snodgrass1980 and @rossion2004 stimuli sets). The @rossion2004 revision now appears to be favoured over the original @snodgrass1980 set among many cognitive researchers [@stenberg2006; @wolk2008; @rollins2018, @ensor2019], almost certainly attributable to the increased detail and ability to choose whether colour is a necessary condition.
+Many experiments utilise illustrations for their picture stimuli [@vandermeulen2012; @westerberg2013; @wolk2011], with a standardised set of items published by @snodgrass1980 among the most-used illustrated picture stimuli within the domain of memory research [@weldon1987; @weldon1989; @wagner1997; @mcbride2002; @martins2006; @whitehouse2006; @hockley2008; @schmitter-edgecombe2009; @vandermeulen2012; @deason2015; @wammes2016; @bermudez-margaretto2018; @meade2019]. The set consists of 260 line drawings of common, everyday objects (in black ink), along with their written word counterpart (e.g. "shoe"). Items were selected on the basis of exemplifying a number of semantic categories, including animals, furniture, fruit, etc., and a range of normative data was collected for each item; indices of naming agreement, mental imagery agreement, visual complexity, and familiarity were all recorded for each drawing. The normative data for the @snodgrass1980 items has been continually revisited, with a number of studies gathering culturally-appropriate norms (e.g. in Spanish [@sanfeliu1996], Chinese [@yoon2004], and Russian [@tsaparina2011], and additional testing of the relationship between reaction time and naming agreement [@szekely2003]. There are multiple theories of object recognition; the recognition-by-components theory proposed by @biederman1987 identifies shape as the most crucial factor for successful recognition, in which case, the object outlines found in the set by @snodgrass1980 should be more than sufficient for experimental cognitive research. Other theories, however, posit that surface details such as colour and texture are just as crucial in forming object representations [@tanaka2001; @tarr1998]. The wide-ranging applicability of the @snodgrass1980 items throughout a number of cognitive disciplines has led to a more recent revision of the items by @rossion2004. This revision consists of the exact same objects, digitally re-drawn to include surface textures and shading. Additionally, this set provides greyscale and colour versions for all items, as opposed to the greyscale-only items found in the @snodgrass1980 set (see `r figure_numbering("stim-examples--caption", display = "cite")` for example items contained in the @snodgrass1980 and @rossion2004 stimuli sets). The @rossion2004 revision now appears to be favoured over the original @snodgrass1980 set among many cognitive researchers [@stenberg2006; @wolk2008; @rollins2018, @ensor2019b], almost certainly attributable to the increased detail and ability to choose whether colour is a necessary condition.
 
 Despite their widespread use, line drawings have been criticised for their relative simplicity and lack of realism (@viggiano2004), with many researchers favouring the use of photographs as experimental stimuli [@embree2012; @pitarque2016; @troyer2012; @troyer2016; @wang2013a]. Photographs of faces are especially useful in research examining emotion and face recognition [@bowen2019; @cui2016; @herzmann2018; @barba1997], though a number of common-object photograph sets have also emerged as ecological alternatives to line-drawn items [@viggiano2004; @moreno-martinez2012; @adlington2009]. While the published sets of photographs are undoubtedly useful in a range of cognitive domains, they do not allow us to specifically examine stimuli format as a factor on its own, as the concepts depicted are unique to the set they derive from. In order to make such comparisons, and ensure any differences in performance (e.g. recognition memory ability) are indeed attributable to stimuli format, the objects depicted must be consistent across stimuli formats. The current study presents a new set of photographic stimuli that extend the set of words and drawings provided by @rossion2004, wherein each of the concepts depicted has been carefully matched across formats. These new stimuli will be utilised throughout a number of planned recognition experiments that aim to systematically compare measures of recognition against different ‘levels’ of stimuli. The curation of a new set of photographs - carefully matched to other formats - allows investigation into whether picture superiority magnitudes are mediated by the format pictures are presented in. The inconsistent use of different formats across studies has previously made it difficult to reconcile effects obtained in response to drawings with those obtained in response to photographs - an inherent problem when concepts are not matched across format. Normative data for the new set of photographs is also presented, allowing others who also wish to use our photograph stimuli to filter items by measures of naming agreement, mental imagery agreement, familiarity, visual complexity, and colour diagnosticity. 
 
@@ -1984,6 +1983,7 @@ Despite their widespread use, line drawings have been criticised for their relat
 &nbsp;
 &nbsp;
 
+## Experiment: Development of a new set of standardised photographic stimuli
 ```{r experiment-2-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 #################################################################################################################
 ##    EXPERIMENT 2:                                                                                            ##
@@ -2908,12 +2908,12 @@ Despite their widespread use, line drawings have been criticised for their relat
 ```
 
 \newpage
-## Method
+### Method
 ```{r exp2--age-gender--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp2--age-gender--tablecaption", 
                      caption = "Gender and age (*SD*) of the current sample.")
 ```
-### Participants
+#### Participants
 A total of `r nrow(exp2__participants)` subjects completed the online experiment (see `r table_numbering("exp2--age-gender--tablecaption", display = "cite")` for a breakdown of the gender and age of the sample). This sample size provided 20 data points for each of the five response types, while also ensuring the experiment did not last too long for participants (approx 25-mins). Subjects were recruited from both voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (where they received payment at the rate of £5/hr), and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits).
 
 ```{r exp2-age-gend-table-data, include=FALSE, cache=TRUE}
@@ -2963,7 +2963,7 @@ exp2__age_gender_table %>%
 
 To meet our YA requirements, all participants were required to be aged between 18-59 years (actual obtained range: `r min(exp2__participants$age, na.rm = TRUE)`-`r max(exp2__participants$age, na.rm = TRUE)` years). As our experiment involved typing the English labels for a range of image stimuli, subjects were also asked whether English was their first language; all but one participant indicated that English was indeed their first language (`r exp2__n_eng_lang`%). 
 
-### Materials
+#### Materials
 A pool of 136 line drawings [@rossion2004] - depicting common, everyday objects - were brought forward from the previous experiment. These items (along with their written-word labels) would form two of the unique stimuli formats that would be used in future recognition experiments (words and drawings). In this study, the drawings from @rossion2004 were simply used as a reference in the photograph matching process. Corresponding photographs were obtained online with the aim of depicting the everyday objects in a similar manner to the drawings. The inherent subjectivity involved in this process may have led to images that were not a reliable ‘match’ to the concepts they were selected to depict (for example, the photograph chosen to depict the concept “bottle” may inadvertently provoke the majority of participants to give the label "wine", thus indicating that this particular photograph fails to accurately depict the intended concept). To address this issue, and ensure all photographs more objectively depict the same concepts as the line drawings, three different photograph variations were found for each everyday object, with the aim of taking the best ‘match’ forward. An emphasis was placed on variety across these variations, with the aim of obtaining at least one photograph that very closely resembled the line-drawn depiction, and another offering a more modern depiction. Some items were substituted due to unique restrictions that meant they could not easily be translated into photographic format (for example, the shapes "arrow" and "star" can not be represented similarly as photographs). Photo stimuli were obtained by searching open-source, copyright-free image websites (e.g. \href{https://unsplash.com/}{Unsplash}; \href{https://www.pexels.com/}{Pexels}) for photographs that depicted the same everyday objects as the line drawings (see Appendix B for the full list of image references). 
 
 The matching process produced a total of 408 unique photographs. All were imported into Adobe Photoshop (20.0.04 Release), where the background was removed to isolate the object of interest from other potentially distracting visual details. This was completed manually using the magnetic lasso and polygonal lasso tools (edges were either feathered by 1px or left un-feathered). The orientation of isolated objects was adjusted to ensure they matched as closely as possible with their line-drawn counterpart (e.g. all photograph variations of the item 'boot' were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
@@ -2993,10 +2993,10 @@ All photographs were exported from Photoshop in “.png” format in both their 
 &nbsp;
 &nbsp;
 
-### Design
+#### Design
 This was a descriptive study; a mix of qualitative and quantitative data were gathered. Across three blocks, all participants provided five types of response toward photograph stimuli: i) Naming; ii) Familiarity; iii) Visual Complexity, iv) Colour Diagnosticity; and v) Mental Imagery Agreement. Excluding the Naming task (consisting of a typed single-word answer), all responses were provided on a 5-point ordinal scale. Within participants, the maximum number of response type provided for any one item was two; Naming and Familiarity responses were paired in one block, Visual Complexity and Colour Diagnosticity responses were paired in another, and Mental Imagery Agreement responses were always presented in a separate block. The order of these three blocks was counterbalanced across participants. Toward each individual photograph, participants made only one or two types of response before moving on to the next item, and the same items were not repeated to participants. For each photograph, the five types of required data were obtained by counterbalancing between participants (e.g. for the first variation of the "cat" photograph, the Naming and Familiarity data was obtained from one participant, the Visual Complexity and Colour Diagnosticity data was obtained from another, and the Mental Imagery Agreement data was obtained from another). 
 
-### Procedure
+#### Procedure
 Data collection was conducted via two online platforms; i) \href{https://www.qualtrics.com/uk/}{Qualtrics} - a survey platform that allowed for straightforward collection of consent, demographics, and computer compatibility data, and ii) \href{https://pavlovia.org/}{Pavlovia} - an open-source experiment hosting platform for studies programmed in Javascript [@peirce2019].
 
 In the Naming and Familiarity block, participants were first asked "What is the name of the item depicted?". Subjects were instructed to name each photograph as briefly and unambiguously as possible, with one name only, and respond by typing their answer into the response box. If they did not know the name of an item, or had a tip-of-the-tongue experience, participants were instructed to type "no" for their answer (the term "don't know" was avoided so as not to encourage subjects to deviate from single-word responses, as instructed).Following the naming judgement, with the same photograph still present on-screen, participants were next asked "How familiar is the item depicted?". Subjects were instructed to judge each photo according to how usual or unusual the item was in their realm of experience; specifically, familiarity was defined as "the degree to which you come in contact with, or think about, the concept", and encouraged participants to rate the concept itself rather than the particular way it was currently shown. Participants selected one value from the 5-point scale, ranging from very unfamiliar (1) to very familiar (5), and were encouraged to use the full range of the scale throughout the set of photographs. 
@@ -3023,14 +3023,14 @@ All responses were self-paced; the timing was only controlled during the study/i
 &nbsp;
 &nbsp;
 
-### Data processing
+#### Data processing
 The naming responses for each photograph item were manually assessed for spelling and typing errors. Automatic spell checking software was avoided in an effort to avoid inadvertently introducing unique names that were not actually given by participants. The vast majority of errors were unambiguous and easy to correct (e.g. "anker" = "anchor", "peguin" = "penguin", "ssnowman" = "snowman"), or consisted of transforming plural words to singular (or vice versa, depending on the form of the intended label - e.g. "sock" to "socks"). Some responses were a little more ambiguous, and necessitated comparison to the photographs they were in response to for additional clarity (e.g. a photograph depicting a plug that would fit into North American electrical sockets was labelled as "usplug" - given the nature of our UK-based sample, it's likely the subject was responding: "U.S. (i.e. United States) plug". 
 
 There were instances where subjects provided a sensible and correctly spelled English word, but that were clearly typos when examined against the photograph they were in response to (e.g. "dock" for a photograph depicting a duck, "frock" for a frog, and "beer" for a "bear", etc). The most ambiguous spelling error to correct was "bittle", which was provided by more than one participant and to more than one item; separate inspections of the photographs participants were responding to made this easy to correct though, with one participant clearly meaning to respond "bottle", whilst the other meant to respond "beetle". Though participants were instructed to only give a single label for each item, some multiple word responses were found (without spaces) during the spell checking process. On such occasions, a judgement was made regarding whether multiple words were retained, or whether the response could be shortened into a single word. A general rule was applied whereby if the other words provided additional information, they were retained (e.g."maledear" - presumably "male deer" - was kept as a two-word answer). Multiple word responses were generally shortened into a single word when the intended label for the item was clearly present, and no information was lost in the process (e.g. "haircomb" was shortened to the intended answer "comb"). It is noted that there was some inherent subjectivity in this process, though as such items were not common among straightforward responses, their overall effects are estimated to be negligible.
 
 Finally, there were some responses that were changed to "no" as they were clearly intended to signify that the responder did not know the name of the item shown; the experiment instructed participants to type "no" in these instances, though the labels "none" and "idk" (common abbreviation for "I don't know) were provided instead. There was also a single response that was manually changed to "no", as the provided label was a single letter and thus entirely unclear what the intended answer should be (see Appendix A for full list of manipulations to naming responses). This process yielded data that could be used to determine which photograph variation best matched the intended concepts (e.g. 100% of participants labelled the object “bottle”, indicating a perfect match), and which did not (e.g. only 50% of participants labelled the item “bottle”, whilst the other 50% gave the label “wine”, indicating a poor match). Photographs showing poor agreement across participant-generated labels, or those where the majority of labels differed from the intended concept, could be replaced with the variation demonstrating the most accurate depiction. 
 
-### Analysis preperation
+#### Analysis preperation
 A number of variables were calculated prior to analysis. For familiarity, visual complexity, colour diagnosticity, and mental imagery agreement, mean ratings were calculated for each (see Appendix B). Mean reaction times (RTs) were also calculated for each photograph / response variable, including naming responses. For naming responses, accuracy was defined as the proportion of subjects reporting the correct/intended label for any given item (e.g. 80% of subjects correctly labelled a photograph of the moon as "moon"). Percentage agreement was also calculated (i.e. the proportion of subjects providing the most frequent name, regardless of whether it matched the correct/intended label) in order to compute *H* values for each item. The *H* statistic also reflects naming agreement, but it takes into account the total number of unique labels given for an item. This is especially useful for comparing similar items, as it captures information not provided by simple agreement proportions. For instance, if the first variation of the photo moon ('moon-1') demonstrated 90% naming agreement among subjects, and the second variation ('moon-2') also demonstrated 90% naming agreement, it would appear as if both versions offer the same level of agreement among participants. However, 'moon-1' may have received a total of 2 unique names (e.g. moon, planet), while 'moon-2' received a total of 4 unique names (e.g. moon, planet, earth, comet). *H* values utilise this useful information to determine which item shows the best naming agreement (in other words, the item with the least number of unique names). The original formula by @snodgrass1980 was used to calculate *H* values:
 
 ```{r echo=FALSE, out.width = '50%', fig.pos="h"}
@@ -3151,7 +3151,7 @@ A *H* value of 0 indicates perfect naming agreement (all subjects responded with
     
 ```
 
-## Results
+### Results
 Summary statistics (mean and *SD*) for each of the measured variables are shown in `r table_numbering("exp2__colvsgreynorms--tablecaption", display = "cite")`. Data for the grey and colour photographs are presented alongside previously obtained normative values for a number of other stimuli formats (all obtained from @rossion2004, who published revised norms for @snodgrass1980's (S&V) original line drawings, as well as their own re-drawn versions that contained shading and texture detail). The data from previous studies were not used in any statistical analyses. To examine whether the grey and colour photographs from the current study demonstrated any differences, a series of independent samples t-tests were run on each variable, as well as their corresponding reaction times (excluding scores of colour diagnosticity, which were obtained only in response to the colour items and thus cannot be compared). Mean (and *SD*) values for all x816 unique photograph items are presented in Appendix B. 
 
 ```{r , echo=FALSE, results = FALSE, cache=FALSE}
@@ -3160,7 +3160,7 @@ Summary statistics (mean and *SD*) for each of the measured variables are shown 
                                 in bold (SDs are shown in parentheses).")
 ```
 
-### *Naming*
+#### *Naming*
 Naming accuracy was very high for all photographs (*M* = `r exp2__mean_naming_acc`), indicating that overall, the selected items closely depicted the intended concepts. Compared with the other stimuli formats, there appears to be a steady increase in accuracy as items become more distinctive (see `r table_numbering("exp2__colvsgreynorms--tablecaption", display = "cite")`). Accuracy rates did not differ between the grey (*M* = `r exp2__mean_grey_naming_acc`) and colour (*M* = `r exp2__mean_col_naming_acc`) versions of the photographs [`r exp2__apa__naming_acc__ttest$statistic`].
 
 *H* values were also low across all items (*M* = `r exp2__mean_H_stat`), showing that subjects generally agreed on how the items should be named. Similar to naming accuracy, naming agreement also appears to steadily increase as items become more distinctive (as indicated by decreasing H values - see `r table_numbering("exp2__colvsgreynorms--tablecaption", display = "cite")`. While @rossion2004 observed significantly better naming agreement for their colour - rather than greyscale - items, this pattern did not reach significance with the current set of photographs; *H* values did not differ between the grey (*M* = `r exp2__mean_grey_H_stat`) and colour (*M* = `r exp2__mean_col_H_stat`) photographs [`r exp2__apa__H_stat__ttest$statistic`].
@@ -3181,16 +3181,16 @@ A mean reaction time (RT) of (`r exp2__mean_naming_rt`s) was observed for naming
       row_spec(c(2,4,7,10,13,16), italic = TRUE)
 ```
 
-### *Mental imagery agreement*
+#### *Mental imagery agreement*
 Scores of mental imagery agreement were moderate across all items (*M* = `r exp2__mean_men_ima`). While no colour differences were previously observed between stimuli formats, the grey (*M* = `r exp2__mean_grey_men_ima`) photographs in the current study showed significantly lower mental imagery agreement scores than the colour (*M* = `r exp2__mean_col_men_ima`) items [`r exp2__apa__exp2__men_ima__ttest$statistic`]. Comparisons with previous normative data also highlight how the grey photographs exhibited uniquely poorer mental imagery agreement scores than any of the other stimuli formats (see `r table_numbering("exp2__colvsgreynorms--tablecaption", display = "cite")`). RTs between the grey (*M* = `r exp2__mean_grey_men_ima_rt`) and colour (*M* = `r exp2__mean_col_men_ima_rt`) items did not significantly differ [`r exp2__apa__exp2__men_ima_rt__ttest$statistic`].
 
-### *Familiarity*
+#### *Familiarity*
 Familiarity scores were high overall (*M* = `r exp2__mean_fam`), and like previous findings, there was no difference between the grey (*M* = `r exp2__mean_grey_fam`) and colour (*M* = `r exp2__mean_col_fam`) items [`r exp2__apa__fam__ttest$statistic`]. However, familiarity scores for the current set of photographs were higher than those obtained for any of the other stimuli formats, and while there previously appeared to be a decline in familiarity as stimuli become more distinctive (from line drawings, to grey shaded, to colour shaded), such a pattern was not evident with the current photographs (see `r table_numbering("exp2__colvsgreynorms--tablecaption", display = "cite")`). RTs between the grey (*M* = `r exp2__mean_grey_fam_rt`) and colour (*M* = `r exp2__mean_col_fam_rt`) items did not significantly differ [`r exp2__apa__fam_rt__ttest$statistic`].
 
-### *Visual complexity*
+#### *Visual complexity*
 Visual complexity ratings were moderate across all of the items (*M* = `r exp2__mean_viscom_rt`). Colour (*M* = `r exp2__mean_col_vis_com`) photographs showed significantly higher scores of visual complexity than grey (*M* = `r exp2__mean_grey_vis_com`) photographs [`r exp2__apa__vis_com__ttest$statistic`]. This finding is further demonstrated when compared to the scores from the other stimuli formats (see `r table_numbering("exp2__colvsgreynorms--tablecaption", display = "cite")`); where grey photographs show comparable levels of visual complexity, the colour photographs show higher scores than all of the other formats. There was no significant difference between the RTs of grey (*M* = `r exp2__mean_grey_viscom_rt`) and colour (*M* = `r exp2__mean_col_viscom_rt`) items [`r exp2__apa__vis_com_rt__ttest$statistic`].
 
-### *Selection of final items*
+#### *Selection of final items*
 For each concept represented in the photographs, one variation (e.g. shoe-1, shoe-2, or shoe-3) was selected for inclusion in a final list of stimuli that would be taken forward into subsequent recognition experiments. The normative naming data was assessed to establish which version best matched the existing line-drawn depictions of the concepts [@rossion2004]. Naming was favoured over all of the other variables as, if an item was found to primarily convey a different concept than was intended during the naming task (e.g. if a photograph of the fruit 'orange' was labelled 'grapefruit' by the majority of subjects), then it could not be sufficiently compared to its line-drawn (and written-word) counterpart during recognition studies. 
 
 At least 20 unique naming responses were collected for each of the 816 photographs (408 grey items and 408 colour items). The proportion of 'correct' responses (i.e. names that were congruent with the intended concept) and the proportion of 'don't know' responses were calculated for each item. Photographs were excluded if they:
@@ -3203,8 +3203,8 @@ At least 20 unique naming responses were collected for each of the 816 photograp
 
 Next, the proportion of correct responses were compared between grey and colour photographs in order to identify items showing the lowest difference. In order to manipulate colour in later recognition experiments, it was important to select items where naming was congruent across colour/grey items; in other words, it would be difficult to attribute particular recognition response patterns to the addition of colour (if a difference were found) when the grey version could not be identified (or encoded) similarly. Variations exhibiting the least difference between colour and grey items (for the proportion of correct responses) were taken forward, while the rest were excluded. In a number of instances, multiple variations for the same object had the same 'difference' score. For example, all three variations of the item "balloon" exhibited perfect naming agreement, irrespective of whether they were presented in colour or grey (and thus "balloon1", "balloon2", and "balloon3" had a difference score of 0). For items where more than 1 variation remained, manual rankings were obtained from two of the researchers to determine which variation best depicted the intended concept. For each item, the researchers independently studied the remaining variations and provided a rank of which they thought was best (1) to worst (2 or 3, depending on the number of variations that remained). The ratings from both researchers were collated; items where there was agreement as to which variation best depicted the intended concept were selected for inclusion in the final stimuli list. For all the items where there was disagreement between the researchers rankings, one of the variations was simply selected at random.
 
-## Discussion
-### *The role of colour*
+### Discussion
+#### *The role of colour*
 For naming responses (accuracy, agreement [*H*], and RTs), no differences were observed between the grey and colour photographs. Such a result was expected for accuracy and agreement scores; the addition/absence of colour should not alter how participants identify (and thus label) items, except in rare instances whereby a lack of colour may lead to the misidentification of an object (e.g. incorrectly labelling a greyscale photograph of an orange as 'grapefruit'). The data indicates, however, that this was not common, with the grey set of photographs exhibiting equally high levels of naming accuracy as the colour photographs. The absence of RT differences between the colour and greyscale sets was not expected for naming responses. It is reasonable to assume that colour photographs - with an additional layer of contextual information compared to grey items - would be identified (and therefore named) quicker than grey photographs (e.g. a colour photograph of an orange should avoid the potential ambiguity that might accompany a greyscale depiction, which could initially be confused for another type of fruit). Indeed, @rossion2004 demonstrated RTs consistent with this hypotheses, with colour drawings showing significantly quicker RTs than grey items. The lack of difference in the current data could be attributable to ceiling effects, whereby all photographs were sufficiently unambiguous, and were quickly identified irrespective of whether they were presented in greyscale or colour. Examination of the other naming data, showing similarly high levels of accuracy and agreement across grey and colour, supports this notion.
 
 Scores of mental imagery agreement produced particularly interesting results between the grey and colour items. 
@@ -3212,11 +3212,10 @@ Grey photographs exhibited a significantly poorer match with subjects imagined p
 
 There were no colour differences in familiarity scores. This result was expected - participants were asked to rate the degree to which they came in contact with, or think about, the concept itself rather than the particular depiction shown, and there is no apparent reason why colour should influence such ratings. Visual complexity, on the other hand, where participants were required to directly rate the amount of detail in the picture, did show an expected difference. Colour photographs were rated as significantly more visually complex than grey items, presumably due to their additional layer of contextual information. When compared to the previous data obtained for drawings, the greyscale photographs showed comparable levels of visual complexity, while the colour photographs showed higher levels than any of the other formats. It is unclear why the photographs of the current study showed colour differences, when grey and colour drawings did not differ, though it may tie in with the hypotheses proposed to explain the mental imagery agreement data. Subjects may apply stricter internal criteria when rating stimuli that are perceived as being closer to how they would be experienced in real life - when viewing a colour photograph of a rabbit, it is difficult to see how we could make the item any more visually complex than it already is (at least in a 2D medium). It's probable that subjects notice the absence of colour when viewing the greyscale items, since they depict the items in a way that they are not usually seen, and thus determine that these items could be made more complex if they were shown in colour (and so give lower visual complexity ratings as a result). 
 
-### *Establishing a new set of stimuli*
+#### *Establishing a new set of stimuli*
 The objective of the current study was to establish a new set of ecological photograph stimuli to be taken forward into subsequent recognition memory experiments. Matching items with previously established drawings (and words) would allow for the effects of stimuli-format on recognition response patterns to be directly examined. A range of normative data was collected for 816 unique photograph items. These items may prove useful for a range of cognitive researchers that wish to utilise a set of high quality and realistic object stimuli, especially given the flexibility of items that can be filtered based on colour, naming agreement, familiarity, etc. For the needs of the current body of research, the naming data was used to determine which photographs best matched the intended concepts among a number of possible variations. This allowed for the systematic comparison of recognition memory performance toward three distinct stimuli formats (words, drawings, and photographs) in the following study, in an effort to establish how stimuli of varying perceptual distinctiveness may affect recognition response patterns. Such comparisons might help to reconcile the inconsistencies present across recognition memory research, such as those attempted to determine whether familiarity processes are preserved in those with amnestic Mild Cognitive Impairment (aMCI).
 
-## Experiment 3 (Grey drawings + photos)
-## Effect of stimuli format and response option on recognition memory judgements.
+## Experiment: Effect of stimuli format (greyscale) and response option on recognition memory judgements.
 
 For the recognition memory experiment, everyday objects were presented in three stimuli formats: i) words (written in simple, black ink); ii) drawings (shaded line-drawn illustrations); and iii) photographs (detail rich exemplars of the real world object). @rossion2004 demonstrated that naming agreement could be improved by adding surface texture and shading to the original @snodgrass1980 items; however, it is unclear how manipulations to distinctiveness actually impact performance in recognition memory paradigms. As well as general inconsistencies regarding the type of stimuli used in recognition memory experiments, there is also much variability in the response options available to participants when reporting their recognition, for example: Remember/Know (@lombardi2016), Recollection/Familiarity (???), or Low/Med/High confidence (???). In the current experiment, the availability of different response options when reporting recognition will also be examined by randomly assigning participants into a paradigm with three response options (Recollection / Familiarity / Guessing) or four response options (RFG + Both). 
 
@@ -4424,8 +4423,8 @@ ggplot(exp3and4__reaction_times, aes(rt)) +
                      caption = "Gender and age (*SD*) of the current sample.")
 ```
 
-## Method
-### Participants
+### Method
+#### Participants
 A total of `r nrow(exp3__grey_data)` subjects completed the online experiment (see `r table_numbering("exp3__age-gender--tablecaption", display = "cite")` for a breakdown of the gender and age of the sample). To meet our YA requirements, all participants were required to be between 18-59 years of age (actual range: `r min(exp3__grey_data$age, na.rm = TRUE)`-`r max(exp3__grey_data$age, na.rm = TRUE)`). As our experiment involved English word stimuli, we also asked subjects whether English was their first language; the vast majority (`r exp3__grey_n_eng_lang`%) reported that English was indeed their first language. Subjects were recruited from voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (`r exp3__grey_n_prolific`%), where payment at the rate of £5/hr was given, and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r exp3__grey_n_sona`%), where they received course participation credits. A small number of participants were also recruited from \href{https://psych.hanover.edu/research/exponnet.html}{Psychological Research on the Net} (`r exp3__grey_n_hanover`%). In order to detect a medium effect size of Cohen’s *f* = 0.25 with 80% power (*α* = .05, two-tailed), G*Power indicated that we would need 79 participants per group (*N* = 158) in a 3x2 mixed ANOVA.
 
 `r table_numbering("exp3__age-gender--tablecaption")`
@@ -4442,10 +4441,10 @@ A total of `r nrow(exp3__grey_data)` subjects completed the online experiment (s
       row_spec(5, bold = TRUE)
 ```
 
-### Materials
+#### Materials
 A total of 126 innocuous, everyday objects (e.g. clock, rabbit, shoe) were presented across three individual stimuli formats: written words, line drawings, and photographs. The line drawings were obtained from @rossion2004, and consisted of greyscale shaded illustrations that contained some surface details. The word stimuli were simply the written word names of the line-drawn objects, presented in a clear Sans-serif typeface. The photograph stimuli were curated in the previous study; high quality photographs were sourced to similarly depict the same everyday objects as the line drawings. All objects in the photographs were isolated from their original background, converted to greyscale, and rotated to match the orientations shown in the line-drawn items.
 
-### Design
+#### Design
 The current study utilised a mixed design, with a 3-level within-subjects factor of stimuli format (words, drawings, photographs), and a 2-level between-subjects factor of response option (RFG, RFBG). Subjects passed through 2 levels of blocked randomization (equally sized, predetermined blocks); first, participants were randomly assigned one of six possible study lists (of equal length, and containing an even number of word, drawing, and photograph items) for counterbalancing purposes. Subjects were then either assigned into a recognition test with three possible response options (RFG: “Recollection”, “Familiarity”,“Guessing”), or four possible response options (RFBG: “Recollection”, “Familiarity”, “Guessing”, “Both”). These randomisation processes were completed automatically by the experiment software using balanced methods.
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
@@ -4464,18 +4463,18 @@ The current study utilised a mixed design, with a 3-level within-subjects factor
 &nbsp;
 &nbsp;
 
-### Procedure
+#### Procedure
 Data was collected online using \href{https://gorilla.sc/}{Gorilla} - a platform for the building and hosting of online experiments. The experiment consisted of three self-paced phases: i) study phase, ii) distractor task, and iii) recognition test. In the study phase, an even mix of word, drawing, and photograph stimuli were presented one-at-a-time on the computer screen. Subjects were instructed to learn the items in preparation for a later memory test. To ensure attention was directed to the presented stimuli, subjects were required to report whether each item was shown as a word, drawing, or photograph using the computer mouse. Following the study phase, participants completed some simple multiple choice mathematical questions (e.g. 6 x 4 = ?) as a distractor. Finally, participants memory of the previously studied items was testing in the recognition task. An even mix of word, drawing, and photograph stimuli were again presented one-at-a-time on the screen; half of the test items had been shown previously in the study phase, while the other half were new (and were not on the study list). For each item, subjects were instructed to press "Old" if they believed it was an item they had studied earlier, and "New" if they had not. "Old" responses led to a follow-up judgement, where participants reported whether they had experienced recognition through "Recollection", "Familiarity", or were simply taking an uninformed "Guess". Participants that had been randomised into the RFBG test condition had a fourth option here, whereby they could report that they had experienced Recollection and Familiarity simultaneously ("Both"). Stimuli format was congruent across the study and test blocks (e.g. items presented as photos at study were also presented as photos at test). For each concept depicted across the three stimuli formats, subjects were only presented with one variation (in other words, if a subject saw a photograph for the item "shoe", they did not see the word or line-drawn version of "shoe"). 
 
-### Data processing
+#### Data processing
 Measured variables included the total number of hits and FAs, and the total number of hits and FAs assigned to each of the available response options (R/F/G and R/F/B/G). In order to create a common dependant variable, proportions were calculated from these variables slightly differently depending on the response option group. In the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, however, the proportion of Both responses was separately added to R proportions and F proportions. Additional DVs included: i) d’ (d-prime, a signal detection measure of sensitivity); ii) c-value (a measure of response bias); iii) overall accuracy (hits / (hits + FAs)); iv) reaction times for all responses.
 
 Participants were excluded from analysis if they showed poor performance during the encoding task; the relative ease of reporting whether each item was shown as a word, drawing, or photograph prompted a performance cut off of 90% accuracy. This allowed for some accidental clicks / incorrect responses toward potentially ambiguous items, though subjects scoring less than 90% were excluded on the assumption they did not dedicate their full attention to the task. Subjects with extreme z-scores were also excluded from analysis; those presenting z-scores of +/- 3 (for total hits, total FAs, or overall recognition [hits minus FAs]) were considered outliers. These criteria resulted in the exclusion of `r exp3and4__all_exclude %>% filter(col_or_grey == "grey") %>% nrow()` datasets. 
 
-## Results
+### Results
 A series of 3x2 repeated measures ANOVAs were conducted on each of the DVs using a within-subjects factor of stimuli format (photographs / drawings / words) and a between-subjects factor of response option (RFG / RFBG). Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
 
-### Overall hits, false alarms (FAs), and recognition
+#### Overall hits, false alarms (FAs), and recognition
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
 ##    Experiment 3 - Prop hits:                                                                                ##
@@ -4719,7 +4718,7 @@ photographs (`r exp3__apa__grey__anova__RECOG__photographs.mean`) produced signi
 words (`r exp3__apa__grey__anova__RECOG__words.mean`) [`r exp3__apa__grey__anova__RECOG__words.vs.photographs.pairwise`] and drawings (`r exp3__apa__grey__anova__RECOG__drawings.mean`) [`r exp3__apa__grey__anova__RECOG__drawings.vs.photographs.pairwise`]. Drawings (`r exp3__apa__grey__anova__RECOG__drawings.mean`) also produced significantly better performance accuracy compared to 
 words (`r exp3__apa__grey__anova__RECOG__words.mean`) [`r exp3__apa__grey__anova__RECOG__words.vs.drawings.pairwise`].
 
-### Discrimination (d') and response bias (c)
+#### Discrimination (d') and response bias (c)
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
 ##    Experiment 3 - d':                                                                                       ##
@@ -5263,7 +5262,7 @@ exp3__grey__PROP.REC.FAM.GUESS.HITS__figure <-
                      caption = "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response option condition.")
 ```
 
-### Hits assigned Recollection, Familiarity, and Guessing
+#### Hits assigned Recollection, Familiarity, and Guessing
 To determine the effects of stimuli format and response option on accurate recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp3__prop-rec-fam-guess-hits--figurecaption", display = "cite")`).
 
 ```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
@@ -5279,7 +5278,7 @@ exp3__grey__PROP.REC.FAM.GUESS.HITS__figure
                      proportion of hits assigned Recollection.")
 ```
 
-#### Recollection (hits)
+##### Recollection (hits)
 For hits assigned Recollection, there was a significant interaction effect [`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.main.effect`] (see `r figure_numbering("exp3__prop-rec-hits--figurecaption", display = "cite")`). Photographs (`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) resulted in more Recollection hits than both words (`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.full.pairwise$statistic$RFGWords_RFGPhotographs`] 
 and drawings (`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.full.pairwise$statistic$RFGDrawings_RFGPhotographs`] in the RFG group. Drawings (`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) also resulted in more Recollection hits than words (`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`) 
 [`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.full.pairwise$statistic$RFGWords_RFGDrawings`] in the RFG group. In the RFBG group, there was an identical pattern; photographs (`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) resulted in more Recollection hits than both words (`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.full.pairwise$statistic$RFBGWords_RFBGPhotographs`] and drawings (`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.full.pairwise$statistic$RFBGDrawings_RFBGPhotographs`]. Drawings (`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) also resulted in more Recollection hits than words (`r exp3__apa__grey__anova__PROP.REC.HITS__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) 
@@ -5299,7 +5298,7 @@ Comparisons of stimuli format across the response option groups showed no differ
                      proportion of hits assigned 'Familiarity'.")
 ```
 
-#### Familiarity (hits)
+##### Familiarity (hits)
 For hits assigned Familiarity, there was a significant interaction between stimuli format and response option [`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.main.effect`] (see `r figure_numbering("exp3__prop-fam-hits--figurecaption", display = "cite")`). Within the RFG condition, words (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`) resulted in more Familiarity hits than both drawings (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFGWords_RFGDrawings`] and photographs (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFGWords_RFGPhotographs`]. Drawings (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) also produced more Familiarity hits compared to photographs (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFGDrawings_RFGPhotographs`]. 
 
 Within the RFBG condition, words (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) still produced more Familiarity hits than photographs (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFBGWords_RFBGPhotographs`]. However, there was no difference in the number of Familiarity hits when comparing words (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) to drawings (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFBGWords_RFBGDrawings`]. Another difference from the within-RFG findings is the number of Familiarity hits for drawings (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) did not differ from photographs (`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) in the RFBG condition [`r exp3__apa__grey__anova__PROP.FAM.HITS__interaction.full.pairwise$statistic$RFBGDrawings_RFBGPhotographs`].
@@ -5313,7 +5312,7 @@ Comparisons across response option conditions showed that drawings produced sign
 ```
 `r figure_numbering("exp3__prop-fam-hits--figurecaption")`
 
-#### Guessing (hits)
+##### Guessing (hits)
 For hits assigned Guessing, there was a significant main effect of stimuli format [`r exp3__apa__grey__anova__PROP.GUESS.HITS__stim.format.main.effect`]. The interaction effect was not significant [`r exp3__apa__grey__anova__PROP.GUESS.HITS__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that words (`r exp3__apa__grey__anova__PROP.GUESS.HITS__words.mean`) produced significantly more Guessing hits than both drawings (`r exp3__apa__grey__anova__PROP.GUESS.HITS__drawings.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.HITS__words.vs.drawings.pairwise`] and photographs (`r exp3__apa__grey__anova__PROP.GUESS.HITS__photographs.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.HITS__words.vs.photographs.pairwise`]. Drawings (`r exp3__apa__grey__anova__PROP.GUESS.HITS__drawings.mean`) also produced significantly more Guessing hits compared to photographs (`r exp3__apa__grey__anova__PROP.GUESS.HITS__photographs.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.HITS__drawings.vs.photographs.pairwise`].
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -5616,7 +5615,7 @@ exp3__grey__PROP.REC.FAM.GUESS.FA__figure <-
                      format and response option condition.")
 ```
 
-### FAs assigned Recollection, Familiarity, and Guessing
+#### FAs assigned Recollection, Familiarity, and Guessing
 To determine the effects of stimuli format and response option on false alarms, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of FAs assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp3__prop-rec-fam-guess-FA--figurecaption", display = "cite")`).
 
 ```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
@@ -5624,7 +5623,7 @@ To determine the effects of stimuli format and response option on false alarms, 
 ```
 `r figure_numbering("exp3__prop-rec-fam-guess-FA--figurecaption")`
 
-#### Recollection (FAs)
+##### Recollection (FAs)
 For FAs assigned Recollection, there was no significant main effect of stimuli format [`r exp3__apa__grey__anova__PROP.REC.FA__stim.format.main.effect`] or interaction [`r exp3__apa__grey__anova__PROP.REC.FA__interaction.main.effect`].
 
 ```{r exp3__prop-fam-FA--figurecaption, echo=FALSE, results = FALSE, cache=FALSE}
@@ -5632,7 +5631,7 @@ For FAs assigned Recollection, there was no significant main effect of stimuli f
                      caption = "Interaction plot between stimuli format and response option for the mean 
                      proportion of FAs assigned 'Familiarity'.")
 ```
-#### Familiarity (FAs)
+##### Familiarity (FAs)
 For FAs assigned Familiarity, there was a significant interaction between stimuli format and response option [`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.main.effect`] (see `r figure_numbering("exp3__prop-fam-FA--figurecaption", display = "cite")`). Within the RFG condition, words (`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFG_Words %>% str_remove("\\,.*")`) resulted in more Familiarity FAs than photographs (`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFGWords_RFGPhotographs`], but not drawings (`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFGWords_RFGDrawings`]. The number of Familiarity FAs did not differ between drawings (`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFG_Drawings %>% str_remove("\\,.*")`) and photographs (`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFG_Photographs %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFGDrawings_RFGPhotographs`] in the RFG condition.
 
 Within the RFBG condition, words (`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) again produced more Familiarity FAs than photographs (`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFBGWords_RFBGPhotographs`]. However, words (`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Words %>% str_remove("\\,.*")`) also produced more Familiarity FAs than drawings(`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) [`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFBGWords_RFBGDrawings`]. As before, the number of Familiarity FAs did not differ between drawings (`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Drawings %>% str_remove("\\,.*")`) and photographs (`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.means$estimate$RFBG_Photographs %>% str_remove("\\,.*")`) in the RFBG condition [`r exp3__apa__grey__anova__PROP.FAM.FA__interaction.full.pairwise$statistic$RFBGDrawings_RFBGPhotographs`].
@@ -5646,10 +5645,10 @@ Comparisons across response option conditions showed no differences in the numbe
 ```
 `r figure_numbering("exp3__prop-fam-FA--figurecaption")`
 
-####  Guessing (FAs)
+#####  Guessing (FAs)
 For FAs assigned Guessing, there was a significant main effect of stimuli format [`r exp3__apa__grey__anova__PROP.GUESS.FA__stim.format.main.effect`]. The interaction effect was not significant [`r exp3__apa__grey__anova__PROP.GUESS.FA__interaction.main.effect`]. Post-hoc comparisons for the main effect of stimuli format showed that words (`r exp3__apa__grey__anova__PROP.GUESS.FA__words.mean`) produced significantly more Guessing FAs than both drawings (`r exp3__apa__grey__anova__PROP.GUESS.FA__drawings.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.FA__words.vs.drawings.pairwise`] and photographs (`r exp3__apa__grey__anova__PROP.GUESS.FA__photographs.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.FA__words.vs.photographs.pairwise`]. There was no difference in the proportion of FAs assigned Guessing between drawings (`r exp3__apa__grey__anova__PROP.GUESS.FA__drawings.mean`) and photographs (`r exp3__apa__grey__anova__PROP.GUESS.FA__photographs.mean`) [`r exp3__apa__grey__anova__PROP.GUESS.FA__drawings.vs.photographs.pairwise`].
 
-## Discussion
+### Discussion
 
 Across a range of performance variables, the results show a clear effect of stimuli distinctiveness. As distinctiveness increased (from words, to drawings, to photographs), this produced more hits, less FAs, better overall recognition, and better discrimination between hits / FAs. The absence of any interaction effects across these variables demonstrates that the availability of different response options (i.e. the addition of a Both option) had little impact on overall performance. RF(B)G responses for accurate recognition displayed a similar pattern; as distinctiveness increased, the number of Recollected hits also increased, while the number of Familiarity and Guessing hits decreased. The rate of both Familiarity FAs and Guessing FAs was also highest for the least distinctive stimuli (words).
 
@@ -5657,9 +5656,10 @@ Across a range of performance variables, the results show a clear effect of stim
 # photos - significantly lower c-scores (and thus a less conservative response bias) than words and drawings
 ```
 
-\newpage
+######----------------------------------------
 
-# Chapter 4 (Addition of colour)
+\newpage
+# Chapter 4 (The role of colour)
 ```{r, echo=FALSE, cache=TRUE}
   exp4__colour_age_gender <- exp4__colour_data %>%
       select(age, gender) %>%
@@ -5720,8 +5720,9 @@ Across a range of performance variables, the results show a clear effect of stim
                      caption = "Gender and age (*SD*) of the current sample.")
 ```
 
-## Method
-### Participants
+## Experiment: Effect of stimuli format (colour) and response option on recognition memory judgements.
+### Method
+#### Participants
 `r nrow(exp4__colour_data)` participants completed the experiment online (see `r table_numbering("exp4__age-gender--tablecaption", display = "cite")` for a breakdown of the age/gender of the current sample). All participants were required to be between the age of 18-59 years in order to meet our YA criteria (actual range: `r min(exp4__colour_data$age, na.rm = TRUE)`-`r max(exp4__colour_data$age, na.rm = TRUE)`). As our experiment involved written words as to-be-remembered stimuli, we also asked that subjects first language be English; the vast majority (`r exp4__colour_n_eng_lang`%) reported that English was indeed their first language. Subjects were recruited from the voluntary participation website \href{https://www.prolific.co/}{*Prolific Academic*} (`r exp4__colour_n_prolific`%), where payment at the rate of £5/hr was given, and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r exp4__colour_n_sona`%), where they received course participation credits. *G\*Power* software was used to calculate an appropriate sample size; to detect a medium effect size of Cohen’s *f* = 0.25 with 80% power (*α* = .05, two-tailed), 79 subjects were necessary per group (*N* = 158) in a 3x2 mixed ANOVA.
 
 `r table_numbering("exp4__age-gender--tablecaption")`
@@ -5738,10 +5739,10 @@ Across a range of performance variables, the results show a clear effect of stim
       row_spec(6, bold = TRUE)
 ```
 
-### Materials
+#### Materials
 Stimuli were the same as those utilised in *Experiment 3*, only with the greyscale drawings and photographs substituted for their colour versions. Items consisted of 126 innocuous, everyday objects (e.g. clock, rabbit, shoe), presented across three individual stimuli formats: written words, line drawings, and photographs. Words and line drawings were sourced from @rossion2004; the drawings consisted of shaded, colour illustrations, and the words were simply the written names of the depicted objects (these were presented in a clear Sans-serif typeface in the current experiment). A matching set of photograph stimuli were curated in *Experiment 2*; high quality photographs were sourced to similarly depict the same everyday objects as those found in the @rossion2004 line drawings. In each photograph, the object of interest was isolated from its' original background and rotated to match the orientations shown in the line-drawn items. See `r figure_numbering("exp4__stim_examples", display = "cite")` for examples of each stimuli format. 
 
-### Design
+#### Design
 A mixed 3x2 design was utilised, consisting of a within-subjects factor of stimuli format (words, drawings, photographs) and a between-subjects factor of response option (RFG, RFBG). Blocked randomisation presented participants with: 1) one of six possible study lists (equal length, with the same number of words, drawings, and photographs); 2) one of two possible recognition tests (either RFG: “Recollection”, “Familiarity”, “Guessing”), or RFBG: “Recollection”, “Familiarity”, “Guessing”, “Both”). All routes were of equal length, and subjects were randomly assigned into blocks according to balanced methods.
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
@@ -5760,16 +5761,16 @@ A mixed 3x2 design was utilised, consisting of a within-subjects factor of stimu
 &nbsp;
 &nbsp;
 
-### Procedure
+#### Procedure
 The procedure was identical to that of *Experiment 3*; data collection was conducted online using the experiment platform \href{https://gorilla.sc/}{Gorilla}. All subjects completed three self-paced phases: i) study phase, ii) distractor task, and iii) recognition test. At study, subjects were instructed to learn each of the word, drawing, and photograph items (shown at random, one-at-a-time) in preparation for a later memory test. For each item, participants were required to report whether the current format was a word, drawing, or photograph - an encoding judgement that ensured attention was directed to the to-be-remembered stimuli. Next, subjects completed some simple multiple choice mathematical questions (e.g. 6 x 4 = ?) as a distractor task. Finally, participants were presented with the recognition test; word, drawing, and photograph items were once again shown one-at-a-time at random. Half of the test items had been shown previously in the study phase, while the other half were new (not shown at study). Subjects were fist required to make an "Old" / "New" judgement, based on whether they believed they had studied the item earlier or not. While "New" judgements simply led to the next item, "Old" judgements led to a follow-up screen where participants were asked whether they had recognised the item via "Recollection", "Familiarity", or were simply taking a "Guess" that it was old. Those in the RFBG response option condition had an additional "Both" option at this stage, where they could report that they had experienced Recollection and Familiarity simultaneously. Stimuli format stayed the same across study and test (e.g. if they item "penguin" was shown as a word at study, it was also shown as a word at test), and same concepts were not repeated across the other formats within-subjects (e.g. if the item "penguin" was shown as a word, that subject would not view the drawing or photo version). 
 
-### Data processing
+#### Data processing
 The primary DVs consisted of the proportion of total hits, false alarms (FAs), and the total number of hits and FAs assigned to each of the available response options (R/F/G and R/F/B/G). Proportions of Recollection and Familiarity were calculated slightly differently depending on the response option condition; in the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, Both responses was separately added to R proportions and F proportions. Additional DVs included: i) d’ (d-prime, a signal detection measure of sensitivity); ii) c-value (a measure of response bias); iii) overall accuracy (hits / (hits + FAs)); iv) reaction times for all responses.
 
 Subjects were excluded according to a two key criteria; 1) less than 90% accuracy during the encoding task ("Is this a word, drawing, or photograph?"); 2) extreme z-scores (those presenting z-scores of +/- 3 for total hits, total FAs, or overall recognition [hits minus FAs]). A total of `r exp3and4__all_exclude %>% filter(col_or_grey == "col") %>% nrow()` participants were found to meet (at least) one of such criteria, and were thus considered outliers and excluded from analysis.
 
 \newpage
-## Results
+### Results
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
         exp4__RFG__totals <- exp4__colour_data %>% 
             filter(resp_option == "RFG") %>% 
@@ -5809,7 +5810,7 @@ Subjects were excluded according to a two key criteria; 1) less than 90% accurac
       table_numbering(name = "exp4__hit.FA.recog.table", caption = "Mean proportion of hits, FAs, and overall recognition, by stimuli format and response option condition.")
 ```
 
-### Distinctiveness
+#### Distinctiveness
 To determine whether colour photographs were more distinctive than colour drawings, and examine any potential interactions with response-option condition, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp4__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between the stimuli formats, 2x3 mixed ANOVAs were also run on the signal detection measures of *d'* (sensitivity) and *c* (decision criterion). Significant main effects were followed up with single pairwise comparisons (drawings vs. photographs).
 
 &nbsp;
@@ -6073,7 +6074,7 @@ Visual inspection of the data (`r table_numbering("exp4__hit.FA.recog.table", di
 The ANOVA on *d'*-scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp4__apa_anova_d_prime__stim_format`, whereby photographs (`r exp4__photos_d_prime_mean`) facilitated better discrimination between hits and FAs than drawings (`r exp4__drawings_d_prime_mean`), `r exp4__drawings_photo_d_prime_ttest`. *c*-scores also showed a significant main effect of stimuli-format, `r exp4__apa_anova_c__stim_format`, with drawings (`r exp4__drawings_c_mean`) showing higher *c*-scores (and thus a more conservative response bias) than photographs (`r exp4__photos_c_mean`),
 `r exp4__drawings_photo_c_ttest`. 
 
-### Response option
+#### Response option
 In each of the previously discussed ANOVAs, the role of response option was also assessed. However, there were no significant interaction effects between stimuli format and response option for any of the examined DVs: i) proportion of hits; ii) proportion of FAs; iii) overall recognition; iv) *d'*-scores; v) *c*-scores. There was only a significant main effect of response option in the ANOVA on the mean proportion of FAs, `r exp4__apa_anova_prop_FA__resp_option` (with the RFG group, `r exp4__RFG_prop_FA_mean`, showing more FAs than the RFBG group, `r exp4__RFBG_prop_FA_mean`, `r exp4__RFG_RFBG_FA_ttest`), and the ANOVA on *c*-scores, `r exp4__apa_anova_c__resp_option` (with the RFBG group, `r exp4__RFBG_c_mean`, showing a more conservative response bias than the RFG group, `r exp4__RFG_c_mean`, `r exp4__RFG_RFBG_c_ttest`)
 
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
@@ -6152,7 +6153,7 @@ In each of the previously discussed ANOVAs, the role of response option was also
             plot.margin = margin(20, 20, 24, 30))
 ```
 
-### Role of colour
+#### Role of colour
 Visual inspection of the data from *Experiment 3*, which used greyscale drawings and photographs, alongside that obtained in the current study (`r figure_numbering("exp3.and.exp4__figure", display = "cite")`) suggests the effects of colour on distinctiveness are negligible. Performance, in terms of the proportion of hits, FAs, and overall recognition accuracy, appears the same irrespective of whether greyscale or colour pictures were used. 
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
@@ -6242,10 +6243,10 @@ In turn, this further implicates the stimuli format as the
               strip.placement = "outside",
               strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
               #plot.title = element_text(vjust= 6, hjust = 0.5),
-              axis.title.x = element_text(vjust=-2, hjust = 0.5),
-              axis.title.y = element_text(vjust=4, hjust = 0.5),
-              axis.text.x = element_text(size = 6),
-              axis.text.y = element_text(size = 6),
+              axis.title.x = element_text(vjust=-2, hjust = 0.5, size = 10),
+              axis.title.y = element_text(vjust=4, hjust = 0.5, size = 10),
+              axis.text.x = element_text(size = 10),
+              axis.text.y = element_text(size = 10),
               plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
               plot.margin = margin(20, 20, 24, 30))
       exp3.vs.exp4__fam.hits <- ggplot(exp3.vs.exp4__fam.hits.data, aes(x=Hits,y=Response,fill = Response))+
@@ -6259,10 +6260,10 @@ In turn, this further implicates the stimuli format as the
               strip.placement = "outside",
               strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
               #plot.title = element_text(vjust= 6, hjust = 0.5),
-              axis.title.x = element_text(vjust=-2, hjust = 0.5),
-              axis.title.y = element_text(vjust=4, hjust = 0.5),
-              axis.text.x = element_text(size = 6),
-              axis.text.y = element_text(size = 6),
+              axis.title.x = element_text(vjust=-2, hjust = 0.5, size = 10),
+              axis.title.y = element_text(vjust=4, hjust = 0.5, size = 10),
+              axis.text.x = element_text(size = 10),
+              axis.text.y = element_text(size = 10),
               plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
               plot.margin = margin(20, 20, 24, 30))
       exp3.vs.exp4__guess.hits <- ggplot(exp3.vs.exp4__guess.hits.data, aes(x=Hits,y=Response,fill = Response))+
@@ -6275,26 +6276,83 @@ In turn, this further implicates the stimuli format as the
                 legend.position = "none",
                 strip.placement = "outside",
                 strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
-                axis.title.x = element_text(vjust=-2, hjust = 0.5),
-                axis.title.y = element_text(vjust=4, hjust = 0.5),
-                axis.text.x = element_text(size = 6),
-                axis.text.y = element_text(size = 6),
+                axis.title.x = element_text(vjust=-2, hjust = 0.5, size = 10),
+                axis.title.y = element_text(vjust=4, hjust = 0.5, size = 10),
+                axis.text.x = element_text(size = 10),
+                axis.text.y = element_text(size = 10),
                 plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
                 plot.margin = margin(20, 20, 24, 30))
+      
+        exp3.vs.exp4__rec.FAs <- ggplot(exp3.vs.exp4__rec.FAs.data, aes(x=FAs,y=Response,fill = Response))+
+          geom_density_ridges(scale = 3, alpha=0.8) + 
+          theme_ridges() +
+          scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
+          labs(x = "Recollection", y = "Stimuli format") +
+          #ggtitle("Density estimation of circumference of different types of Trees") +
+          theme(
+              legend.position = "none",
+              strip.placement = "outside",
+              strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+              #plot.title = element_text(vjust= 6, hjust = 0.5),
+              axis.title.x = element_text(vjust=-2, hjust = 0.5, size = 10),
+              axis.title.y = element_text(vjust=4, hjust = 0.5, size = 10),
+              axis.text.x = element_text(size = 10),
+              axis.text.y = element_text(size = 10),
+              plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+              plot.margin = margin(20, 20, 24, 30))
+        exp3.vs.exp4__fam.FAs <- ggplot(exp3.vs.exp4__fam.FAs.data, aes(x=FAs,y=Response,fill = Response))+
+          geom_density_ridges(scale = 3, alpha=0.8) + 
+          theme_ridges() +
+          scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
+          labs(x = "Familiarity", y = "Stimuli format") +
+          #ggtitle("Density estimation of circumference of different types of Trees") +
+          theme(
+              legend.position = "none",
+              strip.placement = "outside",
+              strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+              #plot.title = element_text(vjust= 6, hjust = 0.5),
+              axis.title.x = element_text(vjust=-2, hjust = 0.5, size = 10),
+              axis.title.y = element_text(vjust=4, hjust = 0.5, size = 10),
+              axis.text.x = element_text(size = 10),
+              axis.text.y = element_text(size = 10),
+              plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+              plot.margin = margin(20, 20, 24, 30))
+      exp3.vs.exp4__guess.FAs <- ggplot(exp3.vs.exp4__guess.FAs.data, aes(x=FAs,y=Response, 
+                                                                          colour=Response, fill = Response))+
+          geom_density_ridges(scale = 3, alpha=0.8) + 
+          theme_ridges() +
+          scale_fill_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
+          scale_colour_manual("legend", values = c("Grey" = "#CCCCCC", "Colour" = "#6A6C93")) + 
+          scale_y_discrete(expand = c(0.01, 0)) +
+          labs(x = "Guessing", y = "Stimuli format") +
+          theme(
+                legend.position = "none",
+                strip.placement = "outside",
+                strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+                axis.title.x = element_text(vjust=-2, hjust = 0.5, size = 10),
+                axis.title.y = element_blank(),
+                axis.text.x = element_text(size = 10),
+                axis.text.y = element_text(size = 10),
+                plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+                plot.margin = margin(0, 0, 24, 0))
 ```
 
-```{r fig.width=5, fig.height=6.4, echo=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
-      grid.arrange(exp3.vs.exp4__rec.hits, 
-                   exp3.vs.exp4__fam.hits, 
-                   exp3.vs.exp4__guess.hits, nrow=3, top = textGrob("Mean proportion of hits"))
+```{r, fig.height=6.4, echo=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+      grid.arrange(exp3.vs.exp4__rec.hits, exp3.vs.exp4__rec.FAs,
+                   exp3.vs.exp4__fam.hits, exp3.vs.exp4__fam.FAs,
+                   exp3.vs.exp4__guess.hits, exp3.vs.exp4__guess.FAs,
+                   ncol=2, nrow=3) #top = textGrob("Mean proportion of hits"))
 ```
 
-## Discussion
+### Discussion
 
+######----------------------------------------
 
 \newpage
-# Chapter 5 (Distinctive words)
-## Method
+# Chapter 5 (Distinctiveness of word stimuli)
+
+## Experiment: Manipulating word distinctiveness
+### Method
 All stimuli were presented as 500x500px image files at their actual size (i.e. without scaling) to ensure consistency across participants. Adobe Photoshop 2021 (22.0.0 Release) was used to create the image files, all on a plain white canvas. The Rossion and Pourtois (2004) line-drawings were sourced directly from the authors, and were trimmed of any preexisting background before being resized to fit the 500x500px canvas (for some items this was determined by a maximum width of 500px, whilst for others it was determined by a maximum height of 500px). 
 
 word stimuli 
@@ -7838,7 +7896,9 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
           exp5__apa__anova__PROP.HITS__stim.format.means$estimate$Photos %>% str_remove("\\,.*")
 ```
 
-# Proportion of total hits
+
+### Results
+#### Proportion of total hits
 ```{r, echo=FALSE, cache=FALSE}
     exp5__anova__PROP.HITS_data_summary %>%
       kable("latex", booktabs = T) %>%
@@ -7939,7 +7999,7 @@ exp5__anova__PROP.FA <- aov_car(FA ~ stim_format*distinctiveness
           exp5__apa__anova__PROP.FA__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
-# Proportion of total FA
+#### Proportion of total FA
 ```{r, echo=FALSE, cache=FALSE}
 exp5__anova__PROP.FA_data_summary %>%
   kable("latex", booktabs = T) %>%
@@ -8032,7 +8092,7 @@ exp5__anova__PROP.RECOG <- aov_car(recog ~ stim_format*distinctiveness
           exp5__apa__anova__PROP.RECOG__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
-# Overall recognition:
+#### Overall recognition:
 ```{r, echo=FALSE, cache=FALSE}
 exp5__anova__PROP.RECOG_data_summary %>%
   kable("latex", booktabs = T) %>%
@@ -8125,7 +8185,7 @@ exp5__anova__PROP.D.PRIME <- aov_car(d.prime ~ stim_format*distinctiveness
           exp5__apa__anova__PROP.D.PRIME__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
-# d' scores
+#### d' scores
 ```{r, echo=FALSE, cache=FALSE}
 exp5__anova__PROP.D.PRIME_data_summary %>%
   kable("latex", booktabs = T) %>%
@@ -8218,7 +8278,7 @@ exp5__anova__PROP.C <- aov_car(c ~ stim_format*distinctiveness
           exp5__apa__anova__PROP.C__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
-# C scores:
+#### C scores:
 ```{r, echo=FALSE, cache=FALSE}
 exp5__anova__PROP.C_data_summary %>%
   kable("latex", booktabs = T) %>%
@@ -8311,7 +8371,7 @@ exp5__anova__PROP.REC.HIT <- aov_car(rec_hit ~ stim_format*distinctiveness
           exp5__apa__anova__PROP.REC.HIT__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
-# Prop Rec hit:
+#### Prop Rec hit:
 ```{r, echo=FALSE, cache=FALSE}
 exp5__anova__PROP.REC.HIT_data_summary %>%
   kable("latex", booktabs = T) %>%
@@ -8404,7 +8464,7 @@ exp5__anova__PROP.FAM.HIT <- aov_car(fam_hit ~ stim_format*distinctiveness
           exp5__apa__anova__PROP.FAM.HIT__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
-# Prop FAM hit:
+#### Prop FAM hit:
 ```{r, echo=FALSE, cache=FALSE}
 exp5__anova__PROP.FAM.HIT_data_summary %>%
   kable("latex", booktabs = T) %>%
@@ -8497,7 +8557,7 @@ exp5__anova__PROP.GUESS.HIT <- aov_car(guess_hit ~ stim_format*distinctiveness
           exp5__apa__anova__PROP.GUESS.HIT__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
-# Prop GUESS hit:
+#### Prop GUESS hit:
 ```{r, echo=FALSE, cache=FALSE}
 exp5__anova__PROP.GUESS.HIT_data_summary %>%
   kable("latex", booktabs = T) %>%
@@ -8590,7 +8650,7 @@ exp5__anova__PROP.REC.FA <- aov_car(rec_FA ~ stim_format*distinctiveness
           exp5__apa__anova__PROP.REC.FA__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
-# Prop REC FA:
+#### Prop REC FA:
 ```{r, echo=FALSE, cache=FALSE}
 exp5__anova__PROP.REC.FA_data_summary %>%
   kable("latex", booktabs = T) %>%
@@ -8683,7 +8743,7 @@ exp5__anova__PROP.FAM.FA <- aov_car(fam_FA ~ stim_format*distinctiveness
           exp5__apa__anova__PROP.FAM.FA__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
-# Prop FAM FA:
+#### Prop FAM FA:
 ```{r, echo=FALSE, cache=FALSE}
 exp5__anova__PROP.FAM.FA_data_summary %>%
   kable("latex", booktabs = T) %>%
@@ -8779,7 +8839,7 @@ exp5__anova__PROP.GUESS.FA <- aov_car(guess_FA ~ stim_format*distinctiveness
           exp5__apa__anova__PROP.GUESS.FA__distinctiveness.means$estimate$High %>% str_remove("\\,.*")
 ```
 
-# Prop GUESS FA:
+#### Prop GUESS FA:
 ```{r, echo=FALSE, cache=FALSE}
 exp5__anova__PROP.GUESS.FA_data_summary %>%
   kable("latex", booktabs = T) %>%
@@ -8806,6 +8866,7 @@ While there was no significant main effect of distinctiveness in the ANOVA on th
 \newpage
 
 
+######----------------------------------------
 
 \newpage
 # References
