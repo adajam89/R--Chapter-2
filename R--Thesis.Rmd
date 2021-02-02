@@ -36,12 +36,30 @@ header-includes:
 ```{r load-packages, include=FALSE, cache=FALSE}
 ##  Clear environment and list required packages:
     rm(list=ls())  
-    required_packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", 
-                           "readr", "irr", "psycho", "afex", "emmeans", "janitor", "psych", "rstatix", 
-                           "ggpubr", "ggridges", "grid", "gridExtra")
-    packages_to_install <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
+    packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", "readr", "irr",
+                  "psycho", "afex", "emmeans", "janitor", "psych", "rstatix", "ggpubr", "ggridges", "grid",
+                  "gridExtra", "bibtex")
+    packages_to_install <- packages[!(packages %in% installed.packages()[,"Package"])]
     if(length(packages_to_install)) install.packages(packages_to_install)
-    invisible(suppressPackageStartupMessages(lapply(required_packages, library, character.only = TRUE)))
+    invisible(suppressPackageStartupMessages(lapply(packages, library, character.only = TRUE)))
+##  Get the packages version 
+    packages_versions <- function(p) {
+        paste(packageDescription(p)$Package, packageDescription(p)$Version, sep = " ")}
+##  Get packages references:
+    write.bib(packages, "resources/packages.bib")
+##  Merge Zotero references and packages references:
+    cat(paste("% Automatically generated", Sys.time()), "\n% DO NOT EDIT",
+        { readLines("resources/refs.bib") %>% 
+            paste(collapse = "\n") },
+        { readLines("resources/packages.bib") %>% 
+            paste(collapse = "\n") },
+        file = "resources/biblio.bib", sep = "\n")
+##  Some packages reference keys must be modified to accurately show name: 
+    #packages_keys <- packages %>% 
+    #    enframe() %>% 
+    #    mutate(value = case_when(value == "knitr" ~ "@knitr1",
+    #                       #value == "boot" ~ "@boot1",
+    #                       TRUE ~ paste0("@", value)))
 ##  Define own function (used for tidying):
     coalesce_by_column <- function(df) {return(dplyr::coalesce(!!! as.list(df)))}
 ##  Captioner:
@@ -54,6 +72,9 @@ header-includes:
     appendix_numbering("exp2.full.norms", "Normative data for all photograph items.", 
                        display = FALSE)
 ```
+
+
+citation("tidyverse")
 
 \newpage
 # Chapter 1
@@ -117,23 +138,10 @@ Experiments into recognition memory often focus on obtaining separate estimates 
 Task-dissociation methods combine two different task formats (e.g. old/new recognition paired with forced-choice recognition), and make comparisons in an attempt to isolate either recollection or familiarity [@yonelinas2002]. 
 
 
-
-
-
-
-
-
-
-
-
-
 Old/new recognition tests are thought to isolate recollection; stimuli are presented individually and participants attempt to make an accurate judgement about items they previously studied (targets) when presented amongst novel items with highly similar characteristics (lures). Forced-choice recognition paradigms, on the other hand, can rely on recollection or familiarity; discrimination between previously studied targets and highly similar lures is again required, however, recognition trials present target-lure pairs at the same time and require that participants select between them.
 
 
 The wide range of studies utilising process-estimation methods generally use one of three main procedures. First, the process-dissociation procedure [PDP; @jacoby1991] is commonly used in recognition memory to separately estimate the contributions of recollection and familiarity by assessing whether participants are able to determine when and where an item was previously studied  [yonelinas2002].
-
-
-
 
 
 
@@ -148,9 +156,13 @@ indicating familiarity. Instead of confidence, some researchers ask participants
 ratings of the amount of recollection and familiarity they have for each item they recognise on
 the memory test; here, rather than a binary Remember-Know judgement which means that the
 processes of recollection and familiarity are seen as mutually exclusive, in this method
-recollection and familiarity are viewed as processes that can occur conjointly. Finally, a forth
+recollection and familiarity are viewed as processes that can occur conjointly. 
+
+Finally, a forth
 method which uses judgements but permits participants to report that they have both recollection
 and familiarity for an item is the Recollect-Familiar-Both judgement task.
+
+
 The objective of my research is to better understand what these different methodologies can tell
 us about the underlying processes of recollection and familiarity. In order to achieve this
 objective my proposed research will compare different methodologies against each other in
@@ -171,12 +183,17 @@ The RK procedure has been criticized for its reliance on participants’ subject
 
 
 
+
+In addition to the availability of different response options, there is evidence to suggest that the format of to-be-remembered stimuli 
+
 The picture superiority effect (PSE) – stimuli presented as pictures are markedly better remembered on tests of recall or recognition than stimuli presented as words (Shepard, 1967). 
+
+The magnitude of the PSE is greater in aMCI and AD patients when compared to healthy older (Embree, Budson, & Ally, 2012). Understanding this phenomenon helps to conceptualise how memory breaks down in AD.
 
 
 Studies agree that pictures enhance recollection compared to words in healthy younger and older adults:
-
 Ally & Budson (2007); Ally et al. (2008); Curran & Doyle (2011); Rajaram (1996). 
+However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009; @ally2009a; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006]. 
 
 
 Is the magnitude of this enhanced recollection for pictures 
@@ -187,14 +204,14 @@ May further demonstrate how the different response options are affecting how peo
 
 Are familiarity ratings also better for pics across the 3 conditions? 
 
+
 Is the achieved pattern also evident in healthy older? 
+
 
 What actually is magnitude? Difference between rec for words and rec for pics taken for each group (healthy vs. MCI), and then the difference of those compared??
 
 
-The magnitude of the PSE is greater in aMCI and AD patients when compared to healthy older (Embree, Budson, & Ally, 2012). Understanding this phenomenon helps to conceptualise how memory breaks down in AD.
 
-However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009; @ally2009a; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006]. 
 
 Illustrative
 
@@ -202,7 +219,7 @@ The objective of Experiment 1 was to establish baseline PSE response patterns in
 
 
 
-To determine whether a PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and lack of signal (i.e. false alarms); in other words, *d'* offers a representation of participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743].
+To determine whether a PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and *lack* of signal (i.e. false alarms); in other words, *d'* offers a representation of participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743]. A *d'* score of 
 
 
 [see `r appendix_numbering("d.prime.calc", display = "cite")`]
@@ -210,20 +227,14 @@ To determine whether a PSE is evident in the current paradigm, *d'* (d-prime) sc
 
 
 
-
-
 Within the currently proposed paradigm, the following results are hypothesised:
-  1. A PSE will be evident, manifesting as higher overall *d'* scores for picture stimuli compared to word stimuli. 
 
-  
-  measure of sensitivity.
-  
-
-
-  
-  It is also expected that the picture stimuli will produce a higher proportion of correct hits, lower proportion of false alarms, and better overall recognition (hits - FA) than word stimuli.
-  2. 
-  
+1. A PSE will be evident, manifesting as higher overall *d'* scores for pictures compared to words.
+    + A PSE is also expected to manifest as i) a higher proportion of correct hits, ii) lower proportion of false alarms, and iii) better overall recognition.
+2. Point 2.
+3. Item 3
+    + Item 3a
+    + Item 3b
 
 ## Experiment: Proof of concept
 
@@ -970,6 +981,8 @@ Data collection was conducted via the online survey platform \href{https://www.q
 
 #### Data processing
 Measured variables included the total number of hits and FAs, and the total number of hits and FAs assigned to each of the available response options (RFG, RFBG, and RF Ratings). In order to create a common dependant variable, proportions were calculated from these variables in slightly different ways depending on the response option group. In the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, similar proportions were calculated by separately adding the proportion of Both responses to the proportion of R and proportion of F responses. In the RF-Ratings group, proportions of R and F were calculated based on the number of responses scoring +>3; a response was classified R when subjects rated between 3-5 on the "Recollection" scale (regardless of the Familiarity rating), and a response was classified F when subjects rated between 3-5 on the "Familiarity" scale (regardless of the Recollection rating). The scales therefore allowed for pure R responses (R=3-5 + F=0-2), pure F responses (F=3-5 + R=0-2), both responses (R=3-5 + F=3-5) and Guessing responses (R=0 + F=0). Additional DVs included: i) d’ (d-prime, a signal detection measure of sensitivity); ii) c-value (a measure of response bias); iii) overall accuracy (hits / (hits + FAs)); iv) reaction times for all responses.
+
+*d'* scores were calculated by `r toBibtex(citation("psycho"))`
 
 A series of exclusion criteria were defined before analysis. First, subjects were to be excluded from analysis if they showed poor performance during the encoding task; the relative ease of reporting whether each item was shown as a word or picture prompted a performance cut off of 90% accuracy. This would allow for some accidental clicks, though subjects scoring less than 90% were to be excluded on the assumption they did not dedicate their full attention to the task. Second, subjects would be considered outliers (and thus excluded from analysis) if they presented extreme z-scores of +/- 3 for total hits, total FAs, or overall recognition (hits minus FAs). However, no subjects were found to meet any of these criteria. 
 
