@@ -14,7 +14,7 @@ font-family: Helvetica Neue
 fontsize: 11pt
 geometry: left=35mm, right=20mm, top=30mm, bottom=30mm
 bibliography: resources/refs.bib
-csl: resources/apa.csl
+csl: resources/apa-6th-edition.csl
 subparagraph: yes
 header-includes:
 - \usepackage{setspace}
@@ -108,19 +108,33 @@ Both used the same picture stim - colour photos.
 
 \newpage
 # Chapter 2
-Research into recognition memory often focuses on methods of estimating recollection and familiarity - two independent processes theorised to support the successful recognition of previously encountered material [@yonelinas2002; schoemaker2014]. Recollection typically refers to the conscious recall of encoded information, whereby successful recognition is facilitated by contextual details surrounding a previous encounter with the stimulus. Familiarity, on the other hand, is a term used to describe recognition that occurs via an unsubstantiated feeling of having encountered the stimulus previously (despite the inability to retrieve any associated contextual information). While this dual-process model of recognition [@paivio1971; @paivio1972]
+Dual-process theories of recognition memory suggest that two independent processes - recollection and familiarity - are implicated in the successful recognition of previously encountered material [@paivio1971; @paivio1972]. Recollection typically refers to the conscious recall of encoded information, whereby contextual details (usually obtained by mentally re-experiencing a previous encounter with the stimulus) facilitate successful recognition. Familiarity, on the other hand, describes the unsubstantiated *feeling* of having encountered the stimulus before, and despite the inability to retrieve any associated diagnostic information, is still able to produce accurate recognition [@schoemaker2014]. While single-process accounts of recognition memory have been proposed, with the view that such experiences can be understood simply as varying levels of memory strength [@squire2007; @dunn2008], the majority of memory researchers agree that multiple processes are necessary to account for a range of dissociable experimental findings [@yonelinas2002]. Evidence from studies utilising event related potentials [ERPs; @curran2011], functional magnetic resonance imaging [fMRI; @scalici2017] and comparisons between healthy and clinical subject groups [e.g. Mild Cognitive Impairment; @belleville2011] all implicate the existence of two functionally distinct processes. Despite this consensus, disagreement persists in the literature regarding the extent to which recollection and familiarity are independent, and the methods that should be used to measure them most effectively. 
 
-there remains a disagreement throughout the literature regarding the extent to which recollection and
-familiarity are independent processes, and the methods used to measure them most effectively. 
+Experiments into recognition memory often focus on obtaining separate estimates of recollection and familiarity, with experimental paradigms generally categorized into two broad groups: task-dissociation and process-estimation methods. 
 
-Experimental paradigms are generally categorized into two broad groups: task-dissociation and process-estimation methods. Task-dissociation methods combine two different task formats (e.g. old/new recognition paired with forced-choice recognition), and make comparisons in an attempt to isolate either recollection or familiarity [yonelinas2002]. Old/new recognition tests are thought to isolate recollection; stimuli are presented individually and participants attempt to make an accurate judgement about items they previously studied (targets) when presented amongst novel items with highly similar characteristics (lures). Forced-choice recognition paradigms, on the other hand, can rely on recollection or familiarity; discrimination between previously studied targets and highly similar lures is again required, however, recognition trials present target-lure pairs at the same time and require that participants select between them.
+
+
+Task-dissociation methods combine two different task formats (e.g. old/new recognition paired with forced-choice recognition), and make comparisons in an attempt to isolate either recollection or familiarity [@yonelinas2002]. 
+
+
+
+
+
+
+
+
+
+
+
+
+Old/new recognition tests are thought to isolate recollection; stimuli are presented individually and participants attempt to make an accurate judgement about items they previously studied (targets) when presented amongst novel items with highly similar characteristics (lures). Forced-choice recognition paradigms, on the other hand, can rely on recollection or familiarity; discrimination between previously studied targets and highly similar lures is again required, however, recognition trials present target-lure pairs at the same time and require that participants select between them.
 
 
 The wide range of studies utilising process-estimation methods generally use one of three main procedures. First, the process-dissociation procedure [PDP; @jacoby1991] is commonly used in recognition memory to separately estimate the contributions of recollection and familiarity by assessing whether participants are able to determine when and where an item was previously studied  [yonelinas2002].
 
 
 
-Receiver Operating Characteristic (ROC) curves. 
+
 
 
 Third, and arguably the most commonly used process-estimation method is the Remember/Know (RK) paradigm - a task endorsed by a wide body of literature [@tulving1985; @yonelinas1995; @gardiner2000; @jacoby1991; @jacoby1997]. In a typical RK procedure, participants are generally tasked with making an ‘old’ vs. ‘new’ recognition decision, before introspectively categorising any recognised items (old) as either ‘Remember’ when recognition is accompanied by recollection, or as ‘Know’ when recognition is not accompanied by recollection, but instead is accompanied by a feeling of familiarity or certainty. Often a ‘Guess’ option is also provided to allow for uncertainty (RKG), in an effort to avoid biasing the total number of R and K responses (@belleville2011; @gardiner2008; @gardiner2002). 
@@ -211,7 +225,7 @@ Within the currently proposed paradigm, the following results are hypothesised:
   2. 
   
 
-## Experiment: Proof of concept.
+## Experiment: Proof of concept
 
 ```{r experiment-1-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################

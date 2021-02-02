@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.1.19)  1 FEB 2021 16:41
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.1.19)  2 FEB 2021 11:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -999,57 +999,61 @@ Package hyperref Warning: The anchor of a bookmark and its parent's must not
 [5] [6] [7] [8] [9]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 317.
+(hyperref)                be the same. Added a new anchor on input line 331.
 
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 323.
+(hyperref)                be the same. Added a new anchor on input line 337.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 329.
+(Font)              scaled to size 7.665pt on input line 343.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 9.0pt on input line 329.
+(Font)              scaled to size 9.0pt on input line 343.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.87921pt on input line 329.
+(Font)              scaled to size 10.87921pt on input line 343.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.2528pt on input line 329.
+(Font)              scaled to size 7.2528pt on input line 343.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.044pt on input line 329.
+(Font)              scaled to size 6.044pt on input line 343.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.88031pt on input line 329.
+(Font)              scaled to size 10.88031pt on input line 343.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.25354pt on input line 329.
+(Font)              scaled to size 7.25354pt on input line 343.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.04462pt on input line 329.
+(Font)              scaled to size 6.04462pt on input line 343.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.87811pt on input line 329.
+(Font)              scaled to size 10.87811pt on input line 343.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.25208pt on input line 329.
+(Font)              scaled to size 7.25208pt on input line 343.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.0434pt on input line 329.
+(Font)              scaled to size 6.0434pt on input line 343.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 329.
-LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/it' will be
-(Font)              scaled to size 10.95pt on input line 354.
+(Font)              scaled to size 6.0pt on input line 343.
 [10]
+LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/it' will be
+(Font)              scaled to size 10.95pt on input line 368.
+[11]
 File: ./resources/images/exp1__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp1__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 397--400
+Underfull \hbox (badness 10000) in paragraph at lines 411--414
 [][]
  []
 
-[11] [12] [13]
+[12] [13]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 496.
+(hyperref)                be the same. Added a new anchor on input line 510.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 535.
+(Font)              scaled to size 10.95pt on input line 549.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 7.665pt on input line 535.
+(Font)              scaled to size 7.665pt on input line 549.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 5.475pt on input line 535.
+(Font)              scaled to size 5.475pt on input line 549.
 [14] [15]
 File: R--Thesis_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pd
 f)
@@ -1059,7 +1063,7 @@ File: R--Thesis_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-15-1.pdf>
 [18]
-Underfull \hbox (badness 1354) in paragraph at lines 683--691
+Underfull \hbox (badness 1354) in paragraph at lines 697--705
 []\TU/Helvetica(0)/m/n/10.95 Between response-option conditions, word stimuli p
 roduced significantly fewer Guessing
  []
@@ -1076,32 +1080,32 @@ f)
 File: ./resources/images/exp2__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp2__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 858--863
+Underfull \hbox (badness 10000) in paragraph at lines 876--881
 [][]
  []
 
 [25]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 867.
+(hyperref)                be the same. Added a new anchor on input line 885.
 
 [26]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 875.
+(hyperref)                be the same. Added a new anchor on input line 893.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 9.0pt on input line 883.
+(Font)              scaled to size 9.0pt on input line 901.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 6.0pt on input line 883.
+(Font)              scaled to size 6.0pt on input line 901.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 5.0pt on input line 883.
+(Font)              scaled to size 5.0pt on input line 901.
 [27] [28]
 File: ./resources/images/photo-manipulation-examples.png Graphic file (type bmp
 )
 <./resources/images/photo-manipulation-examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 997--1000
+Underfull \hbox (badness 10000) in paragraph at lines 1015--1018
 [][]
  []
 
@@ -1109,7 +1113,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 997--1000
 File: ./resources/images/procedure.png Graphic file (type bmp)
 <./resources/images/procedure.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 1097--1100
+Underfull \hbox (badness 10000) in paragraph at lines 1115--1118
 [][]
  []
 
@@ -1119,12 +1123,12 @@ File: ./resources/images/h_calculation.png Graphic file (type bmp)
 [35]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1218.
+(hyperref)                be the same. Added a new anchor on input line 1236.
 
 [36] [37] [38] [39]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1415.
+(hyperref)                be the same. Added a new anchor on input line 1433.
 
 [40] [41] [42]
 
@@ -1138,7 +1142,7 @@ Package fancyhdr Warning: \headheight is too small (13.59999pt):
 [43]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1567.
+(hyperref)                be the same. Added a new anchor on input line 1585.
 
 
 Package fancyhdr Warning: \headheight is too small (13.59999pt): 
@@ -1152,7 +1156,7 @@ Package fancyhdr Warning: \headheight is too small (13.59999pt):
 File: ./resources/images/exp3__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp3__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 1643--1645
+Underfull \hbox (badness 10000) in paragraph at lines 1661--1663
 [][]
  []
 
@@ -1185,7 +1189,7 @@ Package fancyhdr Warning: \headheight is too small (13.59999pt):
 [47]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1719.
+(hyperref)                be the same. Added a new anchor on input line 1737.
 
 
 Package fancyhdr Warning: \headheight is too small (13.59999pt): 
@@ -1196,19 +1200,19 @@ Package fancyhdr Warning: \headheight is too small (13.59999pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
 
 [48]
-Underfull \hbox (badness 2521) in paragraph at lines 1752--1762
+Underfull \hbox (badness 2521) in paragraph at lines 1770--1780
 []\TU/Helvetica(0)/m/n/10.95 For the proportion of total hits, there was a sign
 ificant main effect of stimuli format
  []
 
 
-Underfull \hbox (badness 1189) in paragraph at lines 1763--1774
+Underfull \hbox (badness 1189) in paragraph at lines 1781--1792
 \TU/lmtt/m/n/10.95 apa__grey__anova__PROP.FA__words.mean\TU/Helvetica(0)/m/n/10
 .95 ) [] and drawings ($[] [] [][][][]$) []; drawings
  []
 
 
-Underfull \hbox (badness 1348) in paragraph at lines 1775--1785
+Underfull \hbox (badness 1348) in paragraph at lines 1793--1803
 []\TU/Helvetica(0)/m/n/10.95 For overall performance accuracy, there was a sign
 ificant main effect of stimuli format
  []
@@ -1341,17 +1345,17 @@ Package fancyhdr Warning: \headheight is too small (13.59999pt):
 [60]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2062.
+(hyperref)                be the same. Added a new anchor on input line 2080.
 
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2068.
+(hyperref)                be the same. Added a new anchor on input line 2086.
 
 [61]
 File: ./resources/images/exp4__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp4__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 2141--2143
+Underfull \hbox (badness 10000) in paragraph at lines 2159--2161
 [][]
  []
 
@@ -1384,7 +1388,7 @@ Package fancyhdr Warning: \headheight is too small (13.59999pt):
 [64]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2204.
+(hyperref)                be the same. Added a new anchor on input line 2222.
 
 
 Package fancyhdr Warning: \headheight is too small (13.59999pt): 
@@ -1430,38 +1434,38 @@ Package fancyhdr Warning: \headheight is too small (13.59999pt):
 [68]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2330.
+(hyperref)                be the same. Added a new anchor on input line 2348.
 
 
-Overfull \hbox (30.83879pt too wide) in paragraph at lines 2356--2356
+Overfull \hbox (30.83879pt too wide) in paragraph at lines 2374--2374
 []                  \TU/lmtt/m/n/10.95 vs. grey drawings       (are they as dis
 tinctive as grey drawings?)[] 
  []
 
 
-Overfull \hbox (19.3413pt too wide) in paragraph at lines 2356--2356
+Overfull \hbox (19.3413pt too wide) in paragraph at lines 2374--2374
 []                  \TU/lmtt/m/n/10.95 vs. grey photos         (are they as dis
 tinctive as grey photos?)[] 
  []
 
 
-Overfull \hbox (42.33629pt too wide) in paragraph at lines 2356--2356
+Overfull \hbox (42.33629pt too wide) in paragraph at lines 2374--2374
 []                  \TU/lmtt/m/n/10.95 vs. colour drawings     (are they as dis
 tinctive as colour drawings?)[] 
  []
 
 
-Overfull \hbox (30.83879pt too wide) in paragraph at lines 2356--2356
+Overfull \hbox (30.83879pt too wide) in paragraph at lines 2374--2374
 []                  \TU/lmtt/m/n/10.95 vs. colour photos       (are they as dis
 tinctive as colour photos?)[] 
  []
 
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2362.
+(hyperref)                be the same. Added a new anchor on input line 2380.
 
 
-Overfull \hbox (14.30156pt too wide) in paragraph at lines 2368--2368
+Overfull \hbox (14.30156pt too wide) in paragraph at lines 2386--2386
 []|\TU/Helvetica(0)/m/n/10.95 distinctiveness|  
  []
 
@@ -1469,98 +1473,98 @@ Overfull \hbox (14.30156pt too wide) in paragraph at lines 2368--2368
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (70.49706pt too wide) in paragraph at lines 2381--2392
+Overfull \hbox (70.49706pt too wide) in paragraph at lines 2399--2410
 [] []\TU/Helvetica(0)/b/n/10.95 Proportion of total hits[] [] 
  []
 
 [69] [70]
-Overfull \hbox (52.54291pt too wide) in paragraph at lines 2424--2435
+Overfull \hbox (52.54291pt too wide) in paragraph at lines 2442--2453
 [] []\TU/Helvetica(0)/b/n/10.95 Proportion of total FA[] [] 
  []
 
 [71]
-Overfull \hbox (51.56624pt too wide) in paragraph at lines 2458--2469
+Overfull \hbox (51.56624pt too wide) in paragraph at lines 2476--2487
 [] []\TU/Helvetica(0)/b/n/10.95 Overall recognition:[] [] 
  []
 
 [72] [73] [74]
-Overfull \hbox (14.44604pt too wide) in paragraph at lines 2560--2571
+Overfull \hbox (14.44604pt too wide) in paragraph at lines 2578--2589
 [] []\TU/Helvetica(0)/b/n/10.95 Prop Rec hit:[] [] 
  []
 
 [75]
-Overfull \hbox (12.19408pt too wide) in paragraph at lines 2594--2605
+Overfull \hbox (12.19408pt too wide) in paragraph at lines 2612--2623
 [] []\TU/Helvetica(0)/b/n/10.95 Prop FAM hit:[] [] 
  []
 
 [76]
-Overfull \hbox (27.41072pt too wide) in paragraph at lines 2628--2639
+Overfull \hbox (27.41072pt too wide) in paragraph at lines 2646--2657
 [] []\TU/Helvetica(0)/b/n/10.95 Prop GUESS hit:[] [] 
  []
 
 [77]
-Overfull \hbox (19.20892pt too wide) in paragraph at lines 2662--2673
+Overfull \hbox (19.20892pt too wide) in paragraph at lines 2680--2691
 [] []\TU/Helvetica(0)/b/n/10.95 Prop REC FA:[] [] 
  []
 
 [78]
-Overfull \hbox (12.8143pt too wide) in paragraph at lines 2696--2707
+Overfull \hbox (12.8143pt too wide) in paragraph at lines 2714--2725
 [] []\TU/Helvetica(0)/b/n/10.95 Prop FAM FA:[] [] 
  []
 
 [79]
-Overfull \hbox (28.33571pt too wide) in paragraph at lines 2730--2741
+Overfull \hbox (28.33571pt too wide) in paragraph at lines 2748--2759
 [] []\TU/Helvetica(0)/b/n/10.95 Prop GUESS FA:[] [] 
  []
 
 [80]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2748.
+(hyperref)                be the same. Added a new anchor on input line 2766.
 
 [81] [82] [83] [84] [85] [86] [87]
-Underfull \hbox (badness 1661) in paragraph at lines 3061--3065
+Underfull \hbox (badness 1661) in paragraph at lines 3105--3109
  \TU/Helvetica(0)/m/it/10.95 European Journal of Cognitive Psychology\TU/Helvet
 ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 , 813–847. []$[][][][][] [] [] [] [][][] [] [][][] [] [][] [] [][][][] []
  []
 
-[88] [89] [90] [91]
+[88] [89] [90] [91] [92]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/it' will be
-(Font)              scaled to size 12.0pt on input line 3235.
+(Font)              scaled to size 12.0pt on input line 3278.
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 3235.
+(hyperref)                be the same. Added a new anchor on input line 3278.
 
-[92
+[93
 
 ]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 3243.
+(Font)              scaled to size 7.0pt on input line 3286.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 3250.
-[93] [94] [95]
+(Font)              scaled to size 7.0pt on input line 3293.
+[94] [95] [96]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 3357.
+(Font)              scaled to size 8.0pt on input line 3400.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 3364.
+(Font)              scaled to size 8.0pt on input line 3407.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 8.0pt on input line 3374.
-[96
+(Font)              scaled to size 8.0pt on input line 3417.
+[97
 
-] [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108] [109] [1
-10] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120] [121] [122] [12
-3] [124] (./R--Thesis.aux)
+] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108] [109] [110] [
+111] [112] [113] [114] [115] [116] [117] [118] [119] [120] [121] [122] [123] [1
+24] [125] (./R--Thesis.aux)
 Package rerunfilecheck Info: File `R--Thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 4658665C158F6CAE02ABEC8638AFBAD5;12844.
+(rerunfilecheck)             Checksum: F33E1BD4280B66CF8C9BF7CD01B062DE;12839.
  ) 
 Here is how much of TeX's memory you used:
  18550 strings out of 479212
- 324984 string characters out of 5874241
- 849789 words of memory out of 5000000
+ 324983 string characters out of 5874241
+ 849784 words of memory out of 5000000
  37792 multiletter control sequences out of 15000+600000
  410168 words of font info for 103 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  98i,12n,125p,652b,533s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on R--Thesis.pdf (124 pages).
+Output written on R--Thesis.pdf (125 pages).
