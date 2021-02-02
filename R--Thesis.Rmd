@@ -43,17 +43,8 @@ header-includes:
       if(length(packages_to_install)) install.packages(packages_to_install)
       invisible(suppressPackageStartupMessages(lapply(packages, library, character.only = TRUE)))
 ##    Write references file for all of the packages used:
-      write.bib(packages, "resources/packages.bib")
-##    Merge Zotero references with packages references into a single file:
-      cat(paste("% Automatically generated", Sys.time()), "\n% DO NOT EDIT",
-          { readLines("resources/refs.bib") %>% 
-              paste(collapse = "\n") },
-          { readLines("resources/packages.bib") %>% 
-              paste(collapse = "\n") },
-          file = "resources/biblio.bib", sep = "\n")
-      
+      #write.bib(packages, "resources/packages.bib")
 #------------------------------------------------------------------------------------------------------------------
-
 ##  Define function to get package version: 
     packages_versions <- function(p) {
         paste(packageDescription(p)$Package, packageDescription(p)$Version, sep = " ")}    
@@ -123,25 +114,18 @@ Both used the same picture stim - colour photos.
 
 \newpage
 # Chapter 2
-Dual-process theories of recognition memory suggest that two independent processes - recollection and familiarity - are implicated in the successful recognition of previously encountered material [@paivio1971; @paivio1972]. Recollection typically refers to the conscious recall of encoded information, whereby contextual details (usually obtained by mentally re-experiencing a previous encounter with the stimulus) facilitate successful recognition. Familiarity, on the other hand, describes the unsubstantiated *feeling* of having encountered the stimulus before, and despite the inability to retrieve any associated diagnostic information, is still able to produce accurate recognition [@schoemaker2014]. While single-process accounts of recognition memory have been proposed, with the view that such experiences can be understood simply as varying levels of memory strength [@squire2007; @dunn2008], the majority of memory researchers agree that multiple processes are necessary to account for a range of dissociable experimental findings [@yonelinas2002]. Evidence from studies utilising event related potentials [ERPs; @curran2011], functional magnetic resonance imaging [fMRI; @scalici2017] and comparisons between healthy and clinical subject groups [e.g. Mild Cognitive Impairment; @belleville2011] all implicate the existence of two functionally distinct processes. Despite this consensus, disagreement persists in the literature regarding the extent to which recollection and familiarity are independent, and the methods that should be used to measure them most effectively. 
+Dual-process theories of recognition memory suggest that two independent processes - recollection and familiarity - are implicated in the successful recognition of previously encountered material [@paivio1971; @paivio1972]. Recollection typically refers to the conscious recall of encoded information, whereby contextual details (usually obtained by mentally re-experiencing a previous encounter with the stimulus) facilitate successful recognition. Familiarity, on the other hand, describes the unsubstantiated *feeling* of having encountered the stimulus before, and despite the inability to retrieve any associated diagnostic information, is still able to produce accurate recognition [@schoemaker2014]. While single-process accounts of recognition memory have been proposed, with the view that such experiences can be understood simply as varying levels of memory strength [@squire2007; @dunn2008], the majority of memory researchers agree that multiple processes are necessary to account for a range of dissociable experimental findings [@yonelinas2002]. Evidence from studies utilising event related potentials [ERPs; @curran2011], functional magnetic resonance imaging [fMRI; @scalici2017] and comparisons between healthy and clinical subject groups [e.g. Mild Cognitive Impairment; @belleville2011] all implicate the existence of two functionally distinct processes. Despite this consensus, disagreement persists in the literature regarding the extent to which recollection and familiarity are independent, and the methods that should be used to measure them most effectively [@schoemaker2014; @yonelinas2002].
 
-Experiments into recognition memory often focus on obtaining separate estimates of recollection and familiarity using process-estimation methods [@yonelinas2002]. The most commonly used process-estimation method is the Remember/Know (RK) paradigm - a task endorsed by a wide body of literature [@tulving1985; @yonelinas1995; @gardiner2000; @jacoby1991; @jacoby1997]. In a typical RK procedure, participants are generally tasked with making an ‘old’ vs. ‘new’ recognition decision for a randomised list of items, some of which were presented during an earlier encoding phase (old) while others have not been studied (new). Recognised items (those categorised as *old*) are followed-up with an introspective judgement probing 
+Experiments into recognition memory often focus on obtaining separate estimates of recollection and familiarity using process-estimation methods [@yonelinas2002]. The most commonly used process-estimation method is the Remember/Know (RK) paradigm [@tulving1985] - a task endorsed by a wide body of literature [@yonelinas1995; @gardiner2000; @jacoby1991; @jacoby1997]. In a typical RK procedure, participants are generally tasked with making ‘old’ vs. ‘new’ recognition decisions toward a randomised list of items, many of which were presented during an earlier encoding phase (targets) amongst novel items with highly similar characteristics (lures). When a subject recognises an item, and thus selects *old*, a follow-up judgement probes how they arrived at this decision (*remember* or *know*). If the subject was able to recognise the item based on recollection (i.e. conscious recall of some diagnostic information: "I remember seeing this item earlier"), they should classify their recognition as *remember*. If the subject arrived at their recognition decision due to familiarity (i.e. a feeling of certainty that the item was studied in the encoding phase, but unable to recall and details: "I know I saw this item earlier, but cannot determine why"), they should classify their recognition as *familiarity*.
 
-
-
-any recognised items (old) as either ‘Remember’ when recognition is accompanied by recollection, or as ‘Know’ when recognition is not accompanied by recollection, but instead is accompanied by a feeling of familiarity or certainty. Often a ‘Guess’ option is also provided to allow for uncertainty (RKG), in an effort to avoid biasing the total number of R and K responses (@belleville2011; @gardiner2008; @gardiner2002).
-
+The RK procedure has been modified numerous times 
+An early development was the "independence correction" - a formula aimed at 'correcting' the proportion of *know* responses; participants are generally instructed to only select *know* in the absence of recollection, and thus familiarity responses may be underestimated as a result [@schoemaker2014]. More recently, many adaptations of the RK paradigm also include a ‘Guess’ option to allow for uncertainty (*Remember/Know/Guess*), in an effort to avoid biasing the total number of R and K responses [@williams2013; @williams2014; @gardiner1998; @gardiner2002; @tunney2007; @eldridge2002; @belleville2011]. 
 
 
-
-
-Old/new recognition tests are thought to isolate recollection; stimuli are presented individually and participants attempt to make an accurate judgement about items they previously studied (targets) when presented amongst novel items with highly similar characteristics (lures). Forced-choice recognition paradigms, on the other hand, can rely on recollection or familiarity; discrimination between previously studied targets and highly similar lures is again required, however, recognition trials present target-lure pairs at the same time and require that participants select between them.
-
-The wide range of studies utilising process-estimation methods generally use one of three main procedures. First, the process-dissociation procedure [PDP; @jacoby1991] is commonly used in recognition memory to separately estimate the contributions of recollection and familiarity by assessing whether participants are able to determine when and where an item was previously studied [yonelinas2002].
+Others have allowed for the co-occurrence of recollection and familiarity processes by also provided participants with a 'Both' response option (*Remember/Know/Both* or *Recollection/Familiarity/Both*). 
 
 
 
-T 
 
 A large body of literature also reports that the RK procedure produces reliable estimations of recollection and familiarity in clinical populations [@lombardi2016]; for example, those with Mild Cognitive Impairment (MCI) typically show recollection impairments but intact familiarity compared to healthy older adults [@belleville2011; @wang2013; @lombardi2016; @hudon2009; @serra2010].
 
@@ -154,9 +138,6 @@ the memory test; here, rather than a binary Remember-Know judgement which means 
 processes of recollection and familiarity are seen as mutually exclusive, in this method
 recollection and familiarity are viewed as processes that can occur conjointly. 
 
-Finally, a forth
-method which uses judgements but permits participants to report that they have both recollection
-and familiarity for an item is the Recollect-Familiar-Both judgement task.
 
 
 The objective of my research is to better understand what these different methodologies can tell
