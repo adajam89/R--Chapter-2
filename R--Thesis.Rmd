@@ -120,11 +120,20 @@ Dual-process theories of recognition memory suggest that two independent process
 
 Experiments into recognition memory often focus on obtaining separate estimates of recollection and familiarity using process-estimation methods [@yonelinas2002]. The most commonly used process-estimation method is the Remember/Know (RK) paradigm [@tulving1985] - a task endorsed by a wide body of literature [@yonelinas1995; @gardiner2000; @jacoby1991; @jacoby1997]. In a typical RK procedure, participants are generally tasked with making ‘old’ vs. ‘new’ recognition decisions toward a randomised list of items, many of which were presented during an earlier encoding phase (targets) amongst novel items with highly similar characteristics (lures). When a subject recognises an item, and thus selects *old*, a follow-up judgement probes how they arrived at this decision (*remember* or *know*). If the subject was able to recognise the item based on recollection (i.e. conscious recall of some diagnostic information: "I remember seeing this item earlier"), they should classify their recognition as *remember*. If the subject arrived at their recognition decision due to familiarity (i.e. a feeling of certainty that the item was studied in the encoding phase, but unable to recall and details: "I know I saw this item earlier, but cannot determine why"), they should classify their recognition as *familiarity*.
 
-The RK procedure has been modified numerous times 
-An early development was the "independence correction" - a formula aimed at 'correcting' the proportion of *know* responses; participants are generally instructed to only select *know* in the absence of recollection, and thus familiarity responses may be underestimated as a result [@schoemaker2014]. More recently, many adaptations of the RK paradigm also include a ‘Guess’ option to allow for uncertainty (*Remember/Know/Guess*), in an effort to avoid biasing the total number of R and K responses [@williams2013; @williams2014; @gardiner1998; @gardiner2002; @tunney2007; @eldridge2002; @belleville2011]. 
+The RK procedure has been modified in a number of ways since its conception to adapt to evolving understandings of recollection and familiarity processes. An early development was the "independence correction" - a formula devised to 'correct' the inherent underestimation of familiarity responses within the paradigm [@yonelinas1995a]. Participants are generally only instructed to select *know* in the absence of recollection, an approach that does not allow for the co-occurrence of recollection and familiarity; proportions of *know* responses are likely to be lower than *remember* if subjects perceive to experience both processes simultaneously, since the presence of recollection necessitates that they select *remember*. @yonelinas1995a 's independence correction estimates familiarity processes by also taking into account the number of *remember* responses [@schoemaker2014].
+
+
+
+
+
+
+More recently, many adaptations of the RK paradigm also include a ‘Guess’ option to allow for uncertainty (*Remember/Know/Guess*), in an effort to avoid biasing the total number of R and K responses [@williams2013; @williams2014; @gardiner1998; @gardiner2002; @tunney2007; @eldridge2002; @belleville2011]. 
 
 
 Others have allowed for the co-occurrence of recollection and familiarity processes by also provided participants with a 'Both' response option (*Remember/Know/Both* or *Recollection/Familiarity/Both*). 
+
+
+The RK procedure has been criticized for its reliance on participants’ subjective understanding of the provided instructions [@schoemaker2014], and the introspective nature of recognition judgements make it difficult to confirm whether all participants have understood the definitions (and thus responded) similarly [@lombardi2016]. Indeed, slight differences in the experimental definition of “knowing” across studies and the way in which the subjective memory states are defined may affect the achieved pattern of results [@geraci2009; @williams2014]. 
 
 
 
@@ -160,7 +169,9 @@ perhaps they are more complicated for participants to use and perhaps they are n
 responding differ across these methodologies.
 
 
-The RK procedure has been criticized for its reliance on participants’ subjective understanding of the provided instructions [@schoemaker2014], and the introspective nature of recognition judgements make it difficult to confirm whether all participants have understood the definitions (and thus responded) similarly [@lombardi2016]. Indeed, slight differences in the experimental definition of “knowing” across studies and the way in which the subjective memory states are defined may affect the achieved pattern of results [@geraci2009; @williams2014]. 
+
+
+
 
 
 
@@ -951,7 +962,7 @@ Data collection was conducted via the online survey platform \href{https://www.q
 #### Data processing
 Measured variables included the total number of hits and FAs, and the total number of hits and FAs assigned to each of the available response options (RFG, RFBG, and RF Ratings). In order to create a common dependant variable, proportions were calculated from these variables in slightly different ways depending on the response option group. In the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, similar proportions were calculated by separately adding the proportion of Both responses to the proportion of R and proportion of F responses. In the RF-Ratings group, proportions of R and F were calculated based on the number of responses scoring +>3; a response was classified R when subjects rated between 3-5 on the "Recollection" scale (regardless of the Familiarity rating), and a response was classified F when subjects rated between 3-5 on the "Familiarity" scale (regardless of the Recollection rating). The scales therefore allowed for pure R responses (R=3-5 + F=0-2), pure F responses (F=3-5 + R=0-2), both responses (R=3-5 + F=3-5) and Guessing responses (R=0 + F=0). Additional DVs included: i) d’ (d-prime, a signal detection measure of sensitivity); ii) c-value (a measure of response bias); iii) overall accuracy (hits / (hits + FAs)); iv) reaction times for all responses.
 
-All analyses were conducted using R [@rcoreteam2020]. *d'* (sensitivity) and *c* (bias) scores were calculated using the 'psycho' package [`r str_c("v", str_remove(packages_versions("psycho"), "([^\\s]+)\\s"))`; @psycho]. *d'* scores were calculated accordingly: z-scores for correct hits minus z-scores for false alarms [@hautus1995 adjustments for extreme values were applied]. *c* scores were calculated 
+All analyses were conducted using R [@rcoreteam2020]. *d'* (sensitivity) and *c* (bias) scores were calculated using the 'psycho' package [`r str_c("v", str_remove(packages_versions("psycho"), "([^\\s]+)\\s"))`; @psycho]. *d'* scores were calculated via: z-scores for correct hits minus z-scores for false alarms [@hautus1995 adjustments for extreme values were applied]. *c* scores were calculated 
 
 A series of exclusion criteria were defined before analysis. First, subjects were to be excluded from analysis if they showed poor performance during the encoding task; the relative ease of reporting whether each item was shown as a word or picture prompted a performance cut off of 90% accuracy. This would allow for some accidental clicks, though subjects scoring less than 90% were to be excluded on the assumption they did not dedicate their full attention to the task. Second, subjects would be considered outliers (and thus excluded from analysis) if they presented extreme z-scores of +/- 3 for total hits, total FAs, or overall recognition (hits minus FAs). However, no subjects were found to meet any of these criteria. 
 
