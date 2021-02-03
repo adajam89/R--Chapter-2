@@ -22,7 +22,7 @@ header-includes:
 - \usepackage{fancyhdr}
 - \pagestyle{fancy}
 - \renewcommand{\headrulewidth}{1.5pt}
-- \setlength{\headheight}{13.59999pt}
+- \setlength{\headheight}{25.66263pt}
 - \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
 - \usepackage{pdflscape}
 - \newcommand{\blandscape}{\begin{landscape}}
@@ -42,8 +42,9 @@ header-includes:
       packages_to_install <- packages[!(packages %in% installed.packages()[,"Package"])]
       if(length(packages_to_install)) install.packages(packages_to_install)
       invisible(suppressPackageStartupMessages(lapply(packages, library, character.only = TRUE)))
-##    Write references file for all of the packages used:
+##    Write references file for all of the packages used, and general R ref:
       #write.bib(packages, "resources/packages.bib")
+      #write.bib(citation(), "resources/base.bib")
 #------------------------------------------------------------------------------------------------------------------
 ##  Define function to get package version: 
     packages_versions <- function(p) {
@@ -145,6 +146,8 @@ The objective of my research is to better understand what these different method
 us about the underlying processes of recollection and familiarity. In order to achieve this
 objective my proposed research will compare different methodologies against each other in
 different ways:
+
+
 1. How to define the response options to participants: The way the ‘Know’ response is
 defined to participants can differ across researchers – some emphasise a feeling of ‘just
 knowing’ or ‘certainty’, whereas other labs use definitions that emphasise a ‘feeling of
@@ -174,45 +177,33 @@ Ally & Budson (2007); Ally et al. (2008); Curran & Doyle (2011); Rajaram (1996).
 However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009; @ally2009a; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006]. 
 
 
-Is the magnitude of this enhanced recollection for pictures 
-consistent across RFG, RFBG, and RFRatings in healthy Ps?
 
-
-May further demonstrate how the different response options are affecting how people respond (e.g. may reveal if certain conditions over- or under-estimate recollection?)
-
-Are familiarity ratings also better for pics across the 3 conditions? 
-
-
-Is the achieved pattern also evident in healthy older? 
-
-
-What actually is magnitude? Difference between rec for words and rec for pics taken for each group (healthy vs. MCI), and then the difference of those compared??
-
-
-
-
-Illustrative
 
 The objective of Experiment 1 was to establish baseline PSE response patterns in younger adults, and examine how PSE magnitudes differ across the three response option conditions (RF-judgements / RFB-judgements / RF-Ratings). A 2x3 mixed factorial design was utilised, consisting of a within-subjects variable of stimulus type (words / greyscale line-drawings) and a between-subjects variable of response option (RF-judgements / RFBG-judgements / RF-Ratings).
 
+To determine whether a PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and signal+noise (i.e. false alarms); in other words, *d'* offers a representation of participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743]. A *d'* score of 
 
 
-To determine whether a PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and *lack* of signal (i.e. false alarms); in other words, *d'* offers a representation of participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743]. A *d'* score of 
 
 
-[see `r appendix_numbering("d.prime.calc", display = "cite")`]
 
 
+
+[see `r appendix_numbering("d.prime.calc", display = "cite")` for *d'* formula]. 
 
 
 Within the currently proposed paradigm, the following results are hypothesised:
 
 1. A PSE will be evident, manifesting as higher overall *d'* scores for pictures compared to words.
     + A PSE is also expected to manifest as i) a higher proportion of correct hits, ii) lower proportion of false alarms, and iii) better overall recognition.
-2. Point 2.
-3. Item 3
-    + Item 3a
-    + Item 3b
+2. Similar PSEs will be evident regardless of the response-options available at test (RFG, RFBG, RF-Ratings).
+    + There will be a higher proportion of hits assigned Recollection for pictures, compared to words. 
+    + There will be a higher proportion of hits assigned Familiarity for words, compared to pictures. 
+3. XXXXXX condition may over or under-estimate recollection in comparison to XXXXXX condition. 
+
+
+
+
 
 ## Experiment: Proof of concept
 
@@ -960,8 +951,7 @@ Data collection was conducted via the online survey platform \href{https://www.q
 #### Data processing
 Measured variables included the total number of hits and FAs, and the total number of hits and FAs assigned to each of the available response options (RFG, RFBG, and RF Ratings). In order to create a common dependant variable, proportions were calculated from these variables in slightly different ways depending on the response option group. In the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, similar proportions were calculated by separately adding the proportion of Both responses to the proportion of R and proportion of F responses. In the RF-Ratings group, proportions of R and F were calculated based on the number of responses scoring +>3; a response was classified R when subjects rated between 3-5 on the "Recollection" scale (regardless of the Familiarity rating), and a response was classified F when subjects rated between 3-5 on the "Familiarity" scale (regardless of the Recollection rating). The scales therefore allowed for pure R responses (R=3-5 + F=0-2), pure F responses (F=3-5 + R=0-2), both responses (R=3-5 + F=3-5) and Guessing responses (R=0 + F=0). Additional DVs included: i) d’ (d-prime, a signal detection measure of sensitivity); ii) c-value (a measure of response bias); iii) overall accuracy (hits / (hits + FAs)); iv) reaction times for all responses.
 
-*d'* and *c* scores were calculated using the 'psycho' package [`r str_c("v", str_remove(packages_versions("psycho"), "([^\\s]+)\\s"))`; @psycho]
-
+All analyses were conducted using R [@rcoreteam2020]. *d'* (sensitivity) and *c* (bias) scores were calculated using the 'psycho' package [`r str_c("v", str_remove(packages_versions("psycho"), "([^\\s]+)\\s"))`; @psycho]. *d'* scores were calculated accordingly: z-scores for correct hits minus z-scores for false alarms [@hautus1995 adjustments for extreme values were applied]. *c* scores were calculated 
 
 A series of exclusion criteria were defined before analysis. First, subjects were to be excluded from analysis if they showed poor performance during the encoding task; the relative ease of reporting whether each item was shown as a word or picture prompted a performance cut off of 90% accuracy. This would allow for some accidental clicks, though subjects scoring less than 90% were to be excluded on the assumption they did not dedicate their full attention to the task. Second, subjects would be considered outliers (and thus excluded from analysis) if they presented extreme z-scores of +/- 3 for total hits, total FAs, or overall recognition (hits minus FAs). However, no subjects were found to meet any of these criteria. 
 
@@ -4286,8 +4276,7 @@ for (i in exp3and4__participant_IDs) {
                                          n_targets = 63,                 ##  Always 63;
                                          n_distractors = 63,             ##  Always 63;
                                          adjusted = TRUE))) %>%          ##  Adjustments for extreme values 
-    ##  are made following the 
-    ##  recommendations ofHautus(1995).
+    ##  are made following the recommendations of Hautus(1995).
     mutate("id" = i)                                    ##  Add current participant ID to "exp3and4__temp_d_prime"
   exp3and4__temp <- exp3and4__temp %>% inner_join(exp3and4__temp_d_prime, by = "id")      ##  join "exp3and4__temp" and "exp3and4__temp_d_prime" by id into one                                                                 ##  df / single row.
   exp3and4__word_d_prime <- bind_rows(exp3and4__word_d_prime, exp3and4__temp) }           ##  Add this row to the "exp3and4__word_d_prime" df. Loop 

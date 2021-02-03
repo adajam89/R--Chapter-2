@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.1.19)  2 FEB 2021 16:50
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.1.19)  3 FEB 2021 11:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -922,7 +922,7 @@ LaTeX Info: Redefining \nameref on input line 94.
 * \oddsidemargin=27.31465pt
 * \evensidemargin=27.31465pt
 * \topmargin=-23.91173pt
-* \headheight=13.59999pt
+* \headheight=25.66263pt
 * \headsep=25.0pt
 * \topskip=11.0pt
 * \footskip=30.0pt
@@ -1006,65 +1006,67 @@ TU/Helvetica(0)/m/it/10.95 Recollec-
 [7] [8] [9]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 353.
+(hyperref)                be the same. Added a new anchor on input line 348.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 362.
+(Font)              scaled to size 7.665pt on input line 357.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 9.0pt on input line 362.
+(Font)              scaled to size 9.0pt on input line 357.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.87921pt on input line 362.
+(Font)              scaled to size 10.87921pt on input line 357.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.2528pt on input line 362.
+(Font)              scaled to size 7.2528pt on input line 357.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.044pt on input line 362.
+(Font)              scaled to size 6.044pt on input line 357.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.88031pt on input line 362.
+(Font)              scaled to size 10.88031pt on input line 357.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.25354pt on input line 362.
+(Font)              scaled to size 7.25354pt on input line 357.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.04462pt on input line 362.
+(Font)              scaled to size 6.04462pt on input line 357.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.87811pt on input line 362.
+(Font)              scaled to size 10.87811pt on input line 357.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.25208pt on input line 362.
+(Font)              scaled to size 7.25208pt on input line 357.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.0434pt on input line 362.
+(Font)              scaled to size 6.0434pt on input line 357.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 362.
-[10]
+(Font)              scaled to size 6.0pt on input line 357.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/it' will be
-(Font)              scaled to size 10.95pt on input line 387.
-[11]
+(Font)              scaled to size 10.95pt on input line 382.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[10] [11]
 File: ./resources/images/exp1__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp1__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 430--433
+Underfull \hbox (badness 10000) in paragraph at lines 425--428
 [][]
  []
 
 [12] [13]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 532.
+(hyperref)                be the same. Added a new anchor on input line 531.
 
 [14]
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 571.
+(Font)              scaled to size 10.95pt on input line 570.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 7.665pt on input line 571.
+(Font)              scaled to size 7.665pt on input line 570.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 5.475pt on input line 571.
-[15] [16]
+(Font)              scaled to size 5.475pt on input line 570.
+[15]
 File: R--Thesis_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-13-1.pdf>
-[17]
+[16] [17]
 File: R--Thesis_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-15-1.pdf>
 [18]
-Underfull \hbox (badness 1354) in paragraph at lines 719--727
+Underfull \hbox (badness 1354) in paragraph at lines 718--726
 []\TU/Helvetica(0)/m/n/10.95 Between response-option conditions, word stimuli p
 roduced significantly fewer Guessing
  []
@@ -1081,32 +1083,32 @@ f)
 File: ./resources/images/exp2__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp2__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 898--903
+Underfull \hbox (badness 10000) in paragraph at lines 897--902
 [][]
  []
 
 [25]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 907.
+(hyperref)                be the same. Added a new anchor on input line 906.
 
 [26]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 915.
+(hyperref)                be the same. Added a new anchor on input line 914.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 9.0pt on input line 923.
+(Font)              scaled to size 9.0pt on input line 922.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 6.0pt on input line 923.
+(Font)              scaled to size 6.0pt on input line 922.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 5.0pt on input line 923.
+(Font)              scaled to size 5.0pt on input line 922.
 [27] [28]
 File: ./resources/images/photo-manipulation-examples.png Graphic file (type bmp
 )
 <./resources/images/photo-manipulation-examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 1037--1040
+Underfull \hbox (badness 10000) in paragraph at lines 1036--1039
 [][]
  []
 
@@ -1114,7 +1116,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1037--1040
 File: ./resources/images/procedure.png Graphic file (type bmp)
 <./resources/images/procedure.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 1137--1140
+Underfull \hbox (badness 10000) in paragraph at lines 1136--1139
 [][]
  []
 
@@ -1124,349 +1126,137 @@ File: ./resources/images/h_calculation.png Graphic file (type bmp)
 [35]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1258.
+(hyperref)                be the same. Added a new anchor on input line 1257.
 
 [36] [37] [38] [39]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1455.
+(hyperref)                be the same. Added a new anchor on input line 1454.
 
-[40] [41] [42]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[43]
+[40] [41] [42] [43]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1607.
-
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
+(hyperref)                be the same. Added a new anchor on input line 1606.
 
 [44]
 File: ./resources/images/exp3__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp3__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 1683--1685
+Underfull \hbox (badness 10000) in paragraph at lines 1682--1684
 [][]
  []
 
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[45]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[46]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[47]
+[45] [46] [47]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1759.
-
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
+(hyperref)                be the same. Added a new anchor on input line 1758.
 
 [48]
-Underfull \hbox (badness 2521) in paragraph at lines 1792--1802
+Underfull \hbox (badness 2521) in paragraph at lines 1791--1801
 []\TU/Helvetica(0)/m/n/10.95 For the proportion of total hits, there was a sign
 ificant main effect of stimuli format
  []
 
 
-Underfull \hbox (badness 1189) in paragraph at lines 1803--1814
+Underfull \hbox (badness 1189) in paragraph at lines 1802--1813
 \TU/lmtt/m/n/10.95 apa__grey__anova__PROP.FA__words.mean\TU/Helvetica(0)/m/n/10
 .95 ) [] and drawings ($[] [] [][][][]$) []; drawings
  []
 
 
-Underfull \hbox (badness 1348) in paragraph at lines 1815--1825
+Underfull \hbox (badness 1348) in paragraph at lines 1814--1824
 []\TU/Helvetica(0)/m/n/10.95 For overall performance accuracy, there was a sign
 ificant main effect of stimuli format
  []
 
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[49]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[50]
+[49] [50]
 File: R--Thesis_files/figure-latex/unnamed-chunk-35-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-35-1.pdf>
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
 [51]
 File: R--Thesis_files/figure-latex/unnamed-chunk-38-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-38-1.pdf>
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
 [52]
 File: R--Thesis_files/figure-latex/unnamed-chunk-39-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-39-1.pdf>
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[53]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[54]
+[53] [54]
 File: R--Thesis_files/figure-latex/unnamed-chunk-40-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-40-1.pdf>
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
 [55]
 File: R--Thesis_files/figure-latex/unnamed-chunk-42-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-42-1.pdf>
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[56]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[57]
+[56] [57]
 File: R--Thesis_files/figure-latex/unnamed-chunk-43-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-43-1.pdf>
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[58]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[59]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[60]
+[58] [59] [60]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2102.
+(hyperref)                be the same. Added a new anchor on input line 2101.
 
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2108.
+(hyperref)                be the same. Added a new anchor on input line 2107.
 
 [61]
 File: ./resources/images/exp4__stim_examples.png Graphic file (type bmp)
 <./resources/images/exp4__stim_examples.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 2181--2183
+Underfull \hbox (badness 10000) in paragraph at lines 2180--2182
 [][]
  []
 
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[62]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[63]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[64]
+[62] [63] [64]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2244.
+(hyperref)                be the same. Added a new anchor on input line 2243.
 
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[65]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[66]
+[65] [66]
 File: R--Thesis_files/figure-latex/unnamed-chunk-57-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-57-1.pdf>
 File: R--Thesis_files/figure-latex/unnamed-chunk-59-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-59-1.pdf>
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[67]
-
-Package fancyhdr Warning: \headheight is too small (13.59999pt): 
-(fancyhdr)                Make it at least 25.66263pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.66263pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-12.06264pt}.
-
-[68]
+[67] [68]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2370.
+(hyperref)                be the same. Added a new anchor on input line 2369.
 
 
-Overfull \hbox (30.83879pt too wide) in paragraph at lines 2396--2396
+Overfull \hbox (30.83879pt too wide) in paragraph at lines 2395--2395
 []                  \TU/lmtt/m/n/10.95 vs. grey drawings       (are they as dis
 tinctive as grey drawings?)[] 
  []
 
 
-Overfull \hbox (19.3413pt too wide) in paragraph at lines 2396--2396
+Overfull \hbox (19.3413pt too wide) in paragraph at lines 2395--2395
 []                  \TU/lmtt/m/n/10.95 vs. grey photos         (are they as dis
 tinctive as grey photos?)[] 
  []
 
 
-Overfull \hbox (42.33629pt too wide) in paragraph at lines 2396--2396
+Overfull \hbox (42.33629pt too wide) in paragraph at lines 2395--2395
 []                  \TU/lmtt/m/n/10.95 vs. colour drawings     (are they as dis
 tinctive as colour drawings?)[] 
  []
 
 
-Overfull \hbox (30.83879pt too wide) in paragraph at lines 2396--2396
+Overfull \hbox (30.83879pt too wide) in paragraph at lines 2395--2395
 []                  \TU/lmtt/m/n/10.95 vs. colour photos       (are they as dis
 tinctive as colour photos?)[] 
  []
 
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2402.
+(hyperref)                be the same. Added a new anchor on input line 2401.
 
 
-Overfull \hbox (14.30156pt too wide) in paragraph at lines 2408--2408
+Overfull \hbox (14.30156pt too wide) in paragraph at lines 2407--2407
 []|\TU/Helvetica(0)/m/n/10.95 distinctiveness|  
  []
 
@@ -1474,64 +1264,64 @@ Overfull \hbox (14.30156pt too wide) in paragraph at lines 2408--2408
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (70.49706pt too wide) in paragraph at lines 2421--2432
+Overfull \hbox (70.49706pt too wide) in paragraph at lines 2420--2431
 [] []\TU/Helvetica(0)/b/n/10.95 Proportion of total hits[] [] 
  []
 
 [69] [70]
-Overfull \hbox (52.54291pt too wide) in paragraph at lines 2464--2475
+Overfull \hbox (52.54291pt too wide) in paragraph at lines 2463--2474
 [] []\TU/Helvetica(0)/b/n/10.95 Proportion of total FA[] [] 
  []
 
 [71]
-Overfull \hbox (51.56624pt too wide) in paragraph at lines 2498--2509
+Overfull \hbox (51.56624pt too wide) in paragraph at lines 2497--2508
 [] []\TU/Helvetica(0)/b/n/10.95 Overall recognition:[] [] 
  []
 
 [72] [73] [74]
-Overfull \hbox (14.44604pt too wide) in paragraph at lines 2600--2611
+Overfull \hbox (14.44604pt too wide) in paragraph at lines 2599--2610
 [] []\TU/Helvetica(0)/b/n/10.95 Prop Rec hit:[] [] 
  []
 
 [75]
-Overfull \hbox (12.19408pt too wide) in paragraph at lines 2634--2645
+Overfull \hbox (12.19408pt too wide) in paragraph at lines 2633--2644
 [] []\TU/Helvetica(0)/b/n/10.95 Prop FAM hit:[] [] 
  []
 
 [76]
-Overfull \hbox (27.41072pt too wide) in paragraph at lines 2668--2679
+Overfull \hbox (27.41072pt too wide) in paragraph at lines 2667--2678
 [] []\TU/Helvetica(0)/b/n/10.95 Prop GUESS hit:[] [] 
  []
 
 [77]
-Overfull \hbox (19.20892pt too wide) in paragraph at lines 2702--2713
+Overfull \hbox (19.20892pt too wide) in paragraph at lines 2701--2712
 [] []\TU/Helvetica(0)/b/n/10.95 Prop REC FA:[] [] 
  []
 
 [78]
-Overfull \hbox (12.8143pt too wide) in paragraph at lines 2736--2747
+Overfull \hbox (12.8143pt too wide) in paragraph at lines 2735--2746
 [] []\TU/Helvetica(0)/b/n/10.95 Prop FAM FA:[] [] 
  []
 
 [79]
-Overfull \hbox (28.33571pt too wide) in paragraph at lines 2770--2781
+Overfull \hbox (28.33571pt too wide) in paragraph at lines 2769--2780
 [] []\TU/Helvetica(0)/b/n/10.95 Prop GUESS FA:[] [] 
  []
 
 [80]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2788.
+(hyperref)                be the same. Added a new anchor on input line 2787.
 
 [81] [82] [83]
-Underfull \hbox (badness 4556) in paragraph at lines 2922--2927
+Underfull \hbox (badness 4556) in paragraph at lines 2921--2926
  \TU/Helvetica(0)/m/n/10.95 on remember-know judgments. \TU/Helvetica(0)/m/it/1
 0.95 Psychonomic Bulletin & Review\TU/Helvetica(0)/m/n/10.95 , \TU/Helvetica(0)
 /m/it/10.95 9\TU/Helvetica(0)/m/n/10.95 (1), 139–145.
  []
 
 [84] [85] [86] [87] [88]
-Underfull \hbox (badness 1661) in paragraph at lines 3138--3142
+Underfull \hbox (badness 1661) in paragraph at lines 3148--3152
  \TU/Helvetica(0)/m/it/10.95 European Journal of Cognitive Psychology\TU/Helvet
 ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 , 813–847. []$[][][][][] [] [] [] [][][] [] [][][] [] [][] [] [][][][] []
@@ -1539,32 +1329,32 @@ ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 
 [89] [90] [91] [92]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/it' will be
-(Font)              scaled to size 12.0pt on input line 3323.
+(Font)              scaled to size 12.0pt on input line 3333.
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 3323.
+(hyperref)                be the same. Added a new anchor on input line 3333.
 
 [93
 
 ]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 3331.
+(Font)              scaled to size 7.0pt on input line 3341.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 3338.
+(Font)              scaled to size 7.0pt on input line 3348.
 [94] [95] [96]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 3445.
+(Font)              scaled to size 8.0pt on input line 3455.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 3452.
-LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
 (Font)              scaled to size 8.0pt on input line 3462.
+LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
+(Font)              scaled to size 8.0pt on input line 3472.
 [97
 
 ] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108] [109] [110] [
 111] [112] [113] [114] [115] [116] [117] [118] [119] [120] [121] [122] [123] [1
 24] [125] (./R--Thesis.aux)
 Package rerunfilecheck Info: File `R--Thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 867922BF94CADA226EB1F190EBA2D01B;12793.
+(rerunfilecheck)             Checksum: 4C56358328D826A99E9AF6C563CDB75E;12793.
  ) 
 Here is how much of TeX's memory you used:
  18550 strings out of 479212
