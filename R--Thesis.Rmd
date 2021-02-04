@@ -117,18 +117,22 @@ Both used the same picture stim - colour photos.
 # Chapter 2
 Dual-process theories of recognition memory suggest that two independent processes - recollection and familiarity - are implicated in the successful recognition of previously encountered material [@paivio1971; @paivio1972]. Recollection typically refers to the conscious recall of encoded information, whereby contextual details (usually obtained by mentally re-experiencing a previous encounter with the stimulus) facilitate successful recognition. Familiarity, on the other hand, describes the unsubstantiated *feeling* of having encountered the stimulus before, and despite the inability to retrieve any associated diagnostic information, is still able to produce accurate recognition [@schoemaker2014]. While single-process accounts of recognition memory have been proposed, with the view that such experiences can be understood simply as varying levels of memory strength [@squire2007; @dunn2008], the majority of memory researchers agree that multiple processes are necessary to account for a range of dissociable experimental findings [@yonelinas2002]. Evidence from studies utilising event related potentials [ERPs; @curran2011], functional magnetic resonance imaging [fMRI; @scalici2017] and comparisons between healthy and clinical subject groups [e.g. Mild Cognitive Impairment; @belleville2011] all implicate the existence of two functionally distinct processes. Despite this consensus, disagreement persists in the literature regarding the extent to which recollection and familiarity are independent, and the methods that should be used to measure them most effectively [@schoemaker2014; @yonelinas2002].
 
-Experiments into recognition memory often focus on obtaining separate estimates of recollection and familiarity using process-estimation methods [@yonelinas2002]. The most commonly used process-estimation method is the Remember/Know (RK) paradigm [@tulving1985] - a task endorsed by a wide body of literature [@yonelinas1995; @gardiner2000; @jacoby1991; @jacoby1997]. In a typical RK procedure, participants are generally tasked with making ‘old’ vs. ‘new’ recognition decisions toward a randomised list of items, many of which were presented during an earlier encoding phase (targets) amongst novel items with highly similar characteristics (lures). When a subject recognises an item, and thus selects *old*, a follow-up judgement probes how they arrived at this decision (*remember* or *know*). If the subject was able to recognise the item based on recollection (i.e. conscious recall of some diagnostic information: "I remember seeing this item earlier"), they should classify their recognition as *remember*. If the subject arrived at their recognition decision due to familiarity (i.e. a feeling of certainty that the item was studied in the encoding phase, but unable to recall and details: "I know I saw this item earlier, but cannot determine why"), they should classify their recognition as *familiarity*. In addition to the literature endorsing the task in healthy samples, a large body of research also reports that the RK procedure produces reliable estimations of recollection and familiarity in clinical populations [@lombardi2016]; for example, those with Mild Cognitive Impairment (MCI) typically produce results to suggest recollection impairments but intact familiarity compared to healthy older adults [@belleville2011; @wang2013; @lombardi2016; @hudon2009; @serra2010].
+Experiments into recognition memory often focus on obtaining separate estimates of recollection and familiarity using process-estimation methods [@yonelinas2002]. The most commonly used process-estimation method is the Remember/Know (RK) paradigm [@tulving1985] - a task endorsed by a wide body of literature [@yonelinas1995a; @gardiner2000; @jacoby1991; @jacoby1997]. In a typical RK procedure, participants are generally tasked with making ‘old’ vs. ‘new’ recognition decisions toward a randomised list of items, many of which were presented during an earlier encoding phase (targets) amongst novel items with highly similar characteristics (lures). When a subject recognises an item, and thus selects *old*, a follow-up judgement probes how they arrived at this decision (*remember* or *know*). If the subject was able to recognise the item based on recollection (i.e. conscious recall of some diagnostic information: "I remember seeing this item earlier"), they should classify their recognition as *remember*. If the subject arrived at their recognition decision due to familiarity (i.e. a feeling of certainty that the item was studied in the encoding phase, but unable to recall and details: "I know I saw this item earlier, but cannot determine why"), they should classify their recognition as *familiarity*. In addition to the literature endorsing the task in healthy samples, a large body of research also reports that the RK procedure produces reliable estimations of recollection and familiarity in clinical populations [@lombardi2016]; for example, those with Mild Cognitive Impairment (MCI) typically produce results to suggest recollection impairments but intact familiarity compared to healthy older adults [@belleville2011; @wang2013; @lombardi2016; @hudon2009; @serra2010].
 
-The RK procedure has been modified in a number of ways since its conception to adapt to evolving understandings of recollection and familiarity processes. An early development was the "independence correction" - a formula devised to 'correct' the inherent underestimation of familiarity responses within the paradigm [@yonelinas1995a]. Participants are generally only instructed to select *Know* in the absence of recollection, an approach that does not allow for the co-occurrence of recollection and familiarity; proportions of *Know* responses are likely to be lower than *Remember* if subjects perceive to experience both processes simultaneously, since the presence of recollection necessitates that they select *Remember*. The independence correction proposed by @yonelinas1995a estimates familiarity processes by also taking into account the number of times *Remember* was selected when calculating the proportion of *Know* responses [@schoemaker2014]. More recently, adaptations of the RK procedure simply include the addition of a 'Both' response option (*Remember/Know/Both*) to allow for the co-occurrence of recollection and familiarity processes, without the need of applying the independence correction
-
-
-
-many adaptations of the RK paradigm also include a ‘Guess’ option to allow for uncertainty (*Remember/Know/Guess*), in an effort to avoid biasing the total number of R and K responses [@williams2013; @williams2014; @gardiner1998; @gardiner2002; @tunney2007; @eldridge2002; @belleville2011]. 
+The RK procedure has been modified in a number of ways since its conception, and continues to adapt as understandings of recollection and familiarity processes evolve. An early development was the "independence correction" - a formula devised to 'correct' the inherent underestimation of familiarity processes within the paradigm [@yonelinas1995a]. Participants are generally only instructed to select *Know* (a reflection of familiarity) when there is an absence of recollection, however, this approach does not allow for the possibility of recollection and familiarity co-occurring. Proportions of *Know* responses are likely to be lower than *Remember* if subjects do indeed perceive to experience both processes simultaneously, since the presence of recollection necessitates that they select the *Remember* option among the two choices. The independence correction proposed by @yonelinas1995a estimates familiarity processes by also taking into account the number of times *Remember* was selected when calculating the proportion of *Know* responses [@schoemaker2014].
 
 
-The RK procedure has been criticized for its reliance on participants’ subjective understanding of the provided instructions [@schoemaker2014], and the introspective nature of recognition judgements make it difficult to confirm whether all participants have understood the definitions (and thus responded) similarly [@lombardi2016]. Indeed, slight differences in the experimental definition of “knowing” across studies and the way in which the subjective memory states are defined may affect the achieved pattern of results [@geraci2009; @williams2014]. 
+An alternative to this correction is including an additional response option that allows for the co-occurrence of both processes: *Both*.
 
 
+Recent adaptations of the RK paradigm often include a *Guess* response option that allows participants to report uncertainty in their recognition decision [@belleville2011; @eldridge2002; @larsson2006; @tunney2007; @williams2019]. Previous studies have found that subjects may falsely assign guesses to the *Know* option when there is no explicit *Guess* option available [@gardiner1996; @gardiner1998; @gardiner2002a], on the assumption that this option more closely resembles their state of low confidence [@tunney2007]. Such response patterns might artificially inflate obtained estimates of familiarity [@tunney2007]. By including *Guess*, the likelihood of obtaining false *Know* responses (i.e. those that do not reflect underlying familiarity processes) is reduced [@migo2012]. 
+
+The RK procedure has been criticized for its reliance on participants’ subjective understanding of the provided instructions [@schoemaker2014], and the introspective nature of recognition judgements make it difficult to confirm whether all participants have understood the definitions (and thus responded) similarly [@lombardi2016]. Indeed, it is also difficult to determine whether participants interpret the *Remember* and *Know* response options in the same way that researchers intend [@umanath2020], especially as there is evidence to suggest subjects struggle to understand the distinction between the terms [@geraci2009a; @rubin2015; @williams2014]
+
+
+Indeed, slight differences in the experimental definition of “knowing” across studies and the way in which the subjective memory states are defined may affect the achieved pattern of results [@geraci2009; @williams2014]. 
+
+The way the ‘Know’ response is defined to participants can differ across researchers – some emphasise a feeling of ‘just knowing’ or ‘certainty’, whereas other labs use definitions that emphasise a ‘feeling of familiarity’. I want to know whether how we are defining ‘Knowing’ to participants when we use Remember-Know recognition tests changes how they use the response options.
 
 A second method of measurement is to ask participants to make confidence judgements
 or ratings and interpret high confidence as indicating recollection and low confidence as
@@ -137,21 +141,6 @@ ratings of the amount of recollection and familiarity they have for each item th
 the memory test; here, rather than a binary Remember-Know judgement which means that the
 processes of recollection and familiarity are seen as mutually exclusive, in this method
 recollection and familiarity are viewed as processes that can occur conjointly. 
-
-
-The way the ‘Know’ response is defined to participants can differ across researchers – some emphasise a feeling of ‘just knowing’ or ‘certainty’, whereas other labs use definitions that emphasise a ‘feeling of familiarity’. I want to know whether how we are defining ‘Knowing’ to participants when we use Remember-Know recognition tests changes how they use the response options.
-
-
-
-
-
-
-2. Are ratings tasks better than judgement tasks: Recollection and familiarity or
-confidence ratings allow for a more fine-grained examination of memory processes but
-perhaps they are more complicated for participants to use and perhaps they are no more
-‘accurate’ than more standard RK judgement tasks? I want to examine how patterns of
-responding differ across these methodologies.
-
 
 
 In addition to the availability of different response options, there is evidence to suggest that the format of to-be-remembered stimuli 
@@ -163,13 +152,13 @@ The magnitude of the PSE is greater in aMCI and AD patients when compared to hea
 From a dual-process perspective, there is general agreement that PSEs manifest as enhanced recollection, rather than familiarity [@curran2011]
 
 
-
 in healthy younger and older adults:
 Ally & Budson (2007); Ally et al. (2008); Rajaram (1996). 
 
 
-However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009; @ally2009a; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006]. 
 
+
+However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009; @ally2009a; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006]. 
 
 
 
