@@ -162,7 +162,20 @@ However, it has been demonstrated that certain methodological factors can mediat
 
 
 
-The objective of the current programme of research is to better understand how different methodologies inform understandings about the underlying processes of recollection and familiarity. Across a number of experiments, the distinctiveness of to-be-remembered stimuli will be systematically examined to determine the level at which successful recognition is impacted. In this chapter, the first experiment will be outlined. The aim is to establish baseline PSE response patterns in a novel, modified RK paradigm, wherein accurate "Recollection" and "Familiarity" labels are used in place of the classic "Remember" and "Know" labels, and at test subjects are presented with either i) three response options (RFG); ii) four response options (RFBG); iii) separate 0-5 rating scales for both R and F. In a 2x3 mixed factorial design, a within-subjects variable of stimulus type (words / simple pictures) will be used to determine whether the magnitude of picture superiority effects (PSEs) is mediated by the particular response options available at test (between-subjects variable of response option: RFG, RFBG, RF-Ratings). To establish whether the PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and signal+noise (i.e. false alarms); in other words, *d'* offers a representation of global recognition performance and participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743]. Higher *d'* scores demonstrate better performance on the memory task.
+The objective of the current programme of research is to better understand how different methodologies inform understandings about the underlying processes of recollection and familiarity. Across a number of experiments, the distinctiveness of to-be-remembered stimuli will be systematically examined to determine the level at which successful recognition is impacted. In this chapter, the first experiment is outlined, with the aim of establishing baseline PSE response patterns in a novel, modified RK paradigm. Recognition for simple, illustrated pictures of everyday objects [@rossion2004] will be compared against that for  
+
+
+
+wherein accurate "Recollection" and "Familiarity" labels are used in place of the classic "Remember" and "Know" labels, and at test subjects are presented with either i) three response options (RFG); ii) four response options (RFBG); iii) separate 0-5 rating scales for both R and F. In a 2x3 mixed factorial design, a within-subjects variable of stimulus type (words / simple pictures) will be used to determine whether the magnitude of picture superiority effects (PSEs) is mediated by the particular response options available at test (between-subjects variable of response option: RFG, RFBG, RF-Ratings). To establish whether the PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and signal+noise (i.e. false alarms); in other words, *d'* offers a representation of global recognition performance and participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743]. Higher *d'* scores demonstrate better performance on the memory task.
+
+
+
+
+
+To avoid guesses biasing estimations of familiarity [@belleville2011; @eldridge2002; @larsson2006; @tunney2007; @williams2019], participants in all response-option conditions were given the option to report that they were merely *Guessing* that an item was old. 
+
+
+
 
 Based on the discussed research, the following results are hypothesised:
 
@@ -175,7 +188,7 @@ Based on the discussed research, the following results are hypothesised:
 
 
 \newpage
-## Experiment: Proof of concept
+## Experiment 1: Establishing PSEs in novel Remember/Know paradigm
 
 ```{r experiment-1-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
