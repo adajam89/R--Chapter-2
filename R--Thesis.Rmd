@@ -132,23 +132,27 @@ Further modifications retain the original two binary response options, but avoid
 
 &nbsp;
 
-Despite its widespread use, the RK procedure has been criticized for its reliance on participants’ subjective understanding of the provided instructions [@schoemaker2014], and the introspective nature of recognition judgements make it difficult to confirm whether all participants have understood the definitions (and thus responded) similarly [@lombardi2016]. It is also difficult to determine whether subjects interpret the *Remember* and *Know* labels in the same way that researchers intend [@umanath2020], especially as there is evidence to suggest participants struggle to understand the distinction between the terms [@geraci2009a; @rubin2015; @williams2014]. @williams2019 assessed the ways in which non-recollective subjective experiences were defined to participants, and found a great deal of inconsistency across a range of RK experiments. Some studies even changed the *Remember* and *Know* labels altogether; many exchanged the *Know* label with *Familiar* in an effort to reduce subjects defaulting to colloquial understandings of the word "know" which typically indicate high certainty; e.g. "I **know** I saw this item in the study phase" [@donaldson1996; @dobbins1998; @bastin2004; @ingram2012]. Others also substitute *Remember* for *Recollection* [@harlow2010]. 
+Despite its widespread use, the RK procedure has been criticized for its reliance on participants’ subjective understanding of the provided instructions [@schoemaker2014], and the introspective nature of recognition judgements make it difficult to confirm whether all participants have understood the definitions (and thus responded) similarly [@lombardi2016]. It is also difficult to determine whether subjects interpret the *Remember* and *Know* labels in the same way that researchers intend [@umanath2020], especially as there is evidence to suggest participants struggle to understand the distinction between the terms [@geraci2009a; @rubin2015; @williams2014]. @williams2019 assessed the ways in which non-recollective subjective experiences were defined to participants, and found a great deal of inconsistency across a range of RK experiments. Some studies even changed the *Remember* and *Know* labels altogether; many exchanged the *Know* label with *Familiar* in an effort to reduce subjects defaulting to colloquial understandings of the word "know" which typically indicate high certainty; e.g. "I **know** I saw this item in the study phase" [@donaldson1996; @dobbins1998; @bastin2004; @ingram2012]. Others also substitute *Remember* for *Recollection* [@harlow2010]. Labels that accurately match the processes they intend to measure - *Recollection* and *Familiarity* - have been proposed in an effort to reduce the potentially misleading effects of the more colloquial *Remember* and *Know*, and thus make it easier for participants to 'map on' the definitions provided by researchers [@mayes2007; @harlow2010]. 
 
 &nbsp;
 
-In addition to the availability of different response options, there is evidence to suggest that the format of to-be-remembered stimuli 
+In addition to the availability of different response options, and the labels used to describe the underlying processes, there is evidence to suggest that the format of to-be-remembered stimuli also plays a role in obtained estimates of recollection and familiarity. The Picture Superiority Effect (PSE) refers to a robust phenomenon whereby stimuli presented as pictures are markedly better remembered on tests of recall or recognition than stimuli presented as words (Shepard, 1967). From a dual-process perspective, there is general agreement that picture superiority manifests as enhanced recollection, rather than familiarity [@curran2011]. 
 
-The picture superiority effect (PSE) – stimuli presented as pictures are markedly better remembered on tests of recall or recognition than stimuli presented as words (Shepard, 1967). 
+
 
 The magnitude of the PSE is greater in aMCI and AD patients when compared to healthy older (Embree, Budson, & Ally, 2012). Understanding this phenomenon helps to conceptualise how memory breaks down in AD.
 
-From a dual-process perspective, there is general agreement that PSEs manifest as enhanced recollection, rather than familiarity [@curran2011]
+
 
 
 in healthy younger and older adults:
 Ally & Budson (2007); Ally et al. (2008); Rajaram (1996). 
 
 However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009; @ally2009a; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006]. 
+
+
+
+
 
 The objective of the current programme of research is to better understand how different methodologies inform understandings about the underlying processes of recollection and familiarity. Across a number of experiments, the distinctiveness of to-be-remembered stimuli will be systematically examined to determine the level at which successful recognition is impacted. In this chapter, the first experiment is outlined, with the aim of establishing baseline PSE response patterns in a novel, modified RK paradigm. Recognition for simple, illustrated pictures of everyday objects [@rossion2004] will be compared against that for  
 
