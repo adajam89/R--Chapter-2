@@ -123,8 +123,7 @@ Experiments into recognition memory often focus on obtaining separate estimates 
 
 &nbsp;
 
-The RK procedure has been modified in a number of ways since its conception, and continues to adapt as understandings of recollection and familiarity processes evolve. An early development was the "independence correction" - a formula devised to 'correct' the inherent underestimation of familiarity processes within the mutually exclusive paradigm [@yonelinas1995a]. Participants are generally only instructed to select *Know* (a reflection of familiarity) when there is an absence of recollection, however, this approach does not allow for the possibility of recollection and familiarity co-occurring. Proportions of *Know* responses will likely always be lower than *Remember* if subjects do indeed perceive to experience both processes simultaneously, since the presence of recollection necessitates that they select the *Remember* option among the two choices. When the @yonelinas1995a independence correction is applied, estimates of familiarity are determined by also taking into account the number of times *Remember* was selected when calculating the proportion of *Know* responses [@schoemaker2014]. An alternative to this correction is to modify the response options available to subjects, so they are able to individually determine the relative contributions of each process. @higham2004 proposed an independent ratings methodology whereby, instead of the binary *Remember*/*Know* options, subjects are provided with one rating scale to report the contribution of recollection and another to report the contribution of familiarity (RF-Ratings). Participants rate their recognition experience for each process accordingly: 1 = *definitely no*, 2 = *probably no*, 3 = *probably yes*, 4 = *definitely yes*. Such options allow for great variability in the way participants are able to respond, and for the possibility of both processes occuring conjointly: i) Recollection without Familiarity (high rating on R, low rating on F); ii) Familiarity without Recollection (high rating on F, low rating on R); iii) both Recollection *and* Familiarity (high rating on R and F); iv) neither R or F, i.e. a guess (*1* rating on R and F). 
-The methodology of @higham2004 has been used in numerous studies [@brown2011; @tousignant2012; @kurilla2008], however, it could be argued that this rating task is somewhat removed from the original *judgement* task, and the extent to which the increased task complexity affects reports of recognition is unknown [@tousignant2015].
+The RK procedure has been modified in a number of ways since its conception, and continues to adapt as understandings of recollection and familiarity processes evolve. An early development was the "independence correction" - a formula devised to 'correct' the inherent underestimation of familiarity processes within the mutually exclusive paradigm [@yonelinas1995a]. Participants are generally only instructed to select *Know* (a reflection of familiarity) when there is an absence of recollection, however, this approach does not allow for the possibility of recollection and familiarity co-occurring. Proportions of *Know* responses will likely always be lower than *Remember* if subjects do indeed perceive to experience both processes simultaneously, since the presence of recollection necessitates that they select the *Remember* option among the two choices. When the @yonelinas1995a independence correction is applied, estimates of familiarity are determined by also taking into account the number of times *Remember* was selected when calculating the proportion of *Know* responses [@schoemaker2014]. An alternative to this correction is to modify the response options available to subjects, so they are able to individually determine the relative contributions of each process. @higham2004 proposed an independent ratings methodology whereby, instead of the binary *Remember*/*Know* options, subjects are provided with one rating scale to report the contribution of recollection and another to report the contribution of familiarity (RF-Ratings). Participants rate their recognition experience for each process accordingly: 1 = *definitely no*, 2 = *probably no*, 3 = *probably yes*, 4 = *definitely yes*. Such options allow for great variability in the way participants are able to respond, and for the possibility of both processes occuring conjointly: i) Recollection without Familiarity (high rating on R, low rating on F); ii) Familiarity without Recollection (high rating on F, low rating on R); iii) both Recollection *and* Familiarity (high rating on R and F); iv) neither R or F, i.e. a guess (*1* rating on R and F). The methodology of @higham2004 has been used in numerous studies [@brown2011; @tousignant2012; @kurilla2008], however, it could be argued that this rating task is somewhat removed from the original *judgement* task, and the extent to which the increased task complexity affects reports of recognition is unknown [@tousignant2015].
 
 &nbsp;
 
@@ -136,51 +135,22 @@ Despite its widespread use, the RK procedure has been criticized for its relianc
 
 &nbsp;
 
-In addition to the availability of different response options, and the labels used to describe the underlying processes, there is evidence to suggest that the format of to-be-remembered stimuli also plays a role in obtained estimates of recollection and familiarity. The Picture Superiority Effect (PSE) refers to a robust phenomenon whereby stimuli presented as pictures are markedly better remembered on tests of recall or recognition than stimuli presented as words (Shepard, 1967). From a dual-process perspective, there is general agreement that picture superiority manifests as enhanced recollection, rather than familiarity [@curran2011]. 
-
-
-
-The magnitude of the PSE is greater in aMCI and AD patients when compared to healthy older (Embree, Budson, & Ally, 2012). Understanding this phenomenon helps to conceptualise how memory breaks down in AD.
-
-
-
-
-in healthy younger and older adults:
-Ally & Budson (2007); Ally et al. (2008); Rajaram (1996). 
-
-However, it has been demonstrated that certain methodological factors can mediate the PSE, at least in certain populations; findings generally show intact familiarity for individuals with aMCI when *pictures* are shown during recognition memory paradigm, but impaired familiarity when word stimuli are utilised [@embree2012; @ally2009; @ally2009a; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006]. 
-
-
-
-
-
-The objective of the current programme of research is to better understand how different methodologies inform understandings about the underlying processes of recollection and familiarity. Across a number of experiments, the distinctiveness of to-be-remembered stimuli will be systematically examined to determine the level at which successful recognition is impacted. In this chapter, the first experiment is outlined, with the aim of establishing baseline PSE response patterns in a novel, modified RK paradigm. Recognition for simple, illustrated pictures of everyday objects [@rossion2004] will be compared against that for  
-
-
-Across all conditions, the labels *Recollection*/*Familiarity* will be used in place of the standard *Remember*/*Know*, in an effort to reduce the impact of colloquial understandings on the current experimental definitions. To avoid guesses biasing estimations of familiarity [@belleville2011; @eldridge2002; @larsson2006; @tunney2007; @williams2019], participants in all response-option conditions were given the option to report that they were merely *Guessing* that an item was old. 
-
+In addition to the availability of different response options, and the labels used to describe the underlying processes, there is evidence to suggest that the format of to-be-remembered stimuli also plays a role in obtained estimates of recollection and familiarity. The Picture Superiority Effect (PSE) refers to a robust phenomenon whereby stimuli presented as pictures are markedly better remembered on tests of recall or recognition than stimuli presented as words [@shepard1967]. There is general agreement that, in recognition memory paradigms, picture superiority manifests as enhanced recollection rather than familiarity [@rajaram1996a; @curran2011]. Word stimuli, on the other hand, appear to produce increased familiarity ratings at test [@ally2007]. Understanding this phenomenon could help to conceptualise how memory breaks down in healthy ageing, and in the earliest stages of
+amnestic Mild Cognitive Impairment (aMCI). For example, @ally2008 demonstrated that, despite similar levels of overall performance on a recognition task, healthy older adults showed greater picture superiority effects than younger adults. The memorial benefit of pictures was indeed evident in both the young and older groups, but the magnitude of this effect was greater in older adults, who only showed worse performance when responding to word stimuli. Interestingly, picture superiority also allows those with aMCI to show performance that is comparable to healthy older adult controls; despite exhibiting impaired performance overall, those with aMCI often show intact familiarity processes when pictures are utilised in recognition memory paradigms (and impaired familiarity when word stimuli are utilised; @embree2012; @ally2009; @ally2009a; @wolk2008; @algarabel2009; @anderson2008; @hudon2009; @oconnor2010; @serra2010; @westerberg2006]. 
 
 &nbsp;
 
-i) mutua
-
-
-and at test subjects are presented with either i) three response options (RFG); ii) four response options (RFBG); iii) separate 0-5 rating scales for both R and F. In a 2x3 mixed factorial design, a within-subjects variable of stimulus type (words / simple pictures) will be used to determine whether the magnitude of picture superiority effects (PSEs) is mediated by the particular response options available at test (between-subjects variable of response option: RFG, RFBG, RF-Ratings). To establish whether the PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and signal+noise (i.e. false alarms); in other words, *d'* offers a representation of global recognition performance and participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743]. Higher *d'* scores demonstrate better performance on the memory task.
-
-
-
-
-Based on the discussed research, the following results are hypothesised:
+The objective of the current programme of research is to better understand how different methodologies inform understandings about the underlying processes of recollection and familiarity. Across a number of experiments, the distinctiveness of to-be-remembered stimuli will be systematically examined to determine the level at which successful recognition is impacted, and which process(es) are most susceptible. The aim of the first experiment, outlined below, is to establish baseline PSE response patterns in a novel, modified RK paradigm. In a 2x3 mixed factorial design, a within-subjects variable of stimulus type (words / simple pictures) will be used to determine whether the magnitude of picture superiority effects (PSEs) is mediated by the particular response options available at test (between-subjects variable of response option: RFG, RFBG, RF-Ratings). In each condition, the labels *Recollection*/*Familiarity* will be used in place of the standard *Remember*/*Know*, in an effort to reduce the impact of colloquial understandings on the current experimental definitions. To avoid guesses biasing estimations of familiarity [@belleville2011; @eldridge2002; @larsson2006; @tunney2007; @williams2019], participants in all response-option conditions are also given the option to report that they are merely *Guessing* that an item is old. At test, subjects will be presented with either i) three response options (RFG); ii) four response options (RFBG; where a *Both* response option allows subjects to report the co-occurance of R and F; iii) separate 0-5 rating scales for R and F (where subjects could report either process occurring alone, both processes occurring conjointly, or that they are guessing by providing a '0' rating on both scales). To establish whether a PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and signal+noise (i.e. false alarms); in other words, *d'* offers a representation of global recognition performance and participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743]. Higher *d'* scores demonstrate better overall performance on the memory task. Based on the discussed research, the following results are hypothesised:
 
 1. A PSE will be evident, manifesting as higher overall *d'* scores for pictures compared to words.
     + A PSE is also expected to manifest as i) a higher proportion of correct hits, ii) lower proportion of false alarms, and iii) better overall recognition.
-2. Similar PSEs will be evident regardless of the response-options available at test (RFG, RFBG, RF-Ratings).
     + There will be a higher proportion of hits assigned Recollection for pictures, compared to words. 
     + There will be a higher proportion of hits assigned Familiarity for words, compared to pictures. 
-3. XXXXXX condition may over or under-estimate recollection in comparison to XXXXXX condition. 
+2. Picture superiority will be evident in each of the response option conditions (RFG, RFBG, RF-Ratings).
+    + There will be differences in the way the PSE manifests (e.g. increased recollection, or increased familiarity, in comparison to words) depending upon the response options available to participants (RFG, RFBG, RF-Ratings).
+    + When participants have the option to report the co-occurrence of recollection and familiarity (RFBG, RF-Ratings), picture superiority may manifest as an increase to both recollection and familiarity processes. 
 
 
-\newpage
 ## Experiment 1: Establishing PSEs in novel Remember/Know paradigm
 
 ```{r experiment-1-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
@@ -953,11 +923,13 @@ A series of exclusion criteria were defined before analysis. First, subjects wer
             mutate(prop_RFR_recog = prop_RFR_hit - prop_RFR_FA)
 
         exp1__hit.FA.recog.table <- tribble(
-          ~"Stim", ~Hits,  ~FAs, ~"Overall recognition",
-          "Words", mean(exp1__full_data$prop_word_hit), 
-                      mean(exp1__full_data$prop_word_FA),
+          ~"Stim", ~"d'" ~"Hits",  ~"FAs", ~"Overall recognition",
+          "Words", 
+                      mean(exp1__full_data$prop_word_hit), 
+                        mean(exp1__full_data$prop_word_FA),
                           mean(exp1__full_data$word_recog),
-          "Pictures", mean(exp1__full_data$prop_pic_hit), 
+          "Pictures", 
+                      mean(exp1__full_data$prop_pic_hit), 
                           mean(exp1__full_data$prop_pic_FA),
                               mean(exp1__full_data$pic_recog),
           "RFG", mean(RFG__totals$prop_RFG_hit), 
@@ -979,7 +951,7 @@ A series of exclusion criteria were defined before analysis. First, subjects wer
 ```
 
 #### Picture superiority
-To establish baseline picture superiority effects in the current paradigm, and assess whether there were any interactions with the availability of different response options at test, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on a number of outcome variables. Namely, the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp1__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between pictures and words, ANOVAs were also run on the signal detection measures of *d'* (measure of sensitivity) and *c* (decision criterion). Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
+To establish baseline picture superiority effects in the current paradigm, and assess whether there were any interactions with the availability of different response options at test, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on a number of outcome variables. Namely, the signal detection measures of *d'* (sensitivity) and *c* (decision criterion), as well as the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp1__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between pictures and words, ANOVAs were also run on  Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
 
 `r table_numbering("exp1__hit.FA.recog.table")`
 ```{r, echo=FALSE, cache=TRUE}
@@ -993,6 +965,92 @@ To establish baseline picture superiority effects in the current paradigm, and a
         column_spec(3, width = "1cm") %>%
         column_spec(4, width = "2cm")
 ```
+
+```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+###################################################################################################################
+##    Analysis - d':                                                                                             ##
+###################################################################################################################
+      exp1__dprime_anova_data <- exp1__full_data %>%
+          select(id, ResponseOption, exp1__pic_d_prime, exp1__word_d_prime) %>%
+          rename(picture = "exp1__pic_d_prime", word = "exp1__word_d_prime") %>%
+          gather(key = "StimuliFormat", value = "dprime", picture, word) %>%
+          ungroup() %>%
+          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
+          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
+          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
+          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
+          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
+##    2-way mixed ANOVA:
+      exp1__anova_prop_dprime <- aov_ez("id", "dprime", exp1__dprime_anova_data, 
+                                        between = "ResponseOption", within = "StimuliFormat")
+##    Post-hoc contrasts:
+##    Stimuli-format:
+      exp1__anova_prop_dprime_stim_format_emmeans <- emmeans(exp1__anova_prop_dprime, ~ StimuliFormat)
+      exp1__anova_prop_dprime_stim_format_pairwise <- pairs(exp1__anova_prop_dprime_stim_format_emmeans)
+       exp1__c_anova_data <- exp1__full_data %>%
+          select(id, ResponseOption, pic_c, word_c) %>%
+          rename(picture = "pic_c", word = "word_c") %>%
+          gather(key = "StimuliFormat", value = "c", picture, word) %>%
+          ungroup() %>%
+          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
+          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
+          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
+          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
+          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp1__apa_anova_prop_dprime <- papaja:::apa_print.afex_aov(exp1__anova_prop_dprime)
+##    Main effects:
+      exp1__apa_anova_prop_dprime$full$StimuliFormat <- exp1__apa_anova_prop_dprime$full$StimuliFormat
+      exp1__apa_anova_prop_dprime$full$ResponseOption <- exp1__apa_anova_prop_dprime$full$ResponseOption
+      exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat <- 
+          exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat
+##    Pairwise (stim-format):
+      exp1__apa_anova_prop_dprime_stim_format_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_emmeans)
+      exp1__pics_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_emmeans$estimate$Pictures %>% 
+          str_remove("\\,.*")
+      exp1__words_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_emmeans$estimate$Words %>% 
+          str_remove("\\,.*")
+      exp1__apa_anova_prop_dprime_stim_format_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_pairwise)
+      exp1__pics_words_dprime_ttest <- exp1__apa_anova_prop_dprime_stim_format_pairwise$full %>% 
+          str_remove("^[\\w\\W]+?(?=\\$t)")
+###################################################################################################################
+##    Analysis - C:                                                                                             ##
+###################################################################################################################
+##    2-way mixed ANOVA:
+      exp1__anova_prop_c <- aov_ez("id", "c", exp1__c_anova_data, 
+                                   between = "ResponseOption", within = "StimuliFormat")
+##    Post-hoc contrasts:
+##    Stimuli-format:
+      exp1__anova_prop_c_resp_option_emmeans <- emmeans(exp1__anova_prop_c, ~ ResponseOption)
+      exp1__anova_prop_c_resp_option_pairwise <- pairs(exp1__anova_prop_c_resp_option_emmeans)
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp1__apa_anova_prop_c <- papaja:::apa_print.afex_aov(exp1__anova_prop_c)
+##    Main effects:
+      exp1__apa_anova_prop_c$full$StimuliFormat <- exp1__apa_anova_prop_c$full$StimuliFormat
+      exp1__apa_anova_prop_c$full$ResponseOption <- exp1__apa_anova_prop_c$full$ResponseOption
+      exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat <- 
+          exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat
+##    Pairwise (resp-option):
+      exp1__apa_anova_prop_c_resp_option_emmeans <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_emmeans)
+      exp1__rfg_c_mean <- exp1__apa_anova_prop_c_resp_option_emmeans$estimate$RFG %>% str_remove("\\,.*")
+      exp1__rfbg_c_mean <- exp1__apa_anova_prop_c_resp_option_emmeans$estimate$RFBG %>% str_remove("\\,.*")
+      exp1__rfr_c_mean <- exp1__apa_anova_prop_c_resp_option_emmeans$estimate$RF_Ratings %>% str_remove("\\,.*")
+      exp1__apa_anova_prop_c_resp_option_pairwise <- 
+          papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_pairwise)
+      exp1__rfg_rfr_c_ttest <- exp1__apa_anova_prop_c_resp_option_pairwise$full$RFG_RF_Ratings %>% 
+          str_remove("^[\\w\\W]+?(?=\\$t)")      
+```
+&nbsp;
+&nbsp;
+
+The ANOVA on *d'* scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_dprime$full$StimuliFormat`, whereby pictures (`r exp1__pics_prop_dprime_mean`) facilitated better discrimination between hits and FAs than words (`r exp1__words_prop_dprime_mean`), `r exp1__pics_words_dprime_ttest`. *C* scores, however, showed no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, suggesting response biases were similarly conservative between pictures and words. Neither the ANOVA on *d'* or *C* scores showed any significant interaction effects.
 
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
@@ -1139,91 +1197,7 @@ To establish baseline picture superiority effects in the current paradigm, and a
 
 The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, `r exp1__apa_anova_prop_hit$full$StimuliFormat`; a PSE was evident, with pictures (`r exp1__pics_prop_hit_mean`) showing a higher number of overall hits compared to words (`r exp1__words_prop_hit_mean`), `r exp1__pics_words_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a PSE; a significant main effect of stimuli-format `r exp1__apa_anova_prop_FA$full$StimuliFormat` showed that words (`r exp1__words_prop_FA_mean`) produced more FAs than pictures (`r exp1__pics_prop_FA_mean`), `r exp1__pics_words_FA_ttest`. Overall recognition performance (a measure that takes into account both hits and FAs) offered further support for a PSE in the current paradigm; a significant main effect of stimuli-format `r exp1__apa_anova_prop_recog$full$StimuliFormat` showed pictures (`r exp1__pics_prop_recog_mean`) produced better overall recognition on the task compared to words (`r exp1__words_prop_recog_mean`), `r exp1__pics_words_recog_ttest`. No interaction effects were found between stimuli format and response option for any of these variables. Taken together, the findings demonstrate a replication of the PSE in the current memory paradigm, and suggest stimuli format plays a key role in memorability that is independent of response option.
 
-```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
-###################################################################################################################
-##    Analysis - d':                                                                                             ##
-###################################################################################################################
-      exp1__dprime_anova_data <- exp1__full_data %>%
-          select(id, ResponseOption, exp1__pic_d_prime, exp1__word_d_prime) %>%
-          rename(picture = "exp1__pic_d_prime", word = "exp1__word_d_prime") %>%
-          gather(key = "StimuliFormat", value = "dprime", picture, word) %>%
-          ungroup() %>%
-          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
-          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
-          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
-##    2-way mixed ANOVA:
-      exp1__anova_prop_dprime <- aov_ez("id", "dprime", exp1__dprime_anova_data, 
-                                        between = "ResponseOption", within = "StimuliFormat")
-##    Post-hoc contrasts:
-##    Stimuli-format:
-      exp1__anova_prop_dprime_stim_format_emmeans <- emmeans(exp1__anova_prop_dprime, ~ StimuliFormat)
-      exp1__anova_prop_dprime_stim_format_pairwise <- pairs(exp1__anova_prop_dprime_stim_format_emmeans)
-       exp1__c_anova_data <- exp1__full_data %>%
-          select(id, ResponseOption, pic_c, word_c) %>%
-          rename(picture = "pic_c", word = "word_c") %>%
-          gather(key = "StimuliFormat", value = "c", picture, word) %>%
-          ungroup() %>%
-          mutate_at(vars("id", "ResponseOption", "StimuliFormat"), factor) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "word", "Words")) %>%
-          mutate(StimuliFormat = str_replace(StimuliFormat, "picture", "Pictures")) %>%
-          transform(StimuliFormat = factor(StimuliFormat, levels=c("Words","Pictures"))) %>%
-          transform(ResponseOption = factor(ResponseOption, levels=c("RFG","RFBG", "RF_Ratings")))
-#------------------------------------------------------------------------------------------------------------------
-#   Format results for report:
-#------------------------------------------------------------------------------------------------------------------
-      exp1__apa_anova_prop_dprime <- papaja:::apa_print.afex_aov(exp1__anova_prop_dprime)
-##    Main effects:
-      exp1__apa_anova_prop_dprime$full$StimuliFormat <- exp1__apa_anova_prop_dprime$full$StimuliFormat
-      exp1__apa_anova_prop_dprime$full$ResponseOption <- exp1__apa_anova_prop_dprime$full$ResponseOption
-      exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_dprime$full$ResponseOption_StimuliFormat
-##    Pairwise (stim-format):
-      exp1__apa_anova_prop_dprime_stim_format_emmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_emmeans)
-      exp1__pics_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_emmeans$estimate$Pictures %>% 
-          str_remove("\\,.*")
-      exp1__words_prop_dprime_mean <- exp1__apa_anova_prop_dprime_stim_format_emmeans$estimate$Words %>% 
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_dprime_stim_format_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_dprime_stim_format_pairwise)
-      exp1__pics_words_dprime_ttest <- exp1__apa_anova_prop_dprime_stim_format_pairwise$full %>% 
-          str_remove("^[\\w\\W]+?(?=\\$t)")
-###################################################################################################################
-##    Analysis - C:                                                                                             ##
-###################################################################################################################
-##    2-way mixed ANOVA:
-      exp1__anova_prop_c <- aov_ez("id", "c", exp1__c_anova_data, 
-                                   between = "ResponseOption", within = "StimuliFormat")
-##    Post-hoc contrasts:
-##    Stimuli-format:
-      exp1__anova_prop_c_resp_option_emmeans <- emmeans(exp1__anova_prop_c, ~ ResponseOption)
-      exp1__anova_prop_c_resp_option_pairwise <- pairs(exp1__anova_prop_c_resp_option_emmeans)
-#------------------------------------------------------------------------------------------------------------------
-#   Format results for report:
-#------------------------------------------------------------------------------------------------------------------
-      exp1__apa_anova_prop_c <- papaja:::apa_print.afex_aov(exp1__anova_prop_c)
-##    Main effects:
-      exp1__apa_anova_prop_c$full$StimuliFormat <- exp1__apa_anova_prop_c$full$StimuliFormat
-      exp1__apa_anova_prop_c$full$ResponseOption <- exp1__apa_anova_prop_c$full$ResponseOption
-      exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat <- 
-          exp1__apa_anova_prop_c$full$ResponseOption_StimuliFormat
-##    Pairwise (resp-option):
-      exp1__apa_anova_prop_c_resp_option_emmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_emmeans)
-      exp1__rfg_c_mean <- exp1__apa_anova_prop_c_resp_option_emmeans$estimate$RFG %>% str_remove("\\,.*")
-      exp1__rfbg_c_mean <- exp1__apa_anova_prop_c_resp_option_emmeans$estimate$RFBG %>% str_remove("\\,.*")
-      exp1__rfr_c_mean <- exp1__apa_anova_prop_c_resp_option_emmeans$estimate$RF_Ratings %>% str_remove("\\,.*")
-      exp1__apa_anova_prop_c_resp_option_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_pairwise)
-      exp1__rfg_rfr_c_ttest <- exp1__apa_anova_prop_c_resp_option_pairwise$full$RFG_RF_Ratings %>% 
-          str_remove("^[\\w\\W]+?(?=\\$t)")      
-```
-&nbsp;
-&nbsp;
-
-The ANOVA on *d'* scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_dprime$full$StimuliFormat`, whereby pictures (`r exp1__pics_prop_dprime_mean`) facilitated better discrimination between hits and FAs than words (`r exp1__words_prop_dprime_mean`), `r exp1__pics_words_dprime_ttest`. *C* scores, however, showed no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, suggesting response biases were similarly conservative between pictures and words. Neither the ANOVA on *d'* or *C* scores showed any significant interaction effects. 
+ 
 
 #### Response option availability
 In the ANOVAs on the proportion of hits, FAs, and overall recognition, the main effects of response option were also examined to determine whether the availability of different response option had an impact on task performance. There was a significant main effect of response option only in the ANOVA for the proportion of hits, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits than the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`. The ANOVAs on the proportion of FAs and overall recognition showed no significant main effect of response option. This finding might indicate fewer available response options facilitate accurate recognition compared to more response options - however, the absence of a main effect for overall recognition (a measure that takes into account both hits and FAs) suggests this interpretation should be treated with caution. 
