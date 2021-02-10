@@ -142,17 +142,19 @@ amnestic Mild Cognitive Impairment (aMCI). For example, @ally2008 demonstrated t
 
 The objective of the current programme of research is to better understand how different methodologies inform understandings about the underlying processes of recollection and familiarity. Across a number of experiments, the distinctiveness of to-be-remembered stimuli will be systematically examined to determine the level at which successful recognition is impacted, and which process(es) are most susceptible. The aim of the first experiment, outlined below, is to establish baseline PSE response patterns in a novel, modified RK paradigm. In a 2x3 mixed factorial design, a within-subjects variable of stimulus type (words / simple pictures) will be used to determine whether the magnitude of picture superiority effects (PSEs) is mediated by the particular response options available at test (between-subjects variable of response option: RFG, RFBG, RF-Ratings). In each condition, the labels *Recollection*/*Familiarity* will be used in place of the standard *Remember*/*Know*, in an effort to reduce the impact of colloquial understandings on the current experimental definitions. To avoid guesses biasing estimations of familiarity [@belleville2011; @eldridge2002; @larsson2006; @tunney2007; @williams2019], participants in all response-option conditions are also given the option to report that they are merely *Guessing* that an item is old. At test, subjects will be presented with either i) three response options (RFG); ii) four response options (RFBG; where a *Both* response option allows subjects to report the co-occurance of R and F; iii) separate 0-5 rating scales for R and F (where subjects could report either process occurring alone, both processes occurring conjointly, or that they are guessing by providing a '0' rating on both scales). To establish whether a PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and signal+noise (i.e. false alarms); in other words, *d'* offers a representation of global recognition performance and participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743]. Higher *d'* scores demonstrate better overall performance on the memory task. Based on the discussed research, the following results are hypothesised:
 
-1. A PSE will be evident, manifesting as higher overall *d'* scores for pictures compared to words.
-    + A PSE is also expected to manifest as i) a higher proportion of correct hits, ii) lower proportion of false alarms, and iii) better overall recognition.
-    + There will be a higher proportion of hits assigned Recollection for pictures, compared to words. 
-    + There will be a higher proportion of hits assigned Familiarity for words, compared to pictures. 
-2. Picture superiority will be evident in each of the response option conditions (RFG, RFBG, RF-Ratings).
-    + There will be differences in the way the PSE manifests (e.g. increased recollection, or increased familiarity, in comparison to words) depending upon the response options available to participants (RFG, RFBG, RF-Ratings).
-    + When participants have the option to report the co-occurrence of recollection and familiarity (RFBG, RF-Ratings), picture superiority may manifest as an increase to both recollection and familiarity processes. 
-
+1. **Overall PSE**: a PSE will be evident within the current paradigm, manifesting as:
+    + i) higher overall *d'* scores for pictures compared to words;
+    + ii) higher proportion of correct hits; 
+    + ii) lower proportion of false alarms; 
+    + iv) better overall recognition.
+2. **PSE in rates of Recollection and Familiarity**:
+    + i) pictures will produce a higher proportion of R hits and a lower proportion of R FAs than words. 
+    + ii) words will produce a higher proportion of F hits and a higher proportion of F FAs than pictures. 
+3. **PSE and the availability of different response options**:
+    + i) comparable PSEs will be evident in each of the response option conditions (RFG, RFBG, RF-Ratings).
+    + ii) the availability of different response options will affect whether a PSE manifests as increased recollection, increased familiarity, or both (RFBG, RF-Ratings).
 
 ## Experiment 1: Establishing PSEs in novel Remember/Know paradigm
-
 ```{r experiment-1-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
 ##    Experiment 1 - Data processing:                                                                            ##
@@ -905,65 +907,81 @@ A series of exclusion criteria were defined before analysis. First, subjects wer
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
         RFG__totals <- exp1__full_data %>% 
             filter (ResponseOption == "RFG") %>% 
-            select(total_hit, total_miss, total_FA, total_CR) %>%
+            select(total_hit, total_miss, total_FA, total_CR, 
+                   exp1__word_d_prime, exp1__pic_d_prime, word_c, pic_c) %>%
             mutate(prop_RFG_hit = total_hit / (total_hit + total_miss)) %>%
             mutate(prop_RFG_FA = total_FA / (total_FA + total_CR)) %>%
-            mutate(prop_RFG_recog = prop_RFG_hit - prop_RFG_FA)
+            mutate(prop_RFG_recog = prop_RFG_hit - prop_RFG_FA) %>%
+            mutate(total_d_prime = exp1__word_d_prime + exp1__pic_d_prime) %>%
+            mutate(total_c = word_c + pic_c)
         RFBG__totals <- exp1__full_data %>% 
             filter (ResponseOption == "RFBG") %>% 
-            select(total_hit, total_miss, total_FA, total_CR) %>%
+            select(total_hit, total_miss, total_FA, total_CR, 
+                   exp1__word_d_prime, exp1__pic_d_prime, word_c, pic_c) %>%
             mutate(prop_RFBG_hit = total_hit / (total_hit + total_miss)) %>%
             mutate(prop_RFBG_FA = total_FA / (total_FA + total_CR)) %>%
-            mutate(prop_RFBG_recog = prop_RFBG_hit - prop_RFBG_FA)
+            mutate(prop_RFBG_recog = prop_RFBG_hit - prop_RFBG_FA) %>%
+            mutate(total_d_prime = exp1__word_d_prime + exp1__pic_d_prime) %>%
+            mutate(total_c = word_c + pic_c)
         RFR__totals <- exp1__full_data %>% 
             filter (ResponseOption == "RF_Ratings") %>% 
-            select(total_hit, total_miss, total_FA, total_CR) %>%
+            select(total_hit, total_miss, total_FA, total_CR,
+                   exp1__word_d_prime, exp1__pic_d_prime, word_c, pic_c) %>%
             mutate(prop_RFR_hit = total_hit / (total_hit + total_miss)) %>%
             mutate(prop_RFR_FA = total_FA / (total_FA + total_CR)) %>%
-            mutate(prop_RFR_recog = prop_RFR_hit - prop_RFR_FA)
-
+            mutate(prop_RFR_recog = prop_RFR_hit - prop_RFR_FA) %>%
+            mutate(total_d_prime = exp1__word_d_prime + exp1__pic_d_prime) %>%
+            mutate(total_c = word_c + pic_c)
+        
         exp1__hit.FA.recog.table <- tribble(
-          ~"Stim", ~"d'" ~"Hits",  ~"FAs", ~"Overall recognition",
-          "Words", 
-                      mean(exp1__full_data$prop_word_hit), 
-                        mean(exp1__full_data$prop_word_FA),
-                          mean(exp1__full_data$word_recog),
-          "Pictures", 
-                      mean(exp1__full_data$prop_pic_hit), 
-                          mean(exp1__full_data$prop_pic_FA),
-                              mean(exp1__full_data$pic_recog),
-          "RFG", mean(RFG__totals$prop_RFG_hit), 
-                    mean(RFG__totals$prop_RFG_FA),
-                    mean(RFG__totals$prop_RFG_recog),
-          "RFBG", mean(RFBG__totals$prop_RFBG_hit), 
-                    mean(RFBG__totals$prop_RFBG_FA),
-                    mean(RFBG__totals$prop_RFBG_recog),
-          "RF Ratings", mean(RFR__totals$prop_RFR_hit), 
-                    mean(RFR__totals$prop_RFR_FA),
-                    mean(RFR__totals$prop_RFR_recog)) %>%
+          ~"Stim", ~"d'", ~"c", ~"Hits",  ~"FAs", ~"Overall recognition",
+          "Words",      mean(exp1__full_data$exp1__word_d_prime),
+                            mean(exp1__full_data$word_c),
+                                mean(exp1__full_data$prop_word_hit), 
+                                    mean(exp1__full_data$prop_word_FA),
+                                        mean(exp1__full_data$word_recog),
+          "Pictures",   mean(exp1__full_data$exp1__pic_d_prime),
+                            mean(exp1__full_data$pic_c),
+                                mean(exp1__full_data$prop_pic_hit), 
+                                    mean(exp1__full_data$prop_pic_FA),
+                                        mean(exp1__full_data$pic_recog),
+          "RFG",        mean(RFG__totals$total_d_prime),
+                            mean(RFG__totals$total_c),
+                                mean(RFG__totals$prop_RFG_hit), 
+                                    mean(RFG__totals$prop_RFG_FA),
+                                        mean(RFG__totals$prop_RFG_recog),
+          "RFBG",       mean(RFBG__totals$total_d_prime),
+                            mean(RFBG__totals$total_c),
+                                mean(RFBG__totals$prop_RFBG_hit), 
+                                    mean(RFBG__totals$prop_RFBG_FA),
+                                        mean(RFBG__totals$prop_RFBG_recog),
+          "RF Ratings", mean(RFR__totals$total_d_prime),
+                            mean(RFR__totals$total_c),
+                                mean(RFR__totals$prop_RFR_hit), 
+                                    mean(RFR__totals$prop_RFR_FA),
+                                        mean(RFR__totals$prop_RFR_recog)) %>%
           mutate_if(is.numeric, round, 2) %>%
           column_to_rownames(var = "Stim")
 ```
 
 ```{r, echo=FALSE, results = FALSE, cache=FALSE}
-      table_numbering("exp1__hit.FA.recog.table", "Mean proportion of hits and FAs
-                      by stimuli-format and response-option condition.", display = FALSE)
+      table_numbering("exp1__hit.FA.recog.table", "Mean *d'* (sensitivity), *c* (decision criterion), proportion of hits, FAs, and overall recognition by stimuli-format and response-option condition.", display = FALSE)
 ```
 
 #### Picture superiority
 To establish baseline picture superiority effects in the current paradigm, and assess whether there were any interactions with the availability of different response options at test, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on a number of outcome variables. Namely, the signal detection measures of *d'* (sensitivity) and *c* (decision criterion), as well as the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp1__hit.FA.recog.table", display = "cite")`]. To further examine response patterns between pictures and words, ANOVAs were also run on  Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
 
+\newpage
 `r table_numbering("exp1__hit.FA.recog.table")`
 ```{r, echo=FALSE, cache=TRUE}
     exp1__hit.FA.recog.table %>%
-        kable("latex", booktabs = T, align = "lccc") %>%
+        kable("latex", booktabs = T, align = "lccccc") %>%
         kable_styling(latex_options = "hold_position") %>%
         pack_rows("Stimuli-format", 1, 2) %>%
         pack_rows("Response-option", 3, 5) %>%
         column_spec(1, width = "3.6cm") %>%
-        column_spec(2, width = "1cm") %>%
-        column_spec(3, width = "1cm") %>%
-        column_spec(4, width = "2cm")
+        column_spec(2:5, width = "1.2cm") %>%
+        column_spec(6, width = "2cm")
 ```
 
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
@@ -1045,14 +1063,7 @@ To establish baseline picture superiority effects in the current paradigm, and a
       exp1__apa_anova_prop_c_resp_option_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_c_resp_option_pairwise)
       exp1__rfg_rfr_c_ttest <- exp1__apa_anova_prop_c_resp_option_pairwise$full$RFG_RF_Ratings %>% 
-          str_remove("^[\\w\\W]+?(?=\\$t)")      
-```
-&nbsp;
-&nbsp;
-
-The ANOVA on *d'* scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_dprime$full$StimuliFormat`, whereby pictures (`r exp1__pics_prop_dprime_mean`) facilitated better discrimination between hits and FAs than words (`r exp1__words_prop_dprime_mean`), `r exp1__pics_words_dprime_ttest`. *C* scores, however, showed no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, suggesting response biases were similarly conservative between pictures and words. Neither the ANOVA on *d'* or *C* scores showed any significant interaction effects.
-
-```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+          str_remove("^[\\w\\W]+?(?=\\$t)")
 ###################################################################################################################
 ##    Analysis - Prop Hits ANOVA:                                                                                ##
 ###################################################################################################################
@@ -1192,18 +1203,15 @@ The ANOVA on *d'* scores produced findings consistent with those found for hits,
       exp1__apa_anova_prop_recog_stim_format_pairwise <- 
           papaja:::apa_print.emmGrid(exp1__anova_prop_recog_stim_format_pairwise)
       exp1__pics_words_recog_ttest <- exp1__apa_anova_prop_recog_stim_format_pairwise$full %>% 
-          str_remove("^[\\w\\W]+?(?=\\$t)")      
-```     
+          str_remove("^[\\w\\W]+?(?=\\$t)")
+```
+&nbsp;
+&nbsp;
 
-The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, `r exp1__apa_anova_prop_hit$full$StimuliFormat`; a PSE was evident, with pictures (`r exp1__pics_prop_hit_mean`) showing a higher number of overall hits compared to words (`r exp1__words_prop_hit_mean`), `r exp1__pics_words_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a PSE; a significant main effect of stimuli-format `r exp1__apa_anova_prop_FA$full$StimuliFormat` showed that words (`r exp1__words_prop_FA_mean`) produced more FAs than pictures (`r exp1__pics_prop_FA_mean`), `r exp1__pics_words_FA_ttest`. Overall recognition performance (a measure that takes into account both hits and FAs) offered further support for a PSE in the current paradigm; a significant main effect of stimuli-format `r exp1__apa_anova_prop_recog$full$StimuliFormat` showed pictures (`r exp1__pics_prop_recog_mean`) produced better overall recognition on the task compared to words (`r exp1__words_prop_recog_mean`), `r exp1__pics_words_recog_ttest`. No interaction effects were found between stimuli format and response option for any of these variables. Taken together, the findings demonstrate a replication of the PSE in the current memory paradigm, and suggest stimuli format plays a key role in memorability that is independent of response option.
+The ANOVA on *d'* scores demonstrated a significant main effect of stimuli-format, `r exp1__apa_anova_prop_dprime$full$StimuliFormat`; a PSE was evident, with pictures (`r exp1__pics_prop_dprime_mean`) producing significantly better discrimination between hits and FAs than words (`r exp1__words_prop_dprime_mean`), `r exp1__pics_words_dprime_ttest`. The ANOVAs on the proportion of hits, FAs, and overall recognition also produced findings consistent with a PSE. For hits, there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_hit$full$StimuliFormat`, with pictures (`r exp1__pics_prop_hit_mean`) showing a higher number of overall hits compared to words (`r exp1__words_prop_hit_mean`), `r exp1__pics_words_hit_ttest`. Similarly, the ANOVA on the proportion of FAs showed a significant main effect of stimuli-format `r exp1__apa_anova_prop_FA$full$StimuliFormat`, with words (`r exp1__words_prop_FA_mean`) producing more FAs than pictures (`r exp1__pics_prop_FA_mean`), `r exp1__pics_words_FA_ttest`. Overall recognition performance (a measure that takes into account both hits and FAs) offered further support for a PSE in the current paradigm; a significant main effect of stimuli-format `r exp1__apa_anova_prop_recog$full$StimuliFormat` showed pictures (`r exp1__pics_prop_recog_mean`) produced better overall recognition on the task compared to words (`r exp1__words_prop_recog_mean`), `r exp1__pics_words_recog_ttest`. Finally, *c* scores showed no significant main effect of stimuli-format, `r exp1__apa_anova_prop_c$full$StimuliFormat`, suggesting response biases were similarly conservative between pictures and words. No interaction effects were found between stimuli format and response option for any of the variables. 
 
+Taken together, the findings demonstrate a replication of the PSE in the current memory paradigm, and suggest stimuli format plays a key role in memorability that is independent from the particular response options available to participants. The current findings support the hypotheses of a PSE manifesting as i) higher overall d’ scores for pictures compared to words, ii) a higher proportion of correct hits, iii) lower proportion of false alarms, and iv) better overall recognition.
  
-
-#### Response option availability
-In the ANOVAs on the proportion of hits, FAs, and overall recognition, the main effects of response option were also examined to determine whether the availability of different response option had an impact on task performance. There was a significant main effect of response option only in the ANOVA for the proportion of hits, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits than the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`. The ANOVAs on the proportion of FAs and overall recognition showed no significant main effect of response option. This finding might indicate fewer available response options facilitate accurate recognition compared to more response options - however, the absence of a main effect for overall recognition (a measure that takes into account both hits and FAs) suggests this interpretation should be treated with caution. 
-
-Discriminability (*d'*) between hits and FAs showed no significant main effect of response option, however, scores of response bias (*C*) did, `r exp1__apa_anova_prop_c$full$ResponseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative response bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`. This indicates subjects were less likely to respond "Old" when they were required to provide more detailed follow-up recognition judgements (i.e., using separate 0-5 scales for R and F), compared to simply selecting one of three options (R,F, or G). 
-
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
 ##    Analysis - Prop Rec hits ANOVA:                                                                            ##
@@ -1851,33 +1859,45 @@ Discriminability (*d'*) between hits and FAs showed no significant main effect o
               legend.spacing.y = unit(-1, "pt"),
               plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
               plot.margin = margin(20, 20, 24, 30))
-```          
-          
-#### Recollection and Familiarity
-To determine whether stimuli format, or the availability of different response options, had an impact on rates of R and F, additional a series of 2 (words, pictures) x 3 (RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the mean proportion of hits and FAs assigned R, F, and G. 
+```
 
+#### PSE in rates of Recollection and Familiarity:
+To determine the impact of stimuli format on the rates of R and F, additional 2 (words, pictures) x 3 (RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the mean proportion of hits (see `r figure_numbering("exp1__prop_hit_caption", display = "cite")`) and FAs (see `r figure_numbering("exp1__prop_FA_caption", display = "cite")`) assigned R, F, and G. 
+
+\newpage
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
       figure_numbering("exp1__prop_hit_caption", "Proportion of hits assigned 
-                       Recollection, Familiarity, and Guessing, by stimuli-format and 
+                       *Recollection*, *Familiarity*, and *Guessing*, by stimuli-format and 
                        response-option condition.", display = FALSE)
 ```
 
-```{r, fig.height=5, width=3, echo=FALSE}
+```{r, fig.height=3.6, echo=FALSE}
       exp1__hit_figure
 ```
 `r figure_numbering("exp1__prop_hit_caption")`
 
-***Recollection:*** For R hits, there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_rec_hit$full$StimuliFormat`, with pictures (`r exp1__pics_prop_rec_hit_mean`) showing a higher proportion of Recollected hits than words (`r exp1__words_prop_rec_hit_mean`), `r exp1__pics_words_rec_hit_ttest`. There was also a significant main effect of response-option, `r exp1__apa_anova_prop_rec_hit$full$ResponseOption`; the RF-Ratings group (`r exp1__rfr_rec_hit_mean`) showed significantly more Recollected hits compared to both the RFG-group (`r exp1__rfg_rec_hit_mean`), `r exp1__rfg_rfr_rec_hit_ttest`, and the RFBG-group (`r exp1__rfbg_rec_hit_mean`), `r exp1__rfbg_rfr_rec_hit_ttest`. There were no significant interaction effects, `r exp1__apa_anova_prop_rec_hit$full$ResponseOption_StimuliFormat`. In the ANOVA on Recollection FAs, there was no significant main effect of stimuli-format, `r exp1__apa_anova_prop_rec_FA$full$StimuliFormat`, but there was for response-option, `r exp1__apa_anova_prop_rec_FA$full$ResponseOption`, with those in the RF-ratings group (`r exp1__rfr_rec_FA_mean`) showing more Recollection FAs than both the RFG-group (`r exp1__rfg_rec_FA_mean`), `r exp1__rfg_rfr_rec_FA_ttest`, and RFBG-group (`r exp1__rfbg_rec_FA_mean`), `r exp1__rfbg_rfr_rec_FA_ttest`). This could indicate that when subjects were required to individually report Recollection and Familiarity on two 0-5 rating scales, they were more likely to experience (or report) false recognition (accompanied by non-existent contextual details) than when only three (RFG) or four (RFBG) response-options were provided. There were no significant interaction effects, `r exp1__apa_anova_prop_rec_FA$full$ResponseOption_StimuliFormat`.
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+      figure_numbering("exp1__prop_FA_caption", "Proportion of FAs assigned 
+                       *Recollection*, *Familiarity*, and *Guessing*, by stimuli-format and 
+                       response-option condition.", display = FALSE)
+```
 
-***Familiarity:*** F hits demonstrated a significant interaction between stimuli format and response option, 
-`r exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat` (see `r figure_numbering("exp1__fam_hit_interaction_figure_caption", display = "cite")`). Within response-option conditions, words resulted in more Familiarity hits than pictures in both the RFG group (words: `r exp1__rfg_words_fam_hit_mean`; pictures: `r exp1__rfg_pics_fam_hit_mean`, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat$statistic$RFG_Words_Pictures`) and RFBG group (words: `r exp1__rfbg_words_fam_hit_mean`; pictures: `r exp1__rfbg_pics_fam_hit_mean`, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat$statistic$RFBG_Words_Pictures`). Conversely, the RF-Ratings group showed the opposite pattern, with more Familiarity hits produced for pictures (`r exp1__rfr_pics_fam_hit_mean`) than words (`r exp1__rfr_words_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat$statistic$RF_Ratings_Words_Pictures`. The ANOVA on Familiarity FAs did not yield any significant results; with no significant main effect of stimuli-format, `r exp1__apa_anova_prop_fam_FA$full$StimuliFormat`, no significant main effect of response-option, `r exp1__apa_anova_prop_fam_FA$full$ResponseOption`, and no significant interaction effects, `r exp1__apa_anova_prop_fam_FA$full$ResponseOption_StimuliFormat`. 
+```{r, fig.height=3.6, echo=FALSE}
+      exp1__FA_figure
+```
+`r figure_numbering("exp1__prop_FA_caption")`
+\newpage
 
-Between response-option conditions, word stimuli produced significantly more Familiarity hits in the RF-Ratings group (`r exp1__rfr_words_fam_hit_mean`) compared to the RFG group (`r exp1__rfg_words_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_respoption$statistic$Words_RFG_RF_Ratings`. For pictures, a higher number of Familiarity hits was evident in the RF-Ratings group (`r exp1__rfr_pics_fam_hit_mean`) compared to both the RFG group (`r exp1__rfg_pics_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_respoption$statistic$Pictures_RFG_RF_Ratings` and RFBG group (`r exp1__rfbg_pics_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_respoption$statistic$Pictures_RFBG_RF_Ratings`. The RFBG group (`r exp1__rfbg_pics_fam_hit_mean`) also showed a significantly higher number of Familiarity hits compared to the RFG group (`r exp1__rfg_pics_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_respoption$statistic$Pictures_RFG_RFBG`.
+***Recollection:*** For R hits, there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_rec_hit$full$StimuliFormat`; pictures (`r exp1__pics_prop_rec_hit_mean`) showed a higher proportion of Recollected hits than words (`r exp1__words_prop_rec_hit_mean`), `r exp1__pics_words_rec_hit_ttest`. 
+For R FAs, there was no significant main effect of stimuli-format, `r exp1__apa_anova_prop_rec_FA$full$StimuliFormat`. There were no significant interaction effects between stimuli format and response option condition for R hits or FAs. 
+
+***Familiarity:*** For F hits, there was a significant interaction between stimuli format and response option, 
+`r exp1__apa_anova_prop_fam_hit$full$ResponseOption_StimuliFormat` (see `r figure_numbering("exp1__fam_hit_interaction_figure_caption", display = "cite")`). Words resulted in more Familiarity hits than pictures in both the RFG group (words: `r exp1__rfg_words_fam_hit_mean`; pictures: `r exp1__rfg_pics_fam_hit_mean`, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat$statistic$RFG_Words_Pictures`) and RFBG group (words: `r exp1__rfbg_words_fam_hit_mean`; pictures: `r exp1__rfbg_pics_fam_hit_mean`, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat$statistic$RFBG_Words_Pictures`). Conversely, pictures (`r exp1__rfr_pics_fam_hit_mean`) resulted in more Familiarity hits than words (`r exp1__rfr_words_fam_hit_mean`) in the RF-Ratings group, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat$statistic$RF_Ratings_Words_Pictures`. The ANOVA on Familiarity FAs did not yield any significant results; with no significant main effect of stimuli-format, `r exp1__apa_anova_prop_fam_FA$full$StimuliFormat` or significant interaction effects, `r exp1__apa_anova_prop_fam_FA$full$ResponseOption_StimuliFormat`. 
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering("exp1__fam_hit_interaction_figure_caption", "Interaction plot 
                      between stimuli-format and response-option condition for the 
-                     mean proportion of hits assigned 'Familiarity'.", 
+                     mean proportion of hits assigned *Familiarity*.", 
                      display = FALSE)
 ```
 
@@ -1886,9 +1906,7 @@ Between response-option conditions, word stimuli produced significantly more Fam
 ```
 `r figure_numbering("exp1__fam_hit_interaction_figure_caption")`
 
-***Guessing:*** The ANOVA on Guessing hits also showed a significant interaction between stimuli format and response option,`r exp1__apa_anova_prop_guess_hit$full$ResponseOption_StimuliFormat`, (see `r figure_numbering("exp1__guess_hit_interaction_figure_caption", display = "cite")`). Within response-option conditions, words resulted in more Guessing hits than pictures in both the RFG group (words: `r exp1__rfg_words_guess_hit_mean`; pictures: `r exp1__rfg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_stimformat$statistic$RFG_Words_Pictures`; and RFBG group (words: `r exp1__rfbg_words_guess_hit_mean`; pictures: `r exp1__rfbg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_stimformat$statistic$RFBG_Words_Pictures`. 
-
-Between response-option conditions, word stimuli produced significantly fewer Guessing hits in the RF-Ratings group (`r exp1__rfr_words_guess_hit_mean`) compared to both the RFG group (`r exp1__rfg_words_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_respoption$statistic$Words_RFG_RF_Ratings`, and the RFBG group (`r exp1__rfbg_words_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_respoption$statistic$Words_RFBG_RF_Ratings`. A similar pattern was also evident for pictures, with significantly fewer of Guessing hits in the RF-Ratings group (`r exp1__rfr_pics_guess_hit_mean`) compared to both the RFG group (`r exp1__rfg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_respoption$statistic$Pictures_RFG_RF_Ratings` and RFBG group (`r exp1__rfbg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_respoption$statistic$Pictures_RFBG_RF_Ratings`.
+***Guessing:*** The ANOVA on Guessing hits also showed a significant interaction between stimuli format and response option,`r exp1__apa_anova_prop_guess_hit$full$ResponseOption_StimuliFormat`, (see `r figure_numbering("exp1__guess_hit_interaction_figure_caption", display = "cite")`). Words resulted in more Guessing hits than pictures in both the RFG group (words: `r exp1__rfg_words_guess_hit_mean`; pictures: `r exp1__rfg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_stimformat$statistic$RFG_Words_Pictures`; and the RFBG group (words: `r exp1__rfbg_words_guess_hit_mean`; pictures: `r exp1__rfbg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_stimformat$statistic$RFBG_Words_Pictures`. There was no difference in the number of Guessing hits between words `r exp1__rfr_words_guess_hit_mean` and pictures `r exp1__rfr_pics_guess_hit_mean` in the RF-Ratings group, `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_stimformat$statistic$RF_Ratings_Words_Pictures`. For Guessing FAs, there was no significant main effect of stimuli-format or significant interaction effects.
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering("exp1__guess_hit_interaction_figure_caption", "Interaction plot
@@ -1901,18 +1919,49 @@ Between response-option conditions, word stimuli produced significantly fewer Gu
 ```
 `r figure_numbering("exp1__guess_hit_interaction_figure_caption")`
 
-Finally, the ANOVA on Guessing FAs also showed no significant main effect of stimuli-format, `r exp1__apa_anova_prop_guess_FA$full$StimuliFormat`, but there was a significant main effect of response-option, `r exp1__apa_anova_prop_guess_FA$full$ResponseOption`, with the with the RF-ratings group (`r exp1__rfr_guess_FA_mean`) showing significantly fewer Guessing FAs than both the RFG (`r exp1__rfg_guess_FA_mean`), `r exp1__rfg_rfr_guess_FA_ttest`, and RFBG groups (`r exp1__rfbg_guess_FA_mean`), `r exp1__rfbg_rfr_guess_FA_ttest`. This again aligns with previous results, suggesting that those in the RF-Ratings group were less likely to report guesses than the other groups, whether accurate or not. There were no significant interaction effects, `r exp1__apa_anova_prop_guess_FA$full$ResponseOption_StimuliFormat`. 
+Such findings mostly support the proposed hypotheses. Pictures indeed produced a higher proportion of R hits in comparison to words, though no picture superiority was evident in the number of R FAs. This suggests that, despite words showing a decreased level of memorability compared to pictures, they do not elicit high certainty false recognition at any higher rate. Words also produced a higher proportion of F hits compared to pictures, as predicted, but only in the RFG and RFBG conditions. It is unclear why the same pattern was not evident in the RF-Ratings group, aside from the possibility that participants avoided the more complex ratings screen (and instead more often chose *New*, inaccurately), unless they had a high certainty of their recognition (as evidenced for R hits). Again, there was no evidence of picture superiority in regard to the number of F FAs. The hypotheses put forward for G responses were again mostly supported; there were more guesses made toward words than pictures, however, this again only applied to the RFG and RFBG conditions. Such findings align with the possible explanation outlined above, whereby participants avoided having to provide two separate ratings unless they were very certain they recognised the item. 
 
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-      figure_numbering("exp1__prop_FA_caption", "Proportion of FAs assigned 
-                       Recollection, Familiarity, and Guessing, by stimuli-format and 
-                       response-option condition.", display = FALSE)
-```
+#### PSE and the availability of different response options:
+To determine whether the availability of different options had an impact on picture superiority within the current paradigm, the main effects of response option were also examined in the aforementioned ANOVAs. Discriminability (*d'*) between hits and FAs showed no significant main effect of response option, however, scores of response bias (*c*) did, `r exp1__apa_anova_prop_c$full$ResponseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative response bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`. This indicates subjects were less likely to respond "Old" when they were required to provide more detailed follow-up recognition judgements (i.e., using separate 0-5 scales for R and F), compared to simply selecting one of three options (R,F, or G). This again supports the notion of avoidance from participants when they are required to provide two separate ratings. In the ANOVAs on the proportion of hits, FAs, and overall recognition, there was a significant main effect of response option only in the ANOVA for the proportion of hits, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits than the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`. The ANOVAs on the proportion of FAs and overall recognition showed no significant main effects of response option. These findings may indicate fewer response options facilitate accurate recognition in comparison to more response options, or at least better reflect participants' willingness to engage with the task when the recognition decision is made very simple.
 
-```{r, fig.height=5, width=4, echo=FALSE}
-      exp1__FA_figure
-```
-`r figure_numbering("exp1__prop_FA_caption")`
+&nbsp;
+
+With regard to rates of R and F, there was a significant main effect of response-option for R hits, `r exp1__apa_anova_prop_rec_hit$full$ResponseOption`; the RF-Ratings group (`r exp1__rfr_rec_hit_mean`) showed significantly more R hits compared to both the RFG-group (`r exp1__rfg_rec_hit_mean`), `r exp1__rfg_rfr_rec_hit_ttest`, and the RFBG-group (`r exp1__rfbg_rec_hit_mean`), `r exp1__rfbg_rfr_rec_hit_ttest`. R FA's also exhibited an identical pattern; a significant main effect of response-option, `r exp1__apa_anova_prop_rec_FA$full$ResponseOption`, showed that those in the RF-Ratings group (`r exp1__rfr_rec_FA_mean`) produced more Recollection FAs than both the RFG-group (`r exp1__rfg_rec_FA_mean`), `r exp1__rfg_rfr_rec_FA_ttest`, and RFBG-group (`r exp1__rfbg_rec_FA_mean`), `r exp1__rfbg_rfr_rec_FA_ttest`). 
+These findings align with those above to suggest a more conservative response bias in the RF-Ratings group; participants were most likely to respond *Old* in the RF-Ratings condition when they experienced high certainty in their recognition - regardless of whether or not that recognition was accurate or false. 
+
+&nbsp;
+
+The significant interaction for familiarity hits showed that word stimuli produced significantly more Familiarity hits in the RF-Ratings group (`r exp1__rfr_words_fam_hit_mean`) compared to the RFG group (`r exp1__rfg_words_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_respoption$statistic$Words_RFG_RF_Ratings`. An identical pattern was also observed for pictures between the RF-Ratings group (`r exp1__rfr_pics_fam_hit_mean`) and RFG group (`r exp1__rfg_pics_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_respoption$statistic$Pictures_RFG_RF_Ratings`, however, F hits in the RF-Ratings group were also higher than the RFBG group (`r exp1__rfbg_pics_fam_hit_mean`) when the stimuli were pictures, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_respoption$statistic$Pictures_RFBG_RF_Ratings`. The RFBG group (`r exp1__rfbg_pics_fam_hit_mean`) also showed a significantly higher number of Familiarity hits compared to the RFG group (`r exp1__rfg_pics_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_respoption$statistic$Pictures_RFG_RFBG`. There was no significant main effect of response-option for F FAs. Such findings suggest that the proportion of F responses increases when participants are given the option to report *Both* - either explicitly, or from rating high on both rating scales. 
+
+
+
+
+
+
+
+
+
+
+, but there was a significant main effect of response-option, `r exp1__apa_anova_prop_guess_FA$full$ResponseOption`, with the with the RF-ratings group (`r exp1__rfr_guess_FA_mean`) showing significantly fewer Guessing FAs than both the RFG (`r exp1__rfg_guess_FA_mean`), `r exp1__rfg_rfr_guess_FA_ttest`, and RFBG groups (`r exp1__rfbg_guess_FA_mean`), `r exp1__rfbg_rfr_guess_FA_ttest`. 
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+This again aligns with previous results, suggesting that those in the RF-Ratings group were less likely to report guesses than the other groups, whether accurate or not. There were no significant interaction effects, `r exp1__apa_anova_prop_guess_FA$full$ResponseOption_StimuliFormat`. 
+
+Between response-option conditions, word stimuli produced significantly fewer Guessing hits in the RF-Ratings group (`r exp1__rfr_words_guess_hit_mean`) compared to both the RFG group (`r exp1__rfg_words_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_respoption$statistic$Words_RFG_RF_Ratings`, and the RFBG group (`r exp1__rfbg_words_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_respoption$statistic$Words_RFBG_RF_Ratings`. A similar pattern was also evident for pictures, with significantly fewer of Guessing hits in the RF-Ratings group (`r exp1__rfr_pics_guess_hit_mean`) compared to both the RFG group (`r exp1__rfg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_respoption$statistic$Pictures_RFG_RF_Ratings` and RFBG group (`r exp1__rfbg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_respoption$statistic$Pictures_RFBG_RF_Ratings`.
 
 
 ### Discussion
