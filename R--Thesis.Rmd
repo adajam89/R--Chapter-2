@@ -894,7 +894,7 @@ The picture stimuli utilised in the current study were created in Photoshop CC (
 The current study utilised a mixed design, with a 2-level within-subjects factor of stimuli format (words, drawings), and a 3-level between-subjects factor of response option (RFG, RFBG, RF-Ratings). Subjects completed two study blocks - one consisting only of word stimuli, the other consisting only of picture stimuli - before completing a single mixed format recognition test, where previously studied word and picture items were randomly shown among new, unseen items. Subjects passed through 2 levels of blocked randomization during the experiment (equally sized, predetermined blocks). First, subjects were randomly allocated into one of two study block orders, which determined the order in which they were presented with the picture and word blocks at study. Second, subjects were assigned into one of three possible recognition tests (identical aside from the response options available when categorising recognition experiences): 1) RFG: “Recollection”, “Familiarity”,“Guessing”; 2) RFBG: “Recollection”, “Familiarity”, “Guessing”, “Both”, or 3) RF-Ratings: two independent 0-5 rating scales to separately report the contribution of Recollection and Familiarity. These randomisation processes were completed automatically by the experiment software using balanced methods.
 
 #### Procedure
-Data collection was conducted via the online survey platform \href{https://www.qualtrics.com/uk/}{Qualtrics}. Subjects initially completed an encoding block, where target words and pictures were randomly presented one-at-a-time on-screen. To ensure attention was directed to the presented stimuli, participants were required to respond to a simple encoding question toward each item at study: "Is this a picture or a word?". This question allowed for the assessment of performance during the study block (to determine whether participants were concentrating at study), whilst also avoiding potential levels-of-processing effects that can accompany deeper encoding judgements (e.g. pleasantness ratings). The encoding phase was followed by a short distractor task comprised of 20 multiplication sums. Finally, subjects completed the recognition task, where they were again randomly presented with word and picture items one-at-a-time on-screen, and were required to respond "Old"/"New" depending on whether they recognised the item or not. "Old" responses were succeeded by a follow-up screen whereby participants were asked to report their recognition experience for the current item; the response options available during this follow-up response page differed between participants, with random allocation into either the RFG, RFBG, or RF-Ratings response option conditions. Recollection and Familiarity were defined identically across conditions, and the only deviations in instructions were: i) to define the additional "Both" response option in the RFBG condition; and ii) explain how certain responses should be reported in the RF-Ratings condition (i.e. subjects could still report a "Guess" in this condition by providing a 0-rating on both of the scales). 
+Data collection was conducted via the online survey platform \href{https://www.qualtrics.com/uk/}{Qualtrics}. Subjects initially completed an encoding block, where target words and pictures were randomly presented one-at-a-time on-screen. To ensure attention was directed to the presented stimuli, participants were required to respond to a simple encoding question toward each item at study: "Is this a picture or a word?". This question allowed for the assessment of performance during the study block (to determine whether participants were concentrating at study), whilst also avoiding potential levels-of-processing effects that can accompany deeper encoding judgements (e.g. pleasantness ratings). The encoding phase was followed by a short distractor task comprised of 20 multiplication sums. Finally, subjects completed the recognition task, where they were again randomly presented with word and picture items one-at-a-time on-screen, and were required to respond *Old*/*New* depending on whether they recognised the item or not. *Old* responses were succeeded by a follow-up screen whereby participants were asked to report their recognition experience for the current item; the response options available during this follow-up response page differed between participants, with random allocation into either the RFG, RFBG, or RF-Ratings response option conditions. Recollection and Familiarity were defined identically across conditions, and the only deviations in instructions were: i) to define the additional "Both" response option in the RFBG condition; and ii) explain how certain responses should be reported in the RF-Ratings condition (i.e. subjects could still report a "Guess" in this condition by providing a 0-rating on both of the scales). 
 
 #### Data processing
 Measured variables included the total number of hits and FAs, and the total number of hits and FAs assigned to each of the available response options (RFG, RFBG, and RF Ratings). In order to create a common dependant variable, proportions were calculated from these variables in slightly different ways depending on the response option group. In the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, similar proportions were calculated by separately adding the proportion of Both responses to the proportion of R and proportion of F responses. In the RF-Ratings group, proportions of R and F were calculated based on the number of responses scoring +>3; a response was classified R when subjects rated between 3-5 on the "Recollection" scale (regardless of the Familiarity rating), and a response was classified F when subjects rated between 3-5 on the "Familiarity" scale (regardless of the Recollection rating). The scales therefore allowed for pure R responses (R=3-5 + F=0-2), pure F responses (F=3-5 + R=0-2), both responses (R=3-5 + F=3-5) and Guessing responses (R=0 + F=0). Additional DVs included: i) d’ (d-prime, a signal detection measure of sensitivity); ii) c-value (a measure of response bias); iii) overall accuracy (hits / (hits + FAs)); iv) reaction times for all responses.
@@ -1922,7 +1922,7 @@ For R FAs, there was no significant main effect of stimuli-format, `r exp1__apa_
 Such findings mostly support the proposed hypotheses. Pictures indeed produced a higher proportion of R hits in comparison to words, though no picture superiority was evident in the number of R FAs. This suggests that, despite words showing a decreased level of memorability compared to pictures, they do not elicit high certainty false recognition at any higher rate. Words also produced a higher proportion of F hits compared to pictures, as predicted, but only in the RFG and RFBG conditions. It is unclear why the same pattern was not evident in the RF-Ratings group, aside from the possibility that participants avoided the more complex ratings screen (and instead more often chose *New*, inaccurately), unless they had a high certainty of their recognition (as evidenced for R hits). Again, there was no evidence of picture superiority in regard to the number of F FAs. The hypotheses put forward for G responses were again mostly supported; there were more guesses made toward words than pictures, however, this again only applied to the RFG and RFBG conditions. Such findings align with the possible explanation outlined above, whereby participants avoided having to provide two separate ratings unless they were very certain they recognised the item. 
 
 #### PSE and the availability of different response options:
-To determine whether the availability of different options had an impact on picture superiority within the current paradigm, the main effects of response option were also examined in the aforementioned ANOVAs. Discriminability (*d'*) between hits and FAs showed no significant main effect of response option, supporting the hypothesis that a PSE would be evident in each of the response option conditions. Response bias (*c*) scores did show a main effect of response option though, `r exp1__apa_anova_prop_c$full$ResponseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative response bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`. This indicates subjects were less likely to respond "Old" when they were required to provide more detailed follow-up recognition judgements (i.e., using separate 0-5 scales for R and F), compared to simply selecting one of three options (R,F, or G). This again supports the notion of avoidance from participants when they were required to provide two separate ratings. The ANOVAs on the proportion of hits, FAs, and overall recognition also mostly supported our hypothesis that a PSE would be evident in each of the response option conditions. While the ANOVAs on the proportion of FAs and overall recognition showed no significant main effects of response option, there was a significant main effect for the proportion of hits, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits than the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`. This unexpected result may also reflect the conservative response bias of those in the RF-Ratings group, whereby fewer total *Old* responses necessitates fewer hits as a result. However, a lack of differences between groups for FAs and overall recognition indicates a comparable PSE across each of the response option groups. 
+To determine whether the availability of different options had an impact on picture superiority within the current paradigm, the main effects of response option were also examined in the aforementioned ANOVAs. Discriminability (*d'*) between hits and FAs showed no significant main effect of response option, supporting the hypothesis that a PSE would be evident in each of the response option conditions. Response bias (*c*) scores did show a main effect of response option though, `r exp1__apa_anova_prop_c$full$ResponseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative response bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`. This indicates subjects were less likely to respond *Old* when they were required to provide more detailed follow-up recognition judgements (i.e., using separate 0-5 scales for R and F), compared to simply selecting one of three options (R,F, or G). This again supports the notion of avoidance from participants when they were required to provide two separate ratings. The ANOVAs on the proportion of hits, FAs, and overall recognition also mostly supported our hypothesis that a PSE would be evident in each of the response option conditions. While the ANOVAs on the proportion of FAs and overall recognition showed no significant main effects of response option, there was a significant main effect for the proportion of hits, `r exp1__apa_anova_prop_hit$full$ResponseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits than the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`. This unexpected result may also reflect the conservative response bias of those in the RF-Ratings group, whereby fewer total *Old* responses necessitates fewer hits as a result. However, a lack of differences between groups for FAs and overall recognition indicates a comparable PSE across each of the response option groups. 
 
 With regard to rates of R and F, there was a significant main effect of response-option for R hits, `r exp1__apa_anova_prop_rec_hit$full$ResponseOption`; the RF-Ratings group (`r exp1__rfr_rec_hit_mean`) showed significantly more R hits compared to both the RFG-group (`r exp1__rfg_rec_hit_mean`), `r exp1__rfg_rfr_rec_hit_ttest`, and the RFBG-group (`r exp1__rfbg_rec_hit_mean`), `r exp1__rfbg_rfr_rec_hit_ttest`. R FA's also exhibited an identical pattern; a significant main effect of response-option, `r exp1__apa_anova_prop_rec_FA$full$ResponseOption`, showed that those in the RF-Ratings group (`r exp1__rfr_rec_FA_mean`) produced more Recollection FAs than both the RFG-group (`r exp1__rfg_rec_FA_mean`), `r exp1__rfg_rfr_rec_FA_ttest`, and RFBG-group (`r exp1__rfbg_rec_FA_mean`), `r exp1__rfbg_rfr_rec_FA_ttest`). 
 These findings align with those above to suggest a more conservative response bias in the RF-Ratings group; participants were more likely to respond *Old* in the RF-Ratings condition when they experienced high certainty in their recognition - regardless of whether or not that recognition was accurate or false. 
@@ -4450,7 +4450,7 @@ The current study utilised a mixed design, with a 3-level within-subjects factor
 &nbsp;
 
 #### Procedure
-Data was collected online using \href{https://gorilla.sc/}{Gorilla} - a platform for the building and hosting of online experiments. The experiment consisted of three self-paced phases: i) study phase, ii) distractor task, and iii) recognition test. In the study phase, an even mix of word, drawing, and photograph stimuli were presented one-at-a-time on the computer screen. Subjects were instructed to learn the items in preparation for a later memory test. To ensure attention was directed to the presented stimuli, subjects were required to report whether each item was shown as a word, drawing, or photograph using the computer mouse. Following the study phase, participants completed some simple multiple choice mathematical questions (e.g. 6 x 4 = ?) as a distractor. Finally, participants memory of the previously studied items was testing in the recognition task. An even mix of word, drawing, and photograph stimuli were again presented one-at-a-time on the screen; half of the test items had been shown previously in the study phase, while the other half were new (and were not on the study list). For each item, subjects were instructed to press "Old" if they believed it was an item they had studied earlier, and "New" if they had not. "Old" responses led to a follow-up judgement, where participants reported whether they had experienced recognition through "Recollection", "Familiarity", or were simply taking an uninformed "Guess". Participants that had been randomised into the RFBG test condition had a fourth option here, whereby they could report that they had experienced Recollection and Familiarity simultaneously ("Both"). Stimuli format was congruent across the study and test blocks (e.g. items presented as photos at study were also presented as photos at test). For each concept depicted across the three stimuli formats, subjects were only presented with one variation (in other words, if a subject saw a photograph for the item "shoe", they did not see the word or line-drawn version of "shoe"). 
+Data was collected online using \href{https://gorilla.sc/}{Gorilla} - a platform for the building and hosting of online experiments. The experiment consisted of three self-paced phases: i) study phase, ii) distractor task, and iii) recognition test. In the study phase, an even mix of word, drawing, and photograph stimuli were presented one-at-a-time on the computer screen. Subjects were instructed to learn the items in preparation for a later memory test. To ensure attention was directed to the presented stimuli, subjects were required to report whether each item was shown as a word, drawing, or photograph using the computer mouse. Following the study phase, participants completed some simple multiple choice mathematical questions (e.g. 6 x 4 = ?) as a distractor. Finally, participants memory of the previously studied items was testing in the recognition task. An even mix of word, drawing, and photograph stimuli were again presented one-at-a-time on the screen; half of the test items had been shown previously in the study phase, while the other half were new (and were not on the study list). For each item, subjects were instructed to press *Old* if they believed it was an item they had studied earlier, and *New* if they had not. *Old* responses led to a follow-up judgement, where participants reported whether they had experienced recognition through "Recollection", "Familiarity", or were simply taking an uninformed "Guess". Participants that had been randomised into the RFBG test condition had a fourth option here, whereby they could report that they had experienced Recollection and Familiarity simultaneously ("Both"). Stimuli format was congruent across the study and test blocks (e.g. items presented as photos at study were also presented as photos at test). For each concept depicted across the three stimuli formats, subjects were only presented with one variation (in other words, if a subject saw a photograph for the item "shoe", they did not see the word or line-drawn version of "shoe"). 
 
 #### Data processing
 Measured variables included the total number of hits and FAs, and the total number of hits and FAs assigned to each of the available response options (R/F/G and R/F/B/G). In order to create a common dependant variable, proportions were calculated from these variables slightly differently depending on the response option group. In the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, however, the proportion of Both responses was separately added to R proportions and F proportions. Additional DVs included: i) d’ (d-prime, a signal detection measure of sensitivity); ii) c-value (a measure of response bias); iii) overall accuracy (hits / (hits + FAs)); iv) reaction times for all responses.
@@ -5651,10 +5651,11 @@ In *Experiment 3*, this was demonstrated by comparing recognition toward stimuli
 
 Indeed, colour images have previously been linked to enhanced memory performance in recognition tasks [@ally2009], though it was difficult to disentangle the specific effects of colour from the complexity of detail featured. 
 
+&nbsp;
+
 Another inconsistency across recognition studies relates to whether picture stimuli are presented in greyscale or colour. The extent to which colour alters the distinctiveness of stimuli is unclear, though there is evidence to suggest it may play an important role in the memorability of stimuli. In a two-alternative forced choice recognition paradigm, @suzuki1997 demonstrated that black & white images may not facilitate successful recognition in the same way as colour images. In an initial study phase, subjects were instructed to passively memorise a number of picture stimuli consisting of detailed real-world photographs of scenes (e.g. train stations, city streets etc.). At test, participants were presented with two images side-by-side (one target + one similar lure) and asked to select the item shown during the study phase. Manipulations were also made with regard to the congruency; photos were either presented in the same colour modality across study and test (1. b&w + b&w; 2. colour + colour) or different (3. b&w + colour; 4. colour + b&w). Participants were informed that old photos may be presented in a different colour format (e.g. a colour item shown at study might not be shown in b&w), and were also asked to make a source judgement about whether the colour format for each item was the same or different. Results showed that, of the four possible congruency conditions, recognition performance was best when items were congruently shown in colour at both study and test. This finding indicates colour information provided a recognition benefit at encoding and retrieval, though interestingly, this benefit was *only* evident in the congruent colour condition; if colour images were shown only at study, or only at test, there were no recognition benefits. Performance on the source judgement question - regarding whether the the colour of the item had changed since the study phase - was similar across all four conditions, but performance was particularly poor for items that had been presented in colour. This indicates recognition benefits were not a result of accessing memory for the colour information itself; @suzuki1997 instead hypothesised that colour indirectly highlighted certain features within the photographs that were not otherwise noticed as prominently in b&w, and as a result, the colour photographs were overall more distinctive. 
 
-
-
+&nbsp;
 
 The current experiment aims to establish whether colour information facilitates recognition irrespective of the level of detail present in an image. The methodology of *Experiment 3* will be repeated using colour versions of both types of picture; a a set of simple, line-drawn illustrations sourced from @rossion2004, and a set of detailed real-world photographs established in *Experiment 2*. A secondary aim is to determine whether these response patterns are differentially affected by the availability of different response options at test (*Recollection*/*Familiarity*/*Guessing* or *Recollection*/*Familiarity*/*Both*/*Guessing*). 
 
@@ -5772,12 +5773,16 @@ A mixed 3x2 design was utilised, consisting of a within-subjects factor of stimu
 &nbsp;
 
 #### Procedure
-The procedure was identical to that of *Experiment 3*; data collection was conducted online using the experiment platform \href{https://gorilla.sc/}{Gorilla}. All subjects completed three self-paced phases: i) study phase, ii) distractor task, and iii) recognition test. At study, subjects were instructed to learn each of the word, drawing, and photograph items (shown at random, one-at-a-time) in preparation for a later memory test. For each item, participants were required to report whether the current format was a word, drawing, or photograph - an encoding judgement that ensured attention was directed toward the to-be-remembered stimuli. Next, subjects completed some simple multiple choice mathematical questions (e.g. 6 x 4 = ?) as a distractor task. Finally, participants were presented with the recognition test; word, drawing, and photograph items were once again shown one-at-a-time at random. Half of the test items had been shown previously in the study phase, while the other half were new (not shown at study). Subjects were first required to make an *Old*/*New* judgement, based on whether they believed they had studied the item earlier or not. While "New" judgements simply led to the next item, *Old* judgements led to a follow-up screen where participants were asked whether they had recognised the item via *Recollection*, *Familiarity*, or were simply *Guessing* that it was old. Those in the RFBG response option condition had an additional *Both* option at this stage, where they could report that they had experienced recollection and familiarity simultaneously. Stimuli format stayed the same across study and test (e.g. if the item "penguin" was shown in word format at study, it was also shown as a word at test), and the same concepts were not repeated across the other formats within-subjects (e.g. if the item "penguin" was shown as a word, that subject would not view the drawing or photo version). 
+The procedure was identical to that of *Experiment 3*; data collection was conducted online using the experiment platform \href{https://gorilla.sc/}{Gorilla}. All subjects completed three self-paced phases: i) study phase, ii) distractor task, and iii) recognition test. At study, subjects were instructed to learn each of the word, drawing, and photograph items (shown at random, one-at-a-time) in preparation for a later memory test. For each item, participants were required to report whether the current format was a word, drawing, or photograph - an encoding judgement that ensured attention was directed toward the to-be-remembered stimuli. Next, subjects completed some simple multiple choice mathematical questions (e.g. 6 x 4 = ?) as a distractor task. Finally, participants were presented with the recognition test; word, drawing, and photograph items were once again shown one-at-a-time at random. Half of the test items had been shown previously in the study phase, while the other half were new (not shown at study). Subjects were first required to make an *Old*/*New* judgement, based on whether they believed they had studied the item earlier or not. While *New* judgements simply led to the next item, *Old* judgements led to a follow-up screen where participants were asked whether they had recognised the item via *Recollection*, *Familiarity*, or were simply *Guessing* that it was old. Those in the RFBG response option condition had an additional *Both* option at this stage, where they could report that they had experienced recollection and familiarity simultaneously. Stimuli format stayed the same across study and test (e.g. if the item "penguin" was shown in word format at study, it was also shown as a word at test), and the same concepts were not repeated across the other formats within-subjects (e.g. if the item "penguin" was shown as a word, that subject would not view the drawing or photo version). 
 
 #### Data processing
 The primary DVs consisted of *d’* (d-prime, a signal detection measure of sensitivity), the proportion of hits and false alarms (FAs), overall performance accuracy (hits / (hits + FAs)), and the total number of hits and FAs assigned to each of the available response options (R/F/G and R/F/B/G). Proportions of Recollection and Familiarity were calculated slightly differently depending on the response option condition; in the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, Both responses was separately added to R proportions and F proportions. Additional DVs included: *c* scores (a measure of response bias), and reaction times for all responses.
 
+&nbsp;
+
 All analyses were conducted using R [@rcoreteam2020]. *d'* (sensitivity) and *c* (bias) scores were calculated using the 'psycho' package [`r str_c("v", str_remove(packages_versions("psycho"), "([^\\s]+)\\s"))`; @psycho]. *d'* scores were calculated via: z-scores for correct hits minus z-scores for false alarms [@hautus1995 adjustments for extreme values were applied].
+
+&nbsp;
 
 Subjects were excluded according to a two key criteria; 1) less than 90% accuracy during the encoding task ("Is this a word, drawing, or photograph?"); 2) extreme z-scores (those presenting z-scores of +/- 3 for total hits, total FAs, or overall recognition [hits minus FAs]). A total of `r exp3and4__all_exclude %>% filter(col_or_grey == "col") %>% nrow()` participants were found to meet (at least) one of these criteria, and were thus considered outliers and excluded from analysis.
 
@@ -5840,7 +5845,9 @@ Subjects were excluded according to a two key criteria; 1) less than 90% accurac
 ```
 
 #### Distinctiveness
-To determine whether colour photographs were more distinctive than colour drawings, and examine any potential interactions with response-option condition, a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the signal detection measures of *d'* (sensitivity) and *c* (decision criterion), as well as the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp4__hit.FA.recog.table", display = "cite")`]. Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
+To determine whether colour photographs were more distinctive than colour drawings (and examine whether the availability of different response options had similar effects toward colour items as in the previous experiment using greyscale stimuli), a series of 2 (stimuli format: words, pictures) x 3 (response option condition: RFG-judgements, RFBG-judgements, RF-ratings) mixed ANOVAs were conducted on the signal detection measures of *d'* (sensitivity) and *c* (decision criterion), as well as the proportion of overall hits, false alarms (FAs), and overall recognition (hits - FAs) [see `r table_numbering("exp4__hit.FA.recog.table", display = "cite")`]. Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons.
+
+&nbsp;
 
 `r table_numbering("exp4__hit.FA.recog.table")`
 ```{r, echo=FALSE, cache=TRUE}
@@ -5856,6 +5863,105 @@ To determine whether colour photographs were more distinctive than colour drawin
 &nbsp;
 
 ```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+###################################################################################################################
+##    Analysis - d' and c:                                                                                       ##
+###################################################################################################################
+      exp4__d_prime_anova_data <- exp4__colour_data %>%
+          select(id, resp_option, word_d_prime, drawing_d_prime, photo_d_prime) %>%
+          rename(word = "word_d_prime", drawing = "drawing_d_prime", photo = "photo_d_prime") %>%
+          gather(key = "stim_format", value = "d_prime", word, drawing, photo) %>%
+          mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+          mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+          mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+          transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+          transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
+##    2-way mixed ANOVA:
+      exp4__anova_d_prime <- aov_ez("id", "d_prime", exp4__d_prime_anova_data,
+                                    between = "resp_option", within = "stim_format")
+##    Post-hoc contrasts:
+##    Stimuli format:
+      exp4__anova_d_prime_stim_format_emmeans <- emmeans(exp4__anova_d_prime, ~ stim_format)
+      exp4__anova_d_prime_word_photo_emmeans <- exp4__anova_d_prime_stim_format_emmeans[-2]
+          exp4__anova_d_prime_word_photo_pairwise <- pairs(exp4__anova_d_prime_word_photo_emmeans,
+                                                           adjust = "bonferroni")  
+      exp4__anova_d_prime_drawing_photo_emmeans <- exp4__anova_d_prime_stim_format_emmeans[2:3]
+          exp4__anova_d_prime_drawing_photo_pairwise <- pairs(exp4__anova_d_prime_drawing_photo_emmeans,
+                                                              adjust = "bonferroni")      
+##    Interaction means (for figure): 
+      exp4__anova_d_prime_interaction_emmeans <- 
+        emmeans(exp4__anova_d_prime, ~ resp_option:stim_format)
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp4__apa_anova_d_prime <- papaja:::apa_print.afex_aov(exp4__anova_d_prime)
+##    Main effects:
+      exp4__apa_anova_d_prime__stim_format <- exp4__apa_anova_d_prime$full_result$stim_format
+      exp4__apa_anova_d_prime__resp_option <- exp4__apa_anova_d_prime$full_result$resp_option
+      exp4__apa_anova_d_prime__interaction <- exp4__apa_anova_d_prime$full_result$resp_option_stim_format
+##    Stim format pairwise:
+      exp4__apa_anova_d_prime_stim_format_emmeans <- papaja:::apa_print.emmGrid(
+                                                     exp4__anova_d_prime_stim_format_emmeans)
+      exp4__words_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_emmeans$estimate$Words %>%
+                                      str_remove("\\,.*")
+      exp4__drawings_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_emmeans$estimate$Drawings %>%
+                                      str_remove("\\,.*")
+      exp4__photos_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_emmeans$estimate$Photographs %>%
+                                      str_remove("\\,.*")
+      exp4__apa_anova_d_prime_word_photo_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_d_prime_word_photo_pairwise)
+      exp4__word_photo_d_prime_ttest <- 
+          exp4__apa_anova_d_prime_word_photo_pairwise$statistic$Words_Photographs
+      
+      exp4__apa_anova_d_prime_drawing_photo_pairwise <- 
+          papaja:::apa_print.emmGrid(exp4__anova_d_prime_drawing_photo_pairwise)
+      exp4__drawings_photo_d_prime_ttest <- 
+          exp4__apa_anova_d_prime_drawing_photo_pairwise$statistic$Drawings_Photographs
+#------------------------------------------------------------------------------------------------------------------
+#   c:
+#------------------------------------------------------------------------------------------------------------------
+      exp4__c_anova_data <- exp4__colour_data %>%
+          select(id, resp_option, word_c, drawing_c, photo_c) %>%
+          rename(word = "word_c", drawing = "drawing_c", photo = "photo_c") %>%
+          gather(key = "stim_format", value = "c", word, drawing, photo) %>%
+          mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
+          mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
+          mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
+          mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
+          transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
+          transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
+##    2-way mixed ANOVA:
+      exp4__anova_c <- aov_ez("id", "c", exp4__c_anova_data, between = "resp_option", within = "stim_format")
+##    Post-hoc contrasts:
+##    Stimuli format:
+      exp4__anova_c_stim_format_emmeans <- emmeans(exp4__anova_c, ~ stim_format)
+      exp4__anova_c_drawing_photo_emmeans <- exp4__anova_c_stim_format_emmeans[2:3]
+      exp4__anova_c_drawing_photo_pairwise <- pairs(exp4__anova_c_drawing_photo_emmeans, adjust = "bonferroni")   
+##    Response option:
+      exp4__anova_c_resp_option_emmeans <- emmeans(exp4__anova_c, ~ resp_option)
+      exp4__anova_c_resp_option_pairwise <- pairs(exp4__anova_c_resp_option_emmeans, adjust = "bonferroni")      
+##    Interaction means (for figure): 
+      exp4__anova_c_interaction_emmeans <- emmeans(exp4__anova_c, ~ resp_option:stim_format)
+#------------------------------------------------------------------------------------------------------------------
+#   Format results for report:
+#------------------------------------------------------------------------------------------------------------------
+      exp4__apa_anova_c <- papaja:::apa_print.afex_aov(exp4__anova_c)
+##    Main effects:
+      exp4__apa_anova_c__stim_format <- exp4__apa_anova_c$full_result$stim_format
+      exp4__apa_anova_c__resp_option <- exp4__apa_anova_c$full_result$resp_option
+      exp4__apa_anova_c__interaction <- exp4__apa_anova_c$full_result$resp_option_stim_format
+##    Stim format pairwise:
+      exp4__apa_anova_c_stim_format_emmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_stim_format_emmeans)
+      exp4__drawings_c_mean <- exp4__apa_anova_c_stim_format_emmeans$estimate$Drawings %>% str_remove("\\,.*")
+      exp4__photos_c_mean <- exp4__apa_anova_c_stim_format_emmeans$estimate$Photographs %>% str_remove("\\,.*")
+      exp4__apa_anova_c_drawing_photo_pairwise <- papaja:::apa_print.emmGrid(exp4__anova_c_drawing_photo_pairwise)
+      exp4__drawings_photo_c_ttest <- exp4__apa_anova_c_drawing_photo_pairwise$statistic$Drawings_Photographs      
+##    Resp option pairwise:
+      exp4__apa_anovac_resp_option_emmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_resp_option_emmeans)
+      exp4__RFG_c_mean <- exp4__apa_anovac_resp_option_emmeans$estimate$RFG %>% str_remove("\\,.*")
+      exp4__RFBG_c_mean <- exp4__apa_anovac_resp_option_emmeans$estimate$RFBG %>% str_remove("\\,.*")
+      exp4__apa_anova_c_resp_option_pairwise <- papaja:::apa_print.emmGrid(exp4__anova_c_resp_option_pairwise)
+      exp4__RFG_RFBG_c_ttest <- exp4__apa_anova_c_resp_option_pairwise$statistic$RFG_RFBG
 ###################################################################################################################
 ##    Analysis - Prop Hits ANOVA:                                                                                ##
 ###################################################################################################################
@@ -6001,104 +6107,49 @@ To determine whether colour photographs were more distinctive than colour drawin
           papaja:::apa_print.emmGrid(exp4__anova_recog_drawing_photo_pairwise)
       exp4__drawings_photo_recog_ttest <- 
           exp4__apa_anova_recog_drawing_photo_pairwise$statistic$Drawings_Photographs
+#------------------------------------------------------------------------------------------------------------------
+      exp4__ANOVA.table <- tribble(
+          ~"", ~"ANOVA result", ~"Drawings", ~"Photographs",  ~"Pairwise",
+          "d'",                   exp4__apa_anova_d_prime__stim_format,
+                                  exp4__drawings_d_prime_mean,
+                                  exp4__photos_d_prime_mean,
+                                  exp4__drawings_photo_d_prime_ttest,
+          "c",                    exp4__apa_anova_c__stim_format,
+                                  exp4__drawings_c_mean,
+                                  exp4__photos_c_mean,
+                                  exp4__drawings_photo_c_ttest,
+          "Proportion of hits",   exp4__apa_anova_prop_hit__stim_format,
+                                  exp4__drawings_prop_hit_mean,
+                                  exp4__photos_prop_hit_mean,
+                                  exp4__drawings_photo_hit_ttest, 
+          "Proportion of FAs",    exp4__apa_anova_prop_FA__stim_format,
+                                  exp4__drawings_prop_FA_mean,
+                                  exp4__photos_prop_FA_mean,
+                                  exp4__drawings_photo_FA_ttest,
+          "Overall recognition",  exp4__apa_anova_recog__stim_format,
+                                  exp4__drawings_recog_mean,
+                                  exp4__photos_recog_mean,
+                                  exp4__drawings_photo_recog_ttest)
+```
+Visual inspection of the data (`r table_numbering("exp4__hit.FA.recog.table", display = "cite")`) shows some expected patterns with regard to stimuli distinctiveness. As the intended distinctiveness increases across the formats (from words, to drawings, to photographs), *d'* scores also increase, along with the mean proportion of hits and overall scores of recognition (hits - FAs), while the mean proportion of FAs decreases. 
+
+Such differences were also statistically significant. 
+
+`r table_numbering("exp4__hit.FA.recog.table")`
+```{r, echo=FALSE, cache=FALSE}
+    exp4__ANOVA.table %>%
+        kable("latex", booktabs = T, align = "lccccc") #%>%
+#        kable_styling(latex_options = "hold_position") #%>%
+        #column_spec(1, width = "3.6cm")
 ```
 
-Visual inspection of the data (`r table_numbering("exp4__hit.FA.recog.table", display = "cite")`) shows some expected patterns with regard to stimuli distinctiveness. As the intended distinctiveness increases across the formats (from words, to drawings, to photographs), the mean proportion of hits increases, the mean proportion of FAs decreases, and overall scores of recognition (hits - FAs) also increases. These patterns support the notion that distinctiveness plays a key role in the memorability of stimuli, and also that the current stimuli indeed appear to capture different 'levels' of stimuli distinctiveness. The ANOVA on the proportion of hits demonstrated a significant main effect of stimuli-format, `r exp4__apa_anova_prop_hit__stim_format`; a distinctiveness effect was apparent, with colour photographs (`r exp4__photos_prop_hit_mean`) showing a higher number of overall hits compared to colour drawings (`r exp4__drawings_prop_hit_mean`), `r exp4__drawings_photo_hit_ttest`. Similarly, the ANOVA on the proportion of FAs also supported a distinctiveness effect; a significant main effect of stimuli-format `r exp4__apa_anova_prop_FA__stim_format` showed that drawings (`r exp4__drawings_prop_FA_mean`) produced more FAs than photographs (`r exp4__photos_prop_FA_mean`), `r exp4__drawings_photo_FA_ttest`. Overall recognition performance (taking into account hits and FAs) offered further support for a distinctiveness effect; a significant main effect of stimuli-format `r exp4__apa_anova_recog__stim_format` showed photographs (`r exp4__photos_recog_mean`) produced better overall task performance compared to drawings (`r exp4__drawings_recog_mean`), `r exp4__drawings_photo_recog_ttest`. Taken together, the findings support the distinctiveness hypothesis, in that colour photographs were recognised better than colour drawings. 
+Overall recognition performance (taking into account hits and FAs) offered further support for a distinctiveness effect; a significant main effect of stimuli-format 
 
-```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
-###################################################################################################################
-##    Analysis - d' and c:                                                                                       ##
-###################################################################################################################
-      exp4__d_prime_anova_data <- exp4__colour_data %>%
-          select(id, resp_option, word_d_prime, drawing_d_prime, photo_d_prime) %>%
-          rename(word = "word_d_prime", drawing = "drawing_d_prime", photo = "photo_d_prime") %>%
-          gather(key = "stim_format", value = "d_prime", word, drawing, photo) %>%
-          mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
-          mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
-          mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
-          mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
-          transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
-          transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
-##    2-way mixed ANOVA:
-      exp4__anova_d_prime <- aov_ez("id", "d_prime", exp4__d_prime_anova_data,
-                                    between = "resp_option", within = "stim_format")
-##    Post-hoc contrasts:
-##    Stimuli format:
-      exp4__anova_d_prime_stim_format_emmeans <- emmeans(exp4__anova_d_prime, ~ stim_format)
-      exp4__anova_d_prime_drawing_photo_emmeans <- exp4__anova_d_prime_stim_format_emmeans[2:3]
-      exp4__anova_d_prime_drawing_photo_pairwise <- pairs(exp4__anova_d_prime_drawing_photo_emmeans,
-                                                          adjust = "bonferroni")      
-##    Interaction means (for figure): 
-      exp4__anova_d_prime_interaction_emmeans <- 
-        emmeans(exp4__anova_d_prime, ~ resp_option:stim_format)
-#------------------------------------------------------------------------------------------------------------------
-#   Format results for report:
-#------------------------------------------------------------------------------------------------------------------
-      exp4__apa_anova_d_prime <- papaja:::apa_print.afex_aov(exp4__anova_d_prime)
-##    Main effects:
-      exp4__apa_anova_d_prime__stim_format <- exp4__apa_anova_d_prime$full_result$stim_format
-      exp4__apa_anova_d_prime__resp_option <- exp4__apa_anova_d_prime$full_result$resp_option
-      exp4__apa_anova_d_prime__interaction <- exp4__apa_anova_d_prime$full_result$resp_option_stim_format
-##    Stim format pairwise:
-      exp4__apa_anova_d_prime_stim_format_emmeans <- papaja:::apa_print.emmGrid(
-                                                     exp4__anova_d_prime_stim_format_emmeans)
-      exp4__drawings_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_emmeans$estimate$Drawings %>%
-                                      str_remove("\\,.*")
-      exp4__photos_d_prime_mean <- exp4__apa_anova_d_prime_stim_format_emmeans$estimate$Photographs %>%
-                                      str_remove("\\,.*")
-      exp4__apa_anova_d_prime_drawing_photo_pairwise <- 
-          papaja:::apa_print.emmGrid(exp4__anova_d_prime_drawing_photo_pairwise)
-      exp4__drawings_photo_d_prime_ttest <- 
-          exp4__apa_anova_d_prime_drawing_photo_pairwise$statistic$Drawings_Photographs
-#------------------------------------------------------------------------------------------------------------------
-#   c:
-#------------------------------------------------------------------------------------------------------------------
-      exp4__c_anova_data <- exp4__colour_data %>%
-          select(id, resp_option, word_c, drawing_c, photo_c) %>%
-          rename(word = "word_c", drawing = "drawing_c", photo = "photo_c") %>%
-          gather(key = "stim_format", value = "c", word, drawing, photo) %>%
-          mutate_at(vars("id", "resp_option", "stim_format"), factor) %>%
-          mutate(stim_format = str_replace(stim_format, "word", "Words")) %>%
-          mutate(stim_format = str_replace(stim_format, "drawing", "Drawings")) %>%
-          mutate(stim_format = str_replace(stim_format, "photo", "Photographs")) %>%
-          transform(stim_format = factor(stim_format, levels=c("Words","Drawings","Photographs"))) %>%
-          transform(resp_option = factor(resp_option, levels=c("RFG","RFBG")))
-##    2-way mixed ANOVA:
-      exp4__anova_c <- aov_ez("id", "c", exp4__c_anova_data, between = "resp_option", within = "stim_format")
-##    Post-hoc contrasts:
-##    Stimuli format:
-      exp4__anova_c_stim_format_emmeans <- emmeans(exp4__anova_c, ~ stim_format)
-      exp4__anova_c_drawing_photo_emmeans <- exp4__anova_c_stim_format_emmeans[2:3]
-      exp4__anova_c_drawing_photo_pairwise <- pairs(exp4__anova_c_drawing_photo_emmeans, adjust = "bonferroni")   
-##    Response option:
-      exp4__anova_c_resp_option_emmeans <- emmeans(exp4__anova_c, ~ resp_option)
-      exp4__anova_c_resp_option_pairwise <- pairs(exp4__anova_c_resp_option_emmeans, adjust = "bonferroni")      
-##    Interaction means (for figure): 
-      exp4__anova_c_interaction_emmeans <- emmeans(exp4__anova_c, ~ resp_option:stim_format)
-#------------------------------------------------------------------------------------------------------------------
-#   Format results for report:
-#------------------------------------------------------------------------------------------------------------------
-      exp4__apa_anova_c <- papaja:::apa_print.afex_aov(exp4__anova_c)
-##    Main effects:
-      exp4__apa_anova_c__stim_format <- exp4__apa_anova_c$full_result$stim_format
-      exp4__apa_anova_c__resp_option <- exp4__apa_anova_c$full_result$resp_option
-      exp4__apa_anova_c__interaction <- exp4__apa_anova_c$full_result$resp_option_stim_format
-##    Stim format pairwise:
-      exp4__apa_anova_c_stim_format_emmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_stim_format_emmeans)
-      exp4__drawings_c_mean <- exp4__apa_anova_c_stim_format_emmeans$estimate$Drawings %>% str_remove("\\,.*")
-      exp4__photos_c_mean <- exp4__apa_anova_c_stim_format_emmeans$estimate$Photographs %>% str_remove("\\,.*")
-      exp4__apa_anova_c_drawing_photo_pairwise <- papaja:::apa_print.emmGrid(exp4__anova_c_drawing_photo_pairwise)
-      exp4__drawings_photo_c_ttest <- exp4__apa_anova_c_drawing_photo_pairwise$statistic$Drawings_Photographs      
-##    Resp option pairwise:
-      exp4__apa_anovac_resp_option_emmeans <- papaja:::apa_print.emmGrid(exp4__anova_c_resp_option_emmeans)
-      exp4__RFG_c_mean <- exp4__apa_anovac_resp_option_emmeans$estimate$RFG %>% str_remove("\\,.*")
-      exp4__RFBG_c_mean <- exp4__apa_anovac_resp_option_emmeans$estimate$RFBG %>% str_remove("\\,.*")
-      exp4__apa_anova_c_resp_option_pairwise <- papaja:::apa_print.emmGrid(exp4__anova_c_resp_option_pairwise)
-      exp4__RFG_RFBG_c_ttest <- exp4__apa_anova_c_resp_option_pairwise$statistic$RFG_RFBG
-```
+photographs produced better overall task performance compared to drawings. Taken together, the findings support the distinctiveness hypothesis, in that colour photographs were recognised better than colour drawings. 
 
-The ANOVA on *d'*-scores produced findings consistent with those found for hits, FAs, and overall recognition; there was a significant main effect of stimuli-format, `r exp4__apa_anova_d_prime__stim_format`, whereby photographs (`r exp4__photos_d_prime_mean`) facilitated better discrimination between hits and FAs than drawings (`r exp4__drawings_d_prime_mean`), `r exp4__drawings_photo_d_prime_ttest`. *c*-scores also showed a significant main effect of stimuli-format, `r exp4__apa_anova_c__stim_format`, with drawings (`r exp4__drawings_c_mean`) showing higher *c*-scores (and thus a more conservative response bias) than photographs (`r exp4__photos_c_mean`),
-`r exp4__drawings_photo_c_ttest`. 
+ These patterns support the notion that distinctiveness plays a key role in the memorability of stimuli, and also that the current stimuli indeed appear to capture different 'levels' of stimuli distinctiveness. 
+
+drawings showing higher *c*-scores (and thus a more conservative response bias) than photographs 
 
 #### Response option
 In each of the previously discussed ANOVAs, the role of response option was also assessed. However, there were no significant interaction effects between stimuli format and response option for any of the examined DVs: i) proportion of hits; ii) proportion of FAs; iii) overall recognition; iv) *d'*-scores; v) *c*-scores. There was only a significant main effect of response option in the ANOVA on the mean proportion of FAs, `r exp4__apa_anova_prop_FA__resp_option` (with the RFG group, `r exp4__RFG_prop_FA_mean`, showing more FAs than the RFBG group, `r exp4__RFBG_prop_FA_mean`, `r exp4__RFG_RFBG_FA_ttest`), and the ANOVA on *c*-scores, `r exp4__apa_anova_c__resp_option` (with the RFBG group, `r exp4__RFBG_c_mean`, showing a more conservative response bias than the RFG group, `r exp4__RFG_c_mean`, `r exp4__RFG_RFBG_c_ttest`)
