@@ -8133,6 +8133,12 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
                                                              "prop_grey_photo_FA", "prop_col_photo_FA")))
     # Compute ANOVA:
         exp5__anova.FA <- summary(aov(FA ~ stim_format, data = exp5__anova.FA__data))
+        
+ a <- 
+        eta_sq(aov(FA ~ stim_format, data = exp5__anova.FA__data), partial = TRUE)
+
+        
+        
 # Pairwise:
         exp5__anova.FA__q1.pairwise.data <- exp5__anova.FA__data %>%
             filter(stim_format == "prop_grey_word_FA" | stim_format == "prop_distinctive_word_FA")
@@ -8291,6 +8297,33 @@ Four research questions:
 
 \newpage
 
+
+Our results match previous results by Paivio et al (1968):
+
+- they just added colour to words, and did not observe any increased distinctiveness. BUT, findings from Experiments 3 + 4 suggest the effects of colour are negligible.
+- Ensor noted this, and that's why they also manipulated font, size, capitilisation *and* colour.
+
+On the surface, my findings appear to support Dual-coding theory (DCT):
+
+   - 2 independent pathways in memory: verbal representations (logogen) + mental images (imagen).
+   - Pictures are far more likely to generate representations in both pathways (mental image + name of the object) than words are (name of object + imagine a word’s referent), resulting in PSE. 
+   - The distinctiveness manipulations made to the words do nothing to remove the additional code available for pictures. 
+   
+However, the results of Experiments 3, 4, + 5 all show that photos are recognised better than words!
+
+  - Strong evidence for the distinctiveness account.
+  - The 'distinctive' word stim used in Exp 5. must indeed be more distinctive than regular words, but not to the extent that the PSE is eliminated (like Ensor found).
+
+Explanations of inconsistent findings:
+
+  - Participants in my experiment responded to 6 stim types, vs. Ensor's 4. 
+  - Number of stim (10x of each type) = same as Ensor's Exp 1.
+      - Ensor's Exp 2 doubled this, which also eliminated the PSE toward colour drawings. 
+  - My *N* = 168 vs. Ensor's *N* = 30 (per exp). 
+  
+
+
+Are the distinctive words readable?
 
 
 
