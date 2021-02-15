@@ -6427,7 +6427,7 @@ In turn, this further implicates the stimuli format as the
 ######----------------------------------------
 
 \newpage
-# Chapter 5 (Distinctiveness of word stimuli)
+# Chapter 5
 
 ## Experiment: Manipulating word distinctiveness
 ### Method
@@ -7976,7 +7976,7 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
 
 \newpage
 
-### Results
+
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'} 
 #----------------------------------------------------------------------------------------------------------------
@@ -8095,6 +8095,14 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
         exp5__anova.hit__q1.pairwise <- pairwise.t.test(exp5__anova.hit__q1.pairwise.data$hit, 
                                                       exp5__anova.hit__q1.pairwise.data$stim_format, 
                                                       pool.sd = FALSE)
+        
+        exp5__anova.hit__q2.pairwise.data <- exp5__anova.hit__data %>%
+            filter(stim_format == "prop_grey_word_hit" | stim_format == "prop_grey_drawing_hit")
+        exp5__anova.hit__q2.pairwise <- pairwise.t.test(exp5__anova.hit__q2.pairwise.data$hit, 
+                                                      exp5__anova.hit__q2.pairwise.data$stim_format, 
+                                                      pool.sd = FALSE)
+        
+        
         exp5__anova.hit__q3.pairwise.data <- exp5__anova.hit__data %>%
             filter(stim_format == "prop_distinctive_word_hit" | stim_format == "prop_grey_drawing_hit")
         exp5__anova.hit__q3.pairwise <- pairwise.t.test(exp5__anova.hit__q3.pairwise.data$hit, 
@@ -8131,6 +8139,13 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
         exp5__anova.FA__q1.pairwise <- pairwise.t.test(exp5__anova.FA__q1.pairwise.data$FA, 
                                                       exp5__anova.FA__q1.pairwise.data$stim_format, 
                                                       pool.sd = FALSE)
+        
+        exp5__anova.FA__q2.pairwise.data <- exp5__anova.FA__data %>%
+            filter(stim_format == "prop_grey_word_FA" | stim_format == "prop_grey_drawing_FA")
+        exp5__anova.FA__q2.pairwise <- pairwise.t.test(exp5__anova.FA__q2.pairwise.data$FA, 
+                                                      exp5__anova.FA__q2.pairwise.data$stim_format, 
+                                                      pool.sd = FALSE)
+        
         exp5__anova.FA__q3.pairwise.data <- exp5__anova.FA__data %>%
             filter(stim_format == "prop_distinctive_word_FA" | stim_format == "prop_grey_drawing_FA")
         exp5__anova.FA__q3.pairwise <- pairwise.t.test(exp5__anova.FA__q3.pairwise.data$FA, 
@@ -8170,6 +8185,13 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
         exp5__anova.recog__q1.pairwise <- pairwise.t.test(exp5__anova.recog__q1.pairwise.data$recog, 
                                                       exp5__anova.recog__q1.pairwise.data$stim_format, 
                                                       pool.sd = FALSE)
+        
+        exp5__anova.recog__q2.pairwise.data <- exp5__anova.recog__data %>%
+            filter(stim_format == "grey_word_recog" | stim_format == "grey_drawing_recog")
+        exp5__anova.recog__q2.pairwise <- pairwise.t.test(exp5__anova.recog__q2.pairwise.data$recog, 
+                                                      exp5__anova.recog__q2.pairwise.data$stim_format, 
+                                                      pool.sd = FALSE)
+        
         exp5__anova.recog__q3.pairwise.data <- exp5__anova.recog__data %>%
             filter(stim_format == "distinctive_word_recog" | stim_format == "grey_drawing_recog")
         exp5__anova.recog__q3.pairwise <- pairwise.t.test(exp5__anova.recog__q3.pairwise.data$recog, 
@@ -8187,11 +8209,27 @@ Distinctive words     vs. grey words          (are they actually more distinctiv
                                                     filter(stim_format == "grey_drawing_recog") %>%
                                                     select(mean) %>% pull() %>% round(2)
 ```
+***Recap: Ensor replication***
 
+- Grey words + distinctive words (colour, font, size) + grey drawings + colour drawings.
+- Found PSE could be eliminated for grey drawings when distinctive words were used. 
+- PSE *reduced* for colour drawings when distinctive words were used.
 
-**Q1. Are 'distinctive' words more distinctive than grey words?**
+- Is this effect also evident using photos?
+- If photos remain the most distinctive, is the PSE also *reduced* here when distinctive words are used?
 
-All had signif main effect of stim-format (grey words / col words / grey drawings / col drawings / grey photos / col photos).
+Four research questions:
+
+**Q1. Are the 'distinctive' words actually more distinctive than grey words?**
+
+**Q2. Have I established a PSE?**
+
+**Q3. Have I managed to eliminate PSE in the same way Ensor has? (i.e. are 'distinctive' words just as distinctive as grey drawings?**
+
+**Q4. Have I extended it to photos? (i.e. is the 'better' PSE of photos reduced when distinctive words are used instead of grey ones?)**
+
+\newpage
+**Q1. Are the 'distinctive' words actually more distinctive than grey words?**
 
 1. **d-prime:**
     + i) ***Yes:*** Distinctive words (`r exp5__anova.d_prime__means__distinctive_word`) had significantly higher d' scores than grey words (`r exp5__anova.d_prime__means__grey_word`). 
@@ -8211,8 +8249,6 @@ All had signif main effect of stim-format (grey words / col words / grey drawing
 \newpage
 
 **Q2. Have I established a PSE?**
-
-All had signif main effect of stim-format (grey words / col words / grey drawings / col drawings / grey photos / col photos).    
     
 1. **d-prime:**
     + i) ***Yes:*** Grey drawings (`r exp5__anova.d_prime__means__grey_drawing`) had significantly higher d' scores than grey words (`r exp5__anova.d_prime__means__grey_word`).   
@@ -8221,23 +8257,26 @@ All had signif main effect of stim-format (grey words / col words / grey drawing
     + i) ***No:*** No difference in c scores between grey drawings (`r exp5__anova.c__means__grey_drawing`) and grey words (`r exp5__anova.c__means__grey_word`).
     
  3. **Hits:**
-    + i) ***No:*** Distinctive words (`r exp5__anova.hit__means__distinctive_word`) had significantly fewer hits than grey drawings (`r exp5__anova.hit__means__grey_drawing`).
-    + ii) Ensor (Distinctive words = .83, Grey drawings =  .85).    
+    + i) ***Yes:*** Grey drawings (`r exp5__anova.hit__means__grey_drawing`) had significantly more hits than grey words (`r exp5__anova.hit__means__grey_word`).
+    
+4. **FAs:**
+    + i) ***Yes.*** Grey drawings (`r exp5__anova.FA__means__grey_drawing`) had significantly fewer FAs than grey words (`r exp5__anova.FA__means__grey_word`).
+
+5. **Recog:**
+    + i) ***Yes.*** Grey drawings (`r exp5__anova.recog__means__grey_drawing`) had significantly higher overall recognition scores than grey words (`r exp5__anova.recog__means__grey_word`).
     
 \newpage
 
-**Q3. Are 'distinctive' words just as distinctive as grey drawings?**
-
-All had signif main effect of stim-format (grey words / col words / grey drawings / col drawings / grey photos / col photos).
+**Q3. Have I managed to eliminate PSE in the same way Ensor has? (i.e. are 'distinctive' words just as distinctive as grey drawings?**
 
 1. **d-prime:**
     + i) ***No:*** Distinctive words (`r exp5__anova.d_prime__means__distinctive_word`) had significantly lower d' scores than grey drawings (`r exp5__anova.d_prime__means__grey_drawing`). 
-    + ii) Different to Ensor (found no difference, i.e. PSE eliminated).
+    + ii) Different to Ensor (who found no difference, i.e. the PSE was eliminated).
     + iii) Ensor (Distinctive words = 2.97, Grey drawings =  2.96). 
         
 2. **c scores:**
-    + i) ***??:*** Distinctive words (`r exp5__anova.c__means__distinctive_word`) had significantly higher c scores (responses were more conservative) than grey drawings (`r exp5__anova.c__means__grey_drawing`). 
-    + ii) Ensor, same pattern as in Exp 2 (Distinctive words = –.005, Grey drawings =  .106). 
+    + i) ***Not sure:*** Distinctive words (`r exp5__anova.c__means__distinctive_word`) had significantly higher c scores (responses were more conservative) than grey drawings (`r exp5__anova.c__means__grey_drawing`). 
+    + ii) Ensor found different results across experiments. My finding here is the same pattern as they found in in Exp 2 (Distinctive words = –.005, Grey drawings =  .106). 
 
 3. **Hits:**
     + i) ***No:*** Distinctive words (`r exp5__anova.hit__means__distinctive_word`) had significantly fewer hits than grey drawings (`r exp5__anova.hit__means__grey_drawing`).
@@ -8250,7 +8289,12 @@ All had signif main effect of stim-format (grey words / col words / grey drawing
 5. **Recog:**
     + i) ***No.*** Distinctive words (`r exp5__anova.recog__means__distinctive_word`) had significantly lower overall recognition scores than grey drawings (`r exp5__anova.recog__means__grey_drawing`). 
 
+\newpage
 
+
+
+
+\newpage
 ######----------------------------------------
 
 \newpage
