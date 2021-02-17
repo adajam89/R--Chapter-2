@@ -66,7 +66,7 @@
 \contentsline {section}{Chapter 5}{76}{section*.11}%
 \contentsline {subsection}{Experiment: Manipulating word distinctiveness}{76}{section*.12}%
 \contentsline {subsubsection}{Method}{76}{section*.12}%
-\contentsline {section}{References}{83}{Item.56}%
-\contentsline {section}{Appendices}{96}{Item.56}%
-\contentsline {subsection}{Appendix A: Spelling corrections / manipulations to naming responses.}{96}{section*.13}%
-\contentsline {subsection}{Appendix B: Normative data for all photograph items.}{99}{table.1}%
+\contentsline {section}{References}{84}{Item.56}%
+\contentsline {section}{Appendices}{97}{Item.56}%
+\contentsline {subsection}{Appendix A: Spelling corrections / manipulations to naming responses.}{97}{section*.13}%
+\contentsline {subsection}{Appendix B: Normative data for all photograph items.}{100}{table.1}%
