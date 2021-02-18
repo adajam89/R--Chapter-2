@@ -7862,8 +7862,10 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
 ```
 
 
-
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    d':                                                                                                      ##
+#################################################################################################################
 ##    One-way repeated measures ANOVA:
       exp5__d.prime.aov <- exp5__d.prime %>% afex::aov_4(d.prime ~ 1 + (stim|id), data = .)
 ##    Get means: 
@@ -7880,30 +7882,167 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
       exp5__d.prime.means__apa <- papaja:::apa_print.emmGrid(exp5__d.prime.means) 
       exp5__d.prime.means__grey.word <- exp5__d.prime.means__apa$estimate$greyword %>% str_remove("\\,.*")
       exp5__d.prime.means__col.word <- exp5__d.prime.means__apa$estimate$colword %>% str_remove("\\,.*")
-      exp5__d.prime.means__grey.drawing <- exp5__d.prime.means__apa$estimate$greydrawing %>% str_remove("\\,.*")
-      exp5__d.prime.means__col.drawing <- exp5__d.prime.means__apa$estimate$coldrawing %>% str_remove("\\,.*")
-      exp5__d.prime.means__grey.photo <- exp5__d.prime.means__apa$estimate$greyphoto %>% str_remove("\\,.*")
-      exp5__d.prime.means__col.photo <- exp5__d.prime.means__apa$estimate$colphoto %>% str_remove("\\,.*")
       exp5__d.prime.contrasts__apa <- papaja:::apa_print.emmGrid(exp5__d.prime.contrasts) 
-      exp5__d.prime.contrasts__grey.word.col.word <- exp5__d.prime.contrasts__apa$full
-      
-      
-      
-      
-# Pairwise:
-means <- emmeans(exp5__aov.d.prime, ~ stim)
-
-
-
-exp5__aov.d.prime__pairwise <- exp5__d.prime %>%
-  filter(stim == "grey.word" | stim == "col.word")
-exp5__anova.d_prime__q1.pairwise <- pairwise.t.test(exp5__aov.d.prime__pairwise$d.prime, 
-                                                    exp5__aov.d.prime__pairwise$stim, pool.sd = FALSE)
-
-
-
+      exp5__d.prime.contrasts__grey.word.col.word <- exp5__d.prime.contrasts__apa$statistic
 ```
 
+In the ANOVA on d' scores, there was a significant main effect of stim format `r exp5__d.prime.aov__main.effect`. Distinctive words (`r exp5__d.prime.means__col.word`) producing significantly better discrimination between hits and FAs than regular words (`r exp5__d.prime.means__grey.word`), `r exp5__d.prime.contrasts__grey.word.col.word`.
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Prop hits:                                                                                               ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.hit.aov <- exp5__prop.hit %>% afex::aov_4(prop.hit ~ 1 + (stim|id), data = .)
+##    Get means: 
+      exp5__prop.hit.means <- emmeans(exp5__prop.hit.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0, 0, 0)
+      col.word = c(0, 1, 0, 0, 0, 0)
+##    Run contrasts:                                    
+      exp5__prop.hit.contrasts <- contrast(exp5__prop.hit.means, method = 
+                                            list("grey.word - col.word" = grey.word - col.word), adjust = "bonf")
+##    Format results for use in report:
+      exp5__prop.hit.aov__apa <- papaja:::apa_print.afex_aov(exp5__prop.hit.aov)
+      exp5__prop.hit.aov__main.effect <- exp5__prop.hit.aov__apa$full
+      exp5__prop.hit.means__apa <- papaja:::apa_print.emmGrid(exp5__prop.hit.means) 
+      exp5__prop.hit.means__grey.word <- exp5__prop.hit.means__apa$estimate$greyword %>% str_remove("\\,.*")
+      exp5__prop.hit.means__col.word <- exp5__prop.hit.means__apa$estimate$colword %>% str_remove("\\,.*")
+      exp5__prop.hit.contrasts__apa <- papaja:::apa_print.emmGrid(exp5__prop.hit.contrasts) 
+      exp5__prop.hit.contrasts__grey.word.col.word <- exp5__prop.hit.contrasts__apa$statistic
+```
+
+In the ANOVA on the proportion of hits, there was a significant main effect of stim format `r exp5__prop.hit.aov__main.effect`. However, the distinctive words (`r exp5__prop.hit.means__col.word`) did not produce any more hits than regular words (`r exp5__prop.hit.means__grey.word`), `r exp5__prop.hit.contrasts__grey.word.col.word`.
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Prop FAs:                                                                                               ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.FA.aov <- exp5__prop.FA %>% afex::aov_4(prop.FA ~ 1 + (stim|id), data = .)
+##    Get means: 
+      exp5__prop.FA.means <- emmeans(exp5__prop.FA.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0, 0, 0)
+      col.word = c(0, 1, 0, 0, 0, 0)
+##    Run contrasts:                                    
+      exp5__prop.FA.contrasts <- contrast(exp5__prop.FA.means, method = 
+                                            list("grey.word - col.word" = grey.word - col.word), adjust = "bonf")
+##    Format results for use in report:
+      exp5__prop.FA.aov__apa <- papaja:::apa_print.afex_aov(exp5__prop.FA.aov)
+      exp5__prop.FA.aov__main.effect <- exp5__prop.FA.aov__apa$full
+      exp5__prop.FA.means__apa <- papaja:::apa_print.emmGrid(exp5__prop.FA.means) 
+      exp5__prop.FA.means__grey.word <- exp5__prop.FA.means__apa$estimate$greyword %>% str_remove("\\,.*")
+      exp5__prop.FA.means__col.word <- exp5__prop.FA.means__apa$estimate$colword %>% str_remove("\\,.*")
+      exp5__prop.FA.contrasts__apa <- papaja:::apa_print.emmGrid(exp5__prop.FA.contrasts) 
+      exp5__prop.FA.contrasts__grey.word.col.word <- exp5__prop.FA.contrasts__apa$statistic
+```
+
+In the ANOVA on the proportion of FAs, there was a significant main effect of stim format `r exp5__prop.FA.aov__main.effect`. The distinctive words (`r exp5__prop.FA.means__col.word`) produced significantly fewer FAs than regular words (`r exp5__prop.FA.means__grey.word`), `r exp5__prop.FA.contrasts__grey.word.col.word`.
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Recog:                                                                                                   ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__recog.aov <- exp5__recog %>% afex::aov_4(recog ~ 1 + (stim|id), data = .)
+##    Get means: 
+      exp5__recog.means <- emmeans(exp5__recog.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0, 0, 0)
+      col.word = c(0, 1, 0, 0, 0, 0)
+##    Run contrasts:                                    
+      exp5__recog.contrasts <- contrast(exp5__recog.means, method = 
+                                            list("grey.word - col.word" = grey.word - col.word), adjust = "bonf")
+##    Format results for use in report:
+      exp5__recog.aov__apa <- papaja:::apa_print.afex_aov(exp5__recog.aov)
+      exp5__recog.aov__main.effect <- exp5__recog.aov__apa$full
+      exp5__recog.means__apa <- papaja:::apa_print.emmGrid(exp5__recog.means) 
+      exp5__recog.means__grey.word <- exp5__recog.means__apa$estimate$greyword %>% str_remove("\\,.*")
+      exp5__recog.means__col.word <- exp5__recog.means__apa$estimate$colword %>% str_remove("\\,.*")
+      exp5__recog.contrasts__apa <- papaja:::apa_print.emmGrid(exp5__recog.contrasts) 
+      exp5__recog.contrasts__grey.word.col.word <- exp5__recog.contrasts__apa$statistic
+```
+
+In the ANOVA on overall scores of recognition, there was a significant main effect of stim format `r exp5__recog.aov__main.effect`. The distinctive words (`r exp5__recog.means__col.word`) produced significantly better overall recognition than regular words (`r exp5__recog.means__grey.word`), `r exp5__recog.contrasts__grey.word.col.word`.
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Proportion of R hits:                                                                                    ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.hit.R.aov <- exp5__prop.hit.R %>% afex::aov_4(prop.hit.R ~ 1 + (stim|id), data = .)
+##    Get means: 
+      exp5__prop.hit.R.means <- emmeans(exp5__prop.hit.R.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0, 0, 0)
+      col.word = c(0, 1, 0, 0, 0, 0)
+##    Run contrasts:                                    
+      exp5__prop.hit.R.contrasts <- contrast(exp5__prop.hit.R.means, method = 
+                                            list("grey.word - col.word" = grey.word - col.word), adjust = "bonf")
+##    Format results for use in report:
+      exp5__prop.hit.R.aov__apa <- papaja:::apa_print.afex_aov(exp5__prop.hit.R.aov)
+      exp5__prop.hit.R.aov__main.effect <- exp5__prop.hit.R.aov__apa$full
+      exp5__prop.hit.R.means__apa <- papaja:::apa_print.emmGrid(exp5__prop.hit.R.means) 
+      exp5__prop.hit.R.means__grey.word <- exp5__prop.hit.R.means__apa$estimate$greyword %>% str_remove("\\,.*")
+      exp5__prop.hit.R.means__col.word <- exp5__prop.hit.R.means__apa$estimate$colword %>% str_remove("\\,.*")
+      exp5__prop.hit.R.contrasts__apa <- papaja:::apa_print.emmGrid(exp5__prop.hit.R.contrasts) 
+      exp5__prop.hit.R.contrasts__grey.word.col.word <- exp5__prop.hit.R.contrasts__apa$statistic
+```
+
+In the ANOVA on the proportion of R hits, there was a significant main effect of stim format `r exp5__prop.hit.R.aov__main.effect`. The distinctive words (`r exp5__prop.hit.R.means__col.word`) produced significantly more R hits than regular words (`r exp5__prop.hit.R.means__grey.word`), `r exp5__prop.hit.R.contrasts__grey.word.col.word`.
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Proportion of F hits:                                                                                    ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.hit.F.aov <- exp5__prop.hit.F %>% afex::aov_4(prop.hit.F ~ 1 + (stim|id), data = .)
+##    Get means: 
+      exp5__prop.hit.F.means <- emmeans(exp5__prop.hit.F.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0, 0, 0)
+      col.word = c(0, 1, 0, 0, 0, 0)
+##    Run contrasts:                                    
+      exp5__prop.hit.F.contrasts <- contrast(exp5__prop.hit.F.means, method = 
+                                            list("grey.word - col.word" = grey.word - col.word), adjust = "bonf")
+##    Format results for use in report:
+      exp5__prop.hit.F.aov__apa <- papaja:::apa_print.afex_aov(exp5__prop.hit.F.aov)
+      exp5__prop.hit.F.aov__main.effect <- exp5__prop.hit.F.aov__apa$full
+      exp5__prop.hit.F.means__apa <- papaja:::apa_print.emmGrid(exp5__prop.hit.F.means) 
+      exp5__prop.hit.F.means__grey.word <- exp5__prop.hit.F.means__apa$estimate$greyword %>% str_remove("\\,.*")
+      exp5__prop.hit.F.means__col.word <- exp5__prop.hit.F.means__apa$estimate$colword %>% str_remove("\\,.*")
+      exp5__prop.hit.F.contrasts__apa <- papaja:::apa_print.emmGrid(exp5__prop.hit.F.contrasts) 
+      exp5__prop.hit.F.contrasts__grey.word.col.word <- exp5__prop.hit.F.contrasts__apa$statistic
+```
+
+In the ANOVA on the proportion of F hits, there was a significant main effect of stim format `r exp5__prop.hit.F.aov__main.effect`. The distinctive words (`r exp5__prop.hit.F.means__col.word`) produced significantly fewer F hits than regular words (`r exp5__prop.hit.F.means__grey.word`), `r exp5__prop.hit.F.contrasts__grey.word.col.word`.
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Proportion of G hits:                                                                                    ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.hit.G.aov <- exp5__prop.hit.G %>% afex::aov_4(prop.hit.G ~ 1 + (stim|id), data = .)
+##    Get means: 
+      exp5__prop.hit.G.means <- emmeans(exp5__prop.hit.G.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0, 0, 0)
+      col.word = c(0, 1, 0, 0, 0, 0)
+##    Run contrasts:                                    
+      exp5__prop.hit.G.contrasts <- contrast(exp5__prop.hit.G.means, method = 
+                                            list("grey.word - col.word" = grey.word - col.word), adjust = "bonf")
+##    Format results for use in report:
+      exp5__prop.hit.G.aov__apa <- papaja:::apa_print.afex_aov(exp5__prop.hit.G.aov)
+      exp5__prop.hit.G.aov__main.effect <- exp5__prop.hit.G.aov__apa$full
+      exp5__prop.hit.G.means__apa <- papaja:::apa_print.emmGrid(exp5__prop.hit.G.means) 
+      exp5__prop.hit.G.means__grey.word <- exp5__prop.hit.G.means__apa$estimate$greyword %>% str_remove("\\,.*")
+      exp5__prop.hit.G.means__col.word <- exp5__prop.hit.G.means__apa$estimate$colword %>% str_remove("\\,.*")
+      exp5__prop.hit.G.contrasts__apa <- papaja:::apa_print.emmGrid(exp5__prop.hit.G.contrasts) 
+      exp5__prop.hit.G.contrasts__grey.word.col.word <- exp5__prop.hit.G.contrasts__apa$statistic
+```
+
+In the ANOVA on the proportion of G hits, there was a significant main effect of stim format `r exp5__prop.hit.G.aov__main.effect`. The distinctive words (`r exp5__prop.hit.G.means__col.word`) produced significantly fewer G hits than regular words (`r exp5__prop.hit.G.means__grey.word`), `r exp5__prop.hit.G.contrasts__grey.word.col.word`.
 
 \newpage
 ######----------------------------------------
