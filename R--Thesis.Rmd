@@ -7861,7 +7861,8 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
           mutate(stim = str_remove(stim, "prop.FA.G__"))
 #----------------------------------------------------------------------------------------------------------------
 #     Ensor data:
-#----------------------------------------------------------------------------------------------------------------         exp5__ensor.data <- read_csv("./resources/experiment_5/ensor-exp1-raw-data.csv") %>%
+#----------------------------------------------------------------------------------------------------------------
+      exp5__ensor.data <- read_csv("./resources/experiment_5/ensor-exp1-raw-data.csv") %>%
           select("Subject", "Phase", "Stimulus Type", "Probe", "Probe Type", "Response") %>%
           rename(id = "Subject", stim = "Stimulus Type", probe = "Probe", 
                  probe.type = "Probe Type", resp = "Response") %>%
@@ -7888,27 +7889,27 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                     name = "hit__col.word") %>%
           add_tally(str_detect(stim, "colour_word") & probe.type == "old" & resp == "no", sort = FALSE, 
                     name = "miss__col.word") %>%
-          add_tally(str_detect(stim, "bw_word") & probe.type == "new" & resp == "yes", sort = FALSE, 
+          add_tally(str_detect(stim, "colour_word") & probe.type == "new" & resp == "yes", sort = FALSE, 
                     name = "FA__col.word") %>%
-          add_tally(str_detect(stim, "bw_word") & probe.type == "new" & resp == "no", sort = FALSE, 
+          add_tally(str_detect(stim, "colour_word") & probe.type == "new" & resp == "no", sort = FALSE, 
                     name = "CR__col.word") %>%
 ##    Grey drawing totals:    
           add_tally(str_detect(stim, "bw_picture") & probe.type == "old" & resp == "yes", sort = FALSE, 
                     name = "hit__grey.drawing") %>%
           add_tally(str_detect(stim, "bw_picture") & probe.type == "old" & resp == "no", sort = FALSE, 
                     name = "miss__grey.drawing") %>%
-          add_tally(str_detect(stim, "bw_word") & probe.type == "new" & resp == "yes", sort = FALSE, 
+          add_tally(str_detect(stim, "bw_picture") & probe.type == "new" & resp == "yes", sort = FALSE, 
                     name = "FA__grey.drawing") %>%
-          add_tally(str_detect(stim, "bw_word") & probe.type == "new" & resp == "no", sort = FALSE, 
+          add_tally(str_detect(stim, "bw_picture") & probe.type == "new" & resp == "no", sort = FALSE, 
                     name = "CR__grey.drawing") %>%
 ##    Col drawing totals:    
           add_tally(str_detect(stim, "colour_picture") & probe.type == "old" & resp == "yes", sort = FALSE, 
                     name = "hit__col.drawing") %>%
           add_tally(str_detect(stim, "colour_picture") & probe.type == "old" & resp == "no", sort = FALSE, 
                     name = "miss__col.drawing") %>%
-          add_tally(str_detect(stim, "bw_word") & probe.type == "new" & resp == "yes", sort = FALSE, 
+          add_tally(str_detect(stim, "colour_picture") & probe.type == "new" & resp == "yes", sort = FALSE, 
                     name = "FA__col.drawing") %>%
-          add_tally(str_detect(stim, "bw_word") & probe.type == "new" & resp == "no", sort = FALSE, 
+          add_tally(str_detect(stim, "colour_picture") & probe.type == "new" & resp == "no", sort = FALSE, 
                     name = "CR__col.drawing") %>%
           summarise_all(coalesce_by_column) %>%
 ##    Proportions:
@@ -7916,14 +7917,17 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
           mutate(prop.miss__grey.word = miss__grey.word / (hit__grey.word + miss__grey.word)) %>%
           mutate(prop.FA__grey.word = FA__grey.word / (FA__grey.word + CR__grey.word)) %>%
           mutate(prop.CR__grey.word = CR__grey.word / (FA__grey.word + CR__grey.word)) %>%
+        
           mutate(prop.hit__col.word = hit__col.word / (hit__col.word + miss__col.word)) %>%
           mutate(prop.miss__col.word = miss__col.word / (hit__col.word + miss__col.word)) %>%
           mutate(prop.FA__col.word = FA__col.word / (FA__col.word + CR__col.word)) %>%
           mutate(prop.CR__col.word = CR__col.word / (FA__col.word + CR__col.word)) %>%
+        
           mutate(prop.hit__grey.drawing = hit__grey.drawing / (hit__grey.drawing + miss__grey.drawing)) %>%
           mutate(prop.miss__grey.drawing = miss__grey.drawing / (hit__grey.drawing + miss__grey.drawing)) %>%
           mutate(prop.FA__grey.drawing = FA__grey.drawing / (FA__grey.drawing + CR__grey.drawing)) %>%
           mutate(prop.CR__grey.drawing = CR__grey.drawing / (FA__grey.drawing + CR__grey.drawing)) %>%
+        
           mutate(prop.hit__col.drawing = hit__col.drawing / (hit__col.drawing + miss__col.drawing)) %>%
           mutate(prop.miss__col.drawing = miss__col.drawing / (hit__col.drawing + miss__col.drawing)) %>%
           mutate(prop.FA__col.drawing = FA__col.drawing / (FA__col.drawing + CR__col.drawing)) %>%
@@ -8116,21 +8120,74 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
       
       
 ##    Prep data for Ensor vs. current study table:  
-      
-      "Current experiment"
-      exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit) %>% mean()
-      exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit) %>% sd()
-
-      "Ensor, Surprenant, & Neath (2019)"
-      
-      
-    
-      
+      exp5__table__ensor.vs.current <- 
+          tribble(~"var", ~"Dist", ~"Stim", ~"Current experiment", ~"Ensor, et al. (2019)",
+                  "Hits", "Low distinctiveness", "Words", 
+                        round(exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit) %>% mean(),2),
+                        round(mean(exp5__ensor.data$prop.hit__grey.word),2),
+                  "Hits", "Low distinctiveness", "Drawings",
+                        round(exp5__prop.hit %>% filter(stim == "grey.drawing") %>% pull(prop.hit) %>% mean(),2),
+                        round(mean(exp5__ensor.data$prop.hit__grey.drawing),2),
+                  "Hits", "High distinctiveness", "Words",
+                        round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
+                        round(mean(exp5__ensor.data$prop.hit__col.word),2),
+                  "Hits", "High distinctiveness", "Drawings",
+                        round(exp5__prop.hit %>% filter(stim == "col.drawing") %>% pull(prop.hit) %>% mean(),2),
+                        round(mean(exp5__ensor.data$prop.hit__col.drawing),2),
+                  "FAs", "Low distinctiveness", "Words", 
+                        round(exp5__prop.FA %>% filter(stim == "grey.word") %>% pull(prop.FA) %>% mean(),2),
+                        round(mean(exp5__ensor.data$prop.FA__grey.word),2),
+                  "FAs", "Low distinctiveness", "Drawings",
+                        round(exp5__prop.FA %>% filter(stim == "grey.drawing") %>% pull(prop.FA) %>% mean(),2),
+                        round(mean(exp5__ensor.data$prop.FA__grey.drawing),2),
+                  "FAs", "High distinctiveness", "Words",
+                        round(exp5__prop.FA %>% filter(stim == "col.word") %>% pull(prop.FA) %>% mean(),2),
+                        round(mean(exp5__ensor.data$prop.FA__col.word),2),
+                  "FAs", "High distinctiveness", "Drawings",
+                        round(exp5__prop.FA %>% filter(stim == "col.drawing") %>% pull(prop.FA) %>% mean(),2),
+                        round(mean(exp5__ensor.data$prop.FA__col.drawing),2),
+                  "d'", "Low distinctiveness", "Words", 
+                        round(exp5__d.prime %>% filter(stim == "grey.word") %>% pull(d.prime) %>% mean(),2),
+                        round(mean(exp5__ensor.data$d.prime__grey.word),2),
+                  "d'", "Low distinctiveness", "Drawings",
+                        round(exp5__d.prime %>% filter(stim == "grey.drawing") %>% pull(d.prime) %>% mean(),2),
+                        round(mean(exp5__ensor.data$d.prime__grey.drawing),2),
+                  "d'", "High distinctiveness", "Words",
+                        round(exp5__d.prime %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
+                        round(mean(exp5__ensor.data$d.prime__col.word),2),
+                  "d'", "High distinctiveness", "Drawings",
+                        round(exp5__d.prime %>% filter(stim == "col.drawing") %>% pull(d.prime) %>% mean(),2),
+                        round(mean(exp5__ensor.data$d.prime__col.drawing),2),
+                  "c", "Low distinctiveness", "Words", 
+                        round(exp5__c %>% filter(stim == "grey.word") %>% pull(c) %>% mean(),2),
+                        round(mean(exp5__ensor.data$c__grey.word),2),
+                  "c", "Low distinctiveness", "Drawings",
+                        round(exp5__c %>% filter(stim == "grey.drawing") %>% pull(c) %>% mean(),2),
+                        round(mean(exp5__ensor.data$c__grey.drawing),2),
+                  "c", "High distinctiveness", "Words",
+                        round(exp5__c %>% filter(stim == "col.word") %>% pull(c) %>% mean(),2),
+                        round(mean(exp5__ensor.data$c__col.word),2),
+                  "c", "High distinctiveness", "Drawings",
+                        round(exp5__c %>% filter(stim == "col.drawing") %>% pull(c) %>% mean(),2),
+                        round(mean(exp5__ensor.data$c__col.drawing),2)) %>%
+                  rename(" " = "var", "  " = "Dist", "   " = "Stim")
 ```
 
+```{r, echo=FALSE, results = FALSE, cache=FALSE}
+    table_numbering(name = "exp5__table__ensor.vs.current", 
+                     caption = "Mean proportion of hits ")
+```
 
+(see `r table_numbering("exp5__table__ensor.vs.current", display = "cite")`
 
-
+`r table_numbering("exp5__table__ensor.vs.current")`
+```{r, echo=FALSE, cache=FALSE}
+      exp5__table__ensor.vs.current %>%
+          kable("latex", booktabs = T, align = "lllcc") %>%
+          kable_styling(latex_options = c("hold_position", "scale_down", "condensed")) %>%
+          collapse_rows(columns = 1:2) %>%
+          column_spec(4:5, width = "2cm")
+```
 
 
 ### Results
