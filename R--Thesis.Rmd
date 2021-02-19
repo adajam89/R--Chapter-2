@@ -7859,6 +7859,82 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                  prop.FA.G__grey.drawing, prop.FA.G__col.drawing,prop.FA.G__grey.photo, 
                  prop.FA.G__col.photo) %>%
           mutate(stim = str_remove(stim, "prop.FA.G__"))
+      
+      
+#----------------------------------------------------------------------------------------------------------------
+#     Tables and figures:
+#----------------------------------------------------------------------------------------------------------------
+##    Prep data for figures:  
+      exp5__prop.hit.R__grey.word <- mean_se(exp5__prop.hit.R %>% filter(stim == "grey.word") %>% pull(prop.hit.R))
+      exp5__prop.hit.R__col.word <- mean_se(exp5__prop.hit.R %>% filter(stim == "col.word") %>% pull(prop.hit.R))
+      exp5__prop.hit.F__grey.word <- mean_se(exp5__prop.hit.F %>% filter(stim == "grey.word") %>% pull(prop.hit.F))
+      exp5__prop.hit.F__col.word <- mean_se(exp5__prop.hit.F %>% filter(stim == "col.word") %>% pull(prop.hit.F))
+      exp5__prop.hit.G__grey.word <- mean_se(exp5__prop.hit.G %>% filter(stim == "grey.word") %>% pull(prop.hit.G))
+      exp5__prop.hit.G__col.word <- mean_se(exp5__prop.hit.G %>% filter(stim == "col.word") %>% pull(prop.hit.G))
+      
+      exp5__prop.FA.R__grey.word <- mean_se(exp5__prop.FA.R %>% filter(stim == "grey.word") %>% pull(prop.FA.R))
+      exp5__prop.FA.R__col.word <- mean_se(exp5__prop.FA.R %>% filter(stim == "col.word") %>% pull(prop.FA.R))
+      exp5__prop.FA.F__grey.word <- mean_se(exp5__prop.FA.F %>% filter(stim == "grey.word") %>% pull(prop.FA.F))
+      exp5__prop.FA.F__col.word <- mean_se(exp5__prop.FA.F %>% filter(stim == "col.word") %>% pull(prop.FA.F))
+      exp5__prop.FA.G__grey.word <- mean_se(exp5__prop.FA.G %>% filter(stim == "grey.word") %>% pull(prop.FA.G))
+      exp5__prop.FA.G__col.word <- mean_se(exp5__prop.FA.G %>% filter(stim == "col.word") %>% pull(prop.FA.G))
+      
+      exp5__figure__rfg.hits.data <- 
+          tribble(~"type", ~"stim_format", ~"rfg", ~"emmean", ~"ymin", ~"ymax",
+                  "Hits", "Regular words", "Recollection", exp5__prop.hit.R__grey.word$y, 
+                        exp5__prop.hit.R__grey.word$ymin, exp5__prop.hit.R__grey.word$ymax,
+                  "Hits", "Distinctive words", "Recollection", exp5__prop.hit.R__col.word$y, 
+                        exp5__prop.hit.R__col.word$ymin, exp5__prop.hit.R__col.word$ymax,
+                  "Hits", "Regular words", "Familiarity", exp5__prop.hit.F__grey.word$y, 
+                        exp5__prop.hit.F__grey.word$ymin, exp5__prop.hit.F__grey.word$ymax,
+                  "Hits", "Distinctive words", "Familiarity", exp5__prop.hit.F__col.word$y, 
+                        exp5__prop.hit.F__col.word$ymin, exp5__prop.hit.F__col.word$ymax,
+                  "Hits", "Regular words", "Guessing", exp5__prop.hit.G__grey.word$y, 
+                        exp5__prop.hit.G__grey.word$ymin, exp5__prop.hit.G__grey.word$ymax,
+                  "Hits", "Distinctive words", "Guessing", exp5__prop.hit.G__col.word$y, 
+                        exp5__prop.hit.G__col.word$ymin, exp5__prop.hit.G__col.word$ymax,
+                  "FAs", "Regular words", "Recollection", exp5__prop.FA.R__grey.word$y, 
+                        exp5__prop.FA.R__grey.word$ymin, exp5__prop.FA.R__grey.word$ymax,
+                  "FAs", "Distinctive words", "Recollection", exp5__prop.FA.R__col.word$y, 
+                        exp5__prop.FA.R__col.word$ymin, exp5__prop.FA.R__col.word$ymax,
+                  "FAs", "Regular words", "Familiarity", exp5__prop.FA.F__grey.word$y, 
+                        exp5__prop.FA.F__grey.word$ymin, exp5__prop.FA.F__grey.word$ymax,
+                  "FAs", "Distinctive words", "Familiarity", exp5__prop.FA.F__col.word$y, 
+                        exp5__prop.FA.F__col.word$ymin, exp5__prop.FA.F__col.word$ymax,
+                  "FAs", "Regular words", "Guessing", exp5__prop.FA.G__grey.word$y, 
+                        exp5__prop.FA.G__grey.word$ymin, exp5__prop.FA.G__grey.word$ymax,
+                  "FAs", "Distinctive words", "Guessing", exp5__prop.FA.G__col.word$y, 
+                        exp5__prop.FA.G__col.word$ymin, exp5__prop.FA.G__col.word$ymax) %>%
+          transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
+          transform(stim_format = factor(stim_format, levels=c("Regular words","Distinctive words"))) %>%
+          transform(type = factor(type, levels=c("Hits","FAs")))
+      
+##    Create figure:  
+      exp5__figure__rfg.hits <-
+          ggplot(exp5__figure__rfg.hits.data, aes(x = stim_format, y = emmean, fill = rfg)) +
+          scale_fill_manual("legend",values = c("Recollection" = "#1B4251", 
+                                                "Familiarity" = "#6A6C93", 
+                                                "Guessing" = "#D491CA")) + 
+          geom_col(position = position_dodge()) +
+          geom_errorbar(aes(ymin = exp5__figure__rfg.hits.data$ymin, ymax = exp5__figure__rfg.hits.data$ymax), width = 0.2, size = 0.3, position = position_dodge(0.9)) +
+          facet_wrap(~type, strip.position = "bottom") +
+          labs(x = "Response option condition", y = "Mean proportion of FAs") +
+          scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+          theme_classic() +    # Removes grey background and grid lines. 
+          theme(
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
+            axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            legend.background = element_rect(fill = "white", size = 0.2, linetype = "solid", colour = "black"),
+            legend.title = element_blank(),
+            legend.position = c(0.5, 0.896),
+            legend.margin = margin(6, 6, 6, 6),
+            legend.spacing.y = unit(-1, "pt"),
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))
 ```
 
 
@@ -7965,6 +8041,22 @@ In the ANOVA on the proportion of FAs, there was a significant main effect of st
 ```
 
 In the ANOVA on overall scores of recognition, there was a significant main effect of stim format `r exp5__recog.aov__main.effect`. The distinctive words (`r exp5__recog.means__col.word`) produced significantly better overall recognition than regular words (`r exp5__recog.means__grey.word`), `r exp5__recog.contrasts__grey.word.col.word`.
+
+
+
+#### RFG
+
+see `r figure_numbering("exp5__figure__rfg.hits", display = "cite")`).
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp5__figure__rfg.hits",
+                     caption = "Mean proportion of hits assigned Recollection, Familiarity, and Guessing, for regular and distinctive word stimuli.")
+```
+
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
+    exp5__figure__rfg.hits
+```
+`r figure_numbering("exp5__figure__rfg.hits")`
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
