@@ -8040,6 +8040,32 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
           right_join(ensor__dprime__col.drawing)
         
   write.csv(exp5__ensor.data,'~/Desktop/exp5__ensor.data.csv', row.names = FALSE)   
+  
+      exp5__ensor.d.prime <- exp5__ensor.data %>%
+          select(id, ensor__dprime__grey.word, ensor__dprime__col.word, ensor__dprime__grey.drawing,
+                 ensor__dprime__col.drawing) %>%
+          gather(key = "stim", value = "d.prime", ensor__dprime__grey.word, ensor__dprime__col.word,
+                 ensor__dprime__grey.drawing, ensor__dprime__col.drawing) %>%
+          mutate(stim = str_remove(stim, "dprime__"))
+      exp5__ensor.c <- exp5__ensor.data %>%
+          select(id, c__grey.word, c__col.word, c__grey.drawing, c__col.drawing) %>%
+          gather(key = "stim", value = "c", c__grey.word, c__col.word, c__grey.drawing, c__col.drawing) %>%
+          mutate(stim = str_remove(stim, "c__"))
+      exp5__ensor.prop.hit <- exp5__ensor.data %>%
+          select(id, prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing, prop.hit__col.drawing) %>%
+          gather(key = "stim", value = "prop.hit", prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing,
+                 prop.hit__col.drawing) %>%
+          mutate(stim = str_remove(stim, "prop.hit__"))
+      exp5__ensor.prop.FA <- exp5__ensor.data %>%
+          select(id, prop.FA__grey.word, prop.FA__col.word, prop.FA__grey.drawing, prop.FA__col.drawing) %>%
+          gather(key = "stim", value = "prop.FA", prop.FA__grey.word, prop.FA__col.word, prop.FA__grey.drawing,
+                 prop.FA__col.drawing) %>%
+          mutate(stim = str_remove(stim, "prop.FA__"))
+      exp5__ensor.recog <- exp5__ensor.data %>%
+          select(id, recog__grey.word, recog__col.word, recog__grey.drawing, recog__col.drawing) %>%
+          gather(key = "stim", value = "recog", recog__grey.word, recog__col.word, recog__grey.drawing,
+                 recog__col.drawing) %>%
+          mutate(stim = str_remove(stim, "recog__"))
       
 #----------------------------------------------------------------------------------------------------------------
 #     Tables and figures:
@@ -8134,6 +8160,7 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                   "Hits", "High distinctiveness", "Drawings",
                         round(exp5__prop.hit %>% filter(stim == "col.drawing") %>% pull(prop.hit) %>% mean(),2),
                         round(mean(exp5__ensor.data$prop.hit__col.drawing),2),
+                  "","","", NA, NA,
                   "FAs", "Low distinctiveness", "Words", 
                         round(exp5__prop.FA %>% filter(stim == "grey.word") %>% pull(prop.FA) %>% mean(),2),
                         round(mean(exp5__ensor.data$prop.FA__grey.word),2),
@@ -8146,6 +8173,7 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                   "FAs", "High distinctiveness", "Drawings",
                         round(exp5__prop.FA %>% filter(stim == "col.drawing") %>% pull(prop.FA) %>% mean(),2),
                         round(mean(exp5__ensor.data$prop.FA__col.drawing),2),
+                  "","","", NA, NA,
                   "d'", "Low distinctiveness", "Words", 
                         round(exp5__d.prime %>% filter(stim == "grey.word") %>% pull(d.prime) %>% mean(),2),
                         round(mean(exp5__ensor.data$d.prime__grey.word),2),
@@ -8158,6 +8186,7 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                   "d'", "High distinctiveness", "Drawings",
                         round(exp5__d.prime %>% filter(stim == "col.drawing") %>% pull(d.prime) %>% mean(),2),
                         round(mean(exp5__ensor.data$d.prime__col.drawing),2),
+                  "","","", NA, NA,
                   "c", "Low distinctiveness", "Words", 
                         round(exp5__c %>% filter(stim == "grey.word") %>% pull(c) %>% mean(),2),
                         round(mean(exp5__ensor.data$c__grey.word),2),
@@ -8170,7 +8199,10 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                   "c", "High distinctiveness", "Drawings",
                         round(exp5__c %>% filter(stim == "col.drawing") %>% pull(c) %>% mean(),2),
                         round(mean(exp5__ensor.data$c__col.drawing),2)) %>%
-                  rename(" " = "var", "  " = "Dist", "   " = "Stim")
+                  rename(" " = "var", "  " = "Dist", "   " = "Stim") %>%
+                  mutate_all(as.character) %>%
+                  mutate_all(~replace_na(.,""))
+
 ```
 
 ```{r, echo=FALSE, results = FALSE, cache=FALSE}
@@ -8184,9 +8216,11 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
 ```{r, echo=FALSE, cache=FALSE}
       exp5__table__ensor.vs.current %>%
           kable("latex", booktabs = T, align = "lllcc") %>%
-          kable_styling(latex_options = c("hold_position", "scale_down", "condensed")) %>%
-          collapse_rows(columns = 1:2) %>%
-          column_spec(4:5, width = "2cm")
+          kable_styling(font_size = 7) #%>%
+          #kable_styling(latex_options = c("hold_position", "scale_down", "condensed")) %>%
+          #collapse_rows(columns = 1:2) %>%
+          #column_spec(1,3, bold = T) #%>%
+          #column_spec(4:5, width = "2cm")
 ```
 
 
@@ -8465,6 +8499,10 @@ In the ANOVA on the proportion of F FAs, there was a significant main effect of 
 ```
 
 In the ANOVA on the proportion of G FAs, there was a significant main effect of stim format `r exp5__prop.FA.G.aov__main.effect` - however, the number of G FAs for distinctive words (`r exp5__prop.FA.G.means__col.word`) was not significantly different than regular words (`r exp5__prop.FA.G.means__grey.word`), `r exp5__prop.FA.G.contrasts__grey.word.col.word`.
+
+
+
+#### Ensor
 
 
 
