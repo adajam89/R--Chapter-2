@@ -7859,10 +7859,13 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                  prop.FA.G__grey.drawing, prop.FA.G__col.drawing,prop.FA.G__grey.photo, 
                  prop.FA.G__col.photo) %>%
           mutate(stim = str_remove(stim, "prop.FA.G__"))
+      
+      
+      
 #----------------------------------------------------------------------------------------------------------------
-#     Ensor data:
+#     Ensor Experiment 1 data:
 #----------------------------------------------------------------------------------------------------------------
-      exp5__ensor.data <- read_csv("./resources/experiment_5/ensor-exp1-raw-data.csv") %>%
+      ensor.exp1.data <- read_csv("./resources/experiment_5/ensor-exp1-raw-data.csv") %>%
           select("Subject", "Phase", "Stimulus Type", "Probe", "Probe Type", "Response") %>%
           rename(id = "Subject", stim = "Stimulus Type", probe = "Probe", 
                  probe.type = "Probe Type", resp = "Response") %>%
@@ -7939,11 +7942,11 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
           mutate(recog__col.drawing = prop.hit__col.drawing - prop.FA__col.drawing)
 ##      d-prime (calculated by R package):
 ##      List unique participant IDs to loop through:
-        ensor__participant_IDs <- unique(exp5__ensor.data$id)
+        ensor.exp1.participant_IDs <- unique(ensor.exp1.data$id)
 ##    d-prime (grey word):
-      ensor__dprime__grey.word <- tibble()
-      for (i in ensor__participant_IDs) {
-          exp5__temp <- exp5__ensor.data %>%
+      ensor.exp1.d.prime__grey.word <- tibble()
+      for (i in ensor.exp1.participant_IDs) {
+          exp5__temp <- ensor.exp1.data %>%
               filter(id == i) %>%     
               select(id, hit__grey.word, FA__grey.word, miss__grey.word, CR__grey.word)
           
@@ -7956,17 +7959,17 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                                                   adjusted = TRUE))) %>%
               mutate("id" = i)
           exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-          ensor__dprime__grey.word <- bind_rows(ensor__dprime__grey.word, exp5__temp) }
+          ensor.exp1.d.prime__grey.word <- bind_rows(ensor.exp1.d.prime__grey.word, exp5__temp) }
 
-        ensor__dprime__grey.word <- ensor__dprime__grey.word %>%
+        ensor.exp1.d.prime__grey.word <- ensor.exp1.d.prime__grey.word %>%
             select(id, dprime, beta, aprime, bppd, c) %>%
-            rename(ensor__dprime__grey.word = "dprime", beta__grey.word = "beta",
+            rename(dprime__grey.word = "dprime", beta__grey.word = "beta",
                    aprime__grey.word = "aprime", bppd__grey.word = "bppd",
                    c__grey.word = "c")
 ##    d-prime (col word):
-      ensor__dprime__col.word <- tibble()
-      for (i in ensor__participant_IDs) {
-          exp5__temp <- exp5__ensor.data %>%
+      ensor.exp1.d.prime__col.word <- tibble()
+      for (i in ensor.exp1.participant_IDs) {
+          exp5__temp <- ensor.exp1.data %>%
               filter(id == i) %>%     
               select(id, hit__col.word, FA__col.word, miss__col.word, CR__col.word)
           
@@ -7979,17 +7982,17 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                                                   adjusted = TRUE))) %>%
               mutate("id" = i)
           exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-          ensor__dprime__col.word <- bind_rows(ensor__dprime__col.word, exp5__temp) }
+          ensor.exp1.d.prime__col.word <- bind_rows(ensor.exp1.d.prime__col.word, exp5__temp) }
 
-        ensor__dprime__col.word <- ensor__dprime__col.word %>%
+        ensor.exp1.d.prime__col.word <- ensor.exp1.d.prime__col.word %>%
             select(id, dprime, beta, aprime, bppd, c) %>%
-            rename(ensor__dprime__col.word = "dprime", beta__col.word = "beta",
+            rename(dprime__col.word = "dprime", beta__col.word = "beta",
                    aprime__col.word = "aprime", bppd__col.word = "bppd",
                    c__col.word = "c")
 ##    d-prime (grey drawing):
-      ensor__dprime__grey.drawing <- tibble()
-      for (i in ensor__participant_IDs) {
-          exp5__temp <- exp5__ensor.data %>%
+      ensor.exp1.d.prime__grey.drawing <- tibble()
+      for (i in ensor.exp1.participant_IDs) {
+          exp5__temp <- ensor.exp1.data %>%
               filter(id == i) %>%     
               select(id, hit__grey.drawing, FA__grey.drawing, miss__grey.drawing, CR__grey.drawing)
           
@@ -8002,17 +8005,17 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                                                   adjusted = TRUE))) %>%
               mutate("id" = i)
           exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-          ensor__dprime__grey.drawing <- bind_rows(ensor__dprime__grey.drawing, exp5__temp) }
+          ensor.exp1.d.prime__grey.drawing <- bind_rows(ensor.exp1.d.prime__grey.drawing, exp5__temp) }
 
-        ensor__dprime__grey.drawing <- ensor__dprime__grey.drawing %>%
+        ensor.exp1.d.prime__grey.drawing <- ensor.exp1.d.prime__grey.drawing %>%
             select(id, dprime, beta, aprime, bppd, c) %>%
-            rename(ensor__dprime__grey.drawing = "dprime", beta__grey.drawing = "beta",
+            rename(dprime__grey.drawing = "dprime", beta__grey.drawing = "beta",
                    aprime__grey.drawing = "aprime", bppd__grey.drawing = "bppd",
                    c__grey.drawing = "c")
 ##    d-prime (col drawing):
-      ensor__dprime__col.drawing <- tibble()
-      for (i in ensor__participant_IDs) {
-          exp5__temp <- exp5__ensor.data %>%
+      ensor.exp1.d.prime__col.drawing <- tibble()
+      for (i in ensor.exp1.participant_IDs) {
+          exp5__temp <- ensor.exp1.data %>%
               filter(id == i) %>%     
               select(id, hit__col.drawing, FA__col.drawing, miss__col.drawing, CR__col.drawing)
           
@@ -8025,52 +8028,268 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                                                   adjusted = TRUE))) %>%
               mutate("id" = i)
           exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-          ensor__dprime__col.drawing <- bind_rows(ensor__dprime__col.drawing, exp5__temp) }
+          ensor.exp1.d.prime__col.drawing <- bind_rows(ensor.exp1.d.prime__col.drawing, exp5__temp) }
 
-      ensor__dprime__col.drawing <- ensor__dprime__col.drawing %>%
+      ensor.exp1.d.prime__col.drawing <- ensor.exp1.d.prime__col.drawing %>%
           select(id, dprime, beta, aprime, bppd, c) %>%
-          rename(ensor__dprime__col.drawing = "dprime", beta__col.drawing = "beta", aprime__col.drawing = "aprime",
+          rename(dprime__col.drawing = "dprime", beta__col.drawing = "beta", aprime__col.drawing = "aprime",
                  bppd__col.drawing = "bppd", c__col.drawing = "c")
 
-##    Add d'prime calculations to 'exp5__ensor.data' df: 
-      exp5__ensor.data <- exp5__ensor.data %>%
-          right_join(ensor__dprime__grey.word) %>%
-          right_join(ensor__dprime__col.word) %>%
-          right_join(ensor__dprime__grey.drawing) %>%
-          right_join(ensor__dprime__col.drawing)
-        
-  write.csv(exp5__ensor.data,'~/Desktop/exp5__ensor.data.csv', row.names = FALSE)   
-  
-      exp5__ensor.d.prime <- exp5__ensor.data %>%
-          select(id, ensor__dprime__grey.word, ensor__dprime__col.word, ensor__dprime__grey.drawing,
-                 ensor__dprime__col.drawing) %>%
-          gather(key = "stim", value = "d.prime", ensor__dprime__grey.word, ensor__dprime__col.word,
-                 ensor__dprime__grey.drawing, ensor__dprime__col.drawing) %>%
+##    Add d'prime calculations to 'ensor.exp1.data' df: 
+      ensor.exp1.data <- ensor.exp1.data %>%
+          right_join(ensor.exp1.d.prime__grey.word) %>%
+          right_join(ensor.exp1.d.prime__col.word) %>%
+          right_join(ensor.exp1.d.prime__grey.drawing) %>%
+          right_join(ensor.exp1.d.prime__col.drawing)
+#----------------------------------------------------------------------------------------------------------------
+#   Prep key data for analysis:
+#----------------------------------------------------------------------------------------------------------------  
+      ensor.exp1__d.prime <- ensor.exp1.data %>%
+          select(id, dprime__grey.word, dprime__col.word, dprime__grey.drawing, dprime__col.drawing) %>%
+          gather(key = "stim", value = "d.prime", dprime__grey.word, dprime__col.word,
+                 dprime__grey.drawing, dprime__col.drawing) %>%
           mutate(stim = str_remove(stim, "dprime__"))
-      exp5__ensor.c <- exp5__ensor.data %>%
+      ensor.exp1__c <- ensor.exp1.data %>%
           select(id, c__grey.word, c__col.word, c__grey.drawing, c__col.drawing) %>%
           gather(key = "stim", value = "c", c__grey.word, c__col.word, c__grey.drawing, c__col.drawing) %>%
           mutate(stim = str_remove(stim, "c__"))
-      exp5__ensor.prop.hit <- exp5__ensor.data %>%
+      ensor.exp1__prop.hit <- ensor.exp1.data %>%
           select(id, prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing, prop.hit__col.drawing) %>%
           gather(key = "stim", value = "prop.hit", prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing,
                  prop.hit__col.drawing) %>%
           mutate(stim = str_remove(stim, "prop.hit__"))
-      exp5__ensor.prop.FA <- exp5__ensor.data %>%
+      ensor.exp1__prop.FA <- ensor.exp1.data %>%
           select(id, prop.FA__grey.word, prop.FA__col.word, prop.FA__grey.drawing, prop.FA__col.drawing) %>%
           gather(key = "stim", value = "prop.FA", prop.FA__grey.word, prop.FA__col.word, prop.FA__grey.drawing,
                  prop.FA__col.drawing) %>%
           mutate(stim = str_remove(stim, "prop.FA__"))
-      exp5__ensor.recog <- exp5__ensor.data %>%
+      ensor.exp1__recog <- ensor.exp1.data %>%
           select(id, recog__grey.word, recog__col.word, recog__grey.drawing, recog__col.drawing) %>%
           gather(key = "stim", value = "recog", recog__grey.word, recog__col.word, recog__grey.drawing,
                  recog__col.drawing) %>%
           mutate(stim = str_remove(stim, "recog__"))
+#----------------------------------------------------------------------------------------------------------------
+#     Ensor Experiment 2 data:
+#----------------------------------------------------------------------------------------------------------------
+      ensor.exp2.data <- read_csv("./resources/experiment_5/ensor-exp2-raw-data.csv") %>%
+        select("Subject", "Phase", "Stimulus Type", "Probe", "Probe Type", "Response") %>%
+        rename(id = "Subject", stim = "Stimulus Type", probe = "Probe", 
+               probe.type = "Probe Type", resp = "Response") %>%
+        filter(Phase == "Test") %>%
+        select(-Phase) %>%
+        mutate_all(tolower) %>%
+        group_by(id) %>%
+        ##    Overall totals:  
+        add_tally(probe.type == "old" & resp == "yes", sort = FALSE, name = "hit__total") %>%
+        add_tally(probe.type == "old" & resp == "no", sort = FALSE, name = "miss__total") %>%
+        add_tally(probe.type == "new" & resp == "yes", sort = FALSE, name = "FA__total") %>%
+        add_tally(probe.type == "new" & resp == "no", sort = FALSE, name = "CR__total") %>%
+        ##    Grey word totals:  
+        add_tally(str_detect(stim, "bw_word") & probe.type == "old" & resp == "yes", sort = FALSE, 
+                  name = "hit__grey.word") %>%
+        add_tally(str_detect(stim, "bw_word") & probe.type == "old" & resp == "no", sort = FALSE, 
+                  name = "miss__grey.word") %>%
+        add_tally(str_detect(stim, "bw_word") & probe.type == "new" & resp == "yes", sort = FALSE, 
+                  name = "FA__grey.word") %>%
+        add_tally(str_detect(stim, "bw_word") & probe.type == "new" & resp == "no", sort = FALSE, 
+                  name = "CR__grey.word") %>%
+        ##    Colour word totals:    
+        add_tally(str_detect(stim, "colour_word") & probe.type == "old" & resp == "yes", sort = FALSE, 
+                  name = "hit__col.word") %>%
+        add_tally(str_detect(stim, "colour_word") & probe.type == "old" & resp == "no", sort = FALSE, 
+                  name = "miss__col.word") %>%
+        add_tally(str_detect(stim, "colour_word") & probe.type == "new" & resp == "yes", sort = FALSE, 
+                  name = "FA__col.word") %>%
+        add_tally(str_detect(stim, "colour_word") & probe.type == "new" & resp == "no", sort = FALSE, 
+                  name = "CR__col.word") %>%
+        ##    Grey drawing totals:    
+        add_tally(str_detect(stim, "bw_picture") & probe.type == "old" & resp == "yes", sort = FALSE, 
+                  name = "hit__grey.drawing") %>%
+        add_tally(str_detect(stim, "bw_picture") & probe.type == "old" & resp == "no", sort = FALSE, 
+                  name = "miss__grey.drawing") %>%
+        add_tally(str_detect(stim, "bw_picture") & probe.type == "new" & resp == "yes", sort = FALSE, 
+                  name = "FA__grey.drawing") %>%
+        add_tally(str_detect(stim, "bw_picture") & probe.type == "new" & resp == "no", sort = FALSE, 
+                  name = "CR__grey.drawing") %>%
+        ##    Col drawing totals:    
+        add_tally(str_detect(stim, "colour_picture") & probe.type == "old" & resp == "yes", sort = FALSE, 
+                  name = "hit__col.drawing") %>%
+        add_tally(str_detect(stim, "colour_picture") & probe.type == "old" & resp == "no", sort = FALSE, 
+                  name = "miss__col.drawing") %>%
+        add_tally(str_detect(stim, "colour_picture") & probe.type == "new" & resp == "yes", sort = FALSE, 
+                  name = "FA__col.drawing") %>%
+        add_tally(str_detect(stim, "colour_picture") & probe.type == "new" & resp == "no", sort = FALSE, 
+                  name = "CR__col.drawing") %>%
+        summarise_all(coalesce_by_column) %>%
+        ##    Proportions:
+        mutate(prop.hit__grey.word = hit__grey.word / (hit__grey.word + miss__grey.word)) %>%
+        mutate(prop.miss__grey.word = miss__grey.word / (hit__grey.word + miss__grey.word)) %>%
+        mutate(prop.FA__grey.word = FA__grey.word / (FA__grey.word + CR__grey.word)) %>%
+        mutate(prop.CR__grey.word = CR__grey.word / (FA__grey.word + CR__grey.word)) %>%
+        
+        mutate(prop.hit__col.word = hit__col.word / (hit__col.word + miss__col.word)) %>%
+        mutate(prop.miss__col.word = miss__col.word / (hit__col.word + miss__col.word)) %>%
+        mutate(prop.FA__col.word = FA__col.word / (FA__col.word + CR__col.word)) %>%
+        mutate(prop.CR__col.word = CR__col.word / (FA__col.word + CR__col.word)) %>%
+        
+        mutate(prop.hit__grey.drawing = hit__grey.drawing / (hit__grey.drawing + miss__grey.drawing)) %>%
+        mutate(prop.miss__grey.drawing = miss__grey.drawing / (hit__grey.drawing + miss__grey.drawing)) %>%
+        mutate(prop.FA__grey.drawing = FA__grey.drawing / (FA__grey.drawing + CR__grey.drawing)) %>%
+        mutate(prop.CR__grey.drawing = CR__grey.drawing / (FA__grey.drawing + CR__grey.drawing)) %>%
+        
+        mutate(prop.hit__col.drawing = hit__col.drawing / (hit__col.drawing + miss__col.drawing)) %>%
+        mutate(prop.miss__col.drawing = miss__col.drawing / (hit__col.drawing + miss__col.drawing)) %>%
+        mutate(prop.FA__col.drawing = FA__col.drawing / (FA__col.drawing + CR__col.drawing)) %>%
+        mutate(prop.CR__col.drawing = CR__col.drawing / (FA__col.drawing + CR__col.drawing)) %>%
+        ##    Recog:
+        mutate(recog__grey.word = prop.hit__grey.word - prop.FA__grey.word) %>%
+        mutate(recog__col.word = prop.hit__col.word - prop.FA__col.word) %>%
+        mutate(recog__grey.drawing = prop.hit__grey.drawing - prop.FA__grey.drawing) %>%
+        mutate(recog__col.drawing = prop.hit__col.drawing - prop.FA__col.drawing)
+      ##      d-prime (calculated by R package):
+      ##      List unique participant IDs to loop through:
+      ensor.exp2.participant_IDs <- unique(ensor.exp2.data$id)
+      ##    d-prime (grey word):
+      ensor.exp2.d.prime__grey.word <- tibble()
+      for (i in ensor.exp2.participant_IDs) {
+        exp5__temp <- ensor.exp2.data %>%
+          filter(id == i) %>%     
+          select(id, hit__grey.word, FA__grey.word, miss__grey.word, CR__grey.word)
+        
+        exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__grey.word,
+                                                n_fa = exp5__temp$FA__grey.word,
+                                                n_miss = exp5__temp$miss__grey.word,
+                                                n_cr = exp5__temp$CR__grey.word,
+                                                n_targets = 10,
+                                                n_distractors = 10,
+                                                adjusted = TRUE))) %>%
+          mutate("id" = i)
+        exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
+        ensor.exp2.d.prime__grey.word <- bind_rows(ensor.exp2.d.prime__grey.word, exp5__temp) }
+      
+      ensor.exp2.d.prime__grey.word <- ensor.exp2.d.prime__grey.word %>%
+        select(id, dprime, beta, aprime, bppd, c) %>%
+        rename(dprime__grey.word = "dprime", beta__grey.word = "beta",
+               aprime__grey.word = "aprime", bppd__grey.word = "bppd",
+               c__grey.word = "c")
+      ##    d-prime (col word):
+      ensor.exp2.d.prime__col.word <- tibble()
+      for (i in ensor.exp2.participant_IDs) {
+        exp5__temp <- ensor.exp2.data %>%
+          filter(id == i) %>%     
+          select(id, hit__col.word, FA__col.word, miss__col.word, CR__col.word)
+        
+        exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__col.word,
+                                                n_fa = exp5__temp$FA__col.word,
+                                                n_miss = exp5__temp$miss__col.word,
+                                                n_cr = exp5__temp$CR__col.word,
+                                                n_targets = 10,
+                                                n_distractors = 10,
+                                                adjusted = TRUE))) %>%
+          mutate("id" = i)
+        exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
+        ensor.exp2.d.prime__col.word <- bind_rows(ensor.exp2.d.prime__col.word, exp5__temp) }
+      
+      ensor.exp2.d.prime__col.word <- ensor.exp2.d.prime__col.word %>%
+        select(id, dprime, beta, aprime, bppd, c) %>%
+        rename(dprime__col.word = "dprime", beta__col.word = "beta",
+               aprime__col.word = "aprime", bppd__col.word = "bppd",
+               c__col.word = "c")
+      ##    d-prime (grey drawing):
+      ensor.exp2.d.prime__grey.drawing <- tibble()
+      for (i in ensor.exp2.participant_IDs) {
+        exp5__temp <- ensor.exp2.data %>%
+          filter(id == i) %>%     
+          select(id, hit__grey.drawing, FA__grey.drawing, miss__grey.drawing, CR__grey.drawing)
+        
+        exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__grey.drawing,
+                                                n_fa = exp5__temp$FA__grey.drawing,
+                                                n_miss = exp5__temp$miss__grey.drawing,
+                                                n_cr = exp5__temp$CR__grey.drawing,
+                                                n_targets = 10,
+                                                n_distractors = 10,
+                                                adjusted = TRUE))) %>%
+          mutate("id" = i)
+        exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
+        ensor.exp2.d.prime__grey.drawing <- bind_rows(ensor.exp2.d.prime__grey.drawing, exp5__temp) }
+      
+      ensor.exp2.d.prime__grey.drawing <- ensor.exp2.d.prime__grey.drawing %>%
+        select(id, dprime, beta, aprime, bppd, c) %>%
+        rename(dprime__grey.drawing = "dprime", beta__grey.drawing = "beta",
+               aprime__grey.drawing = "aprime", bppd__grey.drawing = "bppd",
+               c__grey.drawing = "c")
+      ##    d-prime (col drawing):
+      ensor.exp2.d.prime__col.drawing <- tibble()
+      for (i in ensor.exp2.participant_IDs) {
+        exp5__temp <- ensor.exp2.data %>%
+          filter(id == i) %>%     
+          select(id, hit__col.drawing, FA__col.drawing, miss__col.drawing, CR__col.drawing)
+        
+        exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__col.drawing,
+                                                n_fa = exp5__temp$FA__col.drawing,
+                                                n_miss = exp5__temp$miss__col.drawing,
+                                                n_cr = exp5__temp$CR__col.drawing,
+                                                n_targets = 10,
+                                                n_distractors = 10,
+                                                adjusted = TRUE))) %>%
+          mutate("id" = i)
+        exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
+        ensor.exp2.d.prime__col.drawing <- bind_rows(ensor.exp2.d.prime__col.drawing, exp5__temp) }
+      
+      ensor.exp2.d.prime__col.drawing <- ensor.exp2.d.prime__col.drawing %>%
+        select(id, dprime, beta, aprime, bppd, c) %>%
+        rename(dprime__col.drawing = "dprime", beta__col.drawing = "beta", aprime__col.drawing = "aprime",
+               bppd__col.drawing = "bppd", c__col.drawing = "c")
+      
+      ##    Add d'prime calculations to 'ensor.exp2.data' df: 
+      ensor.exp2.data <- ensor.exp2.data %>%
+        right_join(ensor.exp2.d.prime__grey.word) %>%
+        right_join(ensor.exp2.d.prime__col.word) %>%
+        right_join(ensor.exp2.d.prime__grey.drawing) %>%
+        right_join(ensor.exp2.d.prime__col.drawing)
+#----------------------------------------------------------------------------------------------------------------
+#   Prep key data for analysis:
+#----------------------------------------------------------------------------------------------------------------  
+      ensor.exp2__d.prime <- ensor.exp2.data %>%
+        select(id, dprime__grey.word, dprime__col.word, dprime__grey.drawing, dprime__col.drawing) %>%
+        gather(key = "stim", value = "d.prime", dprime__grey.word, dprime__col.word,
+               dprime__grey.drawing, dprime__col.drawing) %>%
+        mutate(stim = str_remove(stim, "dprime__"))
+      ensor.exp2__c <- ensor.exp2.data %>%
+        select(id, c__grey.word, c__col.word, c__grey.drawing, c__col.drawing) %>%
+        gather(key = "stim", value = "c", c__grey.word, c__col.word, c__grey.drawing, c__col.drawing) %>%
+        mutate(stim = str_remove(stim, "c__"))
+      ensor.exp2__prop.hit <- ensor.exp2.data %>%
+        select(id, prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing, prop.hit__col.drawing) %>%
+        gather(key = "stim", value = "prop.hit", prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing,
+               prop.hit__col.drawing) %>%
+        mutate(stim = str_remove(stim, "prop.hit__"))
+      ensor.exp2__prop.FA <- ensor.exp2.data %>%
+        select(id, prop.FA__grey.word, prop.FA__col.word, prop.FA__grey.drawing, prop.FA__col.drawing) %>%
+        gather(key = "stim", value = "prop.FA", prop.FA__grey.word, prop.FA__col.word, prop.FA__grey.drawing,
+               prop.FA__col.drawing) %>%
+        mutate(stim = str_remove(stim, "prop.FA__"))
+      ensor.exp2__recog <- ensor.exp2.data %>%
+        select(id, recog__grey.word, recog__col.word, recog__grey.drawing, recog__col.drawing) %>%
+        gather(key = "stim", value = "recog", recog__grey.word, recog__col.word, recog__grey.drawing,
+               recog__col.drawing) %>%
+        mutate(stim = str_remove(stim, "recog__"))
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
 #----------------------------------------------------------------------------------------------------------------
 #     Tables and figures:
 #----------------------------------------------------------------------------------------------------------------
-##    Prep data for RFG figure:  
+      ##    Prep data for RFG figure:  
       exp5__prop.hit.R__grey.word <- mean_se(exp5__prop.hit.R %>% filter(stim == "grey.word") %>% pull(prop.hit.R))
       exp5__prop.hit.R__col.word <- mean_se(exp5__prop.hit.R %>% filter(stim == "col.word") %>% pull(prop.hit.R))
       exp5__prop.hit.F__grey.word <- mean_se(exp5__prop.hit.F %>% filter(stim == "grey.word") %>% pull(prop.hit.F))
@@ -8145,86 +8364,33 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
             plot.margin = margin(20, 20, 24, 30))
       
       
-##    Prep data for Ensor vs. current study table:  
-      exp5__table__ensor.vs.current <- 
-          tribble(~"var", ~"Dist", ~"Stim", ~"Current experiment", ~"Ensor, et al. (2019)",
-                  "Hits", "Low distinctiveness", "Words", 
-                        round(exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit) %>% mean(),2),
-                        round(mean(exp5__ensor.data$prop.hit__grey.word),2),
-                  "Hits", "Low distinctiveness", "Drawings",
-                        round(exp5__prop.hit %>% filter(stim == "grey.drawing") %>% pull(prop.hit) %>% mean(),2),
-                        round(mean(exp5__ensor.data$prop.hit__grey.drawing),2),
-                  "Hits", "High distinctiveness", "Words",
-                        round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
-                        round(mean(exp5__ensor.data$prop.hit__col.word),2),
-                  "Hits", "High distinctiveness", "Drawings",
-                        round(exp5__prop.hit %>% filter(stim == "col.drawing") %>% pull(prop.hit) %>% mean(),2),
-                        round(mean(exp5__ensor.data$prop.hit__col.drawing),2),
-                  "","","", NA, NA,
-                  "FAs", "Low distinctiveness", "Words", 
-                        round(exp5__prop.FA %>% filter(stim == "grey.word") %>% pull(prop.FA) %>% mean(),2),
-                        round(mean(exp5__ensor.data$prop.FA__grey.word),2),
-                  "FAs", "Low distinctiveness", "Drawings",
-                        round(exp5__prop.FA %>% filter(stim == "grey.drawing") %>% pull(prop.FA) %>% mean(),2),
-                        round(mean(exp5__ensor.data$prop.FA__grey.drawing),2),
-                  "FAs", "High distinctiveness", "Words",
-                        round(exp5__prop.FA %>% filter(stim == "col.word") %>% pull(prop.FA) %>% mean(),2),
-                        round(mean(exp5__ensor.data$prop.FA__col.word),2),
-                  "FAs", "High distinctiveness", "Drawings",
-                        round(exp5__prop.FA %>% filter(stim == "col.drawing") %>% pull(prop.FA) %>% mean(),2),
-                        round(mean(exp5__ensor.data$prop.FA__col.drawing),2),
-                  "","","", NA, NA,
-                  "d'", "Low distinctiveness", "Words", 
-                        round(exp5__d.prime %>% filter(stim == "grey.word") %>% pull(d.prime) %>% mean(),2),
-                        round(mean(exp5__ensor.data$d.prime__grey.word),2),
-                  "d'", "Low distinctiveness", "Drawings",
-                        round(exp5__d.prime %>% filter(stim == "grey.drawing") %>% pull(d.prime) %>% mean(),2),
-                        round(mean(exp5__ensor.data$d.prime__grey.drawing),2),
-                  "d'", "High distinctiveness", "Words",
-                        round(exp5__d.prime %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
-                        round(mean(exp5__ensor.data$d.prime__col.word),2),
-                  "d'", "High distinctiveness", "Drawings",
-                        round(exp5__d.prime %>% filter(stim == "col.drawing") %>% pull(d.prime) %>% mean(),2),
-                        round(mean(exp5__ensor.data$d.prime__col.drawing),2),
-                  "","","", NA, NA,
-                  "c", "Low distinctiveness", "Words", 
-                        round(exp5__c %>% filter(stim == "grey.word") %>% pull(c) %>% mean(),2),
-                        round(mean(exp5__ensor.data$c__grey.word),2),
-                  "c", "Low distinctiveness", "Drawings",
-                        round(exp5__c %>% filter(stim == "grey.drawing") %>% pull(c) %>% mean(),2),
-                        round(mean(exp5__ensor.data$c__grey.drawing),2),
-                  "c", "High distinctiveness", "Words",
-                        round(exp5__c %>% filter(stim == "col.word") %>% pull(c) %>% mean(),2),
-                        round(mean(exp5__ensor.data$c__col.word),2),
-                  "c", "High distinctiveness", "Drawings",
-                        round(exp5__c %>% filter(stim == "col.drawing") %>% pull(c) %>% mean(),2),
-                        round(mean(exp5__ensor.data$c__col.drawing),2)) %>%
-                  rename(" " = "var", "  " = "Dist", "   " = "Stim") %>%
-                  mutate_all(as.character) %>%
-                  mutate_all(~replace_na(.,""))
-
+##    Ensor vs. current d'+c table: 
+      exp5__table__ensor.vs.current__d.prime.c <- 
+            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Grey words", ~"Distinctive words",
+                  "Experiment 1",
+                      round(mean(ensor.exp1.data$dprime__grey.word),2),
+                      round(mean(ensor.exp1.data$dprime__col.word),2),
+                      round(mean(ensor.exp1.data$c__grey.word),2),
+                      round(mean(ensor.exp1.data$c__col.word),2),
+                  "Experiment 2",
+                      round(mean(ensor.exp2.data$dprime__grey.word),2),
+                      round(mean(ensor.exp2.data$dprime__col.word),2),
+                      round(mean(ensor.exp2.data$c__grey.word),2),
+                      round(mean(ensor.exp2.data$c__col.word),2),
+                  "Current", 
+                      round(exp5__d.prime %>% filter(stim == "grey.word") %>% pull(d.prime) %>% mean(),2),
+                      round(exp5__d.prime %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
+                      round(exp5__c %>% filter(stim == "grey.word") %>% pull(c) %>% mean(),2),
+                      round(exp5__c %>% filter(stim == "col.word") %>% pull(c) %>% mean(),2))
 ```
 
-```{r, echo=FALSE, results = FALSE, cache=FALSE}
-    table_numbering(name = "exp5__table__ensor.vs.current", 
-                     caption = "Mean proportion of hits ")
-```
-
-(see `r table_numbering("exp5__table__ensor.vs.current", display = "cite")`
-
-`r table_numbering("exp5__table__ensor.vs.current")`
-```{r, echo=FALSE, cache=FALSE}
-      exp5__table__ensor.vs.current %>%
-          kable("latex", booktabs = T, align = "lllcc") %>%
-          kable_styling(font_size = 7) #%>%
-          #kable_styling(latex_options = c("hold_position", "scale_down", "condensed")) %>%
-          #collapse_rows(columns = 1:2) %>%
-          #column_spec(1,3, bold = T) #%>%
-          #column_spec(4:5, width = "2cm")
-```
-
-
+\newpage
 ### Results
+Comparisons are made in relation to the second experiment of @ensor2019b, as the number of study (80) and test (160) items were most similar to the current study (study: 60, test: 120). 
+
+#### Manipulation check
+To establish whether the distinctive word stimuli were indeed more distinctive than the regular words, a series of one-way repeated measures ANOVAs were run on *d'* and *c* scores, the mean proportion of hits and FAs, and overall scores of recognition (hits - FAs). 
+
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
@@ -8250,11 +8416,12 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
       exp5__d.prime.contrasts__grey.word.col.word <- exp5__d.prime.contrasts__apa$statistic
 ```
 
-In the ANOVA on d' scores, there was a significant main effect of stim format `r exp5__d.prime.aov__main.effect`. Distinctive words (`r exp5__d.prime.means__col.word`) producing significantly better discrimination between hits and FAs than regular words (`r exp5__d.prime.means__grey.word`), `r exp5__d.prime.contrasts__grey.word.col.word`.
+In the ANOVA on d' scores, there was a significant main effect of stimuli format `r exp5__d.prime.aov__main.effect`. Distinctive words (`r exp5__d.prime.means__col.word`) produced significantly better discrimination between hits and FAs than regular words (`r exp5__d.prime.means__grey.word`), `r exp5__d.prime.contrasts__grey.word.col.word`.
 
+\newpage
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
-##    Prop hits:                                                                                               ##
+##    Exp5 Prop hits:                                                                                          ##
 #################################################################################################################
 ##    One-way repeated measures ANOVA:
       exp5__prop.hit.aov <- exp5__prop.hit %>% afex::aov_4(prop.hit ~ 1 + (stim|id), data = .)
@@ -8274,13 +8441,91 @@ In the ANOVA on d' scores, there was a significant main effect of stim format `r
       exp5__prop.hit.means__col.word <- exp5__prop.hit.means__apa$estimate$colword %>% str_remove("\\,.*")
       exp5__prop.hit.contrasts__apa <- papaja:::apa_print.emmGrid(exp5__prop.hit.contrasts) 
       exp5__prop.hit.contrasts__grey.word.col.word <- exp5__prop.hit.contrasts__apa$statistic
+
+#################################################################################################################
+##    Ensor Exp1 Prop hits:                                                                                    ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp1__prop.hit.aov <- ensor.exp1__prop.hit %>% afex::aov_4(prop.hit ~ 1 + (stim|id), data = .)
+##    Get means: 
+      ensor.exp1__prop.hit.means <- emmeans(ensor.exp1__prop.hit.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0)
+      col.word = c(0, 1, 0, 0)
+##    Run contrasts:                                    
+      ensor.exp1__prop.hit.contrasts <- contrast(ensor.exp1__prop.hit.means, method = 
+                                                list("grey.word - col.word" = grey.word - col.word), 
+                                                adjust = "bonf")
+##    Format results for use in report:
+      ensor.exp1__prop.hit.aov__apa <- papaja:::apa_print.afex_aov(ensor.exp1__prop.hit.aov)
+      ensor.exp1__prop.hit.aov__main.effect <- ensor.exp1__prop.hit.aov__apa$full
+      ensor.exp1__prop.hit.means__apa <- papaja:::apa_print.emmGrid(ensor.exp1__prop.hit.means) 
+      ensor.exp1__prop.hit.means__grey.word <- ensor.exp1__prop.hit.means__apa$estimate$greyword %>% 
+          str_remove("\\,.*")
+      ensor.exp1__prop.hit.means__col.word <- ensor.exp1__prop.hit.means__apa$estimate$colword %>% 
+          str_remove("\\,.*")
+      ensor.exp1__prop.hit.contrasts__apa <- papaja:::apa_print.emmGrid(ensor.exp1__prop.hit.contrasts) 
+      ensor.exp1__prop.hit.contrasts__grey.word.col.word <- ensor.exp1__prop.hit.contrasts__apa$statistic
+      
+#################################################################################################################
+##    Ensor Exp2 Prop hits:                                                                                    ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp2__prop.hit.aov <- ensor.exp2__prop.hit %>% afex::aov_4(prop.hit ~ 1 + (stim|id), data = .)
+##    Get means: 
+      ensor.exp2__prop.hit.means <- emmeans(ensor.exp2__prop.hit.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0)
+      col.word = c(0, 1, 0, 0)
+##    Run contrasts:                                    
+      ensor.exp2__prop.hit.contrasts <- contrast(ensor.exp2__prop.hit.means, method = 
+                                                list("grey.word - col.word" = grey.word - col.word), 
+                                                adjust = "bonf")
+##    Format results for use in report:
+      ensor.exp2__prop.hit.aov__apa <- papaja:::apa_print.afex_aov(ensor.exp2__prop.hit.aov)
+      ensor.exp2__prop.hit.aov__main.effect <- ensor.exp2__prop.hit.aov__apa$full
+      ensor.exp2__prop.hit.means__apa <- papaja:::apa_print.emmGrid(ensor.exp2__prop.hit.means) 
+      ensor.exp2__prop.hit.means__grey.word <- ensor.exp2__prop.hit.means__apa$estimate$greyword %>% 
+          str_remove("\\,.*")
+      ensor.exp2__prop.hit.means__col.word <- ensor.exp2__prop.hit.means__apa$estimate$colword %>% 
+          str_remove("\\,.*")
+      ensor.exp2__prop.hit.contrasts__apa <- papaja:::apa_print.emmGrid(ensor.exp2__prop.hit.contrasts) 
+      ensor.exp2__prop.hit.contrasts__grey.word.col.word <- ensor.exp2__prop.hit.contrasts__apa$statistic
+
+##    Ensor vs. current d'+c table: 
+      exp5__table__ensor.vs.current__hit.FA <- 
+            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
+                  "Experiment 1",
+                      round(mean(ensor.exp1.data$prop.hit__grey.word),2),
+                      round(mean(ensor.exp1.data$prop.hit__col.word),2),
+                      ensor.exp1__prop.hit.contrasts__grey.word.col.word$greyword_colword,
+                  "Experiment 2",
+                      round(mean(ensor.exp2.data$prop.hit__grey.word),2),
+                      round(mean(ensor.exp2.data$prop.hit__col.word),2),
+                      ensor.exp2__prop.hit.contrasts__grey.word.col.word$greyword_colword,
+                  "Experiment 5", 
+                      round(exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit) %>% mean(),2),
+                      round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
+                      exp5__prop.hit.contrasts__grey.word.col.word$greyword_colword)
 ```
 
-In the ANOVA on the proportion of hits, there was a significant main effect of stim format `r exp5__prop.hit.aov__main.effect`. However, the distinctive words (`r exp5__prop.hit.means__col.word`) did not produce any more hits than regular words (`r exp5__prop.hit.means__grey.word`), `r exp5__prop.hit.contrasts__grey.word.col.word`.
+The ANOVA on the proportion of overall hits revealed a significant main effect of stimuli format, `r exp5__prop.hit.aov__main.effect`, though planned comparisons showed there was no difference in the number or hits between regular (`r exp5__prop.hit.means__grey.word`) and distinctive words (`r exp5__prop.hit.means__col.word`), `r exp5__prop.hit.contrasts__grey.word.col.word`. This was in contrast to the findings of @ensor2019b; reanalysis of their data also showed significant main effects of stimuli format across both experiments (Experiment 1: `r ensor.exp1__prop.hit.aov__main.effect`; Experiment 2: `r ensor.exp2__prop.hit.aov__main.effect`), however, distinctive words produced significantly more hits than regular words across both experiments (see `r table_numbering("exp5__table__ensor.vs.current__hit.FA", display = "cite")`).
+
+`r table_numbering("exp5__table__ensor.vs.current__hit.FA")`
+```{r, echo=FALSE, cache=FALSE}
+      exp5__table__ensor.vs.current__hit.FA %>%
+          kable("latex", booktabs = T, align = "rccc", escape = F) %>%
+          kable_styling(font_size = 11, full_width = T, latex_options = c("hold_position", "condensed")) %>%
+          column_spec(2:3, width = "1.8cm") %>%
+          column_spec(4, width = "5cm") %>%
+          add_header_above(c(" " = 1, "Hits" = 3)) %>%
+          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
+          pack_rows("Current study", 3, 0)
+```
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
-##    Prop FAs:                                                                                               ##
+##    Exp5 Prop FAs:                                                                                           ##
 #################################################################################################################
 ##    One-way repeated measures ANOVA:
       exp5__prop.FA.aov <- exp5__prop.FA %>% afex::aov_4(prop.FA ~ 1 + (stim|id), data = .)
@@ -8300,9 +8545,44 @@ In the ANOVA on the proportion of hits, there was a significant main effect of s
       exp5__prop.FA.means__col.word <- exp5__prop.FA.means__apa$estimate$colword %>% str_remove("\\,.*")
       exp5__prop.FA.contrasts__apa <- papaja:::apa_print.emmGrid(exp5__prop.FA.contrasts) 
       exp5__prop.FA.contrasts__grey.word.col.word <- exp5__prop.FA.contrasts__apa$statistic
+      
+      
+#################################################################################################################
+##    Ensor Exp2 Prop FAs:                                                                                     ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp1__prop.FA.aov <- ensor.exp1__prop.FA %>% afex::aov_4(prop.FA ~ 1 + (stim|id), data = .)
+##    Get means: 
+      ensor.exp1__prop.FA.means <- emmeans(ensor.exp1__prop.FA.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0)
+      col.word = c(0, 1, 0, 0)
+##    Run contrasts:                                    
+      ensor.exp1__prop.FA.contrasts <- contrast(ensor.exp1__prop.FA.means, method = 
+                                                list("grey.word - col.word" = grey.word - col.word), 
+                                                adjust = "bonf")
+##    Format results for use in report:
+      ensor.exp1__prop.FA.aov__apa <- papaja:::apa_print.afex_aov(ensor.exp1__prop.FA.aov)
+      ensor.exp1__prop.FA.aov__main.effect <- ensor.exp1__prop.FA.aov__apa$full
+      ensor.exp1__prop.FA.means__apa <- papaja:::apa_print.emmGrid(ensor.exp1__prop.FA.means) 
+      ensor.exp1__prop.FA.means__grey.word <- ensor.exp1__prop.FA.means__apa$estimate$greyword %>%
+          str_remove("\\,.*")
+      ensor.exp1__prop.FA.means__col.word <- ensor.exp1__prop.FA.means__apa$estimate$colword %>% str_remove("\\,.*")
+      ensor.exp1__prop.FA.contrasts__apa <- papaja:::apa_print.emmGrid(ensor.exp1__prop.FA.contrasts) 
+      ensor.exp1__prop.FA.contrasts__grey.word.col.word <- ensor.exp1__prop.FA.contrasts__apa$statistic
 ```
 
-In the ANOVA on the proportion of FAs, there was a significant main effect of stim format `r exp5__prop.FA.aov__main.effect`. The distinctive words (`r exp5__prop.FA.means__col.word`) produced significantly fewer FAs than regular words (`r exp5__prop.FA.means__grey.word`), `r exp5__prop.FA.contrasts__grey.word.col.word`.
+
+
+In the ANOVA on the proportion of FAs, there was again a significant main effect of stim format `r exp5__prop.FA.aov__main.effect`. The distinctive words (`r exp5__prop.FA.means__col.word`) produced significantly fewer FAs than regular words (`r exp5__prop.FA.means__grey.word`), `r exp5__prop.FA.contrasts__grey.word.col.word`. Reanalysis of @ensor2019b data showed the same patterns. 
+
+
+In the ANOVA on the proportion of FAs, there was no significant main effect of stim format `r ensor.exp1__prop.FA.aov__main.effect`.
+
+
+
+\newpage
+
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
@@ -8504,8 +8784,62 @@ In the ANOVA on the proportion of G FAs, there was a significant main effect of 
 
 #### Ensor
 
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    d':                                                                                                      ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp1__d.prime.aov <- ensor.exp1__d.prime %>% afex::aov_4(d.prime ~ 1 + (stim|id), data = .)
+##    Get means: 
+      ensor.exp1__d.prime.means <- emmeans(ensor.exp1__d.prime.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0)
+      col.word = c(0, 1, 0, 0)
+##    Run contrasts:                                    
+      ensor.exp1__d.prime.contrasts <- contrast(ensor.exp1__d.prime.means, method = 
+                                                list("grey.word - col.word" = grey.word - col.word), 
+                                                adjust = "bonf")
+##    Format results for use in report:
+      ensor.exp1__d.prime.aov__apa <- papaja:::apa_print.afex_aov(ensor.exp1__d.prime.aov)
+      ensor.exp1__d.prime.aov__main.effect <- ensor.exp1__d.prime.aov__apa$full
+      ensor.exp1__d.prime.means__apa <- papaja:::apa_print.emmGrid(ensor.exp1__d.prime.means) 
+      ensor.exp1__d.prime.means__grey.word <- ensor.exp1__d.prime.means__apa$estimate$greyword %>%
+          str_remove("\\,.*")
+      ensor.exp1__d.prime.means__col.word <- ensor.exp1__d.prime.means__apa$estimate$colword %>% str_remove("\\,.*")
+      ensor.exp1__d.prime.contrasts__apa <- papaja:::apa_print.emmGrid(ensor.exp1__d.prime.contrasts) 
+      ensor.exp1__d.prime.contrasts__grey.word.col.word <- ensor.exp1__d.prime.contrasts__apa$statistic
+```
+
+In the ANOVA on d' scores, there was a significant main effect of stim format `r ensor.exp1__d.prime.aov__main.effect`. Distinctive words (`r ensor.exp1__d.prime.means__col.word`) produced significantly better discrimination between hits and FAs than regular words (`r ensor.exp1__d.prime.means__grey.word`), `r ensor.exp1__d.prime.contrasts__grey.word.col.word`.
 
 
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##   Recog:                                                                                               ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp1__recog.aov <- ensor.exp1__recog %>% afex::aov_4(recog ~ 1 + (stim|id), data = .)
+##    Get means: 
+      ensor.exp1__recog.means <- emmeans(ensor.exp1__recog.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0)
+      col.word = c(0, 1, 0, 0)
+##    Run contrasts:                                    
+      ensor.exp1__recog.contrasts <- contrast(ensor.exp1__recog.means, method = 
+                                                list("grey.word - col.word" = grey.word - col.word), 
+                                                adjust = "bonf")
+##    Format results for use in report:
+      ensor.exp1__recog.aov__apa <- papaja:::apa_print.afex_aov(ensor.exp1__recog.aov)
+      ensor.exp1__recog.aov__main.effect <- ensor.exp1__recog.aov__apa$full
+      ensor.exp1__recog.means__apa <- papaja:::apa_print.emmGrid(ensor.exp1__recog.means) 
+      ensor.exp1__recog.means__grey.word <- ensor.exp1__recog.means__apa$estimate$greyword %>%
+          str_remove("\\,.*")
+      ensor.exp1__recog.means__col.word <- ensor.exp1__recog.means__apa$estimate$colword %>% str_remove("\\,.*")
+      ensor.exp1__recog.contrasts__apa <- papaja:::apa_print.emmGrid(ensor.exp1__recog.contrasts) 
+      ensor.exp1__recog.contrasts__grey.word.col.word <- ensor.exp1__recog.contrasts__apa$statistic
+```
+
+In the ANOVA on overall recognition scores, there was a significant main effect of stim format `r ensor.exp1__recog.aov__main.effect`. Distinctive words (`r ensor.exp1__recog.means__col.word`) produced significantly more hits than regular words (`r ensor.exp1__recog.means__grey.word`), `r ensor.exp1__recog.contrasts__grey.word.col.word`.
 
 \newpage
 ######----------------------------------------
