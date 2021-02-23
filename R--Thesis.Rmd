@@ -8149,19 +8149,19 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
       ##      d-prime (calculated by R package):
       ##      List unique participant IDs to loop through:
       ensor.exp2.participant_IDs <- unique(ensor.exp2.data$id)
-      ##    d-prime (grey word):
+##    d-prime (grey word):
       ensor.exp2.d.prime__grey.word <- tibble()
       for (i in ensor.exp2.participant_IDs) {
         exp5__temp <- ensor.exp2.data %>%
-          filter(id == i) %>%     
+          filter(id == i) %>%
           select(id, hit__grey.word, FA__grey.word, miss__grey.word, CR__grey.word)
-        
+
         exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__grey.word,
                                                 n_fa = exp5__temp$FA__grey.word,
                                                 n_miss = exp5__temp$miss__grey.word,
                                                 n_cr = exp5__temp$CR__grey.word,
-                                                n_targets = 10,
-                                                n_distractors = 10,
+                                                n_targets = 20,
+                                                n_distractors = 20,
                                                 adjusted = TRUE))) %>%
           mutate("id" = i)
         exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
@@ -8183,8 +8183,8 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                                                 n_fa = exp5__temp$FA__col.word,
                                                 n_miss = exp5__temp$miss__col.word,
                                                 n_cr = exp5__temp$CR__col.word,
-                                                n_targets = 10,
-                                                n_distractors = 10,
+                                                n_targets = 20,
+                                                n_distractors = 20,
                                                 adjusted = TRUE))) %>%
           mutate("id" = i)
         exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
@@ -8206,8 +8206,8 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                                                 n_fa = exp5__temp$FA__grey.drawing,
                                                 n_miss = exp5__temp$miss__grey.drawing,
                                                 n_cr = exp5__temp$CR__grey.drawing,
-                                                n_targets = 10,
-                                                n_distractors = 10,
+                                                n_targets = 20,
+                                                n_distractors = 20,
                                                 adjusted = TRUE))) %>%
           mutate("id" = i)
         exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
@@ -8229,8 +8229,8 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                                                 n_fa = exp5__temp$FA__col.drawing,
                                                 n_miss = exp5__temp$miss__col.drawing,
                                                 n_cr = exp5__temp$CR__col.drawing,
-                                                n_targets = 10,
-                                                n_distractors = 10,
+                                                n_targets = 20,
+                                                n_distractors = 20,
                                                 adjusted = TRUE))) %>%
           mutate("id" = i)
         exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
@@ -8275,7 +8275,6 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
                recog__col.drawing) %>%
         mutate(stim = str_remove(stim, "recog__"))
       
-    
 #----------------------------------------------------------------------------------------------------------------
 #     Tables and figures:
 #----------------------------------------------------------------------------------------------------------------
@@ -8359,7 +8358,7 @@ write.csv(exp5__final_data,'~/Desktop/exp5__final_data.csv', row.names = FALSE)
 Comparisons are made in relation to the first two experiments of @ensor2019b, the methodologies of which were identical to one another, apart from the number of trials involved (one experiment consisting of 40 trials at study and 80 at test, and the other consisting of 80 trials at study and 160 at test). With regard to trial numbers, the current study sits between the two @ensor2019b experiments, with 60 trials at study and 120 at test.
 
 #### Manipulation check
-To establish whether the distinctive word stimuli were indeed more distinctive than the regular words, a series of one-way repeated measures ANOVAs were run on *d'* and *c* scores, the mean proportion of hits and FAs, and overall scores of recognition (hits - FAs). Raw data provided by @ensor2019b was also re-analysed to allow for direction comparisons with data from the current study.
+To establish whether the distinctive word stimuli were indeed more distinctive than the regular words, a series of one-way analysis of variance (ANOVA) with six factors (grey & distinctive words, grey & colour drawings, grey & colour photographs) were run on *d'* and *c* scores, the mean proportion of hits and FAs, and overall scores of recognition (hits - FAs). Raw data provided by @ensor2019b was re-analysed to allow for direct comparisons with data from the current study.
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
@@ -8451,10 +8450,11 @@ To establish whether the distinctive word stimuli were indeed more distinctive t
                       exp5__d.prime.contrasts__grey.word.col.word$greyword_colword)
 ```
 
+\newpage
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
       table_numbering(name = "exp5__table__ensor.vs.current__d.prime", caption = "*d'* scores for regular and distinctive word stimuli, across the current experiment and @ensor2019b. Within-subjects contrasts are presented following significant main effects of stimuli format (reported in text).", display = FALSE)
 ```
-In the current study, mean *d'* scores showed a significant main effect of stimuli format [`r exp5__d.prime.aov__main.effect`]. Distinctive words (`r exp5__d.prime.means__col.word`) produced significantly better discrimination between hits and FAs than regular words (`r exp5__d.prime.means__grey.word`), `r exp5__d.prime.contrasts__grey.word.col.word`.
+In the current study, mean *d'* scores showed a significant main effect of stimuli format [`r exp5__d.prime.aov__main.effect`]. Distinctive words (`r exp5__d.prime.means__col.word`) produced significantly better discrimination between hits and FAs than regular words (`r exp5__d.prime.means__grey.word`), `r exp5__d.prime.contrasts__grey.word.col.word`. The same was evident in both of the @ensor2019b experiments (Experiment 1: `r ensor.exp1__d.prime.aov__main.effect`; Experiment 2: `r ensor.exp2__d.prime.aov__main.effect`), again with distinctive words showing higher *d'* scores than regular words (see `r table_numbering("exp5__table__ensor.vs.current__d.prime", display = "cite")`). Visual inspection of the data shows *d'* scores gradually decrease as the number of trials increases, though for distinctive words, discrimination was the same between the experiment with the highest number of trials (80/160) and the current study (60/120). 
 
 &nbsp;
 
@@ -8470,7 +8470,109 @@ In the current study, mean *d'* scores showed a significant main effect of stimu
           pack_rows("Current study", 3, 0)
 ```
 
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Exp5 c:                                                                                                 ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__c.aov <- exp5__c %>% afex::aov_4(c ~ 1 + (stim|id), data = .)
+##    Get means: 
+      exp5__c.means <- emmeans(exp5__c.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0, 0, 0)
+      col.word = c(0, 1, 0, 0, 0, 0)
+##    Run contrasts:                                    
+      exp5__c.contrasts <- contrast(exp5__c.means, method = 
+                                            list("grey.word - col.word" = grey.word - col.word), adjust = "bonf")
+##    Format results for use in report:
+      exp5__c.aov__apa <- papaja:::apa_print.afex_aov(exp5__c.aov)
+      exp5__c.aov__main.effect <- exp5__c.aov__apa$full
+      exp5__c.means__apa <- papaja:::apa_print.emmGrid(exp5__c.means) 
+      exp5__c.means__grey.word <- exp5__c.means__apa$estimate$greyword %>% str_remove("\\,.*")
+      exp5__c.means__col.word <- exp5__c.means__apa$estimate$colword %>% str_remove("\\,.*")
+      exp5__c.contrasts__apa <- papaja:::apa_print.emmGrid(exp5__c.contrasts) 
+      exp5__c.contrasts__grey.word.col.word <- exp5__c.contrasts__apa$statistic
+      
+#################################################################################################################
+##    Ensor Exp1 c:                                                                                           ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp1__c.aov <- ensor.exp1__c %>% afex::aov_4(c ~ 1 + (stim|id), data = .)
+##    Get means: 
+      ensor.exp1__c.means <- emmeans(ensor.exp1__c.aov, ~stim)
+##    Create list of desired contrasts from the above reference grid (1 = row of interest, 0 = ignore): 
+      grey.word = c(1, 0, 0, 0)
+      col.word = c(0, 1, 0, 0)
+##    Run contrasts:                                    
+      ensor.exp1__c.contrasts <- contrast(ensor.exp1__c.means, method = 
+                                                list("grey.word - col.word" = grey.word - col.word), 
+                                                adjust = "bonf")
+##    Format results for use in report:
+      ensor.exp1__c.aov__apa <- papaja:::apa_print.afex_aov(ensor.exp1__c.aov)
+      ensor.exp1__c.aov__main.effect <- ensor.exp1__c.aov__apa$full
+      ensor.exp1__c.means__apa <- papaja:::apa_print.emmGrid(ensor.exp1__c.means) 
+      ensor.exp1__c.means__grey.word <- ensor.exp1__c.means__apa$estimate$greyword %>%
+          str_remove("\\,.*")
+      ensor.exp1__c.means__col.word <- ensor.exp1__c.means__apa$estimate$colword %>%
+          str_remove("\\,.*")
+      ensor.exp1__c.contrasts__apa <- papaja:::apa_print.emmGrid(ensor.exp1__c.contrasts) 
+      ensor.exp1__c.contrasts__grey.word.col.word <- ensor.exp1__c.contrasts__apa$statistic
+      
+#################################################################################################################
+##    Ensor Exp2 c:                                                                                           ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp2__c.aov <- ensor.exp2__c %>% afex::aov_4(c ~ 1 + (stim|id), data = .)
+##    Get means: 
+      ensor.exp2__c.means <- emmeans(ensor.exp2__c.aov, ~stim)
+##    Format results for use in report:
+      ensor.exp2__c.aov__apa <- papaja:::apa_print.afex_aov(ensor.exp2__c.aov)
+      ensor.exp2__c.aov__main.effect <- ensor.exp2__c.aov__apa$full
+      ensor.exp2__c.means__apa <- papaja:::apa_print.emmGrid(ensor.exp2__c.means) 
+      ensor.exp2__c.means__grey.word <- ensor.exp2__c.means__apa$estimate$greyword %>%
+          str_remove("\\,.*")
+      ensor.exp2__c.means__col.word <- ensor.exp2__c.means__apa$estimate$colword %>%
+          str_remove("\\,.*")
+      
+##    Ensor vs. current c table: 
+      exp5__table__ensor.vs.current__c <- 
+            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
+                  "Trials: 40 study / 80 test:",
+                      round(mean(ensor.exp1.data$c__grey.word),2),
+                      round(mean(ensor.exp1.data$c__col.word),2),
+                      ensor.exp1__c.contrasts__grey.word.col.word$greyword_colword,
+                  "Trials: 80 study / 160 test:",
+                      round(mean(ensor.exp2.data$c__grey.word),2),
+                      round(mean(ensor.exp2.data$c__col.word),2),
+                      "No significant main effect",
+                  "Trials: 60 study / 120 test:", 
+                      round(exp5__c %>% filter(stim == "grey.word") %>% pull(c) %>% mean(),2),
+                      round(exp5__c %>% filter(stim == "col.word") %>% pull(c) %>% mean(),2),
+                      exp5__c.contrasts__grey.word.col.word$greyword_colword)
+```
 \newpage
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+      table_numbering(name = "exp5__table__ensor.vs.current__c", caption = "*d'* scores for regular and distinctive word stimuli, across the current experiment and @ensor2019b. Within-subjects contrasts are presented following significant main effects of stimuli format (reported in text).", display = FALSE)
+```
+In the current study, mean *c* scores showed a significant main effect of stimuli format [`r exp5__c.aov__main.effect`]. Distinctive words (`r exp5__c.means__col.word`) showed significantly higher c-scores (and thus a more conservative response bias) than regular words (`r exp5__c.means__grey.word`), `r exp5__c.contrasts__grey.word.col.word`. The same was not apparent in either of the @ensor2019b experiments; while the first experiment did show a significant main effect of stimuli format [`r ensor.exp1__c.aov__main.effect`], there was no significant difference in *c* scores between distinctive and regular words. The second experiment showed no main effect of stimuli format [`r ensor.exp2__c.aov__main.effect`].
+
+
+Visual inspection of the data shows *d'* scores gradually decrease as the number of trials increases, though for distinctive words, discrimination was the same between the experiment with the highest number of trials (80/160) and the current study (60/120). 
+
+&nbsp;
+
+`r table_numbering("exp5__table__ensor.vs.current__c")`
+```{r, echo=FALSE, cache=FALSE}
+      exp5__table__ensor.vs.current__c %>%
+          kable("latex", booktabs = T, align = "rccc", escape = F) %>%
+          kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
+          column_spec(2:3, width = "1.6cm") %>%
+          column_spec(4, width = "5cm") %>%
+          add_header_above(c(" " = 1, "c" = 3), bold = T, italic = T) %>%
+          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
+          pack_rows("Current study", 3, 0)
+```
+
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
 ##    Exp5 Prop hits:                                                                                          ##
@@ -8668,7 +8770,6 @@ The ANOVA on the mean proportion of overall hits revealed a significant main eff
 A distinctiveness effect was observed in the ANOVA on the mean proportion of FAs; a significant main effect of stimuli format [`r exp5__prop.FA.aov__main.effect`] showed that the distinctive words (`r exp5__prop.FA.means__col.word`) produced significantly fewer FAs than regular words (`r exp5__prop.FA.means__grey.word`), `r exp5__prop.FA.contrasts__grey.word.col.word`. Such a finding shows that subjects were better able to correctly reject lure items when they were presented in a distinctive format, rather than regular format, highlighting some performance benefits as a result of the manipulation. This was also somewhat supported by @ensor2019b data. In their second experiment (where trial numbers were increased), there was an identical pattern to the current study: a significant main effect of stimuli format [`r ensor.exp2__prop.FA.aov__main.effect`] showed that distinctive words produced significantly fewer FAs than regular words (see `r table_numbering("exp5__table__ensor.vs.current__FAs", display = "cite")`). The same pattern was not evident in their first experiment, however, where no significant main effect of stimuli format was found [`r ensor.exp1__prop.FA.aov__main.effect`]. Visual inspection of the data shows that subjects made more FAs in the @ensor2019b experiments compared to the current study; this is especially apparent when comparisons are made toward the experiment with more trials. While it may not be immediately clear why more FAs were made in the @ensor2019b experiments compared to the current study, examination of the FA results in conjunction with the mean proportion of hits suggests a difference in response bias may be responsible. While a higher proportion of hits was observed in the @ensor2019b studies, likewise a higher proportion of FAs was also observed. Taken together, such findings indicate the subjects in the current study were more conservative in their response patterns, and were less likely to respond *Old* in times of uncertainty than the samples of @ensor2019b. 
 
 &nbsp;
-\newpage
 `r table_numbering("exp5__table__ensor.vs.current__FAs")`
 ```{r, echo=FALSE, cache=FALSE}
       exp5__table__ensor.vs.current__FAs %>%
@@ -8708,6 +8809,91 @@ A distinctiveness effect was observed in the ANOVA on the mean proportion of FAs
 ```
 
 In the ANOVA on overall scores of recognition, there was a significant main effect of stim format `r exp5__recog.aov__main.effect`. The distinctive words (`r exp5__recog.means__col.word`) produced significantly better overall recognition than regular words (`r exp5__recog.means__grey.word`), `r exp5__recog.contrasts__grey.word.col.word`.
+
+#### Elimination of the PSE
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Exp5 Prop hits (Col words vs. grey drawings):                                                            ##
+#################################################################################################################
+      col.word = c(0, 1, 0, 0, 0, 0)
+      grey.drawing = c(0, 0, 1, 0, 0, 0)
+##    Run contrasts:                                    
+      exp5__prop.hit.contrasts2 <- contrast(exp5__prop.hit.means, method = 
+                                            list("col.word - grey.drawing" = col.word - grey.drawing), 
+                                            adjust = "bonf")
+##    Format results for use in report:
+      exp5__prop.hit.means__grey.drawing <- exp5__prop.hit.means__apa$estimate$greydrawing %>% str_remove("\\,.*")
+      exp5__prop.hit.contrasts2__apa <- papaja:::apa_print.emmGrid(exp5__prop.hit.contrasts2) 
+      exp5__prop.hit.contrasts__col.word.grey.drawing <- exp5__prop.hit.contrasts2__apa$statistic
+
+#################################################################################################################
+##    Ensor Exp1 Prop hits (Col words vs. grey drawings):                                                      ##
+#################################################################################################################
+      col.word = c(0, 1, 0, 0)
+      grey.drawing = c(0, 0, 1, 0)
+##    Run contrasts:                                    
+      ensor.exp1__prop.hit.contrasts2 <- contrast(ensor.exp1__prop.hit.means, method = 
+                                                list("col.word - grey.drawing" = col.word - grey.drawing), 
+                                                adjust = "bonf")
+##    Format results for use in report:
+      ensor.exp1__prop.hit.means__grey.drawing <- ensor.exp1__prop.hit.means__apa$estimate$greydrawing %>% 
+          str_remove("\\,.*")
+      ensor.exp1__prop.hit.contrasts2__apa <- papaja:::apa_print.emmGrid(ensor.exp1__prop.hit.contrasts2) 
+      ensor.exp1__prop.hit.contrasts__col.word.grey.drawing <- ensor.exp1__prop.hit.contrasts2__apa$statistic
+      
+#################################################################################################################
+##    Ensor Exp2 Prop hits:                                                                                    ##
+#################################################################################################################
+      col.word = c(0, 1, 0, 0)
+      grey.drawing = c(0, 0, 1, 0)
+##    Run contrasts:                                    
+      ensor.exp2__prop.hit.contrasts2 <- contrast(ensor.exp2__prop.hit.means, method = 
+                                                list("col.word - grey.drawing" = col.word - grey.drawing), 
+                                                adjust = "bonf")
+##    Format results for use in report:
+      ensor.exp2__prop.hit.means__grey.drawing <- ensor.exp2__prop.hit.means__apa$estimate$greydrawing %>% 
+          str_remove("\\,.*")
+      ensor.exp2__prop.hit.contrasts2__apa <- papaja:::apa_print.emmGrid(ensor.exp2__prop.hit.contrasts2) 
+      ensor.exp2__prop.hit.contrasts__col.word.grey.drawing <- ensor.exp2__prop.hit.contrasts2__apa$statistic
+      
+##    Ensor vs. current hits table: 
+      exp5__table__ensor.vs.current__hits2 <- 
+            tribble(~" ", ~"Distinctive words", ~"Grey drawings", ~"Planned comparisons",
+                  "Trials: 40 study / 80 test:",
+                      round(mean(ensor.exp1.data$prop.hit__col.word),2),
+                      round(mean(ensor.exp1.data$prop.hit__grey.drawing),2),
+                      ensor.exp1__prop.hit.contrasts__col.word.grey.drawing$colword_greydrawing,
+                  "Trials: 80 study / 160 test:",
+                      round(mean(ensor.exp2.data$prop.hit__col.word),2),
+                      round(mean(ensor.exp2.data$prop.hit__grey.drawing),2),
+                      ensor.exp2__prop.hit.contrasts__col.word.grey.drawing$colword_greydrawing,
+                  "Trials: 60 study / 120 test:", 
+                      round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
+                      round(exp5__prop.hit %>% filter(stim == "prop.hit__grey.drawing") %>% pull(prop.hit) %>%
+                              mean(),2),
+                      exp5__prop.hit.contrasts__col.word.grey.drawing$colword_greydrawing)
+```
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+      table_numbering(name = "exp5__table__ensor.vs.current__hits2", caption = "Mean proportion of FAs for regular and distinctive word stimuli, across the current experiment and @ensor2019b. Within-subjects contrasts are presented following significant main effects of stimuli format (reported in text).", display = FALSE)
+```
+
+For the mean proportion of hits, further planned contrasts showed an intact PSE; grey drawings (`r ensor.exp2__prop.hit.means__grey.drawing`) showed a significantly higher proportion of hits than distinctive words (`r exp5__prop.hit.means__col.word`), `r ensor.exp2__prop.hit.contrasts__col.word.grey.drawing`. This was in contrast to the findings of @ensor2019b, whereby the PSE was eliminated when comparing distinctive words (Experiment 1 `r ensor.exp1__prop.hit.means__col.word`, Experiment 2 `r ensor.exp2__prop.hit.means__col.word`) to grey drawings (Experiment 1 `r ensor.exp1__prop.hit.means__grey.drawing`, Experiment 2 `r ensor.exp2__prop.hit.means__grey.drawing`).
+
+&nbsp;
+`r table_numbering("exp5__table__ensor.vs.current__hits2")`
+```{r, echo=FALSE, cache=FALSE}
+      exp5__table__ensor.vs.current__hits2 %>%
+          kable("latex", booktabs = T, align = "rccc", escape = F) %>%
+          kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
+          column_spec(2:3, width = "1.8cm") %>%
+          column_spec(4, width = "5cm") %>%
+          add_header_above(c(" " = 1, "FAs" = 3), bold = T) %>%
+          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
+          pack_rows("Current study", 3, 0)
+```
+
+
 
 #### RFG
 
