@@ -8810,6 +8810,7 @@ A distinctiveness effect was observed in the ANOVA on the mean proportion of FAs
 
 In the ANOVA on overall scores of recognition, there was a significant main effect of stim format `r exp5__recog.aov__main.effect`. The distinctive words (`r exp5__recog.means__col.word`) produced significantly better overall recognition than regular words (`r exp5__recog.means__grey.word`), `r exp5__recog.contrasts__grey.word.col.word`.
 
+\newpage
 #### Elimination of the PSE
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
@@ -8869,8 +8870,8 @@ In the ANOVA on overall scores of recognition, there was a significant main effe
                       ensor.exp2__prop.hit.contrasts__col.word.grey.drawing$colword_greydrawing,
                   "Trials: 60 study / 120 test:", 
                       round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
-                      round(exp5__prop.hit %>% filter(stim == "prop.hit__grey.drawing") %>% pull(prop.hit) %>%
-                              mean(),2),
+                      round(exp5__prop.hit %>% filter(stim == "grey.drawing") %>% pull(prop.hit) %>%
+                            mean(),2),
                       exp5__prop.hit.contrasts__col.word.grey.drawing$colword_greydrawing)
 ```
 
@@ -8878,9 +8879,10 @@ In the ANOVA on overall scores of recognition, there was a significant main effe
       table_numbering(name = "exp5__table__ensor.vs.current__hits2", caption = "Mean proportion of FAs for regular and distinctive word stimuli, across the current experiment and @ensor2019b. Within-subjects contrasts are presented following significant main effects of stimuli format (reported in text).", display = FALSE)
 ```
 
-For the mean proportion of hits, further planned contrasts showed an intact PSE; grey drawings (`r ensor.exp2__prop.hit.means__grey.drawing`) showed a significantly higher proportion of hits than distinctive words (`r exp5__prop.hit.means__col.word`), `r ensor.exp2__prop.hit.contrasts__col.word.grey.drawing`. This was in contrast to the findings of @ensor2019b, whereby the PSE was eliminated when comparing distinctive words (Experiment 1 `r ensor.exp1__prop.hit.means__col.word`, Experiment 2 `r ensor.exp2__prop.hit.means__col.word`) to grey drawings (Experiment 1 `r ensor.exp1__prop.hit.means__grey.drawing`, Experiment 2 `r ensor.exp2__prop.hit.means__grey.drawing`).
+Further planned contrasts showed that, for the mean proportion of hits, the PSE remained intact in the current experiment: grey drawings (`r ensor.exp2__prop.hit.means__grey.drawing`) showed a significantly higher proportion of hits than distinctive words (`r exp5__prop.hit.means__col.word`), `r exp5__prop.hit.contrasts__col.word.grey.drawing`, indicating the distinctiveness manipulation did not increase the distinctiveness of the word stimuli to a level similar to that of the grey drawings. This was in stark contrast to the findings of @ensor2019b whereby the PSE was eliminated in both experiments, with no difference in the mean proportion of hits between distinctive words and grey drawings (see `r table_numbering("exp5__table__ensor.vs.current__hits2", display = "cite")`).
 
 &nbsp;
+
 `r table_numbering("exp5__table__ensor.vs.current__hits2")`
 ```{r, echo=FALSE, cache=FALSE}
       exp5__table__ensor.vs.current__hits2 %>%
@@ -8888,13 +8890,96 @@ For the mean proportion of hits, further planned contrasts showed an intact PSE;
           kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
           column_spec(2:3, width = "1.8cm") %>%
           column_spec(4, width = "5cm") %>%
-          add_header_above(c(" " = 1, "FAs" = 3), bold = T) %>%
+          add_header_above(c(" " = 1, "Hits" = 3), bold = T) %>%
           pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
           pack_rows("Current study", 3, 0)
 ```
 
 
+#### Reduced?
 
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#----------------------------------------------------------------------------------------------------------------
+#     Tables and figures:
+#----------------------------------------------------------------------------------------------------------------
+      ##    Prep data for RFG figure:  
+      exp5__prop.hit__grey.word <- mean_se(exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit))
+      exp5__prop.hit__col.word <- mean_se(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit))
+      exp5__prop.hit__grey.drawing <- mean_se(exp5__prop.hit %>% filter(stim == "grey.drawing") %>% pull(prop.hit))
+      exp5__prop.hit__col.drawing <- mean_se(exp5__prop.hit %>% filter(stim == "col.drawing") %>% pull(prop.hit))
+      exp5__prop.hit__grey.photo <- mean_se(exp5__prop.hit %>% filter(stim == "grey.photo") %>% pull(prop.hit))
+      exp5__prop.hit__col.photo <- mean_se(exp5__prop.hit %>% filter(stim == "col.photo") %>% pull(prop.hit))
+
+      exp5__figure__hits.data <- 
+          tribble(~"type", ~stim_format, ~emmean, ~"ymin", ~"ymax",
+                  "Hits", "Grey words", 
+                              exp5__prop.hit__grey.word$y,
+                              exp5__prop.hit__grey.word$ymin, 
+                              exp5__prop.hit__grey.word$ymax,
+                          "Hits", "Distinctive words", 
+                              exp5__prop.hit__col.word$y,
+                              exp5__prop.hit__col.word$ymin, 
+                              exp5__prop.hit__col.word$ymax,                  
+                          "Hits", "Grey drawings", 
+                              exp5__prop.hit__grey.drawing$y,
+                              exp5__prop.hit__grey.drawing$ymin, 
+                              exp5__prop.hit__grey.drawing$ymax,                                          
+                          "Hits", "Colour drawings", 
+                              exp5__prop.hit__col.drawing$y,
+                              exp5__prop.hit__col.drawing$ymin,
+                              exp5__prop.hit__col.drawing$ymax,          
+                          "Hits", "Grey photos", 
+                              exp5__prop.hit__grey.photo$y,
+                              exp5__prop.hit__grey.photo$ymin,
+                              exp5__prop.hit__grey.photo$ymax, 
+                          "Hits", "Colour photos", 
+                              exp5__prop.hit__col.photo$y,
+                              exp5__prop.hit__col.photo$ymin,
+                              exp5__prop.hit__col.photo$ymax) %>%
+          transform(stim_format = factor(stim_format, levels=c("Grey words","Distinctive words",
+                                                               "Grey drawings","Colour drawings", 
+                                                               "Grey photos", "Colour photos"))) %>%
+          transform(type = factor(type, levels=c("Hits")))
+      
+      
+      
+##    Create figure:  
+      exp5__figure__hits <-
+          ggplot(exp5__figure__hits.data, aes(x = stim_format, y = emmean, fill = stim_format)) +
+          scale_fill_manual("legend",values = c("Grey words" = "#4B2D3B", 
+                                                "Distinctive words" = "#504056", 
+                                                "Grey drawings" = "#49576E",
+                                                "Colour drawings" = "#3A6F7D", 
+                                                "Grey photos" = "#32857F",
+                                                "Colour photos" = "#499A76")) + 
+          geom_col(position = position_dodge()) +
+          geom_errorbar(aes(ymin = exp5__figure__hits.data$ymin, 
+                            ymax = exp5__figure__hits.data$ymax), width = 0.2, size = 0.3, position = position_dodge(0.9)) +
+          facet_wrap(~type, strip.position = "bottom") +
+          labs(x = "Response option condition", y = "Mean proportion of hits") +
+          scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+          theme_classic() +    # Removes grey background and grid lines. 
+          theme(
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
+            axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            legend.background = element_rect(fill = "white", size = 0.2, linetype = "solid", colour = "black"),
+            legend.title = element_blank(),
+            legend.position = c(0.5, 0.896),
+            legend.margin = margin(6, 6, 6, 6),
+            legend.spacing.y = unit(-1, "pt"),
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))
+```
+
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE, warning=FALSE}
+    exp5__figure__hits
+```
+
+\newpage
 #### RFG
 
 see `r figure_numbering("exp5__figure__rfg.hits", display = "cite")`).
@@ -8908,6 +8993,9 @@ see `r figure_numbering("exp5__figure__rfg.hits", display = "cite")`).
     exp5__figure__rfg.hits
 ```
 `r figure_numbering("exp5__figure__rfg.hits")`
+
+&nbsp;
+
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
