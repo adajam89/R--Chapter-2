@@ -8465,6 +8465,9 @@ The ANOVA on mean *d'* scores also showed a significant main effect of stimuli f
 
 The ANOVA on mean *c* scores also showed a significant main effect of stimuli format, `r apa::anova_apa(exp5__c.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__c.means__col.word`) showed significantly higher *c* scores than regular words (*M* = `r exp5__c.means__grey.word`), `r apa::apa(exp5__c__ttest, format = "rmarkdown", print = FALSE)`. 
 
+#### Recollection and Familiarity 
+To determine if *Recollection* and *Familiarity* response patterns were mediated by the format of word stimuli, further one-way repeated measures analyses of variance (ANOVA) were conducted on the mean proportion of hits and false alarms (FAs) assigned *Recollection*, *Familiarity*, and *Guessing*. 
+
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##    Exp5 Prop R hits:                                                                                         ##
@@ -8509,12 +8512,109 @@ The ANOVA on mean *c* scores also showed a significant main effect of stimuli fo
       exp5__prop.hit.F.means <- emmeans(exp5__prop.hit.F.aov, ~stim)
       exp5__prop.hit.F.means__grey.word <- summary(exp5__prop.hit.F.means)$emmean[1] %>% round(2)
       exp5__prop.hit.F.means__col.word <- summary(exp5__prop.hit.F.means)$emmean[2] %>% round(2)
+      
+##################################################################################################################
+##    Exp5 Prop G hits:                                                                                         ##
+##################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp5__prop.hit.G,
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      exp5__prop.hit.G.aov__sphericity <- test_sphericity(exp5__prop.hit.G.aov)
+      exp5__prop.hit.G.aov__sphericity <- exp5__prop.hit.G.aov__sphericity[1,2]
+      
+##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+      exp5__prop.hit.G.aov__nice <- nice(exp5__prop.hit.G.aov, correction = "GG", es = "ges")
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      exp5__prop.hit.G__ttest <- exp5__prop.hit.G %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(prop.hit.G~stim, paired=TRUE, data = .)
+##    Get means:
+      exp5__prop.hit.G.means <- emmeans(exp5__prop.hit.G.aov, ~stim)
+      exp5__prop.hit.G.means__grey.word <- summary(exp5__prop.hit.G.means)$emmean[1] %>% round(2)
+      exp5__prop.hit.G.means__col.word <- summary(exp5__prop.hit.G.means)$emmean[2] %>% round(2)      
 ```      
 
 In the ANOVA on the proportion of R hits, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.hit.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`) produced significantly more R hits than regular words (*M* = `r exp5__prop.hit.R.means__grey.word`), `r apa::apa(exp5__prop.hit.R__ttest, format = "rmarkdown", print = FALSE)`. 
 
 In the ANOVA on the proportion of F hits, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.hit.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`) produced significantly fewer F hits than regular words (*M* = `r exp5__prop.hit.F.means__grey.word`), `r apa::apa(exp5__prop.hit.F__ttest, format = "rmarkdown", print = FALSE)`. 
 
+In the ANOVA on the proportion of G hits, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`, however, the planned contrast did not show a significant difference in the number of hits assigned *Guessing* between distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`) and regular words (*M* = `r exp5__prop.hit.G.means__grey.word`), `r apa::apa(exp5__prop.hit.G__ttest, format = "rmarkdown", print = FALSE)`.
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+##################################################################################################################
+##    Exp5 Prop Rec FAs:                                                                                        ##
+##################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.FA.R.aov <- afex::aov_ez('id', 'prop.FA.R', fun_aggregate = mean, exp5__prop.FA.R,
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      exp5__prop.FA.R.aov__sphericity <- test_sphericity(exp5__prop.FA.R.aov)
+      exp5__prop.FA.R.aov__sphericity <- exp5__prop.FA.R.aov__sphericity[1,2]
+      
+##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+      exp5__prop.FA.R.aov__nice <- nice(exp5__prop.FA.R.aov, correction = "GG", es = "ges")
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      exp5__prop.FA.R__ttest <- exp5__prop.FA.R %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(prop.FA.R~stim, paired=TRUE, data = .)
+##    Get means:
+      exp5__prop.FA.R.means <- emmeans(exp5__prop.FA.R.aov, ~stim)
+      exp5__prop.FA.R.means__grey.word <- summary(exp5__prop.FA.R.means)$emmean[1] %>% round(2)
+      exp5__prop.FA.R.means__col.word <- summary(exp5__prop.FA.R.means)$emmean[2] %>% round(2)
+      
+##################################################################################################################
+##    Exp5 Prop Fam FAs:                                                                                        ##
+##################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.FA.F.aov <- afex::aov_ez('id', 'prop.FA.F', fun_aggregate = mean, exp5__prop.FA.F,
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      exp5__prop.FA.F.aov__sphericity <- test_sphericity(exp5__prop.FA.F.aov)
+      exp5__prop.FA.F.aov__sphericity <- exp5__prop.FA.F.aov__sphericity[1,2]
+      
+##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+      exp5__prop.FA.F.aov__nice <- nice(exp5__prop.FA.F.aov, correction = "GG", es = "ges")
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      exp5__prop.FA.F__ttest <- exp5__prop.FA.F %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(prop.FA.F~stim, paired=TRUE, data = .)
+##    Get means:
+      exp5__prop.FA.F.means <- emmeans(exp5__prop.FA.F.aov, ~stim)
+      exp5__prop.FA.F.means__grey.word <- summary(exp5__prop.FA.F.means)$emmean[1] %>% round(2)
+      exp5__prop.FA.F.means__col.word <- summary(exp5__prop.FA.F.means)$emmean[2] %>% round(2)
+
+##################################################################################################################
+##    Exp5 Prop Guess FAs:                                                                                      ##
+##################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.FA.G.aov <- afex::aov_ez('id', 'prop.FA.G', fun_aggregate = mean, exp5__prop.FA.G,
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      exp5__prop.FA.G.aov__sphericity <- test_sphericity(exp5__prop.FA.G.aov)
+      exp5__prop.FA.G.aov__sphericity <- exp5__prop.FA.G.aov__sphericity[1,2]
+      
+##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+      exp5__prop.FA.G.aov__nice <- nice(exp5__prop.FA.G.aov, correction = "GG", es = "ges")
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      exp5__prop.FA.G__ttest <- exp5__prop.FA.G %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(prop.FA.G~stim, paired=TRUE, data = .)
+##    Get means:
+      exp5__prop.FA.G.means <- emmeans(exp5__prop.FA.G.aov, ~stim)
+      exp5__prop.FA.G.means__grey.word <- summary(exp5__prop.FA.G.means)$emmean[1] %>% round(2)
+      exp5__prop.FA.G.means__col.word <- summary(exp5__prop.FA.G.means)$emmean[2] %>% round(2)            
+```
+
+In the ANOVA on the proportion of R FAs, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`) produced significantly fewer R FAs than regular words (*M* = `r exp5__prop.FA.R.means__grey.word`), `r apa::apa(exp5__prop.FA.R__ttest, format = "rmarkdown", print = FALSE)`. 
+
+In the ANOVA on the proportion of F FAs, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__prop.FA.F.means__col.word`) produced significantly fewer F FAs than regular words (*M* = `r exp5__prop.FA.F.means__grey.word`), `r apa::apa(exp5__prop.FA.F__ttest, format = "rmarkdown", print = FALSE)`. 
+
+In the ANOVA on the proportion of G FAs, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. However, the follow up contrasts showed no difference in the number of FAs assigned *Guessing* between distinctive (*M* = `r exp5__prop.FA.G.means__col.word`) and regular words (*M* = `r exp5__prop.FA.G.means__grey.word`), `r apa::apa(exp5__prop.FA.G__ttest, format = "rmarkdown", print = FALSE)`.
 
 \newpage
 ######----------------------------------------
