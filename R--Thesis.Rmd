@@ -8351,21 +8351,15 @@ exp5__final_data <- exp5__final_data %>%
             plot.margin = margin(20, 20, 24, 30))
 ```
 
-\newpage
+
 ### Results
 Comparisons are made in relation to the first two experiments of @ensor2019b, the methodologies of which were identical to one another, apart from the number of trials involved (one experiment consisting of 40 trials at study and 80 at test, and the other consisting of 80 trials at study and 160 at test). With regard to trial numbers, the current study sits between the two @ensor2019b experiments, with 60 trials at study and 120 at test.
 
+\newpage
 #### Manipulation check
-To establish whether the distinctive word stimuli were indeed more distinctive than regular words, a series of one-way repeated measures analyses of variance (ANOVA) - using six factors (grey & distinctive words, grey & colour drawings, grey & colour photographs) - were conducted on the mean scores of *d'* and *c*, proportion of hits and FAs, and overall scores of recognition (hits - FAs). 
-
-Mauchly's Test of Sphericity
-
-Sphericity was assessed using Mauchly's test; when the assumption of sphericity was violated, Greenhouse-Geisser 
-
+To establish whether the distinctive word stimuli were indeed more distinctive than regular words, a series of one-way repeated measures analyses of variance (ANOVA) - using six factors (grey & distinctive words, grey & colour drawings, grey & colour photographs) - were conducted on the mean scores of *d'* and *c*, and the proportions of hits and FAs. Sphericity was assessed using Mauchly's Test; when the assumption of sphericity was violated, Greenhouse-Geisser corrections were applied. 
 
 Raw data provided by @ensor2019b was re-analysed to allow for direct comparisons with data from the current study.
-
-estimate of sphericity (ε)
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -8454,19 +8448,104 @@ estimate of sphericity (ε)
 ##    Get means:
       exp5__c.means <- emmeans(exp5__c.aov, ~stim)
       exp5__c.means__grey.word <- summary(exp5__c.means)$emmean[1] %>% round(2)
-      exp5__c.means__col.word <- summary(exp5__c.means)$emmean[2] %>% round(2)      
+      exp5__c.means__col.word <- summary(exp5__c.means)$emmean[2] %>% round(2)
+      
+##################################################################################################################
+##    Hits and FA figure:                                                                                       ##
+##################################################################################################################
+      exp5__prop.hit__grey.word <- mean_se(exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit))
+      exp5__prop.hit__col.word <- mean_se(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit))
+      exp5__prop.hit__grey.drawing <- mean_se(exp5__prop.hit %>% filter(stim == "grey.drawing") %>% pull(prop.hit))
+      exp5__prop.hit__col.drawing <- mean_se(exp5__prop.hit %>% filter(stim == "col.drawing") %>% pull(prop.hit))
+      exp5__prop.hit__grey.photo <- mean_se(exp5__prop.hit %>% filter(stim == "grey.photo") %>% pull(prop.hit))
+      exp5__prop.hit__col.photo <- mean_se(exp5__prop.hit %>% filter(stim == "col.photo") %>% pull(prop.hit))
+      
+      exp5__prop.FA__grey.word <- mean_se(exp5__prop.FA %>% filter(stim == "grey.word") %>% pull(prop.FA))
+      exp5__prop.FA__col.word <- mean_se(exp5__prop.FA %>% filter(stim == "col.word") %>% pull(prop.FA))
+      exp5__prop.FA__grey.drawing <- mean_se(exp5__prop.FA %>% filter(stim == "grey.drawing") %>% pull(prop.FA))
+      exp5__prop.FA__col.drawing <- mean_se(exp5__prop.FA %>% filter(stim == "col.drawing") %>% pull(prop.FA))
+      exp5__prop.FA__grey.photo <- mean_se(exp5__prop.FA %>% filter(stim == "grey.photo") %>% pull(prop.FA))
+      exp5__prop.FA__col.photo <- mean_se(exp5__prop.FA %>% filter(stim == "col.photo") %>% pull(prop.FA))
+      
+      exp5__manip.check__figure.data <- 
+          tribble(~"type", ~"stim_format", ~"emmean", ~"ymin", ~"ymax",
+                  "Hits", "Grey\nwords", exp5__prop.hit__grey.word$y,
+                  exp5__prop.hit__grey.word$ymin, exp5__prop.hit__grey.word$ymax,
+                  "Hits", "Colour\nwords", exp5__prop.hit__col.word$y,
+                  exp5__prop.hit__col.word$ymin, exp5__prop.hit__col.word$ymax,
+                  "Hits", "Grey\ndrawings", exp5__prop.hit__grey.drawing$y,
+                  exp5__prop.hit__grey.drawing$ymin, exp5__prop.hit__grey.drawing$ymax,
+                  "Hits", "Colour\ndrawings", exp5__prop.hit__col.drawing$y,
+                  exp5__prop.hit__col.drawing$ymin, exp5__prop.hit__col.drawing$ymax,
+                  "Hits", "Grey\nphotos", exp5__prop.hit__grey.photo$y,
+                  exp5__prop.hit__grey.photo$ymin, exp5__prop.hit__grey.photo$ymax,
+                  "Hits", "Colour\nphotos", exp5__prop.hit__col.photo$y,
+                  exp5__prop.hit__col.photo$ymin, exp5__prop.hit__col.photo$ymax,
+                  "FAs", "Grey\nwords", exp5__prop.FA__grey.word$y,
+                  exp5__prop.FA__grey.word$ymin, exp5__prop.FA__grey.word$ymax,
+                  "FAs", "Colour\nwords", exp5__prop.FA__col.word$y,
+                  exp5__prop.FA__col.word$ymin, exp5__prop.FA__col.word$ymax,
+                  "FAs", "Grey\ndrawings", exp5__prop.FA__grey.drawing$y,
+                  exp5__prop.FA__grey.drawing$ymin, exp5__prop.FA__grey.drawing$ymax,
+                  "FAs", "Colour\ndrawings", exp5__prop.FA__col.drawing$y,
+                  exp5__prop.FA__col.drawing$ymin, exp5__prop.FA__col.drawing$ymax,
+                  "FAs", "Grey\nphotos", exp5__prop.FA__grey.photo$y,
+                  exp5__prop.FA__grey.photo$ymin, exp5__prop.FA__grey.photo$ymax,
+                  "FAs", "Colour\nphotos", exp5__prop.FA__col.photo$y,
+                  exp5__prop.FA__col.photo$ymin, exp5__prop.FA__col.photo$ymax) %>%
+          transform(stim_format = factor(stim_format, levels=c("Grey\nwords",
+                                                               "Colour\nwords",
+                                                               "Grey\ndrawings",
+                                                               "Colour\ndrawings",
+                                                               "Grey\nphotos",
+                                                               "Colour\nphotos"))) %>%
+          transform(type = factor(type, levels=c("Hits","FAs")))
+              
+      
+      exp5__manip.check__figure <-
+          ggplot(exp5__manip.check__figure.data, aes(x = stim_format, y = emmean, fill = stim_format)) +
+          scale_fill_manual("legend", values = c("Grey\nwords" = "#535150", 
+                                                 "Colour\nwords" = "#725774",
+                                                 "Grey\ndrawings" = "#7F7E7D", 
+                                                 "Colour\ndrawings" = "#927FA8", 
+                                                 "Grey\nphotos" = "#B0AFAE", 
+                                                 "Colour\nphotos" = "#ABACDE")) + 
+          geom_col(position = position_dodge()) +
+          geom_errorbar(aes(ymin = exp5__manip.check__figure.data$ymin,
+                            ymax = exp5__manip.check__figure.data$ymax), width = 0.2, size = 0.3, 
+                        position = position_dodge(0.9)) +
+          facet_wrap(~type, strip.position = "bottom") +
+          labs(x = "DV", y = "Mean proportion") +
+          scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+          theme_classic() +    # Removes grey background and grid lines. 
+          theme(
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
+            axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            legend.position = "none",
+            legend.title = element_blank(),
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))
 ```
 
-The ANOVA on the mean proportion of overall hits revealed a significant main effect of stimuli format, `r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. However, planned comparisons revealed there was no difference in the number of hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest, format = "rmarkdown", print = FALSE)`. 
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp5__manip.check__figure", caption = "Mean proportion of hits and FAs by stimuli format.")
+```
 
-The ANOVA on the mean proportion of FAs also showed a significant main effect of stimuli format, `r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__prop.FA.means__col.word`) showed significantly fewer FAs than regular words (*M* = `r exp5__prop.FA.means__grey.word`), `r apa::apa(exp5__prop.FA__ttest, format = "rmarkdown", print = FALSE)`. 
+```{r fig.width=7, fig.height=5, echo=FALSE, cache=FALSE, warning=FALSE}
+    exp5__manip.check__figure
+```
+`r figure_numbering("exp5__manip.check__figure")`
 
-The ANOVA on mean *d'* scores also showed a significant main effect of stimuli format, `r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__d.prime.means__col.word`) showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest, format = "rmarkdown", print = FALSE)`. 
+&nbsp;
 
-The ANOVA on mean *c* scores also showed a significant main effect of stimuli format, `r apa::anova_apa(exp5__c.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__c.means__col.word`) showed significantly higher *c* scores than regular words (*M* = `r exp5__c.means__grey.word`), `r apa::apa(exp5__c__ttest, format = "rmarkdown", print = FALSE)`. 
+Throughout each of the conducted ANOVAs, there was consistently a significant main effect of stimuli format: mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], *d'*-scores [`r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and *c*-scores [`r apa::anova_apa(exp5__c.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons following these significant results, however, did not always demonstrate that the distinctive word stimuli were indeed any more distinctive than the regular word stimuli. Primarily, there was no difference in the proportion of overall hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest, format = "rmarkdown", print = FALSE)` - recognition performance (i.e. the number of items subjects were able to correctly identify) was the same regardless of the format word stimuli were presented in. Subjects did, however, make significantly fewer FAs as a result of the manipulation (distinctive words *M* = `r exp5__prop.FA.means__col.word`, regular words *M* = `r exp5__prop.FA.means__grey.word`;`r apa::apa(exp5__prop.FA__ttest, format = "rmarkdown", print = FALSE)`), offering some support to the manipulation, as subjects made less errors when required to accept / reject new items that were distinctive, as opposed to regular words. Furthermore, distinctive words (*M* = `r exp5__d.prime.means__col.word`) also showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest, format = "rmarkdown", print = FALSE)`; subjects were better able to accurately discriminate between hits and FAs when responding to the distinctive words over regular words. Higher *c* scores were evident for the distinctive words (*M* = `r exp5__c.means__col.word`), demonstrating a more conservative response bias in comparison to regular words (*M* = `r exp5__c.means__grey.word`), `r apa::apa(exp5__c__ttest, format = "rmarkdown", print = FALSE)`. 
 
 #### Recollection and Familiarity 
-To determine if *Recollection* and *Familiarity* response patterns were mediated by the format of word stimuli, further one-way repeated measures analyses of variance (ANOVA) were conducted on the mean proportion of hits and false alarms (FAs) assigned *Recollection*, *Familiarity*, and *Guessing*. 
+To determine if recollection and familiarity response patterns were mediated by the format of word stimuli, further one-way repeated measures analyses of variance (ANOVA) were conducted on the mean proportion of hits and false alarms (FAs) assigned *Recollection*, *Familiarity*, and *Guessing*. 
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -8536,11 +8615,7 @@ To determine if *Recollection* and *Familiarity* response patterns were mediated
       exp5__prop.hit.G.means__col.word <- summary(exp5__prop.hit.G.means)$emmean[2] %>% round(2)      
 ```      
 
-In the ANOVA on the proportion of R hits, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.hit.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`) produced significantly more R hits than regular words (*M* = `r exp5__prop.hit.R.means__grey.word`), `r apa::apa(exp5__prop.hit.R__ttest, format = "rmarkdown", print = FALSE)`. 
-
-In the ANOVA on the proportion of F hits, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.hit.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`) produced significantly fewer F hits than regular words (*M* = `r exp5__prop.hit.F.means__grey.word`), `r apa::apa(exp5__prop.hit.F__ttest, format = "rmarkdown", print = FALSE)`. 
-
-In the ANOVA on the proportion of G hits, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`, however, the planned contrast did not show a significant difference in the number of hits assigned *Guessing* between distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`) and regular words (*M* = `r exp5__prop.hit.G.means__grey.word`), `r apa::apa(exp5__prop.hit.G__ttest, format = "rmarkdown", print = FALSE)`.
+In the ANOVAs on the proportion of R/F/G hits, there was a significant main effect of stimuli format for hits assigned R [`r apa::anova_apa(exp5__prop.hit.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], F [`r apa::anova_apa(exp5__prop.hit.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and G [`r apa::anova_apa(exp5__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons showed evidence of the distinctiveness manipulation; distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`) produced significantly more R hits than regular words (*M* = `r exp5__prop.hit.R.means__grey.word`), `r apa::apa(exp5__prop.hit.R__ttest, format = "rmarkdown", print = FALSE)`. Conversely, the regular words (*M* = `r exp5__prop.hit.F.means__grey.word`) showed a significantly higher proportion of F hits than the distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`), `r apa::apa(exp5__prop.hit.F__ttest, format = "rmarkdown", print = FALSE)`. The planned comparisons did not show a significant difference in the number of hits assigned *Guessing* between distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`) and regular words (*M* = `r exp5__prop.hit.G.means__grey.word`), `r apa::apa(exp5__prop.hit.G__ttest, format = "rmarkdown", print = FALSE)`.
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -8610,11 +8685,7 @@ In the ANOVA on the proportion of G hits, there was a significant main effect of
       exp5__prop.FA.G.means__col.word <- summary(exp5__prop.FA.G.means)$emmean[2] %>% round(2)            
 ```
 
-In the ANOVA on the proportion of R FAs, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`) produced significantly fewer R FAs than regular words (*M* = `r exp5__prop.FA.R.means__grey.word`), `r apa::apa(exp5__prop.FA.R__ttest, format = "rmarkdown", print = FALSE)`. 
-
-In the ANOVA on the proportion of F FAs, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. The distinctive words (*M* = `r exp5__prop.FA.F.means__col.word`) produced significantly fewer F FAs than regular words (*M* = `r exp5__prop.FA.F.means__grey.word`), `r apa::apa(exp5__prop.FA.F__ttest, format = "rmarkdown", print = FALSE)`. 
-
-In the ANOVA on the proportion of G FAs, there was a significant main effect of stimuli format `r apa::anova_apa(exp5__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. However, the follow up contrasts showed no difference in the number of FAs assigned *Guessing* between distinctive (*M* = `r exp5__prop.FA.G.means__col.word`) and regular words (*M* = `r exp5__prop.FA.G.means__grey.word`), `r apa::apa(exp5__prop.FA.G__ttest, format = "rmarkdown", print = FALSE)`.
+For the proportion of FAs assigned R/F/G, each of the ANOVAs again showed significant main effects of stimuli format: R (`r apa::anova_apa(exp5__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), F (`r apa::anova_apa(exp5__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), and G (`r apa::anova_apa(exp5__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`). There was again evidence of the distinctiveness manipulation; regular words (*M* = `r exp5__prop.FA.R.means__grey.word`) produced a significantly higher proportion of FAs assigned R than distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`), `r apa::apa(exp5__prop.FA.R__ttest, format = "rmarkdown", print = FALSE)`. Likewise, there were more FAs assigned F for regular words (*M* = `r exp5__prop.FA.F.means__grey.word`) compared to the distinctive words (*M* = `r exp5__prop.FA.F.means__col.word`), `r apa::apa(exp5__prop.FA.F__ttest, format = "rmarkdown", print = FALSE)`. As before, the follow up comparisomns showed no difference in the number of FAs assigned G between distinctive (*M* = `r exp5__prop.FA.G.means__col.word`) and regular words (*M* = `r exp5__prop.FA.G.means__grey.word`), `r apa::apa(exp5__prop.FA.G__ttest, format = "rmarkdown", print = FALSE)`.
 
 \newpage
 ######----------------------------------------
