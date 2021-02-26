@@ -7938,119 +7938,9 @@ exp5__final_data <- exp5__final_data %>%
           mutate(recog__col.word = prop.hit__col.word - prop.FA__col.word) %>%
           mutate(recog__grey.drawing = prop.hit__grey.drawing - prop.FA__grey.drawing) %>%
           mutate(recog__col.drawing = prop.hit__col.drawing - prop.FA__col.drawing)
-##      d-prime (calculated by R package):
-##      List unique participant IDs to loop through:
-        ensor.exp1.participant_IDs <- unique(ensor.exp1.data$id)
-##    d-prime (grey word):
-      ensor.exp1.d.prime__grey.word <- tibble()
-      for (i in ensor.exp1.participant_IDs) {
-          exp5__temp <- ensor.exp1.data %>%
-              filter(id == i) %>%     
-              select(id, hit__grey.word, FA__grey.word, miss__grey.word, CR__grey.word)
-          
-          exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__grey.word,
-                                                  n_fa = exp5__temp$FA__grey.word,
-                                                  n_miss = exp5__temp$miss__grey.word,
-                                                  n_cr = exp5__temp$CR__grey.word,
-                                                  n_targets = 10,
-                                                  n_distractors = 10,
-                                                  adjusted = TRUE))) %>%
-              mutate("id" = i)
-          exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-          ensor.exp1.d.prime__grey.word <- bind_rows(ensor.exp1.d.prime__grey.word, exp5__temp) }
-
-        ensor.exp1.d.prime__grey.word <- ensor.exp1.d.prime__grey.word %>%
-            select(id, dprime, beta, aprime, bppd, c) %>%
-            rename(dprime__grey.word = "dprime", beta__grey.word = "beta",
-                   aprime__grey.word = "aprime", bppd__grey.word = "bppd",
-                   c__grey.word = "c")
-##    d-prime (col word):
-      ensor.exp1.d.prime__col.word <- tibble()
-      for (i in ensor.exp1.participant_IDs) {
-          exp5__temp <- ensor.exp1.data %>%
-              filter(id == i) %>%     
-              select(id, hit__col.word, FA__col.word, miss__col.word, CR__col.word)
-          
-          exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__col.word,
-                                                  n_fa = exp5__temp$FA__col.word,
-                                                  n_miss = exp5__temp$miss__col.word,
-                                                  n_cr = exp5__temp$CR__col.word,
-                                                  n_targets = 10,
-                                                  n_distractors = 10,
-                                                  adjusted = TRUE))) %>%
-              mutate("id" = i)
-          exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-          ensor.exp1.d.prime__col.word <- bind_rows(ensor.exp1.d.prime__col.word, exp5__temp) }
-
-        ensor.exp1.d.prime__col.word <- ensor.exp1.d.prime__col.word %>%
-            select(id, dprime, beta, aprime, bppd, c) %>%
-            rename(dprime__col.word = "dprime", beta__col.word = "beta",
-                   aprime__col.word = "aprime", bppd__col.word = "bppd",
-                   c__col.word = "c")
-##    d-prime (grey drawing):
-      ensor.exp1.d.prime__grey.drawing <- tibble()
-      for (i in ensor.exp1.participant_IDs) {
-          exp5__temp <- ensor.exp1.data %>%
-              filter(id == i) %>%     
-              select(id, hit__grey.drawing, FA__grey.drawing, miss__grey.drawing, CR__grey.drawing)
-          
-          exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__grey.drawing,
-                                                  n_fa = exp5__temp$FA__grey.drawing,
-                                                  n_miss = exp5__temp$miss__grey.drawing,
-                                                  n_cr = exp5__temp$CR__grey.drawing,
-                                                  n_targets = 10,
-                                                  n_distractors = 10,
-                                                  adjusted = TRUE))) %>%
-              mutate("id" = i)
-          exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-          ensor.exp1.d.prime__grey.drawing <- bind_rows(ensor.exp1.d.prime__grey.drawing, exp5__temp) }
-
-        ensor.exp1.d.prime__grey.drawing <- ensor.exp1.d.prime__grey.drawing %>%
-            select(id, dprime, beta, aprime, bppd, c) %>%
-            rename(dprime__grey.drawing = "dprime", beta__grey.drawing = "beta",
-                   aprime__grey.drawing = "aprime", bppd__grey.drawing = "bppd",
-                   c__grey.drawing = "c")
-##    d-prime (col drawing):
-      ensor.exp1.d.prime__col.drawing <- tibble()
-      for (i in ensor.exp1.participant_IDs) {
-          exp5__temp <- ensor.exp1.data %>%
-              filter(id == i) %>%     
-              select(id, hit__col.drawing, FA__col.drawing, miss__col.drawing, CR__col.drawing)
-          
-          exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__col.drawing,
-                                                  n_fa = exp5__temp$FA__col.drawing,
-                                                  n_miss = exp5__temp$miss__col.drawing,
-                                                  n_cr = exp5__temp$CR__col.drawing,
-                                                  n_targets = 10,
-                                                  n_distractors = 10,
-                                                  adjusted = TRUE))) %>%
-              mutate("id" = i)
-          exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-          ensor.exp1.d.prime__col.drawing <- bind_rows(ensor.exp1.d.prime__col.drawing, exp5__temp) }
-
-      ensor.exp1.d.prime__col.drawing <- ensor.exp1.d.prime__col.drawing %>%
-          select(id, dprime, beta, aprime, bppd, c) %>%
-          rename(dprime__col.drawing = "dprime", beta__col.drawing = "beta", aprime__col.drawing = "aprime",
-                 bppd__col.drawing = "bppd", c__col.drawing = "c")
-
-##    Add d'prime calculations to 'ensor.exp1.data' df: 
-      ensor.exp1.data <- ensor.exp1.data %>%
-          right_join(ensor.exp1.d.prime__grey.word) %>%
-          right_join(ensor.exp1.d.prime__col.word) %>%
-          right_join(ensor.exp1.d.prime__grey.drawing) %>%
-          right_join(ensor.exp1.d.prime__col.drawing)
 #----------------------------------------------------------------------------------------------------------------
 #   Prep key data for analysis:
 #----------------------------------------------------------------------------------------------------------------  
-      ensor.exp1__d.prime <- ensor.exp1.data %>%
-          select(id, dprime__grey.word, dprime__col.word, dprime__grey.drawing, dprime__col.drawing) %>%
-          gather(key = "stim", value = "d.prime", dprime__grey.word, dprime__col.word,
-                 dprime__grey.drawing, dprime__col.drawing) %>%
-          mutate(stim = str_remove(stim, "dprime__"))
-      ensor.exp1__c <- ensor.exp1.data %>%
-          select(id, c__grey.word, c__col.word, c__grey.drawing, c__col.drawing) %>%
-          gather(key = "stim", value = "c", c__grey.word, c__col.word, c__grey.drawing, c__col.drawing) %>%
-          mutate(stim = str_remove(stim, "c__"))
       ensor.exp1__prop.hit <- ensor.exp1.data %>%
           select(id, prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing, prop.hit__col.drawing) %>%
           gather(key = "stim", value = "prop.hit", prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing,
@@ -8061,11 +7951,6 @@ exp5__final_data <- exp5__final_data %>%
           gather(key = "stim", value = "prop.FA", prop.FA__grey.word, prop.FA__col.word, prop.FA__grey.drawing,
                  prop.FA__col.drawing) %>%
           mutate(stim = str_remove(stim, "prop.FA__"))
-      ensor.exp1__recog <- ensor.exp1.data %>%
-          select(id, recog__grey.word, recog__col.word, recog__grey.drawing, recog__col.drawing) %>%
-          gather(key = "stim", value = "recog", recog__grey.word, recog__col.word, recog__grey.drawing,
-                 recog__col.drawing) %>%
-          mutate(stim = str_remove(stim, "recog__"))
 #----------------------------------------------------------------------------------------------------------------
 #     Ensor Experiment 2 data:
 #----------------------------------------------------------------------------------------------------------------
@@ -8144,119 +8029,9 @@ exp5__final_data <- exp5__final_data %>%
         mutate(recog__col.word = prop.hit__col.word - prop.FA__col.word) %>%
         mutate(recog__grey.drawing = prop.hit__grey.drawing - prop.FA__grey.drawing) %>%
         mutate(recog__col.drawing = prop.hit__col.drawing - prop.FA__col.drawing)
-      ##      d-prime (calculated by R package):
-      ##      List unique participant IDs to loop through:
-      ensor.exp2.participant_IDs <- unique(ensor.exp2.data$id)
-##    d-prime (grey word):
-      ensor.exp2.d.prime__grey.word <- tibble()
-      for (i in ensor.exp2.participant_IDs) {
-        exp5__temp <- ensor.exp2.data %>%
-          filter(id == i) %>%
-          select(id, hit__grey.word, FA__grey.word, miss__grey.word, CR__grey.word)
-
-        exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__grey.word,
-                                                n_fa = exp5__temp$FA__grey.word,
-                                                n_miss = exp5__temp$miss__grey.word,
-                                                n_cr = exp5__temp$CR__grey.word,
-                                                n_targets = 20,
-                                                n_distractors = 20,
-                                                adjusted = TRUE))) %>%
-          mutate("id" = i)
-        exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-        ensor.exp2.d.prime__grey.word <- bind_rows(ensor.exp2.d.prime__grey.word, exp5__temp) }
-      
-      ensor.exp2.d.prime__grey.word <- ensor.exp2.d.prime__grey.word %>%
-        select(id, dprime, beta, aprime, bppd, c) %>%
-        rename(dprime__grey.word = "dprime", beta__grey.word = "beta",
-               aprime__grey.word = "aprime", bppd__grey.word = "bppd",
-               c__grey.word = "c")
-      ##    d-prime (col word):
-      ensor.exp2.d.prime__col.word <- tibble()
-      for (i in ensor.exp2.participant_IDs) {
-        exp5__temp <- ensor.exp2.data %>%
-          filter(id == i) %>%     
-          select(id, hit__col.word, FA__col.word, miss__col.word, CR__col.word)
-        
-        exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__col.word,
-                                                n_fa = exp5__temp$FA__col.word,
-                                                n_miss = exp5__temp$miss__col.word,
-                                                n_cr = exp5__temp$CR__col.word,
-                                                n_targets = 20,
-                                                n_distractors = 20,
-                                                adjusted = TRUE))) %>%
-          mutate("id" = i)
-        exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-        ensor.exp2.d.prime__col.word <- bind_rows(ensor.exp2.d.prime__col.word, exp5__temp) }
-      
-      ensor.exp2.d.prime__col.word <- ensor.exp2.d.prime__col.word %>%
-        select(id, dprime, beta, aprime, bppd, c) %>%
-        rename(dprime__col.word = "dprime", beta__col.word = "beta",
-               aprime__col.word = "aprime", bppd__col.word = "bppd",
-               c__col.word = "c")
-      ##    d-prime (grey drawing):
-      ensor.exp2.d.prime__grey.drawing <- tibble()
-      for (i in ensor.exp2.participant_IDs) {
-        exp5__temp <- ensor.exp2.data %>%
-          filter(id == i) %>%     
-          select(id, hit__grey.drawing, FA__grey.drawing, miss__grey.drawing, CR__grey.drawing)
-        
-        exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__grey.drawing,
-                                                n_fa = exp5__temp$FA__grey.drawing,
-                                                n_miss = exp5__temp$miss__grey.drawing,
-                                                n_cr = exp5__temp$CR__grey.drawing,
-                                                n_targets = 20,
-                                                n_distractors = 20,
-                                                adjusted = TRUE))) %>%
-          mutate("id" = i)
-        exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-        ensor.exp2.d.prime__grey.drawing <- bind_rows(ensor.exp2.d.prime__grey.drawing, exp5__temp) }
-      
-      ensor.exp2.d.prime__grey.drawing <- ensor.exp2.d.prime__grey.drawing %>%
-        select(id, dprime, beta, aprime, bppd, c) %>%
-        rename(dprime__grey.drawing = "dprime", beta__grey.drawing = "beta",
-               aprime__grey.drawing = "aprime", bppd__grey.drawing = "bppd",
-               c__grey.drawing = "c")
-      ##    d-prime (col drawing):
-      ensor.exp2.d.prime__col.drawing <- tibble()
-      for (i in ensor.exp2.participant_IDs) {
-        exp5__temp <- ensor.exp2.data %>%
-          filter(id == i) %>%     
-          select(id, hit__col.drawing, FA__col.drawing, miss__col.drawing, CR__col.drawing)
-        
-        exp5__temp_d_prime <- (as_tibble(dprime(n_hit = exp5__temp$hit__col.drawing,
-                                                n_fa = exp5__temp$FA__col.drawing,
-                                                n_miss = exp5__temp$miss__col.drawing,
-                                                n_cr = exp5__temp$CR__col.drawing,
-                                                n_targets = 20,
-                                                n_distractors = 20,
-                                                adjusted = TRUE))) %>%
-          mutate("id" = i)
-        exp5__temp <- exp5__temp %>% inner_join(exp5__temp_d_prime, by = "id")
-        ensor.exp2.d.prime__col.drawing <- bind_rows(ensor.exp2.d.prime__col.drawing, exp5__temp) }
-      
-      ensor.exp2.d.prime__col.drawing <- ensor.exp2.d.prime__col.drawing %>%
-        select(id, dprime, beta, aprime, bppd, c) %>%
-        rename(dprime__col.drawing = "dprime", beta__col.drawing = "beta", aprime__col.drawing = "aprime",
-               bppd__col.drawing = "bppd", c__col.drawing = "c")
-      
-      ##    Add d'prime calculations to 'ensor.exp2.data' df: 
-      ensor.exp2.data <- ensor.exp2.data %>%
-        right_join(ensor.exp2.d.prime__grey.word) %>%
-        right_join(ensor.exp2.d.prime__col.word) %>%
-        right_join(ensor.exp2.d.prime__grey.drawing) %>%
-        right_join(ensor.exp2.d.prime__col.drawing)
 #----------------------------------------------------------------------------------------------------------------
 #   Prep key data for analysis:
 #----------------------------------------------------------------------------------------------------------------  
-      ensor.exp2__d.prime <- ensor.exp2.data %>%
-        select(id, dprime__grey.word, dprime__col.word, dprime__grey.drawing, dprime__col.drawing) %>%
-        gather(key = "stim", value = "d.prime", dprime__grey.word, dprime__col.word,
-               dprime__grey.drawing, dprime__col.drawing) %>%
-        mutate(stim = str_remove(stim, "dprime__"))
-      ensor.exp2__c <- ensor.exp2.data %>%
-        select(id, c__grey.word, c__col.word, c__grey.drawing, c__col.drawing) %>%
-        gather(key = "stim", value = "c", c__grey.word, c__col.word, c__grey.drawing, c__col.drawing) %>%
-        mutate(stim = str_remove(stim, "c__"))
       ensor.exp2__prop.hit <- ensor.exp2.data %>%
         select(id, prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing, prop.hit__col.drawing) %>%
         gather(key = "stim", value = "prop.hit", prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing,
@@ -8267,12 +8042,6 @@ exp5__final_data <- exp5__final_data %>%
         gather(key = "stim", value = "prop.FA", prop.FA__grey.word, prop.FA__col.word, prop.FA__grey.drawing,
                prop.FA__col.drawing) %>%
         mutate(stim = str_remove(stim, "prop.FA__"))
-      ensor.exp2__recog <- ensor.exp2.data %>%
-        select(id, recog__grey.word, recog__col.word, recog__grey.drawing, recog__col.drawing) %>%
-        gather(key = "stim", value = "recog", recog__grey.word, recog__col.word, recog__grey.drawing,
-               recog__col.drawing) %>%
-        mutate(stim = str_remove(stim, "recog__"))
-      
 #----------------------------------------------------------------------------------------------------------------
 #     Tables and figures:
 #----------------------------------------------------------------------------------------------------------------
@@ -8374,7 +8143,8 @@ Raw data provided by @ensor2019b was re-analysed to allow for direct comparisons
       exp5__prop.hit.aov__sphericity <- exp5__prop.hit.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__prop.hit.aov__nice <- nice(exp5__prop.hit.aov, correction = "GG", es = "ges")
+      exp5__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, exp5__prop.hit, within = 'stim', 
+                        anova_table=list(correction = "GG", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.hit__ttest <- exp5__prop.hit %>% filter(stim == "grey.word" | stim == "col.word") %>%
@@ -8396,7 +8166,8 @@ Raw data provided by @ensor2019b was re-analysed to allow for direct comparisons
       exp5__prop.FA.aov__sphericity <- exp5__prop.FA.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__prop.FA.aov__nice <- nice(exp5__prop.FA.aov, correction = "GG", es = "ges")
+      exp5__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, exp5__prop.FA, within = 'stim', 
+                        anova_table=list(correction = "GG", es = "ges"))
 #----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.FA__ttest <- exp5__prop.FA %>% filter(stim == "grey.word" | stim == "col.word") %>%
@@ -8418,7 +8189,8 @@ Raw data provided by @ensor2019b was re-analysed to allow for direct comparisons
       exp5__d.prime.aov__sphericity <- exp5__d.prime.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__d.prime.aov__nice <- nice(exp5__d.prime.aov, correction = "GG", es = "ges")
+      exp5__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, exp5__d.prime, within = 'stim',
+                                        anova_table=list(correction = "GG", es = "ges"))
 #----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__d.prime__ttest <- exp5__d.prime %>% filter(stim == "grey.word" | stim == "col.word") %>%
@@ -8440,7 +8212,8 @@ Raw data provided by @ensor2019b was re-analysed to allow for direct comparisons
       exp5__c.aov__sphericity <- exp5__c.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__c.aov__nice <- nice(exp5__c.aov, correction = "GG", es = "ges")
+      exp5__c.aov <- afex::aov_ez('id', 'c', fun_aggregate = mean, exp5__c, within = 'stim',
+                                        anova_table=list(correction = "GG", es = "ges"))
 #----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__c__ttest <- exp5__c %>% filter(stim == "grey.word" | stim == "col.word") %>%
@@ -8542,10 +8315,181 @@ Raw data provided by @ensor2019b was re-analysed to allow for direct comparisons
 
 &nbsp;
 
-Throughout each of the conducted ANOVAs, there was consistently a significant main effect of stimuli format: mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], *d'*-scores [`r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and *c*-scores [`r apa::anova_apa(exp5__c.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons following these significant results, however, did not always demonstrate that the distinctive word stimuli were indeed any more distinctive than the regular word stimuli. Primarily, there was no difference in the proportion of overall hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest, format = "rmarkdown", print = FALSE)` - recognition performance (i.e. the number of items subjects were able to correctly identify) was the same regardless of the format word stimuli were presented in. Subjects did, however, make significantly fewer FAs as a result of the manipulation (distinctive words *M* = `r exp5__prop.FA.means__col.word`, regular words *M* = `r exp5__prop.FA.means__grey.word`;`r apa::apa(exp5__prop.FA__ttest, format = "rmarkdown", print = FALSE)`), offering some support to the manipulation, as subjects made less errors when required to accept / reject new items that were distinctive, as opposed to regular words. Furthermore, distinctive words (*M* = `r exp5__d.prime.means__col.word`) also showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest, format = "rmarkdown", print = FALSE)`; subjects were better able to accurately discriminate between hits and FAs when responding to the distinctive words over regular words. Higher *c* scores were evident for the distinctive words (*M* = `r exp5__c.means__col.word`), demonstrating a more conservative response bias in comparison to regular words (*M* = `r exp5__c.means__grey.word`), `r apa::apa(exp5__c__ttest, format = "rmarkdown", print = FALSE)`. 
+Throughout each of the conducted ANOVAs, there was consistently a significant main effect of stimuli format: mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], *d'*-scores [`r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and *c*-scores [`r apa::anova_apa(exp5__c.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons following these significant results, however, did not always demonstrate that the distinctive word stimuli were indeed any more distinctive than the regular word stimuli. Primarily, there was no difference in the proportion of overall hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest, format = "rmarkdown", print = FALSE)` - recognition performance (i.e. the number of items subjects were able to correctly identify) was the same regardless of the format word stimuli were presented in. Subjects did, however, make significantly fewer FAs as a result of the manipulation (distinctive words *M* = `r exp5__prop.FA.means__col.word`, regular words *M* = `r exp5__prop.FA.means__grey.word`;`r apa::apa(exp5__prop.FA__ttest, format = "rmarkdown", print = FALSE)`), offering some support to the manipulation, as subjects were better able to correctly reject lure items when they were presented in a distinctive format, rather than regular format, highlighting some performance benefits as a result of the manipulation. Furthermore, distinctive words (*M* = `r exp5__d.prime.means__col.word`) also showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest, format = "rmarkdown", print = FALSE)`; subjects were better able to accurately discriminate between hits and FAs when responding to the distinctive words over regular words. Higher *c* scores were evident for the distinctive words (*M* = `r exp5__c.means__col.word`), demonstrating a more conservative response bias in comparison to regular words (*M* = `r exp5__c.means__grey.word`), `r apa::apa(exp5__c__ttest, format = "rmarkdown", print = FALSE)`. 
+
+#### Comparison to @ensor2019b
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+#################################################################################################################
+##    Ensor Prop hits (exp1):                                                                                  ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp1__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, ensor.exp1__prop.hit, 
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      ensor.exp1__prop.hit.aov__sphericity <- test_sphericity(ensor.exp1__prop.hit.aov)
+      ensor.exp1__prop.hit.aov__sphericity <- ensor.exp1__prop.hit.aov__sphericity[1,2]
+      
+##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+      ensor.exp1__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, ensor.exp1__prop.hit, 
+                                           within = 'stim', anova_table=list(correction = "none", es = "ges"))
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      ensor.exp1__prop.hit__ttest <- ensor.exp1__prop.hit %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(prop.hit~stim, paired=TRUE, data = .)
+##    Get means:
+      ensor.exp1__prop.hit.means <- emmeans(ensor.exp1__prop.hit.aov, ~stim)
+      ensor.exp1__prop.hit.means__grey.word <- summary(ensor.exp1__prop.hit.means)$emmean[1] %>% round(2)
+      ensor.exp1__prop.hit.means__col.word <- summary(ensor.exp1__prop.hit.means)$emmean[2] %>% round(2)
+      
+#################################################################################################################
+##    Ensor Prop hits (exp2):                                                                                  ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp2__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, ensor.exp2__prop.hit, 
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      ensor.exp2__prop.hit.aov__sphericity <- test_sphericity(ensor.exp2__prop.hit.aov)
+      ensor.exp2__prop.hit.aov__sphericity <- ensor.exp2__prop.hit.aov__sphericity[1,2]
+      
+##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+      ensor.exp2__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, ensor.exp2__prop.hit, 
+                                           within = 'stim', anova_table=list(correction = "none", es = "ges"))
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      ensor.exp2__prop.hit__ttest <- ensor.exp2__prop.hit %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(prop.hit~stim, paired=TRUE, data = .)
+##    Get means:
+      ensor.exp2__prop.hit.means <- emmeans(ensor.exp2__prop.hit.aov, ~stim)
+      ensor.exp2__prop.hit.means__grey.word <- summary(ensor.exp2__prop.hit.means)$emmean[1] %>% round(2)
+      ensor.exp2__prop.hit.means__col.word <- summary(ensor.exp2__prop.hit.means)$emmean[2] %>% round(2)
+
+#################################################################################################################
+##    Ensor Prop FAs  (exp1):                                                                                  ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp1__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, ensor.exp1__prop.FA, 
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      ensor.exp1__prop.FA.aov__sphericity <- test_sphericity(ensor.exp1__prop.FA.aov)
+      ensor.exp1__prop.FA.aov__sphericity <- ensor.exp1__prop.FA.aov__sphericity[1,2]
+      
+##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+      ensor.exp1__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, ensor.exp1__prop.FA, 
+                                           within = 'stim', anova_table=list(correction = "none", es = "ges"))
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      ensor.exp1__prop.FA__ttest <- ensor.exp1__prop.FA %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(prop.FA~stim, paired=TRUE, data = .)
+##    Get means:
+      ensor.exp1__prop.FA.means <- emmeans(ensor.exp1__prop.FA.aov, ~stim)
+      ensor.exp1__prop.FA.means__grey.word <- summary(ensor.exp1__prop.FA.means)$emmean[1] %>% round(2)
+      ensor.exp1__prop.FA.means__col.word <- summary(ensor.exp1__prop.FA.means)$emmean[2] %>% round(2)
+#################################################################################################################
+##    Ensor Prop FAs (exp2):                                                                                   ##
+#################################################################################################################
+##    One-way repeated measures ANOVA:
+      ensor.exp2__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, ensor.exp2__prop.FA, 
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      ensor.exp2__prop.FA.aov__sphericity <- test_sphericity(ensor.exp2__prop.FA.aov)
+      ensor.exp2__prop.FA.aov__sphericity <- ensor.exp2__prop.FA.aov__sphericity[1,2]
+      
+##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+      ensor.exp2__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, ensor.exp2__prop.FA,
+                                              within = 'stim', anova_table=list(correction = "none", es = "ges"))
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      ensor.exp2__prop.FA__ttest <- ensor.exp2__prop.FA %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(prop.FA~stim, paired=TRUE, data = .)
+##    Get means:
+      ensor.exp2__prop.FA.means <- emmeans(ensor.exp2__prop.FA.aov, ~stim)
+      ensor.exp2__prop.FA.means__grey.word <- summary(ensor.exp2__prop.FA.means)$emmean[1] %>% round(2)
+      ensor.exp2__prop.FA.means__col.word <- summary(ensor.exp2__prop.FA.means)$emmean[2] %>% round(2)      
+      
+#################################################################################################################
+##    Ensor vs. current hits table:                                                                            ##
+################################################################################################################# 
+      exp5__table__ensor.vs.current__hits <- 
+            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
+                  "Trials: 40 study / 80 test:",
+                      round(mean(ensor.exp1.data$prop.hit__grey.word),2),
+                      round(mean(ensor.exp1.data$prop.hit__col.word),2),
+                      apa::apa(ensor.exp1__prop.hit__ttest, format = "rmarkdown", print = FALSE),
+                  "Trials: 80 study / 160 test:",
+                      round(mean(ensor.exp2.data$prop.hit__grey.word),2),
+                      round(mean(ensor.exp2.data$prop.hit__col.word),2),
+                      apa::apa(ensor.exp2__prop.hit__ttest, format = "rmarkdown", print = FALSE),
+                  "Trials: 60 study / 120 test:", 
+                      round(exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit) %>% mean(),2),
+                      round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
+                      apa::apa(exp5__prop.hit__ttest, format = "rmarkdown", print = FALSE))
+#################################################################################################################
+##    Ensor vs. current FAs table:                                                                             ##
+#################################################################################################################   
+      exp5__table__ensor.vs.current__FAs <- 
+            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
+                  "Trials: 40 study / 80 test:",
+                      round(mean(ensor.exp1.data$prop.FA__grey.word),2),
+                      round(mean(ensor.exp1.data$prop.FA__col.word),2),
+                      apa::apa(ensor.exp1__prop.FA__ttest, format = "rmarkdown", print = FALSE),
+                  "Trials: 80 study / 160 test:",
+                      round(mean(ensor.exp2.data$prop.FA__grey.word),2),
+                      round(mean(ensor.exp2.data$prop.FA__col.word),2),
+                      apa::apa(ensor.exp2__prop.FA__ttest, format = "rmarkdown", print = FALSE),
+                  "Trials: 60 study / 120 test:", 
+                      round(exp5__prop.FA %>% filter(stim == "grey.word") %>% pull(prop.FA) %>% mean(),2),
+                      round(exp5__prop.FA %>% filter(stim == "col.word") %>% pull(prop.FA) %>% mean(),2),
+                      apa::apa(exp5__prop.FA__ttest, format = "rmarkdown", print = FALSE))
+```
+\newpage
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+      table_numbering(name = "exp5__table__ensor.vs.current__hits", caption = "Mean proportion of hits for regular and distinctive word stimuli, across the current experiment and @ensor2019b. Within-subjects contrasts are presented following significant main effects of stimuli format (reported in text).", display = FALSE)
+```      
+
+For the mean proportion of hits, there were significant main effects of stimuli format in their first [`r apa::anova_apa(ensor.exp1__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]
+and second [`r apa::anova_apa(ensor.exp2__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] experiments. Follow-up comparisons showed that distinctive words produced significantly more hits than regular words in both experiments (see `r table_numbering("exp5__table__ensor.vs.current__hits", display = "cite")`). Visual inspection of the data does not indicate the number of trials had an impact on the pattern of results; while @ensor2019b observed a reduction in the proportion of hits for both word formats when trial numbers were increased, the current study still showed a lower proportion of hits than both of the @ensor2019b experiments (including the experiment with more trials). 
+
+&nbsp;
+
+`r table_numbering("exp5__table__ensor.vs.current__hits")`
+```{r, echo=FALSE, cache=FALSE}
+      exp5__table__ensor.vs.current__hits %>%
+          kable("latex", booktabs = T, align = "rccc", escape = T) %>%
+          kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
+          column_spec(2:3, width = "1.8cm") %>%
+          column_spec(4, width = "5cm") %>%
+          add_header_above(c(" " = 1, "Hits" = 3), bold = T) %>%
+          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
+          pack_rows("Current study", 3, 0)
+```
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+      table_numbering(name = "exp5__table__ensor.vs.current__FAs", caption = "Mean proportion of FAs for regular and distinctive word stimuli, across the current experiment and @ensor2019b. Within-subjects contrasts are presented following significant main effects of stimuli format (reported in text).", display = FALSE)
+```
+
+For the mean proportion of FAs, the second experiment of @ensor2019b showed an identical pattern to the current study: a significant main effect of stimuli format [`r apa::anova_apa(ensor.exp1__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] showed that distinctive words produced significantly fewer FAs than regular words (see `r table_numbering("exp5__table__ensor.vs.current__FAs", display = "cite")`). The same pattern was not evident in their first experiment, however, where no significant main effect of stimuli format was found [`r apa::anova_apa(ensor.exp2__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Visual inspection of the data shows that subjects made more FAs in the @ensor2019b experiments compared to the current study; this is especially apparent when comparisons are made toward the experiment with more trials. While it may not be immediately clear why more FAs were made in the @ensor2019b experiments compared to the current study, examination of the FA results in conjunction with the mean proportion of hits suggests a difference in response bias may be responsible. While a higher proportion of hits was observed in the @ensor2019b studies, likewise a higher proportion of FAs was also observed. 
+
+&nbsp;
+
+`r table_numbering("exp5__table__ensor.vs.current__FAs")`
+```{r, echo=FALSE, cache=FALSE}
+      exp5__table__ensor.vs.current__FAs %>%
+          kable("latex", booktabs = T, align = "rccc", escape = F) %>%
+          kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
+          column_spec(2:3, width = "1.8cm") %>%
+          column_spec(4, width = "5cm") %>%
+          add_header_above(c(" " = 1, "FAs" = 3), bold = T) %>%
+          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
+          pack_rows("Current study", 3, 0)
+```
 
 #### Recollection and Familiarity 
-To determine if recollection and familiarity response patterns were mediated by the format of word stimuli, further one-way repeated measures analyses of variance (ANOVA) were conducted on the mean proportion of hits and false alarms (FAs) assigned *Recollection*, *Familiarity*, and *Guessing*. 
+To determine if recollection and familiarity response patterns were mediated by the format of word stimuli, further one-way repeated measures analyses of variance (ANOVA) were conducted on the mean proportion of hits and false alarms (FAs) assigned *Recollection* (R), *Familiarity* (F), and *Guessing* (G). 
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -8560,7 +8504,8 @@ To determine if recollection and familiarity response patterns were mediated by 
       exp5__prop.hit.R.aov__sphericity <- exp5__prop.hit.R.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__prop.hit.R.aov__nice <- nice(exp5__prop.hit.R.aov, correction = "GG", es = "ges")
+      exp5__prop.hit.R.aov <- afex::aov_ez('id', 'prop.hit.R', fun_aggregate = mean, exp5__prop.hit.R,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.hit.R__ttest <- exp5__prop.hit.R %>% filter(stim == "grey.word" | stim == "col.word") %>%
@@ -8582,7 +8527,8 @@ To determine if recollection and familiarity response patterns were mediated by 
       exp5__prop.hit.F.aov__sphericity <- exp5__prop.hit.F.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__prop.hit.F.aov__nice <- nice(exp5__prop.hit.F.aov, correction = "GG", es = "ges")
+      exp5__prop.hit.F.aov <- afex::aov_ez('id', 'prop.hit.F', fun_aggregate = mean, exp5__prop.hit.F,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.hit.F__ttest <- exp5__prop.hit.F %>% filter(stim == "grey.word" | stim == "col.word") %>%
@@ -8604,7 +8550,8 @@ To determine if recollection and familiarity response patterns were mediated by 
       exp5__prop.hit.G.aov__sphericity <- exp5__prop.hit.G.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__prop.hit.G.aov__nice <- nice(exp5__prop.hit.G.aov, correction = "GG", es = "ges")
+      exp5__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp5__prop.hit.G,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.hit.G__ttest <- exp5__prop.hit.G %>% filter(stim == "grey.word" | stim == "col.word") %>%
@@ -8630,7 +8577,8 @@ In the ANOVAs on the proportion of R/F/G hits, there was a significant main effe
       exp5__prop.FA.R.aov__sphericity <- exp5__prop.FA.R.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__prop.FA.R.aov__nice <- nice(exp5__prop.FA.R.aov, correction = "GG", es = "ges")
+      exp5__prop.FA.R.aov <- afex::aov_ez('id', 'prop.FA.R', fun_aggregate = mean, exp5__prop.FA.R,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.FA.R__ttest <- exp5__prop.FA.R %>% filter(stim == "grey.word" | stim == "col.word") %>%
@@ -8652,7 +8600,8 @@ In the ANOVAs on the proportion of R/F/G hits, there was a significant main effe
       exp5__prop.FA.F.aov__sphericity <- exp5__prop.FA.F.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__prop.FA.F.aov__nice <- nice(exp5__prop.FA.F.aov, correction = "GG", es = "ges")
+      exp5__prop.FA.F.aov <- afex::aov_ez('id', 'prop.FA.F', fun_aggregate = mean, exp5__prop.FA.F,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.FA.F__ttest <- exp5__prop.FA.F %>% filter(stim == "grey.word" | stim == "col.word") %>%
@@ -8674,7 +8623,8 @@ In the ANOVAs on the proportion of R/F/G hits, there was a significant main effe
       exp5__prop.FA.G.aov__sphericity <- exp5__prop.FA.G.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__prop.FA.G.aov__nice <- nice(exp5__prop.FA.G.aov, correction = "GG", es = "ges")
+      exp5__prop.FA.G.aov <- afex::aov_ez('id', 'prop.FA.G', fun_aggregate = mean, exp5__prop.FA.G,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.FA.G__ttest <- exp5__prop.FA.G %>% filter(stim == "grey.word" | stim == "col.word") %>%
