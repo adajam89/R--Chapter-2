@@ -8403,14 +8403,11 @@ For the mean proportion of FAs, the second experiment of @ensor2019b showed an i
 ##    Ensor d-prime (exp1) - PSE elimination:                                                                  ##
 #################################################################################################################
 ##    Significant main effect, so perform Paired Samples t-test:
-      ensor.exp1__prop.hit__ttest2 <- ensor.exp1__prop.hit %>% filter(stim == "col.word" | 
-                                                                        stim == "grey.drawing") %>%
-                                      t.test(prop.hit~stim, paired=TRUE, data = .)
-##    Get means:
-      ensor.exp1__prop.hit.means__grey.drawing <- summary(ensor.exp1__prop.hit.means)$emmean[1] %>% round(2)
+      ensor.exp2__d.prime__ttest2 <- ensor.exp2__d.prime %>% filter(stim == "col.word" | 
+                                                                      stim == "grey.drawing") %>%
+                                      t.test(d.prime~stim, paired=TRUE, data = .)
 
-
-
+      
 #################################################################################################################
 ##    Ensor Prop hits (exp1) - PSE elimination:                                                                ##
 #################################################################################################################
