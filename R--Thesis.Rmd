@@ -8491,7 +8491,7 @@ Similarly, @ensor2019b also showed no difference in the number of hits between t
           kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
           column_spec(2:3, width = "1.8cm") %>%
           column_spec(4, width = "5cm") %>%
-          add_header_above(c(" " = 1, "*d'" = 3), bold = T) %>%
+          add_header_above(c(" " = 1, "Hits" = 3), bold = T) %>%
           pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
           pack_rows("Current study", 3, 0)
 ```
@@ -8537,11 +8537,11 @@ Finally, @ensor2019b also showed no difference in the number of FAs between the 
 `r table_numbering("exp5__table__ensor.vs.current__prop.FA2")`
 ```{r, echo=FALSE, cache=FALSE}
       exp5__table__ensor.vs.current__prop.FA2 %>%
-          kable("latex", booktabs = T, align = "rccc", escape = F) %>%
+          kable("latex", booktabs = T, align = "rccc", escape = FALSE) %>%
           kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
           column_spec(2:3, width = "1.8cm") %>%
           column_spec(4, width = "5cm") %>%
-          add_header_above(c(" " = 1, "*d'" = 3), bold = T) %>%
+          add_header_above(c(" " = 1, "FAs" = 3), bold = T) %>%
           pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
           pack_rows("Current study", 3, 0)
 ```
