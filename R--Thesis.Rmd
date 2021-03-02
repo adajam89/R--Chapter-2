@@ -9165,7 +9165,7 @@ To determine if recollection and familiarity response patterns were mediated by 
       exp5__d.prime.R__ttest <- exp5__d.prime.R %>% filter(stim == "grey.word" | stim == "col.word") %>%
                                 t.test(d.prime.R~stim, paired = TRUE, data = .)
       exp5__d.prime.R__ttest2 <- exp5__d.prime.R %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
-                                      t.test(d.prime.R~stim, paired = F, data = .)
+                                t.test(d.prime.R~stim, paired = TRUE, data = .)
   
 ##    Get means:
       exp5__d.prime.R.means <- emmeans(exp5__d.prime.R.aov, ~stim)
@@ -9179,9 +9179,6 @@ For responses assigned *Recollection*, there was a significant main effect of st
 **Distinctiveness manipulation (regular words vs. distinctive words):** Across each of the variables, the distinctive word stimuli indeed appeared to be more distinctive than the regular words. Planned comparisons showed that distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`) produced significantly more R hits than regular words (*M* = `r exp5__prop.hit.R.means__grey.word`), `r apa::apa(exp5__prop.hit.R__ttest, format = "rmarkdown", print = FALSE)`, and also significantly higher *d'* scores (distinctive words *M* = `r exp5__d.prime.R.means__col.word`, regular words *M* = `r exp5__d.prime.R.means__grey.word`, `r apa::apa(exp5__d.prime.R__ttest, format = "rmarkdown", print = FALSE)`. Conversely, regular words (*M* = `r exp5__prop.FA.R.means__grey.word`) produced a significantly higher proportion of FAs assigned R than distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`), `r apa::apa(exp5__prop.FA.R__ttest, format = "rmarkdown", print = FALSE)`. 
 
 **Elimination of the PSE (distinctive words vs. greyscale drawings):** Grey drawings (*M* = `r exp5__prop.hit.R.means__grey.drawing`) produced a significantly higher number of hits assigned R compared to the distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`), `r apa::apa(exp5__prop.hit.R__ttest2, format = "rmarkdown", print = FALSE)`. Interestingly, grey drawings (*M* = `r exp5__prop.FA.R.means__grey.drawing`) also produced a significantly higher number of FAs assigned R the distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`), `r apa::apa(exp5__prop.FA.R__ttest2, format = "rmarkdown", print = FALSE)`. For *d'* scores, there was an elimination of the PSE; distinctive words (*M* = `r exp5__d.prime.R.means__col.word`) and grey drawings (*M* = `r exp5__d.prime.R.means__grey.drawing`) showed no significant difference in mean *d'* scores, `r apa::apa(exp5__d.prime.R__ttest2, format = "rmarkdown", print = FALSE)`. 
-
-
-
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -9202,10 +9199,13 @@ For responses assigned *Recollection*, there was a significant main effect of st
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.hit.F__ttest <- exp5__prop.hit.F %>% filter(stim == "grey.word" | stim == "col.word") %>%
                                       t.test(prop.hit.F~stim, paired=TRUE, data = .)
+      exp5__prop.hit.F__ttest2 <- exp5__prop.hit.F %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+                                      t.test(prop.hit.F~stim, paired=TRUE, data = .)      
 ##    Get means:
       exp5__prop.hit.F.means <- emmeans(exp5__prop.hit.F.aov, ~stim)
       exp5__prop.hit.F.means__grey.word <- summary(exp5__prop.hit.F.means)$emmean[1] %>% round(2)
       exp5__prop.hit.F.means__col.word <- summary(exp5__prop.hit.F.means)$emmean[2] %>% round(2)
+      exp5__prop.hit.F.means__grey.drawing <- summary(exp5__prop.hit.F.means)$emmean[3] %>% round(2)
       
 ##################################################################################################################
 ##    Exp5 Prop Fam FAs:                                                                                        ##
@@ -9225,10 +9225,54 @@ For responses assigned *Recollection*, there was a significant main effect of st
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.FA.F__ttest <- exp5__prop.FA.F %>% filter(stim == "grey.word" | stim == "col.word") %>%
                                       t.test(prop.FA.F~stim, paired=TRUE, data = .)
+      exp5__prop.FA.F__ttest2 <- exp5__prop.FA.F %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+                                      t.test(prop.FA.F~stim, paired=TRUE, data = .)
 ##    Get means:
       exp5__prop.FA.F.means <- emmeans(exp5__prop.FA.F.aov, ~stim)
       exp5__prop.FA.F.means__grey.word <- summary(exp5__prop.FA.F.means)$emmean[1] %>% round(2)
       exp5__prop.FA.F.means__col.word <- summary(exp5__prop.FA.F.means)$emmean[2] %>% round(2)
+      exp5__prop.FA.F.means__grey.drawing <- summary(exp5__prop.FA.F.means)$emmean[3] %>% round(2)
+      
+##################################################################################################################
+##    Exp5 Prop Fam d-prime:                                                                                    ##
+##################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__d.prime.F.aov <- afex::aov_ez('id', 'd.prime.F', fun_aggregate = mean, exp5__d.prime.F,
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      exp5__d.prime.F.aov__sphericity <- test_sphericity(exp5__d.prime.F.aov)
+      exp5__d.prime.F.aov__sphericity <- exp5__d.prime.F.aov__sphericity[1,2]
+      
+##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+      exp5__d.prime.F.aov <- afex::aov_ez('id', 'd.prime.F', fun_aggregate = mean, exp5__d.prime.F,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      exp5__d.prime.F__ttest <- exp5__d.prime.F %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(d.prime.F~stim, paired=TRUE, data = .)
+      exp5__d.prime.F__ttest2 <- exp5__d.prime.F %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+                                      t.test(d.prime.F~stim, paired=TRUE, data = .)
+##    Get means:
+      exp5__d.prime.F.means <- emmeans(exp5__d.prime.F.aov, ~stim)
+      exp5__d.prime.F.means__grey.word <- summary(exp5__d.prime.F.means)$emmean[1] %>% round(2)
+      exp5__d.prime.F.means__col.word <- summary(exp5__d.prime.F.means)$emmean[2] %>% round(2)
+      exp5__d.prime.F.means__grey.drawing <- summary(exp5__d.prime.F.means)$emmean[3] %>% round(2)      
+```      
+
+&nbsp;
+
+For responses assigned *Familiarity*, there was again a significant main effect of stimuli format across all of the variables; the mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and mean *d'* scores [`r apa::anova_apa(exp5__d.prime.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. 
+
+**Distinctiveness manipulation (regular words vs. distinctive words):** 
+
+Regular words (*M* = `r exp5__prop.hit.F.means__grey.word`) produced significantly more F hits than the distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`), `r apa::apa(exp5__prop.hit.F__ttest, format = "rmarkdown", print = FALSE)`, and significantly more F FAs (regular words *M* = `r exp5__prop.FA.F.means__grey.word`, distinctive words *M* = `r exp5__prop.FA.F.means__col.word`, `r apa::apa(exp5__prop.FA.F__ttest, format = "rmarkdown", print = FALSE)`. *d'* scores, however, were significantly higher for the distinctive words (*M* = `r exp5__d.prime.F.means__col.word`) compared to the regular words (*M* = `r exp5__d.prime.F.means__grey.word`), `r apa::apa(exp5__d.prime.F__ttest, format = "rmarkdown", print = FALSE)`. 
+
+**Elimination of the PSE (distinctive words vs. greyscale drawings):** 
+
+For the proportion of F hits, the PSE was eliminated, with no significant difference between distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`) and grey drawings (*M* = `r exp5__prop.hit.F.means__grey.drawing`), `r apa::apa(exp5__prop.hit.F__ttest2, format = "rmarkdown", print = FALSE)`. Likewise, there was no significant difference for the number of FAs assigned F between distinctive words (*M* = `r exp5__prop.FA.F.means__col.word`) and grey drawings (*M* = `r exp5__prop.FA.F.means__grey.drawing`), `r apa::apa(exp5__prop.FA.F__ttest2, format = "rmarkdown", print = FALSE)`. For *d'* scores, there was again an elimination of the PSE; distinctive words (*M* = `r exp5__d.prime.F.means__col.word`) and grey drawings (*M* = `r exp5__d.prime.F.means__grey.drawing`) showed no significant difference in mean *d'* scores, `r apa::apa(exp5__d.prime.F__ttest2, format = "rmarkdown", print = FALSE)`.       
+      
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##    Exp5 Prop G hits:                                                                                         ##
 ##################################################################################################################
@@ -9247,10 +9291,13 @@ For responses assigned *Recollection*, there was a significant main effect of st
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.hit.G__ttest <- exp5__prop.hit.G %>% filter(stim == "grey.word" | stim == "col.word") %>%
                                       t.test(prop.hit.G~stim, paired=TRUE, data = .)
+      exp5__prop.hit.G__ttest2 <- exp5__prop.hit.G %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+                                      t.test(prop.hit.G~stim, paired=TRUE, data = .)      
 ##    Get means:
       exp5__prop.hit.G.means <- emmeans(exp5__prop.hit.G.aov, ~stim)
       exp5__prop.hit.G.means__grey.word <- summary(exp5__prop.hit.G.means)$emmean[1] %>% round(2)
-      exp5__prop.hit.G.means__col.word <- summary(exp5__prop.hit.G.means)$emmean[2] %>% round(2)   
+      exp5__prop.hit.G.means__col.word <- summary(exp5__prop.hit.G.means)$emmean[2] %>% round(2)
+      exp5__prop.hit.G.means__grey.drawing <- summary(exp5__prop.hit.G.means)$emmean[3] %>% round(2)
 ##################################################################################################################
 ##    Exp5 Prop Guess FAs:                                                                                      ##
 ##################################################################################################################
@@ -9269,23 +9316,55 @@ For responses assigned *Recollection*, there was a significant main effect of st
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.FA.G__ttest <- exp5__prop.FA.G %>% filter(stim == "grey.word" | stim == "col.word") %>%
                                       t.test(prop.FA.G~stim, paired=TRUE, data = .)
+      exp5__prop.FA.G__ttest2 <- exp5__prop.FA.G %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+                                      t.test(prop.FA.G~stim, paired=TRUE, data = .)      
 ##    Get means:
       exp5__prop.FA.G.means <- emmeans(exp5__prop.FA.G.aov, ~stim)
       exp5__prop.FA.G.means__grey.word <- summary(exp5__prop.FA.G.means)$emmean[1] %>% round(2)
-      exp5__prop.FA.G.means__col.word <- summary(exp5__prop.FA.G.means)$emmean[2] %>% round(2)            
+      exp5__prop.FA.G.means__col.word <- summary(exp5__prop.FA.G.means)$emmean[2] %>% round(2)  
+      exp5__prop.FA.G.means__grey.drawing <- summary(exp5__prop.FA.G.means)$emmean[3] %>% round(2)
+##################################################################################################################
+##    Exp5 Prop Guess d-prime:                                                                                  ##
+##################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__d.prime.G.aov <- afex::aov_ez('id', 'd.prime.G', fun_aggregate = mean, exp5__d.prime.G,
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      exp5__d.prime.G.aov__sphericity <- test_sphericity(exp5__d.prime.G.aov)
+      exp5__d.prime.G.aov__sphericity <- exp5__d.prime.G.aov__sphericity[1,2]
+      
+##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+      exp5__d.prime.G.aov <- afex::aov_ez('id', 'd.prime.G', fun_aggregate = mean, exp5__d.prime.G,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      exp5__d.prime.G__ttest <- exp5__d.prime.G %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(d.prime.G~stim, paired=TRUE, data = .)
+      exp5__d.prime.G__ttest2 <- exp5__d.prime.G %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+                                      t.test(d.prime.G~stim, paired=TRUE, data = .)      
+##    Get means:
+      exp5__d.prime.G.means <- emmeans(exp5__d.prime.G.aov, ~stim)
+      exp5__d.prime.G.means__grey.word <- summary(exp5__d.prime.G.means)$emmean[1] %>% round(2)
+      exp5__d.prime.G.means__col.word <- summary(exp5__d.prime.G.means)$emmean[2] %>% round(2)  
+      exp5__d.prime.G.means__grey.drawing <- summary(exp5__d.prime.G.means)$emmean[3] %>% round(2)      
 ```
 
+&nbsp;
 
-, F [`r apa::anova_apa(exp5__prop.hit.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and G [`r apa::anova_apa(exp5__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. 
+For responses assigned *Guesses*, there was a significant main effect of stimuli format for the mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] and mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. However, the main effect of mean *d'* scores did not reach significance [`r apa::anova_apa(exp5__d.prime.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. 
+
+**Distinctiveness manipulation (regular words vs. distinctive words):** 
+
+There was no difference in the number of hits assigned G between regular words (*M* = `r exp5__prop.hit.G.means__grey.word`) and distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`), `r apa::apa(exp5__prop.hit.G__ttest, format = "rmarkdown", print = FALSE)`, no difference in the number of FAs assigned G between regular words (*M* = `r exp5__prop.FA.G.means__grey.word`) and distinctive words (*M* = `r exp5__prop.FA.G.means__col.word`), `r apa::apa(exp5__prop.FA.G__ttest, format = "rmarkdown", print = FALSE)`, and 
+no difference in mean *d'* scores between regular words (*M* = `r exp5__d.prime.G.means__grey.word`) and distinctive words (*M* = `r exp5__d.prime.G.means__col.word`), `r apa::apa(exp5__d.prime.G__ttest, format = "rmarkdown", print = FALSE)`. 
+
+**Elimination of the PSE (distinctive words vs. greyscale drawings):** 
+
+For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`) produced a significantly higher proportion compared to the grey drawings (*M* = `r exp5__prop.hit.G.means__grey.drawing`), `r apa::apa(exp5__prop.hit.G__ttest2, format = "rmarkdown", print = FALSE)`.
 
 
-evidence of the distinctiveness manipulation;  Conversely, the regular words (*M* = `r exp5__prop.hit.F.means__grey.word`) showed a significantly higher proportion of F hits than the distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`), `r apa::apa(exp5__prop.hit.F__ttest, format = "rmarkdown", print = FALSE)`. The planned comparisons did not show a significant difference in the number of hits assigned *Guessing* between distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`) and regular words (*M* = `r exp5__prop.hit.G.means__grey.word`), `r apa::apa(exp5__prop.hit.G__ttest, format = "rmarkdown", print = FALSE)`.
-
-
-For the proportion of FAs assigned R/F/G, each of the ANOVAs again showed significant main effects of stimuli format:, F (`r apa::anova_apa(exp5__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), and G (`r apa::anova_apa(exp5__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`). 
-
-
- Likewise, there were more FAs assigned F for regular words (*M* = `r exp5__prop.FA.F.means__grey.word`) compared to the distinctive words (*M* = `r exp5__prop.FA.F.means__col.word`), `r apa::apa(exp5__prop.FA.F__ttest, format = "rmarkdown", print = FALSE)`. As before, the follow up comparisomns showed no difference in the number of FAs assigned G between distinctive (*M* = `r exp5__prop.FA.G.means__col.word`) and regular words (*M* = `r exp5__prop.FA.G.means__grey.word`), `r apa::apa(exp5__prop.FA.G__ttest, format = "rmarkdown", print = FALSE)`.
+There was no significant difference for the number of FAs assigned G between distinctive words (*M* = `r exp5__prop.FA.G.means__col.word`) and grey drawings (*M* = `r exp5__prop.FA.G.means__grey.drawing`), `r apa::apa(exp5__prop.FA.G__ttest2, format = "rmarkdown", print = FALSE)`, or mean *d'* scores (distinctive words *M* = `r exp5__d.prime.G.means__col.word`, grey drawings *M* = `r exp5__d.prime.G.means__grey.drawing`, `r apa::apa(exp5__d.prime.G__ttest2, format = "rmarkdown", print = FALSE)`.  
 
 \newpage
 ######----------------------------------------
