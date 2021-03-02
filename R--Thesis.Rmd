@@ -6464,8 +6464,7 @@ Roboto (light, 54pt)
     - Do they behave differently to each other? Are photos more distinctive than drawings?
         - drawings high vs photos high                      
                       
-### Data prep
-*d'* couldn't be calculated for grey words for 5 participants (zero hits and zero FAs, they did not respond *Old* at all), and for col words for 2 participants. Their data was not excluded entirely - just the data toward those stim types where the result was "inf".
+
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
@@ -7326,11 +7325,16 @@ exp5__FA_and_CR_calc_function <- function(x){
     add_tally(str_detect(stim, "col-photo") & response != "new",sort = FALSE, name = "FA__col.photo") %>%
     add_tally(str_detect(stim, "col-photo") & response == "new",sort = FALSE, name = "CR__col.photo") %>%
     
-    ##  Count stim-format totals by response option:
+##  Count stim-format totals by response option:
+    
     ##  Grey words:
-    add_tally(str_detect(stim, "grey-word") & response == "recollection", sort = FALSE,name = "FA.R__grey.word") %>%
-    add_tally(str_detect(stim, "grey-word") & response == "familiarity", sort = FALSE,name = "FA.F__grey.word") %>%
-    add_tally(str_detect(stim, "grey-word") & response == "guessing", sort = FALSE,name = "FA.G__grey.word") %>%
+          add_tally(str_detect(stim, "grey-word") & response == "recollection", sort = FALSE,
+                    name = "FA.R__grey.word") %>%
+          add_tally(str_detect(stim, "grey-word") & response == "familiarity", sort = FALSE,
+                    name = "FA.F__grey.word") %>%
+          add_tally(str_detect(stim, "grey-word") & response == "guessing", sort = FALSE,
+                    name = "FA.G__grey.word") %>%
+    
     ##  Distinctive words:
     add_tally(str_detect(stim, "distinctive-word") & response == "recollection", sort = FALSE, name = "FA.R__col.word") %>%
     add_tally(str_detect(stim, "distinctive-word") & response == "familiarity", sort = FALSE, name = "FA.F__col.word") %>%
@@ -7467,36 +7471,48 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
           mutate(prop.hit.R__grey.word = hit.R__grey.word / hit__grey.word) %>%
           mutate(prop.hit.F__grey.word = hit.F__grey.word / hit__grey.word) %>%
           mutate(prop.hit.G__grey.word = hit.G__grey.word / hit__grey.word) %>%
+          mutate_at(vars(prop.hit.R__grey.word, prop.hit.F__grey.word, prop.hit.G__grey.word), 
+                    ~replace(., is.nan(.), 0)) %>%
 ##    Distinctive words:
           mutate(prop.hit__col.word = hit__col.word / (hit__col.word + miss__col.word)) %>%
           mutate(prop.miss__col.word = miss__col.word / (hit__col.word + miss__col.word)) %>%
           mutate(prop.hit.R__col.word = hit.R__col.word / hit__col.word) %>%
           mutate(prop.hit.F__col.word = hit.F__col.word / hit__col.word) %>%
           mutate(prop.hit.G__col.word = hit.G__col.word / hit__col.word) %>%
+          mutate_at(vars(prop.hit.R__col.word, prop.hit.F__col.word, prop.hit.G__col.word), 
+                    ~replace(., is.nan(.), 0)) %>%
 ##    Grey drawings:
           mutate(prop.hit__grey.drawing = hit__grey.drawing / (hit__grey.drawing + miss__grey.drawing)) %>%
           mutate(prop.miss__grey.drawing = miss__grey.drawing / (hit__grey.drawing + miss__grey.drawing)) %>%
           mutate(prop.hit.R__grey.drawing = hit.R__grey.drawing / hit__grey.drawing) %>%
           mutate(prop.hit.F__grey.drawing = hit.F__grey.drawing / hit__grey.drawing) %>%
           mutate(prop.hit.G__grey.drawing = hit.G__grey.drawing / hit__grey.drawing) %>%   
+          mutate_at(vars(prop.hit.R__grey.drawing, prop.hit.F__grey.drawing, prop.hit.G__grey.drawing), 
+                    ~replace(., is.nan(.), 0)) %>%  
 ##    Col drawings:
           mutate(prop.hit__col.drawing = hit__col.drawing / (hit__col.drawing + miss__col.drawing)) %>%
           mutate(prop.miss__col.drawing = miss__col.drawing / (hit__col.drawing + miss__col.drawing)) %>%
           mutate(prop.hit.R__col.drawing = hit.R__col.drawing / hit__col.drawing) %>%
           mutate(prop.hit.F__col.drawing = hit.F__col.drawing / hit__col.drawing) %>%
-          mutate(prop.hit.G__col.drawing = hit.G__col.drawing / hit__col.drawing) %>%      
+          mutate(prop.hit.G__col.drawing = hit.G__col.drawing / hit__col.drawing) %>%
+          mutate_at(vars(prop.hit.R__col.drawing, prop.hit.F__col.drawing, prop.hit.G__col.drawing), 
+                    ~replace(., is.nan(.), 0)) %>%    
 ##    Grey photos:
           mutate(prop.hit__grey.photo = hit__grey.photo / (hit__grey.photo + miss__grey.photo)) %>%
           mutate(prop.miss__grey.photo = miss__grey.photo / (hit__grey.photo + miss__grey.photo)) %>%
           mutate(prop.hit.R__grey.photo = hit.R__grey.photo / hit__grey.photo) %>%
           mutate(prop.hit.F__grey.photo = hit.F__grey.photo / hit__grey.photo) %>%
-          mutate(prop.hit.G__grey.photo = hit.G__grey.photo / hit__grey.photo) %>%      
+          mutate(prop.hit.G__grey.photo = hit.G__grey.photo / hit__grey.photo) %>%   
+          mutate_at(vars(prop.hit.R__grey.photo, prop.hit.F__grey.photo, prop.hit.G__grey.photo), 
+                    ~replace(., is.nan(.), 0)) %>%      
 ##    Col photos:
           mutate(prop.hit__col.photo = hit__col.photo / (hit__col.photo + miss__col.photo)) %>%
           mutate(prop.miss__col.photo = miss__col.photo / (hit__col.photo + miss__col.photo)) %>%
           mutate(prop.hit.R__col.photo = hit.R__col.photo / hit__col.photo) %>%
           mutate(prop.hit.F__col.photo = hit.F__col.photo / hit__col.photo) %>%
           mutate(prop.hit.G__col.photo = hit.G__col.photo / hit__col.photo) %>%
+          mutate_at(vars(prop.hit.R__col.photo, prop.hit.F__col.photo, prop.hit.G__col.photo), 
+                    ~replace(., is.nan(.), 0)) %>%     
 #################################################################################################################
 ##    Calculate FA proportions:                                                                                ##
 #################################################################################################################
@@ -7506,36 +7522,48 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
           mutate(prop.FA.R__grey.word = FA.R__grey.word / FA__grey.word) %>%
           mutate(prop.FA.F__grey.word = FA.F__grey.word / FA__grey.word) %>%
           mutate(prop.FA.G__grey.word = FA.G__grey.word / FA__grey.word) %>%
+          mutate_at(vars(prop.FA.R__grey.word, prop.FA.F__grey.word, prop.FA.G__grey.word), 
+                    ~replace(., is.nan(.), 0)) %>%
 ##    Distinctive words:
           mutate(prop.FA__col.word = FA__col.word / (FA__col.word + CR__col.word)) %>%
           mutate(prop.CR__col.word = CR__col.word / (FA__col.word + CR__col.word)) %>%
           mutate(prop.FA.R__col.word = FA.R__col.word / FA__col.word) %>%
           mutate(prop.FA.F__col.word = FA.F__col.word / FA__col.word) %>%
           mutate(prop.FA.G__col.word = FA.G__col.word / FA__col.word) %>%
+          mutate_at(vars(prop.FA.R__col.word, prop.FA.F__col.word, prop.FA.G__col.word), 
+                    ~replace(., is.nan(.), 0)) %>%
 ##    Grey drawings:
           mutate(prop.FA__grey.drawing = FA__grey.drawing / (FA__grey.drawing + CR__grey.drawing)) %>%
           mutate(prop.CR__grey.drawing = CR__grey.drawing / (FA__grey.drawing + CR__grey.drawing)) %>%
           mutate(prop.FA.R__grey.drawing = FA.R__grey.drawing / FA__grey.drawing) %>%
           mutate(prop.FA.F__grey.drawing = FA.F__grey.drawing / FA__grey.drawing) %>%
           mutate(prop.FA.G__grey.drawing = FA.G__grey.drawing / FA__grey.drawing) %>%
+          mutate_at(vars(prop.FA.R__grey.drawing, prop.FA.F__grey.drawing, prop.FA.G__grey.drawing), 
+                    ~replace(., is.nan(.), 0)) %>%  
 ##    Col drawings:
           mutate(prop.FA__col.drawing = FA__col.drawing / (FA__col.drawing + CR__col.drawing)) %>%
           mutate(prop.CR__col.drawing = CR__col.drawing / (FA__col.drawing + CR__col.drawing)) %>%
           mutate(prop.FA.R__col.drawing = FA.R__col.drawing / FA__col.drawing) %>%
           mutate(prop.FA.F__col.drawing = FA.F__col.drawing / FA__col.drawing) %>%
           mutate(prop.FA.G__col.drawing = FA.G__col.drawing / FA__col.drawing) %>%
+          mutate_at(vars(prop.FA.R__col.drawing, prop.FA.F__col.drawing, prop.FA.G__col.drawing), 
+                    ~replace(., is.nan(.), 0)) %>%    
 ##    Grey photos:
           mutate(prop.FA__grey.photo = FA__grey.photo / (FA__grey.photo + CR__grey.photo)) %>%
           mutate(prop.CR__grey.photo = CR__grey.photo / (FA__grey.photo + CR__grey.photo)) %>%
           mutate(prop.FA.R__grey.photo = FA.R__grey.photo / FA__grey.photo) %>%
           mutate(prop.FA.F__grey.photo = FA.F__grey.photo / FA__grey.photo) %>%
           mutate(prop.FA.G__grey.photo = FA.G__grey.photo / FA__grey.photo) %>%
+          mutate_at(vars(prop.FA.R__grey.photo, prop.FA.F__grey.photo, prop.FA.G__grey.photo), 
+                    ~replace(., is.nan(.), 0)) %>%   
 ##    Col photos:
           mutate(prop.FA__col.photo = FA__col.photo / (FA__col.photo + CR__col.photo)) %>%
           mutate(prop.CR__col.photo = CR__col.photo / (FA__col.photo + CR__col.photo)) %>%
           mutate(prop.FA.R__col.photo = FA.R__col.photo / FA__col.photo) %>%
           mutate(prop.FA.F__col.photo = FA.F__col.photo / FA__col.photo) %>%
           mutate(prop.FA.G__col.photo = FA.G__col.photo / FA__col.photo) %>%
+          mutate_at(vars(prop.FA.R__col.photo, prop.FA.F__col.photo, prop.FA.G__col.photo), 
+                    ~replace(., is.nan(.), 0)) %>%     
 #################################################################################################################
 ##    Accuracy:                                                                                                ##
 #################################################################################################################
@@ -7566,67 +7594,282 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
 #################################################################################################################
 ##    Calculate d-prime:                                                                                       ##
 #################################################################################################################
+## Grey words:      
+    ## Overall:
       exp5__grey.word.d.prime <- exp5__test_stats %>%
-          select(id, prop.hit__grey.word, prop.FA__grey.word, prop.miss__grey.word, prop.CR__grey.word) %>%
+          select(id, prop.hit__grey.word, prop.FA__grey.word) %>%
           mutate(prop.hit__grey.word = replace(prop.hit__grey.word, prop.hit__grey.word == 1, .99)) %>%
+          mutate(prop.hit__grey.word = replace(prop.hit__grey.word, prop.hit__grey.word == 0, .01)) %>%
+          mutate(prop.FA__grey.word = replace(prop.FA__grey.word, prop.FA__grey.word == 1, .99)) %>%
           mutate(prop.FA__grey.word = replace(prop.FA__grey.word, prop.FA__grey.word == 0, .01)) %>%
           mutate(d.prime__grey.word = qnorm(prop.hit__grey.word) - qnorm(prop.FA__grey.word)) %>%
-          select(id, d.prime__grey.word) %>%
-          filter(d.prime__grey.word != -Inf)
-
+          select(id, d.prime__grey.word)
+    ## Rec:
+      exp5__grey.word.d.prime__rec <- exp5__test_stats %>%
+          select(id, prop.hit.R__grey.word, prop.FA.R__grey.word) %>%
+          mutate(prop.hit.R__grey.word = replace(prop.hit.R__grey.word, prop.hit.R__grey.word == 1, .99)) %>%
+          mutate(prop.hit.R__grey.word = replace(prop.hit.R__grey.word, prop.hit.R__grey.word == 0, .01)) %>%
+          mutate(prop.FA.R__grey.word = replace(prop.FA.R__grey.word, prop.FA.R__grey.word == 1, .99)) %>%
+          mutate(prop.FA.R__grey.word = replace(prop.FA.R__grey.word, prop.FA.R__grey.word == 0, .01)) %>%
+          mutate(d.prime.R__grey.word = qnorm(prop.hit.R__grey.word) - qnorm(prop.FA.R__grey.word)) %>%
+          select(id, d.prime.R__grey.word)
+    ## Fam:
+      exp5__grey.word.d.prime__fam <- exp5__test_stats %>%
+          select(id, prop.hit.F__grey.word, prop.FA.F__grey.word) %>%
+          mutate(prop.hit.F__grey.word = replace(prop.hit.F__grey.word, prop.hit.F__grey.word == 1, .99)) %>%
+          mutate(prop.hit.F__grey.word = replace(prop.hit.F__grey.word, prop.hit.F__grey.word == 0, .01)) %>%
+          mutate(prop.FA.F__grey.word = replace(prop.FA.F__grey.word, prop.FA.F__grey.word == 1, .99)) %>%
+          mutate(prop.FA.F__grey.word = replace(prop.FA.F__grey.word, prop.FA.F__grey.word == 0, .01)) %>%
+          mutate(d.prime.F__grey.word = qnorm(prop.hit.F__grey.word) - qnorm(prop.FA.F__grey.word)) %>%
+          select(id, d.prime.F__grey.word)
+    ## Guess:
+      exp5__grey.word.d.prime__guess <- exp5__test_stats %>%
+          select(id, prop.hit.G__grey.word, prop.FA.G__grey.word) %>%
+          mutate(prop.hit.G__grey.word = replace(prop.hit.G__grey.word, prop.hit.G__grey.word == 1, .99)) %>%
+          mutate(prop.hit.G__grey.word = replace(prop.hit.G__grey.word, prop.hit.G__grey.word == 0, .01)) %>%
+          mutate(prop.FA.G__grey.word = replace(prop.FA.G__grey.word, prop.FA.G__grey.word == 1, .99)) %>%
+          mutate(prop.FA.G__grey.word = replace(prop.FA.G__grey.word, prop.FA.G__grey.word == 0, .01)) %>%
+          mutate(d.prime.G__grey.word = qnorm(prop.hit.G__grey.word) - qnorm(prop.FA.G__grey.word)) %>%
+          select(id, d.prime.G__grey.word)      
+#---------------------------------------------------------------------------------------------------------------- 
+## Colour words:      
+    ## Overall:      
       exp5__col.word.d.prime <- exp5__test_stats %>%
           select(id, prop.hit__col.word, prop.FA__col.word) %>%
           mutate(prop.hit__col.word = replace(prop.hit__col.word, prop.hit__col.word == 1, .99)) %>%
+          mutate(prop.hit__col.word = replace(prop.hit__col.word, prop.hit__col.word == 0, .01)) %>%
+          mutate(prop.FA__col.word = replace(prop.FA__col.word, prop.FA__col.word == 1, .99)) %>%
           mutate(prop.FA__col.word = replace(prop.FA__col.word, prop.FA__col.word == 0, .01)) %>%
           mutate(d.prime__col.word = qnorm(prop.hit__col.word) - qnorm(prop.FA__col.word)) %>%
-          select(id, d.prime__col.word) %>%
-          filter(d.prime__grey.word != -Inf)
-
+          select(id, d.prime__col.word)
+    ## Rec:      
+      exp5__col.word.d.prime__rec <- exp5__test_stats %>%
+          select(id, prop.hit.R__col.word, prop.FA.R__col.word) %>%
+          mutate(prop.hit.R__col.word = replace(prop.hit.R__col.word, prop.hit.R__col.word == 1, .99)) %>%
+          mutate(prop.hit.R__col.word = replace(prop.hit.R__col.word, prop.hit.R__col.word == 0, .01)) %>%
+          mutate(prop.FA.R__col.word = replace(prop.FA.R__col.word, prop.FA.R__col.word == 1, .99)) %>%
+          mutate(prop.FA.R__col.word = replace(prop.FA.R__col.word, prop.FA.R__col.word == 0, .01)) %>%
+          mutate(d.prime.R__col.word = qnorm(prop.hit.R__col.word) - qnorm(prop.FA.R__col.word)) %>%
+          select(id, d.prime.R__col.word)
+    ## Fam:
+      exp5__col.word.d.prime__fam <- exp5__test_stats %>%
+          select(id, prop.hit.F__col.word, prop.FA.F__col.word) %>%
+          mutate(prop.hit.F__col.word = replace(prop.hit.F__col.word, prop.hit.F__col.word == 1, .99)) %>%
+          mutate(prop.hit.F__col.word = replace(prop.hit.F__col.word, prop.hit.F__col.word == 0, .01)) %>%
+          mutate(prop.FA.F__col.word = replace(prop.FA.F__col.word, prop.FA.F__col.word == 1, .99)) %>%
+          mutate(prop.FA.F__col.word = replace(prop.FA.F__col.word, prop.FA.F__col.word == 0, .01)) %>%
+          mutate(d.prime.F__col.word = qnorm(prop.hit.F__col.word) - qnorm(prop.FA.F__col.word)) %>%
+          select(id, d.prime.F__col.word)
+    ## Guess:
+      exp5__col.word.d.prime__guess <- exp5__test_stats %>%
+          select(id, prop.hit.G__col.word, prop.FA.G__col.word) %>%
+          mutate(prop.hit.G__col.word = replace(prop.hit.G__col.word, prop.hit.G__col.word == 1, .99)) %>%
+          mutate(prop.hit.G__col.word = replace(prop.hit.G__col.word, prop.hit.G__col.word == 0, .01)) %>%
+          mutate(prop.FA.G__col.word = replace(prop.FA.G__col.word, prop.FA.G__col.word == 1, .99)) %>%
+          mutate(prop.FA.G__col.word = replace(prop.FA.G__col.word, prop.FA.G__col.word == 0, .01)) %>%
+          mutate(d.prime.G__col.word = qnorm(prop.hit.G__col.word) - qnorm(prop.FA.G__col.word)) %>%
+          select(id, d.prime.G__col.word)      
+      
+#----------------------------------------------------------------------------------------------------------------      
+## Grey drawings:      
+    ## Overall:
       exp5__grey.drawing.d.prime <- exp5__test_stats %>%
           select(id, prop.hit__grey.drawing, prop.FA__grey.drawing) %>%
           mutate(prop.hit__grey.drawing = replace(prop.hit__grey.drawing, prop.hit__grey.drawing == 1, .99)) %>%
+          mutate(prop.hit__grey.drawing = replace(prop.hit__grey.drawing, prop.hit__grey.drawing == 0, .01)) %>%
+          mutate(prop.FA__grey.drawing = replace(prop.FA__grey.drawing, prop.FA__grey.drawing == 1, .99)) %>%
           mutate(prop.FA__grey.drawing = replace(prop.FA__grey.drawing, prop.FA__grey.drawing == 0, .01)) %>%
           mutate(d.prime__grey.drawing = qnorm(prop.hit__grey.drawing) - qnorm(prop.FA__grey.drawing)) %>%
-          select(id, d.prime__grey.drawing) %>%
-          filter(d.prime__grey.word != -Inf)
-
+          select(id, d.prime__grey.drawing)
+    ## Rec:      
+      exp5__grey.drawing.d.prime__rec <- exp5__test_stats %>%
+          select(id, prop.hit.R__grey.drawing, prop.FA.R__grey.drawing) %>%
+          mutate(prop.hit.R__grey.drawing = replace(prop.hit.R__grey.drawing, 
+                                                    prop.hit.R__grey.drawing == 1, .99)) %>%
+          mutate(prop.hit.R__grey.drawing = replace(prop.hit.R__grey.drawing, 
+                                                    prop.hit.R__grey.drawing == 0, .01)) %>%
+          mutate(prop.FA.R__grey.drawing = replace(prop.FA.R__grey.drawing, prop.FA.R__grey.drawing == 1, .99)) %>%
+          mutate(prop.FA.R__grey.drawing = replace(prop.FA.R__grey.drawing, prop.FA.R__grey.drawing == 0, .01)) %>%
+          mutate(d.prime.R__grey.drawing = qnorm(prop.hit.R__grey.drawing) - qnorm(prop.FA.R__grey.drawing)) %>%
+          select(id, d.prime.R__grey.drawing)
+    ## Fam:
+      exp5__grey.drawing.d.prime__fam <- exp5__test_stats %>%
+          select(id, prop.hit.F__grey.drawing, prop.FA.F__grey.drawing) %>%
+          mutate(prop.hit.F__grey.drawing = replace(prop.hit.F__grey.drawing, 
+                                                    prop.hit.F__grey.drawing == 1, .99)) %>%
+          mutate(prop.hit.F__grey.drawing = replace(prop.hit.F__grey.drawing, 
+                                                    prop.hit.F__grey.drawing == 0, .01)) %>%
+          mutate(prop.FA.F__grey.drawing = replace(prop.FA.F__grey.drawing, prop.FA.F__grey.drawing == 1, .99)) %>%
+          mutate(prop.FA.F__grey.drawing = replace(prop.FA.F__grey.drawing, prop.FA.F__grey.drawing == 0, .01)) %>%
+          mutate(d.prime.F__grey.drawing = qnorm(prop.hit.F__grey.drawing) - qnorm(prop.FA.F__grey.drawing)) %>%
+          select(id, d.prime.F__grey.drawing)
+    ## Guess:
+      exp5__grey.drawing.d.prime__guess <- exp5__test_stats %>%
+          select(id, prop.hit.G__grey.drawing, prop.FA.G__grey.drawing) %>%
+          mutate(prop.hit.G__grey.drawing = replace(prop.hit.G__grey.drawing, 
+                                                    prop.hit.G__grey.drawing == 1, .99)) %>%
+          mutate(prop.hit.G__grey.drawing = replace(prop.hit.G__grey.drawing, 
+                                                    prop.hit.G__grey.drawing == 0, .01)) %>%
+          mutate(prop.FA.G__grey.drawing = replace(prop.FA.G__grey.drawing, prop.FA.G__grey.drawing == 1, .99)) %>%
+          mutate(prop.FA.G__grey.drawing = replace(prop.FA.G__grey.drawing, prop.FA.G__grey.drawing == 0, .01)) %>%
+          mutate(d.prime.G__grey.drawing = qnorm(prop.hit.G__grey.drawing) - qnorm(prop.FA.G__grey.drawing)) %>%
+          select(id, d.prime.G__grey.drawing)
+      
+#---------------------------------------------------------------------------------------------------------------- 
+## Colour drawings:      
+    ## Overall:     
       exp5__col.drawing.d.prime <- exp5__test_stats %>%
           select(id, prop.hit__col.drawing, prop.FA__col.drawing) %>%
           mutate(prop.hit__col.drawing = replace(prop.hit__col.drawing, prop.hit__col.drawing == 1, .99)) %>%
+          mutate(prop.hit__col.drawing = replace(prop.hit__col.drawing, prop.hit__col.drawing == 0, .01)) %>%
+          mutate(prop.FA__col.drawing = replace(prop.FA__col.drawing, prop.FA__col.drawing == 1, .99)) %>%
           mutate(prop.FA__col.drawing = replace(prop.FA__col.drawing, prop.FA__col.drawing == 0, .01)) %>%
           mutate(d.prime__col.drawing = qnorm(prop.hit__col.drawing) - qnorm(prop.FA__col.drawing)) %>%
-          select(id, d.prime__col.drawing) %>%
-          filter(d.prime__grey.word != -Inf)
-      
+          select(id, d.prime__col.drawing)
+    ## Rec:      
+      exp5__col.drawing.d.prime__rec <- exp5__test_stats %>%
+          select(id, prop.hit.R__col.drawing, prop.FA.R__col.drawing) %>%
+          mutate(prop.hit.R__col.drawing = replace(prop.hit.R__col.drawing, 
+                                                    prop.hit.R__col.drawing == 1, .99)) %>%
+          mutate(prop.hit.R__col.drawing = replace(prop.hit.R__col.drawing, 
+                                                    prop.hit.R__col.drawing == 0, .01)) %>%
+          mutate(prop.FA.R__col.drawing = replace(prop.FA.R__col.drawing, prop.FA.R__col.drawing == 1, .99)) %>%
+          mutate(prop.FA.R__col.drawing = replace(prop.FA.R__col.drawing, prop.FA.R__col.drawing == 0, .01)) %>%
+          mutate(d.prime.R__col.drawing = qnorm(prop.hit.R__col.drawing) - qnorm(prop.FA.R__col.drawing)) %>%
+          select(id, d.prime.R__col.drawing)
+    ## Fam:
+      exp5__col.drawing.d.prime__fam <- exp5__test_stats %>%
+          select(id, prop.hit.F__col.drawing, prop.FA.F__col.drawing) %>%
+          mutate(prop.hit.F__col.drawing = replace(prop.hit.F__col.drawing, 
+                                                    prop.hit.F__col.drawing == 1, .99)) %>%
+          mutate(prop.hit.F__col.drawing = replace(prop.hit.F__col.drawing, 
+                                                    prop.hit.F__col.drawing == 0, .01)) %>%
+          mutate(prop.FA.F__col.drawing = replace(prop.FA.F__col.drawing, prop.FA.F__col.drawing == 1, .99)) %>%
+          mutate(prop.FA.F__col.drawing = replace(prop.FA.F__col.drawing, prop.FA.F__col.drawing == 0, .01)) %>%
+          mutate(d.prime.F__col.drawing = qnorm(prop.hit.F__col.drawing) - qnorm(prop.FA.F__col.drawing)) %>%
+          select(id, d.prime.F__col.drawing)
+    ## Guess:
+      exp5__col.drawing.d.prime__guess <- exp5__test_stats %>%
+          select(id, prop.hit.G__col.drawing, prop.FA.G__col.drawing) %>%
+          mutate(prop.hit.G__col.drawing = replace(prop.hit.G__col.drawing, 
+                                                    prop.hit.G__col.drawing == 1, .99)) %>%
+          mutate(prop.hit.G__col.drawing = replace(prop.hit.G__col.drawing, 
+                                                    prop.hit.G__col.drawing == 0, .01)) %>%
+          mutate(prop.FA.G__col.drawing = replace(prop.FA.G__col.drawing, prop.FA.G__col.drawing == 1, .99)) %>%
+          mutate(prop.FA.G__col.drawing = replace(prop.FA.G__col.drawing, prop.FA.G__col.drawing == 0, .01)) %>%
+          mutate(d.prime.G__col.drawing = qnorm(prop.hit.G__col.drawing) - qnorm(prop.FA.G__col.drawing)) %>%
+          select(id, d.prime.G__col.drawing)      
+#---------------------------------------------------------------------------------------------------------------- 
+## Grey photos:      
+    ## Overall:      
       exp5__grey.photo.d.prime <- exp5__test_stats %>%
           select(id, prop.hit__grey.photo, prop.FA__grey.photo) %>%
           mutate(prop.hit__grey.photo = replace(prop.hit__grey.photo, prop.hit__grey.photo == 1, .99)) %>%
+          mutate(prop.hit__grey.photo = replace(prop.hit__grey.photo, prop.hit__grey.photo == 0, .01)) %>%
+          mutate(prop.FA__grey.photo = replace(prop.FA__grey.photo, prop.FA__grey.photo == 1, .99)) %>%
           mutate(prop.FA__grey.photo = replace(prop.FA__grey.photo, prop.FA__grey.photo == 0, .01)) %>%
           mutate(d.prime__grey.photo = qnorm(prop.hit__grey.photo) - qnorm(prop.FA__grey.photo)) %>%
-          select(id, d.prime__grey.photo) %>%
-          filter(d.prime__grey.word != -Inf)
-      
+          select(id, d.prime__grey.photo)
+    ## Rec:      
+      exp5__grey.photo.d.prime__rec <- exp5__test_stats %>%
+          select(id, prop.hit.R__grey.photo, prop.FA.R__grey.photo) %>%
+          mutate(prop.hit.R__grey.photo = replace(prop.hit.R__grey.photo, 
+                                                    prop.hit.R__grey.photo == 1, .99)) %>%
+          mutate(prop.hit.R__grey.photo = replace(prop.hit.R__grey.photo, 
+                                                    prop.hit.R__grey.photo == 0, .01)) %>%
+          mutate(prop.FA.R__grey.photo = replace(prop.FA.R__grey.photo, prop.FA.R__grey.photo == 1, .99)) %>%
+          mutate(prop.FA.R__grey.photo = replace(prop.FA.R__grey.photo, prop.FA.R__grey.photo == 0, .01)) %>%
+          mutate(d.prime.R__grey.photo = qnorm(prop.hit.R__grey.photo) - qnorm(prop.FA.R__grey.photo)) %>%
+          select(id, d.prime.R__grey.photo)
+    ## Fam:
+      exp5__grey.photo.d.prime__fam <- exp5__test_stats %>%
+          select(id, prop.hit.F__grey.photo, prop.FA.F__grey.photo) %>%
+          mutate(prop.hit.F__grey.photo = replace(prop.hit.F__grey.photo, 
+                                                    prop.hit.F__grey.photo == 1, .99)) %>%
+          mutate(prop.hit.F__grey.photo = replace(prop.hit.F__grey.photo, 
+                                                    prop.hit.F__grey.photo == 0, .01)) %>%
+          mutate(prop.FA.F__grey.photo = replace(prop.FA.F__grey.photo, prop.FA.F__grey.photo == 1, .99)) %>%
+          mutate(prop.FA.F__grey.photo = replace(prop.FA.F__grey.photo, prop.FA.F__grey.photo == 0, .01)) %>%
+          mutate(d.prime.F__grey.photo = qnorm(prop.hit.F__grey.photo) - qnorm(prop.FA.F__grey.photo)) %>%
+          select(id, d.prime.F__grey.photo)
+    ## Guess:
+      exp5__grey.photo.d.prime__guess <- exp5__test_stats %>%
+          select(id, prop.hit.G__grey.photo, prop.FA.G__grey.photo) %>%
+          mutate(prop.hit.G__grey.photo = replace(prop.hit.G__grey.photo, 
+                                                    prop.hit.G__grey.photo == 1, .99)) %>%
+          mutate(prop.hit.G__grey.photo = replace(prop.hit.G__grey.photo, 
+                                                    prop.hit.G__grey.photo == 0, .01)) %>%
+          mutate(prop.FA.G__grey.photo = replace(prop.FA.G__grey.photo, prop.FA.G__grey.photo == 1, .99)) %>%
+          mutate(prop.FA.G__grey.photo = replace(prop.FA.G__grey.photo, prop.FA.G__grey.photo == 0, .01)) %>%
+          mutate(d.prime.G__grey.photo = qnorm(prop.hit.G__grey.photo) - qnorm(prop.FA.G__grey.photo)) %>%
+          select(id, d.prime.G__grey.photo)
+
+#---------------------------------------------------------------------------------------------------------------- ## Colour photos:      
+    ## Overall:         
       exp5__col.photo.d.prime <- exp5__test_stats %>%
           select(id, prop.hit__col.photo, prop.FA__col.photo) %>%
           mutate(prop.hit__col.photo = replace(prop.hit__col.photo, prop.hit__col.photo == 1, .99)) %>%
+          mutate(prop.hit__col.photo = replace(prop.hit__col.photo, prop.hit__col.photo == 0, .01)) %>%
+          mutate(prop.FA__col.photo = replace(prop.FA__col.photo, prop.FA__col.photo == 1, .99)) %>%
           mutate(prop.FA__col.photo = replace(prop.FA__col.photo, prop.FA__col.photo == 0, .01)) %>%
           mutate(d.prime__col.photo = qnorm(prop.hit__col.photo) - qnorm(prop.FA__col.photo)) %>%
-          select(id, d.prime__col.photo) %>%
-          filter(d.prime__grey.word != -Inf)
+          select(id, d.prime__col.photo)
+    ## Rec:      
+      exp5__col.photo.d.prime__rec <- exp5__test_stats %>%
+          select(id, prop.hit.R__col.photo, prop.FA.R__col.photo) %>%
+          mutate(prop.hit.R__col.photo = replace(prop.hit.R__col.photo, 
+                                                    prop.hit.R__col.photo == 1, .99)) %>%
+          mutate(prop.hit.R__col.photo = replace(prop.hit.R__col.photo, 
+                                                    prop.hit.R__col.photo == 0, .01)) %>%
+          mutate(prop.FA.R__col.photo = replace(prop.FA.R__col.photo, prop.FA.R__col.photo == 1, .99)) %>%
+          mutate(prop.FA.R__col.photo = replace(prop.FA.R__col.photo, prop.FA.R__col.photo == 0, .01)) %>%
+          mutate(d.prime.R__col.photo = qnorm(prop.hit.R__col.photo) - qnorm(prop.FA.R__col.photo)) %>%
+          select(id, d.prime.R__col.photo)
+    ## Fam:
+      exp5__col.photo.d.prime__fam <- exp5__test_stats %>%
+          select(id, prop.hit.F__col.photo, prop.FA.F__col.photo) %>%
+          mutate(prop.hit.F__col.photo = replace(prop.hit.F__col.photo, 
+                                                    prop.hit.F__col.photo == 1, .99)) %>%
+          mutate(prop.hit.F__col.photo = replace(prop.hit.F__col.photo, 
+                                                    prop.hit.F__col.photo == 0, .01)) %>%
+          mutate(prop.FA.F__col.photo = replace(prop.FA.F__col.photo, prop.FA.F__col.photo == 1, .99)) %>%
+          mutate(prop.FA.F__col.photo = replace(prop.FA.F__col.photo, prop.FA.F__col.photo == 0, .01)) %>%
+          mutate(d.prime.F__col.photo = qnorm(prop.hit.F__col.photo) - qnorm(prop.FA.F__col.photo)) %>%
+          select(id, d.prime.F__col.photo)      
+    ## Guess:
+      exp5__col.photo.d.prime__guess <- exp5__test_stats %>%
+          select(id, prop.hit.G__col.photo, prop.FA.G__col.photo) %>%
+          mutate(prop.hit.G__col.photo = replace(prop.hit.G__col.photo, 
+                                                    prop.hit.G__col.photo == 1, .99)) %>%
+          mutate(prop.hit.G__col.photo = replace(prop.hit.G__col.photo, 
+                                                    prop.hit.G__col.photo == 0, .01)) %>%
+          mutate(prop.FA.G__col.photo = replace(prop.FA.G__col.photo, prop.FA.G__col.photo == 1, .99)) %>%
+          mutate(prop.FA.G__col.photo = replace(prop.FA.G__col.photo, prop.FA.G__col.photo == 0, .01)) %>%
+          mutate(d.prime.G__col.photo = qnorm(prop.hit.G__col.photo) - qnorm(prop.FA.G__col.photo)) %>%
+          select(id, d.prime.G__col.photo)   
       
 ##    Add new d'prime calculations to 'exp5__test_stats' df: 
       exp5__test_stats <- exp5__test_stats %>%
-          right_join(exp5__grey.word.d.prime) %>%
-          right_join(exp5__col.word.d.prime) %>%
-          right_join(exp5__grey.drawing.d.prime) %>%
-          right_join(exp5__col.drawing.d.prime) %>%
-          right_join(exp5__grey.photo.d.prime) %>%
-          right_join(exp5__col.photo.d.prime)
-      
+          right_join(exp5__grey.word.d.prime) %>% right_join(exp5__col.word.d.prime) %>%
+          right_join(exp5__grey.drawing.d.prime) %>% right_join(exp5__col.drawing.d.prime) %>%
+          right_join(exp5__grey.photo.d.prime) %>% right_join(exp5__col.photo.d.prime) %>%
+        
+          right_join(exp5__grey.word.d.prime__rec) %>% right_join(exp5__grey.word.d.prime__fam) %>%
+          right_join(exp5__grey.word.d.prime__guess) %>% right_join(exp5__col.word.d.prime__rec) %>% 
+          right_join(exp5__col.word.d.prime__fam) %>% right_join(exp5__col.word.d.prime__guess) %>%
+
+          right_join(exp5__grey.drawing.d.prime__rec) %>% right_join(exp5__grey.drawing.d.prime__fam) %>%
+          right_join(exp5__grey.drawing.d.prime__guess) %>% right_join(exp5__col.drawing.d.prime__rec) %>% 
+          right_join(exp5__col.drawing.d.prime__fam) %>% right_join(exp5__col.drawing.d.prime__guess) %>%
+          right_join(exp5__grey.photo.d.prime__rec) %>% right_join(exp5__grey.photo.d.prime__fam) %>%
+          right_join(exp5__grey.photo.d.prime__guess) %>% right_join(exp5__col.photo.d.prime__rec) %>% 
+          right_join(exp5__col.photo.d.prime__fam) %>% right_join(exp5__col.photo.d.prime__guess)
+
 ##    Merge 'exp5__participant_info' and 'exp5__test_stats' to create final tidy df: 
       exp5__final_data <- exp5__participant_info %>%
           right_join(exp5__test_stats) %>%
           arrange(prolific_id, study_list, test_list)
+      
 #################################################################################################################
 ##    Apply exclusion criteria:                                                                                ##
 #################################################################################################################
@@ -7667,6 +7910,28 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
           gather(key = "stim", value = "d.prime", d.prime__grey.word, d.prime__col.word, d.prime__grey.drawing,
                  d.prime__col.drawing, d.prime__grey.photo, d.prime__col.photo) %>%
           mutate(stim = str_remove(stim, "d.prime__"))
+      
+      exp5__d.prime.R <- exp5__final_data %>%
+          select(id, d.prime.R__grey.word, d.prime.R__col.word, d.prime.R__grey.drawing, d.prime.R__col.drawing,
+                 d.prime.R__grey.photo, d.prime.R__col.photo) %>%
+          gather(key = "stim", value = "d.prime.R", d.prime.R__grey.word, d.prime.R__col.word, 
+                 d.prime.R__grey.drawing, d.prime.R__col.drawing, d.prime.R__grey.photo, d.prime.R__col.photo) %>%
+          mutate(stim = str_remove(stim, "d.prime.R__"))
+      
+      exp5__d.prime.F <- exp5__final_data %>%
+          select(id, d.prime.F__grey.word, d.prime.F__col.word, d.prime.F__grey.drawing, d.prime.F__col.drawing,
+                 d.prime.F__grey.photo, d.prime.F__col.photo) %>%
+          gather(key = "stim", value = "d.prime.F", d.prime.F__grey.word, d.prime.F__col.word, 
+                 d.prime.F__grey.drawing, d.prime.F__col.drawing, d.prime.F__grey.photo, d.prime.F__col.photo) %>%
+          mutate(stim = str_remove(stim, "d.prime.F__"))
+            
+      exp5__d.prime.G <- exp5__final_data %>%
+          select(id, d.prime.G__grey.word, d.prime.G__col.word, d.prime.G__grey.drawing, d.prime.G__col.drawing,
+                 d.prime.G__grey.photo, d.prime.G__col.photo) %>%
+          gather(key = "stim", value = "d.prime.G", d.prime.G__grey.word, d.prime.G__col.word, 
+                 d.prime.G__grey.drawing, d.prime.G__col.drawing, d.prime.G__grey.photo, d.prime.G__col.photo) %>%
+          mutate(stim = str_remove(stim, "d.prime.G__"))
+      
       exp5__prop.hit <- exp5__final_data %>%
           select(id, prop.hit__grey.word, prop.hit__col.word, prop.hit__grey.drawing, prop.hit__col.drawing, 
                  prop.hit__grey.photo, prop.hit__col.photo) %>%
@@ -7772,9 +8037,9 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
 ##    Create figure:  
       exp5__figure__rfg.hits <-
           ggplot(exp5__figure__rfg.hits.data, aes(x = stim_format, y = emmean, fill = rfg)) +
-          scale_fill_manual("legend",values = c("Recollection" = "#1B4251", 
-                                                "Familiarity" = "#6A6C93", 
-                                                "Guessing" = "#D491CA")) + 
+          scale_fill_manual("legend",values = c("Recollection" = "#845E7D", 
+                                                "Familiarity" = "#428495", 
+                                                "Guessing" = "#529B6A")) + 
           geom_col(position = position_dodge()) +
           geom_errorbar(aes(ymin = exp5__figure__rfg.hits.data$ymin, 
                             ymax = exp5__figure__rfg.hits.data$ymax), width = 0.2, size = 0.3, 
@@ -7797,11 +8062,104 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
             legend.spacing.y = unit(-1, "pt"),
             plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
             plot.margin = margin(20, 20, 24, 30))
+  
+##    Prep data for RFG d' figure:
+      exp5__d.prime.R__grey.word <- mean_se(exp5__d.prime.R %>% filter(stim == "grey.word") %>% pull(d.prime.R))
+      exp5__d.prime.R__col.word <- mean_se(exp5__d.prime.R %>% filter(stim == "col.word") %>% pull(d.prime.R))
+      exp5__d.prime.R__grey.drawing <- 
+          mean_se(exp5__d.prime.R %>% filter(stim == "grey.drawing") %>% pull(d.prime.R))
+      exp5__d.prime.R__col.drawing <- 
+        mean_se(exp5__d.prime.R %>% filter(stim == "col.drawing") %>% pull(d.prime.R))
+      exp5__d.prime.R__grey.photo <- mean_se(exp5__d.prime.R %>% filter(stim == "grey.photo") %>% pull(d.prime.R))
+      exp5__d.prime.R__col.photo <- mean_se(exp5__d.prime.R %>% filter(stim == "col.photo") %>% pull(d.prime.R))
       
-
+      exp5__d.prime.F__grey.word <- mean_se(exp5__d.prime.F %>% filter(stim == "grey.word") %>% pull(d.prime.F))
+      exp5__d.prime.F__col.word <- mean_se(exp5__d.prime.F %>% filter(stim == "col.word") %>% pull(d.prime.F))
+      exp5__d.prime.F__grey.drawing <- 
+          mean_se(exp5__d.prime.F %>% filter(stim == "grey.drawing") %>% pull(d.prime.F))
+      exp5__d.prime.F__col.drawing <- 
+        mean_se(exp5__d.prime.F %>% filter(stim == "col.drawing") %>% pull(d.prime.F))
+      exp5__d.prime.F__grey.photo <- mean_se(exp5__d.prime.F %>% filter(stim == "grey.photo") %>% pull(d.prime.F))
+      exp5__d.prime.F__col.photo <- mean_se(exp5__d.prime.F %>% filter(stim == "col.photo") %>% pull(d.prime.F))
       
-      
-      
+      exp5__d.prime.G__grey.word <- mean_se(exp5__d.prime.G %>% filter(stim == "grey.word") %>% pull(d.prime.G))
+      exp5__d.prime.G__col.word <- mean_se(exp5__d.prime.G %>% filter(stim == "col.word") %>% pull(d.prime.G))
+      exp5__d.prime.G__grey.drawing <- 
+          mean_se(exp5__d.prime.G %>% filter(stim == "grey.drawing") %>% pull(d.prime.G))
+      exp5__d.prime.G__col.drawing <- 
+        mean_se(exp5__d.prime.G %>% filter(stim == "col.drawing") %>% pull(d.prime.G))
+      exp5__d.prime.G__grey.photo <- mean_se(exp5__d.prime.G %>% filter(stim == "grey.photo") %>% pull(d.prime.G))
+      exp5__d.prime.G__col.photo <- mean_se(exp5__d.prime.G %>% filter(stim == "col.photo") %>% pull(d.prime.G))      
+      exp5__figure__rfg.d.prime.data <- 
+          tribble(~"rfg", ~"stim_format", ~"emmean", ~"ymin", ~"ymax",
+                  "Recollection", "Regular words", exp5__d.prime.R__grey.word$y, 
+                        exp5__d.prime.R__grey.word$ymin, exp5__d.prime.R__grey.word$ymax,
+                  "Recollection", "Distinctive words", exp5__d.prime.R__col.word$y, 
+                        exp5__d.prime.R__col.word$ymin, exp5__d.prime.R__col.word$ymax,
+                  "Recollection", "Grey drawings", exp5__d.prime.R__grey.drawing$y, 
+                        exp5__d.prime.R__grey.drawing$ymin, exp5__d.prime.R__grey.drawing$ymax,                  
+                  "Recollection", "Colour drawings", exp5__d.prime.R__col.drawing$y, 
+                        exp5__d.prime.R__col.drawing$ymin, exp5__d.prime.R__col.drawing$ymax,                    
+                  "Recollection", "Grey photos", exp5__d.prime.R__grey.photo$y, 
+                        exp5__d.prime.R__grey.photo$ymin, exp5__d.prime.R__grey.photo$ymax,                  
+                  "Recollection", "Colour photos", exp5__d.prime.R__col.photo$y, 
+                        exp5__d.prime.R__col.photo$ymin, exp5__d.prime.R__col.photo$ymax,
+                  "Familiarity", "Regular words", exp5__d.prime.F__grey.word$y, 
+                        exp5__d.prime.F__grey.word$ymin, exp5__d.prime.F__grey.word$ymax,
+                  "Familiarity", "Distinctive words", exp5__d.prime.F__col.word$y, 
+                        exp5__d.prime.F__col.word$ymin, exp5__d.prime.F__col.word$ymax,
+                  "Familiarity", "Grey drawings", exp5__d.prime.F__grey.drawing$y, 
+                        exp5__d.prime.F__grey.drawing$ymin, exp5__d.prime.F__grey.drawing$ymax,                  
+                  "Familiarity", "Colour drawings", exp5__d.prime.F__col.drawing$y, 
+                        exp5__d.prime.F__col.drawing$ymin, exp5__d.prime.F__col.drawing$ymax,                    
+                  "Familiarity", "Grey photos", exp5__d.prime.F__grey.photo$y, 
+                        exp5__d.prime.F__grey.photo$ymin, exp5__d.prime.F__grey.photo$ymax,                  
+                  "Familiarity", "Colour photos", exp5__d.prime.F__col.photo$y, 
+                        exp5__d.prime.F__col.photo$ymin, exp5__d.prime.F__col.photo$ymax,
+                  "Guessing", "Regular words", exp5__d.prime.G__grey.word$y, 
+                        exp5__d.prime.G__grey.word$ymin, exp5__d.prime.G__grey.word$ymax,
+                  "Guessing", "Distinctive words", exp5__d.prime.G__col.word$y, 
+                        exp5__d.prime.G__col.word$ymin, exp5__d.prime.G__col.word$ymax,
+                  "Guessing", "Grey drawings", exp5__d.prime.G__grey.drawing$y, 
+                        exp5__d.prime.G__grey.drawing$ymin, exp5__d.prime.G__grey.drawing$ymax,                  
+                  "Guessing", "Colour drawings", exp5__d.prime.G__col.drawing$y, 
+                        exp5__d.prime.G__col.drawing$ymin, exp5__d.prime.G__col.drawing$ymax,                    
+                  "Guessing", "Grey photos", exp5__d.prime.G__grey.photo$y, 
+                        exp5__d.prime.G__grey.photo$ymin, exp5__d.prime.G__grey.photo$ymax,                  
+                  "Guessing", "Colour photos", exp5__d.prime.G__col.photo$y, 
+                        exp5__d.prime.G__col.photo$ymin, exp5__d.prime.G__col.photo$ymax) %>%
+                  transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
+                  transform(stim_format = factor(stim_format, levels=c("Regular words","Distinctive words",
+                                                                       "Grey drawings", "Colour drawings", 
+                                                                       "Grey photos", "Colour photos")))
+##    Create figure:  
+      exp5__figure__rfg.d.prime <-
+          ggplot(exp5__figure__rfg.d.prime.data, aes(x = stim_format, y = emmean, fill = stim_format)) +
+          scale_fill_manual("legend", values = c("Grey\nwords" = "#845E7D",
+                                                 "Colour\nwords" = "#6E6E8F",
+                                                 "Grey\ndrawings" = "#517D96",
+                                                 "Colour\ndrawings" = "#368A91",
+                                                 "Grey\nphotos" = "#359481",
+                                                 "Colour\nphotos" = "#529B6A")) +
+          geom_col(position = position_dodge()) +
+          geom_errorbar(aes(ymin = exp5__figure__rfg.d.prime.data$ymin, 
+                            ymax = exp5__figure__rfg.d.prime.data$ymax), width = 0.2, size = 0.3, 
+                        position = position_dodge(0.9)) +
+          facet_wrap(~rfg, strip.position = "bottom") +
+          labs(x = "Recognition judgement", y = "Mean d-prime scores") +
+          scale_y_continuous(expand = c(0, 0), limits = c(-1, 4)) +
+          theme_classic() +
+          theme(
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
+            axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            legend.position = "none",
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))
+    
 #----------------------------------------------------------------------------------------------------------------
 #     Ensor Experiment 1 data:
 #----------------------------------------------------------------------------------------------------------------
@@ -7881,6 +8239,8 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
       ensor.exp1__grey.word.d.prime <- ensor.exp1.data %>%
           select(id, prop.hit__grey.word, prop.FA__grey.word) %>%
           mutate(prop.hit__grey.word = replace(prop.hit__grey.word, prop.hit__grey.word == 1, .99)) %>%
+          mutate(prop.hit__grey.word = replace(prop.hit__grey.word, prop.hit__grey.word == 0, .01)) %>%
+          mutate(prop.FA__grey.word = replace(prop.FA__grey.word, prop.FA__grey.word == 1, .99)) %>%
           mutate(prop.FA__grey.word = replace(prop.FA__grey.word, prop.FA__grey.word == 0, .01)) %>%
           mutate(dprime__grey.word = qnorm(prop.hit__grey.word) - qnorm(prop.FA__grey.word)) %>%
           select(id, dprime__grey.word)
@@ -7888,18 +8248,24 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
       ensor.exp1__col.word.d.prime <- ensor.exp1.data %>%
           select(id, prop.hit__col.word, prop.FA__col.word) %>%
           mutate(prop.hit__col.word = replace(prop.hit__col.word, prop.hit__col.word == 1, .99)) %>%
+          mutate(prop.hit__col.word = replace(prop.hit__col.word, prop.hit__col.word == 0, .01)) %>%
+          mutate(prop.FA__col.word = replace(prop.FA__col.word, prop.FA__col.word == 1, .99)) %>%
           mutate(prop.FA__col.word = replace(prop.FA__col.word, prop.FA__col.word == 0, .01)) %>%
           mutate(dprime__col.word = qnorm(prop.hit__col.word) - qnorm(prop.FA__col.word)) %>%
           select(id, dprime__col.word)
       ensor.exp1__grey.drawing.d.prime <- ensor.exp1.data %>%
           select(id, prop.hit__grey.drawing, prop.FA__grey.drawing) %>%
           mutate(prop.hit__grey.drawing = replace(prop.hit__grey.drawing, prop.hit__grey.drawing == 1, .99)) %>%
+          mutate(prop.hit__grey.drawing = replace(prop.hit__grey.drawing, prop.hit__grey.drawing == 0, .01)) %>%
+          mutate(prop.FA__grey.drawing = replace(prop.FA__grey.drawing, prop.FA__grey.drawing == 1, .99)) %>%
           mutate(prop.FA__grey.drawing = replace(prop.FA__grey.drawing, prop.FA__grey.drawing == 0, .01)) %>%
           mutate(dprime__grey.drawing = qnorm(prop.hit__grey.drawing) - qnorm(prop.FA__grey.drawing)) %>%
           select(id, dprime__grey.drawing)
       ensor.exp1__col.drawing.d.prime <- ensor.exp1.data %>%
           select(id, prop.hit__col.drawing, prop.FA__col.drawing) %>%
           mutate(prop.hit__col.drawing = replace(prop.hit__col.drawing, prop.hit__col.drawing == 1, .99)) %>%
+          mutate(prop.hit__col.drawing = replace(prop.hit__col.drawing, prop.hit__col.drawing == 0, .01)) %>%
+          mutate(prop.FA__col.drawing = replace(prop.FA__col.drawing, prop.FA__col.drawing == 1, .99)) %>%
           mutate(prop.FA__col.drawing = replace(prop.FA__col.drawing, prop.FA__col.drawing == 0, .01)) %>%
           mutate(dprime__col.drawing = qnorm(prop.hit__col.drawing) - qnorm(prop.FA__col.drawing)) %>%
           select(id, dprime__col.drawing)
@@ -8003,31 +8369,35 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
       ensor.exp2__grey.word.d.prime <- ensor.exp2.data %>%
           select(id, prop.hit__grey.word, prop.FA__grey.word) %>%
           mutate(prop.hit__grey.word = replace(prop.hit__grey.word, prop.hit__grey.word == 1, .99)) %>%
+          mutate(prop.hit__grey.word = replace(prop.hit__grey.word, prop.hit__grey.word == 0, .01)) %>%
+          mutate(prop.FA__grey.word = replace(prop.FA__grey.word, prop.FA__grey.word == 1, .99)) %>%
           mutate(prop.FA__grey.word = replace(prop.FA__grey.word, prop.FA__grey.word == 0, .01)) %>%
           mutate(dprime__grey.word = qnorm(prop.hit__grey.word) - qnorm(prop.FA__grey.word)) %>%
           select(id, dprime__grey.word)
-          #summarise(mean(dprime)) %>% pull() %>% round(3)
       ensor.exp2__col.word.d.prime <- ensor.exp2.data %>%
           select(id, prop.hit__col.word, prop.FA__col.word) %>%
           mutate(prop.hit__col.word = replace(prop.hit__col.word, prop.hit__col.word == 1, .99)) %>%
+          mutate(prop.hit__col.word = replace(prop.hit__col.word, prop.hit__col.word == 0, .01)) %>%
+          mutate(prop.FA__col.word = replace(prop.FA__col.word, prop.FA__col.word == 1, .99)) %>%
           mutate(prop.FA__col.word = replace(prop.FA__col.word, prop.FA__col.word == 0, .01)) %>%
           mutate(dprime__col.word = qnorm(prop.hit__col.word) - qnorm(prop.FA__col.word)) %>%
           select(id, dprime__col.word)
-          #summarise(mean(dprime)) %>% pull() %>% round(3)
       ensor.exp2__grey.drawing.d.prime <- ensor.exp2.data %>%
           select(id, prop.hit__grey.drawing, prop.FA__grey.drawing) %>%
           mutate(prop.hit__grey.drawing = replace(prop.hit__grey.drawing, prop.hit__grey.drawing == 1, .99)) %>%
+          mutate(prop.hit__grey.drawing = replace(prop.hit__grey.drawing, prop.hit__grey.drawing == 0, .01)) %>%
+          mutate(prop.FA__grey.drawing = replace(prop.FA__grey.drawing, prop.FA__grey.drawing == 1, .99)) %>%
           mutate(prop.FA__grey.drawing = replace(prop.FA__grey.drawing, prop.FA__grey.drawing == 0, .01)) %>%
           mutate(dprime__grey.drawing = qnorm(prop.hit__grey.drawing) - qnorm(prop.FA__grey.drawing)) %>%
           select(id, dprime__grey.drawing)
-          #summarise(mean(dprime)) %>% pull() %>% round(3)
       ensor.exp2__col.drawing.d.prime <- ensor.exp2.data %>%
           select(id, prop.hit__col.drawing, prop.FA__col.drawing) %>%
           mutate(prop.hit__col.drawing = replace(prop.hit__col.drawing, prop.hit__col.drawing == 1, .99)) %>%
+          mutate(prop.hit__col.drawing = replace(prop.hit__col.drawing, prop.hit__col.drawing == 0, .01)) %>%
+          mutate(prop.FA__col.drawing = replace(prop.FA__col.drawing, prop.FA__col.drawing == 1, .99)) %>%
           mutate(prop.FA__col.drawing = replace(prop.FA__col.drawing, prop.FA__col.drawing == 0, .01)) %>%
           mutate(dprime__col.drawing = qnorm(prop.hit__col.drawing) - qnorm(prop.FA__col.drawing)) %>%
           select(id, dprime__col.drawing)
-          #summarise(mean(dprime)) %>% pull() %>% round(3)
       ensor.exp2__d.prime.data <- right_join(ensor.exp2__grey.word.d.prime, ensor.exp2__col.word.d.prime) %>%
           right_join(ensor.exp2__grey.drawing.d.prime) %>%
           right_join(ensor.exp2__col.drawing.d.prime)
@@ -8053,10 +8423,6 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
 
 ### Results
 Comparisons are made in relation to the first two experiments of @ensor2019b, the methodologies of which were identical to one another, apart from the number of trials involved (one experiment consisting of 40 trials at study and 80 at test, and the other consisting of 80 trials at study and 160 at test). With regard to trial numbers, the current study sits between the two @ensor2019b experiments, with 60 trials at study and 120 at test.
-
-\newpage
-#### Manipulation check
-To establish whether the distinctive word stimuli were indeed more distinctive than regular words, a series of one-way repeated measures analyses of variance (ANOVA) - using six factors (grey & distinctive words, grey & colour drawings, grey & colour photographs) - were conducted on the mean scores of *d'*, mean proportions of hits, and mean proportion of FAs. Sphericity was assessed using Mauchly's Test; when the assumption of sphericity was violated, Greenhouse-Geisser corrections were applied. 
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -8110,13 +8476,7 @@ To establish whether the distinctive word stimuli were indeed more distinctive t
 ##################################################################################################################
 ##    Exp5 d-prime:                                                                                             ##
 ##################################################################################################################
-##    One-way repeated measures ANOVA:
-      #exp5__d.prime.analysis <- exp5__d.prime %>%
-      #    arrange(d.prime) %>% 
-      #    filter(id != 2413133 & id != 2517279 & id != 2726395 & id != 2523158 & id != 2419641 & id != 2447369 &
-      #           id != 2501529)
-        
-      exp5__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, exp5__d.prime.analysis, 
+      exp5__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, exp5__d.prime, 
                                         within = 'stim', anova_table=list(correction = "none", es = "none"))
 
 ##    Mauchlys test of sphericity:
@@ -8124,11 +8484,11 @@ To establish whether the distinctive word stimuli were indeed more distinctive t
       exp5__d.prime.aov__sphericity <- exp5__d.prime.aov__sphericity[1,2]
       
 ##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, exp5__d.prime.analysis,
+      exp5__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, exp5__d.prime,
                                         within = 'stim', anova_table=list(correction = "GG", es = "ges"))
 #----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
-      exp5__d.prime__ttest <- exp5__d.prime.analysis %>% filter(stim == "grey.word" | stim == "col.word") %>%
+      exp5__d.prime__ttest <- exp5__d.prime %>% filter(stim == "grey.word" | stim == "col.word") %>%
                                       t.test(d.prime~stim, paired=TRUE, data = .)
 ##    Get means:
       exp5__d.prime.means <- emmeans(exp5__d.prime.aov, ~stim)
@@ -8197,12 +8557,12 @@ To establish whether the distinctive word stimuli were indeed more distinctive t
       
       exp5__manip.check__figure <-
           ggplot(exp5__manip.check__figure.data, aes(x = stim_format, y = emmean, fill = stim_format)) +
-          scale_fill_manual("legend", values = c("Grey\nwords" = "#535150", 
-                                                 "Colour\nwords" = "#725774",
-                                                 "Grey\ndrawings" = "#7F7E7D", 
-                                                 "Colour\ndrawings" = "#927FA8", 
-                                                 "Grey\nphotos" = "#B0AFAE", 
-                                                 "Colour\nphotos" = "#ABACDE")) + 
+          scale_fill_manual("legend", values = c("Grey\nwords" = "#845E7D", 
+                                                 "Colour\nwords" = "#6E6E8F",
+                                                 "Grey\ndrawings" = "#517D96", 
+                                                 "Colour\ndrawings" = "#368A91", 
+                                                 "Grey\nphotos" = "#359481", 
+                                                 "Colour\nphotos" = "#529B6A")) + 
           geom_col(position = position_dodge()) +
           geom_errorbar(aes(ymin = exp5__manip.check__figure.data$ymin,
                             ymax = exp5__manip.check__figure.data$ymax), width = 0.2, size = 0.3, 
@@ -8225,45 +8585,69 @@ To establish whether the distinctive word stimuli were indeed more distinctive t
       
       exp5__manip.check__figure.data2 <- 
           tribble(~"type", ~"stim_format", ~"emmean", ~"ymin", ~"ymax",
-                  "d'", "Grey\nwords", exp5__d.prime__grey.word$y,
+                  "d-prime", "Grey\nwords", exp5__d.prime__grey.word$y,
                   exp5__d.prime__grey.word$ymin, exp5__d.prime__grey.word$ymax,
-                  
-                  
-                  "d'", "Colour\nwords", exp5__prop.hit__col.word$y,
-                  exp5__prop.hit__col.word$ymin, exp5__prop.hit__col.word$ymax,
-                  "d'", "Grey\ndrawings", exp5__prop.hit__grey.drawing$y,
-                  exp5__prop.hit__grey.drawing$ymin, exp5__prop.hit__grey.drawing$ymax,
-                  "d'", "Colour\ndrawings", exp5__prop.hit__col.drawing$y,
-                  exp5__prop.hit__col.drawing$ymin, exp5__prop.hit__col.drawing$ymax,
-                  "d'", "Grey\nphotos", exp5__prop.hit__grey.photo$y,
-                  exp5__prop.hit__grey.photo$ymin, exp5__prop.hit__grey.photo$ymax,
-                  "d'", "Colour\nphotos", exp5__prop.hit__col.photo$y,
-                  exp5__prop.hit__col.photo$ymin, exp5__prop.hit__col.photo$ymax) %>%
+                  "d-prime", "Colour\nwords", exp5__d.prime__col.word$y,
+                  exp5__d.prime__col.word$ymin, exp5__d.prime__col.word$ymax,
+                  "d-prime", "Grey\ndrawings", exp5__d.prime__grey.drawing$y,
+                  exp5__d.prime__grey.drawing$ymin, exp5__d.prime__grey.drawing$ymax,
+                  "d-prime", "Colour\ndrawings", exp5__d.prime__col.drawing$y,
+                  exp5__d.prime__col.drawing$ymin, exp5__d.prime__col.drawing$ymax,
+                  "d-prime", "Grey\nphotos", exp5__d.prime__grey.photo$y,
+                  exp5__d.prime__grey.photo$ymin, exp5__d.prime__grey.photo$ymax,
+                  "d-prime", "Colour\nphotos", exp5__d.prime__col.photo$y,
+                  exp5__d.prime__col.photo$ymin, exp5__d.prime__col.photo$ymax) %>%
           transform(stim_format = factor(stim_format, levels=c("Grey\nwords",
                                                                "Colour\nwords",
                                                                "Grey\ndrawings",
                                                                "Colour\ndrawings",
                                                                "Grey\nphotos",
                                                                "Colour\nphotos"))) %>%
-          transform(type = factor(type, levels=c("Hits","FAs")))
+          transform(type = factor(type, levels=c("d-prime")))
+      
+      
+exp5__manip.check__figure2 <-
+          ggplot(exp5__manip.check__figure.data2, aes(x = stim_format, y = emmean, fill = stim_format)) +
+          scale_fill_manual("legend", values = c("Grey\nwords" = "#845E7D", 
+                                                 "Colour\nwords" = "#6E6E8F",
+                                                 "Grey\ndrawings" = "#517D96", 
+                                                 "Colour\ndrawings" = "#368A91", 
+                                                 "Grey\nphotos" = "#359481", 
+                                                 "Colour\nphotos" = "#529B6A")) + 
+          geom_col(position = position_dodge()) +
+          geom_errorbar(aes(ymin = exp5__manip.check__figure.data2$ymin,
+                            ymax = exp5__manip.check__figure.data2$ymax), width = 0.2, size = 0.3, 
+                        position = position_dodge(0.9)) +
+          facet_wrap(~type, strip.position = "bottom") +
+          labs(x = "DV", y = "Mean proportion") +
+          scale_y_continuous(expand = c(0, 0), limits = c(0, 4)) +
+          theme_classic() +    # Removes grey background and grid lines. 
+          theme(
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
+            axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            legend.position = "none",
+            legend.title = element_blank(),
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))      
 ```
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
-    figure_numbering(name = "exp5__manip.check__figure", caption = "Mean proportion of hits and FAs by stimuli format.")
+    figure_numbering(name = "exp5__manip.check__figure", caption = "Mean proportion of hits, FAs, and d' scores by stimuli format.")
 ```
 
-```{r fig.width=7, fig.height=5, echo=FALSE, cache=FALSE, warning=FALSE}
-    exp5__manip.check__figure + exp5__figure__rfg.hits
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE, warning=FALSE}
+    exp5__manip.check__figure
+    exp5__manip.check__figure2
 ```
 `r figure_numbering("exp5__manip.check__figure")`
 
-&nbsp;
-
-```{r, fig.height=6.4, echo=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
-      grid.arrange(exp5__manip.check__figure, exp5__figure__rfg.hits,
-                   exp3.vs.exp4__fam.hits,
-                   ncol=2, nrow=2) #top = textGrob("Mean proportion of hits"))
-```
+\newpage
+#### Manipulation check
+To establish whether the distinctive word stimuli were indeed more distinctive than regular words, a series of one-way repeated measures analyses of variance (ANOVA) - using six factors (grey & distinctive words, grey & colour drawings, grey & colour photographs) - were conducted on the mean scores of *d'*, mean proportions of hits, and mean proportion of FAs. Sphericity was assessed using Mauchly's Test; when the assumption of sphericity was violated, Greenhouse-Geisser corrections were applied. 
 
 Throughout each of the conducted ANOVAs, there was consistently a significant main effect of stimuli format: mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], *d'*-scores [`r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons following these significant results, however, did not always demonstrate that the distinctive word stimuli were indeed any more distinctive than the regular word stimuli. Primarily, there was no difference in the proportion of overall hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest, format = "rmarkdown", print = FALSE)` - recognition performance (i.e. the number of items subjects were able to correctly identify) was the same regardless of the format word stimuli were presented in. Subjects did, however, make significantly fewer FAs as a result of the manipulation (distinctive words *M* = `r exp5__prop.FA.means__col.word`, regular words *M* = `r exp5__prop.FA.means__grey.word`; `r apa::apa(exp5__prop.FA__ttest, format = "rmarkdown", print = FALSE)`), offering some support to the manipulation, as subjects were better able to correctly reject lure items when they were presented in a distinctive format, rather than regular format, highlighting some performance benefits. Furthermore, distinctive words (*M* = `r exp5__d.prime.means__col.word`) also showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest, format = "rmarkdown", print = FALSE)`; subjects were better able to accurately discriminate between hits and FAs when responding to the distinctive words over regular words.
 
@@ -8478,8 +8862,8 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
                       round(mean(ensor.exp2__col.word.d.prime$dprime__col.word),2),
                       apa::apa(ensor.exp2__d.prime__ttest, format = "rmarkdown", print = FALSE),
                   "Trials: 60 study / 120 test:", 
-                      round(exp5__d.prime.analysis %>% filter(stim == "grey.word") %>% pull(d.prime) %>% mean(),2),
-                      round(exp5__d.prime.analysis %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
+                      round(exp5__d.prime %>% filter(stim == "grey.word") %>% pull(d.prime) %>% mean(),2),
+                      round(exp5__d.prime %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
                       apa::apa(exp5__d.prime__ttest, format = "rmarkdown", print = FALSE))     
 ```
 
@@ -8556,7 +8940,7 @@ For the mean proportion of FAs, the second experiment of @ensor2019b showed a si
       ensor.exp2__d.prime__ttest2 <- ensor.exp2__d.prime %>% filter(stim == "col.word" | 
                                                                       stim == "grey.drawing") %>%
                                       t.test(d.prime~stim, paired=TRUE, data = .)
-      exp5__d.prime__ttest2 <- exp5__d.prime.analysis %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+      exp5__d.prime__ttest2 <- exp5__d.prime %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
                                       t.test(d.prime~stim, paired=TRUE, data = .)
 #################################################################################################################
 ##    Ensor vs. current d-prime table - PSE elimination:                                                       ##
@@ -8572,8 +8956,8 @@ For the mean proportion of FAs, the second experiment of @ensor2019b showed a si
                       round(mean(ensor.exp2__grey.drawing.d.prime$dprime__grey.drawing),2),
                       apa::apa(ensor.exp2__d.prime__ttest2, format = "rmarkdown", print = FALSE),
                   "Trials: 60 study / 120 test:", 
-                      round(exp5__d.prime.analysis %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
-                      round(exp5__d.prime.analysis %>% filter(stim == "grey.drawing") %>% pull(d.prime) %>%
+                      round(exp5__d.prime %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
+                      round(exp5__d.prime %>% filter(stim == "grey.drawing") %>% pull(d.prime) %>%
                               mean(),2),
                       apa::apa(exp5__d.prime__ttest2, format = "rmarkdown", print = FALSE))
 ```      
@@ -8700,6 +9084,15 @@ Finally, @ensor2019b also showed no difference in the number of FAs between the 
 #### Recollection and Familiarity 
 To determine if recollection and familiarity response patterns were mediated by the format of word stimuli, further one-way repeated measures analyses of variance (ANOVA) were conducted on the mean proportion of hits and false alarms (FAs) assigned *Recollection* (R), *Familiarity* (F), and *Guessing* (G). 
 
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp5__figure__rfg.d.prime", caption = "Mean d' scores by stimuli format and recognition judgement.")
+```
+
+```{r fig.width=7, fig.height=5, echo=FALSE, cache=FALSE, warning=FALSE}
+    exp5__figure__rfg.d.prime
+```
+`r figure_numbering("exp5__figure__rfg.d.prime")`
+
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##    Exp5 Prop R hits:                                                                                         ##
@@ -8719,11 +9112,78 @@ To determine if recollection and familiarity response patterns were mediated by 
 ##    Significant main effect, so perform Paired Samples t-test:
       exp5__prop.hit.R__ttest <- exp5__prop.hit.R %>% filter(stim == "grey.word" | stim == "col.word") %>%
                                       t.test(prop.hit.R~stim, paired=TRUE, data = .)
+      exp5__prop.hit.R__ttest2 <- exp5__prop.hit.R %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+                                      t.test(prop.hit.R~stim, paired=TRUE, data = .)
 ##    Get means:
       exp5__prop.hit.R.means <- emmeans(exp5__prop.hit.R.aov, ~stim)
       exp5__prop.hit.R.means__grey.word <- summary(exp5__prop.hit.R.means)$emmean[1] %>% round(2)
       exp5__prop.hit.R.means__col.word <- summary(exp5__prop.hit.R.means)$emmean[2] %>% round(2)
+      exp5__prop.hit.R.means__grey.drawing <- summary(exp5__prop.hit.R.means)$emmean[3] %>% round(2)
+
+##################################################################################################################
+##    Exp5 Prop Rec FAs:                                                                                        ##
+##################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.FA.R.aov <- afex::aov_ez('id', 'prop.FA.R', fun_aggregate = mean, exp5__prop.FA.R,
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      exp5__prop.FA.R.aov__sphericity <- test_sphericity(exp5__prop.FA.R.aov)
+      exp5__prop.FA.R.aov__sphericity <- exp5__prop.FA.R.aov__sphericity[1,2]
       
+##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+      exp5__prop.FA.R.aov <- afex::aov_ez('id', 'prop.FA.R', fun_aggregate = mean, exp5__prop.FA.R,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      exp5__prop.FA.R__ttest <- exp5__prop.FA.R %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(prop.FA.R~stim, paired=TRUE, data = .)
+      exp5__prop.FA.R__ttest2 <- exp5__prop.FA.R %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+                                      t.test(prop.FA.R~stim, paired=TRUE, data = .)
+##    Get means:
+      exp5__prop.FA.R.means <- emmeans(exp5__prop.FA.R.aov, ~stim)
+      exp5__prop.FA.R.means__grey.word <- summary(exp5__prop.FA.R.means)$emmean[1] %>% round(2)
+      exp5__prop.FA.R.means__col.word <- summary(exp5__prop.FA.R.means)$emmean[2] %>% round(2) 
+      exp5__prop.FA.R.means__grey.drawing <- summary(exp5__prop.FA.R.means)$emmean[3] %>% round(2) 
+
+##################################################################################################################
+##    Exp5 Prop Rec d-prime:                                                                                   ##
+##################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__d.prime.R.aov <- afex::aov_ez('id', 'd.prime.R', fun_aggregate = mean, exp5__d.prime.R,
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
+
+##    Mauchlys test of sphericity:
+      exp5__d.prime.R.aov__sphericity <- test_sphericity(exp5__d.prime.R.aov)
+      exp5__d.prime.R.aov__sphericity <- exp5__d.prime.R.aov__sphericity[1,2]
+      
+##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+      exp5__d.prime.R.aov <- afex::aov_ez('id', 'd.prime.R', fun_aggregate = mean, exp5__d.prime.R,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      exp5__d.prime.R__ttest <- exp5__d.prime.R %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                t.test(d.prime.R~stim, paired = TRUE, data = .)
+      exp5__d.prime.R__ttest2 <- exp5__d.prime.R %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+                                      t.test(d.prime.R~stim, paired = F, data = .)
+  
+##    Get means:
+      exp5__d.prime.R.means <- emmeans(exp5__d.prime.R.aov, ~stim)
+      exp5__d.prime.R.means__grey.word <- summary(exp5__d.prime.R.means)$emmean[1] %>% round(2)
+      exp5__d.prime.R.means__col.word <- summary(exp5__d.prime.R.means)$emmean[2] %>% round(2)       
+      exp5__d.prime.R.means__grey.drawing <- summary(exp5__d.prime.R.means)$emmean[3] %>% round(2)       
+```      
+
+For responses assigned *Recollection*, there was a significant main effect of stimuli format for the mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and mean *d'* scores [`r apa::anova_apa(exp5__d.prime.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. 
+
+**Distinctiveness manipulation (regular words vs. distinctive words):** Across each of the variables, the distinctive word stimuli indeed appeared to be more distinctive than the regular words. Planned comparisons showed that distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`) produced significantly more R hits than regular words (*M* = `r exp5__prop.hit.R.means__grey.word`), `r apa::apa(exp5__prop.hit.R__ttest, format = "rmarkdown", print = FALSE)`, and also significantly higher *d'* scores (distinctive words *M* = `r exp5__d.prime.R.means__col.word`, regular words *M* = `r exp5__d.prime.R.means__grey.word`, `r apa::apa(exp5__d.prime.R__ttest, format = "rmarkdown", print = FALSE)`. Conversely, regular words (*M* = `r exp5__prop.FA.R.means__grey.word`) produced a significantly higher proportion of FAs assigned R than distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`), `r apa::apa(exp5__prop.FA.R__ttest, format = "rmarkdown", print = FALSE)`. 
+
+**Elimination of the PSE (distinctive words vs. greyscale drawings):** Grey drawings (*M* = `r exp5__prop.hit.R.means__grey.drawing`) produced a significantly higher number of hits assigned R compared to the distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`), `r apa::apa(exp5__prop.hit.R__ttest2, format = "rmarkdown", print = FALSE)`. Interestingly, grey drawings (*M* = `r exp5__prop.FA.R.means__grey.drawing`) also produced a significantly higher number of FAs assigned R the distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`), `r apa::apa(exp5__prop.FA.R__ttest2, format = "rmarkdown", print = FALSE)`. For *d'* scores, there was an elimination of the PSE; distinctive words (*M* = `r exp5__d.prime.R.means__col.word`) and grey drawings (*M* = `r exp5__d.prime.R.means__grey.drawing`) showed no significant difference in mean *d'* scores, `r apa::apa(exp5__d.prime.R__ttest2, format = "rmarkdown", print = FALSE)`. 
+
+
+
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##    Exp5 Prop F hits:                                                                                         ##
 ##################################################################################################################
@@ -8748,56 +9208,6 @@ To determine if recollection and familiarity response patterns were mediated by 
       exp5__prop.hit.F.means__col.word <- summary(exp5__prop.hit.F.means)$emmean[2] %>% round(2)
       
 ##################################################################################################################
-##    Exp5 Prop G hits:                                                                                         ##
-##################################################################################################################
-##    One-way repeated measures ANOVA:
-      exp5__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp5__prop.hit.G,
-                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
-
-##    Mauchlys test of sphericity:
-      exp5__prop.hit.G.aov__sphericity <- test_sphericity(exp5__prop.hit.G.aov)
-      exp5__prop.hit.G.aov__sphericity <- exp5__prop.hit.G.aov__sphericity[1,2]
-      
-##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp5__prop.hit.G,
-                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
-#-----------------------------------------------------------------------------------------------------------------
-##    Significant main effect, so perform Paired Samples t-test:
-      exp5__prop.hit.G__ttest <- exp5__prop.hit.G %>% filter(stim == "grey.word" | stim == "col.word") %>%
-                                      t.test(prop.hit.G~stim, paired=TRUE, data = .)
-##    Get means:
-      exp5__prop.hit.G.means <- emmeans(exp5__prop.hit.G.aov, ~stim)
-      exp5__prop.hit.G.means__grey.word <- summary(exp5__prop.hit.G.means)$emmean[1] %>% round(2)
-      exp5__prop.hit.G.means__col.word <- summary(exp5__prop.hit.G.means)$emmean[2] %>% round(2)      
-```      
-
-In the ANOVAs on the proportion of R/F/G hits, there was a significant main effect of stimuli format for hits assigned R [`r apa::anova_apa(exp5__prop.hit.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], F [`r apa::anova_apa(exp5__prop.hit.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and G [`r apa::anova_apa(exp5__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons showed evidence of the distinctiveness manipulation; distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`) produced significantly more R hits than regular words (*M* = `r exp5__prop.hit.R.means__grey.word`), `r apa::apa(exp5__prop.hit.R__ttest, format = "rmarkdown", print = FALSE)`. Conversely, the regular words (*M* = `r exp5__prop.hit.F.means__grey.word`) showed a significantly higher proportion of F hits than the distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`), `r apa::apa(exp5__prop.hit.F__ttest, format = "rmarkdown", print = FALSE)`. The planned comparisons did not show a significant difference in the number of hits assigned *Guessing* between distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`) and regular words (*M* = `r exp5__prop.hit.G.means__grey.word`), `r apa::apa(exp5__prop.hit.G__ttest, format = "rmarkdown", print = FALSE)`.
-
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
-##################################################################################################################
-##    Exp5 Prop Rec FAs:                                                                                        ##
-##################################################################################################################
-##    One-way repeated measures ANOVA:
-      exp5__prop.FA.R.aov <- afex::aov_ez('id', 'prop.FA.R', fun_aggregate = mean, exp5__prop.FA.R,
-                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
-
-##    Mauchlys test of sphericity:
-      exp5__prop.FA.R.aov__sphericity <- test_sphericity(exp5__prop.FA.R.aov)
-      exp5__prop.FA.R.aov__sphericity <- exp5__prop.FA.R.aov__sphericity[1,2]
-      
-##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-      exp5__prop.FA.R.aov <- afex::aov_ez('id', 'prop.FA.R', fun_aggregate = mean, exp5__prop.FA.R,
-                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
-#-----------------------------------------------------------------------------------------------------------------
-##    Significant main effect, so perform Paired Samples t-test:
-      exp5__prop.FA.R__ttest <- exp5__prop.FA.R %>% filter(stim == "grey.word" | stim == "col.word") %>%
-                                      t.test(prop.FA.R~stim, paired=TRUE, data = .)
-##    Get means:
-      exp5__prop.FA.R.means <- emmeans(exp5__prop.FA.R.aov, ~stim)
-      exp5__prop.FA.R.means__grey.word <- summary(exp5__prop.FA.R.means)$emmean[1] %>% round(2)
-      exp5__prop.FA.R.means__col.word <- summary(exp5__prop.FA.R.means)$emmean[2] %>% round(2)
-      
-##################################################################################################################
 ##    Exp5 Prop Fam FAs:                                                                                        ##
 ##################################################################################################################
 ##    One-way repeated measures ANOVA:
@@ -8819,7 +9229,28 @@ In the ANOVAs on the proportion of R/F/G hits, there was a significant main effe
       exp5__prop.FA.F.means <- emmeans(exp5__prop.FA.F.aov, ~stim)
       exp5__prop.FA.F.means__grey.word <- summary(exp5__prop.FA.F.means)$emmean[1] %>% round(2)
       exp5__prop.FA.F.means__col.word <- summary(exp5__prop.FA.F.means)$emmean[2] %>% round(2)
+##################################################################################################################
+##    Exp5 Prop G hits:                                                                                         ##
+##################################################################################################################
+##    One-way repeated measures ANOVA:
+      exp5__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp5__prop.hit.G,
+                                           within = 'stim', anova_table=list(correction = "none", es = "none"))
 
+##    Mauchlys test of sphericity:
+      exp5__prop.hit.G.aov__sphericity <- test_sphericity(exp5__prop.hit.G.aov)
+      exp5__prop.hit.G.aov__sphericity <- exp5__prop.hit.G.aov__sphericity[1,2]
+      
+##    Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+      exp5__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp5__prop.hit.G,
+                                           within = 'stim', anova_table=list(correction = "GG", es = "ges"))
+#-----------------------------------------------------------------------------------------------------------------
+##    Significant main effect, so perform Paired Samples t-test:
+      exp5__prop.hit.G__ttest <- exp5__prop.hit.G %>% filter(stim == "grey.word" | stim == "col.word") %>%
+                                      t.test(prop.hit.G~stim, paired=TRUE, data = .)
+##    Get means:
+      exp5__prop.hit.G.means <- emmeans(exp5__prop.hit.G.aov, ~stim)
+      exp5__prop.hit.G.means__grey.word <- summary(exp5__prop.hit.G.means)$emmean[1] %>% round(2)
+      exp5__prop.hit.G.means__col.word <- summary(exp5__prop.hit.G.means)$emmean[2] %>% round(2)   
 ##################################################################################################################
 ##    Exp5 Prop Guess FAs:                                                                                      ##
 ##################################################################################################################
@@ -8844,7 +9275,17 @@ In the ANOVAs on the proportion of R/F/G hits, there was a significant main effe
       exp5__prop.FA.G.means__col.word <- summary(exp5__prop.FA.G.means)$emmean[2] %>% round(2)            
 ```
 
-For the proportion of FAs assigned R/F/G, each of the ANOVAs again showed significant main effects of stimuli format: R (`r apa::anova_apa(exp5__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), F (`r apa::anova_apa(exp5__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), and G (`r apa::anova_apa(exp5__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`). There was again evidence of the distinctiveness manipulation; regular words (*M* = `r exp5__prop.FA.R.means__grey.word`) produced a significantly higher proportion of FAs assigned R than distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`), `r apa::apa(exp5__prop.FA.R__ttest, format = "rmarkdown", print = FALSE)`. Likewise, there were more FAs assigned F for regular words (*M* = `r exp5__prop.FA.F.means__grey.word`) compared to the distinctive words (*M* = `r exp5__prop.FA.F.means__col.word`), `r apa::apa(exp5__prop.FA.F__ttest, format = "rmarkdown", print = FALSE)`. As before, the follow up comparisomns showed no difference in the number of FAs assigned G between distinctive (*M* = `r exp5__prop.FA.G.means__col.word`) and regular words (*M* = `r exp5__prop.FA.G.means__grey.word`), `r apa::apa(exp5__prop.FA.G__ttest, format = "rmarkdown", print = FALSE)`.
+
+, F [`r apa::anova_apa(exp5__prop.hit.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and G [`r apa::anova_apa(exp5__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. 
+
+
+evidence of the distinctiveness manipulation;  Conversely, the regular words (*M* = `r exp5__prop.hit.F.means__grey.word`) showed a significantly higher proportion of F hits than the distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`), `r apa::apa(exp5__prop.hit.F__ttest, format = "rmarkdown", print = FALSE)`. The planned comparisons did not show a significant difference in the number of hits assigned *Guessing* between distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`) and regular words (*M* = `r exp5__prop.hit.G.means__grey.word`), `r apa::apa(exp5__prop.hit.G__ttest, format = "rmarkdown", print = FALSE)`.
+
+
+For the proportion of FAs assigned R/F/G, each of the ANOVAs again showed significant main effects of stimuli format:, F (`r apa::anova_apa(exp5__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), and G (`r apa::anova_apa(exp5__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`). 
+
+
+ Likewise, there were more FAs assigned F for regular words (*M* = `r exp5__prop.FA.F.means__grey.word`) compared to the distinctive words (*M* = `r exp5__prop.FA.F.means__col.word`), `r apa::apa(exp5__prop.FA.F__ttest, format = "rmarkdown", print = FALSE)`. As before, the follow up comparisomns showed no difference in the number of FAs assigned G between distinctive (*M* = `r exp5__prop.FA.G.means__col.word`) and regular words (*M* = `r exp5__prop.FA.G.means__grey.word`), `r apa::apa(exp5__prop.FA.G__ttest, format = "rmarkdown", print = FALSE)`.
 
 \newpage
 ######----------------------------------------
