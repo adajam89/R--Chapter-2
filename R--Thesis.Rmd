@@ -6436,6 +6436,33 @@ word stimuli
 were created in 
 Roboto (light, 54pt)
                       
+1) Manipulation check (1st Bonferroni pool)
+
+    - Are distinctive words actually more distinctive?
+    - If its not significant, might as well stop analysis.
+    - low word vs high word.
+
+
+2) Have I established a PSE? (2 + 3 in same Bonferroni pool)
+    
+    - Must demonstrate a PSE first before we can even begin to check whether any of the sub-conditions can eliminate it. 
+        - Main effect of stim format + contrasts:
+        - all 3(?)
+    - Main effect might not be the only indication of this though (if l
+    - Have to do planned contrasts to see if High > Low relationship holds to words. 
+    
+    (wouldn't do all 3 contrasts. only ever do 2 comparisons (or at least start with 2). if words bigger than        pics) 
+
+3) Have I managed to eliminate PSE in the same way Ensor has?
+
+    - Distinctive words vs. grey drawings (reverse PSE)
+    - Distinctive words vs. colour drawings (PSE - reduced)
+    
+    
+4) Have I extended it to photos? (3rd Bonferroni pool)
+
+    - Do they behave differently to each other? Are photos more distinctive than drawings?
+        - drawings high vs photos high                      
                       
 ### Data prep
 *d'* couldn't be calculated for grey words for 5 participants (zero hits and zero FAs, they did not respond *Old* at all), and for col words for 2 participants. Their data was not excluded entirely - just the data toward those stim types where the result was "inf".
@@ -7544,37 +7571,49 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
           mutate(prop.hit__grey.word = replace(prop.hit__grey.word, prop.hit__grey.word == 1, .99)) %>%
           mutate(prop.FA__grey.word = replace(prop.FA__grey.word, prop.FA__grey.word == 0, .01)) %>%
           mutate(d.prime__grey.word = qnorm(prop.hit__grey.word) - qnorm(prop.FA__grey.word)) %>%
-          select(id, d.prime__grey.word)
+          select(id, d.prime__grey.word) %>%
+          filter(d.prime__grey.word != -Inf)
+
       exp5__col.word.d.prime <- exp5__test_stats %>%
           select(id, prop.hit__col.word, prop.FA__col.word) %>%
           mutate(prop.hit__col.word = replace(prop.hit__col.word, prop.hit__col.word == 1, .99)) %>%
           mutate(prop.FA__col.word = replace(prop.FA__col.word, prop.FA__col.word == 0, .01)) %>%
           mutate(d.prime__col.word = qnorm(prop.hit__col.word) - qnorm(prop.FA__col.word)) %>%
-          select(id, d.prime__col.word)
+          select(id, d.prime__col.word) %>%
+          filter(d.prime__grey.word != -Inf)
+
       exp5__grey.drawing.d.prime <- exp5__test_stats %>%
           select(id, prop.hit__grey.drawing, prop.FA__grey.drawing) %>%
           mutate(prop.hit__grey.drawing = replace(prop.hit__grey.drawing, prop.hit__grey.drawing == 1, .99)) %>%
           mutate(prop.FA__grey.drawing = replace(prop.FA__grey.drawing, prop.FA__grey.drawing == 0, .01)) %>%
           mutate(d.prime__grey.drawing = qnorm(prop.hit__grey.drawing) - qnorm(prop.FA__grey.drawing)) %>%
-          select(id, d.prime__grey.drawing)
+          select(id, d.prime__grey.drawing) %>%
+          filter(d.prime__grey.word != -Inf)
+
       exp5__col.drawing.d.prime <- exp5__test_stats %>%
           select(id, prop.hit__col.drawing, prop.FA__col.drawing) %>%
           mutate(prop.hit__col.drawing = replace(prop.hit__col.drawing, prop.hit__col.drawing == 1, .99)) %>%
           mutate(prop.FA__col.drawing = replace(prop.FA__col.drawing, prop.FA__col.drawing == 0, .01)) %>%
           mutate(d.prime__col.drawing = qnorm(prop.hit__col.drawing) - qnorm(prop.FA__col.drawing)) %>%
-          select(id, d.prime__col.drawing)
+          select(id, d.prime__col.drawing) %>%
+          filter(d.prime__grey.word != -Inf)
+      
       exp5__grey.photo.d.prime <- exp5__test_stats %>%
           select(id, prop.hit__grey.photo, prop.FA__grey.photo) %>%
           mutate(prop.hit__grey.photo = replace(prop.hit__grey.photo, prop.hit__grey.photo == 1, .99)) %>%
           mutate(prop.FA__grey.photo = replace(prop.FA__grey.photo, prop.FA__grey.photo == 0, .01)) %>%
           mutate(d.prime__grey.photo = qnorm(prop.hit__grey.photo) - qnorm(prop.FA__grey.photo)) %>%
-          select(id, d.prime__grey.photo)
+          select(id, d.prime__grey.photo) %>%
+          filter(d.prime__grey.word != -Inf)
+      
       exp5__col.photo.d.prime <- exp5__test_stats %>%
           select(id, prop.hit__col.photo, prop.FA__col.photo) %>%
           mutate(prop.hit__col.photo = replace(prop.hit__col.photo, prop.hit__col.photo == 1, .99)) %>%
           mutate(prop.FA__col.photo = replace(prop.FA__col.photo, prop.FA__col.photo == 0, .01)) %>%
           mutate(d.prime__col.photo = qnorm(prop.hit__col.photo) - qnorm(prop.FA__col.photo)) %>%
-          select(id, d.prime__col.photo)
+          select(id, d.prime__col.photo) %>%
+          filter(d.prime__grey.word != -Inf)
+      
 ##    Add new d'prime calculations to 'exp5__test_stats' df: 
       exp5__test_stats <- exp5__test_stats %>%
           right_join(exp5__grey.word.d.prime) %>%
@@ -7583,6 +7622,7 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
           right_join(exp5__col.drawing.d.prime) %>%
           right_join(exp5__grey.photo.d.prime) %>%
           right_join(exp5__col.photo.d.prime)
+      
 ##    Merge 'exp5__participant_info' and 'exp5__test_stats' to create final tidy df: 
       exp5__final_data <- exp5__participant_info %>%
           right_join(exp5__test_stats) %>%
@@ -7684,7 +7724,7 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
 #----------------------------------------------------------------------------------------------------------------
 #     Tables and figures:
 #----------------------------------------------------------------------------------------------------------------
-      ##    Prep data for RFG figure:  
+      ##    Prep data for RFG figure:
       exp5__prop.hit.R__grey.word <- mean_se(exp5__prop.hit.R %>% filter(stim == "grey.word") %>% pull(prop.hit.R))
       exp5__prop.hit.R__col.word <- mean_se(exp5__prop.hit.R %>% filter(stim == "col.word") %>% pull(prop.hit.R))
       exp5__prop.hit.F__grey.word <- mean_se(exp5__prop.hit.F %>% filter(stim == "grey.word") %>% pull(prop.hit.F))
@@ -7759,6 +7799,9 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
             plot.margin = margin(20, 20, 24, 30))
       
 
+      
+      
+      
 #----------------------------------------------------------------------------------------------------------------
 #     Ensor Experiment 1 data:
 #----------------------------------------------------------------------------------------------------------------
@@ -8068,10 +8111,10 @@ To establish whether the distinctive word stimuli were indeed more distinctive t
 ##    Exp5 d-prime:                                                                                             ##
 ##################################################################################################################
 ##    One-way repeated measures ANOVA:
-      exp5__d.prime.analysis <- exp5__d.prime %>%
-          arrange(d.prime) %>% 
-          filter(id != 2413133 & id != 2517279 & id != 2726395 & id != 2523158 & id != 2419641 & id != 2447369 &
-                 id != 2501529)
+      #exp5__d.prime.analysis <- exp5__d.prime %>%
+      #    arrange(d.prime) %>% 
+      #    filter(id != 2413133 & id != 2517279 & id != 2726395 & id != 2523158 & id != 2419641 & id != 2447369 &
+      #           id != 2501529)
         
       exp5__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, exp5__d.prime.analysis, 
                                         within = 'stim', anova_table=list(correction = "none", es = "none"))
@@ -8109,6 +8152,13 @@ To establish whether the distinctive word stimuli were indeed more distinctive t
       exp5__prop.FA__col.drawing <- mean_se(exp5__prop.FA %>% filter(stim == "col.drawing") %>% pull(prop.FA))
       exp5__prop.FA__grey.photo <- mean_se(exp5__prop.FA %>% filter(stim == "grey.photo") %>% pull(prop.FA))
       exp5__prop.FA__col.photo <- mean_se(exp5__prop.FA %>% filter(stim == "col.photo") %>% pull(prop.FA))
+      
+      exp5__d.prime__grey.word <- mean_se(exp5__d.prime %>% filter(stim == "grey.word") %>% pull(d.prime))
+      exp5__d.prime__col.word <- mean_se(exp5__d.prime %>% filter(stim == "col.word") %>% pull(d.prime))
+      exp5__d.prime__grey.drawing <- mean_se(exp5__d.prime %>% filter(stim == "grey.drawing") %>% pull(d.prime))
+      exp5__d.prime__col.drawing <- mean_se(exp5__d.prime %>% filter(stim == "col.drawing") %>% pull(d.prime))
+      exp5__d.prime__grey.photo <- mean_se(exp5__d.prime %>% filter(stim == "grey.photo") %>% pull(d.prime))
+      exp5__d.prime__col.photo <- mean_se(exp5__d.prime %>% filter(stim == "col.photo") %>% pull(d.prime))
       
       exp5__manip.check__figure.data <- 
           tribble(~"type", ~"stim_format", ~"emmean", ~"ymin", ~"ymax",
@@ -8172,6 +8222,30 @@ To establish whether the distinctive word stimuli were indeed more distinctive t
             legend.title = element_blank(),
             plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
             plot.margin = margin(20, 20, 24, 30))
+      
+      exp5__manip.check__figure.data2 <- 
+          tribble(~"type", ~"stim_format", ~"emmean", ~"ymin", ~"ymax",
+                  "d'", "Grey\nwords", exp5__d.prime__grey.word$y,
+                  exp5__d.prime__grey.word$ymin, exp5__d.prime__grey.word$ymax,
+                  
+                  
+                  "d'", "Colour\nwords", exp5__prop.hit__col.word$y,
+                  exp5__prop.hit__col.word$ymin, exp5__prop.hit__col.word$ymax,
+                  "d'", "Grey\ndrawings", exp5__prop.hit__grey.drawing$y,
+                  exp5__prop.hit__grey.drawing$ymin, exp5__prop.hit__grey.drawing$ymax,
+                  "d'", "Colour\ndrawings", exp5__prop.hit__col.drawing$y,
+                  exp5__prop.hit__col.drawing$ymin, exp5__prop.hit__col.drawing$ymax,
+                  "d'", "Grey\nphotos", exp5__prop.hit__grey.photo$y,
+                  exp5__prop.hit__grey.photo$ymin, exp5__prop.hit__grey.photo$ymax,
+                  "d'", "Colour\nphotos", exp5__prop.hit__col.photo$y,
+                  exp5__prop.hit__col.photo$ymin, exp5__prop.hit__col.photo$ymax) %>%
+          transform(stim_format = factor(stim_format, levels=c("Grey\nwords",
+                                                               "Colour\nwords",
+                                                               "Grey\ndrawings",
+                                                               "Colour\ndrawings",
+                                                               "Grey\nphotos",
+                                                               "Colour\nphotos"))) %>%
+          transform(type = factor(type, levels=c("Hits","FAs")))
 ```
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
@@ -8179,13 +8253,36 @@ To establish whether the distinctive word stimuli were indeed more distinctive t
 ```
 
 ```{r fig.width=7, fig.height=5, echo=FALSE, cache=FALSE, warning=FALSE}
-    exp5__manip.check__figure
+    exp5__manip.check__figure + exp5__figure__rfg.hits
 ```
 `r figure_numbering("exp5__manip.check__figure")`
 
 &nbsp;
 
+```{r, fig.height=6.4, echo=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+      grid.arrange(exp5__manip.check__figure, exp5__figure__rfg.hits,
+                   exp3.vs.exp4__fam.hits,
+                   ncol=2, nrow=2) #top = textGrob("Mean proportion of hits"))
+```
+
 Throughout each of the conducted ANOVAs, there was consistently a significant main effect of stimuli format: mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], *d'*-scores [`r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons following these significant results, however, did not always demonstrate that the distinctive word stimuli were indeed any more distinctive than the regular word stimuli. Primarily, there was no difference in the proportion of overall hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest, format = "rmarkdown", print = FALSE)` - recognition performance (i.e. the number of items subjects were able to correctly identify) was the same regardless of the format word stimuli were presented in. Subjects did, however, make significantly fewer FAs as a result of the manipulation (distinctive words *M* = `r exp5__prop.FA.means__col.word`, regular words *M* = `r exp5__prop.FA.means__grey.word`; `r apa::apa(exp5__prop.FA__ttest, format = "rmarkdown", print = FALSE)`), offering some support to the manipulation, as subjects were better able to correctly reject lure items when they were presented in a distinctive format, rather than regular format, highlighting some performance benefits. Furthermore, distinctive words (*M* = `r exp5__d.prime.means__col.word`) also showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest, format = "rmarkdown", print = FALSE)`; subjects were better able to accurately discriminate between hits and FAs when responding to the distinctive words over regular words.
+
+
+
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp5__figure__rfg.hits", caption = "Mean proportion of hits and FAs by stimuli format.")
+```
+
+```{r fig.width=7, fig.height=5, echo=FALSE, cache=FALSE, warning=FALSE}
+    exp5__figure__rfg.hits
+```
+`r figure_numbering("exp5__figure__rfg.hits")`
+
+
+
+
+
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
