@@ -8092,46 +8092,46 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
       exp5__d.prime.G__col.photo <- mean_se(exp5__d.prime.G %>% filter(stim == "col.photo") %>% pull(d.prime.G))      
       exp5__figure__rfg.d.prime.data <- 
           tribble(~"rfg", ~"stim_format", ~"emmean", ~"ymin", ~"ymax",
-                  "Recollection", "Regular words", exp5__d.prime.R__grey.word$y, 
+                  "Recollection", "Grey\nwords", exp5__d.prime.R__grey.word$y, 
                         exp5__d.prime.R__grey.word$ymin, exp5__d.prime.R__grey.word$ymax,
-                  "Recollection", "Distinctive words", exp5__d.prime.R__col.word$y, 
+                  "Recollection", "Colour\nwords", exp5__d.prime.R__col.word$y, 
                         exp5__d.prime.R__col.word$ymin, exp5__d.prime.R__col.word$ymax,
-                  "Recollection", "Grey drawings", exp5__d.prime.R__grey.drawing$y, 
+                  "Recollection", "Grey\ndrawings", exp5__d.prime.R__grey.drawing$y, 
                         exp5__d.prime.R__grey.drawing$ymin, exp5__d.prime.R__grey.drawing$ymax,                  
-                  "Recollection", "Colour drawings", exp5__d.prime.R__col.drawing$y, 
+                  "Recollection", "Colour\ndrawings", exp5__d.prime.R__col.drawing$y, 
                         exp5__d.prime.R__col.drawing$ymin, exp5__d.prime.R__col.drawing$ymax,                    
-                  "Recollection", "Grey photos", exp5__d.prime.R__grey.photo$y, 
+                  "Recollection", "Grey\nphotos", exp5__d.prime.R__grey.photo$y, 
                         exp5__d.prime.R__grey.photo$ymin, exp5__d.prime.R__grey.photo$ymax,                  
-                  "Recollection", "Colour photos", exp5__d.prime.R__col.photo$y, 
+                  "Recollection", "Colour\nphotos", exp5__d.prime.R__col.photo$y, 
                         exp5__d.prime.R__col.photo$ymin, exp5__d.prime.R__col.photo$ymax,
-                  "Familiarity", "Regular words", exp5__d.prime.F__grey.word$y, 
+                  "Familiarity", "Grey\nwords", exp5__d.prime.F__grey.word$y, 
                         exp5__d.prime.F__grey.word$ymin, exp5__d.prime.F__grey.word$ymax,
-                  "Familiarity", "Distinctive words", exp5__d.prime.F__col.word$y, 
+                  "Familiarity", "Colour\nwords", exp5__d.prime.F__col.word$y, 
                         exp5__d.prime.F__col.word$ymin, exp5__d.prime.F__col.word$ymax,
-                  "Familiarity", "Grey drawings", exp5__d.prime.F__grey.drawing$y, 
+                  "Familiarity", "Grey\ndrawings", exp5__d.prime.F__grey.drawing$y, 
                         exp5__d.prime.F__grey.drawing$ymin, exp5__d.prime.F__grey.drawing$ymax,                  
-                  "Familiarity", "Colour drawings", exp5__d.prime.F__col.drawing$y, 
+                  "Familiarity", "Colour\ndrawings", exp5__d.prime.F__col.drawing$y, 
                         exp5__d.prime.F__col.drawing$ymin, exp5__d.prime.F__col.drawing$ymax,                    
-                  "Familiarity", "Grey photos", exp5__d.prime.F__grey.photo$y, 
+                  "Familiarity", "Grey\nphotos", exp5__d.prime.F__grey.photo$y, 
                         exp5__d.prime.F__grey.photo$ymin, exp5__d.prime.F__grey.photo$ymax,                  
-                  "Familiarity", "Colour photos", exp5__d.prime.F__col.photo$y, 
+                  "Familiarity", "Colour\nphotos", exp5__d.prime.F__col.photo$y, 
                         exp5__d.prime.F__col.photo$ymin, exp5__d.prime.F__col.photo$ymax,
-                  "Guessing", "Regular words", exp5__d.prime.G__grey.word$y, 
+                  "Guessing", "Grey\nwords", exp5__d.prime.G__grey.word$y, 
                         exp5__d.prime.G__grey.word$ymin, exp5__d.prime.G__grey.word$ymax,
-                  "Guessing", "Distinctive words", exp5__d.prime.G__col.word$y, 
+                  "Guessing", "Colour\nwords", exp5__d.prime.G__col.word$y, 
                         exp5__d.prime.G__col.word$ymin, exp5__d.prime.G__col.word$ymax,
-                  "Guessing", "Grey drawings", exp5__d.prime.G__grey.drawing$y, 
+                  "Guessing", "Grey\ndrawings", exp5__d.prime.G__grey.drawing$y, 
                         exp5__d.prime.G__grey.drawing$ymin, exp5__d.prime.G__grey.drawing$ymax,                  
-                  "Guessing", "Colour drawings", exp5__d.prime.G__col.drawing$y, 
+                  "Guessing", "Colour\ndrawings", exp5__d.prime.G__col.drawing$y, 
                         exp5__d.prime.G__col.drawing$ymin, exp5__d.prime.G__col.drawing$ymax,                    
-                  "Guessing", "Grey photos", exp5__d.prime.G__grey.photo$y, 
+                  "Guessing", "Grey\nphotos", exp5__d.prime.G__grey.photo$y, 
                         exp5__d.prime.G__grey.photo$ymin, exp5__d.prime.G__grey.photo$ymax,                  
-                  "Guessing", "Colour photos", exp5__d.prime.G__col.photo$y, 
+                  "Guessing", "Colour\nphotos", exp5__d.prime.G__col.photo$y, 
                         exp5__d.prime.G__col.photo$ymin, exp5__d.prime.G__col.photo$ymax) %>%
                   transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
-                  transform(stim_format = factor(stim_format, levels=c("Regular words","Distinctive words",
-                                                                       "Grey drawings", "Colour drawings", 
-                                                                       "Grey photos", "Colour photos")))
+                  transform(stim_format = factor(stim_format, levels=c("Grey\nwords","Colour\nwords",
+                                                                       "Grey\ndrawings", "Colour\ndrawings", 
+                                                                       "Grey\nphotos", "Colour\nphotos")))
 ##    Create figure:  
       exp5__figure__rfg.d.prime <-
           ggplot(exp5__figure__rfg.d.prime.data, aes(x = stim_format, y = emmean, fill = stim_format)) +
@@ -8154,12 +8154,11 @@ exp5__FA_and_CR <- bind_rows(exp5__FA_CR_study_red_a, exp5__FA_CR_study_red_b,
             strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
             axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
             axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
-            axis.text.x = element_text(size = 9),
+            axis.text.x = element_text(size = 6),
             axis.text.y = element_text(size = 9),
             legend.position = "none",
             plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
             plot.margin = margin(20, 20, 24, 30))
-    
 #----------------------------------------------------------------------------------------------------------------
 #     Ensor Experiment 1 data:
 #----------------------------------------------------------------------------------------------------------------
@@ -9081,7 +9080,8 @@ Finally, @ensor2019b also showed no difference in the number of FAs between the 
           pack_rows("Current study", 3, 0)
 ```
 
-#### Recollection and Familiarity 
+\newpage
+### Recollection and Familiarity 
 To determine if recollection and familiarity response patterns were mediated by the format of word stimuli, further one-way repeated measures analyses of variance (ANOVA) were conducted on the mean proportion of hits and false alarms (FAs) assigned *Recollection* (R), *Familiarity* (F), and *Guessing* (G). 
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
@@ -9140,11 +9140,18 @@ To determine if recollection and familiarity response patterns were mediated by 
                                       t.test(prop.FA.R~stim, paired=TRUE, data = .)
       exp5__prop.FA.R__ttest2 <- exp5__prop.FA.R %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
                                       t.test(prop.FA.R~stim, paired=TRUE, data = .)
+      exp5__prop.FA.R__ttest3 <- exp5__prop.FA.R %>% filter(stim == "col.word" | stim == "col.drawing") %>%
+                                      t.test(prop.FA.R~stim, paired=TRUE, data = .)      
+      exp5__prop.FA.R__ttest4 <- exp5__prop.FA.R %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+                                      t.test(prop.FA.R~stim, paired=TRUE, data = .) 
+            
 ##    Get means:
       exp5__prop.FA.R.means <- emmeans(exp5__prop.FA.R.aov, ~stim)
       exp5__prop.FA.R.means__grey.word <- summary(exp5__prop.FA.R.means)$emmean[1] %>% round(2)
       exp5__prop.FA.R.means__col.word <- summary(exp5__prop.FA.R.means)$emmean[2] %>% round(2) 
       exp5__prop.FA.R.means__grey.drawing <- summary(exp5__prop.FA.R.means)$emmean[3] %>% round(2) 
+      exp5__prop.FA.R.means__col.drawing <- summary(exp5__prop.FA.R.means)$emmean[4] %>% round(2) 
+      exp5__prop.FA.R.means__grey.photo <- summary(exp5__prop.FA.R.means)$emmean[5] %>% round(2) 
 
 ##################################################################################################################
 ##    Exp5 Prop Rec d-prime:                                                                                   ##
@@ -9162,23 +9169,46 @@ To determine if recollection and familiarity response patterns were mediated by 
                                            within = 'stim', anova_table=list(correction = "GG", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
-      exp5__d.prime.R__ttest <- exp5__d.prime.R %>% filter(stim == "grey.word" | stim == "col.word") %>%
+      exp5__d.prime.R__ttest1 <- exp5__d.prime.R %>% filter(stim == "grey.word" | stim == "col.word") %>%
                                 t.test(d.prime.R~stim, paired = TRUE, data = .)
       exp5__d.prime.R__ttest2 <- exp5__d.prime.R %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
                                 t.test(d.prime.R~stim, paired = TRUE, data = .)
-  
+      exp5__d.prime.R__ttest3 <- exp5__d.prime.R %>% filter(stim == "col.word" | stim == "col.drawing") %>%
+                                t.test(d.prime.R~stim, paired = TRUE, data = .)
+      exp5__d.prime.R__ttest4 <- exp5__d.prime.R %>% filter(stim == "col.word" | stim == "grey.photo") %>%
+                                t.test(d.prime.R~stim, paired = TRUE, data = .)
+      exp5__d.prime.R__ttest5 <- exp5__d.prime.R %>% filter(stim == "col.word" | stim == "col.photo") %>%
+                                t.test(d.prime.R~stim, paired = TRUE, data = .)
+             
 ##    Get means:
       exp5__d.prime.R.means <- emmeans(exp5__d.prime.R.aov, ~stim)
       exp5__d.prime.R.means__grey.word <- summary(exp5__d.prime.R.means)$emmean[1] %>% round(2)
       exp5__d.prime.R.means__col.word <- summary(exp5__d.prime.R.means)$emmean[2] %>% round(2)       
-      exp5__d.prime.R.means__grey.drawing <- summary(exp5__d.prime.R.means)$emmean[3] %>% round(2)       
-```      
+      exp5__d.prime.R.means__grey.drawing <- summary(exp5__d.prime.R.means)$emmean[3] %>% round(2)
+      exp5__d.prime.R.means__col.drawing <- summary(exp5__d.prime.R.means)$emmean[4] %>% round(2)
+      exp5__d.prime.R.means__grey.photo <- summary(exp5__d.prime.R.means)$emmean[5] %>% round(2)
+      exp5__d.prime.R.means__col.photo <- summary(exp5__d.prime.R.means)$emmean[6] %>% round(2)
 
+```      
+\newpage
 For responses assigned *Recollection*, there was a significant main effect of stimuli format for the mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and mean *d'* scores [`r apa::anova_apa(exp5__d.prime.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. 
 
-**Distinctiveness manipulation (regular words vs. distinctive words):** Across each of the variables, the distinctive word stimuli indeed appeared to be more distinctive than the regular words. Planned comparisons showed that distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`) produced significantly more R hits than regular words (*M* = `r exp5__prop.hit.R.means__grey.word`), `r apa::apa(exp5__prop.hit.R__ttest, format = "rmarkdown", print = FALSE)`, and also significantly higher *d'* scores (distinctive words *M* = `r exp5__d.prime.R.means__col.word`, regular words *M* = `r exp5__d.prime.R.means__grey.word`, `r apa::apa(exp5__d.prime.R__ttest, format = "rmarkdown", print = FALSE)`. Conversely, regular words (*M* = `r exp5__prop.FA.R.means__grey.word`) produced a significantly higher proportion of FAs assigned R than distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`), `r apa::apa(exp5__prop.FA.R__ttest, format = "rmarkdown", print = FALSE)`. 
+**Distinctiveness manipulation (regular words vs. distinctive words):** Across each of the variables, the distinctive word stimuli indeed appeared to be more distinctive than the regular words. Planned comparisons showed that distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`) produced significantly more R hits than regular words (*M* = `r exp5__prop.hit.R.means__grey.word`), `r apa::apa(exp5__prop.hit.R__ttest, format = "rmarkdown", print = FALSE)`, and also significantly higher *d'* scores (distinctive words *M* = `r exp5__d.prime.R.means__col.word`, regular words *M* = `r exp5__d.prime.R.means__grey.word`, `r apa::apa(exp5__d.prime.R__ttest1, format = "rmarkdown", print = FALSE)`. Conversely, regular words (*M* = `r exp5__prop.FA.R.means__grey.word`) produced a significantly higher proportion of FAs assigned R than distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`), `r apa::apa(exp5__prop.FA.R__ttest, format = "rmarkdown", print = FALSE)`. 
 
-**Elimination of the PSE (distinctive words vs. greyscale drawings):** Grey drawings (*M* = `r exp5__prop.hit.R.means__grey.drawing`) produced a significantly higher number of hits assigned R compared to the distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`), `r apa::apa(exp5__prop.hit.R__ttest2, format = "rmarkdown", print = FALSE)`. Interestingly, grey drawings (*M* = `r exp5__prop.FA.R.means__grey.drawing`) also produced a significantly higher number of FAs assigned R the distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`), `r apa::apa(exp5__prop.FA.R__ttest2, format = "rmarkdown", print = FALSE)`. For *d'* scores, there was an elimination of the PSE; distinctive words (*M* = `r exp5__d.prime.R.means__col.word`) and grey drawings (*M* = `r exp5__d.prime.R.means__grey.drawing`) showed no significant difference in mean *d'* scores, `r apa::apa(exp5__d.prime.R__ttest2, format = "rmarkdown", print = FALSE)`. 
+**Elimination of the PSE (distinctive words vs. greyscale drawings):** Grey drawings (*M* = `r exp5__prop.hit.R.means__grey.drawing`) produced a significantly higher number of hits assigned R compared to the distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`), `r apa::apa(exp5__prop.hit.R__ttest2, format = "rmarkdown", print = FALSE)`. 
+
+On the other hand, the distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`) produced significantly fewer FAs assigned R than grey drawings (*M* = `r exp5__prop.FA.R.means__grey.drawing`), `r apa::apa(exp5__prop.FA.R__ttest2, format = "rmarkdown", print = FALSE)`. This somewhat extended to the colour drawings, where there was no difference between the distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`) and colour drawings (*M* = `r exp5__prop.FA.R.means__col.drawing`), `r apa::apa(exp5__prop.FA.R__ttest3, format = "rmarkdown", print = FALSE)`. Comparings with grey photos, however, showed a return of the PSE, as the distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`) produced a significantly higher number of R FAs than grey photo (*M* = `r exp5__prop.FA.R.means__grey.photo`), `r apa::apa(exp5__prop.FA.R__ttest4, format = "rmarkdown", print = FALSE)`.
+
+For *d'* scores, there was an elimination of the PSE; distinctive words (*M* = `r exp5__d.prime.R.means__col.word`) and grey drawings (*M* = `r exp5__d.prime.R.means__grey.drawing`) showed no significant difference in mean *d'* scores, `r apa::apa(exp5__d.prime.R__ttest2, format = "rmarkdown", print = FALSE)`. 
+
+**Extension to colour drawings**: 
+Elimination of the PSE for *d'* scores did not extend to colour drawings. Colour drawings (*M* = `r exp5__d.prime.R.means__col.drawing`) showed significantly higher *d'* scores than the distinctive words (*M* = `r exp5__d.prime.R.means__col.word`), `r apa::apa(exp5__d.prime.R__ttest3, format = "rmarkdown", print = FALSE)`. 
+
+**Extension to photos:** 
+Grey photos (*M* = `r exp5__d.prime.R.means__grey.photo`) showed significantly higher *d'* scores than the distinctive words (*M* = `r exp5__d.prime.R.means__col.word`), `r apa::apa(exp5__d.prime.R__ttest4, format = "rmarkdown", print = FALSE)`.
+
+Colour photos (*M* = `r exp5__d.prime.R.means__col.photo`) showed significantly higher *d'* scores than the distinctive words (*M* = `r exp5__d.prime.R.means__col.word`), `r apa::apa(exp5__d.prime.R__ttest5, format = "rmarkdown", print = FALSE)`.
+
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -9200,7 +9230,12 @@ For responses assigned *Recollection*, there was a significant main effect of st
       exp5__prop.hit.F__ttest <- exp5__prop.hit.F %>% filter(stim == "grey.word" | stim == "col.word") %>%
                                       t.test(prop.hit.F~stim, paired=TRUE, data = .)
       exp5__prop.hit.F__ttest2 <- exp5__prop.hit.F %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
-                                      t.test(prop.hit.F~stim, paired=TRUE, data = .)      
+                                      t.test(prop.hit.F~stim, paired=TRUE, data = .)     
+      exp5__prop.hit.F__ttest3 <- exp5__prop.hit.F %>% filter(stim == "col.word" | stim == "col.drawing") %>%
+                                      t.test(prop.hit.F~stim, paired=TRUE, data = .)       
+      exp5__prop.hit.F__ttest4 <- exp5__prop.hit.F %>% filter(stim == "col.word" | stim == "grey.photo") %>%
+                                      t.test(prop.hit.F~stim, paired=TRUE, data = .) 
+      
 ##    Get means:
       exp5__prop.hit.F.means <- emmeans(exp5__prop.hit.F.aov, ~stim)
       exp5__prop.hit.F.means__grey.word <- summary(exp5__prop.hit.F.means)$emmean[1] %>% round(2)
@@ -9227,7 +9262,13 @@ For responses assigned *Recollection*, there was a significant main effect of st
                                       t.test(prop.FA.F~stim, paired=TRUE, data = .)
       exp5__prop.FA.F__ttest2 <- exp5__prop.FA.F %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
                                       t.test(prop.FA.F~stim, paired=TRUE, data = .)
-##    Get means:
+      exp5__prop.FA.F__ttest3 <- exp5__prop.FA.F %>% filter(stim == "col.word" | stim == "col.drawing") %>%
+                                      t.test(prop.FA.F~stim, paired=TRUE, data = .)      
+      exp5__prop.FA.F__ttest4 <- exp5__prop.FA.F %>% filter(stim == "col.word" | stim == "grey.photo") %>%
+                                      t.test(prop.FA.F~stim, paired=TRUE, data = .)    
+      exp5__prop.FA.F__ttest5 <- exp5__prop.FA.F %>% filter(stim == "col.word" | stim == "col.photo") %>%
+                                      t.test(prop.FA.F~stim, paired=TRUE, data = .)          
+      ##    Get means:
       exp5__prop.FA.F.means <- emmeans(exp5__prop.FA.F.aov, ~stim)
       exp5__prop.FA.F.means__grey.word <- summary(exp5__prop.FA.F.means)$emmean[1] %>% round(2)
       exp5__prop.FA.F.means__col.word <- summary(exp5__prop.FA.F.means)$emmean[2] %>% round(2)
@@ -9249,28 +9290,46 @@ For responses assigned *Recollection*, there was a significant main effect of st
                                            within = 'stim', anova_table=list(correction = "GG", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
 ##    Significant main effect, so perform Paired Samples t-test:
-      exp5__d.prime.F__ttest <- exp5__d.prime.F %>% filter(stim == "grey.word" | stim == "col.word") %>%
+      exp5__d.prime.F__ttest1 <- exp5__d.prime.F %>% filter(stim == "grey.word" | stim == "col.word") %>%
                                       t.test(d.prime.F~stim, paired=TRUE, data = .)
       exp5__d.prime.F__ttest2 <- exp5__d.prime.F %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
                                       t.test(d.prime.F~stim, paired=TRUE, data = .)
+      exp5__d.prime.F__ttest3 <- exp5__d.prime.F %>% filter(stim == "col.word" | stim == "col.drawing") %>%
+                                      t.test(d.prime.F~stim, paired=TRUE, data = .)      
+      exp5__d.prime.F__ttest4 <- exp5__d.prime.F %>% filter(stim == "col.word" | stim == "grey.photo") %>%
+                                      t.test(d.prime.F~stim, paired=TRUE, data = .)   
+      exp5__d.prime.F__ttest5 <- exp5__d.prime.F %>% filter(stim == "col.word" | stim == "col.photo") %>%
+                                      t.test(d.prime.F~stim, paired=TRUE, data = .)   
+      
 ##    Get means:
       exp5__d.prime.F.means <- emmeans(exp5__d.prime.F.aov, ~stim)
       exp5__d.prime.F.means__grey.word <- summary(exp5__d.prime.F.means)$emmean[1] %>% round(2)
       exp5__d.prime.F.means__col.word <- summary(exp5__d.prime.F.means)$emmean[2] %>% round(2)
-      exp5__d.prime.F.means__grey.drawing <- summary(exp5__d.prime.F.means)$emmean[3] %>% round(2)      
+      exp5__d.prime.F.means__grey.drawing <- summary(exp5__d.prime.F.means)$emmean[3] %>% round(2)
+      exp5__d.prime.F.means__col.drawing <- summary(exp5__d.prime.F.means)$emmean[4] %>% round(2)
+      exp5__d.prime.F.means__grey.photo <- summary(exp5__d.prime.F.means)$emmean[5] %>% round(2)
+      exp5__d.prime.F.means__col.photo <- summary(exp5__d.prime.F.means)$emmean[6] %>% round(2)
 ```      
 
-&nbsp;
-
+\newpage
 For responses assigned *Familiarity*, there was again a significant main effect of stimuli format across all of the variables; the mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and mean *d'* scores [`r apa::anova_apa(exp5__d.prime.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. 
 
 **Distinctiveness manipulation (regular words vs. distinctive words):** 
 
-Regular words (*M* = `r exp5__prop.hit.F.means__grey.word`) produced significantly more F hits than the distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`), `r apa::apa(exp5__prop.hit.F__ttest, format = "rmarkdown", print = FALSE)`, and significantly more F FAs (regular words *M* = `r exp5__prop.FA.F.means__grey.word`, distinctive words *M* = `r exp5__prop.FA.F.means__col.word`, `r apa::apa(exp5__prop.FA.F__ttest, format = "rmarkdown", print = FALSE)`. *d'* scores, however, were significantly higher for the distinctive words (*M* = `r exp5__d.prime.F.means__col.word`) compared to the regular words (*M* = `r exp5__d.prime.F.means__grey.word`), `r apa::apa(exp5__d.prime.F__ttest, format = "rmarkdown", print = FALSE)`. 
+Regular words (*M* = `r exp5__prop.hit.F.means__grey.word`) produced significantly more F hits than the distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`), `r apa::apa(exp5__prop.hit.F__ttest, format = "rmarkdown", print = FALSE)`, and significantly more F FAs (regular words *M* = `r exp5__prop.FA.F.means__grey.word`, distinctive words *M* = `r exp5__prop.FA.F.means__col.word`, `r apa::apa(exp5__prop.FA.F__ttest, format = "rmarkdown", print = FALSE)`. *d'* scores, however, were significantly higher for the distinctive words (*M* = `r exp5__d.prime.F.means__col.word`) compared to the regular words (*M* = `r exp5__d.prime.F.means__grey.word`), `r apa::apa(exp5__d.prime.F__ttest1, format = "rmarkdown", print = FALSE)`. 
 
 **Elimination of the PSE (distinctive words vs. greyscale drawings):** 
 
-For the proportion of F hits, the PSE was eliminated, with no significant difference between distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`) and grey drawings (*M* = `r exp5__prop.hit.F.means__grey.drawing`), `r apa::apa(exp5__prop.hit.F__ttest2, format = "rmarkdown", print = FALSE)`. Likewise, there was no significant difference for the number of FAs assigned F between distinctive words (*M* = `r exp5__prop.FA.F.means__col.word`) and grey drawings (*M* = `r exp5__prop.FA.F.means__grey.drawing`), `r apa::apa(exp5__prop.FA.F__ttest2, format = "rmarkdown", print = FALSE)`. For *d'* scores, there was again an elimination of the PSE; distinctive words (*M* = `r exp5__d.prime.F.means__col.word`) and grey drawings (*M* = `r exp5__d.prime.F.means__grey.drawing`) showed no significant difference in mean *d'* scores, `r apa::apa(exp5__d.prime.F__ttest2, format = "rmarkdown", print = FALSE)`.       
+For the proportion of F hits, the PSE was eliminated, with no significant difference between distinctive words (*M* = `r exp5__prop.hit.F.means__col.word`) and grey drawings (*M* = `r exp5__prop.hit.F.means__grey.drawing`), `r apa::apa(exp5__prop.hit.F__ttest2, format = "rmarkdown", print = FALSE)`. Likewise, there was no significant difference for the number of FAs assigned F between distinctive words (*M* = `r exp5__prop.FA.F.means__col.word`) and grey drawings (*M* = `r exp5__prop.FA.F.means__grey.drawing`), `r apa::apa(exp5__prop.FA.F__ttest2, format = "rmarkdown", print = FALSE)`. For *d'* scores, there was again an elimination of the PSE; distinctive words (*M* = `r exp5__d.prime.F.means__col.word`) and grey drawings (*M* = `r exp5__d.prime.F.means__grey.drawing`) showed no significant difference in mean *d'* scores, `r apa::apa(exp5__d.prime.F__ttest2, format = "rmarkdown", print = FALSE)`.
+
+**Extension to colour drawings**: 
+Elimination of the PSE for *d'* scores also extended to colour drawings. Mean *d'* scores were not significantly different between distinctive words (*M* = `r exp5__d.prime.F.means__col.word`) and colour drawings (*M* = `r exp5__d.prime.F.means__col.drawing`), `r apa::apa(exp5__d.prime.F__ttest3, format = "rmarkdown", print = FALSE)`. 
+
+**Extension to photos:**
+Elimination of the PSE for *d'* scores also extended to grey photos. Mean *d'* scores were not significantly different between distinctive words (*M* = `r exp5__d.prime.F.means__col.word`) and grey photos (*M* = `r exp5__d.prime.F.means__grey.photo`), `r apa::apa(exp5__d.prime.F__ttest4, format = "rmarkdown", print = FALSE)`. 
+
+Elimination of the PSE for *d'* scores also extended to colour photos. Mean *d'* scores were not significantly different between distinctive words (*M* = `r exp5__d.prime.F.means__col.word`) and colour photos (*M* = `r exp5__d.prime.F.means__col.photo`), `r apa::apa(exp5__d.prime.F__ttest5, format = "rmarkdown", print = FALSE)`.
+
       
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -9350,21 +9409,15 @@ For the proportion of F hits, the PSE was eliminated, with no significant differ
       exp5__d.prime.G.means__grey.drawing <- summary(exp5__d.prime.G.means)$emmean[3] %>% round(2)      
 ```
 
-&nbsp;
+\newpage
+For responses assigned *Guessing*, there was a significant main effect of stimuli format for the mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] and mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. However, the main effect of mean *d'* scores did not reach significance [`r apa::anova_apa(exp5__d.prime.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]; visual inspection of this data shows that across the stimuli formats, *d'* scores were generally negative for *Guessing* responses, an expected pattern that shows poor discrimination and often more FAs than hits. 
 
-For responses assigned *Guesses*, there was a significant main effect of stimuli format for the mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] and mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. However, the main effect of mean *d'* scores did not reach significance [`r apa::anova_apa(exp5__d.prime.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. 
-
-**Distinctiveness manipulation (regular words vs. distinctive words):** 
-
-There was no difference in the number of hits assigned G between regular words (*M* = `r exp5__prop.hit.G.means__grey.word`) and distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`), `r apa::apa(exp5__prop.hit.G__ttest, format = "rmarkdown", print = FALSE)`, no difference in the number of FAs assigned G between regular words (*M* = `r exp5__prop.FA.G.means__grey.word`) and distinctive words (*M* = `r exp5__prop.FA.G.means__col.word`), `r apa::apa(exp5__prop.FA.G__ttest, format = "rmarkdown", print = FALSE)`, and 
+**Distinctiveness manipulation (regular words vs. distinctive words):** There was no difference in the number of hits assigned G between regular words (*M* = `r exp5__prop.hit.G.means__grey.word`) and distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`), `r apa::apa(exp5__prop.hit.G__ttest, format = "rmarkdown", print = FALSE)`, no difference in the number of FAs assigned G between regular words (*M* = `r exp5__prop.FA.G.means__grey.word`) and distinctive words (*M* = `r exp5__prop.FA.G.means__col.word`), `r apa::apa(exp5__prop.FA.G__ttest, format = "rmarkdown", print = FALSE)`, and 
 no difference in mean *d'* scores between regular words (*M* = `r exp5__d.prime.G.means__grey.word`) and distinctive words (*M* = `r exp5__d.prime.G.means__col.word`), `r apa::apa(exp5__d.prime.G__ttest, format = "rmarkdown", print = FALSE)`. 
 
 **Elimination of the PSE (distinctive words vs. greyscale drawings):** 
 
-For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`) produced a significantly higher proportion compared to the grey drawings (*M* = `r exp5__prop.hit.G.means__grey.drawing`), `r apa::apa(exp5__prop.hit.G__ttest2, format = "rmarkdown", print = FALSE)`.
-
-
-There was no significant difference for the number of FAs assigned G between distinctive words (*M* = `r exp5__prop.FA.G.means__col.word`) and grey drawings (*M* = `r exp5__prop.FA.G.means__grey.drawing`), `r apa::apa(exp5__prop.FA.G__ttest2, format = "rmarkdown", print = FALSE)`, or mean *d'* scores (distinctive words *M* = `r exp5__d.prime.G.means__col.word`, grey drawings *M* = `r exp5__d.prime.G.means__grey.drawing`, `r apa::apa(exp5__d.prime.G__ttest2, format = "rmarkdown", print = FALSE)`.  
+For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`) produced a significantly higher proportion compared to the grey drawings (*M* = `r exp5__prop.hit.G.means__grey.drawing`), `r apa::apa(exp5__prop.hit.G__ttest2, format = "rmarkdown", print = FALSE)`. There was no significant difference for the number of FAs assigned G between distinctive words (*M* = `r exp5__prop.FA.G.means__col.word`) and grey drawings (*M* = `r exp5__prop.FA.G.means__grey.drawing`), `r apa::apa(exp5__prop.FA.G__ttest2, format = "rmarkdown", print = FALSE)`, or mean *d'* scores (distinctive words *M* = `r exp5__d.prime.G.means__col.word`, grey drawings *M* = `r exp5__d.prime.G.means__grey.drawing`, `r apa::apa(exp5__d.prime.G__ttest2, format = "rmarkdown", print = FALSE)`.  
 
 \newpage
 ######----------------------------------------
