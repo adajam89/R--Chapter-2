@@ -1,0 +1,472 @@
+```{r experiment-3-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+##################################################################################################################
+##    EXPERIMENT 3 ANALYSIS:                                                                                    ##
+##################################################################################################################
+##  Study 1 Grey:
+    exp3__hit.miss1 <- exp3__data %>%
+        filter(study_list == "1") %>%               ##  Lures are still here at this point.
+        filter(stim %in% exp3__study.list1) %>%     ##  Remove lures (new) items.
+        exp3and4__hit_and_miss_calc_function()
+##  Study 2 Grey:
+    exp3__hit.miss2 <- exp3__data %>%
+        filter(study_list == "2") %>%
+        filter(stim %in% exp3__study.list2) %>%
+        exp3and4__hit_and_miss_calc_function()
+##  Study 3 Grey:
+    exp3__hit.miss3 <- exp3__data %>%
+        filter(study_list == "3") %>%
+        filter(stim %in% exp3__study.list3) %>%
+        exp3and4__hit_and_miss_calc_function()
+##  Study 4 Grey:
+    exp3__hit.miss4 <- exp3__data %>%
+        filter(study_list == "4") %>%
+        filter(stim %in% exp3__study.list4) %>%
+        exp3and4__hit_and_miss_calc_function()
+##  Study 5 Grey:
+    exp3__hit.miss5 <- exp3__data %>%
+        filter(study_list == "5") %>%
+        filter(stim %in% exp3__study.list5) %>%
+        exp3and4__hit_and_miss_calc_function()
+##  Study 6 Grey:
+    exp3__hit.miss6 <- exp3__data %>%
+        filter(study_list == "6") %>%
+        filter(stim %in% exp3__study.list6) %>%
+        exp3and4__hit_and_miss_calc_function()
+##################################################################################################################
+##    Calculate FA + CR                                                                                         ##
+##################################################################################################################
+##    Study 1 Grey:
+      exp3__FA.CR1 <- exp3__data %>%
+          filter(study_list == "1" & col_or_grey == "grey") %>%
+          filter(stim %in% exp3__study.list4) %>%
+          exp3and4__FA_and_CR_calc_function()
+##    Study 2 Grey:
+      exp3__FA.CR2 <- exp3__data %>%
+          filter(study_list == "2" & col_or_grey == "grey") %>%
+          filter(stim %in% exp3__study.list5) %>%
+          exp3and4__FA_and_CR_calc_function()
+##    Study 3 Grey:
+      exp3__FA.CR3 <- exp3__data %>%
+          filter(study_list == "3" & col_or_grey == "grey") %>%
+          filter(stim %in% exp3__study.list6) %>%
+          exp3and4__FA_and_CR_calc_function()
+##    Study 4 Grey:
+      exp3__FA.CR4 <- exp3__data %>%
+          filter(study_list == "4" & col_or_grey == "grey") %>%
+          filter(stim %in% exp3__study.list1) %>%
+          exp3and4__FA_and_CR_calc_function()
+##    Study 5 Grey:
+      exp3__FA.CR5 <- exp3__data %>%
+          filter(study_list == "5" & col_or_grey == "grey") %>%
+          filter(stim %in% exp3__study.list2) %>%
+          exp3and4__FA_and_CR_calc_function()
+##    Study 6 Grey:
+      exp3__FA.CR6 <- exp3__data %>%
+          filter(study_list == "6" & col_or_grey == "grey") %>%
+          filter(stim %in% exp3__study.list3) %>%
+          exp3and4__FA_and_CR_calc_function()   
+###################################################################################################################
+##  Combine into one df:                                                                                         ##
+###################################################################################################################
+    exp3__test.stats <- bind_rows(exp3__hit.miss1, exp3__hit.miss2, exp3__hit.miss3, exp3__hit.miss4,
+                                  exp3__hit.miss5, exp3__hit.miss6, exp3__FA.CR1, exp3__FA.CR2, exp3__FA.CR3,
+                                  exp3__FA.CR4, exp3__FA.CR5, exp3__FA.CR6) %>%
+    ##  Merge multiple rows into one (per participant):
+        summarise_all(coalesce_by_column) %>%
+    ##  Remove redundant rows: 
+        select(-screen, -stim, -response, -rt) %>%
+##################################################################################################################
+##  Calculate hit proportions:                                                                                  ##
+##################################################################################################################
+    ##  Words:
+        mutate(prop.hit__word = hit__word / (hit__word + miss__word)) %>%
+        mutate(prop.miss__word = miss__word / (hit__word + miss__word)) %>%
+        mutate(prop.hit.R__word = hit.R__word / hit__word) %>% 
+            mutate(prop.hit.R__word = replace_na(prop.hit.R__word, 0)) %>%
+        mutate(prop.hit.F__word = hit.F__word / hit__word) %>% 
+            mutate(prop.hit.F__word = replace_na(prop.hit.F__word, 0)) %>%
+        mutate(prop.hit.B__word = hit.B__word / hit__word) %>% 
+            mutate(prop.hit.B__word = replace_na(prop.hit.B__word, 0)) %>%
+        mutate(prop.hit.G__word = hit.G__word / hit__word) %>% 
+            mutate(prop.hit.G__word = replace_na(prop.hit.G__word, 0)) %>%
+        mutate(prop.hit.R.total__word = prop.hit.R__word + prop.hit.B__word) %>%
+        mutate(prop.hit.F.total__word = prop.hit.F__word + prop.hit.B__word) %>%
+    ##  Grey drawings:
+        mutate(prop.hit__grey.drawing = hit__drawing / (hit__drawing + miss__drawing)) %>%
+        mutate(prop.miss__grey.drawing = miss__drawing / (hit__drawing + miss__drawing)) %>%
+        mutate(prop.hit.R__grey.drawing = hit.R__drawing / hit__drawing) %>% 
+            mutate(prop.hit.R__grey.drawing = replace_na(prop.hit.R__grey.drawing, 0)) %>%
+        mutate(prop.hit.F__grey.drawing = hit.F__drawing / hit__drawing) %>% 
+            mutate(prop.hit.F__grey.drawing = replace_na(prop.hit.F__grey.drawing, 0)) %>%
+        mutate(prop.hit.B__grey.drawing = hit.B__drawing / hit__drawing) %>% 
+            mutate(prop.hit.B__grey.drawing = replace_na(prop.hit.B__grey.drawing, 0)) %>%
+        mutate(prop.hit.G__grey.drawing = hit.G__drawing / hit__drawing) %>% 
+            mutate(prop.hit.G__grey.drawing = replace_na(prop.hit.G__grey.drawing, 0)) %>%
+        mutate(prop.hit.R.total__grey.drawing = prop.hit.R__grey.drawing + prop.hit.B__grey.drawing) %>%
+        mutate(prop.hit.F.total__grey.drawing = prop.hit.F__grey.drawing + prop.hit.B__grey.drawing) %>%
+    ##  Grey photos:
+        mutate(prop.hit__grey.photo = hit__photo / (hit__photo + miss__photo)) %>%
+        mutate(prop.miss__grey.photo = miss__photo / (hit__photo + miss__photo)) %>%
+        mutate(prop.hit.R__grey.photo = hit.R__photo / hit__photo) %>% 
+            mutate(prop.hit.R__grey.photo = replace_na(prop.hit.R__grey.photo, 0)) %>%
+        mutate(prop.hit.F__grey.photo = hit.F__photo / hit__photo) %>% 
+            mutate(prop.hit.F__grey.photo = replace_na(prop.hit.F__grey.photo, 0)) %>%
+        mutate(prop.hit.B__grey.photo = hit.B__photo / hit__photo) %>% 
+            mutate(prop.hit.B__grey.photo = replace_na(prop.hit.B__grey.photo, 0)) %>%
+        mutate(prop.hit.G__grey.photo = hit.G__photo / hit__photo) %>% 
+            mutate(prop.hit.G__grey.photo = replace_na(prop.hit.G__grey.photo, 0)) %>%
+        mutate(prop.hit.R.total__grey.photo = prop.hit.R__grey.photo + prop.hit.B__grey.photo) %>%
+        mutate(prop.hit.F.total__grey.photo = prop.hit.F__grey.photo + prop.hit.B__grey.photo) %>%
+#################################################################################################################
+##    Calculate FA proportions:                                                                                ##
+#################################################################################################################
+    ##  Words:
+        mutate(prop.FA__word = FA__word / (FA__word + CR__word)) %>%
+        mutate(prop.CR__word = CR__word / (FA__word + CR__word)) %>%
+        mutate(prop.FA.R__word = FA.R__word / FA__word) %>% 
+            mutate(prop.FA.R__word = replace_na(prop.FA.R__word, 0)) %>%
+        mutate(prop.FA.F__word = FA.F__word / FA__word) %>% 
+            mutate(prop.FA.F__word = replace_na(prop.FA.F__word, 0)) %>%
+        mutate(prop.FA.B__word = FA.B__word / FA__word) %>% 
+            mutate(prop.FA.B__word = replace_na(prop.FA.B__word, 0)) %>%
+        mutate(prop.FA.G__word = FA.G__word / FA__word) %>% 
+            mutate(prop.FA.G__word = replace_na(prop.FA.G__word, 0)) %>%
+        mutate(prop.FA.R.total__word = prop.FA.R__word + prop.FA.B__word) %>%
+        mutate(prop.FA.F.total__word = prop.FA.F__word + prop.FA.B__word) %>%
+    ##  Grey drawings:
+        mutate(prop.FA__grey.drawing = FA__drawing / (FA__drawing + CR__drawing)) %>%
+        mutate(prop.CR__grey.drawing = CR__drawing / (FA__drawing + CR__drawing)) %>%
+        mutate(prop.FA.R__grey.drawing = FA.R__drawing / FA__drawing) %>% 
+            mutate(prop.FA.R__grey.drawing = replace_na(prop.FA.R__grey.drawing, 0)) %>%
+        mutate(prop.FA.F__grey.drawing = FA.F__drawing / FA__drawing) %>% 
+            mutate(prop.FA.F__grey.drawing = replace_na(prop.FA.F__grey.drawing, 0)) %>%
+        mutate(prop.FA.B__grey.drawing = FA.B__drawing / FA__drawing) %>% 
+            mutate(prop.FA.B__grey.drawing = replace_na(prop.FA.B__grey.drawing, 0)) %>%
+        mutate(prop.FA.G__grey.drawing = FA.G__drawing / FA__drawing) %>% 
+            mutate(prop.FA.G__grey.drawing = replace_na(prop.FA.G__grey.drawing, 0)) %>%
+        mutate(prop.FA.R.total__grey.drawing = prop.FA.R__grey.drawing + prop.FA.B__grey.drawing) %>%
+        mutate(prop.FA.F.total__grey.drawing = prop.FA.F__grey.drawing + prop.FA.B__grey.drawing) %>%
+    ##  Grey photos:
+        mutate(prop.FA__grey.photo = FA__photo / (FA__photo + CR__photo)) %>%
+        mutate(prop.CR__grey.photo = CR__photo / (FA__photo + CR__photo)) %>%
+        mutate(prop.FA.R__grey.photo = FA.R__photo / FA__photo) %>% 
+            mutate(prop.FA.R__grey.photo = replace_na(prop.FA.R__grey.photo, 0)) %>%
+        mutate(prop.FA.F__grey.photo = FA.F__photo / FA__photo) %>% 
+            mutate(prop.FA.F__grey.photo = replace_na(prop.FA.F__grey.photo, 0)) %>%
+        mutate(prop.FA.B__grey.photo = FA.B__photo / FA__photo) %>% 
+            mutate(prop.FA.B__grey.photo = replace_na(prop.FA.B__grey.photo, 0)) %>%
+        mutate(prop.FA.G__grey.photo = FA.G__photo / FA__photo) %>% 
+            mutate(prop.FA.G__grey.photo = replace_na(prop.FA.G__grey.photo, 0)) %>%
+        mutate(prop.FA.R.total__grey.photo = prop.FA.R__grey.photo + prop.FA.B__grey.photo) %>%
+        mutate(prop.FA.F.total__grey.photo = prop.FA.F__grey.photo + prop.FA.B__grey.photo) %>%
+##################################################################################################################
+##    Accuracy:                                                                                                 ##
+##################################################################################################################
+    ##  Word accuracy:
+        mutate(acc.R__word = hit.R__word / (hit.R__word + FA.R__word)) %>% 
+            mutate(acc.R__word = replace_na(acc.R__word, 0)) %>%
+        mutate(acc.F__word = hit.F__word / (hit.F__word + FA.F__word)) %>% 
+            mutate(acc.F__word = replace_na(acc.F__word, 0)) %>%
+        mutate(acc.B__word = hit.B__word / (hit.B__word + FA.B__word)) %>% 
+            mutate(acc.B__word = replace_na(acc.B__word, 0)) %>%
+        mutate(acc.G__word = hit.G__word / (hit.G__word + FA.G__word)) %>% 
+            mutate(acc.G__word = replace_na(acc.G__word, 0)) %>%
+    ##  Drawing accuracy:
+        mutate(acc.R__grey.drawing = hit.R__drawing / (hit.R__drawing + FA.R__drawing)) %>% 
+            mutate(acc.R__grey.drawing = replace_na(acc.R__grey.drawing, 0)) %>%
+        mutate(acc.F__grey.drawing = hit.F__drawing / (hit.F__drawing + FA.F__drawing)) %>% 
+            mutate(acc.F__grey.drawing = replace_na(acc.F__grey.drawing, 0)) %>%
+        mutate(acc.B__grey.drawing = hit.B__drawing / (hit.B__drawing + FA.B__drawing)) %>% 
+            mutate(acc.B__grey.drawing = replace_na(acc.B__grey.drawing, 0)) %>%
+        mutate(acc.G__grey.drawing = hit.G__drawing / (hit.G__drawing + FA.G__drawing)) %>% 
+            mutate(acc.G__grey.drawing = replace_na(acc.G__grey.drawing, 0)) %>%
+    ##  Photo accuracy:
+        mutate(acc.R__grey.photo = hit.R__photo / (hit.R__photo + FA.R__photo)) %>% 
+            mutate(acc.R__grey.photo = replace_na(acc.R__grey.photo, 0)) %>%
+        mutate(acc.F__grey.photo = hit.F__photo / (hit.F__photo + FA.F__photo)) %>% 
+            mutate(acc.F__grey.photo = replace_na(acc.F__grey.photo, 0)) %>%
+        mutate(acc.B__grey.photo = hit.B__photo / (hit.B__photo + FA.B__photo)) %>% 
+            mutate(acc.B__grey.photo = replace_na(acc.B__grey.photo, 0)) %>%
+        mutate(acc.G__grey.photo = hit.G__photo / (hit.G__photo + FA.G__photo)) %>%
+            mutate(acc.G__grey.photo = replace_na(acc.G__grey.photo, 0)) %>%
+##################################################################################################################
+##    Recog:                                                                                                    ##
+################################################################################################################## 
+        mutate(recog__word = prop.hit__word - prop.FA__word) %>%      
+        mutate(recog__grey.drawing = prop.hit__grey.drawing - prop.FA__grey.drawing) %>%
+        mutate(recog__grey.photo = prop.hit__grey.photo - prop.FA__grey.photo)
+#################################################################################################################
+##    Calculate d-prime:                                                                                       ##
+#################################################################################################################
+##  Words:  ------------------------------------------------------------------------------------------------------
+##  Overall:
+    exp3__word.d.prime <- exp3__test.stats %>%
+        select(id, prop.hit__word, prop.FA__word) %>%
+        mutate(prop.hit__word = replace(prop.hit__word, prop.hit__word == 1, .99)) %>%
+        mutate(prop.hit__word = replace(prop.hit__word, prop.hit__word == 0, .01)) %>%
+        mutate(prop.FA__word = replace(prop.FA__word, prop.FA__word == 1, .99)) %>%
+        mutate(prop.FA__word = replace(prop.FA__word, prop.FA__word == 0, .01)) %>%
+        mutate(d.prime__word = qnorm(prop.hit__word) - qnorm(prop.FA__word)) %>%
+        select(id, d.prime__word)
+##  Rec:
+    exp3__word.d.prime__rec <- exp3__test.stats %>%
+        select(id, prop.hit.R__word, prop.FA.R__word) %>%
+        mutate(prop.hit.R__word = replace(prop.hit.R__word, prop.hit.R__word == 1, .99)) %>%
+        mutate(prop.hit.R__word = replace(prop.hit.R__word, prop.hit.R__word == 0, .01)) %>%
+        mutate(prop.FA.R__word = replace(prop.FA.R__word, prop.FA.R__word == 1, .99)) %>%
+        mutate(prop.FA.R__word = replace(prop.FA.R__word, prop.FA.R__word == 0, .01)) %>%
+        mutate(d.prime.R__word = qnorm(prop.hit.R__word) - qnorm(prop.FA.R__word)) %>%
+        select(id, d.prime.R__word)
+##  Fam:
+    exp3__word.d.prime__fam <- exp3__test.stats %>%
+        select(id, prop.hit.F__word, prop.FA.F__word) %>%
+        mutate(prop.hit.F__word = replace(prop.hit.F__word, prop.hit.F__word == 1, .99)) %>%
+        mutate(prop.hit.F__word = replace(prop.hit.F__word, prop.hit.F__word == 0, .01)) %>%
+        mutate(prop.FA.F__word = replace(prop.FA.F__word, prop.FA.F__word == 1, .99)) %>%
+        mutate(prop.FA.F__word = replace(prop.FA.F__word, prop.FA.F__word == 0, .01)) %>%
+        mutate(d.prime.F__word = qnorm(prop.hit.F__word) - qnorm(prop.FA.F__word)) %>%
+        select(id, d.prime.F__word)
+##  Both:
+    exp3__word.d.prime__both <- exp3__test.stats %>%
+        select(id, prop.hit.B__word, prop.FA.B__word) %>%
+        mutate(prop.hit.B__word = replace(prop.hit.B__word, prop.hit.B__word == 1, .99)) %>%
+        mutate(prop.hit.B__word = replace(prop.hit.B__word, prop.hit.B__word == 0, .01)) %>%
+        mutate(prop.FA.B__word = replace(prop.FA.B__word, prop.FA.B__word == 1, .99)) %>%
+        mutate(prop.FA.B__word = replace(prop.FA.B__word, prop.FA.B__word == 0, .01)) %>%
+        mutate(d.prime.B__word = qnorm(prop.hit.B__word) - qnorm(prop.FA.B__word)) %>%
+        select(id, d.prime.B__word)      
+##  Guess:
+    exp3__word.d.prime__guess <- exp3__test.stats %>%
+        select(id, prop.hit.G__word, prop.FA.G__word) %>%
+        mutate(prop.hit.G__word = replace(prop.hit.G__word, prop.hit.G__word == 1, .99)) %>%
+        mutate(prop.hit.G__word = replace(prop.hit.G__word, prop.hit.G__word == 0, .01)) %>%
+        mutate(prop.FA.G__word = replace(prop.FA.G__word, prop.FA.G__word == 1, .99)) %>%
+        mutate(prop.FA.G__word = replace(prop.FA.G__word, prop.FA.G__word == 0, .01)) %>%
+        mutate(d.prime.G__word = qnorm(prop.hit.G__word) - qnorm(prop.FA.G__word)) %>%
+        select(id, d.prime.G__word)
+##  Grey drawings:  ----------------------------------------------------------------------------------------------
+##  Overall:
+    exp3__grey.drawing.d.prime <- exp3__test.stats %>%
+        select(id, prop.hit__grey.drawing, prop.FA__grey.drawing) %>%
+        mutate(prop.hit__grey.drawing = replace(prop.hit__grey.drawing, prop.hit__grey.drawing == 1, .99)) %>%
+        mutate(prop.hit__grey.drawing = replace(prop.hit__grey.drawing, prop.hit__grey.drawing == 0, .01)) %>%
+        mutate(prop.FA__grey.drawing = replace(prop.FA__grey.drawing, prop.FA__grey.drawing == 1, .99)) %>%
+        mutate(prop.FA__grey.drawing = replace(prop.FA__grey.drawing, prop.FA__grey.drawing == 0, .01)) %>%
+        mutate(d.prime__grey.drawing = qnorm(prop.hit__grey.drawing) - qnorm(prop.FA__grey.drawing)) %>%
+        select(id, d.prime__grey.drawing)
+##  Rec:
+    exp3__grey.drawing.d.prime__rec <- exp3__test.stats %>%
+        select(id, prop.hit.R__grey.drawing, prop.FA.R__grey.drawing) %>%
+        mutate(prop.hit.R__grey.drawing = replace(prop.hit.R__grey.drawing, prop.hit.R__grey.drawing == 1, .99)) %>%
+        mutate(prop.hit.R__grey.drawing = replace(prop.hit.R__grey.drawing, prop.hit.R__grey.drawing == 0, .01)) %>%
+        mutate(prop.FA.R__grey.drawing = replace(prop.FA.R__grey.drawing, prop.FA.R__grey.drawing == 1, .99)) %>%
+        mutate(prop.FA.R__grey.drawing = replace(prop.FA.R__grey.drawing, prop.FA.R__grey.drawing == 0, .01)) %>%
+        mutate(d.prime.R__grey.drawing = qnorm(prop.hit.R__grey.drawing) - qnorm(prop.FA.R__grey.drawing)) %>%
+        select(id, d.prime.R__grey.drawing)
+##  Fam:
+    exp3__grey.drawing.d.prime__fam <- exp3__test.stats %>%
+        select(id, prop.hit.F__grey.drawing, prop.FA.F__grey.drawing) %>%
+        mutate(prop.hit.F__grey.drawing = replace(prop.hit.F__grey.drawing, prop.hit.F__grey.drawing == 1, .99)) %>%
+        mutate(prop.hit.F__grey.drawing = replace(prop.hit.F__grey.drawing, prop.hit.F__grey.drawing == 0, .01)) %>%
+        mutate(prop.FA.F__grey.drawing = replace(prop.FA.F__grey.drawing, prop.FA.F__grey.drawing == 1, .99)) %>%
+        mutate(prop.FA.F__grey.drawing = replace(prop.FA.F__grey.drawing, prop.FA.F__grey.drawing == 0, .01)) %>%
+        mutate(d.prime.F__grey.drawing = qnorm(prop.hit.F__grey.drawing) - qnorm(prop.FA.F__grey.drawing)) %>%
+        select(id, d.prime.F__grey.drawing)
+##  Both:
+    exp3__grey.drawing.d.prime__both <- exp3__test.stats %>%
+        select(id, prop.hit.B__grey.drawing, prop.FA.B__grey.drawing) %>%
+        mutate(prop.hit.B__grey.drawing = replace(prop.hit.B__grey.drawing, prop.hit.B__grey.drawing == 1, .99)) %>%
+        mutate(prop.hit.B__grey.drawing = replace(prop.hit.B__grey.drawing, prop.hit.B__grey.drawing == 0, .01)) %>%
+        mutate(prop.FA.B__grey.drawing = replace(prop.FA.B__grey.drawing, prop.FA.B__grey.drawing == 1, .99)) %>%
+        mutate(prop.FA.B__grey.drawing = replace(prop.FA.B__grey.drawing, prop.FA.B__grey.drawing == 0, .01)) %>%
+        mutate(d.prime.B__grey.drawing = qnorm(prop.hit.B__grey.drawing) - qnorm(prop.FA.B__grey.drawing)) %>%
+        select(id, d.prime.B__grey.drawing)      
+##  Guess:
+    exp3__grey.drawing.d.prime__guess <- exp3__test.stats %>%
+        select(id, prop.hit.G__grey.drawing, prop.FA.G__grey.drawing) %>%
+        mutate(prop.hit.G__grey.drawing = replace(prop.hit.G__grey.drawing, prop.hit.G__grey.drawing == 1, .99)) %>%
+        mutate(prop.hit.G__grey.drawing = replace(prop.hit.G__grey.drawing, prop.hit.G__grey.drawing == 0, .01)) %>%
+        mutate(prop.FA.G__grey.drawing = replace(prop.FA.G__grey.drawing, prop.FA.G__grey.drawing == 1, .99)) %>%
+        mutate(prop.FA.G__grey.drawing = replace(prop.FA.G__grey.drawing, prop.FA.G__grey.drawing == 0, .01)) %>%
+        mutate(d.prime.G__grey.drawing = qnorm(prop.hit.G__grey.drawing) - qnorm(prop.FA.G__grey.drawing)) %>%
+        select(id, d.prime.G__grey.drawing)
+##  Grey photos:  ------------------------------------------------------------------------------------------------
+##  Overall:
+    exp3__grey.photo.d.prime <- exp3__test.stats %>%
+        select(id, prop.hit__grey.photo, prop.FA__grey.photo) %>%
+        mutate(prop.hit__grey.photo = replace(prop.hit__grey.photo, prop.hit__grey.photo == 1, .99)) %>%
+        mutate(prop.hit__grey.photo = replace(prop.hit__grey.photo, prop.hit__grey.photo == 0, .01)) %>%
+        mutate(prop.FA__grey.photo = replace(prop.FA__grey.photo, prop.FA__grey.photo == 1, .99)) %>%
+        mutate(prop.FA__grey.photo = replace(prop.FA__grey.photo, prop.FA__grey.photo == 0, .01)) %>%
+        mutate(d.prime__grey.photo = qnorm(prop.hit__grey.photo) - qnorm(prop.FA__grey.photo)) %>%
+        select(id, d.prime__grey.photo)
+##  Rec:
+    exp3__grey.photo.d.prime__rec <- exp3__test.stats %>%
+        select(id, prop.hit.R__grey.photo, prop.FA.R__grey.photo) %>%
+        mutate(prop.hit.R__grey.photo = replace(prop.hit.R__grey.photo, prop.hit.R__grey.photo == 1, .99)) %>%
+        mutate(prop.hit.R__grey.photo = replace(prop.hit.R__grey.photo, prop.hit.R__grey.photo == 0, .01)) %>%
+        mutate(prop.FA.R__grey.photo = replace(prop.FA.R__grey.photo, prop.FA.R__grey.photo == 1, .99)) %>%
+        mutate(prop.FA.R__grey.photo = replace(prop.FA.R__grey.photo, prop.FA.R__grey.photo == 0, .01)) %>%
+        mutate(d.prime.R__grey.photo = qnorm(prop.hit.R__grey.photo) - qnorm(prop.FA.R__grey.photo)) %>%
+        select(id, d.prime.R__grey.photo)
+##  Fam:
+    exp3__grey.photo.d.prime__fam <- exp3__test.stats %>%
+        select(id, prop.hit.F__grey.photo, prop.FA.F__grey.photo) %>%
+        mutate(prop.hit.F__grey.photo = replace(prop.hit.F__grey.photo, prop.hit.F__grey.photo == 1, .99)) %>%
+        mutate(prop.hit.F__grey.photo = replace(prop.hit.F__grey.photo, prop.hit.F__grey.photo == 0, .01)) %>%
+        mutate(prop.FA.F__grey.photo = replace(prop.FA.F__grey.photo, prop.FA.F__grey.photo == 1, .99)) %>%
+        mutate(prop.FA.F__grey.photo = replace(prop.FA.F__grey.photo, prop.FA.F__grey.photo == 0, .01)) %>%
+        mutate(d.prime.F__grey.photo = qnorm(prop.hit.F__grey.photo) - qnorm(prop.FA.F__grey.photo)) %>%
+        select(id, d.prime.F__grey.photo)
+##  Both:
+    exp3__grey.photo.d.prime__both <- exp3__test.stats %>%
+        select(id, prop.hit.B__grey.photo, prop.FA.B__grey.photo) %>%
+        mutate(prop.hit.B__grey.photo = replace(prop.hit.B__grey.photo, prop.hit.B__grey.photo == 1, .99)) %>%
+        mutate(prop.hit.B__grey.photo = replace(prop.hit.B__grey.photo, prop.hit.B__grey.photo == 0, .01)) %>%
+        mutate(prop.FA.B__grey.photo = replace(prop.FA.B__grey.photo, prop.FA.B__grey.photo == 1, .99)) %>%
+        mutate(prop.FA.B__grey.photo = replace(prop.FA.B__grey.photo, prop.FA.B__grey.photo == 0, .01)) %>%
+        mutate(d.prime.B__grey.photo = qnorm(prop.hit.B__grey.photo) - qnorm(prop.FA.B__grey.photo)) %>%
+        select(id, d.prime.B__grey.photo)      
+##  Guess:
+    exp3__grey.photo.d.prime__guess <- exp3__test.stats %>%
+        select(id, prop.hit.G__grey.photo, prop.FA.G__grey.photo) %>%
+        mutate(prop.hit.G__grey.photo = replace(prop.hit.G__grey.photo, prop.hit.G__grey.photo == 1, .99)) %>%
+        mutate(prop.hit.G__grey.photo = replace(prop.hit.G__grey.photo, prop.hit.G__grey.photo == 0, .01)) %>%
+        mutate(prop.FA.G__grey.photo = replace(prop.FA.G__grey.photo, prop.FA.G__grey.photo == 1, .99)) %>%
+        mutate(prop.FA.G__grey.photo = replace(prop.FA.G__grey.photo, prop.FA.G__grey.photo == 0, .01)) %>%
+        mutate(d.prime.G__grey.photo = qnorm(prop.hit.G__grey.photo) - qnorm(prop.FA.G__grey.photo)) %>%
+        select(id, d.prime.G__grey.photo)
+
+##  Add new d'prime calculations to 'exp3__test.stats' df:  ------------------------------------------------------ 
+    exp3__test.stats <- exp3__test.stats %>%
+        right_join(exp3__word.d.prime) %>% right_join(exp3__grey.drawing.d.prime) %>%
+        right_join(exp3__grey.photo.d.prime) %>% right_join(exp3__word.d.prime__rec) %>%
+        right_join(exp3__grey.drawing.d.prime__rec) %>% right_join(exp3__grey.photo.d.prime__rec) %>%
+        right_join(exp3__word.d.prime__fam) %>% right_join(exp3__grey.drawing.d.prime__fam) %>%
+        right_join(exp3__grey.photo.d.prime__fam) %>% right_join(exp3__word.d.prime__both) %>%
+        right_join(exp3__grey.drawing.d.prime__both) %>% right_join(exp3__grey.photo.d.prime__both) %>%
+        right_join(exp3__word.d.prime__guess) %>% right_join(exp3__grey.drawing.d.prime__guess) %>%
+        right_join(exp3__grey.photo.d.prime__guess) %>%
+##################################################################################################################
+##    Calculate z-scores:                                                                                       ##
+##################################################################################################################  
+    ##  z-scores:
+        mutate("z.hit__word" = qnorm((hit__word + 0.5) / (hit__word + miss__word + 1))) %>%
+        mutate("z.FA__word" = qnorm((FA__word + 0.5) / (FA__word + CR__word + 1))) %>%
+        mutate("z.hit__grey.drawing" = qnorm((hit__drawing + 0.5) / (hit__drawing + miss__drawing + 1))) %>%
+        mutate("z.FA__grey.drawing" = qnorm((FA__drawing + 0.5) / (FA__drawing + CR__drawing + 1))) %>%
+        mutate("z.hit__grey.photo" = qnorm((hit__photo + 0.5) / (hit__photo + miss__photo + 1))) %>%
+        mutate("z.FA__grey.photo" = qnorm((FA__photo + 0.5) / (FA__photo + CR__photo + 1)))
+##################################################################################################################
+##    Final data:                                                                                               ##
+##################################################################################################################  
+##    Merge 'exp3__participant_info' and 'exp3__test.stats' to create final tidy df:  ---------------------------- 
+      exp3__participant_info <- exp3and4__participant_info %>%
+          filter(col_or_grey == "grey")
+      exp3__final.data <- exp3__participant_info %>%
+          right_join(exp3__test.stats) %>%
+          arrange(prolific_id, study_list, test_list)
+#################################################################################################################
+##    Apply exclusion criteria:                                                                                ##
+#################################################################################################################
+##  1. Anyone with less than 90% toward encoding questions:
+    exp3__exclude1 <- exp3__final.data %>%
+        filter(study_correct_percent < 90)
+##  2. Anyone + or - 3.0 z-score for total hits:
+    exp3__exclude2 <- exp3__final.data %>%
+        mutate("z.hit__total" = qnorm((total_hits + 0.5) / (total_hits + total_miss + 1))) %>%
+        filter(z.hit__total >= 3.0 | z.hit__total <= -3.0)
+##  3. Anyone + or - 3.0 z-score for total FAs:
+    exp3__exclude3 <- exp3__final.data %>%
+        mutate("z.FA__total" = qnorm((total_FA + 0.5) / (total_FA + total_CR + 1))) %>%
+        filter(z.FA__total >= 3.0 | z.FA__total <= -3.0)    
+##  4. Anyone + or - 3.0 z-score for total recognition:
+    exp3__exclude4 <- exp3__final.data %>%
+        mutate("prop.hit__total" = total_hits / (total_hits + total_miss)) %>%
+        mutate("prop.FA__total" = total_FA / (total_FA + total_CR)) %>%
+        mutate("recog__total" = prop.hit__total - prop.FA__total) %>%
+        mutate("z.recog__total" = (recog__total - mean(recog__total)) / sd(recog__total)) %>%
+        filter(z.recog__total >= 3.0 | z.recog__total <= -3.0)
+##  Join all to-be-excluded participants into single df:
+    exp3__all.exclude <- exp3__exclude1 %>%
+        bind_rows(exp3__exclude2, exp3__exclude3, exp3__exclude4)
+##  Just get the id's for the to-be-excluded participants:
+    exp3__p.id.exclude <- exp3__all.exclude$id
+##  Remove these participants from 'exp3and4__final_data':
+    exp3__final.data <- exp3__final.data %>%
+        filter(!id %in% exp3__p.id.exclude) %>%
+        mutate(resp_option = toupper(resp_option)) %>%
+        mutate(age = na_if(age, 0))
+    
+##----------------------------------------------------------------------------------------------------------------
+##  Prep key data for analysis:
+##----------------------------------------------------------------------------------------------------------------
+    exp3__d.prime <- exp3__final.data %>%
+        select(id, d.prime__word, d.prime__grey.drawing, d.prime__grey.photo, ) %>%
+        gather(key = "stim", value = "d.prime", d.prime__word, d.prime__grey.drawing, d.prime__grey.photo) %>%
+        mutate(stim = str_remove(stim, "d.prime__"))
+      
+    exp3__d.prime.R <- exp3__final.data %>%
+        select(id, d.prime.R__word, d.prime.R__grey.drawing, d.prime.R__grey.photo) %>%
+        gather(key = "stim", value = "d.prime.R", d.prime.R__word, d.prime.R__grey.drawing, 
+               d.prime.R__grey.photo) %>%
+        mutate(stim = str_remove(stim, "d.prime.R__"))
+      
+    exp3__d.prime.F <- exp3__final.data %>%
+        select(id, d.prime.F__word, d.prime.F__grey.drawing, d.prime.F__grey.photo) %>%
+        gather(key = "stim", value = "d.prime.F", d.prime.F__word, d.prime.F__grey.drawing, 
+               d.prime.F__grey.photo) %>%
+        mutate(stim = str_remove(stim, "d.prime.F__"))
+            
+    exp3__d.prime.G <- exp3__final.data %>%
+        select(id, d.prime.G__word, d.prime.G__grey.drawing, d.prime.G__grey.photo) %>%
+        gather(key = "stim", value = "d.prime.G", d.prime.G__word, d.prime.G__grey.drawing,
+               d.prime.G__grey.photo) %>%
+        mutate(stim = str_remove(stim, "d.prime.G__"))
+      
+    exp3__prop.hit <- exp3__final.data %>%
+         select(id, prop.hit__word, prop.hit__grey.drawing, prop.hit__grey.photo) %>%
+        gather(key = "stim", value = "prop.hit", prop.hit__word, prop.hit__grey.drawing, prop.hit__grey.photo) %>%
+        mutate(stim = str_remove(stim, "prop.hit__"))
+    
+    exp3__prop.FA <- exp3__final.data %>%
+        select(id, prop.FA__word, prop.FA__grey.drawing, prop.FA__grey.photo) %>%
+        gather(key = "stim", value = "prop.FA", prop.FA__word, prop.FA__grey.drawing, prop.FA__grey.photo) %>%
+        mutate(stim = str_remove(stim, "prop.FA__"))
+    
+    exp3__prop.hit.R <- exp3__final.data %>%
+        select(id, prop.hit.R__word, prop.hit.R__grey.drawing, prop.hit.R__grey.photo) %>%
+        gather(key = "stim", value = "prop.hit.R", prop.hit.R__word, prop.hit.R__grey.drawing, 
+               prop.hit.R__grey.photo) %>%
+        mutate(stim = str_remove(stim, "prop.hit.R__"))
+    
+    exp3__prop.hit.F <- exp3__final.data %>%
+        select(id, prop.hit.F__word, prop.hit.F__grey.drawing, prop.hit.F__grey.photo) %>%
+        gather(key = "stim", value = "prop.hit.F", prop.hit.F__word, prop.hit.F__grey.drawing, 
+               prop.hit.F__grey.photo) %>%
+        mutate(stim = str_remove(stim, "prop.hit.F__"))
+    
+    exp3__prop.hit.G <- exp3__final.data %>%
+        select(id, prop.hit.G__word, prop.hit.G__grey.drawing, prop.hit.G__grey.photo) %>%
+        gather(key = "stim", value = "prop.hit.G", prop.hit.G__word, prop.hit.G__grey.drawing, 
+               prop.hit.G__grey.photo) %>%
+        mutate(stim = str_remove(stim, "prop.hit.G__"))
+    
+    exp3__prop.FA.R <- exp3__final.data %>%
+        select(id, prop.FA.R__word, prop.FA.R__grey.drawing, prop.FA.R__grey.photo) %>%
+        gather(key = "stim", value = "prop.FA.R", prop.FA.R__word, prop.FA.R__grey.drawing, 
+               prop.FA.R__grey.photo) %>%
+        mutate(stim = str_remove(stim, "prop.FA.R__"))
+    
+    exp3__prop.FA.F <- exp3__final.data %>%
+        select(id, prop.FA.F__word, prop.FA.F__grey.drawing, prop.FA.F__grey.photo) %>%
+        gather(key = "stim", value = "prop.FA.F", prop.FA.F__word, prop.FA.F__grey.drawing,
+               prop.FA.F__grey.photo) %>%
+        mutate(stim = str_remove(stim, "prop.FA.F__"))
+    
+    exp3__prop.FA.G <- exp3__final.data %>%
+        select(id, prop.FA.G__word, prop.FA.G__grey.drawing, prop.FA.G__grey.photo) %>%
+        gather(key = "stim", value = "prop.FA.G", prop.FA.G__word, prop.FA.G__grey.drawing, 
+               prop.FA.G__grey.photo) %>%
+        mutate(stim = str_remove(stim, "prop.FA.G__"))
+```

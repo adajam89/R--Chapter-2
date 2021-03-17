@@ -1,0 +1,36 @@
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+##################################################################################################################
+##  Exp3 Prop hits:                                                                                             ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp3__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, exp3__prop.hit, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "none", es = "none"))
+##  Mauchlys test of sphericity:
+    exp3__prop.hit.aov__sphericity <- test_sphericity(exp3__prop.hit.aov)
+    exp3__prop.hit.aov__sphericity <- exp3__prop.hit.aov__sphericity[1,2]
+      
+##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+    exp3__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, exp3__prop.hit, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "GG", es = "ges"))
+#-----------------------------------------------------------------------------------------------------------------
+##  Significant main effect of response option, so perform independent samples (Welch's) t-test: 
+    exp3__prop.hit__ttest__rfg.rfbg <- exp3__prop.hit %>% t.test(prop.hit~resp_option, paired=FALSE, data = .)
+    
+    
+    
+    
+    
+##  Significant main effect of stimuli format, so perform independent samples t-test: 
+    exp3__prop.hit__ttest__word.drawing <- exp3__prop.hit %>% filter(stim == "word" | stim == "grey.drawing") %>%
+        t.test(prop.hit~stim, paired=TRUE, data = .)   
+    
+    
+    
+##  Get means:
+    exp3__prop.hit.means <- emmeans(exp5__prop.hit.aov, ~stim)
+    exp3__prop.hit.means__grey.word <- summary(exp5__prop.hit.means)$emmean[1] %>% round(2)
+    exp3__prop.hit.means__col.word <- summary(exp5__prop.hit.means)$emmean[2] %>% round(2)
+    exp3__prop.hit.means__grey.drawing <- summary(exp5__prop.hit.means)$emmean[3] %>% round(2)
+```
