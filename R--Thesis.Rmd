@@ -4800,10 +4800,10 @@ It is hypothesised that:
 ##################################################################################################################
 ##    Final data:                                                                                               ##
 ##################################################################################################################
-##    Merge 'exp4__participant_info' and 'exp4__test.stats' to create final tidy df:  ---------------------------- 
-      exp4__participant_info <- exp3and4__participant_info %>%
+##    Merge 'exp4__participant.info' and 'exp4__test.stats' to create final tidy df:  ---------------------------- 
+      exp4__participant.info <- exp3and4__participant_info %>%
           filter(col_or_grey == "col")
-      exp4__final.data <- exp4__participant_info %>%
+      exp4__final.data <- exp4__participant.info %>%
           right_join(exp4__test.stats) %>%
           arrange(prolific_id, study_list, test_list)
 #################################################################################################################
@@ -4909,6 +4909,49 @@ It is hypothesised that:
         gather(key = "stim", value = "prop.FA.G", prop.FA.G__word, prop.FA.G__col.drawing, 
                prop.FA.G__col.photo) %>%
         mutate(stim = str_remove(stim, "prop.FA.G__"))
+##----------------------------------------------------------------------------------------------------------------
+##  Prep data for participants section:
+##----------------------------------------------------------------------------------------------------------------
+    exp4__age.gender <- exp4__participant.info %>%
+        select(age, gender) %>%
+        mutate(age = as.double(age))
+
+    exp4__age.gender__table <- tribble(~"Gender", ~N, ~Age, ~SD,
+        "Female", exp4__age.gender %>% filter(gender == "female") %>% nrow(),
+        exp4__age.gender %>% filter(gender == "female") %>% summarise(mean(age)) %>% pull() %>% round (2),
+        exp4__age.gender %>% filter(gender == "female") %>% summarise(sd(age)) %>% pull() %>% round (2),
+        "Male", exp4__age.gender %>% filter(gender == "male") %>% nrow(),
+        exp4__age.gender %>% filter(gender == "male") %>% summarise(mean(age)) %>% pull() %>% round (2),
+        exp4__age.gender %>% filter(gender == "male") %>% summarise(sd(age)) %>% pull() %>% round (2),
+        "Non-binary", exp4__age.gender %>% filter(gender == "non-binary") %>% nrow(),
+        exp4__age.gender %>% filter(gender == "non-binary") %>% summarise(mean(age)) %>% pull(),
+        0,
+        "Transgender", exp4__age.gender %>% filter(gender == "transgender") %>% nrow(),
+        exp4__age.gender %>% filter(gender == "transgender") %>% summarise(mean(age)) %>% pull(),
+        0,
+        "Unspecified", exp4__age.gender %>% filter(gender == "unspecified") %>% nrow(),
+        exp4__age.gender %>% filter(gender == "unspecified") %>% summarise(mean(age)) %>% pull(),
+        exp4__age.gender %>% filter(gender == "unspecified") %>% summarise(sd(age)) %>% pull() %>% round (2),
+        "Total", exp4__age.gender %>% nrow(),
+        exp4__age.gender %>% summarise(mean(age)) %>% pull() %>% round (2),
+        exp4__age.gender %>% summarise(sd(age)) %>% pull() %>% round (2))
+
+    exp4__source <- as_tibble(exp4__participant.info$prolific_id)
+    exp4__source <- exp4__source %>% mutate(length = str_length(value)) %>%
+        mutate(source = ifelse(length == 4, "sona", ifelse(length == 5, "sona", ifelse(length == 6, "sona",
+                        ifelse(length == 8, "hanover", ifelse(length == 24, "prolific", value))))))
+    
+    exp4__n.prolific <- nrow(exp4__source %>% filter(source == "prolific"))
+    exp4__n.prolific <- round((exp4__n.prolific / nrow(exp4__source)) * 100, 2)
+    
+    exp4__n.sona <- nrow(exp4__source %>% filter(source == "sona"))
+    exp4__n.sona <- round((exp4__n.sona / nrow(exp4__source)) * 100, 2)
+    
+    exp4__n.hanover <- nrow(exp4__source %>% filter(source == "hanover"))
+    exp4__n.hanover <- round((exp4__n.hanover / nrow(exp4__source)) * 100, 2)
+    
+    exp4__n.eng.lang <- nrow(exp4__participant.info %>% filter(eng_first_lang == "yes"))
+    exp4__n.eng.lang <- round((exp4__n.eng.lang / nrow(exp4__participant.info)) * 100, 2)    
 ```
 
 ### Method
