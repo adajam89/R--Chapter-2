@@ -120,3 +120,8 @@ grey drawings (*M* = `r exp3__prop.hit.means__grey.drawing`),
 `r 
 
 
+
+Results example:
+
+Data were analysed using repeated measures ANOVA, with encoding trial type (draw, visualize, write) as a within-participants factor. Results indi- cated a significant main effect of encoding trial type, F(2, 54)=8.23, MSE=.04, p,.005, η2 = .23. Paired-samples t tests using Bonferroni adjusted alpha levels of .0167 per test (.05/3) revealed that this was driven by significantly better recall for drawn trial types than for write trial types, t(27)=4.62, SE=.04, p,.001, d= 0.87, and marginally better recall for drawn than for visualized trial types, t(27) = 2.20, SE = .06, p = .037, d = 0.42. The difference in recall between visualize and write trial types was not significant, t(27)=1.58, SE=.05, p=.126, d=0.30 (see Figure 3).
+
