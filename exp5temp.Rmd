@@ -74,42 +74,39 @@
     exp3__prop.FA__ttest__drawing.photo <- 
         papaja::apa_print(exp3__prop.FA__pairs__stim.format[3])$statistic$greydrawing_greyphoto    
 ##################################################################################################################
-##  Exp3 Recog:                                                                                             ##
+##  Exp3 d':                                                                                                    ##
 ##################################################################################################################
 ##  Two-way mixed ANOVA:
-    exp3__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, exp3__prop.hit, 
+    exp3__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, exp3__d.prime, 
                                        between = "resp_option", within = 'stim',
                                        anova_table=list(correction = "none", es = "none"))
 ##  Mauchlys test of sphericity:
-    exp3__prop.hit.aov__sphericity <- test_sphericity(exp3__prop.hit.aov)
-    exp3__prop.hit.aov__sphericity <- exp3__prop.hit.aov__sphericity[1,2]
+    exp3__d.prime.aov__sphericity <- test_sphericity(exp3__d.prime.aov)
+    exp3__d.prime.aov__sphericity <- exp3__d.prime.aov__sphericity[1,2]
       
-##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
-    exp3__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, exp3__prop.hit, 
+##  Assumption of sphericity NOT violated (p>.05), so Greenhouse-Geisser correction NOT applied:
+    exp3__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, exp3__d.prime, 
                                        between = "resp_option", within = 'stim',
-                                       anova_table=list(correction = "GG", es = "ges"))
+                                       anova_table=list(correction = "none", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
-##  Significant main effect of RESPONSE OPTION, so perform independent samples (Welch's) t-test: 
-    exp3__prop.hit__ttest__rfg.rfbg <- exp3__prop.hit %>% t.test(prop.hit~resp_option, paired=FALSE, data = .)
-    
-##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
-    exp3__prop.hit__pairs__stim.format <- pairs(emmeans(exp3__prop.hit.aov, c("stim")), adjust = "holm")
-    
+##  Significant INTERACTION, so perform paired contrasts:
+    exp3__d.prime__pairs__stim.format <- pairs(emmeans(exp3__d.prime.aov, c("stim", "resp_option")), 
+                                               adjust = "holm")
 ##  Get means:
-    exp3__prop.hit__stim.means <- emmeans(exp3__prop.hit.aov, ~stim)
-    exp3__prop.hit.means__word <- summary(exp3__prop.hit__stim.means)$emmean[1] %>% round(2)
-    exp3__prop.hit.means__grey.drawing <- summary(exp3__prop.hit__stim.means)$emmean[2] %>% round(2)
-    exp3__prop.hit.means__grey.photo <- summary(exp3__prop.hit__stim.means)$emmean[3] %>% round
-    exp3__prop.hit__resp.option <- emmeans(exp3__prop.hit.aov, ~resp_option)
-    exp3__prop.hit.means__RFG <- summary(exp3__prop.hit__resp.option)$emmean[2] %>% round(2)
-    exp3__prop.hit.means__RFBG <- summary(exp3__prop.hit__resp.option)$emmean[1] %>% round(2)
+    exp3__d.prime__stim.means <- emmeans(exp3__d.prime.aov, ~stim)
+    exp3__d.prime.means__word <- summary(exp3__d.prime__stim.means)$emmean[1] %>% round(2)
+    exp3__d.prime.means__grey.drawing <- summary(exp3__d.prime__stim.means)$emmean[2] %>% round(2)
+    exp3__d.prime.means__grey.photo <- summary(exp3__d.prime__stim.means)$emmean[3] %>% round
+    exp3__d.prime__resp.option <- emmeans(exp3__d.prime.aov, ~resp_option)
+    exp3__d.prime.means__RFG <- summary(exp3__d.prime__resp.option)$emmean[2] %>% round(2)
+    exp3__d.prime.means__RFBG <- summary(exp3__d.prime__resp.option)$emmean[1] %>% round(2)
 ##  Format contrasts for report:
-    exp3__prop.hit__ttest__word.drawing <- 
-        papaja::apa_print(exp3__prop.hit__pairs__stim.format[1])$statistic$word_greydrawing
-    exp3__prop.hit__ttest__word.photo <- 
-        papaja::apa_print(exp3__prop.hit__pairs__stim.format[2])$statistic$word_greyphoto
-    exp3__prop.hit__ttest__drawing.photo <- 
-        papaja::apa_print(exp3__prop.hit__pairs__stim.format[3])$statistic$greydrawing_greyphoto    
+    exp3__d.prime__ttest__word.drawing <- 
+        papaja::apa_print(exp3__d.prime__pairs__stim.format[1])$statistic$wordRFBG_greydrawingRFBG
+
+    
+    
+    
     
     
 ```
