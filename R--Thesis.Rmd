@@ -4731,6 +4731,82 @@ The ANOVA on the mean proportion of hits assigned Guessing demonstrated a signif
 
 For FAs assigned Recollection, there was no significant main effect of stimuli format [`r apa::anova_apa(exp3__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)` or interaction [`r apa::anova_apa(exp3__prop.FA.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`].
 
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+##################################################################################################################
+##  Exp3 Prop F FAs:                                                                                            ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp3__prop.FA.F.aov <- afex::aov_ez('id', 'prop.FA.F', fun_aggregate = mean, exp3__prop.FA.F, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp3__prop.FA.F.aov__sphericity <- test_sphericity(exp3__prop.FA.F.aov)
+##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+##  Significant main effect of RESPONSE OPTION, so perform paired contrasts:    
+    
+    
+    
+##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
+    exp3__prop.FA.F__pairwise__stim.format <- exp3__prop.FA.F %>% 
+        pairwise_t_test(prop.FA.F ~ stim, paired = TRUE, p.adjust.method = "bonferroni")    
+##  t-test - grey photos vs. words:
+    temp <- exp3__prop.FA.F__pairwise__stim.format %>% filter(group1 == "grey.photo" & group2 == "word")
+    exp3__prop.FA.F__ttest__grey.photo.vs.word <- ttest.writeup(temp)
+##  t-test - grey drawings vs. words:    
+    temp <- exp3__prop.FA.F__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "word")
+    exp3__prop.FA.F__ttest__grey.drawing.vs.word <- ttest.writeup(temp)    
+##  t-test - grey drawings vs. grey photos:    
+    temp <- exp3__prop.FA.F__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "grey.photo")
+    exp3__prop.FA.F__ttest__grey.photo.vs.grey.drawing <- ttest.writeup(temp)
+##  Get all means:
+    exp3__prop.FA.F__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.F.aov, ~stim)))
+    exp3__prop.FA.F__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.FA.F.aov, ~resp_option)))
+```
+
+##### Familiarity (FAs)
+
+
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+##################################################################################################################
+##  Exp3 Prop G FAs:                                                                                           ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp3__prop.FA.G.aov <- afex::aov_ez('id', 'prop.FA.G', fun_aggregate = mean, exp3__prop.FA.G, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp3__prop.FA.G.aov__sphericity <- test_sphericity(exp3__prop.FA.G.aov)
+##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+    exp3__prop.FA.G.aov <- afex::aov_ez('id', 'prop.FA.G', fun_aggregate = mean, exp3__prop.FA.G, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "GG", es = "ges"))
+##  No significant main effect of RESPONSE OPTION. 
+##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
+    exp3__prop.FA.G__pairwise__stim.format <- exp3__prop.FA.G %>% 
+        pairwise_t_test(prop.FA.G ~ stim, paired = TRUE, p.adjust.method = "bonferroni")    
+##  t-test - grey photos vs. words:
+    temp <- exp3__prop.FA.G__pairwise__stim.format %>% filter(group1 == "grey.photo" & group2 == "word")
+    exp3__prop.FA.G__ttest__grey.photo.vs.word <- ttest.writeup(temp)
+##  t-test - grey drawings vs. words:    
+    temp <- exp3__prop.FA.G__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "word")
+    exp3__prop.FA.G__ttest__grey.drawing.vs.word <- ttest.writeup(temp)    
+##  t-test - grey drawings vs. grey photos:    
+    temp <- exp3__prop.FA.G__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "grey.photo")
+    exp3__prop.FA.G__ttest__grey.photo.vs.grey.drawing <- ttest.writeup(temp)
+##  Get all means:
+    exp3__prop.FA.G__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.G.aov, ~stim)))
+    exp3__prop.FA.G__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.FA.G.aov, ~resp_option)))
+```
+
+##### Guessing (FAs)
+The ANOVA on the mean proportion of FAs assigned Guessing demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer G FAs in comparison to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.word`). Likewise, grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Guessing between grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) and grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.grey.drawing`). There were also no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+
+### Discussion
+
+Across a range of performance variables, the results show a clear effect of stimuli distinctiveness. As distinctiveness increased (from words, to drawings, to photographs), this produced more hits, less FAs, better overall recognition, and better discrimination between hits / FAs. The absence of any interaction effects across these variables demonstrates that the availability of different response options (i.e. the addition of a Both option) had little impact on overall performance. RF(B)G responses for accurate recognition displayed a similar pattern; as distinctiveness increased, the number of Recollected hits also increased, while the number of Familiarity and Guessing hits decreased. The rate of both Familiarity FAs and Guessing FAs was also highest for the least distinctive stimuli (words).
+
 ######----------------------------------------
 
 \newpage
