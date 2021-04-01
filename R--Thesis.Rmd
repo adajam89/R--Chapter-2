@@ -4441,7 +4441,7 @@ A series of 3x2 mixed ANOVAs were conducted on each of the DVs, using a within-s
 ################################################################################################################## ##  Create labels for figure (replaces plot legend):
     exp3__d.prime__interaction.figure.labels <- exp3__d.prime__interaction.means %>%
         select(stim, resp_option, emmean) %>%
-        filter(stim == "grey.photo") %>%
+        filter(stim == "grey.photo") %>%  # Because we want the label to be next to photo data, on the right. 
         mutate(label = case_when(
                   resp_option == "RFG" ~ "RFG",
                   resp_option == "RFBG" ~ "RFBG")) %>%
@@ -4522,12 +4522,85 @@ figure_numbering(name = "exp3__d.prime__interaction.figure", caption = "Interact
     exp3__d.prime__interaction.figure
 ```
 `r figure_numbering("exp3__d.prime__interaction.figure")`
-&nbsp;
+&nbsp;&nbsp;
 
-Results from the ANOVA on mean *d'* scores showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`. While *d'* scores were numerically higher for words and grey photographs in the RFG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "word") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.photo") %>% pull(emmean),2)`) compared to the RFBG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "word") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.photo") %>% pull(emmean),2)`) neither were significantly different from one another (words: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGword_RFGword`; grey photographs: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreyphoto_RFGgreyphoto`. For grey drawings, however, this pattern was reversed with numerically higher *d'* scores in the RFBG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`) compared to the RFG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`); though again, this comparison did not reach significance (grey drawings: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreydrawing_RFGgreydrawing`). 
+Results from the ANOVA on mean *d'* scores showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__d.prime__interaction.figure", display = "cite")`). While *d'* scores were numerically higher for words and grey photographs in the RFG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "word") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.photo") %>% pull(emmean),2)`) compared to the RFBG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "word") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.photo") %>% pull(emmean),2)`), neither were significantly different from one another (words: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGword_RFGword %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; grey photographs: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreyphoto_RFGgreyphoto %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`. For grey drawings, however, this pattern was reversed; *d'* scores were numerically higher in the RFBG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`) rather than the RFG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`); though again, these means were not significantly different from one another (grey drawings: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreydrawing_RFGgreydrawing %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). 
+
+
+#### Recollection and Familiarity
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+##################################################################################################################
+##  Exp3 Prop R Hits:                                                                                           ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp3__prop.hit.R.aov <- afex::aov_ez('id', 'prop.hit.R', fun_aggregate = mean, exp3__prop.hit.R, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp3__prop.hit.R.aov__sphericity <- test_sphericity(exp3__prop.hit.R.aov)
+##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+    exp3__prop.hit.R.aov <- afex::aov_ez('id', 'prop.hit.R', fun_aggregate = mean, exp3__prop.hit.R, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "GG", es = "ges"))
+##  Significant INTERACTION, so perform paired contrasts:
+    exp3__prop.hit.R__pairs__interaction <- 
+        pairs(emmeans(exp3__prop.hit.R.aov, ~ resp_option:stim), adjust = "bonferroni")
+##  Get all means:
+    exp3__prop.hit.R__stim.means <- as.tibble(summary(emmeans(exp3__prop.hit.R.aov, ~stim)))
+    exp3__prop.hit.R__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.hit.R.aov, ~resp_option)))    
+    exp3__prop.hit.R__interaction.means <- as.tibble(summary(emmeans(exp3__prop.hit.R.aov, ~stim:resp_option)))
+##################################################################################################################
+##  Prop R Hits interaction figure:                                                                             ##
+################################################################################################################## ##  Create labels for figure (replaces plot legend):
+    exp3__prop.hit.R__interaction.figure.labels <- exp3__prop.hit.R__interaction.means %>%
+        select(stim, resp_option, emmean) %>%
+        filter(stim == "grey.photo") %>%  # Because we want the label to be next to photo data, on the right. 
+        mutate(label = case_when(
+                  resp_option == "RFG" ~ "RFG",
+                  resp_option == "RFBG" ~ "RFBG")) %>%
+        group_by(stim, resp_option, label)  
+##  Interaction figure:
+    exp3__prop.hit.R__interaction.figure <- exp3__prop.hit.R__interaction.means %>%
+        select(stim, resp_option, emmean) %>%
+        ggplot() +
+            aes(x = stim, color = resp_option, group = resp_option, y = emmean) +
+            stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
+            stat_summary(fun.y = mean, geom = "line", size = 1.2) +
+            geom_text(size = 4, aes(label = label, color = resp_option), nudge_x = 0.08, hjust = 0,
+                      data = exp3__prop.hit.R__interaction.figure.labels) +
+            scale_color_manual(values = c('#8ec6c5', '#7d9ab5', '#8566aa')) +
+            labs(x = "Stimuli format", y = "Mean proportion of hits assigned Recollection") +
+            scale_y_continuous(limits = c(0, 3.5),
+                               breaks = c(0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5),
+                               expand = c(0, 0)) +
+            theme_classic() +
+            theme(legend.position = "none",
+                  axis.title.x = element_text(size = 10, vjust = -4),
+                  axis.text.x = element_text(size = 10),
+                  axis.title.y = element_text(size = 10, vjust = 6),
+                  axis.text.y = element_text(size = 10),
+                  plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+                  plot.margin = margin(20, 20, 24, 30))
+```    
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+figure_numbering(name = "exp3__prop.hit.R__interaction.figure", caption = "Interaction plot between stimuli format and response option for the mean proportion of hits assigned Recollection.")
+```
+
+##### Recollection (hits)
+Results from the ANOVA on the mean proportion of hits assigned Recollection showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.hit.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__prop.hit.R__interaction.figure", display = "cite")`).
+
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
+    exp3__prop.hit.R__interaction.figure
+```
+`r figure_numbering("exp3__prop.hit.R__interaction.figure")`
+&nbsp;&nbsp;
+
+Grey photographs produced a significantly higher proportion of R hits than words and grey drawings in both the RFG group (grey photographs [*M*= `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.photo") %>% pull(emmean),2)`] vs. words [*M*= `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "word") %>% pull(emmean),2)`], `r papaja::apa_print(exp3__prop.hit.R__pairs__interaction)$statistic$RFGword_RFGgreyphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; grey photographs [*M*= `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.photo") %>% pull(emmean),2)`] vs. grey drawings [*M*= `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.drawing") %>% pull(emmean),2)`], `r papaja::apa_print(exp3__prop.hit.R__pairs__interaction)$statistic$RFGgreydrawing_RFGgreyphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`) and the RFBG group (grey photographs [*M*= `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.photo") %>% pull(emmean),2)`] vs. words [*M*= `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "word") %>% pull(emmean),2)`], `r papaja::apa_print(exp3__prop.hit.R__pairs__interaction)$statistic$RFBGword_RFBGgreyphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; grey photographs [*M*= `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.photo") %>% pull(emmean),2)`] vs. grey drawings [*M*= `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`], `r papaja::apa_print(exp3__prop.hit.R__pairs__interaction)$statistic$RFBGgreydrawing_RFBGgreyphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). 
+
 
 \newpage
-
+The mean proportion of R hits were significantly higher for grey drawings and photographs in the RFG group (grey drawings *M* = `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.drawing") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.photo") %>% pull(emmean),2)`) compared to the RFBG group (grey drawings *M* = `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.photo") %>% pull(emmean),2)`; grey drawings RFG vs. RFBG: `r papaja::apa_print(exp3__prop.hit.R__pairs__interaction)$statistic$RFBGgreydrawing_RFGgreydrawing %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; grey photographs RFG vs. RFBG: `r papaja::apa_print(exp3__prop.hit.R__pairs__interaction)$statistic$RFBGgreyphoto_RFGgreyphoto %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`).
+    
 ######----------------------------------------
 
 \newpage
