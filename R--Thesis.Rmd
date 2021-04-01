@@ -42,6 +42,8 @@ header-includes:
       packages_to_install <- packages[!(packages %in% installed.packages()[,"Package"])]
       if(length(packages_to_install)) install.packages(packages_to_install)
       invisible(suppressPackageStartupMessages(lapply(packages, library, character.only = TRUE)))
+      devtools::install_github("crsh/papaja")
+      library(papaja)
 ##    Write references file for all of the packages used, and general R ref:
       #write.bib(packages, "resources/packages.bib")
       #write.bib(citation(), "resources/base.bib")
@@ -4494,41 +4496,11 @@ A series of 3x2 mixed ANOVAs were conducted on each of the DVs, using a within-s
         column_to_rownames(var = "Stim")
 ```
 
-```{r exp3__prop-hits-and-FAs--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
 table_numbering(name = "exp3__prop.hit.FA.d.prime__table", caption = "Mean proportion of hits, FAs, and mean *d'* scores, by stimuli format and response option condition.")
 ```
 
-The mean proportion of hits, FAs, and mean *d'* scores are presented in `r table_numbering("exp3__prop.hit.FA.d.prime__table", display = "cite")`). Results demonstrated a significant main effect of stimuli format in the ANOVA on the mean proportion of hits, `r apa::anova_apa(exp3__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`, though there were no significant interaction effects with response option condition `r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`. Paired-samples t-tests demonstrated photographs (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced a significantly higher proportion of hits compared to both words (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.hit__ttest__grey.photo.vs.word` and drawings (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`), `r exp3__prop.hit__ttest__grey.photo.vs.grey.drawing`. Additionally, drawings (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) produced a significantly higher proportion of hits compared to words (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.hit__ttest__grey.drawing.vs.word`.
-
-In the ANOVA on the mean proportion of FAs, there was again a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Photographs (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer FAs in comparison to both words (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.FA__ttest__grey.photo.vs.word`, and drawings (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`), `r exp3__prop.FA__ttest__grey.photo.vs.grey.drawing`. Compared to words (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), drawings (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs, `r exp3__prop.FA__ttest__grey.drawing.vs.word`. There were no significant interaction effects with response option condition, `r apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`. 
-
-\newpage
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-figure_numbering(name = "exp3__d.prime__interaction.figure", caption = "Interaction plot between stimuli format and response option for d' scores.")
-```
-```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
-    exp3__d.prime__interaction.figure
-```
-`r figure_numbering("exp3__d.prime__interaction.figure")`
-
-For mean *d'* scores, the ANOVA demonstrated a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.  
-
-\newpage
-*d'* scores were not significantly different for words in the RFG condition (*M*= `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "word") %>% pull(emmean),2)`) compared to the RFBG condition (*M*= `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "word") %>% pull(emmean),2)`), `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$wordRFBG_wordRFG`. 
-
-drawings in the RFG condition (*M*= `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.drawing") %>% pull(emmean),2)`) compared to the RFBG condition (*M*= `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`), `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$greydrawingRFBG_greydrawingRFG` .
-
-photographs in the RFG condition (*M*= `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.photo") %>% pull(emmean),2)`) compared to the RFBG condition (*M*= `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.photo") %>% pull(emmean),2)`), `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$greyphotoRFBG_greyphotoRFG` .
-
-
-
-
-Comparisons of stimuli format 
-
-across the response option groups showed that d' scores for photographs did not significantly differ between the RFG () and RFBG () conditions [], nor for drawings (RFG: , RFBG: , [], nor for words (RFG: , RFBG: , []). 
-
-
-
+&nbsp;
 `r table_numbering("exp3__prop.hit.FA.d.prime__table")`
 ```{r, echo=FALSE, cache=TRUE}
     exp3__prop.hit.FA.d.prime__table %>%
@@ -4538,15 +4510,23 @@ across the response option groups showed that d' scores for photographs did not 
         pack_rows("Response option", 4, 5) %>%
         column_spec(1, width = "4cm")
 ```
+
+The mean proportion of hits and FAs, and mean *d'* scores are presented in `r table_numbering("exp3__prop.hit.FA.d.prime__table", display = "cite")`. ANOVA results demonstrated a significant main effect of stimuli format for the mean proportion of hits, `r apa::anova_apa(exp3__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Paired samples t-tests showed that grey photographs (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced a significantly higher proportion of hits than both words (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit__ttest__grey.photo.vs.word`) and grey drawings (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.hit__ttest__grey.photo.vs.grey.drawing`). A significantly higher proportion of hits was also evident for grey drawings (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) compared to words (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit__ttest__grey.drawing.vs.word`). There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+
+The ANOVA on the mean proportion of FAs also demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer FAs in comparison to both words (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA__ttest__grey.photo.vs.word`) and grey drawings (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.FA__ttest__grey.photo.vs.grey.drawing`). The grey drawings (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA__ttest__grey.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+figure_numbering(name = "exp3__d.prime__interaction.figure", caption = "Interaction plot between stimuli format and response option for d' scores.")
+```
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
+    exp3__d.prime__interaction.figure
+```
+`r figure_numbering("exp3__d.prime__interaction.figure")`
 &nbsp;
 
+Results from the ANOVA on mean *d'* scores showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`. While *d'* scores were numerically higher for words and grey photographs in the RFG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "word") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.photo") %>% pull(emmean),2)`) compared to the RFBG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "word") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.photo") %>% pull(emmean),2)`) neither were significantly different from one another (words: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGword_RFGword`; grey photographs: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreyphoto_RFGgreyphoto`. For grey drawings, however, this pattern was reversed with numerically higher *d'* scores in the RFBG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`) compared to the RFG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`); though again, this comparison did not reach significance (grey drawings: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreydrawing_RFGgreydrawing`). 
+
 \newpage
-
-
-
-
-
-
 
 ######----------------------------------------
 
