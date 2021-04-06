@@ -38,7 +38,7 @@ header-includes:
       rm(list=ls())  
       packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", "readr", "irr",
                     "psycho", "afex", "emmeans", "janitor", "psych", "rstatix", "ggpubr", "ggridges", "grid",
-                    "gridExtra", "bibtex", "apa")
+                    "gridExtra", "bibtex", "apa", "car")
       packages_to_install <- packages[!(packages %in% installed.packages()[,"Package"])]
       if(length(packages_to_install)) install.packages(packages_to_install)
       invisible(suppressPackageStartupMessages(lapply(packages, library, character.only = TRUE)))
@@ -4351,7 +4351,7 @@ Participants were excluded from analysis if they showed poor performance during 
 in analyses. 
 
 ### Results
-A series of 3x2 mixed ANOVAs were conducted on each of the DVs, using a within-subjects factor of stimuli format (words / grey drawings / grey photos) and a between-subjects factor of response option (RFG / RFBG). Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons. The Greenhouse-Geisser correction was applied when data was found to violate the assumption of sphericity (assessed using Mauchlys test statistic). 
+A series of 3x2 mixed ANOVAs were conducted on each of the DVs, using a within-subjects factor of stimuli format (words / grey drawings / grey photos) and a between-subjects factor of response option (RFG / RFBG); the Greenhouse-Geisser correction was applied when data was found to violate the assumption of sphericity (assessed using Mauchlys test statistic). Significant main effects of stimuli format (and interaction effects) were assessed using Bonferroni-adjusted pairwise comparisons. When no interaction effects were present, significant main effects of response option were assessed via standard two sample t-tests (when group variances were equal) or Welch two sample t-test (when variances were not equal); variance was assessed using Levene's test. 
 
 #### Stimuli distinctiveness
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -4368,10 +4368,18 @@ A series of 3x2 mixed ANOVAs were conducted on each of the DVs, using a within-s
     exp3__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, exp3__prop.hit, 
                                        between = "resp_option", within = 'stim',
                                        anova_table=list(correction = "GG", es = "ges"))
+##----------------------------------------------------------------------------------------------------------------- 
+##  Significant main effect of RESPONSE OPTION, so first check if variances are equal using Levene's test:
+    exp3__prop.hit__levine.test__rfg.rfbg <- exp3__prop.hit %>% leveneTest(prop.hit ~ resp_option, data = .)
+##  Levine NOT significant (variances equal), so perform standard two-sample t-test: 
+    exp3__prop.hit__ttest__rfg.rfbg <- exp3__prop.hit %>%
+        t_test(prop.hit ~ resp_option, paired = FALSE, data = ., var.equal = TRUE)
+##  Calculate effect size:
+    exp3__prop.hit__ttest__rfg.rfbg__eff.size <- exp3__prop.hit %>% 
+        rstatix::cohens_d(prop.hit ~ resp_option, var.equal = TRUE)
     
-##  Significant main effect of RESPONSE OPTION, so perform independent samples (Welch's) t-test: 
-    exp3__prop.hit__ttest__rfg.rfbg <- exp3__prop.hit %>% t.test(prop.hit~resp_option, paired=FALSE, data = .)
-    
+
+
 ##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
     exp3__prop.hit__pairwise__stim.format <- exp3__prop.hit %>% 
         pairwise_t_test(prop.hit ~ stim, paired = TRUE, p.adjust.method = "bonferroni")
@@ -4512,6 +4520,10 @@ table_numbering(name = "exp3__prop.hit.FA.d.prime__table", caption = "Mean propo
 ```
 
 The mean proportion of hits and FAs, and mean *d'* scores are presented in `r table_numbering("exp3__prop.hit.FA.d.prime__table", display = "cite")`. ANOVA results demonstrated a significant main effect of stimuli format for the mean proportion of hits, `r apa::anova_apa(exp3__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Paired samples t-tests showed that grey photographs (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced a significantly higher proportion of hits than both words (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit__ttest__grey.photo.vs.word`) and grey drawings (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.hit__ttest__grey.photo.vs.grey.drawing`). A significantly higher proportion of hits was also evident for grey drawings (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) compared to words (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit__ttest__grey.drawing.vs.word`). There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+
+
+
+
 
 The ANOVA on the mean proportion of FAs also demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer FAs in comparison to both words (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA__ttest__grey.photo.vs.word`) and grey drawings (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.FA__ttest__grey.photo.vs.grey.drawing`). The grey drawings (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA__ttest__grey.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
@@ -4803,8 +4815,11 @@ For FAs assigned Recollection, there was no significant main effect of stimuli f
 ##### Guessing (FAs)
 The ANOVA on the mean proportion of FAs assigned Guessing demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer G FAs in comparison to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.word`). Likewise, grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Guessing between grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) and grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.grey.drawing`). There were also no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
-### Discussion
+#### Response option:
+In the ANOVA on the mean proportion of hits, there was a significant main effect of response option condition `r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`. Follow up t-tests showed a higher proportion of hits in the RFG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) compared to the RFBG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r str_c(papaja::apa_print(exp3__prop.hit__ttest__rfg.rfbg)$statistic, ", *d* = ", round(as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$effsize), 2))`. This is considered a `r as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$magnitude)` effect size. 
 
+
+### Discussion
 Across a range of performance variables, the results show a clear effect of stimuli distinctiveness. As distinctiveness increased (from words, to drawings, to photographs), this produced more hits, less FAs, better overall recognition, and better discrimination between hits / FAs. The absence of any interaction effects across these variables demonstrates that the availability of different response options (i.e. the addition of a Both option) had little impact on overall performance. RF(B)G responses for accurate recognition displayed a similar pattern; as distinctiveness increased, the number of Recollected hits also increased, while the number of Familiarity and Guessing hits decreased. The rate of both Familiarity FAs and Guessing FAs was also highest for the least distinctive stimuli (words).
 
 ######----------------------------------------
