@@ -4571,9 +4571,9 @@ table_numbering(name = "exp3__prop.hit.FA.d.prime__table", caption = "Mean propo
         column_spec(1, width = "4cm")
 ```
 
-The mean proportion of hits and FAs, and mean *d'* scores are presented in `r table_numbering("exp3__prop.hit.FA.d.prime__table", display = "cite")`. ANOVA results demonstrated a significant main effect of stimuli format for the mean proportion of hits, `r apa::anova_apa(exp3__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Paired samples t-tests showed that grey photographs (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced a significantly higher proportion of hits than both words (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit__ttest__grey.photo.vs.word`) and grey drawings (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.hit__ttest__grey.photo.vs.grey.drawing`). A significantly higher proportion of hits was also evident for grey drawings (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) compared to words (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit__ttest__grey.drawing.vs.word`). There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+The mean proportion of hits and FAs, and mean *d'* scores are presented in `r table_numbering("exp3__prop.hit.FA.d.prime__table", display = "cite")`. ANOVA results demonstrated a significant main effect of stimuli format for the mean proportion of hits, `r apa::anova_apa(exp3__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Paired samples t-tests showed that grey photographs (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced a significantly higher proportion of hits than both words (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.hit__ttest__grey.photo.vs.word`, and grey drawings (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`), `r exp3__prop.hit__ttest__grey.photo.vs.grey.drawing`. A significantly higher proportion of hits was also evident for grey drawings (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) compared to words (*M*= `r round(exp3__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.hit__ttest__grey.drawing.vs.word`). There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
-The ANOVA on the mean proportion of FAs also demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer FAs in comparison to both words (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA__ttest__grey.photo.vs.word`) and grey drawings (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.FA__ttest__grey.photo.vs.grey.drawing`). The grey drawings (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA__ttest__grey.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+The ANOVA on the mean proportion of FAs also demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer FAs in comparison to both words (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.FA__ttest__grey.photo.vs.word`, and grey drawings (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`), `r exp3__prop.FA__ttest__grey.photo.vs.grey.drawing`). The grey drawings (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.FA__ttest__grey.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
 figure_numbering(name = "exp3__d.prime__interaction.figure", caption = "Interaction plot between stimuli format and response option for d' scores.")
@@ -4602,7 +4602,7 @@ Results from the ANOVA on mean *d'* scores showed a significant interaction betw
     exp3__prop.hit.R.aov <- afex::aov_ez('id', 'prop.hit.R', fun_aggregate = mean, exp3__prop.hit.R, 
                                        between = "resp_option", within = 'stim',
                                        anova_table=list(correction = "GG", es = "ges"))
-##  Significant INTERACTION, so perform paired contrasts:
+##----------------------------------------------------------------------------------------------------------------- ##  Significant INTERACTION, so perform paired contrasts:
     exp3__prop.hit.R__pairs__interaction <- 
         pairs(emmeans(exp3__prop.hit.R.aov, ~ resp_option:stim), adjust = "bonferroni")
 ##  Get all means:
@@ -4673,7 +4673,7 @@ The interaction is evident following comparisons of the same stimuli format acro
     exp3__prop.hit.F.aov <- afex::aov_ez('id', 'prop.hit.F', fun_aggregate = mean, exp3__prop.hit.F, 
                                        between = "resp_option", within = 'stim',
                                        anova_table=list(correction = "GG", es = "ges"))
-##  Significant INTERACTION, so perform paired contrasts:
+##----------------------------------------------------------------------------------------------------------------- ##  Significant INTERACTION, so perform paired contrasts:
     exp3__prop.hit.F__pairs__interaction <- 
         pairs(emmeans(exp3__prop.hit.F.aov, ~ resp_option:stim), adjust = "bonferroni")
 ##  Get all means:
@@ -4745,10 +4745,13 @@ Response option condition had no effect on the proportion of F hits obtained, fo
     exp3__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp3__prop.hit.G, 
                                        between = "resp_option", within = 'stim',
                                        anova_table=list(correction = "GG", es = "ges"))
-##  No significant main effect of RESPONSE OPTION. 
-##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
+##----------------------------------------------------------------------------------------------------------------- ##  No significant main effect of RESPONSE OPTION.
+##----------------------------------------------------------------------------------------------------------------- ##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
     exp3__prop.hit.G__pairwise__stim.format <- exp3__prop.hit.G %>% 
-        pairwise_t_test(prop.hit.G ~ stim, paired = TRUE, p.adjust.method = "bonferroni")    
+        pairwise_t_test(prop.hit.G ~ stim, paired = TRUE, p.adjust.method = "bonferroni")
+##  Calculate effect size:      
+    exp3__prop.hit.G__pairwise__stim.format__eff.size <- exp3__prop.hit.G %>% 
+        rstatix::cohens_d(prop.hit.G ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)  
 ##  t-test - grey photos vs. words:
     temp <- exp3__prop.hit.G__pairwise__stim.format %>% filter(group1 == "grey.photo" & group2 == "word")
     exp3__prop.hit.G__ttest__grey.photo.vs.word <- ttest.writeup(temp)
@@ -4758,7 +4761,7 @@ Response option condition had no effect on the proportion of F hits obtained, fo
 ##  t-test - grey drawings vs. grey photos:    
     temp <- exp3__prop.hit.G__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "grey.photo")
     exp3__prop.hit.G__ttest__grey.photo.vs.grey.drawing <- ttest.writeup(temp)
-##  Get all means:
+##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
     exp3__prop.hit.G__stim.means <- as.tibble(summary(emmeans(exp3__prop.hit.G.aov, ~stim)))
     exp3__prop.hit.G__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.hit.G.aov, ~resp_option)))
 ```
@@ -4780,8 +4783,10 @@ The ANOVA on the mean proportion of hits assigned Guessing demonstrated a signif
     exp3__prop.FA.R.aov <- afex::aov_ez('id', 'prop.FA.R', fun_aggregate = mean, exp3__prop.FA.R, 
                                        between = "resp_option", within = 'stim',
                                        anova_table=list(correction = "GG", es = "ges"))
-##  No significant main effect of RESPONSE OPTION. 
+##----------------------------------------------------------------------------------------------------------------- ##  No significant main effect of RESPONSE OPTION. 
+##----------------------------------------------------------------------------------------------------------------- 
 ##  No significant main effect of STIMULI FORMAT.
+##----------------------------------------------------------------------------------------------------------------- 
 ##  Get all means:
     exp3__prop.FA.R__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.R.aov, ~stim)))
     exp3__prop.FA.R__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.FA.R.aov, ~resp_option)))
@@ -4790,7 +4795,6 @@ The ANOVA on the mean proportion of hits assigned Guessing demonstrated a signif
 ##### Recollection (FAs)
 
 For FAs assigned Recollection, there was no significant main effect of stimuli format [`r apa::anova_apa(exp3__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)` or interaction [`r apa::anova_apa(exp3__prop.FA.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`].
-
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -4802,14 +4806,14 @@ For FAs assigned Recollection, there was no significant main effect of stimuli f
                                        anova_table=list(correction = "none", es = "ges"))
 ##  Mauchlys test of sphericity:
     exp3__prop.FA.F.aov__sphericity <- test_sphericity(exp3__prop.FA.F.aov)
-##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
-##  Significant main effect of RESPONSE OPTION, so perform paired contrasts:    
-    
-    
-    
-##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
+##  Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied.
+##----------------------------------------------------------------------------------------------------------------- ##  Significant main effect of RESPONSE OPTION, so perform paired contrasts:    
+##----------------------------------------------------------------------------------------------------------------- ##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
     exp3__prop.FA.F__pairwise__stim.format <- exp3__prop.FA.F %>% 
-        pairwise_t_test(prop.FA.F ~ stim, paired = TRUE, p.adjust.method = "bonferroni")    
+        pairwise_t_test(prop.FA.F ~ stim, paired = TRUE, p.adjust.method = "bonferroni")
+##  Calculate effect size:      
+    exp3__prop.FA.F__pairwise__stim.format__eff.size <- exp3__prop.FA.F %>% 
+        rstatix::cohens_d(prop.FA.F ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)      
 ##  t-test - grey photos vs. words:
     temp <- exp3__prop.FA.F__pairwise__stim.format %>% filter(group1 == "grey.photo" & group2 == "word")
     exp3__prop.FA.F__ttest__grey.photo.vs.word <- ttest.writeup(temp)
@@ -4819,12 +4823,13 @@ For FAs assigned Recollection, there was no significant main effect of stimuli f
 ##  t-test - grey drawings vs. grey photos:    
     temp <- exp3__prop.FA.F__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "grey.photo")
     exp3__prop.FA.F__ttest__grey.photo.vs.grey.drawing <- ttest.writeup(temp)
-##  Get all means:
+##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
     exp3__prop.FA.F__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.F.aov, ~stim)))
     exp3__prop.FA.F__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.FA.F.aov, ~resp_option)))
 ```
 
 ##### Familiarity (FAs)
+
 
 
 
@@ -4842,10 +4847,13 @@ For FAs assigned Recollection, there was no significant main effect of stimuli f
     exp3__prop.FA.G.aov <- afex::aov_ez('id', 'prop.FA.G', fun_aggregate = mean, exp3__prop.FA.G, 
                                        between = "resp_option", within = 'stim',
                                        anova_table=list(correction = "GG", es = "ges"))
-##  No significant main effect of RESPONSE OPTION. 
-##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
+##----------------------------------------------------------------------------------------------------------------- ##  No significant main effect of RESPONSE OPTION.
+##----------------------------------------------------------------------------------------------------------------- ##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
     exp3__prop.FA.G__pairwise__stim.format <- exp3__prop.FA.G %>% 
-        pairwise_t_test(prop.FA.G ~ stim, paired = TRUE, p.adjust.method = "bonferroni")    
+        pairwise_t_test(prop.FA.G ~ stim, paired = TRUE, p.adjust.method = "bonferroni")   
+##  Calculate effect size:      
+    exp3__prop.FA.G__pairwise__stim.format__eff.size <- exp3__prop.FA.G %>% 
+        rstatix::cohens_d(prop.FA.G ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)      
 ##  t-test - grey photos vs. words:
     temp <- exp3__prop.FA.G__pairwise__stim.format %>% filter(group1 == "grey.photo" & group2 == "word")
     exp3__prop.FA.G__ttest__grey.photo.vs.word <- ttest.writeup(temp)
@@ -4855,7 +4863,7 @@ For FAs assigned Recollection, there was no significant main effect of stimuli f
 ##  t-test - grey drawings vs. grey photos:    
     temp <- exp3__prop.FA.G__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "grey.photo")
     exp3__prop.FA.G__ttest__grey.photo.vs.grey.drawing <- ttest.writeup(temp)
-##  Get all means:
+##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
     exp3__prop.FA.G__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.G.aov, ~stim)))
     exp3__prop.FA.G__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.FA.G.aov, ~resp_option)))
 ```
