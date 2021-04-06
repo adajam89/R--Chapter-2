@@ -4444,32 +4444,32 @@ A series of 3x2 mixed ANOVAs were conducted on each of the DVs, using a within-s
 ##  Format for report (grey photos vs. words t-test):    
     temp <- exp3__prop.FA__pairwise__stim.format %>% filter(group1 == "grey.photo" & group2 == "word")
     exp3__prop.FA__ttest__grey.photo.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
-        round(as.vector(exp3__prop.hit__pairwise__stim.format__eff.size %>% 
+        round(as.vector(exp3__prop.FA__pairwise__stim.format__eff.size %>% 
                           filter(group1 == "grey.photo" & group2 == "word") %>% pull(effsize)), 2),
         ", 95% CI [", 
-        exp3__prop.hit__pairwise__stim.format__eff.size %>%
+        exp3__prop.FA__pairwise__stim.format__eff.size %>%
             filter(group1 == "grey.photo" & group2 == "word") %>% pull(conf.low), ", ",
-                    exp3__prop.hit__pairwise__stim.format__eff.size %>%
+                    exp3__prop.FA__pairwise__stim.format__eff.size %>%
                         filter(group1 == "grey.photo" & group2 == "word") %>% pull(conf.high), "]")                                                         
 ##  Format for report (grey drawings vs. words t-test):
     temp <- exp3__prop.FA__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "word")
     exp3__prop.FA__ttest__grey.drawing.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
-        round(as.vector(exp3__prop.hit__pairwise__stim.format__eff.size %>% 
+        round(as.vector(exp3__prop.FA__pairwise__stim.format__eff.size %>% 
                           filter(group1 == "grey.drawing" & group2 == "word") %>% pull(effsize)), 2),
         ", 95% CI [", 
-        exp3__prop.hit__pairwise__stim.format__eff.size %>%
+        exp3__prop.FA__pairwise__stim.format__eff.size %>%
             filter(group1 == "grey.drawing" & group2 == "word") %>% pull(conf.low), ", ",
-                    exp3__prop.hit__pairwise__stim.format__eff.size %>%
+                    exp3__prop.FA__pairwise__stim.format__eff.size %>%
                         filter(group1 == "grey.drawing" & group2 == "word") %>% pull(conf.high), "]")                                                           
 ##  Format for report (grey drawings vs. grey photos t-test):
     temp <- exp3__prop.FA__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "grey.photo")
     exp3__prop.FA__ttest__grey.photo.vs.grey.drawing <- str_c(ttest.writeup(temp), "; *d* = ", 
-        round(as.vector(exp3__prop.hit__pairwise__stim.format__eff.size %>% 
+        round(as.vector(exp3__prop.FA__pairwise__stim.format__eff.size %>% 
                           filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(effsize)), 2),
         ", 95% CI [", 
-        exp3__prop.hit__pairwise__stim.format__eff.size %>%
+        exp3__prop.FA__pairwise__stim.format__eff.size %>%
             filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.low), ", ",
-                    exp3__prop.hit__pairwise__stim.format__eff.size %>%
+                    exp3__prop.FA__pairwise__stim.format__eff.size %>%
                         filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.high), "]")         
 ##-----------------------------------------------------------------------------------------------------------------     ##  Get all means:
     exp3__prop.FA__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.aov, ~stim)))
@@ -4754,13 +4754,38 @@ Response option condition had no effect on the proportion of F hits obtained, fo
         rstatix::cohens_d(prop.hit.G ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)  
 ##  t-test - grey photos vs. words:
     temp <- exp3__prop.hit.G__pairwise__stim.format %>% filter(group1 == "grey.photo" & group2 == "word")
-    exp3__prop.hit.G__ttest__grey.photo.vs.word <- ttest.writeup(temp)
+    exp3__prop.hit.G__ttest__grey.photo.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp3__prop.hit.G__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "grey.photo" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp3__prop.hit.G__pairwise__stim.format__eff.size %>%
+            filter(group1 == "grey.photo" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp3__prop.hit.G__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "grey.photo" & group2 == "word") %>% pull(conf.high), "]")      
+    
 ##  t-test - grey drawings vs. words:    
     temp <- exp3__prop.hit.G__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "word")
-    exp3__prop.hit.G__ttest__grey.drawing.vs.word <- ttest.writeup(temp)    
+    exp3__prop.hit.G__ttest__grey.drawing.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp3__prop.hit.G__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "grey.drawing" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp3__prop.hit.G__pairwise__stim.format__eff.size %>%
+            filter(group1 == "grey.drawing" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp3__prop.hit.G__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "grey.drawing" & group2 == "word") %>% pull(conf.high), "]")
+    
 ##  t-test - grey drawings vs. grey photos:    
     temp <- exp3__prop.hit.G__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "grey.photo")
     exp3__prop.hit.G__ttest__grey.photo.vs.grey.drawing <- ttest.writeup(temp)
+    
+    exp3__prop.hit.G__ttest__grey.photo.vs.grey.drawing <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp3__prop.hit.G__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp3__prop.hit.G__pairwise__stim.format__eff.size %>%
+            filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.low), ", ",
+                    exp3__prop.hit.G__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.high), "]")    
 ##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
     exp3__prop.hit.G__stim.means <- as.tibble(summary(emmeans(exp3__prop.hit.G.aov, ~stim)))
     exp3__prop.hit.G__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.hit.G.aov, ~resp_option)))
@@ -4816,13 +4841,36 @@ For FAs assigned Recollection, there was no significant main effect of stimuli f
         rstatix::cohens_d(prop.FA.F ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)      
 ##  t-test - grey photos vs. words:
     temp <- exp3__prop.FA.F__pairwise__stim.format %>% filter(group1 == "grey.photo" & group2 == "word")
-    exp3__prop.FA.F__ttest__grey.photo.vs.word <- ttest.writeup(temp)
+    exp3__prop.FA.F__ttest__grey.photo.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp3__prop.FA.F__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "grey.photo" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp3__prop.FA.F__pairwise__stim.format__eff.size %>%
+            filter(group1 == "grey.photo" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp3__prop.FA.F__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "grey.photo" & group2 == "word") %>% pull(conf.high), "]")          
+    
 ##  t-test - grey drawings vs. words:    
     temp <- exp3__prop.FA.F__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "word")
-    exp3__prop.FA.F__ttest__grey.drawing.vs.word <- ttest.writeup(temp)    
+    exp3__prop.FA.F__ttest__grey.drawing.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp3__prop.FA.F__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "grey.drawing" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp3__prop.FA.F__pairwise__stim.format__eff.size %>%
+            filter(group1 == "grey.drawing" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp3__prop.FA.F__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "grey.drawing" & group2 == "word") %>% pull(conf.high), "]")       
+    
 ##  t-test - grey drawings vs. grey photos:    
     temp <- exp3__prop.FA.F__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "grey.photo")
-    exp3__prop.FA.F__ttest__grey.photo.vs.grey.drawing <- ttest.writeup(temp)
+    exp3__prop.FA.F__ttest__grey.photo.vs.grey.drawing <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp3__prop.FA.F__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp3__prop.FA.F__pairwise__stim.format__eff.size %>%
+            filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.low), ", ",
+                    exp3__prop.FA.F__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.high), "]")         
 ##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
     exp3__prop.FA.F__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.F.aov, ~stim)))
     exp3__prop.FA.F__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.FA.F.aov, ~resp_option)))
@@ -4853,16 +4901,39 @@ For FAs assigned Recollection, there was no significant main effect of stimuli f
         pairwise_t_test(prop.FA.G ~ stim, paired = TRUE, p.adjust.method = "bonferroni")   
 ##  Calculate effect size:      
     exp3__prop.FA.G__pairwise__stim.format__eff.size <- exp3__prop.FA.G %>% 
-        rstatix::cohens_d(prop.FA.G ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)      
+        rstatix::cohens_d(prop.FA.G ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)
 ##  t-test - grey photos vs. words:
     temp <- exp3__prop.FA.G__pairwise__stim.format %>% filter(group1 == "grey.photo" & group2 == "word")
-    exp3__prop.FA.G__ttest__grey.photo.vs.word <- ttest.writeup(temp)
+    exp3__prop.FA.G__ttest__grey.photo.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp3__prop.FA.G__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "grey.photo" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp3__prop.FA.G__pairwise__stim.format__eff.size %>%
+            filter(group1 == "grey.photo" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp3__prop.FA.G__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "grey.photo" & group2 == "word") %>% pull(conf.high), "]")      
+
 ##  t-test - grey drawings vs. words:    
     temp <- exp3__prop.FA.G__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "word")
-    exp3__prop.FA.G__ttest__grey.drawing.vs.word <- ttest.writeup(temp)    
+    exp3__prop.FA.G__ttest__grey.drawing.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp3__prop.FA.G__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "grey.drawing" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp3__prop.FA.G__pairwise__stim.format__eff.size %>%
+            filter(group1 == "grey.drawing" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp3__prop.FA.G__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "grey.drawing" & group2 == "word") %>% pull(conf.high), "]")       
+    
 ##  t-test - grey drawings vs. grey photos:    
     temp <- exp3__prop.FA.G__pairwise__stim.format %>% filter(group1 == "grey.drawing" & group2 == "grey.photo")
-    exp3__prop.FA.G__ttest__grey.photo.vs.grey.drawing <- ttest.writeup(temp)
+    exp3__prop.FA.G__ttest__grey.photo.vs.grey.drawing <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp3__prop.FA.G__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp3__prop.FA.G__pairwise__stim.format__eff.size %>%
+            filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.low), ", ",
+                    exp3__prop.FA.G__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.high), "]")        
 ##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
     exp3__prop.FA.G__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.G.aov, ~stim)))
     exp3__prop.FA.G__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.FA.G.aov, ~resp_option)))
