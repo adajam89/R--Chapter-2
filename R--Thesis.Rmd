@@ -4965,57 +4965,50 @@ In the ANOVA on the mean proportion of overall hits, there was a significant mai
 In the ANOVAs on the mean proportion of overall FAs, hits assigned *Guessing*, FAs assigned *Recollection*, and FAs assigned *Guessing*, there were no significant main effects of response option condition.
 
 
-
-R FAs: `r `
-G FAs: `r `
-
-
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  Exp3 Resp option main effects table:                                                                        ##
 ##################################################################################################################
-    exp3__resp.option__main.effects__table <- tribble(
-        ~"Variable means", ~"ANOVA result", "Signif",
+exp3__resp.option__main.effects__table <- tribble(
+        ~"Variable means", ~"Main effect of response option:", ~"Signif",
         "Hits",
             apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "*",
         "FAs",
             apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
-            " ",
+            "",
         "d' scores",  
             apa::anova_apa(exp3__d.prime.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
-            " ",
+            "\\+",
         "Hits assigned Recollection",
             apa::anova_apa(exp3__prop.hit.R.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
-            " ", 
+            "\\+", 
         "Hits assigned Familiarity",
             apa::anova_apa(exp3__prop.hit.F.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
-            " ", 
+            "\\+", 
         "Hits assigned Guessing", 
             apa::anova_apa(exp3__prop.hit.G.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
-            " ", 
+            "", 
         "FAs assigned Recollection",
             apa::anova_apa(exp3__prop.FA.R.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
-            " ", 
+            "", 
         "FAs assigned Familiarity",
             apa::anova_apa(exp3__prop.FA.F.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
-            " ", 
+            "*", 
         "FAs assigned Guessing",
             apa::anova_apa(exp3__prop.FA.G.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
-            " ")
+            "")
 ```
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
-table_numbering(name = "exp3__resp.option__main.effects__table", caption = "Main effects of response option condition across all variables of interest.")
+table_numbering(name = "exp3__resp.option__main.effects__table", caption = "Main effects of response option condition across all variables of interest. Signif. codes:  \\*\\*\\**p* < .001; \\*\\**p* < .01; \\**p* < .05; \\+ significant interaction [see section above for interpretation]).")
 ```
 
 &nbsp;
 `r table_numbering("exp3__resp.option__main.effects__table")`
-```{r, echo=FALSE, cache=TRUE}
+```{r, echo=FALSE, cache=FALSE}
     exp3__resp.option__main.effects__table %>%
-        kable("latex", booktabs = T) %>%
-        kable_styling(latex_options = "hold_position") %>%
-        column_spec(1, width = "4cm")
+        kable("markdown", booktabs = T, full_width= T)
 ```
 
 
