@@ -4970,38 +4970,38 @@ In the ANOVAs on the mean proportion of overall FAs, hits assigned *Guessing*, F
 ##  Exp3 Resp option main effects table:                                                                        ##
 ##################################################################################################################
 exp3__resp.option__main.effects__table <- tribble(
-        ~"Variable means", ~"Main effect of response option:", ~"Signif",
-        "Hits",
+        ~"Variable", ~"Main effect of response option", ~"Signif.",
+        "Mean proportion: ***Hits***",
             apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "*",
-        "FAs",
+        "Mean proportion: ***FAs***",
             apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "",
-        "d' scores",  
+        "Mean scores: ***d'***",  
             apa::anova_apa(exp3__d.prime.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "\\+",
-        "Hits assigned Recollection",
+        "Mean proportion: ***Recollection hits***",
             apa::anova_apa(exp3__prop.hit.R.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "\\+", 
-        "Hits assigned Familiarity",
+        "Mean proportion: ***Familiarity hits***",
             apa::anova_apa(exp3__prop.hit.F.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "\\+", 
-        "Hits assigned Guessing", 
+        "Mean proportion: ***Guessing hits***", 
             apa::anova_apa(exp3__prop.hit.G.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "", 
-        "FAs assigned Recollection",
+        "Mean proportion: ***Recollection FAs***",
             apa::anova_apa(exp3__prop.FA.R.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "", 
-        "FAs assigned Familiarity",
+        "Mean proportion: ***Familiarity hits***",
             apa::anova_apa(exp3__prop.FA.F.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "*", 
-        "FAs assigned Guessing",
+        "Mean proportion: ***Guessing hits***",
             apa::anova_apa(exp3__prop.FA.G.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "")
 ```
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
-table_numbering(name = "exp3__resp.option__main.effects__table", caption = "Main effects of response option condition across all variables of interest. Signif. codes:  \\*\\*\\**p* < .001; \\*\\**p* < .01; \\**p* < .05; \\+ significant interaction [see section above for interpretation]).")
+table_numbering(name = "exp3__resp.option__main.effects__table", caption = "Main effects of response option condition across all variables of interest. Signif. codes:  \\*\\*\\**p* < .001; \\*\\**p* < .01; \\**p* < .05; \\+ significant interaction [see previous section for interpretation]).")
 ```
 
 &nbsp;
