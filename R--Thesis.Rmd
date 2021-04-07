@@ -5820,17 +5820,44 @@ table_numbering(name = "exp4__prop.hit.FA.d.prime__table", caption = "Mean propo
 &nbsp;
 `r table_numbering("exp4__prop.hit.FA.d.prime__table")`
 ```{r, echo=FALSE, cache=TRUE}
-    exp4__prop.hit.FA.d.prime__table %>%
+    exp3__prop.hit.FA.d.prime__table1 <- exp3__prop.hit.FA.d.prime__table %>%
         kable("latex", booktabs = T) %>%
-        kable_styling(latex_options = "hold_position") %>%
+        #kable_styling(latex_options = c("scale_down", "hold_position"), full_width = F) %>%
         pack_rows("Stimuli format", 1, 3) %>%
         pack_rows("Response option", 4, 5) %>%
-        add_header_above("Experiment 4: Colour")
+        add_header_above("Experiment 3: Grey", 5, line = F)
 
+    exp4__prop.hit.FA.d.prime__table1 <- exp4__prop.hit.FA.d.prime__table %>%
+        kable("latex", booktabs = T) %>%
+        #kable_styling(latex_options = c("scale_down", "hold_position"), full_width = F) %>%
+        pack_rows("Stimuli format", 1, 3) %>%
+        pack_rows("Response option", 4, 5) %>%
+        add_header_above("Experiment 4: Colour", 5, line = F)
   
 
-        #column_spec(1, width = "4cm")
+knitr::kables(list(exp3__prop.hit.FA.d.prime__table1, exp4__prop.hit.FA.d.prime__table1))
 
+
+    test <- tribble(
+        ~" ", ~Hits, ~FAs, ~"d'", ~"   ", ~"  ", ~Hits, ~FAs, ~"d'",
+        "Words", 1,1,1,"","Words", 1,1,1,
+        "Drawings", 1,1,1,"","Drawings", 1,1,1,
+        "Photographs",1,1,1,"","Photographs",1,1,1,
+        "RFG",1,1,1,"","RFG",1,1,1,
+        "RFBG",1,1,1,"", "RFBG",1,1,1)
+        
+    test %>%
+        kable("latex", booktabs = T) %>%
+        kable_styling(latex_options = c("scale_down", "hold_position"), full_width = F, 
+                      bootstrap_options = "condensed", font_size = 12) %>%
+        pack_rows("Stimuli format", 1, 3) %>%
+        pack_rows("Response option", 4, 5) %>%
+        add_header_above(c("Experiment 3: Grey" = 4, " " = 1, "Experiment 4: Colour" = 4), line = F, bold = T) %>%
+        column_spec(1, width = "3.8cm") %>%
+        column_spec(2:4, width = "1cm") %>%
+        column_spec(5, width = "2cm") %>%
+        column_spec(6, width = "3.8cm") %>%
+        column_spec(7:9, width = "1cm")
 ```
 
 Mean proportions of hits and FAs, and mean *d'* scores are presented in `r table_numbering("exp3__prop.hit.FA.d.prime__table", display = "cite")`. Results from the ANOVA on the mean proportion of hits showed a significant main effect of stimuli format, `r apa::anova_apa(exp4__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Paired samples t-tests showed that colour photographs (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced a significantly higher proportion of hits than both words (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.word`, and colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.col.drawing`. A significantly higher proportion of hits was also evident for colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) compared to words (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.drawing.vs.word`). There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.

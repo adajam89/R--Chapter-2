@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.3.1)  7 APR 2021 15:36
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.3.1)  7 APR 2021 17:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1190,6 +1190,35 @@ Underfull \hbox (badness 10000) in paragraph at lines 2517--2520
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
 (hyperref)                be the same. Added a new anchor on input line 2600.
 
+LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
+(Font)              scaled to size 11.0pt on input line 2642.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 2660.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 13.29681pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 9.30772pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 6.6484pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 13.29816pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 9.30865pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 6.64908pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 13.29547pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 9.30678pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 6.64774pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
+(Font)              scaled to size 11.0pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
+(Font)              scaled to size 7.69997pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
+(Font)              scaled to size 5.5pt on input line 2660.
+LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
+(Font)              scaled to size 11.0pt on input line 2660.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -1200,7 +1229,7 @@ f)
 [68] [69] [70] [71] [72]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2870.
+(hyperref)                be the same. Added a new anchor on input line 2908.
 
 [73]
 File: R--Thesis_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type pd
@@ -1212,61 +1241,51 @@ f)
 [74] [75]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2971.
+(hyperref)                be the same. Added a new anchor on input line 3009.
 
 File: R--Thesis_files/figure-latex/unnamed-chunk-68-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-68-1.pdf>
 [76] [77]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 3034.
+(Font)              scaled to size 10.0pt on input line 3072.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 12.08801pt on input line 3036.
+(Font)              scaled to size 12.08801pt on input line 3074.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.46161pt on input line 3036.
+(Font)              scaled to size 8.46161pt on input line 3074.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.08923pt on input line 3036.
+(Font)              scaled to size 12.08923pt on input line 3074.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.46246pt on input line 3036.
+(Font)              scaled to size 8.46246pt on input line 3074.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 12.08679pt on input line 3036.
+(Font)              scaled to size 12.08679pt on input line 3074.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.46075pt on input line 3036.
+(Font)              scaled to size 8.46075pt on input line 3074.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 10.0pt on input line 3036.
+(Font)              scaled to size 10.0pt on input line 3074.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 3036.
+(Font)              scaled to size 7.0pt on input line 3074.
 
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3050--3050
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3088--3088
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3036--3052
+Underfull \hbox (badness 10000) in paragraph at lines 3074--3090
 
  []
 
 [78]
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3089--3089
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3127--3127
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3075--3091
+Underfull \hbox (badness 10000) in paragraph at lines 3113--3129
 
  []
 
 
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3125--3125
- []\TU/Helvetica(0)/m/n/10 Distinctive 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3111--3127
-
- []
-
-[79] [80]
 Overfull \hbox (11.42319pt too wide) in paragraph at lines 3163--3163
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
@@ -1276,23 +1295,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 3149--3165
 
  []
 
-
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3193--3193
+[79] [80]
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3201--3201
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3179--3195
+Underfull \hbox (badness 10000) in paragraph at lines 3187--3203
+
+ []
+
+
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3231--3231
+ []\TU/Helvetica(0)/m/n/10 Distinctive 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3217--3233
 
  []
 
 [81]
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3227--3227
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3265--3265
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3213--3229
+Underfull \hbox (badness 10000) in paragraph at lines 3251--3267
 
  []
 
@@ -1301,14 +1330,14 @@ File: R--Thesis_files/figure-latex/unnamed-chunk-86-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-86-1.pdf>
 [84] [85] [86] [87] [88] [89] [90] [91]
-Underfull \hbox (badness 4556) in paragraph at lines 3552--3557
+Underfull \hbox (badness 4556) in paragraph at lines 3590--3595
  \TU/Helvetica(0)/m/n/10.95 on remember-know judgments. \TU/Helvetica(0)/m/it/1
 0.95 Psychonomic Bulletin & Review\TU/Helvetica(0)/m/n/10.95 , \TU/Helvetica(0)
 /m/it/10.95 9\TU/Helvetica(0)/m/n/10.95 (1), 139–145.
  []
 
 [92] [93] [94] [95] [96] [97]
-Underfull \hbox (badness 1661) in paragraph at lines 3836--3840
+Underfull \hbox (badness 1661) in paragraph at lines 3874--3878
  \TU/Helvetica(0)/m/it/10.95 European Journal of Cognitive Psychology\TU/Helvet
 ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 , 813–847. []$[][][][][] [] [] [] [][][] [] [][][] [] [][] [] [][][][] []
@@ -1317,21 +1346,21 @@ ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 [98] [99] [100] [101] [102]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 4045.
+(hyperref)                be the same. Added a new anchor on input line 4083.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 4047.
+(Font)              scaled to size 7.0pt on input line 4085.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 4054.
+(Font)              scaled to size 7.0pt on input line 4092.
 [103
 
 ] [104] [105]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 4161.
+(Font)              scaled to size 8.0pt on input line 4199.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 4168.
+(Font)              scaled to size 8.0pt on input line 4206.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 8.0pt on input line 4178.
+(Font)              scaled to size 8.0pt on input line 4216.
 [106
 
 ] [107] [108] [109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119]
@@ -1341,11 +1370,11 @@ Package rerunfilecheck Info: File `R--Thesis.out' has not changed.
 (rerunfilecheck)             Checksum: C33EFCB34F1CD5BF9B341F7B38A3E859;10997.
  ) 
 Here is how much of TeX's memory you used:
- 18430 strings out of 478931
- 324983 string characters out of 5866373
+ 18469 strings out of 478931
+ 326208 string characters out of 5866373
  867890 words of memory out of 5000000
- 37929 multiletter control sequences out of 15000+600000
- 412119 words of font info for 117 fonts, out of 8000000 for 9000
+ 37953 multiletter control sequences out of 15000+600000
+ 415059 words of font info for 140 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  98i,13n,125p,652b,559s stack positions out of 5000i,500n,10000p,200000b,80000s
 
