@@ -47,6 +47,7 @@ header-includes:
 ##    Write references file for all of the packages used, and general R ref:
       #write.bib(packages, "resources/packages.bib")
       #write.bib(citation(), "resources/base.bib")
+      options(scipen=999)   # Turn off scientific notation for numbers printed to the Console. 
 #------------------------------------------------------------------------------------------------------------------
 ##  Define function to get package version: 
     packages_versions <- function(p) {
@@ -4493,18 +4494,22 @@ A series of 3x2 mixed ANOVAs were conducted on each of the DVs, using a within-s
 ##  Get all means:
     exp3__d.prime__stim.means <- as.tibble(summary(emmeans(exp3__d.prime.aov, ~stim)))
     exp3__d.prime__resp.option.means <- as.tibble(summary(emmeans(exp3__d.prime.aov, ~resp_option)))    
-    exp3__d.prime__interaction.means <- as.tibble(summary(emmeans(exp3__d.prime.aov, ~stim:resp_option)))
+    exp3__d.prime__interaction.means <- as.tibble(summary(emmeans(exp3__d.prime.aov, ~stim:resp_option))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "grey.drawing", "Grey drawings")) %>%
+        mutate(stim = str_replace(stim, "grey.photo", "Grey photographs")) %>%
+        transform(stim = factor(stim, levels=c("Words","Grey drawings","Grey photographs")))
 
 ##################################################################################################################
 ##  d' interaction figure:                                                                                      ##
 ################################################################################################################## ##  Create labels for figure (replaces plot legend):
     exp3__d.prime__interaction.figure.labels <- exp3__d.prime__interaction.means %>%
         select(stim, resp_option, emmean) %>%
-        filter(stim == "grey.photo") %>%  # Because we want the label to be next to photo data, on the right. 
+        filter(stim == "Grey photographs") %>%  # Because we want the label to be next to photo data, on the right. 
         mutate(label = case_when(
                   resp_option == "RFG" ~ "RFG",
                   resp_option == "RFBG" ~ "RFBG")) %>%
-        group_by(stim, resp_option, label)  
+        group_by(stim, resp_option, label)
 ##  Interaction figure:
     exp3__d.prime__interaction.figure <- exp3__d.prime__interaction.means %>%
         select(stim, resp_option, emmean) %>%
@@ -4578,7 +4583,7 @@ The ANOVA on the mean proportion of FAs also demonstrated a significant main eff
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
 figure_numbering(name = "exp3__d.prime__interaction.figure", caption = "Interaction plot between stimuli format and response option for d' scores.")
 ```
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
     exp3__d.prime__interaction.figure
 ```
 `r figure_numbering("exp3__d.prime__interaction.figure")`
@@ -4607,17 +4612,21 @@ Results from the ANOVA on mean *d'* scores showed a significant interaction betw
 ##  Get all means:
     exp3__prop.hit.R__stim.means <- as.tibble(summary(emmeans(exp3__prop.hit.R.aov, ~stim)))
     exp3__prop.hit.R__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.hit.R.aov, ~resp_option)))    
-    exp3__prop.hit.R__interaction.means <- as.tibble(summary(emmeans(exp3__prop.hit.R.aov, ~stim:resp_option)))
+    exp3__prop.hit.R__interaction.means <- as.tibble(summary(emmeans(exp3__prop.hit.R.aov, ~stim:resp_option))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "grey.drawing", "Grey drawings")) %>%
+        mutate(stim = str_replace(stim, "grey.photo", "Grey photographs")) %>%
+        transform(stim = factor(stim, levels=c("Words","Grey drawings","Grey photographs")))
 ##################################################################################################################
 ##  Prop R Hits interaction figure:                                                                             ##
 ################################################################################################################## ##  Create labels for figure (replaces plot legend):
     exp3__prop.hit.R__interaction.figure.labels <- exp3__prop.hit.R__interaction.means %>%
         select(stim, resp_option, emmean) %>%
-        filter(stim == "grey.photo") %>%  # Because we want the label to be next to photo data, on the right. 
+        filter(stim == "Grey photographs") %>%  # Because we want the label to be next to photo data, on the right. 
         mutate(label = case_when(
                   resp_option == "RFG" ~ "RFG",
                   resp_option == "RFBG" ~ "RFBG")) %>%
-        group_by(stim, resp_option, label)  
+        group_by(stim, resp_option, label)
 ##  Interaction figure:
     exp3__prop.hit.R__interaction.figure <- exp3__prop.hit.R__interaction.means %>%
         select(stim, resp_option, emmean) %>%
@@ -4648,7 +4657,7 @@ figure_numbering(name = "exp3__prop.hit.R__interaction.figure", caption = "Inter
 ##### Recollection (hits)
 Results from the ANOVA on the mean proportion of hits assigned Recollection showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.hit.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__prop.hit.R__interaction.figure", display = "cite")`).
 
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
     exp3__prop.hit.R__interaction.figure
 ```
 `r figure_numbering("exp3__prop.hit.R__interaction.figure")`
@@ -4678,20 +4687,24 @@ The interaction is evident following comparisons of the same stimuli format acro
 ##  Get all means:
     exp3__prop.hit.F__stim.means <- as.tibble(summary(emmeans(exp3__prop.hit.F.aov, ~stim)))
     exp3__prop.hit.F__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.hit.F.aov, ~resp_option)))    
-    exp3__prop.hit.F__interaction.means <- as.tibble(summary(emmeans(exp3__prop.hit.F.aov, ~stim:resp_option)))
+    exp3__prop.hit.F__interaction.means <- as.tibble(summary(emmeans(exp3__prop.hit.F.aov, ~stim:resp_option))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "grey.drawing", "Grey drawings")) %>%
+        mutate(stim = str_replace(stim, "grey.photo", "Grey photographs")) %>%
+        transform(stim = factor(stim, levels=c("Words","Grey drawings","Grey photographs")))
 ##################################################################################################################
 ##  Prop F Hits interaction figure:                                                                             ##
 ################################################################################################################## ##  Create labels for figure (replaces plot legend):
     exp3__prop.hit.F__interaction.figure.labels <- exp3__prop.hit.F__interaction.means %>%
         select(stim, resp_option, emmean) %>%
-        filter(stim == "grey.drawing") %>%  # Because we want the label to be next to photo data, on the right. 
+        filter(stim == "Grey photographs") %>%  # Because we want the label to be next to photo data, on the right. 
         mutate(label = case_when(
                   resp_option == "RFG" ~ "RFG",
                   resp_option == "RFBG" ~ "RFBG")) %>%
-        group_by(stim, resp_option, label)  
+        group_by(stim, resp_option, label) 
 ##  Interaction figure:
     exp3__prop.hit.F__interaction.figure <- exp3__prop.hit.F__interaction.means %>%
-        select(stim, resp_option, emmean) %>%
+        select(stim, resp_option, emmean) %>%    
         ggplot() +
             aes(x = stim, color = resp_option, group = resp_option, y = emmean) +
             stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
@@ -4720,7 +4733,7 @@ figure_numbering(name = "exp3__prop.hit.F__interaction.figure", caption = "Inter
 ##### Familiarity (hits)
 Results from the ANOVA on the mean proportion of hits assigned Familiarity showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.hit.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__prop.hit.F__interaction.figure", display = "cite")`).
 
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
     exp3__prop.hit.F__interaction.figure
 ```
 `r figure_numbering("exp3__prop.hit.F__interaction.figure")`
@@ -5408,7 +5421,7 @@ It is hypothesised that:
         mutate(stim = str_remove(stim, "d.prime.G__"))
       
     exp4__prop.hit <- exp4__final.data %>%
-         select(id, resp_option, prop.hit__word, prop.hit__col.drawing, prop.hit__col.photo) %>%
+        select(id, resp_option, prop.hit__word, prop.hit__col.drawing, prop.hit__col.photo) %>%
         gather(key = "stim", value = "prop.hit", prop.hit__word, prop.hit__col.drawing, prop.hit__col.photo) %>%
         mutate(stim = str_remove(stim, "prop.hit__"))
     

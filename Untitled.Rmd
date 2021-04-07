@@ -1,0 +1,300 @@
+#### Stimuli distinctiveness
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+##################################################################################################################
+##  Exp4 Hits:                                                                                                  ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp4__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, exp4__prop.hit, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp4__prop.hit.aov__sphericity <- test_sphericity(exp4__prop.hit.aov)
+##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+    exp4__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, exp4__prop.hit, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "GG", es = "ges"))
+##----------------------------------------------------------------------------------------------------------------- 
+##  No significant main effect of RESPONSE OPTION.
+##----------------------------------------------------------------------------------------------------------------- 
+##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
+    exp4__prop.hit__pairwise__stim.format <- exp4__prop.hit %>% 
+        pairwise_t_test(prop.hit ~ stim, paired = TRUE, p.adjust.method = "bonferroni")
+##  Calculate effect size:      
+    exp4__prop.hit__pairwise__stim.format__eff.size <- exp4__prop.hit %>% 
+        rstatix::cohens_d(prop.hit ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)   
+##  Format for report (colour photos vs. words t-test):
+    temp <- exp4__prop.hit__pairwise__stim.format %>% filter(group1 == "col.photo" & group2 == "word")
+    exp4__prop.hit__ttest__col.photo.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__prop.hit__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.photo" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__prop.hit__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.photo" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp4__prop.hit__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.photo" & group2 == "word") %>% pull(conf.high), "]")
+    
+##  Format for report (colour drawings vs. words t-test):
+    temp <- exp4__prop.hit__pairwise__stim.format %>% filter(group1 == "col.drawing" & group2 == "word")
+    exp4__prop.hit__ttest__col.drawing.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__prop.hit__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.drawing" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__prop.hit__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.drawing" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp4__prop.hit__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.drawing" & group2 == "word") %>% pull(conf.high), "]")                                                         
+##  Format for report (colour drawings vs. colour photos t-test):
+    temp <- exp4__prop.hit__pairwise__stim.format %>% filter(group1 == "col.drawing" & group2 == "col.photo")
+    exp4__prop.hit__ttest__col.photo.vs.col.drawing <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__prop.hit__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__prop.hit__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(conf.low), ", ",
+                    exp4__prop.hit__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(conf.high), "]")         
+##----------------------------------------------------------------------------------------------------------------- 
+##  Get all means:
+    exp4__prop.hit__stim.means <- as.tibble(summary(emmeans(exp4__prop.hit.aov, ~stim)))
+    exp4__prop.hit__resp.option.means <- as.tibble(summary(emmeans(exp4__prop.hit.aov, ~resp_option)))
+
+##################################################################################################################
+##  Exp4 Prop FAs:                                                                                             ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp4__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, exp4__prop.FA, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp4__prop.FA.aov__sphericity <- test_sphericity(exp4__prop.FA.aov)
+##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+    exp4__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, exp4__prop.FA, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "GG", es = "ges"))
+##----------------------------------------------------------------------------------------------------------------- 
+##  Significant main effect of RESPONSE OPTION, so first check if variances are equal using Levene's test:
+    exp4__prop.hit__levine.test__rfg.rfbg <- exp4__prop.hit %>% leveneTest(prop.hit ~ resp_option, data = .)
+##  Levine NOT significant (variances equal), so perform standard two-sample t-test: 
+    exp4__prop.hit__ttest__rfg.rfbg <- exp4__prop.hit %>%
+        t_test(prop.hit ~ resp_option, paired = FALSE, data = ., var.equal = TRUE)
+##  Calculate effect size:
+    exp4__prop.hit__ttest__rfg.rfbg__eff.size <- exp4__prop.hit %>% 
+        rstatix::cohens_d(prop.hit ~ resp_option, var.equal = TRUE, paired = FALSE, ci = TRUE, conf.level = 0.95)   ##----------------------------------------------------------------------------------------------------------------- 
+##  No significant main effect of RESPONSE OPTION.
+##----------------------------------------------------------------------------------------------------------------- ##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
+    exp4__prop.FA__pairwise__stim.format <- exp4__prop.FA %>% 
+        pairwise_t_test(prop.FA ~ stim, paired = TRUE, p.adjust.method = "bonferroni")
+##  Calculate effect size:      
+    exp4__prop.FA__pairwise__stim.format__eff.size <- exp4__prop.FA %>% 
+        rstatix::cohens_d(prop.FA ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)       
+    
+##  Format for report (colour photos vs. words t-test):    
+    temp <- exp4__prop.FA__pairwise__stim.format %>% filter(group1 == "col.photo" & group2 == "word")
+    exp4__prop.FA__ttest__col.photo.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__prop.FA__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.photo" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__prop.FA__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.photo" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp4__prop.FA__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.photo" & group2 == "word") %>% pull(conf.high), "]")                                                         
+##  Format for report (colour drawings vs. words t-test):
+    temp <- exp4__prop.FA__pairwise__stim.format %>% filter(group1 == "col.drawing" & group2 == "word")
+    exp4__prop.FA__ttest__col.drawing.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__prop.FA__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.drawing" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__prop.FA__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.drawing" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp4__prop.FA__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.drawing" & group2 == "word") %>% pull(conf.high), "]")                                                           
+##  Format for report (colour drawings vs. colour photos t-test):
+    temp <- exp4__prop.FA__pairwise__stim.format %>% filter(group1 == "col.drawing" & group2 == "col.photo")
+    exp4__prop.FA__ttest__col.photo.vs.col.drawing <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__prop.FA__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__prop.FA__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(conf.low), ", ",
+                    exp4__prop.FA__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(conf.high), "]")         
+##-----------------------------------------------------------------------------------------------------------------     ##  Get all means:
+    exp4__prop.FA__stim.means <- as.tibble(summary(emmeans(exp4__prop.FA.aov, ~stim)))
+    exp4__prop.FA__resp.option.means <- as.tibble(summary(emmeans(exp4__prop.FA.aov, ~resp_option)))
+
+##################################################################################################################
+##  Exp4 d':                                                                                                    ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp4__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, exp4__d.prime, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp4__d.prime.aov__sphericity <- test_sphericity(exp4__d.prime.aov)
+##  Assumption of sphericity NOT violated (p>.05), so Greenhouse-Geisser correction NOT applied.
+##----------------------------------------------------------------------------------------------------------------- 
+##  No significant main effect of RESPONSE OPTION.
+##----------------------------------------------------------------------------------------------------------------- 
+##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
+    exp4__d.prime__pairwise__stim.format <- exp4__d.prime %>% 
+        pairwise_t_test(d.prime ~ stim, paired = TRUE, p.adjust.method = "bonferroni")
+##  Calculate effect size:      
+    exp4__d.prime__pairwise__stim.format__eff.size <- exp4__d.prime %>% 
+        rstatix::cohens_d(d.prime ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)       
+    
+##  Format for report (colour photos vs. words t-test):    
+    temp <- exp4__d.prime__pairwise__stim.format %>% filter(group1 == "col.photo" & group2 == "word")
+    exp4__d.prime__ttest__col.photo.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__d.prime__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.photo" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__d.prime__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.photo" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp4__d.prime__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.photo" & group2 == "word") %>% pull(conf.high), "]")                                                         
+##  Format for report (colour drawings vs. words t-test):
+    temp <- exp4__d.prime__pairwise__stim.format %>% filter(group1 == "col.drawing" & group2 == "word")
+    exp4__d.prime__ttest__col.drawing.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__d.prime__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.drawing" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__d.prime__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.drawing" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp4__d.prime__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.drawing" & group2 == "word") %>% pull(conf.high), "]")                                                           
+##  Format for report (colour drawings vs. colour photos t-test):
+    temp <- exp4__d.prime__pairwise__stim.format %>% filter(group1 == "col.drawing" & group2 == "col.photo")
+    exp4__d.prime__ttest__col.photo.vs.col.drawing <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__d.prime__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__d.prime__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(conf.low), ", ",
+                    exp4__d.prime__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(conf.high), "]")
+##  Get all means:
+    exp4__d.prime__stim.means <- as.tibble(summary(emmeans(exp4__d.prime.aov, ~stim)))
+    exp4__d.prime__resp.option.means <- as.tibble(summary(emmeans(exp4__d.prime.aov, ~resp_option)))
+    
+##################################################################################################################
+##  exp4 Hits, FAs, d' table:                                                                                   ##
+##################################################################################################################
+    exp4__prop.hit.FA.d.prime__table <- tribble(
+        ~"Stim", ~Hits,  ~FAs, ~"d'",
+        "Words",
+            round(exp4__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2),
+            round(exp4__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2),
+            round(exp4__d.prime__stim.means %>% filter(stim == "word") %>% pull(emmean),2),
+        "Colour drawings",  
+            round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2),
+            round(exp4__prop.FA__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2),
+            round(exp4__d.prime__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2),
+        "Colour photographs",  
+            round(exp4__prop.hit__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2),
+            round(exp4__prop.FA__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2),
+            round(exp4__d.prime__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2),
+        "RFG",
+            round(exp4__prop.hit__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2),
+            round(exp4__prop.FA__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2),
+            round(exp4__d.prime__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2),
+        "RFBG",
+            round(exp4__prop.hit__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2),
+            round(exp4__prop.FA__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2),
+            round(exp4__d.prime__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)) %>%
+        column_to_rownames(var = "Stim")
+```
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+table_numbering(name = "exp4__prop.hit.FA.d.prime__table", caption = "Mean proportion of hits, FAs, and mean *d'* scores, by stimuli format and response option condition.")
+```
+
+&nbsp;
+`r table_numbering("exp4__prop.hit.FA.d.prime__table")`
+```{r, echo=FALSE, cache=TRUE}
+    exp4__prop.hit.FA.d.prime__table %>%
+        kable("latex", booktabs = T) %>%
+        kable_styling(latex_options = "hold_position") %>%
+        pack_rows("Stimuli format", 1, 3) %>%
+        pack_rows("Response option", 4, 5) %>%
+        column_spec(1, width = "4cm")
+```
+
+Mean proportions of hits and FAs, and mean *d'* scores are presented in `r table_numbering("exp3__prop.hit.FA.d.prime__table", display = "cite")`. Results from the ANOVA on the mean proportion of hits showed a significant main effect of stimuli format, `r apa::anova_apa(exp4__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Paired samples t-tests showed that colour photographs (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced a significantly higher proportion of hits than both words (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.word`, and colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.col.drawing`. A significantly higher proportion of hits was also evident for colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) compared to words (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.drawing.vs.word`). There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+
+The ANOVA on the mean proportion of FAs also demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp4__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly fewer FAs in comparison to both words (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA__ttest__col.photo.vs.word`, and colour drawings (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA__ttest__col.photo.vs.col.drawing`). The colour drawings (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA__ttest__col.drawing.vs.word`. Interaction effects between stimuli format and response option condition did not reach significance, `r apa::anova_apa(exp4__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+
+Results from the ANOVA on mean *d'* scores again showed a significant main effect of stimuli format `r apa::anova_apa(exp4__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly higher *d'* scores in comparison to both words (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__d.prime__ttest__col.photo.vs.word`, and colour drawings (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__d.prime__ttest__col.photo.vs.col.drawing`. The colour drawings (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed significantly higher *d'* scores compared to words (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__d.prime__ttest__col.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+
+##### Hits assigned Recollection, Familiarity, and Guessing
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+##################################################################################################################
+##  Exp4 Prop R Hits:                                                                                           ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp4__prop.hit.R.aov <- afex::aov_ez('id', 'prop.hit.R', fun_aggregate = mean, exp4__prop.hit.R, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp4__prop.hit.R.aov__sphericity <- test_sphericity(exp4__prop.hit.R.aov)
+##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+    exp4__prop.hit.R.aov <- afex::aov_ez('id', 'prop.hit.R', fun_aggregate = mean, exp4__prop.hit.R, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "GG", es = "ges"))
+##----------------------------------------------------------------------------------------------------------------- ##  Significant INTERACTION, so perform paired contrasts:
+    exp4__prop.hit.R__pairs__interaction <- 
+        pairs(emmeans(exp4__prop.hit.R.aov, ~ resp_option:stim), adjust = "bonferroni")
+##  Get all means:
+    exp4__prop.hit.R__stim.means <- as.tibble(summary(emmeans(exp4__prop.hit.R.aov, ~stim)))
+    exp4__prop.hit.R__resp.option.means <- as.tibble(summary(emmeans(exp4__prop.hit.R.aov, ~resp_option)))    
+    exp4__prop.hit.R__interaction.means <- as.tibble(summary(emmeans(exp4__prop.hit.R.aov, ~stim:resp_option))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "col.drawing", "Colour drawings")) %>%
+        mutate(stim = str_replace(stim, "col.photo", "Colour photographs")) %>%
+        transform(stim = factor(stim, levels=c("Words","Colour drawings","Colour photographs")))
+##################################################################################################################
+##  Prop R Hits interaction figure:                                                                             ##
+################################################################################################################## ##  Create labels for figure (replaces plot legend):
+    exp4__prop.hit.R__interaction.figure.labels <- exp4__prop.hit.R__interaction.means %>%
+        select(stim, resp_option, emmean) %>%
+        filter(stim == "Colour photographs") %>%
+        mutate(label = case_when(
+                  resp_option == "RFG" ~ "RFG",
+                  resp_option == "RFBG" ~ "RFBG")) %>%
+        group_by(stim, resp_option, label)
+##  Interaction figure:
+    exp4__prop.hit.R__interaction.figure <- exp4__prop.hit.R__interaction.means %>%
+        select(stim, resp_option, emmean) %>%
+        ggplot() +
+            aes(x = stim, color = resp_option, group = resp_option, y = emmean) +
+            stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
+            stat_summary(fun.y = mean, geom = "line", size = 1.2) +
+            geom_text(size = 4, aes(label = label, color = resp_option), nudge_x = 0.08, hjust = 0,
+                      data = exp4__prop.hit.R__interaction.figure.labels) +
+            scale_color_manual(values = c('#8ec6c5', '#7d9ab5', '#8566aa')) +
+            labs(x = "Stimuli format", y = "Mean proportion of hits assigned Recollection") +
+            scale_y_continuous(limits = c(0, 3.5),
+                               breaks = c(0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5),
+                               expand = c(0, 0)) +
+            theme_classic() +
+            theme(legend.position = "none",
+                  axis.title.x = element_text(size = 10, vjust = -4),
+                  axis.text.x = element_text(size = 10),
+                  axis.title.y = element_text(size = 10, vjust = 6),
+                  axis.text.y = element_text(size = 10),
+                  plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+                  plot.margin = margin(20, 20, 24, 30))
+```    
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+figure_numbering(name = "exp4__prop.hit.R__interaction.figure", caption = "Interaction plot between stimuli format and response option for the mean proportion of hits assigned Recollection.")
+```
+
+##### Recollection (hits)
+Results from the ANOVA on the mean proportion of hits assigned Recollection showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.hit.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp4__prop.hit.R__interaction.figure", display = "cite")`).
+
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
+    exp4__prop.hit.R__interaction.figure
+```
+`r figure_numbering("exp4__prop.hit.R__interaction.figure")`
+&nbsp;&nbsp;
+
+Comparisons across stimuli formats showed colour photographs produced a significantly higher proportion of R hits than both words and colour drawings in both the RFG group (colour photographs [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Colour photographs") %>% pull(emmean),2)`] vs. Words [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFGword_RFGcolphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; colour photographs [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Colour photographs") %>% pull(emmean),2)`] vs. colour drawings [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Colour drawings") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFGcoldrawing_RFGcolphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`) and the RFBG group (colour photographs [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Colour photographs") %>% pull(emmean),2)`] vs. Words [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFBGword_RFBGcolphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; colour photographs [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Colour photographs") %>% pull(emmean),2)`] vs. colour drawings [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Colour drawings") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFBGcoldrawing_RFBGcolphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). Likewise, colour drawings produced a significantly higher proportion of R hits in comparison to Words in both the RFG (colour drawings [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Colour drawings") %>% pull(emmean),2)`] vs. Words [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFGword_RFGcoldrawing%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`) and RFBG conditions (colour drawings [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Colour drawings") %>% pull(emmean),2)`] vs. Words [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFBGword_RFBGcoldrawing%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`).
