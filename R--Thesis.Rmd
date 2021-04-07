@@ -4958,12 +4958,6 @@ The ANOVA for FAs assigned *Familiarity* showed a significant main effect of sti
 
 The ANOVA on the mean proportion of FAs assigned *Guessing* demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer G FAs in comparison to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.word`). Likewise, grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Guessing between grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) and grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.grey.drawing`). There were also no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
-#### Response option:
-In the ANOVA on the mean proportion of overall hits, there was a significant main effect of response option, `r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`. Follow up t-tests showed a higher proportion of hits in the RFG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) compared to the RFBG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r papaja::apa_print(exp3__prop.hit__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")` - though the size of the effect was `r as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$magnitude)` (`r str_c("*d* = ", round(abs(as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$effsize)), 2))`).
-
-
-In the ANOVAs on the mean proportion of overall FAs, hits assigned *Guessing*, FAs assigned *Recollection*, and FAs assigned *Guessing*, there were no significant main effects of response option condition.
-
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -5004,11 +4998,16 @@ exp3__resp.option__main.effects__table <- tribble(
 table_numbering(name = "exp3__resp.option__main.effects__table", caption = "Main effects of response option condition across all variables of interest. Signif. codes:  \\*\\*\\**p* < .001; \\*\\**p* < .01; \\**p* < .05; \\+ significant interaction [see previous section for interpretation]).")
 ```
 
+#### Response option:
+In the previously discussed ANOVAs, significant main effects were also observed for response option condition (RFG / RFBG) for the mean proportion of hits (`r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`) and the mean proportion of FAs assigned *Familiarity* (`r apa::anova_apa(exp3__prop.FA.F.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`). For all other variables, response option was found to either significantly interact with stimuli format (discussed previously), or had no significant main effect (see `r table_numbering("exp3__resp.option__main.effects__table", display = "cite")` for all response option ANOVA results).
+
+For the mean proportion of hits, follow up t-tests showed a higher proportion of hits in the RFG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) compared to the RFBG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r papaja::apa_print(exp3__prop.hit__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")` - though the size of this effect was `r as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$magnitude)` (`r str_c("*d* = ", round(abs(as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$effsize)), 2))`). For the mean proportion of FAs assigned *Familiarity*, those in the RFG group (*M*= `r round(exp3__prop.FA.F__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) showed a significantly higher proportion of *Familiarity* FAs compared to the RFBG group (*M*= `r round(exp3__prop.FA.F__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r papaja::apa_print(exp3__prop.FA.F__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`
+
 &nbsp;
 `r table_numbering("exp3__resp.option__main.effects__table")`
-```{r, echo=FALSE, cache=FALSE}
+```{r, echo=FALSE, cache=TRUE}
     exp3__resp.option__main.effects__table %>%
-        kable("markdown", booktabs = T, full_width= T)
+        kable("markdown", booktabs = T, full_width= T, align=rep('r', 3))
 ```
 
 
