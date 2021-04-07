@@ -4371,8 +4371,8 @@ A series of 3x2 mixed ANOVAs were conducted on each of the DVs, using a within-s
                                        anova_table=list(correction = "GG", es = "ges"))
 ##----------------------------------------------------------------------------------------------------------------- 
 ##  Significant main effect of RESPONSE OPTION, so first check if variances are equal using Levene's test:
-    exp3__prop.hit__levine.test__rfg.rfbg <- exp3__prop.hit %>% leveneTest(prop.hit ~ resp_option, data = .)
-##  Levine NOT significant (variances equal), so perform standard two-sample t-test: 
+    exp3__prop.hit__levene.test__rfg.rfbg <- exp3__prop.hit %>% leveneTest(prop.hit ~ resp_option, data = .)
+##  Levene's test NOT significant (variances equal), so perform standard two-sample t-test:
     exp3__prop.hit__ttest__rfg.rfbg <- exp3__prop.hit %>%
         t_test(prop.hit ~ resp_option, paired = FALSE, data = ., var.equal = TRUE)
 ##  Calculate effect size:
@@ -4489,7 +4489,6 @@ A series of 3x2 mixed ANOVAs were conducted on each of the DVs, using a within-s
 ##----------------------------------------------------------------------------------------------------------------- ##  Significant INTERACTION, so perform paired contrasts:
     exp3__d.prime__pairs__interaction <- 
         pairs(emmeans(exp3__d.prime.aov, ~ resp_option:stim), adjust = "bonferroni")
-##  Calculate effect size:      
 ##----------------------------------------------------------------------------------------------------------------- 
 ##  Get all means:
     exp3__d.prime__stim.means <- as.tibble(summary(emmeans(exp3__d.prime.aov, ~stim)))
@@ -4804,7 +4803,7 @@ Response option condition had no effect on the proportion of F hits obtained, fo
 ```
 
 ##### Guessing (hits)
-The ANOVA on the mean proportion of hits assigned Guessing demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer G hits in comparison to both words (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.photo.vs.word`) and grey drawings (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.photo.vs.grey.drawing`). The grey drawings (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.hit.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+The ANOVA on the mean proportion of hits assigned Guessing demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer G hits in comparison to both words (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.photo.vs.word`) and grey drawings (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.photo.vs.grey.drawing`). The grey drawings (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of G hits compared to words (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.hit.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -4843,8 +4842,16 @@ For FAs assigned *Recollection*, there was no significant main effect of stimuli
                                        anova_table=list(correction = "none", es = "ges"))
 ##  Mauchlys test of sphericity:
     exp3__prop.FA.F.aov__sphericity <- test_sphericity(exp3__prop.FA.F.aov)
-##  Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied.
-##----------------------------------------------------------------------------------------------------------------- ##  Significant main effect of RESPONSE OPTION, so perform paired contrasts:    
+##  Assumption of sphericity not violated (p>.05). Greenhouse-Geisser correction not applied.
+##----------------------------------------------------------------------------------------------------------------- 
+##  Significant main effect of RESPONSE OPTION, so first check if variances are equal using Levene's test:
+    exp3__prop.FA.F__levene.test__rfg.rfbg <- exp3__prop.FA.F %>% leveneTest(prop.FA.F ~ resp_option, data = .)
+##  Levene's test significant (variances not equal), so perform corrected Welch two-sample t-test: 
+    exp3__prop.FA.F__ttest__rfg.rfbg <- exp3__prop.FA.F %>%
+        t_test(prop.FA.F ~ resp_option, paired = FALSE, data = ., var.equal = FALSE)
+##  Calculate effect size:
+    exp3__prop.FA.F__ttest__rfg.rfbg__eff.size <- exp3__prop.FA.F %>% 
+        rstatix::cohens_d(prop.FA.F ~ resp_option, var.equal = FALSE, paired = FALSE, ci = TRUE, conf.level = 0.95)
 ##----------------------------------------------------------------------------------------------------------------- ##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
     exp3__prop.FA.F__pairwise__stim.format <- exp3__prop.FA.F %>% 
         pairwise_t_test(prop.FA.F ~ stim, paired = TRUE, p.adjust.method = "bonferroni")
@@ -7740,7 +7747,7 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
       ensor.exp1__prop.hit.aov__sphericity <- test_sphericity(ensor.exp1__prop.hit.aov)
       ensor.exp1__prop.hit.aov__sphericity <- ensor.exp1__prop.hit.aov__sphericity[1,2]
       
-##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+##    Assumption of sphericity not violated (p>.05). Greenhouse-Geisser correction not applied:
       ensor.exp1__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, ensor.exp1__prop.hit, 
                                            within = 'stim', anova_table=list(correction = "none", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
@@ -7764,7 +7771,7 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
       ensor.exp2__prop.hit.aov__sphericity <- test_sphericity(ensor.exp2__prop.hit.aov)
       ensor.exp2__prop.hit.aov__sphericity <- ensor.exp2__prop.hit.aov__sphericity[1,2]
       
-##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+##    Assumption of sphericity not violated (p>.05). Greenhouse-Geisser correction not applied:
       ensor.exp2__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, ensor.exp2__prop.hit, 
                                            within = 'stim', anova_table=list(correction = "none", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
@@ -7788,7 +7795,7 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
       ensor.exp1__prop.FA.aov__sphericity <- test_sphericity(ensor.exp1__prop.FA.aov)
       ensor.exp1__prop.FA.aov__sphericity <- ensor.exp1__prop.FA.aov__sphericity[1,2]
       
-##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+##    Assumption of sphericity not violated (p>.05). Greenhouse-Geisser correction not applied:
       ensor.exp1__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, ensor.exp1__prop.FA, 
                                            within = 'stim', anova_table=list(correction = "none", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
@@ -7812,7 +7819,7 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
       ensor.exp2__prop.FA.aov__sphericity <- test_sphericity(ensor.exp2__prop.FA.aov)
       ensor.exp2__prop.FA.aov__sphericity <- ensor.exp2__prop.FA.aov__sphericity[1,2]
       
-##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+##    Assumption of sphericity not violated (p>.05). Greenhouse-Geisser correction not applied:
       ensor.exp2__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, ensor.exp2__prop.FA,
                                               within = 'stim', anova_table=list(correction = "none", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
@@ -7836,7 +7843,7 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
       ensor.exp1__d.prime.aov__sphericity <- test_sphericity(ensor.exp1__d.prime.aov)
       ensor.exp1__d.prime.aov__sphericity <- ensor.exp1__d.prime.aov__sphericity[1,2]
       
-##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+##    Assumption of sphericity not violated (p>.05). Greenhouse-Geisser correction not applied:
       ensor.exp1__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, ensor.exp1__d.prime, 
                                            within = 'stim', anova_table=list(correction = "none", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
@@ -7860,7 +7867,7 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
       ensor.exp2__d.prime.aov__sphericity <- test_sphericity(ensor.exp2__d.prime.aov)
       ensor.exp2__d.prime.aov__sphericity <- ensor.exp2__d.prime.aov__sphericity[1,2]
       
-##    Assumption of sphericity not violated (p<.05). Greenhouse-Geisser correction not applied:
+##    Assumption of sphericity not violated (p>.05). Greenhouse-Geisser correction not applied:
       ensor.exp2__d.prime.aov <- afex::aov_ez('id', 'd.prime', fun_aggregate = mean, ensor.exp2__d.prime,
                                               within = 'stim', anova_table=list(correction = "none", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
