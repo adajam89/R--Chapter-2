@@ -71,15 +71,15 @@
     exp4__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, exp4__prop.FA, 
                                        between = "resp_option", within = 'stim',
                                        anova_table=list(correction = "GG", es = "ges"))
-##----------------------------------------------------------------------------------------------------------------- 
+##-----------------------------------------------------------------------------------------------------------------
 ##  Significant main effect of RESPONSE OPTION, so first check if variances are equal using Levene's test:
-    exp4__prop.hit__levine.test__rfg.rfbg <- exp4__prop.hit %>% leveneTest(prop.hit ~ resp_option, data = .)
-##  Levine NOT significant (variances equal), so perform standard two-sample t-test: 
-    exp4__prop.hit__ttest__rfg.rfbg <- exp4__prop.hit %>%
-        t_test(prop.hit ~ resp_option, paired = FALSE, data = ., var.equal = TRUE)
+    exp4__prop.FA__levine.test__rfg.rfbg <- exp4__prop.FA %>% leveneTest(prop.FA ~ resp_option, data = .)
+##  Levine significant (variances not equal), so perform corrected Welch two-sample t-test: 
+    exp4__prop.FA__ttest__rfg.rfbg <- exp4__prop.FA %>%
+        t_test(prop.FA ~ resp_option, paired = FALSE, data = ., var.equal = FALSE)
 ##  Calculate effect size:
-    exp4__prop.hit__ttest__rfg.rfbg__eff.size <- exp4__prop.hit %>% 
-        rstatix::cohens_d(prop.hit ~ resp_option, var.equal = TRUE, paired = FALSE, ci = TRUE, conf.level = 0.95)   ##----------------------------------------------------------------------------------------------------------------- 
+    exp4__prop.FA__ttest__rfg.rfbg__eff.size <- exp4__prop.FA %>% 
+        rstatix::cohens_d(prop.FA ~ resp_option, var.equal = FALSE, paired = FALSE, ci = TRUE, conf.level = 0.95)   ##----------------------------------------------------------------------------------------------------------------- 
 ##  No significant main effect of RESPONSE OPTION.
 ##----------------------------------------------------------------------------------------------------------------- ##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
     exp4__prop.FA__pairwise__stim.format <- exp4__prop.FA %>% 
@@ -134,7 +134,7 @@
 ##  Assumption of sphericity NOT violated (p>.05), so Greenhouse-Geisser correction NOT applied.
 ##-----------------------------------------------------------------------------------------------------------------
 ##  No significant main effect of RESPONSE OPTION.
-##----------------------------------------------------------------------------------------------------------------- 
+##-----------------------------------------------------------------------------------------------------------------
 ##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
     exp4__d.prime__pairwise__stim.format <- exp4__d.prime %>% 
         pairwise_t_test(d.prime ~ stim, paired = TRUE, p.adjust.method = "bonferroni")
@@ -369,4 +369,4 @@ The interaction is evident following comparisons of the same stimuli format acro
   
     
 ##### Familiarity (hits)
-Results from the ANOVA on the mean proportion of hits assigned Familiarity again showed a significant main effect of stimuli format `r apa::anova_apa(exp4__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly higher *d'* scores in comparison to both words (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__d.prime__ttest__col.photo.vs.word`, and colour drawings (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__d.prime__ttest__col.photo.vs.col.drawing`. The colour drawings (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed significantly higher *d'* scores compared to words (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__d.prime__ttest__col.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+Results from the ANOVA on the mean proportion of hits assigned Familiarity again showed a significant main effect of stimuli format `r apa::anova_apa(exp4__prop.hit.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__prop.hit.F__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly fewer F hits than both words (*M*= `r round(exp4__prop.hit.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit.F__ttest__col.photo.vs.word`, and colour drawings (*M*= `r round(exp4__prop.hit.F__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.hit.F__ttest__col.photo.vs.col.drawing`. The colour drawings (*M*= `r round(exp4__prop.hit.F__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed significantly fewer F hits compared to words (*M*= `r round(exp4__prop.hit.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit.F__ttest__col.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.hit.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
