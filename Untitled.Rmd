@@ -523,3 +523,61 @@ For FAs assigned *Recollection*, there was no significant main effect of stimuli
 
 The ANOVA for FAs assigned *Familiarity* showed a significant main effect of stimuli format, `r apa::anova_apa(exp4__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly fewer F FAs than words (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA.F__ttest__col.photo.vs.word`. Likewise, colour drawings (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA.F__ttest__col.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Familiarity between colour photographs (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) and colour drawings
 (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "colour.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA.F__ttest__colour.photo.vs.colour.drawing`. There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.FA.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+##################################################################################################################
+##  exp4 Prop G FAs:                                                                                           ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp4__prop.FA.G.aov <- afex::aov_ez('id', 'prop.FA.G', fun_aggregate = mean, exp4__prop.FA.G, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp4__prop.FA.G.aov__sphericity <- test_sphericity(exp4__prop.FA.G.aov)
+##  Assumption of sphericity not violated (p>.05), so no correction applied.
+##----------------------------------------------------------------------------------------------------------------- ##  No significant main effect of RESPONSE OPTION.
+##----------------------------------------------------------------------------------------------------------------- ##  Significant main effect of STIMULI FORMAT, so perform paired contrasts:
+    exp4__prop.FA.G__pairwise__stim.format <- exp4__prop.FA.G %>% 
+        pairwise_t_test(prop.FA.G ~ stim, paired = TRUE, p.adjust.method = "bonferroni")   
+##  Calculate effect size:      
+    exp4__prop.FA.G__pairwise__stim.format__eff.size <- exp4__prop.FA.G %>% 
+        rstatix::cohens_d(prop.FA.G ~ stim, paired = TRUE, ci = TRUE, conf.level = 0.95)
+##  t-test - colour photos vs. words:
+    temp <- exp4__prop.FA.G__pairwise__stim.format %>% filter(group1 == "col.photo" & group2 == "word")
+    exp4__prop.FA.G__ttest__col.photo.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__prop.FA.G__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.photo" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__prop.FA.G__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.photo" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp4__prop.FA.G__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.photo" & group2 == "word") %>% pull(conf.high), "]")      
+
+##  t-test - col drawings vs. words:    
+    temp <- exp4__prop.FA.G__pairwise__stim.format %>% filter(group1 == "col.drawing" & group2 == "word")
+    exp4__prop.FA.G__ttest__col.drawing.vs.word <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__prop.FA.G__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.drawing" & group2 == "word") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__prop.FA.G__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.drawing" & group2 == "word") %>% pull(conf.low), ", ",
+                    exp4__prop.FA.G__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.drawing" & group2 == "word") %>% pull(conf.high), "]")       
+    
+##  t-test - col drawings vs. col photos:    
+    temp <- exp4__prop.FA.G__pairwise__stim.format %>% filter(group1 == "col.drawing" & group2 == "col.photo")
+    exp4__prop.FA.G__ttest__col.photo.vs.col.drawing <- str_c(ttest.writeup(temp), "; *d* = ", 
+        round(as.vector(exp4__prop.FA.G__pairwise__stim.format__eff.size %>% 
+                          filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(effsize)), 2),
+        ", 95% CI [", 
+        exp4__prop.FA.G__pairwise__stim.format__eff.size %>%
+            filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(conf.low), ", ",
+                    exp4__prop.FA.G__pairwise__stim.format__eff.size %>%
+                        filter(group1 == "col.drawing" & group2 == "col.photo") %>% pull(conf.high), "]")        
+##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
+    exp4__prop.FA.G__stim.means <- as.tibble(summary(emmeans(exp4__prop.FA.G.aov, ~stim)))
+    exp4__prop.FA.G__resp.option.means <- as.tibble(summary(emmeans(exp4__prop.FA.G.aov, ~resp_option)))
+```
+
+The ANOVA on the mean proportion of FAs assigned *Guessing* demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp4__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly fewer G FAs in comparison to words (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA.G__ttest__col.photo.vs.word`). Likewise, colour drawings (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA.G__ttest__col.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Guessing between colour photographs (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) and colour drawings (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA.G__ttest__col.photo.vs.col.drawing`). There were also no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp4__prop.FA.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.

@@ -4959,7 +4959,65 @@ The ANOVA for FAs assigned *Familiarity* showed a significant main effect of sti
 The ANOVA on the mean proportion of FAs assigned *Guessing* demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer G FAs in comparison to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.word`). Likewise, grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Guessing between grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) and grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.grey.drawing`). There were also no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
 #### Response option:
-In the ANOVA on the mean proportion of hits, there was a significant main effect of response option, `r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`. Follow up t-tests showed a higher proportion of hits in the RFG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) compared to the RFBG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r papaja::apa_print(exp3__prop.hit__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")` - though the size of the effect was `r as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$magnitude)` (`r str_c("*d* = ", round(abs(as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$effsize)), 2))`).
+In the ANOVA on the mean proportion of overall hits, there was a significant main effect of response option, `r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`. Follow up t-tests showed a higher proportion of hits in the RFG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) compared to the RFBG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r papaja::apa_print(exp3__prop.hit__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")` - though the size of the effect was `r as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$magnitude)` (`r str_c("*d* = ", round(abs(as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$effsize)), 2))`).
+
+
+In the ANOVAs on the mean proportion of overall FAs, hits assigned *Guessing*, FAs assigned *Recollection*, and FAs assigned *Guessing*, there were no significant main effects of response option condition.
+
+
+
+R FAs: `r `
+G FAs: `r `
+
+
+```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+##################################################################################################################
+##  Exp3 Resp option main effects table:                                                                        ##
+##################################################################################################################
+    exp3__resp.option__main.effects__table <- tribble(
+        ~"Variable means", ~"ANOVA result", "Signif",
+        "Hits",
+            apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
+            "*",
+        "FAs",
+            apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
+            " ",
+        "d' scores",  
+            apa::anova_apa(exp3__d.prime.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
+            " ",
+        "Hits assigned Recollection",
+            apa::anova_apa(exp3__prop.hit.R.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
+            " ", 
+        "Hits assigned Familiarity",
+            apa::anova_apa(exp3__prop.hit.F.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
+            " ", 
+        "Hits assigned Guessing", 
+            apa::anova_apa(exp3__prop.hit.G.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
+            " ", 
+        "FAs assigned Recollection",
+            apa::anova_apa(exp3__prop.FA.R.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
+            " ", 
+        "FAs assigned Familiarity",
+            apa::anova_apa(exp3__prop.FA.F.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
+            " ", 
+        "FAs assigned Guessing",
+            apa::anova_apa(exp3__prop.FA.G.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
+            " ")
+```
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+table_numbering(name = "exp3__resp.option__main.effects__table", caption = "Main effects of response option condition across all variables of interest.")
+```
+
+&nbsp;
+`r table_numbering("exp3__resp.option__main.effects__table")`
+```{r, echo=FALSE, cache=TRUE}
+    exp3__resp.option__main.effects__table %>%
+        kable("latex", booktabs = T) %>%
+        kable_styling(latex_options = "hold_position") %>%
+        column_spec(1, width = "4cm")
+```
+
 
 ### Discussion
 Across a range of performance variables, the results show a clear effect of stimuli distinctiveness. As distinctiveness increased (from words, to drawings, to photographs), this produced more hits, less FAs, better overall recognition, and better discrimination between hits / FAs. The absence of any interaction effects across these variables demonstrates that the availability of different response options (i.e. the addition of a Both option) had little impact on overall performance. RF(B)G responses for accurate recognition displayed a similar pattern; as distinctiveness increased, the number of Recollected hits also increased, while the number of Familiarity and Guessing hits decreased. The rate of both Familiarity FAs and Guessing FAs was also highest for the least distinctive stimuli (words).
