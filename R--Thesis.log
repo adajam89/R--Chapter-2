@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.3.1)  7 APR 2021 17:03
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.3.1)  8 APR 2021 09:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1166,9 +1166,9 @@ File: R--Thesis_files/figure-latex/unnamed-chunk-35-1.pdf Graphic file (type pd
 f)
 <use R--Thesis_files/figure-latex/unnamed-chunk-35-1.pdf>
 [55]
-File: R--Thesis_files/figure-latex/unnamed-chunk-38-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-37-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-38-1.pdf>
+<use R--Thesis_files/figure-latex/unnamed-chunk-37-1.pdf>
 [56] [57] [58]
 Overfull \vbox (2.10764pt too high) has occurred while \output is active []
 
@@ -1190,62 +1190,49 @@ Underfull \hbox (badness 10000) in paragraph at lines 2517--2520
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
 (hyperref)                be the same. Added a new anchor on input line 2600.
 
-LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 11.0pt on input line 2642.
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 2660.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 13.29681pt on input line 2660.
+(Font)              scaled to size 14.50562pt on input line 2660.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 9.30772pt on input line 2660.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.6484pt on input line 2660.
+(Font)              scaled to size 9.67041pt on input line 2660.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 13.29816pt on input line 2660.
+(Font)              scaled to size 14.50708pt on input line 2660.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 9.30865pt on input line 2660.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.64908pt on input line 2660.
+(Font)              scaled to size 9.67139pt on input line 2660.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 13.29547pt on input line 2660.
+(Font)              scaled to size 14.50415pt on input line 2660.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.30678pt on input line 2660.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.64774pt on input line 2660.
+(Font)              scaled to size 9.66943pt on input line 2660.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 11.0pt on input line 2660.
+(Font)              scaled to size 12.0pt on input line 2660.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 7.69997pt on input line 2660.
-LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 5.5pt on input line 2660.
-LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 11.0pt on input line 2660.
+(Font)              scaled to size 8.0pt on input line 2660.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [66] [67]
-File: R--Thesis_files/figure-latex/unnamed-chunk-55-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-53-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-55-1.pdf>
+<use R--Thesis_files/figure-latex/unnamed-chunk-53-1.pdf>
 [68] [69] [70] [71] [72]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
 (hyperref)                be the same. Added a new anchor on input line 2908.
 
 [73]
-File: R--Thesis_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-62-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-66-1.pdf>
-File: R--Thesis_files/figure-latex/unnamed-chunk-66-2.pdf Graphic file (type pd
+<use R--Thesis_files/figure-latex/unnamed-chunk-62-1.pdf>
+File: R--Thesis_files/figure-latex/unnamed-chunk-62-2.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-66-2.pdf>
+<use R--Thesis_files/figure-latex/unnamed-chunk-62-2.pdf>
 [74] [75]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
 (hyperref)                be the same. Added a new anchor on input line 3009.
 
-File: R--Thesis_files/figure-latex/unnamed-chunk-68-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-64-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-68-1.pdf>
+<use R--Thesis_files/figure-latex/unnamed-chunk-64-1.pdf>
 [76] [77]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
 (Font)              scaled to size 10.0pt on input line 3072.
@@ -1326,9 +1313,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 3251--3267
  []
 
 [82] [83]
-File: R--Thesis_files/figure-latex/unnamed-chunk-86-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-82-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-86-1.pdf>
+<use R--Thesis_files/figure-latex/unnamed-chunk-82-1.pdf>
 [84] [85] [86] [87] [88] [89] [90] [91]
 Underfull \hbox (badness 4556) in paragraph at lines 3590--3595
  \TU/Helvetica(0)/m/n/10.95 on remember-know judgments. \TU/Helvetica(0)/m/it/1
@@ -1370,11 +1357,11 @@ Package rerunfilecheck Info: File `R--Thesis.out' has not changed.
 (rerunfilecheck)             Checksum: C33EFCB34F1CD5BF9B341F7B38A3E859;10997.
  ) 
 Here is how much of TeX's memory you used:
- 18469 strings out of 478931
- 326208 string characters out of 5866373
- 867890 words of memory out of 5000000
- 37953 multiletter control sequences out of 15000+600000
- 415059 words of font info for 140 fonts, out of 8000000 for 9000
+ 18453 strings out of 478931
+ 325659 string characters out of 5866373
+ 867865 words of memory out of 5000000
+ 37943 multiletter control sequences out of 15000+600000
+ 414056 words of font info for 131 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  98i,13n,125p,652b,559s stack positions out of 5000i,500n,10000p,200000b,80000s
 
