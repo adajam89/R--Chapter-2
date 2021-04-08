@@ -4604,7 +4604,7 @@ figure_numbering(name = "exp3__d.prime__interaction.figure", caption = "Interact
 `r figure_numbering("exp3__d.prime__interaction.figure")`
 &nbsp;&nbsp;
 
-Results from the ANOVA on mean *d'* scores showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__d.prime__interaction.figure", display = "cite")`). While *d'* scores were numerically higher for words and grey photographs in the RFG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "word") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.photo") %>% pull(emmean),2)`) compared to the RFBG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "word") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.photo") %>% pull(emmean),2)`), neither were significantly different from one another (words: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGword_RFGword %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; grey photographs: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreyphoto_RFGgreyphoto %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`. For grey drawings, however, this pattern was reversed; *d'* scores were numerically higher in the RFBG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`) rather than the RFG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`); though again, these means were not significantly different from one another (grey drawings: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreydrawing_RFGgreydrawing %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). 
+Results from the ANOVA on mean *d'* scores showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__d.prime__interaction.figure", display = "cite")`). While *d'* scores were numerically higher for words and grey photographs in the RFG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "Grey photographs") %>% pull(emmean),2)`) compared to the RFBG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "Grey photographs") %>% pull(emmean),2)`), neither were significantly different from one another (words: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGword_RFGword %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; grey photographs: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreyphoto_RFGgreyphoto %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`. For grey drawings, however, this pattern was reversed; *d'* scores were numerically higher in the RFBG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "Grey drawings") %>% pull(emmean),2)`) rather than the RFG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "Grey drawings") %>% pull(emmean),2)`); though again, these means were not significantly different from one another (grey drawings: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreydrawing_RFGgreydrawing %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). 
 
 ##### Recollection and Familiarity
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -6154,8 +6154,9 @@ Results from the ANOVAs demonstrated a significant main effect of stimuli format
 
 To determine whether photo superiority effects were also evident in the current set of colour pictures - comparable to those observed using greyscale stimuli (Experiment 3) - pairwise t-tests were performed between the colour photos and drawings. For the mean proportion of hits, colour photographs (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) exhibited a significantly higher proportion than colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.col.drawing`. The photographs (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) also produced significantly fewer FAs compared to drawings (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA__ttest__col.photo.vs.col.drawing`). Mean *d'* scores were also significantly higher for the colour photographs (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) compared to the colour drawings (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__d.prime__ttest__col.photo.vs.col.drawing`.
 
-Visual comparison of the data (and significant results) across Experiments 3 and 4 reveals only one difference with regard to response option: *d'* scores failed to produce significant interaction effects between stimuli format and response option in the current experiment, as were previously demonstrated in Experiment 3.
+Visual comparison of the data (and significant results) across Experiments 3 and 4 reveals only one difference with regard to response option: the ANOVA on *d'* scores failed to produce a significant interaction between stimuli format and response option in the current experiment, as was previously demonstrated in Experiment 3. However, none of the follow-up comparisons
 
+\newpage
 ##### Recollection and Familiarity
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -6434,8 +6435,8 @@ Visual comparison of the data (and significant results) across Experiments 3 and
 ##  Create figure:
     exp4__prop.hit.RFG__figure <-
         ggplot(exp4__prop.hit.RFG__figure.data, aes(x = stim, y = emmean, fill = rfg)) +
-        scale_fill_manual("legend", values = c("Recollection" = "#1B4251", "Familiarity" = "#6A6C93",
-                                               "Guessing" = "#D491CA")) + 
+        scale_fill_manual("legend", values = c("Recollection" = "#845E7D", "Familiarity" = "#428495",
+                                               "Guessing" = "#529B6A")) + 
         geom_col(position = position_dodge()) +
         geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), 
                       width = 0.2, size = 0.3, position = position_dodge(0.9)) +
@@ -6465,8 +6466,9 @@ Visual comparison of the data (and significant results) across Experiments 3 and
 
 To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp4__prop.hit.RFG__figure", display = "cite")`).
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=FALSE}
-    exp4__prop.hit.RFG__figure
+```{r, fig.height=6.5, echo=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
+      grid.arrange(exp3__prop.hit.RFG__figure, exp4__prop.hit.RFG__figure,
+                   ncol=1, nrow=2) #top = textGrob("Mean proportion of hits"))
 ```
 `r figure_numbering("exp4__prop.hit.RFG__figure")`
 
@@ -6480,7 +6482,6 @@ Results from the ANOVA on the mean proportion of hits assigned Recollection show
     exp4__prop.hit.R__interaction.figure
 ```
 `r figure_numbering("exp4__prop.hit.R__interaction.figure")`
-&nbsp;&nbsp;
 
 Comparisons across stimuli formats showed colour photographs produced a significantly higher proportion of R hits than both words and colour drawings in both the RFG group (colour photographs [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Colour photographs") %>% pull(emmean),2)`] vs. words [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFGword_RFGcolphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; colour photographs [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Colour photographs") %>% pull(emmean),2)`] vs. colour drawings [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Colour drawings") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFGcoldrawing_RFGcolphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`) and the RFBG group (colour photographs [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Colour photographs") %>% pull(emmean),2)`] vs. words [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFBGword_RFBGcolphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; colour photographs [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Colour photographs") %>% pull(emmean),2)`] vs. colour drawings [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Colour drawings") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFBGcoldrawing_RFBGcolphoto%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). Likewise, colour drawings produced a significantly higher proportion of R hits in comparison to Words in both the RFG (colour drawings [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Colour drawings") %>% pull(emmean),2)`] vs. words [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFGword_RFGcoldrawing%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`) and RFBG conditions (colour drawings [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Colour drawings") %>% pull(emmean),2)`] vs. words [*M*= `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFBGword_RFBGcoldrawing%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`).
 
@@ -6722,8 +6723,8 @@ The ANOVA on the mean proportion of hits assigned Guessing demonstrated a signif
 ##  Create figure:
     exp4__prop.FA.RFG__figure <-
         ggplot(exp4__prop.FA.RFG__figure.data, aes(x = stim, y = emmean, fill = rfg)) +
-        scale_fill_manual("legend", values = c("Recollection" = "#1B4251", "Familiarity" = "#6A6C93",
-                                               "Guessing" = "#D491CA")) + 
+        scale_fill_manual("legend", values = c("Recollection" = "#845E7D", "Familiarity" = "#428495",
+                                               "Guessing" = "#529B6A")) + 
         geom_col(position = position_dodge()) +
         geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), 
                       width = 0.2, size = 0.3, position = position_dodge(0.9)) +
@@ -9701,14 +9702,6 @@ For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.m
   
 \newpage
 \blandscape
-
---drawing-word.png
---photo-word.png
-
-
-
-
-
 
 # Appendices
 ## `r appendix_numbering("spelling.corrections")`
