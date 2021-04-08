@@ -6466,8 +6466,15 @@ Visual comparison of the data (and significant results) across Experiments 3 and
 
 To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp4__prop.hit.RFG__figure", display = "cite")`).
 
-```{r, fig.height=6.5, echo=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
-      grid.arrange(exp3__prop.hit.RFG__figure, exp4__prop.hit.RFG__figure,
+```{r, fig.height=8.5, echo=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
+      
+exp3__prop.hit.RFG__figure1 <- exp3__prop.hit.RFG__figure + labs(subtitle = "Experiment 3: Greyscale") + 
+    theme(plot.subtitle = element_text(hjust = 0.5))
+
+exp4__prop.hit.RFG__figure1 <- exp4__prop.hit.RFG__figure + labs(subtitle = "Experiment 4: Colour") + 
+    theme(plot.subtitle = element_text(hjust = 0.5))
+
+grid.arrange(exp3__prop.hit.RFG__figure1, exp4__prop.hit.RFG__figure1,
                    ncol=1, nrow=2) #top = textGrob("Mean proportion of hits"))
 ```
 `r figure_numbering("exp4__prop.hit.RFG__figure")`
