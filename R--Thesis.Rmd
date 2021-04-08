@@ -4762,13 +4762,145 @@ Results from the ANOVA on mean *d'* scores showed a significant interaction betw
                         filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.high), "]")    
 ##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
     exp3__prop.hit.G__stim.means <- as.tibble(summary(emmeans(exp3__prop.hit.G.aov, ~stim)))
-    exp3__prop.hit.G__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.hit.G.aov, ~resp_option)))    
-```    
+    exp3__prop.hit.G__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.hit.G.aov, ~resp_option)))
+#################################################################################################################
+##    HITS FIGURE:                                                                                             ##
+#################################################################################################################
+##  Prep data for figures:  
+    exp3__prop.hit.R__figure.data <- 
+        as.tibble(emmeans(exp3__prop.hit.R.aov, ~ resp_option:stim)) %>%
+        select(-df, -lower.CL, -upper.CL)
+    exp3__prop.hit.F__figure.data <- 
+        as.tibble(emmeans(exp3__prop.hit.F.aov, ~ resp_option:stim)) %>%
+        select(-df, -lower.CL, -upper.CL)
+    exp3__prop.hit.G__figure.data <- 
+        as.tibble(emmeans(exp3__prop.hit.G.aov, ~ resp_option:stim)) %>%
+        select(-df, -lower.CL, -upper.CL)    
+
+    exp3__prop.hit.RFG__figure.data <- 
+        tribble(~"resp_option", ~"stim", ~"rfg", ~"emmean", ~"SE",
+            as.character(pull(exp3__prop.hit.R__figure.data[1,1])), ... = 
+            as.character(pull(exp3__prop.hit.R__figure.data[1,2])), "Recollection",
+                as.double(pull(exp3__prop.hit.R__figure.data[1,3])), 
+                as.double(pull(exp3__prop.hit.R__figure.data[1,4])),
+            as.character(pull(exp3__prop.hit.R__figure.data[2,1])), 
+            as.character(pull(exp3__prop.hit.R__figure.data[2,2])), "Recollection",
+                as.double(pull(exp3__prop.hit.R__figure.data[2,3])), 
+                as.double(pull(exp3__prop.hit.R__figure.data[2,4])),
+            as.character(pull(exp3__prop.hit.R__figure.data[3,1])), 
+            as.character(pull(exp3__prop.hit.R__figure.data[3,2])), "Recollection",
+                as.double(pull(exp3__prop.hit.R__figure.data[3,3])), 
+                as.double(pull(exp3__prop.hit.R__figure.data[3,4])),
+            as.character(pull(exp3__prop.hit.R__figure.data[4,1])), 
+            as.character(pull(exp3__prop.hit.R__figure.data[4,2])), "Recollection",
+                as.double(pull(exp3__prop.hit.R__figure.data[4,3])), 
+                as.double(pull(exp3__prop.hit.R__figure.data[4,4])),
+            as.character(pull(exp3__prop.hit.R__figure.data[5,1])), 
+            as.character(pull(exp3__prop.hit.R__figure.data[5,2])), "Recollection",
+                as.double(pull(exp3__prop.hit.R__figure.data[5,3])), 
+                as.double(pull(exp3__prop.hit.R__figure.data[5,4])),
+            as.character(pull(exp3__prop.hit.R__figure.data[6,1])), 
+            as.character(pull(exp3__prop.hit.R__figure.data[6,2])), "Recollection",
+                as.double(pull(exp3__prop.hit.R__figure.data[6,3])), 
+                as.double(pull(exp3__prop.hit.R__figure.data[6,4])),
+            as.character(pull(exp3__prop.hit.F__figure.data[1,1])), 
+            as.character(pull(exp3__prop.hit.F__figure.data[1,2])), "Familiarity",
+                as.double(pull(exp3__prop.hit.F__figure.data[1,3])), 
+                as.double(pull(exp3__prop.hit.F__figure.data[1,4])),
+            as.character(pull(exp3__prop.hit.F__figure.data[2,1])), 
+            as.character(pull(exp3__prop.hit.F__figure.data[2,2])), "Familiarity",
+                as.double(pull(exp3__prop.hit.F__figure.data[2,3])), 
+                as.double(pull(exp3__prop.hit.F__figure.data[2,4])),
+            as.character(pull(exp3__prop.hit.F__figure.data[3,1])), 
+            as.character(pull(exp3__prop.hit.F__figure.data[3,2])), "Familiarity",
+                as.double(pull(exp3__prop.hit.F__figure.data[3,3])), 
+                as.double(pull(exp3__prop.hit.F__figure.data[3,4])),
+            as.character(pull(exp3__prop.hit.F__figure.data[4,1])), 
+            as.character(pull(exp3__prop.hit.F__figure.data[4,2])), "Familiarity",
+                as.double(pull(exp3__prop.hit.F__figure.data[4,3])), 
+                as.double(pull(exp3__prop.hit.F__figure.data[4,4])),
+            as.character(pull(exp3__prop.hit.F__figure.data[5,1])), 
+            as.character(pull(exp3__prop.hit.F__figure.data[5,2])), "Familiarity",
+                as.double(pull(exp3__prop.hit.F__figure.data[5,3])), 
+                as.double(pull(exp3__prop.hit.F__figure.data[5,4])),
+            as.character(pull(exp3__prop.hit.F__figure.data[6,1])), 
+            as.character(pull(exp3__prop.hit.F__figure.data[6,2])), "Familiarity",
+                as.double(pull(exp3__prop.hit.F__figure.data[6,3])), 
+                as.double(pull(exp3__prop.hit.F__figure.data[6,4])),
+            as.character(pull(exp3__prop.hit.G__figure.data[1,1])), 
+            as.character(pull(exp3__prop.hit.G__figure.data[1,2])), "Guessing",
+                as.double(pull(exp3__prop.hit.G__figure.data[1,3])), 
+                as.double(pull(exp3__prop.hit.G__figure.data[1,4])),
+            as.character(pull(exp3__prop.hit.G__figure.data[2,1])), 
+            as.character(pull(exp3__prop.hit.G__figure.data[2,2])), "Guessing",
+                as.double(pull(exp3__prop.hit.G__figure.data[2,3])), 
+                as.double(pull(exp3__prop.hit.G__figure.data[2,4])),
+            as.character(pull(exp3__prop.hit.G__figure.data[3,1])), 
+            as.character(pull(exp3__prop.hit.G__figure.data[3,2])), "Guessing",
+                as.double(pull(exp3__prop.hit.G__figure.data[3,3])), 
+                as.double(pull(exp3__prop.hit.G__figure.data[3,4])),
+            as.character(pull(exp3__prop.hit.G__figure.data[4,1])), 
+            as.character(pull(exp3__prop.hit.G__figure.data[4,2])), "Guessing",
+                as.double(pull(exp3__prop.hit.G__figure.data[4,3])), 
+                as.double(pull(exp3__prop.hit.G__figure.data[4,4])),
+            as.character(pull(exp3__prop.hit.G__figure.data[5,1])), 
+            as.character(pull(exp3__prop.hit.G__figure.data[5,2])), "Guessing",
+                as.double(pull(exp3__prop.hit.G__figure.data[5,3])), 
+                as.double(pull(exp3__prop.hit.G__figure.data[5,4])),
+            as.character(pull(exp3__prop.hit.G__figure.data[6,1])), 
+            as.character(pull(exp3__prop.hit.G__figure.data[6,2])), "Guessing",
+                as.double(pull(exp3__prop.hit.G__figure.data[6,3])), 
+                as.double(pull(exp3__prop.hit.G__figure.data[6,4]))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG"))) %>%
+        transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "grey.drawing", "Grey drawings")) %>%
+        mutate(stim = str_replace(stim, "grey.photo", "Grey photographs")) %>%
+        transform(stim = factor(stim, levels=c("Words", "Grey drawings", "Grey photographs")))
+    
+##  Create figure:
+    exp3__prop.hit.RFG__figure <-
+        ggplot(exp3__prop.hit.RFG__figure.data, aes(x = stim, y = emmean, fill = rfg)) +
+        scale_fill_manual("legend", values = c("Recollection" = "#1B4251", "Familiarity" = "#6A6C93",
+                                               "Guessing" = "#D491CA")) + 
+        geom_col(position = position_dodge()) +
+        geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), 
+                      width = 0.2, size = 0.3, position = position_dodge(0.9)) +
+        facet_wrap(~resp_option, strip.position = "bottom", labeller = label_wrap_gen(width = 4)) +
+        labs(x = "Response option condition", y = "Mean proportion of hits") +
+        scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+        theme_classic() +    # Removes grey background and grid lines. 
+        theme(
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
+            axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            legend.background = element_rect(fill = "white", size = 0.2, linetype = "solid", colour = "black"),
+            legend.title = element_blank(),
+            legend.position = c(0.5, 0.896),
+            legend.margin = margin(6, 6, 6, 6),
+            legend.spacing.y = unit(-1, "pt"),
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))    
+```
+```{r exp3__prop-rec-fam-guess-hits--figurecaption, echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp3__prop.hit.RFG__figure",
+                     caption = "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response option condition.")
+```
+
+To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp3__prop.hit.RFG__figure", display = "cite")`).
+
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
+exp3__prop.hit.RFG__figure
+```
+`r figure_numbering("exp3__prop.hit.RFG__figure")`
+    
+###### Recollection (hits)
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
 figure_numbering(name = "exp3__prop.hit.R__interaction.figure", caption = "Interaction plot between stimuli format and response option for the mean proportion of hits assigned Recollection.")
 ```
-
-##### Recollection (hits)
 Results from the ANOVA on the mean proportion of hits assigned Recollection showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.hit.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__prop.hit.R__interaction.figure", display = "cite")`).
 
 ```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
@@ -4785,7 +4917,7 @@ The interaction is evident following comparisons of the same stimuli format acro
 figure_numbering(name = "exp3__prop.hit.F__interaction.figure", caption = "Interaction plot between stimuli format and response option for the mean proportion of hits assigned Familiarity")
 ```    
     
-##### Familiarity (hits)
+###### Familiarity (hits)
 Results from the ANOVA on the mean proportion of hits assigned Familiarity showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.hit.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__prop.hit.F__interaction.figure", display = "cite")`).
 
 ```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
@@ -4798,7 +4930,7 @@ In the RFG group, grey photographs (*M*= `r round(exp3__prop.hit.F__interaction.
 
 Response option condition had no effect on the proportion of F hits obtained, for either grey photographs (RFG [*M* = `r round(exp3__prop.hit.F__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.photo") %>% pull(emmean),2)`] vs. RFBG [*M* = `r round(exp3__prop.hit.F__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.photo") %>% pull(emmean),2)`], `r papaja::apa_print(exp3__prop.hit.F__pairs__interaction)$statistic$RFBGgreyphoto_RFGgreyphoto %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`), grey drawings (RFG [*M* = `r round(exp3__prop.hit.F__interaction.means %>% filter(resp_option == "RFG" & stim == "grey.drawing") %>% pull(emmean),2)`] vs. RFBG [*M* = `r round(exp3__prop.hit.F__interaction.means %>% filter(resp_option == "RFBG" & stim == "grey.drawing") %>% pull(emmean),2)`], `r papaja::apa_print(exp3__prop.hit.F__pairs__interaction)$statistic$RFBGgreydrawing_RFGgreydrawing %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`), or words (RFG [*M* = `r round(exp3__prop.hit.F__interaction.means %>% filter(resp_option == "RFG" & stim == "word") %>% pull(emmean),2)`] vs. RFBG  (*M* = `r round(exp3__prop.hit.F__interaction.means %>% filter(resp_option == "RFBG" & stim == "word") %>% pull(emmean),2)`, `r papaja::apa_print(exp3__prop.hit.F__pairs__interaction)$statistic$RFBGword_RFGword %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`).
 
-##### Guessing (hits)
+###### Guessing (hits)
 The ANOVA on the mean proportion of hits assigned Guessing demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer G hits in comparison to both words (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.photo.vs.word`) and grey drawings (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.photo.vs.grey.drawing`). The grey drawings (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of G hits compared to words (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.hit.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -4816,19 +4948,13 @@ The ANOVA on the mean proportion of hits assigned Guessing demonstrated a signif
                                        between = "resp_option", within = 'stim',
                                        anova_table=list(correction = "GG", es = "ges"))
 ##----------------------------------------------------------------------------------------------------------------- ##  No significant main effect of RESPONSE OPTION. 
-##----------------------------------------------------------------------------------------------------------------- 
+##-----------------------------------------------------------------------------------------------------------------
 ##  No significant main effect of STIMULI FORMAT.
-##----------------------------------------------------------------------------------------------------------------- 
+##-----------------------------------------------------------------------------------------------------------------
 ##  Get all means:
     exp3__prop.FA.R__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.R.aov, ~stim)))
     exp3__prop.FA.R__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.FA.R.aov, ~resp_option)))
-```
-
-##### FAs assigned Recollection, Familiarity, and Guessing
-
-For FAs assigned *Recollection*, there was no significant main effect of stimuli format [`r apa::anova_apa(exp3__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)` or interaction [`r apa::anova_apa(exp3__prop.FA.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`].
-
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+    
 ##################################################################################################################
 ##  Exp3 Prop F FAs:                                                                                            ##
 ##################################################################################################################
@@ -4839,7 +4965,7 @@ For FAs assigned *Recollection*, there was no significant main effect of stimuli
 ##  Mauchlys test of sphericity:
     exp3__prop.FA.F.aov__sphericity <- test_sphericity(exp3__prop.FA.F.aov)
 ##  Assumption of sphericity not violated (p>.05). Greenhouse-Geisser correction not applied.
-##----------------------------------------------------------------------------------------------------------------- 
+##-----------------------------------------------------------------------------------------------------------------
 ##  Significant main effect of RESPONSE OPTION, so first check if variances are equal using Levene's test:
     exp3__prop.FA.F__levene.test__rfg.rfbg <- exp3__prop.FA.F %>% leveneTest(prop.FA.F ~ resp_option, data = .)
 ##  Levene's test significant (variances not equal), so perform corrected Welch two-sample t-test: 
@@ -4885,16 +5011,11 @@ For FAs assigned *Recollection*, there was no significant main effect of stimuli
         exp3__prop.FA.F__pairwise__stim.format__eff.size %>%
             filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.low), ", ",
                     exp3__prop.FA.F__pairwise__stim.format__eff.size %>%
-                        filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.high), "]")         
+                        filter(group1 == "grey.drawing" & group2 == "grey.photo") %>% pull(conf.high), "]")
 ##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
     exp3__prop.FA.F__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.F.aov, ~stim)))
     exp3__prop.FA.F__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.FA.F.aov, ~resp_option)))
-```
-
-The ANOVA for FAs assigned *Familiarity* showed a significant main effect of stimuli format, `r apa::anova_apa(exp3__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer F FAs than words (*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.FA.F__ttest__grey.photo.vs.word`. Likewise, grey drawings (*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.FA.F__ttest__grey.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Familiarity between grey photographs (*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) and grey drawings
-(*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`), `r exp3__prop.FA.F__ttest__grey.photo.vs.grey.drawing`. There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.FA.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
-
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+    
 ##################################################################################################################
 ##  Exp3 Prop G FAs:                                                                                           ##
 ##################################################################################################################
@@ -4950,11 +5071,152 @@ The ANOVA for FAs assigned *Familiarity* showed a significant main effect of sti
 ##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
     exp3__prop.FA.G__stim.means <- as.tibble(summary(emmeans(exp3__prop.FA.G.aov, ~stim)))
     exp3__prop.FA.G__resp.option.means <- as.tibble(summary(emmeans(exp3__prop.FA.G.aov, ~resp_option)))
+    
+##################################################################################################################
+##    FAs FIGURE:                                                                                               ##
+##################################################################################################################
+##  Prep data for figures:  
+    exp3__prop.FA.R__figure.data <- 
+        as.tibble(emmeans(exp3__prop.FA.R.aov, ~ resp_option:stim)) %>%
+        select(-df, -lower.CL, -upper.CL)
+    exp3__prop.FA.F__figure.data <- 
+        as.tibble(emmeans(exp3__prop.FA.F.aov, ~ resp_option:stim)) %>%
+        select(-df, -lower.CL, -upper.CL)
+    exp3__prop.FA.G__figure.data <- 
+        as.tibble(emmeans(exp3__prop.FA.G.aov, ~ resp_option:stim)) %>%
+        select(-df, -lower.CL, -upper.CL)    
+
+    exp3__prop.FA.RFG__figure.data <- 
+        tribble(~"resp_option", ~"stim", ~"rfg", ~"emmean", ~"SE",
+            as.character(pull(exp3__prop.FA.R__figure.data[1,1])), ... = 
+            as.character(pull(exp3__prop.FA.R__figure.data[1,2])), "Recollection",
+                as.double(pull(exp3__prop.FA.R__figure.data[1,3])), 
+                as.double(pull(exp3__prop.FA.R__figure.data[1,4])),
+            as.character(pull(exp3__prop.FA.R__figure.data[2,1])), 
+            as.character(pull(exp3__prop.FA.R__figure.data[2,2])), "Recollection",
+                as.double(pull(exp3__prop.FA.R__figure.data[2,3])), 
+                as.double(pull(exp3__prop.FA.R__figure.data[2,4])),
+            as.character(pull(exp3__prop.FA.R__figure.data[3,1])), 
+            as.character(pull(exp3__prop.FA.R__figure.data[3,2])), "Recollection",
+                as.double(pull(exp3__prop.FA.R__figure.data[3,3])), 
+                as.double(pull(exp3__prop.FA.R__figure.data[3,4])),
+            as.character(pull(exp3__prop.FA.R__figure.data[4,1])), 
+            as.character(pull(exp3__prop.FA.R__figure.data[4,2])), "Recollection",
+                as.double(pull(exp3__prop.FA.R__figure.data[4,3])), 
+                as.double(pull(exp3__prop.FA.R__figure.data[4,4])),
+            as.character(pull(exp3__prop.FA.R__figure.data[5,1])), 
+            as.character(pull(exp3__prop.FA.R__figure.data[5,2])), "Recollection",
+                as.double(pull(exp3__prop.FA.R__figure.data[5,3])), 
+                as.double(pull(exp3__prop.FA.R__figure.data[5,4])),
+            as.character(pull(exp3__prop.FA.R__figure.data[6,1])), 
+            as.character(pull(exp3__prop.FA.R__figure.data[6,2])), "Recollection",
+                as.double(pull(exp3__prop.FA.R__figure.data[6,3])), 
+                as.double(pull(exp3__prop.FA.R__figure.data[6,4])),
+            as.character(pull(exp3__prop.FA.F__figure.data[1,1])), 
+            as.character(pull(exp3__prop.FA.F__figure.data[1,2])), "Familiarity",
+                as.double(pull(exp3__prop.FA.F__figure.data[1,3])), 
+                as.double(pull(exp3__prop.FA.F__figure.data[1,4])),
+            as.character(pull(exp3__prop.FA.F__figure.data[2,1])), 
+            as.character(pull(exp3__prop.FA.F__figure.data[2,2])), "Familiarity",
+                as.double(pull(exp3__prop.FA.F__figure.data[2,3])), 
+                as.double(pull(exp3__prop.FA.F__figure.data[2,4])),
+            as.character(pull(exp3__prop.FA.F__figure.data[3,1])), 
+            as.character(pull(exp3__prop.FA.F__figure.data[3,2])), "Familiarity",
+                as.double(pull(exp3__prop.FA.F__figure.data[3,3])), 
+                as.double(pull(exp3__prop.FA.F__figure.data[3,4])),
+            as.character(pull(exp3__prop.FA.F__figure.data[4,1])), 
+            as.character(pull(exp3__prop.FA.F__figure.data[4,2])), "Familiarity",
+                as.double(pull(exp3__prop.FA.F__figure.data[4,3])), 
+                as.double(pull(exp3__prop.FA.F__figure.data[4,4])),
+            as.character(pull(exp3__prop.FA.F__figure.data[5,1])), 
+            as.character(pull(exp3__prop.FA.F__figure.data[5,2])), "Familiarity",
+                as.double(pull(exp3__prop.FA.F__figure.data[5,3])), 
+                as.double(pull(exp3__prop.FA.F__figure.data[5,4])),
+            as.character(pull(exp3__prop.FA.F__figure.data[6,1])), 
+            as.character(pull(exp3__prop.FA.F__figure.data[6,2])), "Familiarity",
+                as.double(pull(exp3__prop.FA.F__figure.data[6,3])), 
+                as.double(pull(exp3__prop.FA.F__figure.data[6,4])),
+            as.character(pull(exp3__prop.FA.G__figure.data[1,1])), 
+            as.character(pull(exp3__prop.FA.G__figure.data[1,2])), "Guessing",
+                as.double(pull(exp3__prop.FA.G__figure.data[1,3])), 
+                as.double(pull(exp3__prop.FA.G__figure.data[1,4])),
+            as.character(pull(exp3__prop.FA.G__figure.data[2,1])), 
+            as.character(pull(exp3__prop.FA.G__figure.data[2,2])), "Guessing",
+                as.double(pull(exp3__prop.FA.G__figure.data[2,3])), 
+                as.double(pull(exp3__prop.FA.G__figure.data[2,4])),
+            as.character(pull(exp3__prop.FA.G__figure.data[3,1])), 
+            as.character(pull(exp3__prop.FA.G__figure.data[3,2])), "Guessing",
+                as.double(pull(exp3__prop.FA.G__figure.data[3,3])), 
+                as.double(pull(exp3__prop.FA.G__figure.data[3,4])),
+            as.character(pull(exp3__prop.FA.G__figure.data[4,1])), 
+            as.character(pull(exp3__prop.FA.G__figure.data[4,2])), "Guessing",
+                as.double(pull(exp3__prop.FA.G__figure.data[4,3])), 
+                as.double(pull(exp3__prop.FA.G__figure.data[4,4])),
+            as.character(pull(exp3__prop.FA.G__figure.data[5,1])), 
+            as.character(pull(exp3__prop.FA.G__figure.data[5,2])), "Guessing",
+                as.double(pull(exp3__prop.FA.G__figure.data[5,3])), 
+                as.double(pull(exp3__prop.FA.G__figure.data[5,4])),
+            as.character(pull(exp3__prop.FA.G__figure.data[6,1])), 
+            as.character(pull(exp3__prop.FA.G__figure.data[6,2])), "Guessing",
+                as.double(pull(exp3__prop.FA.G__figure.data[6,3])), 
+                as.double(pull(exp3__prop.FA.G__figure.data[6,4]))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG"))) %>%
+        transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "grey.drawing", "Grey drawings")) %>%
+        mutate(stim = str_replace(stim, "grey.photo", "Grey photographs")) %>%
+        transform(stim = factor(stim, levels=c("Words", "Grey drawings", "Grey photographs")))
+
+##  Create figure:
+    exp3__prop.FA.RFG__figure <-
+        ggplot(exp3__prop.FA.RFG__figure.data, aes(x = stim, y = emmean, fill = rfg)) +
+        scale_fill_manual("legend", values = c("Recollection" = "#1B4251", "Familiarity" = "#6A6C93",
+                                               "Guessing" = "#D491CA")) + 
+        geom_col(position = position_dodge()) +
+        geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), 
+                      width = 0.2, size = 0.3, position = position_dodge(0.9)) +
+        facet_wrap(~resp_option, strip.position = "bottom") +
+        labs(x = "Response option condition", y = "Mean proportion of FAs") +
+        scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+        theme_classic() +    # Removes grey background and grid lines. 
+        theme(
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
+            axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            legend.background = element_rect(fill = "white", size = 0.2, linetype = "solid", colour = "black"),
+            legend.title = element_blank(),
+            legend.position = c(0.5, 0.896),
+            legend.margin = margin(6, 6, 6, 6),
+            legend.spacing.y = unit(-1, "pt"),
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))    
+```
+```{r exp3__prop-rec-fam-guess-FAs--figurecaption, echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp3__prop.FA.RFG__figure",
+                     caption = "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response option condition.")
 ```
 
+To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of FAs assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp3__prop.FA.RFG__figure", display = "cite")`).
+
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
+exp3__prop.FA.RFG__figure
+```
+`r figure_numbering("exp3__prop.FA.RFG__figure")`    
+    
+###### Recollection (FAs)
+For FAs assigned *Recollection*, there was no significant main effect of stimuli format [`r apa::anova_apa(exp3__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)` or interaction [`r apa::anova_apa(exp3__prop.FA.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`].
+
+###### Familiarity (FAs)
+The ANOVA for FAs assigned *Familiarity* showed a significant main effect of stimuli format, `r apa::anova_apa(exp3__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer F FAs than words (*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.FA.F__ttest__grey.photo.vs.word`. Likewise, grey drawings (*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp3__prop.FA.F__ttest__grey.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Familiarity between grey photographs (*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) and grey drawings
+(*M*= `r round(exp3__prop.FA.F__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`), `r exp3__prop.FA.F__ttest__grey.photo.vs.grey.drawing`. There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.FA.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+
+###### Guessing (FAs)
 The ANOVA on the mean proportion of FAs assigned *Guessing* demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer G FAs in comparison to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.word`). Likewise, grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Guessing between grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) and grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.grey.drawing`). There were also no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
-
+#### Response option availability
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  Exp3 Resp option main effects table:                                                                        ##
@@ -4994,7 +5256,6 @@ exp3__resp.option__main.effects__table <- tribble(
 table_numbering(name = "exp3__resp.option__main.effects__table", caption = "Main effects of response option condition across all variables of interest. Signif. codes:  \\*\\*\\**p* < .001; \\*\\**p* < .01; \\**p* < .05; \\+ significant interaction [see previous section for interpretation]).")
 ```
 
-#### Response option:
 In the previously discussed ANOVAs, significant main effects were also observed for response option condition (RFG / RFBG) for the mean proportion of hits (`r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`) and the mean proportion of FAs assigned *Familiarity* (`r apa::anova_apa(exp3__prop.FA.F.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`). For all other variables, response option was found to either significantly interact with stimuli format (discussed previously), or had no significant main effect (see `r table_numbering("exp3__resp.option__main.effects__table", display = "cite")` for all response option ANOVA results).
 
 For the mean proportion of hits, follow up t-tests showed a higher proportion of hits in the RFG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) compared to the RFBG group (*M*= `r round(exp3__prop.hit__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r str_c(papaja::apa_print(exp3__prop.hit__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*"), ", *d* = ", round(abs(as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$effsize)), 2))`. For the mean proportion of FAs assigned *Familiarity*, those in the RFG group (*M*= `r round(exp3__prop.FA.F__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) showed a significantly higher proportion than those in the RFBG group (*M*= `r round(exp3__prop.FA.F__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r str_c(papaja::apa_print(exp3__prop.FA.F__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*"), ", *d* = ", round(abs(as.vector(exp3__prop.FA.F__ttest__rfg.rfbg__eff.size$effsize)), 2))`. 
@@ -6043,143 +6304,6 @@ Results from the ANOVA on mean *d'* scores again showed a significant main effec
     exp4__prop.hit.G__stim.means <- as.tibble(summary(emmeans(exp4__prop.hit.G.aov, ~stim)))
     exp4__prop.hit.G__resp.option.means <- as.tibble(summary(emmeans(exp4__prop.hit.G.aov, ~resp_option)))
     
-#################################################################################################################
-##    HITS FIGURE:                                                                                             ##
-#################################################################################################################
-##  Prep data for figures:  
-    exp3__prop.hit.R__figure.data <- 
-        as.tibble(emmeans(exp3__prop.hit.R.aov, ~ resp_option:stim)) %>%
-        select(-df, -lower.CL, -upper.CL)
-    exp3__prop.hit.F__figure.data <- 
-        as.tibble(emmeans(exp3__prop.hit.F.aov, ~ resp_option:stim)) %>%
-        select(-df, -lower.CL, -upper.CL)
-    exp3__prop.hit.G__figure.data <- 
-        as.tibble(emmeans(exp3__prop.hit.G.aov, ~ resp_option:stim)) %>%
-        select(-df, -lower.CL, -upper.CL)    
-
-    exp3__prop.hit.RFG__figure.data <- 
-        tribble(~"resp_option", ~"stim", ~"rfg", ~"emmean", ~"SE",
-            as.character(pull(exp3__prop.hit.R__figure.data[1,1])), ... = 
-            as.character(pull(exp3__prop.hit.R__figure.data[1,2])), "Recollection",
-                as.double(pull(exp3__prop.hit.R__figure.data[1,3])), 
-                as.double(pull(exp3__prop.hit.R__figure.data[1,4])),
-            as.character(pull(exp3__prop.hit.R__figure.data[2,1])), 
-            as.character(pull(exp3__prop.hit.R__figure.data[2,2])), "Recollection",
-                as.double(pull(exp3__prop.hit.R__figure.data[2,3])), 
-                as.double(pull(exp3__prop.hit.R__figure.data[2,4])),
-            as.character(pull(exp3__prop.hit.R__figure.data[3,1])), 
-            as.character(pull(exp3__prop.hit.R__figure.data[3,2])), "Recollection",
-                as.double(pull(exp3__prop.hit.R__figure.data[3,3])), 
-                as.double(pull(exp3__prop.hit.R__figure.data[3,4])),
-            as.character(pull(exp3__prop.hit.R__figure.data[4,1])), 
-            as.character(pull(exp3__prop.hit.R__figure.data[4,2])), "Recollection",
-                as.double(pull(exp3__prop.hit.R__figure.data[4,3])), 
-                as.double(pull(exp3__prop.hit.R__figure.data[4,4])),
-            as.character(pull(exp3__prop.hit.R__figure.data[5,1])), 
-            as.character(pull(exp3__prop.hit.R__figure.data[5,2])), "Recollection",
-                as.double(pull(exp3__prop.hit.R__figure.data[5,3])), 
-                as.double(pull(exp3__prop.hit.R__figure.data[5,4])),
-            as.character(pull(exp3__prop.hit.R__figure.data[6,1])), 
-            as.character(pull(exp3__prop.hit.R__figure.data[6,2])), "Recollection",
-                as.double(pull(exp3__prop.hit.R__figure.data[6,3])), 
-                as.double(pull(exp3__prop.hit.R__figure.data[6,4])),
-            as.character(pull(exp3__prop.hit.F__figure.data[1,1])), 
-            as.character(pull(exp3__prop.hit.F__figure.data[1,2])), "Familiarity",
-                as.double(pull(exp3__prop.hit.F__figure.data[1,3])), 
-                as.double(pull(exp3__prop.hit.F__figure.data[1,4])),
-            as.character(pull(exp3__prop.hit.F__figure.data[2,1])), 
-            as.character(pull(exp3__prop.hit.F__figure.data[2,2])), "Familiarity",
-                as.double(pull(exp3__prop.hit.F__figure.data[2,3])), 
-                as.double(pull(exp3__prop.hit.F__figure.data[2,4])),
-            as.character(pull(exp3__prop.hit.F__figure.data[3,1])), 
-            as.character(pull(exp3__prop.hit.F__figure.data[3,2])), "Familiarity",
-                as.double(pull(exp3__prop.hit.F__figure.data[3,3])), 
-                as.double(pull(exp3__prop.hit.F__figure.data[3,4])),
-            as.character(pull(exp3__prop.hit.F__figure.data[4,1])), 
-            as.character(pull(exp3__prop.hit.F__figure.data[4,2])), "Familiarity",
-                as.double(pull(exp3__prop.hit.F__figure.data[4,3])), 
-                as.double(pull(exp3__prop.hit.F__figure.data[4,4])),
-            as.character(pull(exp3__prop.hit.F__figure.data[5,1])), 
-            as.character(pull(exp3__prop.hit.F__figure.data[5,2])), "Familiarity",
-                as.double(pull(exp3__prop.hit.F__figure.data[5,3])), 
-                as.double(pull(exp3__prop.hit.F__figure.data[5,4])),
-            as.character(pull(exp3__prop.hit.F__figure.data[6,1])), 
-            as.character(pull(exp3__prop.hit.F__figure.data[6,2])), "Familiarity",
-                as.double(pull(exp3__prop.hit.F__figure.data[6,3])), 
-                as.double(pull(exp3__prop.hit.F__figure.data[6,4])),
-            as.character(pull(exp3__prop.hit.G__figure.data[1,1])), 
-            as.character(pull(exp3__prop.hit.G__figure.data[1,2])), "Guessing",
-                as.double(pull(exp3__prop.hit.G__figure.data[1,3])), 
-                as.double(pull(exp3__prop.hit.G__figure.data[1,4])),
-            as.character(pull(exp3__prop.hit.G__figure.data[2,1])), 
-            as.character(pull(exp3__prop.hit.G__figure.data[2,2])), "Guessing",
-                as.double(pull(exp3__prop.hit.G__figure.data[2,3])), 
-                as.double(pull(exp3__prop.hit.G__figure.data[2,4])),
-            as.character(pull(exp3__prop.hit.G__figure.data[3,1])), 
-            as.character(pull(exp3__prop.hit.G__figure.data[3,2])), "Guessing",
-                as.double(pull(exp3__prop.hit.G__figure.data[3,3])), 
-                as.double(pull(exp3__prop.hit.G__figure.data[3,4])),
-            as.character(pull(exp3__prop.hit.G__figure.data[4,1])), 
-            as.character(pull(exp3__prop.hit.G__figure.data[4,2])), "Guessing",
-                as.double(pull(exp3__prop.hit.G__figure.data[4,3])), 
-                as.double(pull(exp3__prop.hit.G__figure.data[4,4])),
-            as.character(pull(exp3__prop.hit.G__figure.data[5,1])), 
-            as.character(pull(exp3__prop.hit.G__figure.data[5,2])), "Guessing",
-                as.double(pull(exp3__prop.hit.G__figure.data[5,3])), 
-                as.double(pull(exp3__prop.hit.G__figure.data[5,4])),
-            as.character(pull(exp3__prop.hit.G__figure.data[6,1])), 
-            as.character(pull(exp3__prop.hit.G__figure.data[6,2])), "Guessing",
-                as.double(pull(exp3__prop.hit.G__figure.data[6,3])), 
-                as.double(pull(exp3__prop.hit.G__figure.data[6,4]))) %>%
-        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG"))) %>%
-        transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
-        mutate(stim = str_replace(stim, "word", "Words")) %>%
-        mutate(stim = str_replace(stim, "grey.drawing", "Grey drawings")) %>%
-        mutate(stim = str_replace(stim, "grey.photo", "Grey photographs")) %>%
-        transform(stim = factor(stim, levels=c("Words", "Grey drawings", "Grey photographs")))
-
-##  Create figure:
-    exp3__prop.hit.RFG__figure <-
-        ggplot(exp3__prop.hit.RFG__figure.data, aes(x = stim, y = emmean, fill = rfg)) +
-        scale_fill_manual("legend", values = c("Recollection" = "#1B4251", "Familiarity" = "#6A6C93",
-                                               "Guessing" = "#D491CA")) + 
-        geom_col(position = position_dodge()) +
-        geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), 
-                      width = 0.2, size = 0.3, position = position_dodge(0.9)) +
-        facet_wrap(~resp_option, strip.position = "bottom") +
-        labs(x = "Response option condition", y = "Mean proportion of hits") +
-        scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
-        theme_classic() +    # Removes grey background and grid lines. 
-        theme(
-            strip.placement = "outside",
-            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
-            axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
-            axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
-            axis.text.x = element_text(size = 9),
-            axis.text.y = element_text(size = 9),
-            legend.background = element_rect(fill = "white", size = 0.2, linetype = "solid", colour = "black"),
-            legend.title = element_blank(),
-            legend.position = c(0.5, 0.896),
-            legend.margin = margin(6, 6, 6, 6),
-            legend.spacing.y = unit(-1, "pt"),
-            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
-            plot.margin = margin(20, 20, 24, 30))    
-```
-
-
-```{r exp3__prop-rec-fam-guess-hits--figurecaption, echo=FALSE, results = FALSE, cache=FALSE}
-    figure_numbering(name = "exp3__prop.hit.RFG__figure",
-                     caption = "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response option condition.")
-```
-
-To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp3__prop.hit.RFG__figure", display = "cite")`).
-
-```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
-exp3__prop.hit.RFG__figure
-```
-`r figure_numbering("exp3__prop.hit.RFG__figure")`
-
-
 
 
 
@@ -6378,7 +6502,7 @@ In determining whether the colour photos were more distinctive than the colour d
 
 Taken together, the findings indicate that the colour photographs were indeed more distinctive than the colour drawings, and that the current set of stimuli appear to effectively capture different 'levels' of stimuli distinctiveness. 
 
-#### Response option
+#### Response option availability
 In each of the aforementioned ANOVAs, the role of response option was also examined to determine whether there would be any differential effects as a result of using colour stimuli, as opposed to the greyscale items used in *Experiment 3*. The results showed no significant interaction effects between stimuli format and response option for any of the above variables. The only main effects of response option were in the ANOVA on the mean proportion of FAs, `r #exp4__apa_anova_prop_FA__resp_option` (with the RFG group showing more FAs than the RFBG group, RFG: `r #exp4__RFG_prop_FA_mean`, RFBG: `r #exp4__RFBG_prop_FA_mean`, `r #exp4__RFG_RFBG_FA_ttest`) and the ANOVA on *c* scores, `r #exp4__apa_anova_c__resp_option` (with the RFG group showing a more liberal response bias than the RFBG group, RFG: `r #exp4__RFG_c_mean`, RFBG: `r #exp4__RFBG_c_mean`, `r #exp4__RFG_RFBG_c_ttest`). 
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
