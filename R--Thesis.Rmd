@@ -1,14 +1,14 @@
 ---
 output:
-  #word_document:
-  #  toc: yes
-  #  toc_depth: '4'
-  pdf_document:
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    fig_caption: yes
-    latex_engine: xelatex
+##  word_document:
+##  toc: yes
+##  toc_depth: '4'
+    pdf_document:
+        toc: yes
+        toc_depth: 4
+        number_sections: no
+        fig_caption: yes
+        latex_engine: xelatex
 mainfont: Helvetica
 font-family: Helvetica Neue
 fontsize: 11pt
@@ -17,20 +17,24 @@ bibliography: resources/refs.bib
 csl: resources/apa-6th-edition.csl
 subparagraph: yes
 header-includes:
-- \usepackage{setspace}
-- \doublespacing
-- \usepackage{fancyhdr}
-- \pagestyle{fancy}
-- \renewcommand{\headrulewidth}{1.5pt}
-- \setlength{\headheight}{25.66263pt}
-- \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
-- \usepackage{pdflscape}
-- \newcommand{\blandscape}{\begin{landscape}}
-- \newcommand{\elandscape}{\end{landscape}}
-- \usepackage{titlesec}
-- \titlespacing{\section}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
-- \titlespacing{\subsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
-- \titlespacing{\subsubsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
+##  Double spacing:  
+    - \usepackage{setspace}
+    - \doublespacing
+##  Headers and footers:
+    - \usepackage{fancyhdr}   
+    - \pagestyle{fancy}                       ##  Template (sets Header 1 top right, H2 left + line + page numbers)
+    - \renewcommand{\headrulewidth}{1.5pt}    ##  Set width of header line. 
+#    - \setlength{\headheight}{25.66263pt}
+#    - \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+##  Allow for mid-document landscape pages:  
+    - \usepackage{pdflscape}
+    - \newcommand{\blandscape}{\begin{landscape}}
+    - \newcommand{\elandscape}{\end{landscape}}
+##  
+    - \usepackage{titlesec}
+    - \titlespacing{\section}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
+    - \titlespacing{\subsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
+    - \titlespacing{\subsubsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
 ---
 
 ```{r load-packages, include=FALSE, cache=FALSE}
@@ -69,6 +73,19 @@ header-includes:
     appendix_numbering("exp2.full.norms", "Normative data for all photograph items.", 
                        display = FALSE)
 ```
+
+\newpage
+# Chapter 1
+Some example of some normal text. Some example of some normal text. Some example of some normal text. Some example of some normal text. Some example of some normal text. Some example of some normal text. Some example of some normal text. Some example of some normal text.
+
+## Chapter 2
+Some example of some normal text. Some example of some normal text. Some example of some normal text. Some example of some normal text. Some example of some normal text. Some example of some normal text. Some example of some normal text. Some example of some normal text. 
+
+
+
+
+
+
 
 \newpage
 # Chapter 1
@@ -5861,8 +5878,7 @@ All analyses were conducted using R [@rcoreteam2020]. *d'* (sensitivity) and *c*
 Subjects were excluded according to two key criteria; 1) less than 90% accuracy during the encoding task ("Is this a word, drawing, or photograph?"); 2) extreme z-scores (those presenting z-scores of +/- 3 for total hits, total FAs, or overall recognition [hits minus FAs]). A total of `r nrow(exp4__all.exclude)` participants were found to meet (at least) one of these criteria, and were thus considered outliers and excluded from analysis.
 
 ### Results
-A series of 3x2 mixed ANOVAs were conducted on each of the DVs, with a within-subjects factor of stimuli format (words / colour drawings / colour photos) and a between-subjects factor of response option (RFG / RFBG). Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons. The Greenhouse-Geisser correction was applied when data was found to violate the assumption of sphericity (assesed using Mauchlys test statistic). 
-
+A series of 3x2 mixed ANOVAs were conducted on each of the DVs, with a within-subjects factor of stimuli format (words / colour drawings / colour photos) and a between-subjects factor of response option (RFG / RFBG). Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons. Greenhouse-Geisser corrections were applied when data was found to violate the assumption of sphericity (assessed according to Mauchly's test statistic). 
 
 #### Stimuli distinctiveness
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -6041,9 +6057,8 @@ A series of 3x2 mixed ANOVAs were conducted on each of the DVs, with a within-su
 ##  Get all means:
     exp4__d.prime__stim.means <- as.tibble(summary(emmeans(exp4__d.prime.aov, ~stim)))
     exp4__d.prime__resp.option.means <- as.tibble(summary(emmeans(exp4__d.prime.aov, ~resp_option)))
-    
 ##################################################################################################################
-##  exp4 Hits, FAs, d' table:                                                                                   ##
+##  Exp4 Hits, FAs, d' table:                                                                                   ##
 ##################################################################################################################
     exp4__prop.hit.FA.d.prime__table <- tribble(
         ~"Stim", ~Hits,  ~FAs, ~"d'",
@@ -6067,57 +6082,73 @@ A series of 3x2 mixed ANOVAs were conducted on each of the DVs, with a within-su
             round(exp4__prop.hit__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2),
             round(exp4__prop.FA__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2),
             round(exp4__d.prime__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)) %>%
-        column_to_rownames(var = "Stim")
+        column_to_rownames(var = "Stim")    
+    
+a <- "$\\diamond$"    
+    exp3.and.4__prop.hit.FA.d.prime__table <- tribble(
+        ~" ", ~"  ", ~Hits, ~FAs, ~"d'", ~"    ", ~"     ", ~"   ", ~Hits, ~FAs, ~"d'",
+        "Stimuli format:", "", "***", "***", "a", "", "Stimuli format:", "", "***", "***", "***",
+        "", "Words",  as.character(exp3__prop.hit.FA.d.prime__table['Words',] %>% pull(Hits)),
+                      as.character(exp3__prop.hit.FA.d.prime__table['Words',] %>% pull(FAs)),
+                      as.character(exp3__prop.hit.FA.d.prime__table['Words',] %>% pull(`d'`)),
+        "","",
+            "Words",  as.character(exp4__prop.hit.FA.d.prime__table['Words',] %>% pull(Hits)),
+                      as.character(exp4__prop.hit.FA.d.prime__table['Words',] %>% pull(FAs)),
+                      as.character(exp4__prop.hit.FA.d.prime__table['Words',] %>% pull(`d'`)),
+        "", "Drawings",   as.character(exp3__prop.hit.FA.d.prime__table['Grey drawings',] %>% pull(Hits)),
+                          as.character(exp3__prop.hit.FA.d.prime__table['Grey drawings',] %>% pull(FAs)),
+                          as.character(exp3__prop.hit.FA.d.prime__table['Grey drawings',] %>% pull(`d'`)),
+        "","",
+            "Drawings",   as.character(exp4__prop.hit.FA.d.prime__table['Colour drawings',] %>% pull(Hits)),
+                          as.character(exp4__prop.hit.FA.d.prime__table['Colour drawings',] %>% pull(FAs)),
+                          as.character(exp4__prop.hit.FA.d.prime__table['Colour drawings',] %>% pull(`d'`)),
+        "", "Photographs",  as.character(exp3__prop.hit.FA.d.prime__table['Grey photographs',] %>% pull(Hits)),
+                            as.character(exp3__prop.hit.FA.d.prime__table['Grey photographs',] %>% pull(FAs)),
+                            as.character(exp3__prop.hit.FA.d.prime__table['Grey photographs',] %>% pull(`d'`)),
+        "","",
+            "Photographs",  as.character(exp4__prop.hit.FA.d.prime__table['Colour photographs',] %>% pull(Hits)),
+                            as.character(exp4__prop.hit.FA.d.prime__table['Colour photographs',] %>% pull(FAs)),
+                            as.character(exp4__prop.hit.FA.d.prime__table['Colour photographs',] %>% pull(`d'`)),
+        "Response option:", "", "*", "", "a", "", "Response option:", "", "", "*", "",
+        "", "RFG",            as.character(exp3__prop.hit.FA.d.prime__table['RFG',] %>% pull(Hits)),
+                              as.character(exp3__prop.hit.FA.d.prime__table['RFG',] %>% pull(FAs)),
+                              as.character(exp3__prop.hit.FA.d.prime__table['RFG',] %>% pull(`d'`)),
+        "","",
+            "RFG",            as.character(exp4__prop.hit.FA.d.prime__table['RFG',] %>% pull(Hits)),
+                              as.character(exp4__prop.hit.FA.d.prime__table['RFG',] %>% pull(FAs)),
+                              as.character(exp4__prop.hit.FA.d.prime__table['RFG',] %>% pull(`d'`)),        
+        "", "RFBG",            as.character(exp3__prop.hit.FA.d.prime__table['RFBG',] %>% pull(Hits)),
+                              as.character(exp3__prop.hit.FA.d.prime__table['RFBG',] %>% pull(FAs)),
+                              as.character(exp3__prop.hit.FA.d.prime__table['RFBG',] %>% pull(`d'`)),
+        "","",
+            "RFBG",            as.character(exp4__prop.hit.FA.d.prime__table['RFBG',] %>% pull(Hits)),
+                              as.character(exp4__prop.hit.FA.d.prime__table['RFBG',] %>% pull(FAs)),
+                              as.character(exp4__prop.hit.FA.d.prime__table['RFBG',] %>% pull(`d'`)))
 ```
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
-table_numbering(name = "exp4__prop.hit.FA.d.prime__table", caption = "Mean proportion of hits, FAs, and mean *d'* scores, by stimuli format and response option condition.")
+table_numbering(name = "exp3.and.4__prop.hit.FA.d.prime__table", caption = "Data from Experiment 3 (using greyscale stimuli) shown alongside that of the current experiment (using colour stimuli), showing the mean proportion of hits, FAs, and mean *d'* scores, by stimuli format and response option condition.")
 ```
 
-&nbsp;
-`r table_numbering("exp4__prop.hit.FA.d.prime__table")`
-```{r, echo=FALSE, cache=TRUE}
-    exp3__prop.hit.FA.d.prime__table1 <- exp3__prop.hit.FA.d.prime__table %>%
-        kable("latex", booktabs = T) %>%
-        #kable_styling(latex_options = c("scale_down", "hold_position"), full_width = F) %>%
-        pack_rows("Stimuli format", 1, 3) %>%
-        pack_rows("Response option", 4, 5) %>%
-        add_header_above("Experiment 3: Grey", 5, line = F)
+Mean proportions of hits and FAs, and mean *d'* scores are presented in `r table_numbering("exp3.and.4__prop.hit.FA.d.prime__table", display = "cite")`. Results from the ANOVA on the mean proportion of hits showed a significant main effect of stimuli format, `r apa::anova_apa(exp4__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Paired samples t-tests showed that colour photographs (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced a significantly higher proportion of hits than both words (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.word`, and colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.col.drawing`. A significantly higher proportion of hits was also evident for colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) compared to words (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.drawing.vs.word`). There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
-    exp4__prop.hit.FA.d.prime__table1 <- exp4__prop.hit.FA.d.prime__table %>%
-        kable("latex", booktabs = T) %>%
-        #kable_styling(latex_options = c("scale_down", "hold_position"), full_width = F) %>%
-        pack_rows("Stimuli format", 1, 3) %>%
-        pack_rows("Response option", 4, 5) %>%
-        add_header_above("Experiment 4: Colour", 5, line = F)
-  
-
-knitr::kables(list(exp3__prop.hit.FA.d.prime__table1, exp4__prop.hit.FA.d.prime__table1))
-
-
-    test <- tribble(
-        ~" ", ~Hits, ~FAs, ~"d'", ~"   ", ~"  ", ~Hits, ~FAs, ~"d'",
-        "Words", 1,1,1,"","Words", 1,1,1,
-        "Drawings", 1,1,1,"","Drawings", 1,1,1,
-        "Photographs",1,1,1,"","Photographs",1,1,1,
-        "RFG",1,1,1,"","RFG",1,1,1,
-        "RFBG",1,1,1,"", "RFBG",1,1,1)
-        
-    test %>%
-        kable("latex", booktabs = T) %>%
+&nbsp;&nbsp;&nbsp;&nbsp;
+`r table_numbering("exp3.and.4__prop.hit.FA.d.prime__table")`
+```{r, echo=FALSE, cache=FALSE}
+    exp3.and.4__prop.hit.FA.d.prime__table %>%
+        kable("latex", booktabs = T, align = "llccccllccc", escape = FALSE) %>%
         kable_styling(latex_options = c("scale_down", "hold_position"), full_width = F, 
-                      bootstrap_options = "condensed", font_size = 12) %>%
-        pack_rows("Stimuli format", 1, 3) %>%
-        pack_rows("Response option", 4, 5) %>%
-        add_header_above(c("Experiment 3: Grey" = 4, " " = 1, "Experiment 4: Colour" = 4), line = F, bold = T) %>%
-        column_spec(1, width = "3.8cm") %>%
-        column_spec(2:4, width = "1cm") %>%
-        column_spec(5, width = "2cm") %>%
-        column_spec(6, width = "3.8cm") %>%
-        column_spec(7:9, width = "1cm")
+                      bootstrap_options = "condensed", font_size = 13) %>%
+        add_header_above(c("Experiment 3: Grey" = 5, " " = 1, "Experiment 4: Colour" = 5), line = F, bold = T) %>%
+        column_spec(1, width = "1.8cm") %>%
+        column_spec(2, width = "2.5cm") %>%
+        column_spec(3:5, width = "1cm") %>%
+        column_spec(6, width = "2cm") %>%
+        column_spec(7, width = "1.8cm") %>%
+        column_spec(8, width = "2.5cm") %>%
+        column_spec(9:11, width = "1cm") %>%
+        row_spec(c(1,5), bold = T)
 ```
-
-Mean proportions of hits and FAs, and mean *d'* scores are presented in `r table_numbering("exp3__prop.hit.FA.d.prime__table", display = "cite")`. Results from the ANOVA on the mean proportion of hits showed a significant main effect of stimuli format, `r apa::anova_apa(exp4__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Paired samples t-tests showed that colour photographs (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced a significantly higher proportion of hits than both words (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.word`, and colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.col.drawing`. A significantly higher proportion of hits was also evident for colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) compared to words (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.drawing.vs.word`). There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
 The ANOVA on the mean proportion of FAs also demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp4__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly fewer FAs in comparison to both words (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA__ttest__col.photo.vs.word`, and colour drawings (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA__ttest__col.photo.vs.col.drawing`). The colour drawings (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA__ttest__col.drawing.vs.word`. Interaction effects between stimuli format and response option condition did not reach significance, `r apa::anova_apa(exp4__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
@@ -6437,7 +6468,7 @@ To determine the effects of stimuli format and response option on the classifica
 ```
 `r figure_numbering("exp4__prop.hit.RFG__figure")`
 
-##### Recollection (hits)
+###### Recollection (hits)
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
 figure_numbering(name = "exp4__prop.hit.R__interaction.figure", caption = "Interaction plot between stimuli format and response option for the mean proportion of hits assigned Recollection.")
 ```
@@ -6453,10 +6484,10 @@ Comparisons across stimuli formats showed colour photographs produced a signific
 
 The interaction is evident following comparisons of the same stimuli format across response option conditions. The RFG group produced a significantly higher proportion of R hits than the RFBG group for colour photographs (RFG [*M* = `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Colour photographs") %>% pull(emmean),2)`] vs. RFBG [*M* = `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Colour photographs") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFBGcolphoto_RFGcolphoto %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`) and for colour drawings (RFG [*M* = `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Colour drawings") %>% pull(emmean),2)`] vs. RFBG [*M* = `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Colour drawings") %>% pull(emmean),2)`], `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFBGcoldrawing_RFGcoldrawing %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). However, this was not the case for words, where there was no difference in the proportion of R hits between the RFG (*M* = `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`) and RFBG groups (*M* = `r round(exp4__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`; `r papaja::apa_print(exp4__prop.hit.R__pairs__interaction)$statistic$RFBGword_RFGword %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`).
     
-##### Familiarity (hits)
+###### Familiarity (hits)
 Results from the ANOVA on the mean proportion of hits assigned Familiarity again showed a significant main effect of stimuli format `r apa::anova_apa(exp4__prop.hit.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__prop.hit.F__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly fewer F hits than both words (*M*= `r round(exp4__prop.hit.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit.F__ttest__col.photo.vs.word`, and colour drawings (*M*= `r round(exp4__prop.hit.F__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.hit.F__ttest__col.photo.vs.col.drawing`. The colour drawings (*M*= `r round(exp4__prop.hit.F__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed significantly fewer F hits compared to words (*M*= `r round(exp4__prop.hit.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.hit.F__ttest__col.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.hit.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
-##### Guessing (hits)
+###### Guessing (hits)
 The ANOVA on the mean proportion of hits assigned Guessing demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp4__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__prop.hit.G__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly fewer G hits in comparison to both words (*M*= `r round(exp4__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp4__prop.hit.G__ttest__col.photo.vs.word`) and colour drawings (*M*= `r round(exp4__prop.hit.G__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`; `r exp4__prop.hit.G__ttest__col.photo.vs.col.drawing`). The colour drawings (*M*= `r round(exp4__prop.hit.G__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of G hits compared to words (*M*= `r round(exp4__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp4__prop.hit.G__ttest__col.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp4__prop.hit.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -6590,7 +6621,138 @@ The ANOVA on the mean proportion of hits assigned Guessing demonstrated a signif
 ##----------------------------------------------------------------------------------------------------------------- ##  Get all means:
     exp4__prop.FA.G__stim.means <- as.tibble(summary(emmeans(exp4__prop.FA.G.aov, ~stim)))
     exp4__prop.FA.G__resp.option.means <- as.tibble(summary(emmeans(exp4__prop.FA.G.aov, ~resp_option)))
+    
+#################################################################################################################
+##    HITS FIGURE:                                                                                             ##
+#################################################################################################################
+##  Prep data for figures:  
+    exp4__prop.FA.R__figure.data <- 
+        as.tibble(emmeans(exp4__prop.FA.R.aov, ~ resp_option:stim)) %>%
+        select(-df, -lower.CL, -upper.CL)
+    exp4__prop.FA.F__figure.data <- 
+        as.tibble(emmeans(exp4__prop.FA.F.aov, ~ resp_option:stim)) %>%
+        select(-df, -lower.CL, -upper.CL)
+    exp4__prop.FA.G__figure.data <- 
+        as.tibble(emmeans(exp4__prop.FA.G.aov, ~ resp_option:stim)) %>%
+        select(-df, -lower.CL, -upper.CL)    
+
+    exp4__prop.FA.RFG__figure.data <- 
+        tribble(~"resp_option", ~"stim", ~"rfg", ~"emmean", ~"SE",
+            as.character(pull(exp4__prop.FA.R__figure.data[1,1])), ... = 
+            as.character(pull(exp4__prop.FA.R__figure.data[1,2])), "Recollection",
+                as.double(pull(exp4__prop.FA.R__figure.data[1,3])), 
+                as.double(pull(exp4__prop.FA.R__figure.data[1,4])),
+            as.character(pull(exp4__prop.FA.R__figure.data[2,1])), 
+            as.character(pull(exp4__prop.FA.R__figure.data[2,2])), "Recollection",
+                as.double(pull(exp4__prop.FA.R__figure.data[2,3])), 
+                as.double(pull(exp4__prop.FA.R__figure.data[2,4])),
+            as.character(pull(exp4__prop.FA.R__figure.data[3,1])), 
+            as.character(pull(exp4__prop.FA.R__figure.data[3,2])), "Recollection",
+                as.double(pull(exp4__prop.FA.R__figure.data[3,3])), 
+                as.double(pull(exp4__prop.FA.R__figure.data[3,4])),
+            as.character(pull(exp4__prop.FA.R__figure.data[4,1])), 
+            as.character(pull(exp4__prop.FA.R__figure.data[4,2])), "Recollection",
+                as.double(pull(exp4__prop.FA.R__figure.data[4,3])), 
+                as.double(pull(exp4__prop.FA.R__figure.data[4,4])),
+            as.character(pull(exp4__prop.FA.R__figure.data[5,1])), 
+            as.character(pull(exp4__prop.FA.R__figure.data[5,2])), "Recollection",
+                as.double(pull(exp4__prop.FA.R__figure.data[5,3])), 
+                as.double(pull(exp4__prop.FA.R__figure.data[5,4])),
+            as.character(pull(exp4__prop.FA.R__figure.data[6,1])), 
+            as.character(pull(exp4__prop.FA.R__figure.data[6,2])), "Recollection",
+                as.double(pull(exp4__prop.FA.R__figure.data[6,3])), 
+                as.double(pull(exp4__prop.FA.R__figure.data[6,4])),
+            as.character(pull(exp4__prop.FA.F__figure.data[1,1])), 
+            as.character(pull(exp4__prop.FA.F__figure.data[1,2])), "Familiarity",
+                as.double(pull(exp4__prop.FA.F__figure.data[1,3])), 
+                as.double(pull(exp4__prop.FA.F__figure.data[1,4])),
+            as.character(pull(exp4__prop.FA.F__figure.data[2,1])), 
+            as.character(pull(exp4__prop.FA.F__figure.data[2,2])), "Familiarity",
+                as.double(pull(exp4__prop.FA.F__figure.data[2,3])), 
+                as.double(pull(exp4__prop.FA.F__figure.data[2,4])),
+            as.character(pull(exp4__prop.FA.F__figure.data[3,1])), 
+            as.character(pull(exp4__prop.FA.F__figure.data[3,2])), "Familiarity",
+                as.double(pull(exp4__prop.FA.F__figure.data[3,3])), 
+                as.double(pull(exp4__prop.FA.F__figure.data[3,4])),
+            as.character(pull(exp4__prop.FA.F__figure.data[4,1])), 
+            as.character(pull(exp4__prop.FA.F__figure.data[4,2])), "Familiarity",
+                as.double(pull(exp4__prop.FA.F__figure.data[4,3])), 
+                as.double(pull(exp4__prop.FA.F__figure.data[4,4])),
+            as.character(pull(exp4__prop.FA.F__figure.data[5,1])), 
+            as.character(pull(exp4__prop.FA.F__figure.data[5,2])), "Familiarity",
+                as.double(pull(exp4__prop.FA.F__figure.data[5,3])), 
+                as.double(pull(exp4__prop.FA.F__figure.data[5,4])),
+            as.character(pull(exp4__prop.FA.F__figure.data[6,1])), 
+            as.character(pull(exp4__prop.FA.F__figure.data[6,2])), "Familiarity",
+                as.double(pull(exp4__prop.FA.F__figure.data[6,3])), 
+                as.double(pull(exp4__prop.FA.F__figure.data[6,4])),
+            as.character(pull(exp4__prop.FA.G__figure.data[1,1])), 
+            as.character(pull(exp4__prop.FA.G__figure.data[1,2])), "Guessing",
+                as.double(pull(exp4__prop.FA.G__figure.data[1,3])), 
+                as.double(pull(exp4__prop.FA.G__figure.data[1,4])),
+            as.character(pull(exp4__prop.FA.G__figure.data[2,1])), 
+            as.character(pull(exp4__prop.FA.G__figure.data[2,2])), "Guessing",
+                as.double(pull(exp4__prop.FA.G__figure.data[2,3])), 
+                as.double(pull(exp4__prop.FA.G__figure.data[2,4])),
+            as.character(pull(exp4__prop.FA.G__figure.data[3,1])), 
+            as.character(pull(exp4__prop.FA.G__figure.data[3,2])), "Guessing",
+                as.double(pull(exp4__prop.FA.G__figure.data[3,3])), 
+                as.double(pull(exp4__prop.FA.G__figure.data[3,4])),
+            as.character(pull(exp4__prop.FA.G__figure.data[4,1])), 
+            as.character(pull(exp4__prop.FA.G__figure.data[4,2])), "Guessing",
+                as.double(pull(exp4__prop.FA.G__figure.data[4,3])), 
+                as.double(pull(exp4__prop.FA.G__figure.data[4,4])),
+            as.character(pull(exp4__prop.FA.G__figure.data[5,1])), 
+            as.character(pull(exp4__prop.FA.G__figure.data[5,2])), "Guessing",
+                as.double(pull(exp4__prop.FA.G__figure.data[5,3])), 
+                as.double(pull(exp4__prop.FA.G__figure.data[5,4])),
+            as.character(pull(exp4__prop.FA.G__figure.data[6,1])), 
+            as.character(pull(exp4__prop.FA.G__figure.data[6,2])), "Guessing",
+                as.double(pull(exp4__prop.FA.G__figure.data[6,3])), 
+                as.double(pull(exp4__prop.FA.G__figure.data[6,4]))) %>%
+        transform(resp_option = factor(resp_option, levels=c("RFG","RFBG"))) %>%
+        transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "col.drawing", "Colour\ndrawings")) %>%
+        mutate(stim = str_replace(stim, "col.photo", "Colour\nphotographs")) %>%
+        transform(stim = factor(stim, levels=c("Words", "Colour\ndrawings", "Colour\nphotographs")))
+    
+##  Create figure:
+    exp4__prop.FA.RFG__figure <-
+        ggplot(exp4__prop.FA.RFG__figure.data, aes(x = stim, y = emmean, fill = rfg)) +
+        scale_fill_manual("legend", values = c("Recollection" = "#1B4251", "Familiarity" = "#6A6C93",
+                                               "Guessing" = "#D491CA")) + 
+        geom_col(position = position_dodge()) +
+        geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), 
+                      width = 0.2, size = 0.3, position = position_dodge(0.9)) +
+        facet_wrap(~resp_option, strip.position = "bottom") +
+        labs(x = "Response option condition", y = "Mean proportion of FAs") +
+        scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+        theme_classic() +    # Removes grey background and grid lines. 
+        theme(
+            strip.placement = "outside",
+            strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
+            axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
+            axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
+            axis.text.x = element_text(size = 9),
+            axis.text.y = element_text(size = 9),
+            legend.background = element_rect(fill = "white", size = 0.2, linetype = "solid", colour = "black"),
+            legend.title = element_blank(),
+            legend.position = c(0.9, 0.896),
+            legend.margin = margin(6, 6, 6, 6),
+            legend.spacing.y = unit(-1, "pt"),
+            plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+            plot.margin = margin(20, 20, 24, 30))
 ```
+```{r exp4__prop-rec-fam-guess-FAs--figurecaption, echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp4__prop.FA.RFG__figure",
+                     caption = "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response option condition.")
+```
+
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=FALSE}
+    exp4__prop.FA.RFG__figure
+```
+`r figure_numbering("exp4__prop.FA.RFG__figure")`
 
 ###### Recollection (FAs)
 
@@ -6598,7 +6760,7 @@ For FAs assigned *Recollection*, there was no significant main effect of stimuli
 
 ###### Familiarity (FAs)
 The ANOVA for FAs assigned *Familiarity* showed a significant main effect of stimuli format, `r apa::anova_apa(exp4__prop.FA.F.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly fewer F FAs than words (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA.F__ttest__col.photo.vs.word`. Likewise, colour drawings (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA.F__ttest__col.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Familiarity between colour photographs (*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) and colour drawings
-(*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "colour.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA.F__ttest__col.photo.vs.col.drawing`. There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.FA.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
+(*M*= `r round(exp4__prop.FA.F__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA.F__ttest__col.photo.vs.col.drawing`. There were no significant interaction effects between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.FA.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
 ###### Guessing FAs
 The ANOVA on the mean proportion of FAs assigned *Guessing* demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp4__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly fewer G FAs in comparison to words (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA.G__ttest__col.photo.vs.word`). Likewise, colour drawings (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`), `r exp4__prop.FA.G__ttest__col.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Guessing between colour photographs (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) and colour drawings (*M*= `r round(exp4__prop.FA.G__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA.G__ttest__col.photo.vs.col.drawing`). There were also no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp4__prop.FA.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
