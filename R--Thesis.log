@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.3.1)  8 APR 2021 10:37
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.3.1)  8 APR 2021 11:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -997,13 +997,13 @@ LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
 [1
 
 ] [2] [3]
-Overfull \hbox (1.29707pt too wide) detected at line 74
- []\TU/Helvetica(0)/m/n/10.95 104
+Overfull \hbox (1.29707pt too wide) detected at line 73
+ []\TU/Helvetica(0)/m/n/10.95 105
  []
 
 
-Overfull \hbox (1.29707pt too wide) detected at line 75
- []\TU/Helvetica(0)/m/n/10.95 107
+Overfull \hbox (1.29707pt too wide) detected at line 74
+ []\TU/Helvetica(0)/m/n/10.95 108
  []
 
 )
@@ -1215,159 +1215,163 @@ LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [67] [68]
-File: R--Thesis_files/figure-latex/unnamed-chunk-53-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-52-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-53-1.pdf>
-[69] [70] [71] [72] [73]
+<use R--Thesis_files/figure-latex/unnamed-chunk-52-1.pdf>
+[69]
+File: R--Thesis_files/figure-latex/unnamed-chunk-54-1.pdf Graphic file (type pd
+f)
+<use R--Thesis_files/figure-latex/unnamed-chunk-54-1.pdf>
+[70] [71] [72] [73] [74]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 2931.
+(hyperref)                be the same. Added a new anchor on input line 2944.
 
-[74]
-File: R--Thesis_files/figure-latex/unnamed-chunk-62-1.pdf Graphic file (type pd
+[75]
+File: R--Thesis_files/figure-latex/unnamed-chunk-61-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-62-1.pdf>
-File: R--Thesis_files/figure-latex/unnamed-chunk-62-2.pdf Graphic file (type pd
+<use R--Thesis_files/figure-latex/unnamed-chunk-61-1.pdf>
+File: R--Thesis_files/figure-latex/unnamed-chunk-61-2.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-62-2.pdf>
-[75] [76]
+<use R--Thesis_files/figure-latex/unnamed-chunk-61-2.pdf>
+[76] [77]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 3032.
+(hyperref)                be the same. Added a new anchor on input line 3045.
 
-File: R--Thesis_files/figure-latex/unnamed-chunk-64-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-63-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-64-1.pdf>
-[77] [78]
+<use R--Thesis_files/figure-latex/unnamed-chunk-63-1.pdf>
+[78] [79]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 3095.
+(Font)              scaled to size 10.0pt on input line 3108.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 12.08801pt on input line 3097.
+(Font)              scaled to size 12.08801pt on input line 3110.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.46161pt on input line 3097.
+(Font)              scaled to size 8.46161pt on input line 3110.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.08923pt on input line 3097.
+(Font)              scaled to size 12.08923pt on input line 3110.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.46246pt on input line 3097.
+(Font)              scaled to size 8.46246pt on input line 3110.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 12.08679pt on input line 3097.
+(Font)              scaled to size 12.08679pt on input line 3110.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.46075pt on input line 3097.
+(Font)              scaled to size 8.46075pt on input line 3110.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 10.0pt on input line 3097.
+(Font)              scaled to size 10.0pt on input line 3110.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 3097.
+(Font)              scaled to size 7.0pt on input line 3110.
 
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3111--3111
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3124--3124
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3097--3113
+Underfull \hbox (badness 10000) in paragraph at lines 3110--3126
 
  []
 
-[79]
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3150--3150
+[80]
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3163--3163
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3136--3152
+Underfull \hbox (badness 10000) in paragraph at lines 3149--3165
 
  []
 
 
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3186--3186
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3199--3199
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3172--3188
+Underfull \hbox (badness 10000) in paragraph at lines 3185--3201
 
  []
 
-[80] [81]
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3224--3224
+[81] [82]
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3237--3237
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3210--3226
+Underfull \hbox (badness 10000) in paragraph at lines 3223--3239
 
  []
 
 
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3254--3254
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3267--3267
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3240--3256
+Underfull \hbox (badness 10000) in paragraph at lines 3253--3269
 
  []
 
-[82]
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3288--3288
+[83]
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3301--3301
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3274--3290
+Underfull \hbox (badness 10000) in paragraph at lines 3287--3303
 
  []
 
-[83] [84]
-File: R--Thesis_files/figure-latex/unnamed-chunk-82-1.pdf Graphic file (type pd
+[84] [85]
+File: R--Thesis_files/figure-latex/unnamed-chunk-81-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-82-1.pdf>
-[85] [86] [87] [88] [89] [90] [91] [92]
-Underfull \hbox (badness 4556) in paragraph at lines 3613--3618
+<use R--Thesis_files/figure-latex/unnamed-chunk-81-1.pdf>
+[86] [87] [88] [89] [90] [91] [92] [93]
+Underfull \hbox (badness 4556) in paragraph at lines 3626--3631
  \TU/Helvetica(0)/m/n/10.95 on remember-know judgments. \TU/Helvetica(0)/m/it/1
 0.95 Psychonomic Bulletin & Review\TU/Helvetica(0)/m/n/10.95 , \TU/Helvetica(0)
 /m/it/10.95 9\TU/Helvetica(0)/m/n/10.95 (1), 139–145.
  []
 
-[93] [94] [95] [96] [97] [98]
-Underfull \hbox (badness 1661) in paragraph at lines 3897--3901
+[94] [95] [96] [97] [98] [99]
+Underfull \hbox (badness 1661) in paragraph at lines 3910--3914
  \TU/Helvetica(0)/m/it/10.95 European Journal of Cognitive Psychology\TU/Helvet
 ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 , 813–847. []$[][][][][] [] [] [] [][][] [] [][][] [] [][] [] [][][][] []
  []
 
-[99] [100] [101] [102] [103]
+[100] [101] [102] [103] [104]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 4106.
+(hyperref)                be the same. Added a new anchor on input line 4119.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 4108.
+(Font)              scaled to size 7.0pt on input line 4121.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 4115.
-[104
+(Font)              scaled to size 7.0pt on input line 4128.
+[105
 
-] [105] [106]
+] [106] [107]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 4222.
+(Font)              scaled to size 8.0pt on input line 4235.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 4229.
+(Font)              scaled to size 8.0pt on input line 4242.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 8.0pt on input line 4239.
-[107
+(Font)              scaled to size 8.0pt on input line 4252.
+[108
 
-] [108] [109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120]
-[121] [122] [123] [124] [125] [126] [127] [128] [129] [130] [131] [132] [133] [
-134] [135] (./R--Thesis.aux)
+] [109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120] [121]
+[122] [123] [124] [125] [126] [127] [128] [129] [130] [131] [132] [133] [134] [
+135] [136] (./R--Thesis.aux)
 Package rerunfilecheck Info: File `R--Thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 3E983E81C1566D8D822E2C7444E59D22;11128.
  ) 
 Here is how much of TeX's memory you used:
- 18461 strings out of 478931
- 326189 string characters out of 5866373
- 867821 words of memory out of 5000000
- 37949 multiletter control sequences out of 15000+600000
+ 18466 strings out of 478931
+ 326442 string characters out of 5866373
+ 867744 words of memory out of 5000000
+ 37953 multiletter control sequences out of 15000+600000
  414056 words of font info for 131 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  98i,13n,125p,652b,559s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on R--Thesis.pdf (135 pages).
+Output written on R--Thesis.pdf (136 pages).
