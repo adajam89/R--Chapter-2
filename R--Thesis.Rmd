@@ -6129,8 +6129,9 @@ A series of 3x2 mixed ANOVAs were conducted on each of the DVs, with a within-su
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
 table_numbering(name = "exp3.and.4__prop.hit.FA.d.prime__table", caption = "Data from Experiment 3 (using greyscale stimuli) shown alongside that of the current experiment (using colour stimuli), showing the mean proportion of hits, FAs, and mean *d'* scores, by stimuli format and response option condition. Signif. codes:  \\*\\*\\**p* < .001; \\*\\**p* < .01; \\**p* < .05; \\+ involved in significant interaction.")
 ```
-Mean proportions of hits and FAs, and mean *d'* scores are presented for Experiments 3 and 4 in `r table_numbering("exp3.and.4__prop.hit.FA.d.prime__table", display = "cite")`. Visual inspection of the data shows some expected patterns with regard to stimuli distinctiveness. As the intended distinctiveness increases (from words, to drawings, to photographs), the i) mean proportion of hits increases; ii) mean proportion of FAs decrease; iii) mean *d'* scores increase. 
+Mean proportions of hits and FAs, and mean *d'* scores are presented for Experiments 3 and 4 in `r table_numbering("exp3.and.4__prop.hit.FA.d.prime__table", display = "cite")`. Visual inspection of the data shows some expected patterns with regard to stimuli distinctiveness. As the intended distinctiveness increases (from words, to drawings, to photographs), the i) mean proportion of hits increase; ii) mean proportion of FAs decrease; iii) mean *d'* scores increase.
 
+&nbsp;&nbsp;&nbsp;&nbsp;
 `r table_numbering("exp3.and.4__prop.hit.FA.d.prime__table")`
 ```{r, echo=FALSE, cache=FALSE}
     exp3.and.4__prop.hit.FA.d.prime__table %>%
@@ -6138,20 +6139,22 @@ Mean proportions of hits and FAs, and mean *d'* scores are presented for Experim
         kable_styling(latex_options = c("scale_down", "hold_position"), full_width = F, 
                       bootstrap_options = "condensed", font_size = 13) %>%
         add_header_above(c("Experiment 3: Grey" = 2, " " = 4, "Experiment 4: Colour" = 2), line = F, bold = T) %>%
-        column_spec(1, width = "1.8cm") %>%
+        column_spec(1, width = "1.9cm") %>%
         column_spec(2, width = "2.5cm") %>%
         column_spec(3:5, width = "1cm") %>%
-        column_spec(6, width = "2cm") %>%
-        column_spec(7, width = "1.8cm") %>%
+        column_spec(6, width = "1.8cm") %>%
+        column_spec(7, width = "1.9cm") %>%
         column_spec(8, width = "2.5cm") %>%
         column_spec(9:11, width = "1cm") %>%
         row_spec(c(1,5), bold = T)
 ```
-&nbsp;&nbsp;
+&nbsp;
 
-Results from the ANOVAs demonstrated a significant main effect of stimuli format for each of these variables; hits (`r apa::anova_apa(exp4__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), FAs (`r apa::anova_apa(exp4__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), and *d'* scores (`r apa::anova_apa(exp4__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`). No interaction effects were evident between stimuli format and response option for hits (`r apa::anova_apa(exp4__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`), FAs(`r apa::anova_apa(exp4__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`), or *d'* scores (`r apa::anova_apa(exp4__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`). 
+Results from the ANOVAs demonstrated a significant main effect of stimuli format for each of these variables; hits (`r apa::anova_apa(exp4__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), FAs (`r apa::anova_apa(exp4__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), and *d'* scores (`r apa::anova_apa(exp4__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`). though no interaction effects were evident between stimuli format and response option for any; hits (`r apa::anova_apa(exp4__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`), FAs(`r apa::anova_apa(exp4__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`), or *d'* scores (`r apa::anova_apa(exp4__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`). 
 
-To determine whether colour pictures demonstrate photo superiority effects - comparable to those observed using greyscale stimuli (Experiment 3) - pairwise t-tests were performed to compare the colour photos and drawings. For the mean proportion of hits, the colour photographs (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced a significantly higher proportion than the colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.col.drawing`. The colour photographs (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) also produced significantly fewer FAs compared to the colour drawings (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA__ttest__col.photo.vs.col.drawing`). Mean *d'* scores were also significantly higher for the colour photographs (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) compared to the colour drawings (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__d.prime__ttest__col.photo.vs.col.drawing`.
+To determine whether photo superiority effects were also evident in the current set of colour pictures - comparable to those observed using greyscale stimuli (Experiment 3) - pairwise t-tests were performed between the colour photos and drawings. For the mean proportion of hits, colour photographs (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) exhibited a significantly higher proportion than colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.col.drawing`. The photographs (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) also produced significantly fewer FAs compared to drawings (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA__ttest__col.photo.vs.col.drawing`). Mean *d'* scores were also significantly higher for the colour photographs (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) compared to the colour drawings (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__d.prime__ttest__col.photo.vs.col.drawing`.
+
+Visual comparison of the data (and significant results) across Experiments 3 and 4 reveals only one difference with regard to response option: *d'* scores failed to produce significant interaction effects between stimuli format and response option in the current experiment, as were previously demonstrated in Experiment 3.
 
 ##### Recollection and Familiarity
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
