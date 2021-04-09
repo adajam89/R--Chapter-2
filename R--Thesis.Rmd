@@ -6896,22 +6896,9 @@ table_numbering(name = "exp4__resp.option__main.effects__table", caption = "Main
 ```
 
 #### Response option availability
-\hfill\break In each of the aforementioned ANOVAs, the role of response option was also examined to determine whether the addition of colour information had any differential effects compared to the findings of *Experiment 3*. The only main effect of response option was observed in the ANOVA for the mean proportion of FAs (`r apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`), whereby 
+\hfill\break In each of the aforementioned ANOVAs, the role of response option was also examined to determine whether the addition of colour information had any differential effects compared to the findings of *Experiment 3*. The only main effect of response option was observed in the ANOVA for the mean proportion of FAs (`r apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`), whereby a higher proportion of FAs was evident in the RFG group (*M*= `r round(exp4__prop.FA__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) compared to the RFBG group (*M*= `r round(exp4__prop.FA__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r str_c(papaja::apa_print(exp4__prop.FA__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*"), ", *d* = ", round(abs(as.vector(exp4__prop.FA__ttest__rfg.rfbg__eff.size$effsize)), 2))`. Such results do not support Hypothesis 3, where significant main effects of response option were expected in the ANOVAs for the mean proportion of hits and mean proportion of FAs assigned *Familiarity*. Similarly, the expected interactions for mean *d'* scores and proportion of hits assigned *Recollection* were also absent. The only consistent finding across *Experiment 3* and the current experiment (with regard to response option) comes from the ANOVA fir the mean proportion of hits assigned *Familiarity* - where a significant interaction between stimuli format and response option was apparent in both experiments. 
 
-
-
-
-In the previously discussed ANOVAs, significant main effects were also observed for response option condition (RFG / RFBG) for the mean proportion of hits (`r apa::anova_apa(exp3__prop.hit.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`) and the mean proportion of FAs assigned *Familiarity* (`r apa::anova_apa(exp3__prop.FA.F.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`). For all other variables, response option was found to either significantly interact with stimuli format (discussed previously), or had no significant main effect (see `r table_numbering("exp3__resp.option__main.effects__table", display = "cite")` for all response option ANOVA results).
-
-
-
-higher proportion of hits in the 
-RFG group (*M*= `r round(exp4__prop.FA__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) compared to the 
-RFBG group (*M*= `r round(exp4__prop.FA__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`)
-
-
-, `r str_c(papaja::apa_print(exp3__prop.hit__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*"), ", *d* = ", round(abs(as.vector(exp3__prop.hit__ttest__rfg.rfbg__eff.size$effsize)), 2))`. For the mean proportion of FAs assigned *Familiarity*, those in the RFG group (*M*= `r round(exp3__prop.FA.F__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) showed a significantly higher proportion than those in the RFBG group (*M*= `r round(exp3__prop.FA.F__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r str_c(papaja::apa_print(exp3__prop.FA.F__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*"), ", *d* = ", round(abs(as.vector(exp3__prop.FA.F__ttest__rfg.rfbg__eff.size$effsize)), 2))`. 
-
+&nbsp;
 &nbsp;
 `r table_numbering("exp3__resp.option__main.effects__table")`
 ```{r, echo=FALSE, cache=FALSE}
@@ -6919,14 +6906,10 @@ RFBG group (*M*= `r round(exp4__prop.FA__resp.option.means %>% filter(resp_optio
         kable("markdown", booktabs = T, full_width= T, align=rep('r', 3))
 ```
 
-
-
-
-
-
-
 ### Discussion
-Since *Experiment 3* already established the current set of photograph stimuli as being more distinctive than words when presented in greyscale, in seemed unnecessary to make this comparison again. Instead, the following analyses specifically aimed to determine whether colour photographs were more distinctive than colour drawings, or if distinctiveness 'peaked' such that colour drawings and photographs resulted in comparable recognition performance/
+
+
+In *Experiment 3*, it was  already established the current set of photograph stimuli as being more distinctive than words when presented in greyscale, in seemed unnecessary to make this comparison again. Instead, the following analyses specifically aimed to determine whether colour photographs were more distinctive than colour drawings, or if distinctiveness 'peaked' such that colour drawings and photographs resulted in comparable recognition performance/
 
 Taken together, the findings indicate that the colour photographs were indeed more distinctive than the colour drawings, and that the current set of stimuli appear to effectively capture different 'levels' of stimuli distinctiveness. 
 
