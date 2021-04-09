@@ -6162,7 +6162,9 @@ table_numbering(name = "exp3.and.4__prop.hit.FA.d.prime__table", caption = "Data
 ```
 \hfill\break Mean proportions of hits and FAs, and mean *d'* scores are presented for Experiments 3 and 4 in `r table_numbering("exp3.and.4__prop.hit.FA.d.prime__table", display = "cite")`. Visual inspection of the data shows some expected patterns with regard to stimuli distinctiveness. As the intended distinctiveness increases (from words, to drawings, to photographs), the i) mean proportion of hits increase; ii) mean proportion of FAs decrease; iii) mean *d'* scores increase.
 
-\newpage
+&nbsp;&nbsp;
+&nbsp;&nbsp;
+
 `r table_numbering("exp3.and.4__prop.hit.FA.d.prime__table")`
 ```{r, echo=FALSE, cache=FALSE}
     exp3.and.4__prop.hit.FA.d.prime__table %>%
@@ -6179,6 +6181,8 @@ table_numbering(name = "exp3.and.4__prop.hit.FA.d.prime__table", caption = "Data
         column_spec(9:11, width = "1cm") %>%
         row_spec(c(1,5), bold = T)
 ```
+&nbsp;
+&nbsp;
 
 Results from the ANOVAs demonstrated a significant main effect of stimuli format for each of the key variables of interest; hits (`r apa::anova_apa(exp4__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), FAs (`r apa::anova_apa(exp4__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), and *d'* scores (`r apa::anova_apa(exp4__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`) - though no interaction effects were evident between stimuli format and response option; hits (`r apa::anova_apa(exp4__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`), FAs(`r apa::anova_apa(exp4__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`), or *d'* scores (`r apa::anova_apa(exp4__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`). 
 
@@ -6186,7 +6190,6 @@ To determine whether photo superiority effects were exhibited in the current set
 
 Visual inspection of the data (and significant results) reveals only one difference with regard to response option when compared to that obtained in *Experiment 3*: the ANOVA on *d'* scores failed to produce a significant interaction between stimuli format and response option in the current experiment, as was previously demonstrated. Previous follow-up comparisons revealed this interaction was driven by numerically higher *d'* scores for drawings in the RFBG group compared to the RFG group - a deviation from words and photographs, whereby *d'* scores were both higher in the RFG group compared to the RFBG group. The difference between *d'* scores for drawings in the RFG and RFBG groups did not reach significance though, and this negligible difference may explain why such an interaction was absent in the current study.
 
-#### Recollection and Familiarity
 ```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  Exp4 Prop R Hits:                                                                                           ##
@@ -6493,7 +6496,8 @@ Visual inspection of the data (and significant results) reveals only one differe
                      caption = "Proportion of hits assigned Recollection, Familiarity, and Guessing, by stimuli format and response option condition.")
 ```
 
-\hfill\break To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp4__prop.hit.RFG__figure", display = "cite")`), and the mean proportion of FAs assigned RFG (see `r figure_numbering("exp4__prop.FA.RFG__figure", display = "cite")`) 
+#### Recollection and Familiarity
+\hfill\break To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp4__prop.hit.RFG__figure", display = "cite")`).
 
 ```{r, fig.height=8.2, echo=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
     exp3__prop.hit.RFG__figure1 <-
@@ -6682,9 +6686,9 @@ The interaction is evident following comparisons of the same stimuli format acro
     exp4__prop.FA.G__stim.means <- as.tibble(summary(emmeans(exp4__prop.FA.G.aov, ~stim)))
     exp4__prop.FA.G__resp.option.means <- as.tibble(summary(emmeans(exp4__prop.FA.G.aov, ~resp_option)))
     
-#################################################################################################################
-##    HITS FIGURE:                                                                                             ##
-#################################################################################################################
+##################################################################################################################
+##    FAs FIGURE:                                                                                               ##
+##################################################################################################################
 ##  Prep data for figures:  
     exp4__prop.FA.R__figure.data <- 
         as.tibble(emmeans(exp4__prop.FA.R.aov, ~ resp_option:stim)) %>%
@@ -6804,7 +6808,10 @@ The interaction is evident following comparisons of the same stimuli format acro
             plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
             plot.margin = margin(20, 20, 24, 30))
 ```
-```{r exp4__prop-rec-fam-guess-FAs--figurecaption, echo=FALSE, results = FALSE, cache=FALSE}
+
+Separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were also conducted on the mean proportion of FAs assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp4__prop.FA.RFG__figure", display = "cite")`). 
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering(name = "exp4__prop.FA.RFG__figure",
                      caption = "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response option condition.")
 ```
@@ -6838,10 +6845,10 @@ The interaction is evident following comparisons of the same stimuli format acro
             plot.margin = margin(20, 20, 24, 30),
             plot.subtitle = element_text(hjust = 0.5, face = "bold"))
 
-exp4__prop.FA.RFG__figure1 <- exp4__prop.FA.RFG__figure + labs(subtitle = "Experiment 4: Colour") + 
-    theme(plot.subtitle = element_text(hjust = 0.5, face = "bold"))
+    exp4__prop.FA.RFG__figure1 <- exp4__prop.FA.RFG__figure + labs(subtitle = "Experiment 4: Colour") + 
+        theme(plot.subtitle = element_text(hjust = 0.5, face = "bold"))
 
-grid.arrange(exp3__prop.FA.RFG__figure1, exp4__prop.FA.RFG__figure1,
+    grid.arrange(exp3__prop.FA.RFG__figure1, exp4__prop.FA.RFG__figure1,
                    ncol=1, nrow=2) #top = textGrob("Mean proportion of FAs"))
 ```
 `r figure_numbering("exp4__prop.FA.RFG__figure")`
