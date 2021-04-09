@@ -5335,6 +5335,7 @@ It is hypothesised that:
     + ii) The RFG group will produce a significantly higher proportion of FAs assigned *Familiarity* compared to the RFBG group.
     + iii) Significant interaction effects between response option and stimuli format will be evident in the analyses of mean *d'* scores, mean proportion of hits assigned *Recollection*, and mean proportion of hits assigned *Familiarity*. 
 
+&nbsp;&nbsp;
 
 ## Experiment: Effect of stimuli format (colour) and response option on recognition memory judgements.
 ```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
