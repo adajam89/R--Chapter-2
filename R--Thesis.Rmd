@@ -5261,10 +5261,10 @@ exp3__resp.option__main.effects__table <- tribble(
         "Mean proportion: ***Recollection FAs***",
             apa::anova_apa(exp3__prop.FA.R.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "", 
-        "Mean proportion: ***Familiarity hits***",
+        "Mean proportion: ***Familiarity FAs***",
             apa::anova_apa(exp3__prop.FA.F.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "*", 
-        "Mean proportion: ***Guessing hits***",
+        "Mean proportion: ***Guessing FAs***",
             apa::anova_apa(exp3__prop.FA.G.aov, effect = "resp_option", format = "rmarkdown", print = FALSE),
             "")
 ```
@@ -5290,40 +5290,53 @@ Across a range of performance variables, the results show a clear effect of stim
 ######----------------------------------------
 
 \newpage
-# Chapter 4 (The role of colour)
-
+# Chapter 4 - The role of colour
+## Background
 In *Experiment 3*, this was demonstrated by comparing recognition toward stimuli of increasing levels of distinctiveness: words, line-drawn illustrated pictures, and detailed real-world photographs. 
-
-Indeed, colour images have previously been linked to enhanced memory performance in recognition tasks [@ally2009], though it was difficult to disentangle the specific effects of colour from the complexity of detail featured. 
 
 &nbsp;
 
-Another inconsistency across recognition studies relates to whether picture stimuli are presented in greyscale or colour. The extent to which colour alters the distinctiveness of stimuli is unclear, though there is evidence to suggest it may play an important role in the memorability of stimuli. In a two-alternative forced choice recognition paradigm, @suzuki1997 demonstrated that black & white images may not facilitate successful recognition in the same way as colour images. In an initial study phase, subjects were instructed to passively memorise a number of picture stimuli consisting of detailed real-world photographs of scenes (e.g. train stations, city streets etc.). At test, participants were presented with two images side-by-side (one target + one similar lure) and asked to select the item shown during the study phase. Manipulations were also made with regard to the congruency; photos were either presented in the same colour modality across study and test (1. b&w + b&w; 2. colour + colour) or different (3. b&w + colour; 4. colour + b&w). Participants were informed that old photos may be presented in a different colour format (e.g. a colour item shown at study might not be shown in b&w), and were also asked to make a source judgement about whether the colour format for each item was the same or different. Results showed that, of the four possible congruency conditions, recognition performance was best when items were congruently shown in colour at both study and test. This finding indicates colour information provided a recognition benefit at encoding and retrieval, though interestingly, this benefit was *only* evident in the congruent colour condition; if colour images were shown only at study, or only at test, there were no recognition benefits. Performance on the source judgement question - regarding whether the the colour of the item had changed since the study phase - was similar across all four conditions, but performance was particularly poor for items that had been presented in colour. This indicates recognition benefits were not a result of accessing memory for the colour information itself; @suzuki1997 instead hypothesised that colour indirectly highlighted certain features within the photographs that were not otherwise noticed as prominently in b&w, and as a result, the colour photographs were overall more distinctive. 
+Another inconsistency across recognition studies relates to whether picture stimuli are presented in greyscale or colour. The extent to which colour alters the distinctiveness of stimuli is unclear, though there is evidence to suggest it may play an important role in the memorability of stimuli. In a two-alternative forced choice recognition paradigm, @suzuki1997 demonstrated that black & white images may not facilitate successful recognition in the same way as colour images. In an initial study phase, subjects were instructed to passively memorise a number of picture stimuli, consisting of detailed real-world photographs of scenes (e.g. train stations, city streets etc.). At test, participants were presented with two images side-by-side (one target + one similar lure) and asked to select the item shown during the study phase. Manipulations were also made with regard to the congruency; photos were either presented in the same colour modality across study and test (1. b&w + b&w; 2. colour + colour) or different (3. b&w + colour; 4. colour + b&w). Participants were informed that old photos may be presented in a different colour format (e.g. a colour item shown at study might not be shown in b&w), and were also asked to make a source judgement about whether the colour format for each item was the same or different. Results showed that, of the four possible congruency conditions, recognition performance was best when items were congruently shown in colour at both study and test. Such findings indicate colour information provided a recognition benefit at encoding and retrieval, though interestingly, this benefit was *only* evident in the congruent colour condition; if colour images were shown only at study, or only at test, there were no recognition benefits. Performance on the source judgement question - regarding whether the the colour of the item had changed since the study phase - was similar across all four conditions, but performance was particularly poor for items that had been presented in colour. This indicates recognition benefits were not a result of accessing memory for the colour information itself; @suzuki1997 instead hypothesised that colour indirectly highlighted certain features within the photographs that were not otherwise noticed as prominently in b&w, and as a result, the colour photographs were overall more distinctive. 
 
 (colour = no effect)
 Stróżak
 
+Indeed, colour images have previously been linked to enhanced memory performance in recognition tasks [@ally2009], though it was difficult to disentangle the specific effects of colour from the complexity of detail featured. 
+
+
 &nbsp;
 
-The current experiment aims to establish whether colour information facilitates recognition irrespective of the level of detail present in an image. The methodology of *Experiment 3* will be repeated using colour versions of both types of picture; a a set of simple, line-drawn illustrations sourced from @rossion2004, and a set of detailed real-world photographs established in *Experiment 2*. A secondary aim is to determine whether these response patterns are differentially affected by the availability of different response options at test (*Recollection*/*Familiarity*/*Guessing* or *Recollection*/*Familiarity*/*Both*/*Guessing*). 
+The current experiment aims to establish whether colour information facilitates recognition
+
+irrespective of the level of detail present in an image. 
+
+The methodology of *Experiment 3* will be repeated utilising colour (rather than greyscale) versions of both types of picture: i) a set of simple, line-drawn object illustrations sourced from @rossion2004; ii) a set of detailed real-world object photographs established in *Experiment 2*. 
+
+
+A secondary aim is to determine whether 
+
+these response patterns are differentially affected by the availability of different response options at test (*Recollection*/*Familiarity*/*Guessing* or *Recollection*/*Familiarity*/*Both*/*Guessing*). 
+
+
 
 It is hypothesised that:
 
-1. **Distinctiveness**: colour photographs will be more distinctive than colour drawings, and produce improved recognition performance manifesting as:
-    + i) higher overall *d'* scores;
-    + ii) higher proportion of correct hits; 
-    + ii) lower proportion of false alarms; 
-    + iv) better overall recognition.
-2. **The availability of different response options**:
-    + i) 
+1. A photograph superiority effect (similar to that observed in *Experiment 3*) will again be evident, whereby photograph items produce better recognition performance compared to drawings. Based on the results of the previous study, this performance benefit is expected to manifest as:
 
-```{r, echo=FALSE, results = FALSE, cache=FALSE}
-    table_numbering(name = "exp4__age-gender--tablecaption", 
-                     caption = "Gender and age (*SD*) of the current sample.")
-```
+    + i) a higher proportion of correct hits; 
+    + ii) a lower proportion of false alarms (FAs);
+    + iii) higher overall *d'* scores.
+    
+2. Colour information will enhance the relative distinctiveness of picture stimuli, resulting in enhanced recognition performance compared to previously utilised greyscale items. Exploratory analyses comparing the results of the current study with those of *Experiment 3* are expected to reveal numerical differences between the colour and greyscale findings, such that the colour items exhibit performance enhancements in the same direction as those outlined in Hypothesis 1 when compared to the greyscale items. 
+
+3. Any effects associated with manipulating the availability of response options at test (RFG/RFBG) will remain unaffected by the addition of colour information to picture stimuli. Based on the findings of *Experiment 3*, it is expected that:  
+
+    + i) The RFG group will produce a significantly higher proportion of overall hits compared to the RFBG group.
+    + ii) The RFG group will produce a significantly higher proportion of FAs assigned *Familiarity* compared to the RFBG group.
+    + iii) Significant interaction effects between response option and stimuli format will be evident in the analyses of mean *d'* scores, mean proportion of hits assigned *Recollection*, and mean proportion of hits assigned *Familiarity*. 
+
 
 ## Experiment: Effect of stimuli format (colour) and response option on recognition memory judgements.
-
 ```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ##################################################################################################################
 ##    EXPERIMENT 4 FINAL DATA PREP:                                                                             ##
@@ -5836,10 +5849,27 @@ It is hypothesised that:
     exp4__n.eng.lang <- nrow(exp4__participant.info %>% filter(eng_first_lang == "yes"))
     exp4__n.eng.lang <- round((exp4__n.eng.lang / nrow(exp4__participant.info)) * 100, 2)    
 ```
+```{r, echo=FALSE, results = FALSE, cache=FALSE}
+    table_numbering(name = "exp4__age.gender__table", caption = "Gender and age (*SD*) of the current sample.")
+```
 
 ### Method
 #### Participants
-`r nrow(exp4__final.data)` participants completed the experiment online (see `r table_numbering("exp4__age-gender--tablecaption", display = "cite")` for a breakdown of the age/gender of the current sample). All participants were required to be between the age of 18-59 years in order to meet our YA criteria (actual range: `r min(exp4__final.data$age, na.rm = TRUE)`-`r max(exp4__final.data$age, na.rm = TRUE)`). As our experiment involved written words as to-be-remembered stimuli, we also asked that subjects first language be English; the vast majority (`r exp4__n.eng.lang`%) reported that English was indeed their first language. Subjects were recruited from the voluntary participation website \href{https://www.prolific.co/}{Prolific Academic} (`r exp4__n.prolific`%), where payment at the rate of £5/hr was given, and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r exp4__n.sona`%), where they received course participation credits. *G\*Power* software was used to calculate an appropriate sample size; to detect a medium effect size of Cohen’s *f* = 0.25 with 80% power (*α* = .05, two-tailed), 79 subjects were necessary per group (*N* = 158) in a 3x2 mixed ANOVA.
+`r nrow(exp4__final.data)` participants completed the experiment online (see `r table_numbering("exp4__age.gender__table", display = "cite")` for a breakdown of the age/gender of the current sample). All participants were required to be between the age of 18-59 years in order to meet our YA criteria (actual range: `r min(exp4__final.data$age, na.rm = TRUE)`-`r max(exp4__final.data$age, na.rm = TRUE)`). As our experiment involved written words as to-be-remembered stimuli, we also asked that subjects first language be English; the vast majority (`r exp4__n.eng.lang`%) reported that English was indeed their first language. Subjects were recruited from the voluntary participation website \href{https://www.prolific.co/}{Prolific Academic} (`r exp4__n.prolific`%), where payment at the rate of £5/hr was given, and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r exp4__n.sona`%), where they received course participation credits. *G\*Power* software was used to calculate an appropriate sample size; to detect a medium effect size of Cohen’s *f* = 0.25 with 80% power (*α* = .05, two-tailed), 79 subjects per group would be necessary (*N* = 158) in a 3x2 mixed ANOVA.
+
+`r table_numbering("exp4__age.gender__table")`
+```{r, echo=FALSE, cache=TRUE}
+    exp4__age.gender__table %>%
+        mutate(Age = round(Age,2)) %>%
+        mutate(SD = round(SD,2)) %>%
+        mutate(" " = str_c("(", SD, ")")) %>%
+        select(-SD) %>%
+        kable("latex", booktabs = T) %>%
+        kable_styling(latex_options = "hold_position") %>%
+        column_spec(2, italic = TRUE) %>%
+        column_spec(4, italic = TRUE) %>%
+        row_spec(5, bold = TRUE)
+```
 
 #### Materials
 Stimuli were the same as those utilised in *Experiment 3*, except the greyscale drawings and photographs were substituted for their colour versions. Items consisted of 126 innocuous, everyday objects (e.g. clock, rabbit, shoe), presented across three individual stimuli formats: written words, line drawings, and photographs. Words and line drawings were sourced from @rossion2004; the drawings consisted of shaded, colour illustrations, and the words were simply the written names of the depicted objects (these were presented in a clear Sans-serif typeface in the current experiment). A matching set of photograph stimuli were curated in *Experiment 2*; high quality photographs were sourced to similarly depict the same everyday objects as those found in the @rossion2004 line drawings. In each photograph, the object of interest was isolated from its original background and rotated to match the orientations shown in the line-drawn items. See `r figure_numbering("exp4__stim_examples", display = "cite")` for examples of each stimuli format. 
@@ -6466,13 +6496,13 @@ Visual comparison of the data (and significant results) across Experiments 3 and
 
 To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp4__prop.hit.RFG__figure", display = "cite")`).
 
-```{r, fig.height=8.5, echo=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
+```{r, fig.height=8.2, echo=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
       
 exp3__prop.hit.RFG__figure1 <- exp3__prop.hit.RFG__figure + labs(subtitle = "Experiment 3: Greyscale") + 
-    theme(plot.subtitle = element_text(hjust = 0.5))
+    theme(plot.subtitle = element_text(hjust = 0.5, face = "bold"))
 
 exp4__prop.hit.RFG__figure1 <- exp4__prop.hit.RFG__figure + labs(subtitle = "Experiment 4: Colour") + 
-    theme(plot.subtitle = element_text(hjust = 0.5))
+    theme(plot.subtitle = element_text(hjust = 0.5, face = "bold"))
 
 grid.arrange(exp3__prop.hit.RFG__figure1, exp4__prop.hit.RFG__figure1,
                    ncol=1, nrow=2) #top = textGrob("Mean proportion of hits"))
