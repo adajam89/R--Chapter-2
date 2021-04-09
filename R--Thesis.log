@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.3.1)  9 APR 2021 17:14
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.3.1)  9 APR 2021 17:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1767,51 +1767,51 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [69]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 13.0pt on input line 2719.
-LaTeX Font Info:    Calculating math sizes for size <13> on input line 2736.
+(Font)              scaled to size 13.0pt on input line 2721.
+LaTeX Font Info:    Calculating math sizes for size <13> on input line 2738.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 15.71442pt on input line 2736.
+(Font)              scaled to size 15.71442pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 11.00003pt on input line 2736.
+(Font)              scaled to size 11.00003pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.85721pt on input line 2736.
+(Font)              scaled to size 7.85721pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 15.716pt on input line 2736.
+(Font)              scaled to size 15.716pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 11.00114pt on input line 2736.
+(Font)              scaled to size 11.00114pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.858pt on input line 2736.
+(Font)              scaled to size 7.858pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 15.71283pt on input line 2736.
+(Font)              scaled to size 15.71283pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.99893pt on input line 2736.
+(Font)              scaled to size 10.99893pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.85641pt on input line 2736.
+(Font)              scaled to size 7.85641pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 13.0pt on input line 2736.
+(Font)              scaled to size 13.0pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 9.09996pt on input line 2736.
+(Font)              scaled to size 9.09996pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 6.5pt on input line 2736.
+(Font)              scaled to size 6.5pt on input line 2738.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 13.0pt on input line 2736.
+(Font)              scaled to size 13.0pt on input line 2738.
 
-Overfull \hbox (2.5898pt too wide) in paragraph at lines 2736--2736
+Overfull \hbox (2.5898pt too wide) in paragraph at lines 2738--2738
 []|\TU/Helvetica(0)/m/n/13 Photographs|  
  []
 
 
-Overfull \hbox (2.5898pt too wide) in paragraph at lines 2736--2736
+Overfull \hbox (2.5898pt too wide) in paragraph at lines 2738--2738
 []|\TU/Helvetica(0)/m/n/13 Photographs|  
  []
 
 
-Overfull \hbox (8.0708pt too wide) in paragraph at lines 2736--2736
+Overfull \hbox (8.0708pt too wide) in paragraph at lines 2738--2738
 []|\TU/Helvetica(0)/b/n/13 Response 
  []
 
 
-Overfull \hbox (8.0708pt too wide) in paragraph at lines 2736--2736
+Overfull \hbox (8.0708pt too wide) in paragraph at lines 2738--2738
 []|\TU/Helvetica(0)/b/n/13 Response 
  []
 
@@ -1857,9 +1857,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.66263pt}.
 
 [73]
-File: R--Thesis_files/figure-latex/unnamed-chunk-57-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-58-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-57-1.pdf>
+<use R--Thesis_files/figure-latex/unnamed-chunk-58-1.pdf>
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.66263pt, for example:
@@ -1916,7 +1916,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [79]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 3077.
+(hyperref)                be the same. Added a new anchor on input line 3083.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1927,12 +1927,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [80]
-File: R--Thesis_files/figure-latex/unnamed-chunk-64-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-65-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-64-1.pdf>
-File: R--Thesis_files/figure-latex/unnamed-chunk-64-2.pdf Graphic file (type pd
+<use R--Thesis_files/figure-latex/unnamed-chunk-65-1.pdf>
+File: R--Thesis_files/figure-latex/unnamed-chunk-65-2.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-64-2.pdf>
+<use R--Thesis_files/figure-latex/unnamed-chunk-65-2.pdf>
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1953,11 +1953,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [82]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 3178.
+(hyperref)                be the same. Added a new anchor on input line 3184.
 
-File: R--Thesis_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-67-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-66-1.pdf>
+<use R--Thesis_files/figure-latex/unnamed-chunk-67-1.pdf>
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1977,38 +1977,38 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [84]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 3241.
+(Font)              scaled to size 10.0pt on input line 3247.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 12.08801pt on input line 3243.
+(Font)              scaled to size 12.08801pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.46161pt on input line 3243.
+(Font)              scaled to size 8.46161pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.044pt on input line 3243.
+(Font)              scaled to size 6.044pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.08923pt on input line 3243.
+(Font)              scaled to size 12.08923pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.46246pt on input line 3243.
+(Font)              scaled to size 8.46246pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.04462pt on input line 3243.
+(Font)              scaled to size 6.04462pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 12.08679pt on input line 3243.
+(Font)              scaled to size 12.08679pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.46075pt on input line 3243.
+(Font)              scaled to size 8.46075pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.0434pt on input line 3243.
+(Font)              scaled to size 6.0434pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 10.0pt on input line 3243.
+(Font)              scaled to size 10.0pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 3243.
+(Font)              scaled to size 7.0pt on input line 3249.
 LaTeX Font Info:    Font shape `TU/Helvetica(1)/m/it' will be
-(Font)              scaled to size 5.0pt on input line 3243.
+(Font)              scaled to size 5.0pt on input line 3249.
 
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3257--3257
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3263--3263
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3243--3259
+Underfull \hbox (badness 10000) in paragraph at lines 3249--3265
 
  []
 
@@ -2021,22 +2021,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [85]
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3296--3296
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3302--3302
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3282--3298
+Underfull \hbox (badness 10000) in paragraph at lines 3288--3304
 
  []
 
 
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3332--3332
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3338--3338
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3318--3334
+Underfull \hbox (badness 10000) in paragraph at lines 3324--3340
 
  []
 
@@ -2058,22 +2058,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [87]
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3370--3370
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3376--3376
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3356--3372
+Underfull \hbox (badness 10000) in paragraph at lines 3362--3378
 
  []
 
 
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3400--3400
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3406--3406
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3386--3402
+Underfull \hbox (badness 10000) in paragraph at lines 3392--3408
 
  []
 
@@ -2086,12 +2086,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [88]
-Overfull \hbox (11.42319pt too wide) in paragraph at lines 3434--3434
+Overfull \hbox (11.42319pt too wide) in paragraph at lines 3440--3440
  []\TU/Helvetica(0)/m/n/10 Distinctive 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3420--3436
+Underfull \hbox (badness 10000) in paragraph at lines 3426--3442
 
  []
 
@@ -2113,9 +2113,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [90]
-File: R--Thesis_files/figure-latex/unnamed-chunk-84-1.pdf Graphic file (type pd
+File: R--Thesis_files/figure-latex/unnamed-chunk-85-1.pdf Graphic file (type pd
 f)
-<use R--Thesis_files/figure-latex/unnamed-chunk-84-1.pdf>
+<use R--Thesis_files/figure-latex/unnamed-chunk-85-1.pdf>
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2188,7 +2188,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [98]
-Underfull \hbox (badness 4556) in paragraph at lines 3759--3764
+Underfull \hbox (badness 4556) in paragraph at lines 3765--3770
  \TU/Helvetica(0)/m/n/10.95 on remember-know judgments. \TU/Helvetica(0)/m/it/1
 0.95 Psychonomic Bulletin & Review\TU/Helvetica(0)/m/n/10.95 , \TU/Helvetica(0)
 /m/it/10.95 9\TU/Helvetica(0)/m/n/10.95 (1), 139–145.
@@ -2248,7 +2248,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [104]
-Underfull \hbox (badness 1661) in paragraph at lines 4047--4051
+Underfull \hbox (badness 1661) in paragraph at lines 4053--4057
  \TU/Helvetica(0)/m/it/10.95 European Journal of Cognitive Psychology\TU/Helvet
 ica(0)/m/n/10.95 , \TU/Helvetica(0)/m/it/10.95 18\TU/Helvetica(0)/m/n/10.95 (6)
 , 813–847. []$[][][][][] [] [] [] [][][] [] [][][] [] [][] [] [][][][] []
@@ -2301,12 +2301,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [109]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 4254.
+(hyperref)                be the same. Added a new anchor on input line 4260.
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 4256.
+(Font)              scaled to size 7.0pt on input line 4262.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 7.0pt on input line 4263.
+(Font)              scaled to size 7.0pt on input line 4269.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2337,11 +2337,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [112]
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 4370.
+(Font)              scaled to size 8.0pt on input line 4376.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 4377.
+(Font)              scaled to size 8.0pt on input line 4383.
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/b/n' will be
-(Font)              scaled to size 8.0pt on input line 4387.
+(Font)              scaled to size 8.0pt on input line 4393.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
