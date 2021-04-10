@@ -1,14 +1,14 @@
 ---
 output:
-##  word_document:
-##  toc: yes
-##  toc_depth: '4'
-    pdf_document:
-        toc: yes
-        toc_depth: 4
-        number_sections: no
-        fig_caption: yes
-        latex_engine: xelatex
+  word_document:
+  toc: yes
+  toc_depth: '4'
+#    pdf_document:
+#        toc_depth: 4
+##        toc: yes
+#        number_sections: no
+#        fig_caption: yes
+#        latex_engine: xelatex
 mainfont: Helvetica
 font-family: Helvetica Neue
 fontsize: 11pt
@@ -5295,16 +5295,9 @@ Across a range of performance variables, the results show a clear effect of stim
 
 In Chapter 3, the role of stimuli distinctiveness on recognition was explored by curating a new set of detailed, real-world object photographs, and comparing recognition performance toward these items with matched line drawn images and written word counterparts. Standard picture superiority effects (PSEs) were observed, with both types of picture producing enhanced recognition performance compared to word stimuli, however, a clear *photograph* superiority effect was also evident when comparisons were made between the photographs and drawings. Such results were attributed to the physical distinctiveness account of the PSE, whereby increased item-to-item variability results in items being remembered better than those with low variability. Studies have previously offered support for this hypothesis by attempting to manipulate the level of variability between items; @ensor2019a demonstrated how the PSE could be eliminated by i) increasing the variability between word stimuli, where each item was made more distinctive by manipulations to font, size, and colour, and ii) reducing the variability between picture stimuli, where line drawing items consisted of objects with highly similar shapes, size, and orientation. The current programme of research extended support for this hypothesis by increasing the variability between picture stimuli through the creation of a set of photographic stimuli where differences in detail, texture, and shading were intended to be more apparent across items than they would be across line drawings. While the *photograph* superiority effect (PhSE) demonstrated in the previous study highlights the importance of real world texture and shading in recognition memory, there are other inconsistencies across recognition memory studies with regard to distinctiveness - namely, whether images are presented to participants in greyscale or colour. 
 
-The extent to which colour affects the memorability of stimuli is unclear, though there is evidence to suggest this additional layer of information may increase the perceived distinctiveness of items. In a two-alternative forced choice recognition paradigm, @suzuki1997 demonstrated that black & white images may not facilitate successful recognition in the same way as colour images. In an initial study phase, subjects were instructed to passively memorise a number of image stimuli, consisting of detailed real-world photographs of scenes (e.g. train stations, city streets etc.). At test, participants were presented with two images side-by-side (one target + one similar lure) and asked to select the item shown during the study phase. Manipulations were also made with regard to the congruency; photos were either presented in the same colour modality across study and test (1. b&w + b&w; 2. colour + colour) or different (3. b&w + colour; 4. colour + b&w). Participants were informed that old photos may be presented in a different colour format (e.g. a colour item shown at study might not be shown in b&w), and were also asked to make a source judgement about whether the colour format for each item was the same or different. Results showed that, of the four possible congruency conditions, recognition performance was best when items were congruently shown in colour at both study and test. Such findings indicate colour information provided a recognition benefit at encoding and retrieval, though interestingly, this benefit was *only* evident in the congruent colour condition; if colour images were shown only at study, or only at test, there were no recognition benefits. Performance on the source judgement question - regarding whether the the colour of the item had changed since the study phase - was similar across all four conditions, but performance was particularly poor for items that had been presented in colour. This indicates recognition benefits were not a result of accessing memory for the colour information itself; @suzuki1997 instead hypothesised that colour indirectly highlighted certain features within the photographs that were not otherwise noticed as prominently in greyscale, and thus the colour photographs were overall more distinctive as a result. 
+The extent to which colour affects the memorability of stimuli is unclear, though there is evidence to suggest this additional layer of information may increase the perceived distinctiveness of items. In a scene recognition paradigm, @suzuki1997 demonstrated that black & white images may not facilitate successful recognition in the same way as colour images. In an initial study phase, subjects were instructed to passively memorise a number of real-world scene photographs (e.g. train stations, city streets etc.). At test, participants were presented with two photographs side-by-side (one target + one similar lure) and asked to select the item shown during the study phase. The congruency of colour was manipulated, such that photographs were either presented in the same colour modality across both study and test (1. greyscale at study / greyscale at test; 2. colour at study / colour at test) or different (3. greyscale at study / colour at test; 4. colour at study / greyscale at test). Results showed that colour information produced superior recognition performance when presented congruently across encoding and retrieval.Interestingly, this colour benefit was *only* evident in the congruent condition; if colour images were paired with greyscale images - regardless of the order at encoding and test - recognition benefits were absent. A source judgement question at test, probing whether the colour format for each item was the same or different as at study showed similar performance across all four conditions (though performance was particularly poor for items presented in colour); such findings indicate the recognition benefits of the congruent colour condition were not a result of accessing memory for the colour information itself, but rather colour indirectly highlighted certain features within the photographs that were not otherwise noticed as prominently in greyscale, and thus the colour photographs were overall more distinctive as a result. 
 
-(colour = no effect)
-Stróżak
-
-Indeed, colour images have previously been linked to enhanced memory performance in recognition tasks [@ally2009], though it was difficult to disentangle the specific effects of colour from the complexity of detail featured. 
-
-colour drawings and photographs resulted in comparable recognition performance/
-
-The current experiment aims to establish whether colour information facilitates successful recognition. The methodology of *Experiment 3* is precisely replicated - whereby recognition is tested across word, drawing, and photograph stimuli - though rather than greyscale items, the sole manipulation of the current study is the addition of colour to the two types of image stimuli. Initial analyses will determine whether the distinctiveness effects of the previous study are also evident when colour items are utilised, and in particular, whether a *photo* superiority effect remains, or if this finding is unique to greyscale stimuli. It is acknowledged that colour may not affect the two types of image in a uniform manner. The highly distinctiveness nature of the photograph items may plateau in such a way that performance can no longer be noticeably enhanced; any additional distinctiveness generated by colour information might show little benefit if performance is already sufficiently high. If this is the case, however, the effects of the colour manipulation should still be evident when examining recognition performance for drawings, where there is more room for such benefits to become apparent. Following this initial analysis, exploratory comparisons will be made to compare the data from the current experiment with that from *Experiment 3*, in an effort to highlight any key differences introduced by the addition of colour. A secondary aim from previous experiments remains, whereby the role of different available response options (*Recollection*/*Familiarity*/*Guessing* or *Recollection*/*Familiarity*/*Both*/*Guessing*) will be examined to establish whether RFG response patterns are differentially affected following the introduction of colour. The following hypotheses are proposed:
+The current experiment aims to establish whether colour information facilitates successful recognition using object stimuli. The methodology of *Experiment 3* is precisely replicated - whereby recognition is tested across word, drawing, and photograph stimuli - though rather than greyscale items, the sole manipulation of the current study is the addition of colour to the two types of image stimuli. Initial analyses will determine whether the distinctiveness effects of the previous study are also evident when colour items are utilised, and in particular, whether a *photo* superiority effect remains, or if this finding is unique to greyscale stimuli. It is acknowledged that colour may not affect the two types of image in a uniform manner. The highly distinctiveness nature of the photograph items may plateau in such a way that performance can no longer be noticeably enhanced; any additional distinctiveness generated by colour information might show little benefit if performance is already sufficiently high. If this is the case, however, the effects of the colour manipulation should still be evident when examining recognition performance for drawings, where there is more room for such benefits to become apparent. Following this initial analysis, exploratory comparisons will be made to compare the data from the current experiment with that from *Experiment 3*, in an effort to highlight any key differences introduced by the addition of colour. A secondary aim from previous experiments remains, whereby the role of different available response options (*Recollection*/*Familiarity*/*Guessing* or *Recollection*/*Familiarity*/*Both*/*Guessing*) will be examined to establish whether RFG response patterns are differentially affected following the introduction of colour. The following hypotheses are proposed:
 
 1. A photograph superiority effect (similar to that observed in *Experiment 3*) will again be evident, whereby photograph items produce better recognition performance compared to drawings. Based on the results of the previous study, this performance benefit is expected to manifest as:
 
@@ -5843,9 +5836,7 @@ The current experiment aims to establish whether colour information facilitates 
 #### Participants
 \hfill\break `r nrow(exp4__age.gender)` participants completed the experiment online (see `r table_numbering("exp4__age.gender__table", display = "cite")` for a breakdown of the age/gender of the current sample). All participants were required to be between the age of 18-59 years in order to meet our YA criteria (actual range: `r min(exp4__final.data$age, na.rm = TRUE)`-`r max(exp4__final.data$age, na.rm = TRUE)`). As our experiment involved written words as to-be-remembered stimuli, we also asked that subjects first language be English; the vast majority (`r exp4__n.eng.lang`%) reported that English was indeed their first language. Subjects were recruited from the voluntary participation website \href{https://www.prolific.co/}{Prolific Academic} (`r exp4__n.prolific`%), where payment at the rate of £5/hr was given, and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r exp4__n.sona`%), where they received course participation credits. *G\*Power* software was used to calculate an appropriate sample size; to detect a medium effect size of Cohen’s *f* = 0.25 with 80% power (*α* = .05, two-tailed), 79 subjects per group would be necessary (*N* = 158) in a 3x2 mixed ANOVA.
 
-&nbsp;
-&nbsp;
-
+\newpage
 `r table_numbering("exp4__age.gender__table")`
 ```{r, echo=FALSE, cache=TRUE}
     exp4__age.gender__table %>%
@@ -6141,9 +6132,9 @@ table_numbering(name = "exp3.and.4__prop.hit.FA.d.prime__table", caption = "Data
 ```
 \hfill\break Mean proportions of hits and FAs, and mean *d'* scores are presented for Experiments 3 and 4 in `r table_numbering("exp3.and.4__prop.hit.FA.d.prime__table", display = "cite")`. Visual inspection of the data shows some expected patterns with regard to stimuli distinctiveness. As the intended distinctiveness increases (from words, to drawings, to photographs), the i) mean proportion of hits increase; ii) mean proportion of FAs decrease; iii) mean *d'* scores increase.
 
-&nbsp;&nbsp;
-&nbsp;&nbsp;
+Results from the ANOVAs demonstrated a significant main effect of stimuli format for each of the key variables of interest; hits (`r apa::anova_apa(exp4__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), FAs (`r apa::anova_apa(exp4__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), and *d'* scores (`r apa::anova_apa(exp4__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`) - though no interaction effects were evident between stimuli format and response option; hits (`r apa::anova_apa(exp4__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`), FAs(`r apa::anova_apa(exp4__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`), or *d'* scores (`r apa::anova_apa(exp4__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`). 
 
+\newpage
 `r table_numbering("exp3.and.4__prop.hit.FA.d.prime__table")`
 ```{r, echo=FALSE, cache=FALSE}
     exp3.and.4__prop.hit.FA.d.prime__table %>%
@@ -6162,8 +6153,6 @@ table_numbering(name = "exp3.and.4__prop.hit.FA.d.prime__table", caption = "Data
 ```
 &nbsp;
 &nbsp;
-
-Results from the ANOVAs demonstrated a significant main effect of stimuli format for each of the key variables of interest; hits (`r apa::anova_apa(exp4__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), FAs (`r apa::anova_apa(exp4__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`), and *d'* scores (`r apa::anova_apa(exp4__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`) - though no interaction effects were evident between stimuli format and response option; hits (`r apa::anova_apa(exp4__prop.hit.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`), FAs(`r apa::anova_apa(exp4__prop.FA.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`), or *d'* scores (`r apa::anova_apa(exp4__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`). 
 
 To determine whether photo superiority effects were exhibited in the current set of colour stimuli - comparable to those previously observed using greyscale items (Experiment 3) - pairwise t-tests were performed between the colour photos and drawings. For the mean proportion of hits, colour photographs (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) exhibited a significantly higher proportion than colour drawings (*M*= `r round(exp4__prop.hit__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.hit__ttest__col.photo.vs.col.drawing`. The photographs (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) also produced significantly fewer FAs compared to drawings (*M*= `r round(exp4__prop.FA__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__prop.FA__ttest__col.photo.vs.col.drawing`). Mean *d'* scores were also significantly higher for the colour photographs (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) compared to the colour drawings (*M*= `r round(exp4__d.prime__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`), `r exp4__d.prime__ttest__col.photo.vs.col.drawing`. These findings replicate those found previously using greyscale items, whereby photographs offer a number of recognition benefits when compared to less detailed line-drawn illustrations.
 
@@ -6900,6 +6889,12 @@ The current results continue to be best explained by the physical distinctivenes
 
 \newpage
 # Chapter 5
+
+
+
+(colour = no effect)
+Stróżak
+
 
 ## Experiment: Manipulating word distinctiveness
 
