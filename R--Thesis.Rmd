@@ -1,14 +1,14 @@
 ---
 output:
-  word_document:
-  toc: yes
-  toc_depth: '4'
-#    pdf_document:
-#        toc_depth: 4
-##        toc: yes
-#        number_sections: no
-#        fig_caption: yes
-#        latex_engine: xelatex
+#  word_document:
+#  toc: yes
+#  toc_depth: '4'
+    pdf_document:
+        toc_depth: 4
+        toc: yes
+        number_sections: no
+        fig_caption: yes
+        latex_engine: xelatex
 mainfont: Helvetica
 font-family: Helvetica Neue
 fontsize: 11pt
@@ -37,7 +37,7 @@ header-includes:
     - \titlespacing{\subsubsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
 ---
 
-```{r load-packages, include=FALSE, cache=FALSE}
+```{r include=FALSE, cache=FALSE}
 ##    Clear environment and list required packages:
       rm(list=ls())  
       packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", "readr", "irr",
@@ -181,7 +181,7 @@ The objective of the current programme of research is to better understand how d
     + ii) the availability of different response options will affect whether a PSE manifests as increased recollection, increased familiarity, or both (RFBG, RF-Ratings).
 
 ## Experiment 1: Establishing PSEs in novel Remember/Know paradigm
-```{r experiment-1-main, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
 ##    Experiment 1 - Data processing:                                                                            ##
 ###################################################################################################################
@@ -818,7 +818,7 @@ The objective of the current programme of research is to better understand how d
 ```
 
 
-```{r, echo=FALSE, cache=TRUE}
+```{r echo=FALSE, cache=TRUE}
 ###################################################################################################################
 ##    Experiment 1 - Demographics:                                                                               ##
 ###################################################################################################################
@@ -876,7 +876,7 @@ The objective of the current programme of research is to better understand how d
 
 ### Method
 
-```{r, echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp1--age-gender--tablecaption", 
                      caption = "Gender and age (*SD*) of the current sample.")
 ```
@@ -885,7 +885,7 @@ A total of `r nrow(exp1__full_data)` subjects completed the online experiment (*
 (where they received payment at the rate of £5/hr) and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits; `r exp1__n_rpt`%). A small number of participants were also recruited from social media and other online sources (Facebook: `r exp1__n_facebook`%; Call For Participants: `r exp1__n_c4p`%; Reddit: `r exp1__n_reddit`%; unspecified: `r exp1__n_unspecified`%). To meet our YA requirements, all participants were required to be between 18-59 years of age (actual range: `r exp1__min.age`-`r exp1__max.age`). As our experiment involved English word stimuli, we also asked subjects whether English was their first language; the vast majority (`r exp1__n_eng_lang`%) reported that English was indeed their first language.  
 
 `r table_numbering("exp1--age-gender--tablecaption")`
-```{r, echo=FALSE, cache=TRUE}
+```{r echo=FALSE, cache=TRUE}
     exp1__age_gender_table %>%
         kable("latex", booktabs = T) %>%
         kable_styling(latex_options = "hold_position") %>%
@@ -900,7 +900,7 @@ Pictures of innocuous, everyday objects (e.g. clock, rabbit, shoe) and their wri
 
 The picture stimuli utilised in the current study were created in Photoshop CC (20.0.04 Release), by importing the greyscale, surface-shaded, line-drawings onto a plain 250x250px white canvas. Written word stimuli were created using the Calibri sans-serif typeface on the same size canvas (see `r figure_numbering("exp1__stim_examples", display = "cite")` for example stimuli). All items were exported as .pngs files for presentation by the online survey platform.
 
-```{r, echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering(name = "exp1__stim_examples",
                      caption = "Example word and picture stimuli from the current study.")
 ```
@@ -930,7 +930,7 @@ All analyses were conducted using R [@rcoreteam2020]. *d'* (sensitivity) and *c*
 A series of exclusion criteria were defined before analysis. First, subjects were to be excluded from analysis if they showed poor performance during the encoding task; the relative ease of reporting whether each item was shown as a word or picture prompted a performance cut off of 90% accuracy. This would allow for some accidental clicks, though subjects scoring less than 90% were to be excluded on the assumption they did not dedicate their full attention to the task. Second, subjects would be considered outliers (and thus excluded from analysis) if they presented extreme z-scores of +/- 3 for total hits, total FAs, or overall recognition (hits minus FAs). However, no subjects were found to meet any of these criteria. 
 
 ### Results
-```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
         RFG__totals <- exp1__full_data %>% 
             filter (ResponseOption == "RFG") %>% 
             select(total_hit, total_miss, total_FA, total_CR, 
@@ -990,7 +990,7 @@ A series of exclusion criteria were defined before analysis. First, subjects wer
           column_to_rownames(var = "Stim")
 ```
 
-```{r, echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
       table_numbering("exp1__hit.FA.recog.table", "Mean *d'* (sensitivity), *c* (decision criterion), proportion of hits, FAs, and overall recognition by stimuli-format and response-option condition.", display = FALSE)
 ```
 
@@ -999,7 +999,7 @@ To establish baseline picture superiority effects in the current paradigm, and a
 
 \newpage
 `r table_numbering("exp1__hit.FA.recog.table")`
-```{r, echo=FALSE, cache=TRUE}
+```{r echo=FALSE, cache=TRUE}
     exp1__hit.FA.recog.table %>%
         kable("latex", booktabs = T, align = "lccccc") %>%
         kable_styling(latex_options = "hold_position") %>%
@@ -1010,7 +1010,7 @@ To establish baseline picture superiority effects in the current paradigm, and a
         column_spec(6, width = "2cm")
 ```
 
-```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
 ##    Analysis - d':                                                                                             ##
 ###################################################################################################################
@@ -1238,7 +1238,7 @@ The ANOVA on *d'* scores demonstrated a significant main effect of stimuli-forma
 
 Taken together, the findings demonstrate a replication of the PSE in the current memory paradigm, and suggest stimuli format plays a key role in memorability that is independent from the particular response options available to participants. The current findings support the hypotheses of a PSE manifesting as i) higher overall d’ scores for pictures compared to words, ii) a higher proportion of correct hits, iii) lower proportion of false alarms, and iv) better overall recognition.
  
-```{r, include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
 ##    Analysis - Prop Rec hits ANOVA:                                                                            ##
 ###################################################################################################################
@@ -1897,7 +1897,7 @@ To determine the impact of stimuli format on the rates of R and F, additional 2 
                        response-option condition.", display = FALSE)
 ```
 
-```{r, fig.height=3.6, echo=FALSE}
+```{r fig.height=3.6, echo=FALSE, cache=TRUE}
       exp1__hit_figure
 ```
 `r figure_numbering("exp1__prop_hit_caption")`
@@ -1908,7 +1908,7 @@ To determine the impact of stimuli format on the rates of R and F, additional 2 
                        response-option condition.", display = FALSE)
 ```
 
-```{r, fig.height=3.6, echo=FALSE}
+```{r fig.height=3.6, echo=FALSE, cache=TRUE}
       exp1__FA_figure
 ```
 `r figure_numbering("exp1__prop_FA_caption")`
@@ -1927,7 +1927,7 @@ For R FAs, there was no significant main effect of stimuli-format, `r exp1__apa_
                      display = FALSE)
 ```
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE}
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
     exp1__fam_hit_interaction_figure
 ```
 `r figure_numbering("exp1__fam_hit_interaction_figure_caption")`
@@ -1940,7 +1940,7 @@ For R FAs, there was no significant main effect of stimuli-format, `r exp1__apa_
                      mean proportion of hits assigned 'Guessing'.", display = FALSE)
 ```
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE}
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
     exp1__guess_hit_interaction_figure
 ```
 `r figure_numbering("exp1__guess_hit_interaction_figure_caption")`
@@ -2924,14 +2924,14 @@ Despite their widespread use, line drawings have been criticised for their relat
 
 \newpage
 ### Method
-```{r exp2--age-gender--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp2--age-gender--tablecaption", 
                      caption = "Gender and age (*SD*) of the current sample.")
 ```
 #### Participants
 A total of `r nrow(exp2__participants)` subjects completed the online experiment (see `r table_numbering("exp2--age-gender--tablecaption", display = "cite")` for a breakdown of the gender and age of the sample). This sample size provided 20 data points for each of the five response types, while also ensuring the experiment did not last too long for participants (approx 25-mins). Subjects were recruited from both voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (where they received payment at the rate of £5/hr), and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (where they received course participation credits).
 
-```{r exp2-age-gend-table-data, include=FALSE, cache=TRUE}
+```{r include=FALSE, cache=TRUE}
     exp2__age_gender <- exp2__participants %>%
         select(age, gender) %>%
         mutate(age = as.double(age))
@@ -2967,7 +2967,7 @@ A total of `r nrow(exp2__participants)` subjects completed the online experiment
 ```
 
 `r table_numbering("exp2--age-gender--tablecaption")`
-```{r exp2-age-gend-table, echo=FALSE, cache=TRUE}
+```{r echo=FALSE, cache=TRUE}
     exp2__age_gender_table %>%
         kable("latex", booktabs = T) %>%
         kable_styling(latex_options = "hold_position") %>%
@@ -2983,7 +2983,7 @@ A pool of 136 line drawings [@rossion2004] - depicting common, everyday objects 
 
 The matching process produced a total of 408 unique photographs. All were imported into Adobe Photoshop (20.0.04 Release), where the background was removed to isolate the object of interest from other potentially distracting visual details. This was completed manually using the magnetic lasso and polygonal lasso tools (edges were either feathered by 1px or left un-feathered). The orientation of isolated objects was adjusted to ensure they matched as closely as possible with their line-drawn counterpart (e.g. all photograph variations of the item 'boot' were adjusted so the toe was facing left and the heel facing right, as in the line drawing); this was often achieved by flipping or mirroring the object to 'correct' the direction.
 
-```{r define-photo-manipulation-caption, echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering(name = "photo-manipulation-examples",
                      caption = "Examples of background and text removal in photograph items.")
 ```
@@ -2994,13 +2994,8 @@ All photographs were exported from Photoshop in “.png” format in both their 
 
 &nbsp;
 &nbsp;
-```{r photo-manipulation-examples-image, echo=FALSE, out.width = '100%', cache=TRUE}
+```{r echo=FALSE, out.width = '100%', cache=TRUE}
     knitr::include_graphics("./resources/images/photo-manipulation-examples.png")
-#\begin{figure}[H]
-#\centering
-#\includegraphics[width=\textwidth]{photo-manipulation-exmaples}
-#\caption{`r figure_numbering("photo-manipulation-examples")`}\label{photo-manipulation-exmaples}
-#\end{figure}
 ```
 &nbsp;
 &nbsp;
@@ -3022,14 +3017,14 @@ Due to the slight change in procedure and increased task complexity, Mental Imag
 
 All responses were self-paced; the timing was only controlled during the study/imagine section of the Mental Imagery Agreement block.
 
-```{r define-men-ima-procedure-caption, echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering(name = "exp2__men_ima_procedure",
                      caption = "Data collection procedure for Mental Imagery Agreement responses.")
 ```
 
 &nbsp;
 &nbsp;
-```{r men-ima-procedure-image, echo=FALSE, out.width = '100%', cache=TRUE}
+```{r echo=FALSE, out.width = '100%', cache=TRUE}
     knitr::include_graphics("./resources/images/procedure.png")
 ```
 &nbsp;
@@ -3054,7 +3049,7 @@ A number of variables were calculated prior to analysis. For familiarity, visual
 
 A *H* value of 0 indicates perfect naming agreement (all subjects responded with the same label for that item). Items showing a *H* value of 1 signify two unique names were provided, with identical proportions (e.g. 10 subjects responded "moon" and 10 subjects responded "planet"). As the *H* value increases, overall naming agreement decreases.
 
-```{r naming-data, include=FALSE, cache=TRUE}
+```{r include=FALSE, cache=TRUE}
 ##  Create norms table:
     exp2__colvsgreynorms <- tribble(
         ~"Variable", ~"lines", ~"grey_shaded", ~"col_shaded", ~"grey_photo", ~"col_photo",
@@ -3161,7 +3156,7 @@ A *H* value of 0 indicates perfect naming agreement (all subjects responded with
 ### Results
 Summary statistics (mean and *SD*) for each of the measured variables are shown in `r table_numbering("exp2__colvsgreynorms--tablecaption", display = "cite")`. Data for the grey and colour photographs are presented alongside previously obtained normative values for a number of other stimuli formats (all obtained from @rossion2004, who published revised norms for @snodgrass1980's (S&V) original line drawings, as well as their own re-drawn versions that contained shading and texture detail). The data from previous studies were not used in any statistical analyses. To examine whether the grey and colour photographs from the current study demonstrated any differences, a series of independent samples t-tests were run on each variable, as well as their corresponding reaction times (excluding scores of colour diagnosticity, which were obtained only in response to the colour items and thus cannot be compared). Mean (and *SD*) values for all x816 unique photograph items are presented in  `r appendix_numbering("exp2.full.norms", display = "cite")`. 
 
-```{r , echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp2__colvsgreynorms--tablecaption",
                     caption = "Summary statistics for each of the measured variables. Mean values are presented 
                               in bold (SDs are shown in parentheses).")
@@ -3175,17 +3170,17 @@ Naming accuracy was very high for all photographs (*M* = `r exp2__mean_naming_ac
 A mean reaction time (RT) of (`r exp2__mean_naming_rt`s) was observed for naming responses. While this was of little interest on its own, and could not be compared to those obtained in response to the other stimuli formats as our methodology was slightly different (RTs were only recorded when subjects had typed their response *and* clicked the mouse to signify they had finished), they were useful for marking comparisons between the grey and colour items (though no difference was observed [*M* grey = `r exp2__mean_grey_naming_rt`s, *M* colour = `r exp2__mean_col_naming_rt`s, `r exp2__apa__naming_rt__ttest$statistic`]). Overall, these analyses suggest that the current photographs closely resemble the drawings they were designed to match, with high levels of naming accuracy and agreement among subjects. The absence of any colour differences indicates there were no naming advantages when photographs were made even more distinctive through the addition of colour. 
 
 `r table_numbering("exp2__colvsgreynorms--tablecaption")`
-```{r, echo=FALSE, cache=TRUE}
-  exp2__colvsgreynorms_table %>%
-      kable("latex", booktabs = T, align = "lcccccc") %>%
-      kable_styling(latex_options = c("hold_position", "condensed")) %>%
-      add_header_above(c(" " = 1, "Rossion & Pourtois (2004)" = 3, " " = 1, "Current study" = 2)) %>%
-      column_spec(1, width = "13em") %>%
-      column_spec(2:4, width = "3.8em") %>%
-      column_spec(5, width = "2em") %>%
-      column_spec(6:7, width = "3.8em") %>%
-      row_spec(c(1,3,6,9,12,15), bold = TRUE) %>%
-      row_spec(c(2,4,7,10,13,16), italic = TRUE)
+```{r echo=FALSE, cache=TRUE}
+    exp2__colvsgreynorms_table %>%
+        kable("latex", booktabs = T, align = "lcccccc") %>%
+        kable_styling(latex_options = c("hold_position", "condensed")) %>%
+        add_header_above(c(" " = 1, "Rossion & Pourtois (2004)" = 3, " " = 1, "Current study" = 2)) %>%
+        column_spec(1, width = "13em") %>%
+        column_spec(2:4, width = "3.8em") %>%
+        column_spec(5, width = "2em") %>%
+        column_spec(6:7, width = "3.8em") %>%
+        row_spec(c(1,3,6,9,12,15), bold = TRUE) %>%
+        row_spec(c(2,4,7,10,13,16), italic = TRUE)
 ```
 
 #### *Mental imagery agreement*
@@ -4315,7 +4310,7 @@ Based on the results of Experiment 1, which compared recognition to for words an
     exp3__n.eng.lang <- round((exp3__n.eng.lang / nrow(exp3__participant.info)) * 100, 2)
 ```
 
-```{r exp3__age-gender--tablecaption, echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp3__age.gender__table.caption", 
                      caption = "Gender and age (*SD*) of the current sample.")
 ```
@@ -4324,7 +4319,7 @@ Based on the results of Experiment 1, which compared recognition to for words an
 A total of `r nrow(exp3__participant.info)` subjects completed the online experiment (see `r table_numbering("exp3__age.gender__table.caption", display = "cite")` for a breakdown of the gender and age of the sample). To meet our YA requirements, all participants were required to be between 18-59 years of age (actual range: `r min(exp3__participant.info$age, na.rm = TRUE)`-`r max(exp3__participant.info$age, na.rm = TRUE)`). As our experiment involved English word stimuli, we also asked subjects whether English was their first language; the vast majority (`r exp3__n.eng.lang`%) reported that English was indeed their first language. Subjects were recruited from voluntary participation websites such as \href{https://www.prolific.co/}{Prolific Academic} (`r exp3__n.prolific`%), where payment at the rate of £5/hr was given, and via the in-school \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r exp3__n.sona`%), where they received course participation credits. A small number of participants were also recruited from \href{https://psych.hanover.edu/research/exponnet.html}{Psychological Research on the Net} (`r exp3__n.hanover`%). In order to detect a medium effect size of Cohen’s *f* = 0.25 with 80% power (*α* = .05, two-tailed), G*Power indicated that we would need 79 participants per group (*N* = 158) in a 3x2 mixed ANOVA.
 
 `r table_numbering("exp3__age.gender__table.caption")`
-```{r, echo=FALSE, cache=TRUE}
+```{r echo=FALSE, cache=TRUE}
     exp3__age.gender__table %>%
         mutate(Age = round(Age,2)) %>%
         mutate(SD = round(SD,2)) %>%
@@ -4372,7 +4367,7 @@ in analyses.
 A series of 3x2 mixed ANOVAs were conducted on each of the DVs, using a within-subjects factor of stimuli format (words / grey drawings / grey photos) and a between-subjects factor of response option (RFG / RFBG); the Greenhouse-Geisser correction was applied when data was found to violate the assumption of sphericity (assessed using Mauchlys test statistic). Significant main effects of stimuli format (and interaction effects) were assessed using Bonferroni-adjusted pairwise comparisons. When no interaction effects were present, significant main effects of response option were assessed via standard two sample t-tests (when group variances were equal) or Welch two sample t-test (when variances were not equal); variance was assessed using Levene's test. 
 
 #### Stimuli distinctiveness
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  Exp3 Hits:                                                                                                  ##
 ##################################################################################################################
@@ -4582,7 +4577,7 @@ table_numbering(name = "exp3__prop.hit.FA.d.prime__table", caption = "Mean propo
 
 &nbsp;
 `r table_numbering("exp3__prop.hit.FA.d.prime__table")`
-```{r, echo=FALSE, cache=TRUE}
+```{r echo=FALSE, cache=TRUE}
     exp3__prop.hit.FA.d.prime__table %>%
         kable("latex", booktabs = T) %>%
         kable_styling(latex_options = "hold_position") %>%
@@ -4598,7 +4593,7 @@ The ANOVA on the mean proportion of FAs also demonstrated a significant main eff
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
 figure_numbering(name = "exp3__d.prime__interaction.figure", caption = "Interaction plot between stimuli format and response option for d' scores.")
 ```
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
     exp3__d.prime__interaction.figure
 ```
 `r figure_numbering("exp3__d.prime__interaction.figure")`
@@ -4607,7 +4602,7 @@ figure_numbering(name = "exp3__d.prime__interaction.figure", caption = "Interact
 Results from the ANOVA on mean *d'* scores showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__d.prime.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__d.prime__interaction.figure", display = "cite")`). While *d'* scores were numerically higher for words and grey photographs in the RFG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "Grey photographs") %>% pull(emmean),2)`) compared to the RFBG group (words *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`; grey photographs *M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "Grey photographs") %>% pull(emmean),2)`), neither were significantly different from one another (words: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGword_RFGword %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; grey photographs: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreyphoto_RFGgreyphoto %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`. For grey drawings, however, this pattern was reversed; *d'* scores were numerically higher in the RFBG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFBG" & stim == "Grey drawings") %>% pull(emmean),2)`) rather than the RFG condition (*M* = `r round(exp3__d.prime__interaction.means %>% filter(resp_option == "RFG" & stim == "Grey drawings") %>% pull(emmean),2)`); though again, these means were not significantly different from one another (grey drawings: `r papaja::apa_print(exp3__d.prime__pairs__interaction)$statistic$RFBGgreydrawing_RFGgreydrawing %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). 
 
 ##### Recollection and Familiarity
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  Exp3 Prop R Hits:                                                                                           ##
 ##################################################################################################################
@@ -4909,8 +4904,8 @@ Results from the ANOVA on mean *d'* scores showed a significant interaction betw
 
 To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp3__prop.hit.RFG__figure", display = "cite")`).
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=FALSE}
-exp3__prop.hit.RFG__figure
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
+    exp3__prop.hit.RFG__figure
 ```
 `r figure_numbering("exp3__prop.hit.RFG__figure")`
     
@@ -4920,7 +4915,7 @@ figure_numbering(name = "exp3__prop.hit.R__interaction.figure", caption = "Inter
 ```
 Results from the ANOVA on the mean proportion of hits assigned Recollection showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.hit.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__prop.hit.R__interaction.figure", display = "cite")`).
 
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
     exp3__prop.hit.R__interaction.figure
 ```
 `r figure_numbering("exp3__prop.hit.R__interaction.figure")`
@@ -4937,7 +4932,7 @@ figure_numbering(name = "exp3__prop.hit.F__interaction.figure", caption = "Inter
 ###### Familiarity (hits)
 Results from the ANOVA on the mean proportion of hits assigned Familiarity showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp3__prop.hit.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp3__prop.hit.F__interaction.figure", display = "cite")`).
 
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
     exp3__prop.hit.F__interaction.figure
 ```
 `r figure_numbering("exp3__prop.hit.F__interaction.figure")`
@@ -4950,7 +4945,7 @@ Response option condition had no effect on the proportion of F hits obtained, fo
 ###### Guessing (hits)
 The ANOVA on the mean proportion of hits assigned Guessing demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer G hits in comparison to both words (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.photo.vs.word`) and grey drawings (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.photo.vs.grey.drawing`). The grey drawings (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of G hits compared to words (*M*= `r round(exp3__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.hit.G__ttest__grey.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.hit.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  Exp3 Prop R FAs:                                                                                            ##
 ##################################################################################################################
@@ -5211,14 +5206,14 @@ The ANOVA on the mean proportion of hits assigned Guessing demonstrated a signif
             plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
             plot.margin = margin(20, 20, 24, 30))    
 ```
-```{r exp3__prop-rec-fam-guess-FAs--figurecaption, echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering(name = "exp3__prop.FA.RFG__figure",
                      caption = "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response option condition.")
 ```
 
 To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of FAs assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp3__prop.FA.RFG__figure", display = "cite")`).
 
-```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=FALSE}
+```{r fig.width=7, fig.height=5.5, echo=FALSE, cache=TRUE}
     exp3__prop.FA.RFG__figure
 ```
 `r figure_numbering("exp3__prop.FA.RFG__figure")`    
@@ -5234,7 +5229,7 @@ The ANOVA for FAs assigned *Familiarity* showed a significant main effect of sti
 The ANOVA on the mean proportion of FAs assigned *Guessing* demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) produced significantly fewer G FAs in comparison to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.word`). Likewise, grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of FAs compared to words (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.drawing.vs.word`. However, there was no significant difference in the proportion of FAs assigned Guessing between grey photographs (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.photo") %>% pull(emmean),2)`) and grey drawings (*M*= `r round(exp3__prop.FA.G__stim.means %>% filter(stim == "grey.drawing") %>% pull(emmean),2)`; `r exp3__prop.FA.G__ttest__grey.photo.vs.grey.drawing`). There were also no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp3__prop.FA.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
 #### Response option availability
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  Exp3 Resp option main effects table:                                                                        ##
 ##################################################################################################################
@@ -5279,7 +5274,7 @@ For the mean proportion of hits, follow up t-tests showed a higher proportion of
 
 &nbsp;
 `r table_numbering("exp3__resp.option__main.effects__table")`
-```{r, echo=FALSE, cache=TRUE}
+```{r echo=FALSE, cache=TRUE}
     exp3__resp.option__main.effects__table %>%
         kable("markdown", booktabs = T, full_width= T, align=rep('r', 3))
 ```
@@ -5828,7 +5823,7 @@ The current experiment aims to establish whether colour information facilitates 
     exp4__n.eng.lang <- nrow(exp4__participant.info %>% filter(eng_first_lang == "yes"))
     exp4__n.eng.lang <- round((exp4__n.eng.lang / nrow(exp4__participant.info)) * 100, 2)    
 ```
-```{r, echo=FALSE, results = FALSE, cache=FALSE}
+```{r echo=FALSE, results = FALSE, cache=FALSE}
     table_numbering(name = "exp4__age.gender__table", caption = "Gender and age (*SD*) of the current sample.")
 ```
 
@@ -5838,7 +5833,7 @@ The current experiment aims to establish whether colour information facilitates 
 
 \newpage
 `r table_numbering("exp4__age.gender__table")`
-```{r, echo=FALSE, cache=TRUE}
+```{r echo=FALSE, cache=TRUE}
     exp4__age.gender__table %>%
         mutate(Age = round(Age,2)) %>%
         mutate(SD = round(SD,2)) %>%
@@ -5883,7 +5878,7 @@ Subjects were excluded from analyses on the basis of two key criteria; 1) less t
 A series of 3x2 mixed ANOVAs were conducted on each of the DVs, with a within-subjects factor of stimuli format (words / colour drawings / colour photos) and a between-subjects factor of response option (RFG / RFBG). Significant main effects and interaction effects were followed-up with Bonferroni-adjusted pairwise comparisons. Greenhouse-Geisser corrections were applied when ANOVA data was found to violate the assumption of sphericity (assessed according to Mauchly's test statistic). 
 
 #### Stimuli distinctiveness
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  Exp4 Hits:                                                                                                  ##
 ##################################################################################################################
@@ -6136,7 +6131,7 @@ Results from the ANOVAs demonstrated a significant main effect of stimuli format
 
 \newpage
 `r table_numbering("exp3.and.4__prop.hit.FA.d.prime__table")`
-```{r, echo=FALSE, cache=FALSE}
+```{r echo=FALSE, cache=TRUE}
     exp3.and.4__prop.hit.FA.d.prime__table %>%
         kable("latex", booktabs = T, align = "llccccllccc", escape = FALSE) %>%
         kable_styling(latex_options = c("scale_down", "hold_position"), full_width = F, 
@@ -6158,7 +6153,7 @@ To determine whether photo superiority effects were exhibited in the current set
 
 Visual inspection of the data (and significant results) reveals only one difference with regard to response option when compared to that obtained in *Experiment 3*: the ANOVA on *d'* scores failed to produce a significant interaction between stimuli format and response option in the current experiment, as was previously demonstrated. Previous follow-up comparisons revealed this interaction was driven by numerically higher *d'* scores for drawings in the RFBG group compared to the RFG group - a deviation from words and photographs, whereby *d'* scores were both higher in the RFG group compared to the RFBG group. The difference between *d'* scores for drawings in the RFG and RFBG groups did not reach significance though, and this negligible difference may explain why such an interaction was absent in the current study.
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  Exp4 Prop R Hits:                                                                                           ##
 ##################################################################################################################
@@ -6467,7 +6462,7 @@ Visual inspection of the data (and significant results) reveals only one differe
 #### Recollection and Familiarity
 \hfill\break To determine the effects of stimuli format and response option on the classification of recognition memory judgements, separate 3 (stimuli format: words, drawings, photographs) x 2 (response option condition: RFG-judgements, RFBG-judgements) mixed ANOVAs were conducted on the mean proportion of hits assigned Recollection, Familiarity, and Guessing (see `r figure_numbering("exp4__prop.hit.RFG__figure", display = "cite")`).
 
-```{r, fig.height=8.2, echo=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
+```{r fig.height=8.2, echo=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
     exp3__prop.hit.RFG__figure1 <-
         ggplot(exp3__prop.hit.RFG__figure.data, aes(x = stim, y = emmean, fill = rfg)) +
         scale_fill_manual("legend", values = c("Recollection" = "#202124", "Familiarity" = "#808083",
@@ -6509,7 +6504,7 @@ figure_numbering(name = "exp4__prop.hit.R__interaction.figure", caption = "Inter
 ```
 **Recollection (hits):** Results from the ANOVA on the mean proportion of hits assigned Recollection showed a significant interaction between stimuli format and response option condition, `r apa::anova_apa(exp4__prop.hit.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp4__prop.hit.R__interaction.figure", display = "cite")`).
 
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
     exp4__prop.hit.R__interaction.figure
 ```
 `r figure_numbering("exp4__prop.hit.R__interaction.figure")`
@@ -6522,7 +6517,7 @@ The interaction is evident following comparisons of the same stimuli format acro
 
 **Guessing (hits):** The ANOVA on the mean proportion of hits assigned Guessing demonstrated a significant main effect of stimuli format `r apa::anova_apa(exp4__prop.hit.G.aov, effect = "stim", format = "rmarkdown", print = FALSE)`. Colour photographs (*M*= `r round(exp4__prop.hit.G__stim.means %>% filter(stim == "col.photo") %>% pull(emmean),2)`) produced significantly fewer G hits in comparison to both words (*M*= `r round(exp4__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp4__prop.hit.G__ttest__col.photo.vs.word`) and colour drawings (*M*= `r round(exp4__prop.hit.G__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`; `r exp4__prop.hit.G__ttest__col.photo.vs.col.drawing`). The colour drawings (*M*= `r round(exp4__prop.hit.G__stim.means %>% filter(stim == "col.drawing") %>% pull(emmean),2)`) also showed a significantly lower proportion of G hits compared to words (*M*= `r round(exp4__prop.hit.G__stim.means %>% filter(stim == "word") %>% pull(emmean),2)`; `r exp4__prop.hit.G__ttest__col.drawing.vs.word`. There were no significant interaction effects between stimuli format and response option condition `r apa::anova_apa(exp4__prop.hit.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)`.
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  Exp4 Prop R FAs:                                                                                            ##
 ##################################################################################################################
@@ -6784,7 +6779,7 @@ Separate 3 (stimuli format: words, drawings, photographs) x 2 (response option c
                      caption = "Proportion of FAs assigned Recollection, Familiarity, and Guessing, by stimuli format and response option condition.")
 ```
 
-```{r, fig.height=8.2, echo=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
+```{r fig.height=8.2, echo=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
     exp3__prop.FA.RFG__figure1 <-
         ggplot(exp3__prop.FA.RFG__figure.data, aes(x = stim, y = emmean, fill = rfg)) +
         scale_fill_manual("legend", values = c("Recollection" = "#202124", "Familiarity" = "#808083",
@@ -6830,7 +6825,7 @@ Separate 3 (stimuli format: words, drawings, photographs) x 2 (response option c
 
 Visual inspection of the data in `r figure_numbering("exp4__prop.hit.RFG__figure", display = "cite")` and `r figure_numbering("exp4__prop.FA.RFG__figure", display = "cite")` demonstrates a highly similar pattern of responding between *Experiment 3* and the current study, and suggest the addition of colour had little impact on RFG response patterns. 
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=FALSE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  exp4 Resp option main effects table:                                                                        ##
 ##################################################################################################################
@@ -6875,7 +6870,7 @@ table_numbering(name = "exp4__resp.option__main.effects__table", caption = "Main
 &nbsp;
 &nbsp;
 `r table_numbering("exp3__resp.option__main.effects__table")`
-```{r, echo=FALSE, cache=FALSE}
+```{r echo=FALSE, cache=TRUE}
     exp4__resp.option__main.effects__table %>%
         kable("markdown", booktabs = T, full_width= T, align=rep('r', 3))
 ```
@@ -6898,7 +6893,7 @@ Stróżak
 
 ## Experiment: Manipulating word distinctiveness
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##  EXPERIMENT 5 DATA PROCESSING:                                                                               ##
 ##################################################################################################################
@@ -8797,7 +8792,7 @@ Roboto (light, 54pt)
 ### Results
 Comparisons are made in relation to the first two experiments of @ensor2019b, the methodologies of which were identical to one another, apart from the number of trials involved (one experiment consisting of 40 trials at study and 80 at test, and the other consisting of 80 trials at study and 160 at test). With regard to trial numbers, the current study sits between the two @ensor2019b experiments, with 60 trials at study and 120 at test.
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##    Exp5 Prop hits:                                                                                           ##
 ##################################################################################################################
@@ -9011,7 +9006,7 @@ Comparisons are made in relation to the first two experiments of @ensor2019b, th
     figure_numbering(name = "exp5__manip.check__figure", caption = "Mean proportion of hits, FAs, and d' scores by stimuli format.")
 ```
 
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=FALSE, warning=FALSE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE, warning=FALSE}
     exp5__manip.check__figure
     exp5__manip.check__figure2
 ```
@@ -9028,12 +9023,12 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
                        caption = "Mean proportion of hits and FAs by stimuli format.")
 ```
 
-```{r fig.width=7, fig.height=5, echo=FALSE, cache=FALSE, warning=FALSE}
+```{r fig.width=7, fig.height=5, echo=FALSE, cache=TRUE, warning=FALSE}
       exp5__figure__rfg.hits
 ```
 `r figure_numbering("exp5__figure__rfg.hits")`
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
 ##    Ensor Prop hits (exp1):                                                                                  ##
 #################################################################################################################
@@ -9245,7 +9240,7 @@ and second [`r apa::anova_apa(ensor.exp2__d.prime.aov, effect = "stim", format =
 &nbsp;
 
 `r table_numbering("exp5__table__ensor.vs.current__d.prime")`
-```{r, echo=FALSE, cache=FALSE}
+```{r echo=FALSE, cache=TRUE}
       exp5__table__ensor.vs.current__d.prime %>%
           kable("latex", booktabs = T, align = "rccc", escape = F) %>%
           kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
@@ -9266,7 +9261,7 @@ The ANOVA on the mean proportion of hits also showed evidence of the distinctive
 &nbsp;
 
 `r table_numbering("exp5__table__ensor.vs.current__hits")`
-```{r, echo=FALSE, cache=FALSE}
+```{r echo=FALSE, cache=TRUE}
       exp5__table__ensor.vs.current__hits %>%
           kable("latex", booktabs = T, align = "rccc", escape = T) %>%
           kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
@@ -9287,7 +9282,7 @@ For the mean proportion of FAs, the second experiment of @ensor2019b showed a si
 &nbsp;
 
 `r table_numbering("exp5__table__ensor.vs.current__FAs")`
-```{r, echo=FALSE, cache=FALSE}
+```{r echo=FALSE, cache=TRUE}
       exp5__table__ensor.vs.current__FAs %>%
           kable("latex", booktabs = T, align = "rccc", escape = F) %>%
           kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
@@ -9300,7 +9295,7 @@ For the mean proportion of FAs, the second experiment of @ensor2019b showed a si
 
 \newpage
 #### Elimination of the PSE: comparison with @ensor2019b
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
       ensor.exp1__d.prime__ttest2 <- ensor.exp1__d.prime %>% filter(stim == "col.word" | 
                                                                       stim == "grey.drawing") %>%
                                       t.test(d.prime~stim, paired=TRUE, data = .)
@@ -9339,7 +9334,7 @@ A key finding in @ensor2019b data was an elimination of the PSE; distinctive wor
 &nbsp;
 
 `r table_numbering("exp5__table__ensor.vs.current__d.prime2")`
-```{r, echo=FALSE, cache=FALSE}
+```{r echo=FALSE, cache=TRUE}
       exp5__table__ensor.vs.current__d.prime2 %>%
           kable("latex", booktabs = T, align = "rccc", escape = F) %>%
           kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
@@ -9350,7 +9345,7 @@ A key finding in @ensor2019b data was an elimination of the PSE; distinctive wor
           pack_rows("Current study", 3, 0)
 ```
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
       ensor.exp1__prop.hit__ttest2 <- ensor.exp1__prop.hit %>% filter(stim == "col.word" | 
                                                                       stim == "grey.drawing") %>%
                                       t.test(prop.hit~stim, paired=TRUE, data = .)
@@ -9389,7 +9384,7 @@ Similarly, @ensor2019b also showed no difference in the number of hits between t
 &nbsp;
 
 `r table_numbering("exp5__table__ensor.vs.current__prop.hit2")`
-```{r, echo=FALSE, cache=FALSE}
+```{r echo=FALSE, cache=TRUE}
       exp5__table__ensor.vs.current__prop.hit2 %>%
           kable("latex", booktabs = T, align = "rccc", escape = F) %>%
           kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
@@ -9401,7 +9396,7 @@ Similarly, @ensor2019b also showed no difference in the number of hits between t
 ```
 
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
       ensor.exp1__prop.FA__ttest2 <- ensor.exp1__prop.FA %>% filter(stim == "col.word" | 
                                                                       stim == "grey.drawing") %>%
                                       t.test(prop.FA~stim, paired=TRUE, data = .)
@@ -9440,7 +9435,7 @@ Finally, @ensor2019b also showed no difference in the number of FAs between the 
 &nbsp;
 
 `r table_numbering("exp5__table__ensor.vs.current__prop.FA2")`
-```{r, echo=FALSE, cache=FALSE}
+```{r echo=FALSE, cache=TRUE}
       exp5__table__ensor.vs.current__prop.FA2 %>%
           kable("latex", booktabs = T, align = "rccc", escape = FALSE) %>%
           kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
@@ -9460,12 +9455,12 @@ To determine if recollection and familiarity response patterns were mediated by 
                        caption = "Mean d' scores by stimuli format and recognition judgement.")
 ```
 
-```{r fig.width=7, fig.height=5, echo=FALSE, cache=FALSE, warning=FALSE}
+```{r fig.width=7, fig.height=5, echo=FALSE, cache=TRUE, warning=FALSE}
       exp5__figure__rfg.d.prime
 ```
 `r figure_numbering("exp5__figure__rfg.d.prime")`
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##    Exp5 Prop R hits:                                                                                         ##
 ##################################################################################################################
@@ -9580,7 +9575,7 @@ Grey photos (*M* = `r exp5__d.prime.R.means__grey.photo`) showed significantly h
 Colour photos (*M* = `r exp5__d.prime.R.means__col.photo`) showed significantly higher *d'* scores than the distinctive words (*M* = `r exp5__d.prime.R.means__col.word`), `r apa::apa(exp5__d.prime.R__ttest5, format = "rmarkdown", print = FALSE)`.
 
 
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##    Exp5 Prop F hits:                                                                                         ##
 ##################################################################################################################
@@ -9701,7 +9696,7 @@ Elimination of the PSE for *d'* scores also extended to grey photos. Mean *d'* s
 Elimination of the PSE for *d'* scores also extended to colour photos. Mean *d'* scores were not significantly different between distinctive words (*M* = `r exp5__d.prime.F.means__col.word`) and colour photos (*M* = `r exp5__d.prime.F.means__col.photo`), `r apa::apa(exp5__d.prime.F__ttest5, format = "rmarkdown", print = FALSE)`.
 
       
-```{r, echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
 ##    Exp5 Prop G hits:                                                                                         ##
 ##################################################################################################################
