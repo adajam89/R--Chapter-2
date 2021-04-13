@@ -76,7 +76,7 @@ output: html_notebook
     ##  Count total number of shown items at study (should be 60):
           group_by(study_id) %>%
           add_tally(shown_format == "word" | shown_format == "picture", sort = FALSE, 
-                    name = "study.resp__total") %>%
+                    name = "study.total__n.resps") %>%
     ##  Count total number of shown words at study (should be 30):
           add_tally(shown_format == "word", sort = FALSE, name = "study.word__n.resps") %>%
     ##  Count total number of shown pics at study (should be 30):
@@ -90,7 +90,7 @@ output: html_notebook
     ##  Count total number of correct responses at study (max 60):
           mutate(study.total__n.correct = study.word__n.correct + study.pic__n.correct) %>%
     ##  Convert total number of correct responses at study as proportion:
-          mutate(study.total__percent.correct = study.total__n.correct*(100/study.resp__total)) %>%
+          mutate(study.total__percent.correct = study.total__n.correct*(100/study.total__n.resps)) %>%
     ##  Remove columns with multiple unique values now we've done the totals:
           select(-response, -item_name, -shown_format) %>%
     ##  Reduce data so we have one row per participant:
@@ -98,7 +98,7 @@ output: html_notebook
     ##  Add demongraphics back in:
           right_join(exp1__participant.info, by = "study_id") %>%
     ##  Remove participants that have not fully completed the study phase:
-          filter(study.resp__total == 60)
+          filter(study.total__n.resps == 60)
 
 ##################################################################################################################
 ##    Exp1 test data:                                                                                           ##
@@ -129,9 +129,6 @@ output: html_notebook
     ##    Rename some columns:       
           rename(ip = "ip_address", test_id = "response_id", 
                  comments = "if_you_have_any_comments_about_this_experiment_please_include_them_below") %>%
-    ##    Reorder columns:    
-          select(test_id, ip, start_date, rec_justification, fam_justification, 
-                 both_justification, guess_justification, comments, 5:516, 520:1031, 1033:1672) %>%
     ##    Set ID as the grouping variable:
           mutate(test_id = str_remove_all(test_id, "R_")) %>%
           mutate_all(tolower) %>%
@@ -164,9 +161,6 @@ output: html_notebook
     ##    Rename some columns:       
           rename(ip = "ip_address", test_id = "response_id",
                  comments = "if_you_have_any_comments_about_this_experiment_please_include_them_below") %>%
-    ##    Reorder columns:    
-          select(test_id, ip, start_date, rec_justification, fam_justification, 
-                 both_justification, guess_justification, comments, 5:516, 520:1031, 1033:1672) %>%
     ##    Set ID as the grouping variable:
           mutate(test_id = str_remove_all(test_id, "R_")) %>%
           mutate_all(tolower) %>%
@@ -175,7 +169,7 @@ output: html_notebook
           gather(., "question", "response", -test_id) %>%
           arrange(test_id)
 #------------------------------------------------------------------------------------------------------------------
-      exp1__test.stats <- bind_rows(exp1__data.part1, exp1__data.part2)
+    exp1__test.stats <- bind_rows(exp1__data.part1, exp1__data.part2)
 ##    Temporarily extract justifications:
       exp1__justifications <- exp1__test.stats %>%
           filter(question == "ip" | question == "start_date" | question == "progress" | 
@@ -197,169 +191,69 @@ output: html_notebook
                   "https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
           mutate(question = str_remove_all(question, "_")) %>%
           mutate(question.number = question) %>%
-          mutate(question.number = str_extract(question.number, ".{12}$")) %>%
-          mutate(question.number = ifelse(question.number == str_detect(., "recollection"), "recollection",
-                 "NOOOOOOOOOOOO"))
-                                            
-      write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv')
-      
-      
-      
-                           
-                                            "word", study_list, NA)) %>%
-
-                               
-                               
-                   str_extract(question.number, ".{12}$")) %>%
-
-        
-        
-      
-      
-      %>%
-          mutate(question = str_remove(question, ".{4}$")) %>%
+          mutate(question = str_extract(question, "[a-z0-9_.-]{15}")) %>%
+          mutate(question.number = str_remove(question.number, "[a-z0-9_.-]{15}")) %>%
           mutate(resp_option = case_when(str_detect(question.number, "q3") ~ "rfg",
                                          str_detect(question.number, "q4") ~ "rfg",
                                          str_detect(question.number, "q7") ~ "rfbg",
                                          str_detect(question.number, "q8") ~ "rfbg",
                                          str_detect(question.number, "q11") ~ "rf_ratings",
                                          str_detect(question.number, "q12") ~ "rf_ratings",
-                                         str_detect(question.number, "recollection") ~ "rf_ratings",
-                                         str_detect(question.number, "familiarity") ~ "rf_ratings"))
-      
-      
-
-      
-      
-      %>%
+                                         str_detect(question.number, "tion") ~ "rf_ratings",
+                                         str_detect(question.number, "rity") ~ "rf_ratings")) %>%
           merge(x = ., y = exp1__image_urls, by.x = "question", by.y = "url") %>%
-          select(-question) %>%
-    ##  Remove filler items:
+          arrange(test_id, stim) %>%
+          select(test_id, study_list, resp_option, stim, response, question.number) %>%
+      ##  Remove filler items:
           filter(!str_detect(study_list, 'filler')) %>%
-    ##  Split the 'stim' column up, so item name and stimuli format are separate:
+      ##  Split the 'stim' column up, so item name and stimuli format are separate:
           separate(stim, c("item_name", "shown_format")) %>%
-          arrange(test_id)
-
-      
-      %>%
-    ##  Clearly show which lists were studied as words and pics: 
-          mutate(test_words = ifelse(shown_format == "word", study_list, NA)) %>%
-          mutate(test_pics = ifelse(shown_format == "picture", study_list, NA))
-      
-      
-      %>%
-          select(-study_list) %>%  
-      
-        
-          mutate(rfr_resp_option_type = question) %>%
-
-        
-        
-                  mutate(rfr_resp_option_type = 
-                   ifelse(response == "recollection" | response == "familiarity",
-                          rfr_resp_option_type, "")) %>%
-          mutate(question = str_remove(question,
-                                "timing_https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
-          mutate(question = str_remove(question,
-                                "https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
-          mutate(question = str_remove_all(question, "_")) %>%
-          mutate(question_number = question) %>%
-        
-
-          mutate(question = str_trim(question)) %>%
-
-      
-      
-      %>%
-          fill(resp_option, .direction = "updown") 
-      
-      
-      
-      
-      %>%
-##    Reshape to put RTs on the same row as resp_options):
-          mutate(temp_index = as.double(resp_option)) %>%
-          mutate(index = ifelse((is.na(temp_index) & resp_option == "rfg") & 
-                                  (resp_option == "old" | resp_option == "new"), 'rfg_old_new','rt')) %>%
-          mutate(index = ifelse((is.na(temp_index) & resp_option == "rfbg") & 
-                                  (resp_option == "old" | resp_option == "new"), 'rfbg_old_new', index)) %>%
-          mutate(index = ifelse((is.na(temp_index) & resp_option == "rf_ratings") & 
-                                  (resp_option == "old" | resp_option == "new"), 'rf_ratings_old_new', index)) %>%
-          mutate(index = ifelse((is.na(temp_index) & resp_option == "rfg") & 
-                                  (resp_option != "old" & resp_option != "new"), 'rfg', index)) %>%
-          mutate(index = ifelse((is.na(temp_index) & resp_option == "rfbg") & 
-                                  (resp_option != "old" & resp_option != "new"), 'rfbg', index)) %>%
-          mutate(index = ifelse((is.na(temp_index) & 
-                                   resp_option == "rf_ratings" & rfr_resp_option_type == "recollection") & 
-                                  (resp_option != "old" & resp_option != "new"), 'rec_rating', index)) %>%
-          mutate(index = ifelse((is.na(temp_index) & 
-                                   resp_option == "rf_ratings" & rfr_resp_option_type == "familiarity") & 
-                                  (resp_option != "old" & resp_option != "new"), 'fam_rating', index)) %>%
-          select(-rfr_resp_option_type, -temp_index, -question_number) %>%
-          as.data.frame()
-#------------------------------------------------------------------------------------------------------------------
-      exp1__test.stats <- reshape(exp1__test.stats, idvar=c('test_id','question'), timevar='index', 
-                                 direction="wide") %>%
-          as_tibble(exp1__study_data, .name_repair) %>%
-          unite("old_new", resp_option.rfg, resp_option.rfbg, 
-                resp_option.rf_ratings_old_new, remove = TRUE, na.rm = TRUE) %>%
-          select(-resp_option.rfg_old_new, -resp_option.rfg, -resp_option.rf_ratings_old_new, 
-                 -resp_option.rec_rating, -resp_option.fam_rating, -resp_option.rfbg_old_new, 
-                 -resp_option.rfbg) %>%
-##    Recode RF-Ratings resp_options to better show rec/fam:
-          mutate(resp_option.rec_rating = str_remove_all(resp_option.rec_rating, " ")) %>%
-          mutate(resp_option.rec_rating = str_remove_all(resp_option.rec_rating, "(?<=.{1}).+")) %>%
-          mutate(resp_option.rec_rating = str_c("rec_", resp_option.rec_rating)) %>%
-          mutate(resp_option.fam_rating = str_remove_all(resp_option.fam_rating, " ")) %>%
-          mutate(resp_option.fam_rating = str_remove_all(resp_option.fam_rating, "(?<=.{1}).+")) %>%
-          mutate(resp_option.fam_rating = str_c("fam_", resp_option.fam_rating)) %>%
-##    Unite columns of the same resp_option type:
-          unite("recfam_1", resp_option.rfg, resp_option.rfbg, resp_option.rec_rating, remove = TRUE, na.rm = TRUE) %>%
-          mutate(recfam_1 = na_if(recfam_1, "")) %>%
-          rename(recfam_2 = "resp_option.fam_rating")
-##    Merge with 'exp1__image_urls' to get proper item names:
-      exp1__image_urls <- exp1__image_urls %>%
-          mutate_all(tolower)
-      exp1__test.stats <- exp1__test.stats %>%
-          merge(., exp1__image_urls, by.x="question", by.y="url") %>%
+      ##  Clearly show which lists were presented as words and pics at test: 
+          mutate(words.at.test = ifelse(shown_format == "word", study_list, NA)) %>%
+          mutate(pics.at.test = ifelse(shown_format == "picture", study_list, NA)) %>%
+      ##  Recode R/F responses for clarity:
+          mutate(response = str_replace(response, "recollection", "rec")) %>%
+          mutate(response = str_replace(response, "familiarity", "fam")) %>%
+          mutate(response = ifelse(question.number == "recollection", str_c("rec_", response), response)) %>%
+          mutate(response = ifelse(question.number == "familiarity", str_c("fam_", response), response)) %>%
+          mutate(response = str_extract(response, "^.{0,5}")) %>%
+          select(-study_list, -question.number) %>%
+      ##  Count total test resp_options (should be 120):
           group_by(test_id) %>%
-          select(-question) %>%
-          arrange(test_id, study_list, stim) %>%
-          rename(old_new_rt = "resp_option.rt", resp_option = "resp_option.rt", 
-                 belong_to_study_list = "study_list") %>%
-##    Remove filler items:
-          filter(!str_detect(belong_to_study_list, 'filler')) %>%
-##    Split the 'stim' column up, so item name and stimuli format are seperate:
-          separate(stim, c("item_name", "stim")) %>%
-##    Count total test resp_options (should be 120):
-          add_tally(stim == "word" | stim == "picture", sort = FALSE, name = "test_total_resp_option") %>%
-##    Count total test resp_options by stim-format (should be 60 each):
-          add_tally(stim == "word", sort = FALSE, name = "test_total_word_resp_option") %>%
-          add_tally(stim == "picture", sort = FALSE, name = "test_total_pic_resp_option") %>%
-##    Calculate mean overall reaction time:
-          mutate(old_new_rt = as.double(old_new_rt)) %>%
-          mutate(mean_old_new_rt_total = mean(old_new_rt)) %>%
-##    Calculate mean word reaction time (all resp_options):
-          mutate(mean_test_rt_word = mean(old_new_rt[stim == "word"])) %>%
-##    Calculate mean pic reaction time (all resp_options):
-          mutate(mean_test_rt_pic = mean(old_new_rt[stim == "picture"]))
+          add_tally(shown_format == "word" | shown_format == "picture", sort = FALSE, 
+                    name = "test.total__n.resps") %>%
+      ##  Count total test resp_options by stim-format (should be 60 each):
+          add_tally(shown_format == "word", sort = FALSE, name = "test.word__n.resps") %>%
+          add_tally(shown_format == "picture", sort = FALSE, name = "test.pic__n.resps")
+            
+       write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv')
+
+          
+          
+
+       
 ##    Add justifications back in: 
       exp1__test.stats <- exp1__test.stats %>%
           merge(., exp1__justifications, by = "test_id") %>%
           select(test_id, ip, start_date, rec_justification, fam_justification, both_justification,
                  guess_justification, comments, resp_option, item_name, stim, belong_to_study_list, 
-                 old_new, old_new_rt, recfam_1, recfam_2, test_total_resp_option, test_total_word_resp_option, 
-                 test_total_pic_resp_option, mean_old_new_rt_total, mean_test_rt_word, mean_test_rt_pic) %>%
+                 old_new, old_new_rt, recfam_1, recfam_2, test.total__n.resps, test.word__n.resps, 
+                 test.pic__n.resps, mean_old_new_rt_total, mean_test_rt_word, mean_test_rt_pic) %>%
           mutate_if(is.character, list(~na_if(., ""))) %>%
           rename( test_start_time = "start_date")
 ##    Remove Ps with incomplete test data:
       exp1__incomplete_exp1__test.stats <- exp1__test.stats %>%
-          select(test_id, test_total_resp_option) %>%
+          select(test_id, test.total__n.resps) %>%
           distinct(test_id, .keep_all = TRUE) %>%
-          filter(test_total_resp_option != 120) %>%
+          filter(test.total__n.resps != 120) %>%
           pull(test_id)
       exp1__test.stats <- exp1__test.stats %>%
           filter(!test_id %in% exp1__incomplete_exp1__test.stats)
+      
+      
+      
+      
+      
 ####################################################################################################################
 ##    Match study across seperate study and test files:                                                           ##
 ####################################################################################################################
@@ -702,7 +596,7 @@ output: html_notebook
         mutate(resp_option = toupper(resp_option)) %>%
         mutate(resp_option = str_replace(resp_option, "RF_RATINGS", "RF_Ratings")) %>%
         mutate(age = na_if(age, 0)) %>%
-        mutate_at(vars(age, study.resp__total, study.word__n.resps, study.pic__n.resps,
+        mutate_at(vars(age, study.total__n.resps, study.word__n.resps, study.pic__n.resps,
                        study.word__n.correct, study_correct_pic, study_correct, study.total__percent.correct,
                        mean_study_rt_total, mean_study_rt_corr_word, mean_study_rt_corr_pic), as.numeric)
 #################################################################################################################
