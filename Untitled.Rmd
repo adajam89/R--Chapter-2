@@ -12,396 +12,68 @@ output:
 ---
 
 
+
+  
 ```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
-        RFG__totals <- exp1__full_data %>% 
-            filter (resp_optiononseOption == "RFG") %>% 
-            select(total_hits, total_miss, total_FA, total_CR, 
-                   exp1__word_d_prime, exp1__pic_d_prime, word_c, pic_c) %>%
-            mutate(prop_RFG_hit = total_hits / (total_hits + total_miss)) %>%
-            mutate(prop_RFG_FA = total_FA / (total_FA + total_CR)) %>%
-            mutate(prop_RFG_recog = prop_RFG_hit - prop_RFG_FA) %>%
-            mutate(total_d_prime = exp1__word_d_prime + exp1__pic_d_prime) %>%
-            mutate(total_c = word_c + pic_c)
-        RFBG__totals <- exp1__full_data %>% 
-            filter (resp_optiononseOption == "RFBG") %>% 
-            select(total_hits, total_miss, total_FA, total_CR, 
-                   exp1__word_d_prime, exp1__pic_d_prime, word_c, pic_c) %>%
-            mutate(prop_RFBG_hit = total_hits / (total_hits + total_miss)) %>%
-            mutate(prop_RFBG_FA = total_FA / (total_FA + total_CR)) %>%
-            mutate(prop_RFBG_recog = prop_RFBG_hit - prop_RFBG_FA) %>%
-            mutate(total_d_prime = exp1__word_d_prime + exp1__pic_d_prime) %>%
-            mutate(total_c = word_c + pic_c)
-        RFR__totals <- exp1__full_data %>% 
-            filter (resp_optiononseOption == "RF_Ratings") %>% 
-            select(total_hits, total_miss, total_FA, total_CR,
-                   exp1__word_d_prime, exp1__pic_d_prime, word_c, pic_c) %>%
-            mutate(prop_RFR_hit = total_hits / (total_hits + total_miss)) %>%
-            mutate(prop_RFR_FA = total_FA / (total_FA + total_CR)) %>%
-            mutate(prop_RFR_recog = prop_RFR_hit - prop_RFR_FA) %>%
-            mutate(total_d_prime = exp1__word_d_prime + exp1__pic_d_prime) %>%
-            mutate(total_c = word_c + pic_c)
-        
-        exp1__hit.FA.recog.table <- tribble(
-          ~"stim", ~"d'", ~"c", ~"Hits",  ~"FAs", ~"Overall recognition",
-          "Words",      mean(exp1__full_data$exp1__word_d_prime),
-                            mean(exp1__full_data$word_c),
-                                mean(exp1__full_data$prop.hit__word), 
-                                    mean(exp1__full_data$prop.FA__word),
-                                        mean(exp1__full_data$recog__word),
-          "Pictures",   mean(exp1__full_data$exp1__pic_d_prime),
-                            mean(exp1__full_data$pic_c),
-                                mean(exp1__full_data$prop.hit__pic), 
-                                    mean(exp1__full_data$prop.FA__pic),
-                                        mean(exp1__full_data$recog__pic),
-          "RFG",        mean(RFG__totals$total_d_prime),
-                            mean(RFG__totals$total_c),
-                                mean(RFG__totals$prop_RFG_hit), 
-                                    mean(RFG__totals$prop_RFG_FA),
-                                        mean(RFG__totals$prop_RFG_recog),
-          "RFBG",       mean(RFBG__totals$total_d_prime),
-                            mean(RFBG__totals$total_c),
-                                mean(RFBG__totals$prop_RFBG_hit), 
-                                    mean(RFBG__totals$prop_RFBG_FA),
-                                        mean(RFBG__totals$prop_RFBG_recog),
-          "RF Ratings", mean(RFR__totals$total_d_prime),
-                            mean(RFR__totals$total_c),
-                                mean(RFR__totals$prop_RFR_hit), 
-                                    mean(RFR__totals$prop_RFR_FA),
-                                        mean(RFR__totals$prop_RFR_recog)) %>%
-          mutate_if(is.numeric, round, 2) %>%
-          column_to_rownames(var = "stim")
+##################################################################################################################
+##  Exp1 Prop F Hits:                                                                                           ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp1__prop.hit.F.aov <- afex::aov_ez('id', 'prop.hit.F', fun_aggregate = mean, exp1__prop.hit.F,
+                                         between = "resp_option", within = 'stim',
+                                         anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp1__prop.hit.F.aov__sphericity <- test_sphericity(exp1__prop.hit.F.aov)
+##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+    exp1__prop.hit.F.aov <- afex::aov_ez('id', 'prop.hit.F', fun_aggregate = mean, exp1__prop.hit.F,
+                                         between = "resp_option", within = 'stim',
+                                         anova_table=list(correction = "GG", es = "ges"))
+##-----------------------------------------------------------------------------------------------------------------
+##  Significant INTERACTION, so perform paired contrasts:
+    exp1__prop.hit.F__pairs__interaction <- 
+        pairs(emmeans(exp1__prop.hit.F.aov, ~ resp_option:stim), adjust = "bonferroni")
+##  Get all means:
+    exp1__prop.hit.F__stim.means <- as.tibble(summary(emmeans(exp1__prop.hit.F.aov, ~stim)))
+    exp1__prop.hit.F__resp.option.means <- as.tibble(summary(emmeans(exp1__prop.hit.F.aov, ~resp_option)))    
+    exp1__prop.hit.F__interaction.means <- as.tibble(summary(emmeans(exp1__prop.hit.F.aov, ~stim:resp_option))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "pic", "Pictures")) %>%
+        transform(stim = factor(stim, levels=c("Words","Pictures")))
 ```
 
-
-
- 
 ```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
-###################################################################################################################
-##    Analysis - Prop Rec hits ANOVA:                                                                            ##
-###################################################################################################################
-      exp1__rec_hit_anova_data <- exp1__full_data %>%
-          select(id, resp_optiononseOption, prop.hit.R.total__pic, prop.hit.R.total__word) %>%
-          rename(picture = "prop.hit.R.total__pic", word = "prop.hit.R.total__word") %>%
-          gather(key = "stimuliFormat", value = "rec_hit", picture, word) %>%
-          ungroup() %>%
-          mutate_at(vars("id", "resp_optiononseOption", "stimuliFormat"), factor) %>%
-          mutate(stimuliFormat = str_replace(stimuliFormat, "word", "Words")) %>%
-          mutate(stimuliFormat = str_replace(stimuliFormat, "picture", "Pictures")) %>%
-          transform(stimuliFormat = factor(stimuliFormat, levels=c("Words","Pictures"))) %>%
-          transform(resp_optiononseOption = factor(resp_optiononseOption, levels=c("RFG","RFBG", "RF_Ratings")))
-##    2-way mixed ANOVA:
-      exp1__anova_prop_rec_hit <- aov_ez("id", "rec_hit", exp1__rec_hit_anova_data, between = "resp_optiononseOption",
-                                         within = "stimuliFormat")
-##    Post-hoc contrasts:
-##    stimuli-format:
-      exp1__anova_prop_rec_hit_stim_emmeans <- emmeans(exp1__anova_prop_rec_hit, ~ stimuliFormat)
-      exp1__anova_prop_rec_hit_stim_pairwise <- pairs(exp1__anova_prop_rec_hit_stim_emmeans)
-##    resp_optiononse-options:
-      exp1__anova_prop_rec_hit_resp_option_emmeans <- emmeans(exp1__anova_prop_rec_hit, ~ resp_optiononseOption)
-      exp1__anova_prop_rec_hit_resp_option_pairwise <- pairs(exp1__anova_prop_rec_hit_resp_option_emmeans)
-##    Interaction: 
-      exp1__anova_prop_rec_hit_interaction_emmeans <- 
-        emmeans(exp1__anova_prop_rec_hit, c("resp_optiononseOption", "stimuliFormat"))
-      exp1__anova_prop_rec_hit_interaction_pairwise_resp_optionoption <- 
-          emmeans(exp1__anova_prop_rec_hit, "resp_optiononseOption", by = "stimuliFormat")
-      exp1__anova_prop_rec_hit_interaction_pairwise_resp_optionoption <- 
-          pairs(exp1__anova_prop_rec_hit_interaction_pairwise_resp_optionoption)
-      exp1__anova_prop_rec_hit_interaction_pairwise_stimformat <- 
-          emmeans(exp1__anova_prop_rec_hit, "stimuliFormat", by = "resp_optiononseOption")
-      exp1__anova_prop_rec_hit_interaction_pairwise_stimformat <- 
-          pairs(exp1__anova_prop_rec_hit_interaction_pairwise_stimformat)
-#------------------------------------------------------------------------------------------------------------------
-#   Format results for report:
-#------------------------------------------------------------------------------------------------------------------
-      exp1__apa_anova_prop_rec_hit <- papaja:::apa_print.afex_aov(exp1__anova_prop_rec_hit)
-##    Main effects:
-      exp1__apa_anova_prop_rec_hit$full$stimuliFormat <- exp1__apa_anova_prop_rec_hit$full$stimuliFormat
-      exp1__apa_anova_prop_rec_hit$full$resp_optiononseOption <- exp1__apa_anova_prop_rec_hit$full$resp_optiononseOption
-      exp1__apa_anova_prop_rec_hit$full$resp_optiononseOption_stimuliFormat <-
-          exp1__apa_anova_prop_rec_hit$full$resp_optiononseOption_stimuliFormat
-##    Pairwise (stim-format):
-      exp1__apa_anova_prop_rec_hit_stim_emmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_stim_emmeans)
-      exp1__pics_prop_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_stim_emmeans$estimate$Pictures %>% 
-          str_remove("\\,.*")
-      exp1__words_prop_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_stim_emmeans$estimate$Words %>% 
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_rec_hit_stim_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_stim_pairwise)
-      exp1__pics_words_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_stim_pairwise$full %>% 
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-##    Pairwise (resp_option-option):
-      exp1__apa_anova_prop_rec_hit_resp_option_emmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_resp_option_emmeans)
-      exp1__rfg_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_emmeans$estimate$RFG %>% 
-          str_remove("\\,.*")
-      exp1__rfbg_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_emmeans$estimate$RFBG %>% 
-          str_remove("\\,.*")
-      exp1__rfr_rec_hit_mean <- exp1__apa_anova_prop_rec_hit_resp_option_emmeans$estimate$RF_Ratings %>% 
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_rec_hit_resp_option_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_rec_hit_resp_option_pairwise)
-      exp1__rfg_rfbg_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_resp_option_pairwise$full$RFG_RFBG %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-      exp1__rfg_rfr_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-      exp1__rfbg_rfr_rec_hit_ttest <- exp1__apa_anova_prop_rec_hit_resp_option_pairwise$full$RFBG_RF_Ratings %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-      exp1__rec_hit_figure_data <- as.tibble(exp1__anova_prop_rec_hit_interaction_emmeans) %>%
-          select(-df, -lower.CL, -upper.CL)
-###################################################################################################################
-##    Analysis - Prop Fam hits ANOVA:                                                                            ##
-###################################################################################################################
-      exp1__fam_hit_anova_data <- exp1__full_data %>%
-          select(id, resp_optiononseOption, prop.hit.F.total__pic, prop.hit.F.total__word) %>%
-          rename(picture = "prop.hit.F.total__pic", word = "prop.hit.F.total__word") %>%
-          gather(key = "stimuliFormat", value = "fam_hit", picture, word) %>%
-          ungroup() %>%
-          mutate_at(vars("id", "resp_optiononseOption", "stimuliFormat"), factor) %>%
-          mutate(stimuliFormat = str_replace(stimuliFormat, "word", "Words")) %>%
-          mutate(stimuliFormat = str_replace(stimuliFormat, "picture", "Pictures")) %>%
-          transform(stimuliFormat = factor(stimuliFormat, levels=c("Words","Pictures"))) %>%
-          transform(resp_optiononseOption = factor(resp_optiononseOption, levels=c("RFG","RFBG", "RF_Ratings")))
-##    2-way mixed ANOVA:
-      exp1__anova_prop_fam_hit <- aov_ez("id", "fam_hit", exp1__fam_hit_anova_data, 
-                                         between = "resp_optiononseOption", within = "stimuliFormat")
-##    Post-hoc contrasts:
-##    stimuli-format:
-      exp1__anova_prop_fam_hit_stim_emmeans <- emmeans(exp1__anova_prop_fam_hit, ~ stimuliFormat)
-      exp1__anova_prop_fam_hit_stim_pairwise <- pairs(exp1__anova_prop_fam_hit_stim_emmeans)
-##    resp_optiononse-options:
-      exp1__anova_prop_fam_hit_resp_option_emmeans <- emmeans(exp1__anova_prop_fam_hit, ~ resp_optiononseOption)
-      exp1__anova_prop_fam_hit_resp_option_pairwise <- pairs(exp1__anova_prop_fam_hit_resp_option_emmeans)
-##    Interaction: 
-      exp1__anova_prop_fam_hit_interaction_emmeans <- 
-          emmeans(exp1__anova_prop_fam_hit, c("resp_optiononseOption", "stimuliFormat"))
-      exp1__anova_prop_fam_hit_interaction_pairwise_resp_optionoption <- 
-          emmeans(exp1__anova_prop_fam_hit, "resp_optiononseOption", by = "stimuliFormat")
-      exp1__anova_prop_fam_hit_interaction_pairwise_resp_optionoption <- 
-          pairs(exp1__anova_prop_fam_hit_interaction_pairwise_resp_optionoption)
-      exp1__anova_prop_fam_hit_interaction_pairwise_stimformat <- 
-          emmeans(exp1__anova_prop_fam_hit, "stimuliFormat", by = "resp_optiononseOption")
-      exp1__anova_prop_fam_hit_interaction_pairwise_stimformat <- 
-          pairs(exp1__anova_prop_fam_hit_interaction_pairwise_stimformat)
-#------------------------------------------------------------------------------------------------------------------
-#   Format results for report:
-#------------------------------------------------------------------------------------------------------------------
-      exp1__apa_anova_prop_fam_hit <- papaja:::apa_print.afex_aov(exp1__anova_prop_fam_hit)
-##    Main effects:
-      exp1__apa_anova_prop_fam_hit$full$stimuliFormat <- exp1__apa_anova_prop_fam_hit$full$stimuliFormat
-      exp1__apa_anova_prop_fam_hit$full$resp_optiononseOption <- exp1__apa_anova_prop_fam_hit$full$resp_optiononseOption
-      exp1__apa_anova_prop_fam_hit$full$resp_optiononseOption_stimuliFormat <- 
-          exp1__apa_anova_prop_fam_hit$full$resp_optiononseOption_stimuliFormat
-##    Pairwise (stim-format):
-      exp1__apa_anova_prop_fam_hit_stim_emmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_stim_emmeans)
-      exp1__pics_prop_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_stim_emmeans$estimate$Pictures %>% 
-          str_remove("\\,.*")
-      exp1__words_prop_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_stim_emmeans$estimate$Words %>% 
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_fam_hit_stim_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_stim_pairwise)
-      exp1__pics_words_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_stim_pairwise$full %>% 
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-##    Pairwise (resp_option-option):
-      exp1__apa_anova_prop_fam_hit_resp_option_emmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_resp_option_emmeans)
-      exp1__rfg_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_emmeans$estimate$RFG %>% 
-          str_remove("\\,.*")
-      exp1__rfbg_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_emmeans$estimate$RFBG %>% 
-          str_remove("\\,.*")
-      exp1__rfr_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_resp_option_emmeans$estimate$RF_Ratings %>% 
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_fam_hit_resp_option_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_resp_option_pairwise)
-      exp1__rfg_rfbg_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_resp_option_pairwise$full$RFG_RFBG %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-      exp1__rfg_rfr_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-      exp1__rfbg_rfr_fam_hit_ttest <- exp1__apa_anova_prop_fam_hit_resp_option_pairwise$full$RFBG_RF_Ratings %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")  
-##    Pairwise (interaction):
-      exp1__apa_anova_prop_fam_hit_interaction_emmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_emmeans)
-      exp1__rfg_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RFG_Words %>% 
-          str_remove("\\,.*")
-      exp1__rfg_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RFG_Pictures %>% 
-          str_remove("\\,.*")
-      exp1__rfbg_words_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RFBG_Words %>% 
-          str_remove("\\,.*")
-      exp1__rfbg_pics_fam_hit_mean <- exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RFBG_Pictures %>% 
-          str_remove("\\,.*")
-      exp1__rfr_words_fam_hit_mean <- 
-          exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RF_Ratings_Words %>% 
-          str_remove("\\,.*")
-      exp1__rfr_pics_fam_hit_mean <- 
-          exp1__apa_anova_prop_fam_hit_interaction_emmeans$estimate$RF_Ratings_Pictures %>% 
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat <-
-          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_pairwise_stimformat)
-      exp1__apa_anova_prop_fam_hit_interaction_pairwise_resp_optionoption <-
-          papaja:::apa_print.emmGrid(exp1__anova_prop_fam_hit_interaction_pairwise_resp_optionoption)
-#------------------------------------------------------------------------------------------------------------------
-#   Interaction figure:
-#------------------------------------------------------------------------------------------------------------------
-      exp1__fam_hit_figure_data <- as.tibble(exp1__anova_prop_fam_hit_interaction_emmeans) %>%
-          select(-df, -lower.CL, -upper.CL)
-##    Labels (replaces plot legend):
-      exp1__fam_hit_interaction_figure_labels <- exp1__fam_hit_figure_data %>%
-          select(stimuliFormat, resp_optiononseOption, emmean) %>%
-          filter(stimuliFormat == "Pictures") %>%
-          mutate(label = case_when(
-              resp_optiononseOption == "RFG" ~ "RFG",
-              resp_optiononseOption == "RFBG" ~ "RFBG",
-              resp_optiononseOption == "RF_Ratings" ~ "RF Ratings")) %>%
-          group_by(stimuliFormat, resp_optiononseOption, label)
-##    Figure:
-      exp1__fam_hit_interaction_figure <- exp1__fam_hit_figure_data %>%
-          ggplot() +
-          aes(x = stimuliFormat, color = resp_optiononseOption, group = resp_optiononseOption, y = emmean) +
-          stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
-          stat_summary(fun.y = mean, geom = "line", size = 1.2) +
-          geom_text(size = 4, aes(label = label, color = resp_optiononseOption), nudge_x = 0.08, hjust = 0,
-                    data = exp1__fam_hit_interaction_figure_labels) +
-          scale_color_manual(values = c('#8ec6c5', '#7d9ab5', '#8566aa')) +
-          labs(x = "stimuli-format", y = "Mean proportion of hits assigned:  'Familiarity'") +
-          scale_y_continuous(limits = c(0, 1),
-                             breaks = c(0, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1),
-                             expand = c(0, 0)) +
-          theme_classic() +
-          theme(legend.position = "none",
-                axis.title.x = element_text(size = 10, vjust = -4),
-                axis.text.x = element_text(size = 10),
-                axis.title.y = element_text(size = 10, vjust = 6),
-                axis.text.y = element_text(size = 10),
-                plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
-                plot.margin = margin(20, 20, 24, 30))
-###################################################################################################################
-##    Analysis - Prop Guess hits ANOVA:                                                                          ##
-###################################################################################################################
-      exp1__guess_hit_anova_data <- exp1__full_data %>%
-          select(id, resp_optiononseOption, prop.hit.G__pic, prop.hit.G__word) %>%
-          rename(picture = "prop.hit.G__pic", word = "prop.hit.G__word") %>%
-          gather(key = "stimuliFormat", value = "guess_hit", picture, word) %>%
-          ungroup() %>%
-          mutate_at(vars("id", "resp_optiononseOption", "stimuliFormat"), factor) %>%
-          mutate(stimuliFormat = str_replace(stimuliFormat, "word", "Words")) %>%
-          mutate(stimuliFormat = str_replace(stimuliFormat, "picture", "Pictures")) %>%
-          transform(stimuliFormat = factor(stimuliFormat, levels=c("Words","Pictures"))) %>%
-          transform(resp_optiononseOption = factor(resp_optiononseOption, levels=c("RFG","RFBG", "RF_Ratings")))
-##    2-way mixed ANOVA:
-      exp1__anova_prop_guess_hit <- aov_ez("id", "guess_hit", exp1__guess_hit_anova_data, 
-                                           between = "resp_optiononseOption", within = "stimuliFormat")
-##    Post-hoc contrasts:
-##    stimuli-format:
-      exp1__anova_prop_guess_hit_stim_emmeans <- emmeans(exp1__anova_prop_guess_hit, ~ stimuliFormat)
-      exp1__anova_prop_guess_hit_stim_pairwise <- pairs(exp1__anova_prop_guess_hit_stim_emmeans)
-##    resp_optiononse-options:
-      exp1__anova_prop_guess_hit_resp_option_emmeans <- emmeans(exp1__anova_prop_guess_hit, ~ resp_optiononseOption)
-      exp1__anova_prop_guess_hit_resp_option_pairwise <- pairs(exp1__anova_prop_guess_hit_resp_option_emmeans)
-##    Interaction (not significant, but used in bar chart):
-      exp1__anova_prop_guess_hit_interaction_emmeans <- 
-          emmeans(exp1__anova_prop_guess_hit, c("resp_optiononseOption", "stimuliFormat"))
-      exp1__anova_prop_guess_hit_interaction_pairwise_resp_optionoption <- 
-          emmeans(exp1__anova_prop_guess_hit, "resp_optiononseOption", by = "stimuliFormat")
-      exp1__anova_prop_guess_hit_interaction_pairwise_resp_optionoption <- 
-          pairs(exp1__anova_prop_guess_hit_interaction_pairwise_resp_optionoption)
-      exp1__anova_prop_guess_hit_interaction_pairwise_stimformat <- 
-          emmeans(exp1__anova_prop_guess_hit, "stimuliFormat", by = "resp_optiononseOption")
-      exp1__anova_prop_guess_hit_interaction_pairwise_stimformat <- 
-          pairs(exp1__anova_prop_guess_hit_interaction_pairwise_stimformat)
-#------------------------------------------------------------------------------------------------------------------
-#   Format results for report:
-#------------------------------------------------------------------------------------------------------------------
-      exp1__apa_anova_prop_guess_hit <- papaja:::apa_print.afex_aov(exp1__anova_prop_guess_hit)
-##    Main effects:
-      exp1__apa_anova_prop_guess_hit$full$stimuliFormat <- exp1__apa_anova_prop_guess_hit$full$stimuliFormat
-      exp1__apa_anova_prop_guess_hit$full$resp_optiononseOption <- exp1__apa_anova_prop_guess_hit$full$resp_optiononseOption
-      exp1__apa_anova_prop_guess_hit$full$resp_optiononseOption_stimuliFormat <- 
-          exp1__apa_anova_prop_guess_hit$full$resp_optiononseOption_stimuliFormat
-##    Pairwise (stim-format):
-      exp1__apa_anova_prop_guess_hit_stim_emmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_stim_emmeans)
-      exp1__pics_prop_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_stim_emmeans$estimate$Pictures %>%
-          str_remove("\\,.*")
-      exp1__words_prop_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_stim_emmeans$estimate$Words %>%
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_guess_hit_stim_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_stim_pairwise)
-      exp1__pics_words_guess_hit_ttest <- exp1__apa_anova_prop_guess_hit_stim_pairwise$full %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-##    Pairwise (resp_option-option):
-      exp1__apa_anova_prop_guess_hit_resp_option_emmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_resp_option_emmeans)
-      exp1__rfg_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_resp_option_emmeans$estimate$RFG %>% 
-          str_remove("\\,.*")
-      exp1__rfbg_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_resp_option_emmeans$estimate$RFBG %>% 
-          str_remove("\\,.*")
-      exp1__rfr_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_resp_option_emmeans$estimate$RF_Ratings %>% 
-          str_remove("\\,.*")
-      exp1__apa_anova_prop_guess_hit_resp_option_pairwise <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_resp_option_pairwise)
-      exp1__rfg_rfbg_guess_hit_ttest <- exp1__apa_anova_prop_guess_hit_resp_option_pairwise$full$RFG_RFBG %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-      exp1__rfg_rfr_guess_hit_ttest <- exp1__apa_anova_prop_guess_hit_resp_option_pairwise$full$RFG_RF_Ratings %>%
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")
-      exp1__rfbg_rfr_guess_hit_ttest <- 
-          exp1__apa_anova_prop_guess_hit_resp_option_pairwise$full$RFBG_RF_Ratings %>% 
-          str_remove("^(?:[^\\$]*\\$){6}([^\\$]*)")  
-##    Pairwise (interaction):
-      exp1__apa_anova_prop_guess_hit_interaction_emmeans <- 
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_interaction_emmeans)
-      exp1__rfg_words_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RFG_Words %>% 
-          str_remove("\\,.*")
-      exp1__rfg_pics_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RFG_Pictures %>% 
-          str_remove("\\,.*")
-      exp1__rfbg_words_guess_hit_mean <- exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RFBG_Words %>% 
-          str_remove("\\,.*")
-      exp1__rfbg_pics_guess_hit_mean <- 
-          exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RFBG_Pictures %>% str_remove("\\,.*")
-      exp1__rfr_words_guess_hit_mean <- 
-          exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RF_Ratings_Words %>% str_remove("\\,.*")
-      exp1__rfr_pics_guess_hit_mean <- 
-          exp1__apa_anova_prop_guess_hit_interaction_emmeans$estimate$RF_Ratings_Pictures %>% str_remove("\\,.*")
-      exp1__apa_anova_prop_guess_hit_interaction_pairwise_stimformat <-
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_interaction_pairwise_stimformat)
-      exp1__apa_anova_prop_guess_hit_interaction_pairwise_resp_optionoption <-
-          papaja:::apa_print.emmGrid(exp1__anova_prop_guess_hit_interaction_pairwise_resp_optionoption)
-#------------------------------------------------------------------------------------------------------------------
-#   Interaction figure:
-#------------------------------------------------------------------------------------------------------------------
-      exp1__guess_hit_figure_data <- as.tibble(exp1__anova_prop_guess_hit_interaction_emmeans) %>%
-          select(-df, -lower.CL, -upper.CL)
-##    Labels (replaces plot legend):
-      exp1__guess_hit_interaction_figure_labels <- exp1__guess_hit_figure_data %>%
-          select(stimuliFormat, resp_optiononseOption, emmean) %>%
-          filter(stimuliFormat == "Pictures") %>%
-          mutate(label = case_when(
-              resp_optiononseOption == "RFG" ~ "RFG",
-              resp_optiononseOption == "RFBG" ~ "RFBG",
-              resp_optiononseOption == "RF_Ratings" ~ "RF Ratings")) %>%
-          group_by(stimuliFormat, resp_optiononseOption, label)
-##    Figure:
-      exp1__guess_hit_interaction_figure <- exp1__guess_hit_figure_data %>%
-          ggplot() +
-          aes(x = stimuliFormat, color = resp_optiononseOption, group = resp_optiononseOption, y = emmean) +
-          stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
-          stat_summary(fun.y = mean, geom = "line", size = 1.2) +
-          geom_text(size = 4, aes(label = label, color = resp_optiononseOption), nudge_x = 0.08, hjust = 0,
-                    data = exp1__guess_hit_interaction_figure_labels) +
-          scale_color_manual(values = c('#8ec6c5', '#7d9ab5', '#8566aa')) +
-          labs(x = "stimuli-format", y = "Mean proportion of hits assigned:  'Guessing'") +
-          scale_y_continuous(limits = c(0, 1),
-                             breaks = c(0, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1),
-                             expand = c(0, 0)) +
-          theme_classic() +
-          theme(legend.position = "none",
-                axis.title.x = element_text(size = 10, vjust = -4),
-                axis.text.x = element_text(size = 10),
-                axis.title.y = element_text(size = 10, vjust = 6),
-                axis.text.y = element_text(size = 10),
-                plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
-                plot.margin = margin(20, 20, 24, 30))
+##################################################################################################################
+##  Exp1 Prop G Hits:                                                                                           ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp1__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp1__prop.hit.G,
+                                         between = "resp_option", within = 'stim',
+                                         anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp1__prop.hit.G.aov__sphericity <- test_sphericity(exp1__prop.hit.G.aov)
+##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+    exp1__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp1__prop.hit.G,
+                                         between = "resp_option", within = 'stim',
+                                         anova_table=list(correction = "GG", es = "ges"))
+##-----------------------------------------------------------------------------------------------------------------    
+##  Significant INTERACTION, so perform paired contrasts:
+    exp1__prop.hit.F__pairs__interaction <- 
+        pairs(emmeans(exp1__prop.hit.F.aov, ~ resp_option:stim), adjust = "bonferroni")
+##  Get all means:
+    exp1__prop.hit.F__stim.means <- as.tibble(summary(emmeans(exp1__prop.hit.F.aov, ~stim)))
+    exp1__prop.hit.F__resp.option.means <- as.tibble(summary(emmeans(exp1__prop.hit.F.aov, ~resp_option)))    
+    exp1__prop.hit.F__interaction.means <- as.tibble(summary(emmeans(exp1__prop.hit.F.aov, ~stim:resp_option))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "pic", "Pictures")) %>%
+        transform(stim = factor(stim, levels=c("Words","Pictures")))
+```    
+    
+    
+    
+    
+    
+    
+```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
 ###################################################################################################################
 ##    Analysis - Prop Rec FA ANOVA:                                                                              ##
 ###################################################################################################################
@@ -751,11 +423,9 @@ To determine the impact of stimuli format on the rates of R and F, additional 2 
 `r figure_numbering("exp1__prop_FA_caption")`
 \newpage
 
-***Recollection:*** For R hits, there was a significant main effect of stimuli-format, `r exp1__apa_anova_prop_rec_hit$full$stimuliFormat`; pictures (`r exp1__pics_prop_rec_hit_mean`) showed a higher proportion of Recollected hits than words (`r exp1__words_prop_rec_hit_mean`), `r exp1__pics_words_rec_hit_ttest`. 
-For R FAs, there was no significant main effect of stimuli-format, `r exp1__apa_anova_prop_rec_FA$full$stimuliFormat`. There were no significant interaction effects between stimuli format and resp_optiononse option condition for R hits or FAs. 
 
-***Familiarity:*** For F hits, there was a significant interaction between stimuli format and resp_optiononse option, 
-`r exp1__apa_anova_prop_fam_hit$full$resp_optiononseOption_stimuliFormat` (see `r figure_numbering("exp1__fam_hit_interaction_figure_caption", display = "cite")`). Words resulted in more Familiarity hits than pictures in both the RFG group (words: `r exp1__rfg_words_fam_hit_mean`; pictures: `r exp1__rfg_pics_fam_hit_mean`, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat$statistic$RFG_Words_Pictures`) and RFBG group (words: `r exp1__rfbg_words_fam_hit_mean`; pictures: `r exp1__rfbg_pics_fam_hit_mean`, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat$statistic$RFBG_Words_Pictures`). Conversely, pictures (`r exp1__rfr_pics_fam_hit_mean`) resulted in more Familiarity hits than words (`r exp1__rfr_words_fam_hit_mean`) in the RF-Ratings group, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_stimformat$statistic$RF_Ratings_Words_Pictures`. The ANOVA on Familiarity FAs did not yield any significant results; with no significant main effect of stimuli-format, `r exp1__apa_anova_prop_fam_FA$full$stimuliFormat` or significant interaction effects, `r exp1__apa_anova_prop_fam_FA$full$resp_optiononseOption_stimuliFormat`. 
+
+
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering("exp1__fam_hit_interaction_figure_caption", "Interaction plot 

@@ -1,0 +1,846 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+##################################################################################################################
+##    EXPERIMENT 1 DATA PROCESSING:                                                                             ##
+##################################################################################################################
+##    Import unique image URLs (used to replace stim codes with actual item names):
+      exp1__image_urls <- read_csv("./resources/experiment_1/image_urls.csv") %>%
+          mutate(url = str_replace(url,
+              "https:\\/\\/keelepsych.co1.qualtrics.com\\/ControlPanel\\/Graphic.php\\?IM=IM_", "")) %>%
+          mutate_all(tolower)
+##    Import study data (which contains demographics info):
+      exp1__raw.data <- read_csv(
+        "./resources/experiment_1/experiment_1_data/Jamie - RFG Images (1) - STUDY_January 13, 2021_08.21.csv") %>%
+          select(-"StartDate", -"EndDate", -"Status", -"Duration (in seconds)", -"Finished",
+                 -"RecipientLastName", -"RecipientFirstName", -"RecipientEmail", -"ExternalReference",
+                 -"LocationLatitude", -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -"Q1.3",
+                 -"Q1.4", -"Q100", -"Q101", -contains("Last Click"), -contains("Page Submit"), 
+                 -contains("Click Count"), -contains("Q4.5"), -contains("Q5.5"), -contains("Q6.5"),
+                 -contains("Q7.5"), -contains("Q8.5"), -contains("Q9.5"), -contains("Q10.5"), -contains("Q11.5"),
+                 -contains("Q12.5"), -contains("Q13.5"), -contains("Q14.5"), -contains("Q15.5"), 
+                 -contains("Q16.5"), -contains("Q17.5")) %>%
+          row_to_names(row_number = 1) %>%
+          slice(-1) %>%
+          rename(ip = "IP Address", progress = "Progress", study_end_time = "Recorded Date", 
+                 study_id = "Response ID", age = "Your age:", gender = "Your gender:",
+                 eng_first_lang = "Is English your first language?", source = "Source") %>%
+          select(study_id, ip, study_end_time, progress, age, gender, eng_first_lang, source, 8:143, 164:571) %>%
+          mutate(study_id = str_remove_all(study_id, "R_")) %>%
+          mutate_all(tolower) %>%
+          group_by(study_id) %>%
+          arrange(study_id)
+##################################################################################################################
+##    Exp1 Participant info:                                                                                    ##
+##################################################################################################################
+      exp1__participant.info <- exp1__raw.data %>%
+        select(ip, study_end_time, progress, age, gender, eng_first_lang, source) %>%
+    ##  Tidy demographics responses:
+          mutate(gender = replace_na(gender, "unspecified")) %>%
+          mutate(gender = str_replace(gender, "5a6f51ec46f0230001ce445f", "unspecified")) %>%
+          mutate(gender = str_replace(gender, "^f$", "female")) %>%
+          mutate(gender = str_replace(gender, "^m$", "male")) %>%
+          mutate(gender = str_replace(gender, "woman", "female")) %>%
+          mutate(age = as.double(age)) %>%
+          mutate(age = na_if(age, 100)) %>%
+          mutate(eng_first_lang = replace_na(eng_first_lang, "unspecified")) %>% 
+          mutate(source = replace_na(source, "unspecified"))        
+##################################################################################################################
+##    Exp1 study data:                                                                                          ##
+##################################################################################################################
+      exp1__study.data <- exp1__raw.data %>%
+          gather(., "question", "response", -study_id) %>%
+    ##  Remove empty / unimportant rows:
+          drop_na(response) %>%
+          filter(!str_detect(question, "Timing")) %>%
+    ##  Replace stim code with actual item name:    
+          mutate(question = str_remove(question, 
+                  "https:\\/\\/keelepsych.co1.qualtrics.com\\/ControlPanel\\/Graphic.php\\?IM=IM_")) %>%
+          mutate(question = str_remove(question, "\ .+")) %>%
+          mutate(question = str_trim(question)) %>%
+          mutate(question = tolower(question)) %>%
+          merge(x = ., y = exp1__image_urls, by.x = "question", by.y = "url") %>%
+          select(-question) %>%
+          arrange(study_id, response, stim) %>%
+    ##  Remove filler items:
+          filter(!str_detect(study_list, 'filler')) %>%
+    ##  Split the 'stim' column up, so item name and stimuli format are separate:
+          separate(stim, c("item_name", "shown_format")) %>%
+    ##  Clearly show which lists were studied as words and pics: 
+          mutate(studied_words = ifelse(shown_format == "word", study_list, NA)) %>%
+          mutate(studied_pics = ifelse(shown_format == "picture", study_list, NA)) %>%
+          select(-study_list) %>%    
+    ##  Count total number of shown items at study (should be 60):
+          group_by(study_id) %>%
+          add_tally(shown_format == "word" | shown_format == "picture", sort = FALSE, 
+                    name = "study.resp__total") %>%
+    ##  Count total number of shown words at study (should be 30):
+          add_tally(shown_format == "word", sort = FALSE, name = "study.word__n.resps") %>%
+    ##  Count total number of shown pics at study (should be 30):
+          add_tally(shown_format == "picture", sort = FALSE, name = "study.pic__n.resps") %>%
+    ##  Count total number of correct word responses at study (max 30):
+          add_tally(response == "word" & shown_format == "word", sort = FALSE, 
+                    name = "study.word__n.correct") %>%
+    ##  Count total number of correct pic responses at study (max 30):
+          add_tally(response == "picture" & shown_format == "picture", sort = FALSE, 
+                    name = "study.pic__n.correct") %>%
+    ##  Count total number of correct responses at study (max 60):
+          mutate(study.total__n.correct = study.word__n.correct + study.pic__n.correct) %>%
+    ##  Convert total number of correct responses at study as proportion:
+          mutate(study.total__percent.correct = study.total__n.correct*(100/study.resp__total)) %>%
+    ##  Remove columns with multiple unique values now we've done the totals:
+          select(-response, -item_name, -shown_format) %>%
+    ##  Reduce data so we have one row per participant:
+          summarise_all(coalesce_by_column) %>%
+    ##  Add demongraphics back in:
+          right_join(exp1__participant.info, by = "study_id") %>%
+    ##  Remove participants that have not fully completed the study phase:
+          filter(study.resp__total == 60)
+
+##################################################################################################################
+##    Exp1 test data:                                                                                           ##
+##################################################################################################################
+##    Import test data files (output from Qualtrics was too big and would fail, so has to be in 2 parts!).
+##    We have to do some quick tidying to each part before joining (colnames are the same right now (e.g. Q1.1),
+##    but are different after we use row_to_names.
+      exp1__data.part1 <- read_csv(
+        "./resources/experiment_1/experiment_1_data/ AC_P_January 13, 2021_08.23.csv") %>%
+          select(-"EndDate", -"Status", -"Duration (in seconds)", -"Finished", -"RecipientLastName", 
+                 -"RecipientFirstName", -"RecipientEmail", -"ExternalReference", -"LocationLatitude",
+                 -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -contains("Last Click"),
+                 -contains("Page Submit"), -contains("Click Count"), -contains("Q3.8"), -contains("Q4.8"),
+                 -contains("Q5.8"), -contains("Q6.8"), -contains("Q7.8"), -contains("Q8.8"), 
+                 -contains("Q11.9"), -contains("Q12.9")) %>%
+    ##    Merge justification columns from across the three response option conditions:
+          unite("rec_justification", "Q5.2_1", "Q9.2_1", "Q13.2_1", na.rm = TRUE, remove = TRUE) %>%
+          unite("fam_justification", "Q5.2_2", "Q9.2_2", "Q13.2_2", na.rm = TRUE, remove = TRUE) %>%
+          unite("both_justification", "Q9.2_3", "Q13.2_3", na.rm = TRUE, remove = TRUE) %>%
+          unite("guess_justification", "Q5.2_3", "Q9.2_4", "Q13.2_4", na.rm = TRUE, remove = TRUE)
+##    Add column identifiers to the lower rows (since we still have the Qualtrics 3x header rows here):
+      exp1__data.part1$rec_justification[1:2] <- "rec_justification"
+      exp1__data.part1$fam_justification[1:2] <- "fam_justification"
+      exp1__data.part1$both_justification[1:2] <- "both_justification"
+      exp1__data.part1$guess_justification[1:2] <- "guess_justification"
+##    Set correct row for row names (Qualtrics outputs with 3 header rows - we only want one): 
+      exp1__data.part1 <- exp1__data.part1 %>% row_to_names(row_number = 1) %>% clean_names() %>% slice(-1) %>%
+    ##    Rename some columns:       
+          rename(ip = "ip_address", test_id = "response_id", 
+                 comments = "if_you_have_any_comments_about_this_experiment_please_include_them_below") %>%
+    ##    Reorder columns:    
+          select(test_id, ip, start_date, rec_justification, fam_justification, 
+                 both_justification, guess_justification, comments, 5:516, 520:1031, 1033:1672) %>%
+    ##    Set ID as the grouping variable:
+          mutate(test_id = str_remove_all(test_id, "R_")) %>%
+          mutate_all(tolower) %>%
+          group_by(test_id) %>%
+    ##    Reformat from long to wide:
+          gather(., "question", "response", -test_id) %>%
+          arrange(test_id)
+#------------------------------------------------------------------------------------------------------------------
+      exp1__data.part2 <- 
+        read_csv("./resources/experiment_1/experiment_1_data/ BD_P_January 13, 2021_08.22.csv") %>%
+          select(-"EndDate", -"Status", -"Duration (in seconds)", -"Finished", -"RecipientLastName", 
+                 -"RecipientFirstName", -"RecipientEmail", -"ExternalReference", -"LocationLatitude",
+                 -"LocationLongitude", -"DistributionChannel", -"UserLanguage", -contains("Last Click"),
+                  -contains("Page Submit"), -contains("Click Count"), -contains("Q3.8"), -contains("Q4.8"),
+                 -contains("Q5.8"), -contains("Q6.8"), -contains("Q7.8"), -contains("Q8.8"), 
+                 -contains("Q11.9"), -contains("Q12.9")) %>%
+    ##    Merge justification columns from across the three resp_option option conditions:
+          unite("rec_justification", "Q5.2_1", "Q9.2_1", "Q13.2_1", na.rm = TRUE, remove = TRUE) %>%
+          unite("fam_justification", "Q5.2_2", "Q9.2_2", "Q13.2_2", na.rm = TRUE, remove = TRUE) %>%
+          unite("both_justification", "Q9.2_3", "Q13.2_3", na.rm = TRUE, remove = TRUE) %>%
+          unite("guess_justification", "Q5.2_3", "Q9.2_4", "Q13.2_4", na.rm = TRUE, remove = TRUE)
+##    Add column identifiers to the lower rows (since we still have the Qualtrics 3x header rows here):
+      exp1__data.part2$rec_justification[1:2] <- "rec_justification"
+      exp1__data.part2$fam_justification[1:2] <- "fam_justification"
+      exp1__data.part2$both_justification[1:2] <- "both_justification"
+      exp1__data.part2$guess_justification[1:2] <- "guess_justification"
+##    Set correct row for rownames (Qualtrics outputs with 3 header rows - we only want one): 
+      exp1__data.part2 <- exp1__data.part2 %>% row_to_names(row_number = 1) %>% 
+          clean_names() %>% slice(-1) %>%
+    ##    Rename some columns:       
+          rename(ip = "ip_address", test_id = "response_id",
+                 comments = "if_you_have_any_comments_about_this_experiment_please_include_them_below") %>%
+    ##    Reorder columns:    
+          select(test_id, ip, start_date, rec_justification, fam_justification, 
+                 both_justification, guess_justification, comments, 5:516, 520:1031, 1033:1672) %>%
+    ##    Set ID as the grouping variable:
+          mutate(test_id = str_remove_all(test_id, "R_")) %>%
+          mutate_all(tolower) %>%
+          group_by(test_id) %>%
+    ##    Reformat from long to wide:
+          gather(., "question", "response", -test_id) %>%
+          arrange(test_id)
+#------------------------------------------------------------------------------------------------------------------
+      exp1__test.stats <- bind_rows(exp1__data.part1, exp1__data.part2)
+##    Temporarily extract justifications:
+      exp1__justifications <- exp1__test.stats %>%
+          filter(question == "ip" | question == "start_date" | question == "progress" | 
+                 question == "rec_justification" | question == "fam_justification" |
+                 question == "both_justification" | question == "guess_justification" | question == "comments") %>%
+          spread(question, response)
+##    Tidy test data:
+      exp1__test.stats <- exp1__test.stats %>%
+          filter(question != "ip" & question != "start_date" & question != "progress" &
+                   question != "rec_justification" & question != "fam_justification" &
+                   question != "both_justification" & question != "guess_justification" & 
+                   question != "comments") %>%
+    ##  Remove empty / unimportant rows:
+          filter(!str_detect(question, "timing")) %>%
+          drop_na(response) %>%
+          filter(!str_detect(response, "old")) %>%
+    ##  Replace stim code with actual item name:
+          mutate(question = str_remove(question, 
+                  "https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
+          mutate(question = str_remove_all(question, "_")) %>%
+          mutate(question.number = question) %>%
+          mutate(question.number = str_extract(question.number, ".{12}$")) %>%
+          mutate(question.number = ifelse(question.number == str_detect(., "recollection"), "recollection",
+                 "NOOOOOOOOOOOO"))
+                                            
+      write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv')
+      
+      
+      
+                           
+                                            "word", study_list, NA)) %>%
+
+                               
+                               
+                   str_extract(question.number, ".{12}$")) %>%
+
+        
+        
+      
+      
+      %>%
+          mutate(question = str_remove(question, ".{4}$")) %>%
+          mutate(resp_option = case_when(str_detect(question.number, "q3") ~ "rfg",
+                                         str_detect(question.number, "q4") ~ "rfg",
+                                         str_detect(question.number, "q7") ~ "rfbg",
+                                         str_detect(question.number, "q8") ~ "rfbg",
+                                         str_detect(question.number, "q11") ~ "rf_ratings",
+                                         str_detect(question.number, "q12") ~ "rf_ratings",
+                                         str_detect(question.number, "recollection") ~ "rf_ratings",
+                                         str_detect(question.number, "familiarity") ~ "rf_ratings"))
+      
+      
+
+      
+      
+      %>%
+          merge(x = ., y = exp1__image_urls, by.x = "question", by.y = "url") %>%
+          select(-question) %>%
+    ##  Remove filler items:
+          filter(!str_detect(study_list, 'filler')) %>%
+    ##  Split the 'stim' column up, so item name and stimuli format are separate:
+          separate(stim, c("item_name", "shown_format")) %>%
+          arrange(test_id)
+
+      
+      %>%
+    ##  Clearly show which lists were studied as words and pics: 
+          mutate(test_words = ifelse(shown_format == "word", study_list, NA)) %>%
+          mutate(test_pics = ifelse(shown_format == "picture", study_list, NA))
+      
+      
+      %>%
+          select(-study_list) %>%  
+      
+        
+          mutate(rfr_resp_option_type = question) %>%
+
+        
+        
+                  mutate(rfr_resp_option_type = 
+                   ifelse(response == "recollection" | response == "familiarity",
+                          rfr_resp_option_type, "")) %>%
+          mutate(question = str_remove(question,
+                                "timing_https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
+          mutate(question = str_remove(question,
+                                "https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
+          mutate(question = str_remove_all(question, "_")) %>%
+          mutate(question_number = question) %>%
+        
+
+          mutate(question = str_trim(question)) %>%
+
+      
+      
+      %>%
+          fill(resp_option, .direction = "updown") 
+      
+      
+      
+      
+      %>%
+##    Reshape to put RTs on the same row as resp_options):
+          mutate(temp_index = as.double(resp_option)) %>%
+          mutate(index = ifelse((is.na(temp_index) & resp_option == "rfg") & 
+                                  (resp_option == "old" | resp_option == "new"), 'rfg_old_new','rt')) %>%
+          mutate(index = ifelse((is.na(temp_index) & resp_option == "rfbg") & 
+                                  (resp_option == "old" | resp_option == "new"), 'rfbg_old_new', index)) %>%
+          mutate(index = ifelse((is.na(temp_index) & resp_option == "rf_ratings") & 
+                                  (resp_option == "old" | resp_option == "new"), 'rf_ratings_old_new', index)) %>%
+          mutate(index = ifelse((is.na(temp_index) & resp_option == "rfg") & 
+                                  (resp_option != "old" & resp_option != "new"), 'rfg', index)) %>%
+          mutate(index = ifelse((is.na(temp_index) & resp_option == "rfbg") & 
+                                  (resp_option != "old" & resp_option != "new"), 'rfbg', index)) %>%
+          mutate(index = ifelse((is.na(temp_index) & 
+                                   resp_option == "rf_ratings" & rfr_resp_option_type == "recollection") & 
+                                  (resp_option != "old" & resp_option != "new"), 'rec_rating', index)) %>%
+          mutate(index = ifelse((is.na(temp_index) & 
+                                   resp_option == "rf_ratings" & rfr_resp_option_type == "familiarity") & 
+                                  (resp_option != "old" & resp_option != "new"), 'fam_rating', index)) %>%
+          select(-rfr_resp_option_type, -temp_index, -question_number) %>%
+          as.data.frame()
+#------------------------------------------------------------------------------------------------------------------
+      exp1__test.stats <- reshape(exp1__test.stats, idvar=c('test_id','question'), timevar='index', 
+                                 direction="wide") %>%
+          as_tibble(exp1__study_data, .name_repair) %>%
+          unite("old_new", resp_option.rfg, resp_option.rfbg, 
+                resp_option.rf_ratings_old_new, remove = TRUE, na.rm = TRUE) %>%
+          select(-resp_option.rfg_old_new, -resp_option.rfg, -resp_option.rf_ratings_old_new, 
+                 -resp_option.rec_rating, -resp_option.fam_rating, -resp_option.rfbg_old_new, 
+                 -resp_option.rfbg) %>%
+##    Recode RF-Ratings resp_options to better show rec/fam:
+          mutate(resp_option.rec_rating = str_remove_all(resp_option.rec_rating, " ")) %>%
+          mutate(resp_option.rec_rating = str_remove_all(resp_option.rec_rating, "(?<=.{1}).+")) %>%
+          mutate(resp_option.rec_rating = str_c("rec_", resp_option.rec_rating)) %>%
+          mutate(resp_option.fam_rating = str_remove_all(resp_option.fam_rating, " ")) %>%
+          mutate(resp_option.fam_rating = str_remove_all(resp_option.fam_rating, "(?<=.{1}).+")) %>%
+          mutate(resp_option.fam_rating = str_c("fam_", resp_option.fam_rating)) %>%
+##    Unite columns of the same resp_option type:
+          unite("recfam_1", resp_option.rfg, resp_option.rfbg, resp_option.rec_rating, remove = TRUE, na.rm = TRUE) %>%
+          mutate(recfam_1 = na_if(recfam_1, "")) %>%
+          rename(recfam_2 = "resp_option.fam_rating")
+##    Merge with 'exp1__image_urls' to get proper item names:
+      exp1__image_urls <- exp1__image_urls %>%
+          mutate_all(tolower)
+      exp1__test.stats <- exp1__test.stats %>%
+          merge(., exp1__image_urls, by.x="question", by.y="url") %>%
+          group_by(test_id) %>%
+          select(-question) %>%
+          arrange(test_id, study_list, stim) %>%
+          rename(old_new_rt = "resp_option.rt", resp_option = "resp_option.rt", 
+                 belong_to_study_list = "study_list") %>%
+##    Remove filler items:
+          filter(!str_detect(belong_to_study_list, 'filler')) %>%
+##    Split the 'stim' column up, so item name and stimuli format are seperate:
+          separate(stim, c("item_name", "stim")) %>%
+##    Count total test resp_options (should be 120):
+          add_tally(stim == "word" | stim == "picture", sort = FALSE, name = "test_total_resp_option") %>%
+##    Count total test resp_options by stim-format (should be 60 each):
+          add_tally(stim == "word", sort = FALSE, name = "test_total_word_resp_option") %>%
+          add_tally(stim == "picture", sort = FALSE, name = "test_total_pic_resp_option") %>%
+##    Calculate mean overall reaction time:
+          mutate(old_new_rt = as.double(old_new_rt)) %>%
+          mutate(mean_old_new_rt_total = mean(old_new_rt)) %>%
+##    Calculate mean word reaction time (all resp_options):
+          mutate(mean_test_rt_word = mean(old_new_rt[stim == "word"])) %>%
+##    Calculate mean pic reaction time (all resp_options):
+          mutate(mean_test_rt_pic = mean(old_new_rt[stim == "picture"]))
+##    Add justifications back in: 
+      exp1__test.stats <- exp1__test.stats %>%
+          merge(., exp1__justifications, by = "test_id") %>%
+          select(test_id, ip, start_date, rec_justification, fam_justification, both_justification,
+                 guess_justification, comments, resp_option, item_name, stim, belong_to_study_list, 
+                 old_new, old_new_rt, recfam_1, recfam_2, test_total_resp_option, test_total_word_resp_option, 
+                 test_total_pic_resp_option, mean_old_new_rt_total, mean_test_rt_word, mean_test_rt_pic) %>%
+          mutate_if(is.character, list(~na_if(., ""))) %>%
+          rename( test_start_time = "start_date")
+##    Remove Ps with incomplete test data:
+      exp1__incomplete_exp1__test.stats <- exp1__test.stats %>%
+          select(test_id, test_total_resp_option) %>%
+          distinct(test_id, .keep_all = TRUE) %>%
+          filter(test_total_resp_option != 120) %>%
+          pull(test_id)
+      exp1__test.stats <- exp1__test.stats %>%
+          filter(!test_id %in% exp1__incomplete_exp1__test.stats)
+####################################################################################################################
+##    Match study across seperate study and test files:                                                           ##
+####################################################################################################################
+##    List all the unique participants we have in 'participant info': 
+      exp1__unique_p_at_study <- exp1__participant_info %>%
+          select(study_id, ip, study_end_time) %>%
+          rename(time = "study_end_time") %>%
+          mutate(time = str_remove(time , "...$")) %>%
+          arrange(ip, time)
+##    List all unique participants we have in 'exp1__test.stats', and format test_start_time to simplified version:
+      exp1__unique_p_at_test <- exp1__test.stats %>%
+          select(test_id, ip, test_start_time) %>%
+          distinct(test_id, .keep_all = TRUE) %>%
+          rename(time = "test_start_time") %>%
+          mutate(time = as.character(time)) %>%
+##    Remove seconds precision from time data. Study and test times won't match *exactly* because it took a 
+##    couple of seconds for them to redirect from the study project to the test project on Qualtrics, so here 
+##    we remove some precision:
+          mutate(time = str_remove(time , "...$")) %>%        
+          mutate(time = str_replace(time , " ", "_")) %>%
+          mutate(time = str_replace_all(time , "-", "_")) %>%
+          arrange(ip, time)
+##    Here we join 'exp1__unique_p_at_study' with 'exp1__unique_p_at_test' by ip and time. 
+      exp1__all_participants <- exp1__unique_p_at_study %>%
+          full_join(exp1__unique_p_at_test, by = c("ip", "time"))
+##    However, we're left with a few NA rows where no match was found. We now separate those P to investigate,
+##    and determine whether they do match or not (i.e. did the time change by 1-minute whilst P were 
+##    transferring from study > test, hence why a match was not found. 
+      exp1__unmatched <- exp1__all_participants %>%
+          filter(is.na(study_id) | is.na(test_id))
+##    First we see which IPs match (if theres an IP match between a 'study_id' NA row and a 'test_id' NA row,
+##    and their times look similar, it's almost certainly the same person). 
+      exp1__duplicate_ips <- exp1__unmatched %>%
+          group_by(ip) %>% 
+          filter(n()>1)
+##    4 out of 5 duplicate IPs have a very similar times between study and test, and are therefore almost 
+##    certainly the same people. We'll join these rows in 'exp1__all_participants':
+      exp1__all_participants <- exp1__all_participants %>%
+          mutate(test_id = replace(test_id, study_id == "3sbkutkpbz0t7y1", "uenhxpj5gjopn4t")) %>%
+          mutate(test_id = replace(test_id, study_id == "1i3sv43b6k977mc", "3p3jpgswhnvaycz")) %>%
+          mutate(test_id = replace(test_id, study_id == "3i69jnaz1wrx4fq", "247estlk1nx9ljy")) %>%
+          mutate(test_id = replace(test_id, study_id == "pfexrfarjkpsygf", "2fwc8n0fuonvta3")) %>%
+##    After removing the no-longer-needed duplicate rows (because we copied the relevant test_ids into one row), 
+##    we're left with 11 participants that cannot be reconciled. We will exclude these participants, as they are
+##    either missing test data or study data. 
+          drop_na() %>%
+          select(-ip, -time) %>%
+##    Assign new, simpler P ids:
+          rowid_to_column(., "id") %>%
+          mutate(id = as.character(id))
+      exp1__all_participants$id <- str_pad(exp1__all_participants$id, width=3, side="left", pad="0")
+##    Join study and test data for our 'complete' participants:
+      exp1__participant_info <- exp1__participant_info %>%
+          filter(study_id %in% exp1__all_participants$study_id)
+      exp1__test.stats <- exp1__test.stats %>%
+          filter(test_id %in% exp1__all_participants$test_id)
+      exp1__test.stats <- exp1__all_participants %>%
+          full_join(exp1__participant_info, by = "study_id") %>%
+          full_join(exp1__test.stats, by = "test_id") %>%    
+####################################################################################################################
+##    Calculations:                                                                                               ##
+####################################################################################################################
+##    Total hits and misses:
+          add_tally(studied_words == belong_to_study_list & stim == "word" & old_new == "old",
+                    name = "hit__word") %>%
+          add_tally(studied_words == belong_to_study_list & stim == "word" & old_new == "new", 
+                    name = "miss__word") %>%
+          add_tally(studied_pics == belong_to_study_list & stim == "picture" & old_new == "old", 
+                    name = "hit__pic") %>%
+          add_tally(studied_pics == belong_to_study_list & stim == "picture" & old_new == "new", 
+                    name = "miss__pic") %>%
+          mutate(total_hits = hit__word + hit__pic) %>%
+          mutate(total_miss = miss__word + miss__pic) %>%
+##    Total FA and CR:
+          add_tally(studied_words != belong_to_study_list & stim == "word" & old_new == "old",
+                    name = "FA__word") %>%
+          add_tally(studied_words != belong_to_study_list & stim == "word" & old_new == "new", 
+                    name = "CR__word") %>%
+          add_tally(studied_pics != belong_to_study_list & stim == "picture" & old_new == "old", 
+                    name = "FA__pic") %>%
+          add_tally(studied_pics != belong_to_study_list & stim == "picture" & old_new == "new", 
+                    name = "CR__pic") %>%
+          mutate(total_FA = FA__word + FA__pic) %>%
+          mutate(total_CR = CR__word + CR__pic) %>%
+##    Rec/fam hits: 
+          add_tally((studied_words == belong_to_study_list & stim == "word") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "recollection") |
+                         (resp_option == "rf_ratings" & recfam_1 == "rec_3" | 
+                            recfam_1 == "rec_4" | recfam_1 == "rec_5")), name = "hit.R__word") %>%
+          add_tally((studied_words == belong_to_study_list & stim == "word") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "familiarity") |
+                         (resp_option == "rf_ratings" & recfam_2 == "fam_3" | 
+                            recfam_2 == "fam_4" | recfam_2 == "fam_5")), name = "hit.F__word") %>%
+          add_tally((studied_words == belong_to_study_list & stim == "word") & 
+                      recfam_1 == "both", name = "hit__word_both") %>%
+          add_tally((studied_words == belong_to_study_list & stim == "word") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "guessing") |
+                         (resp_option == "rf_ratings" & (recfam_1 == "rec_0" & recfam_2 == "fam_0"))),
+                            name = "hit.G__word") %>%
+        
+          add_tally((studied_pics == belong_to_study_list & stim == "picture") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "recollection") |
+                         (resp_option == "rf_ratings" & recfam_1 == "rec_3" | 
+                            recfam_1 == "rec_4" | recfam_1 == "rec_5")), name = "hit.R__pic") %>%
+          add_tally((studied_pics == belong_to_study_list & stim == "picture") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "familiarity") |
+                         (resp_option == "rf_ratings" & recfam_2 == "fam_3" | 
+                            recfam_2 == "fam_4" | recfam_2 == "fam_5")), name = "hit.F__pic") %>%
+          add_tally((studied_pics == belong_to_study_list & stim == "picture") & 
+                      recfam_1 == "both", name = "hit__pic_both") %>%
+          add_tally((studied_pics == belong_to_study_list & stim == "picture") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "guessing") |
+                         (resp_option == "rf_ratings" & (recfam_1 == "rec_0" & recfam_2 == "fam_0"))),
+                            name = "hit.G__pic") %>%
+##    Rec/fam FA: 
+          add_tally((studied_words != belong_to_study_list & stim == "word") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "recollection") |
+                         (resp_option == "rf_ratings" & recfam_1 == "rec_3" | 
+                            recfam_1 == "rec_4" | recfam_1 == "rec_5")), name = "FA.R__word") %>%
+          add_tally((studied_words != belong_to_study_list & stim == "word") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "familiarity") |
+                         (resp_option == "rf_ratings" & recfam_2 == "fam_3" | 
+                            recfam_2 == "fam_4" | recfam_2 == "fam_5")), name = "FA.F__word") %>%
+          add_tally((studied_words != belong_to_study_list & stim == "word") & 
+                      recfam_1 == "both", name = "FA__word_both") %>%
+          add_tally((studied_words != belong_to_study_list & stim == "word") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "guessing") |
+                         (resp_option == "rf_ratings" & (recfam_1 == "rec_0" & recfam_2 == "fam_0"))),
+                            name = "FA.G__word") %>%
+          add_tally((studied_pics != belong_to_study_list & stim == "picture") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "recollection") |
+                         (resp_option == "rf_ratings" & recfam_1 == "rec_3" | 
+                            recfam_1 == "rec_4" | recfam_1 == "rec_5")), name = "FA.R__pic") %>%
+          add_tally((studied_pics != belong_to_study_list & stim == "picture") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "familiarity") |
+                         (resp_option == "rf_ratings" & recfam_2 == "fam_3" | 
+                            recfam_2 == "fam_4" | recfam_2 == "fam_5")), name = "FA.F__pic") %>%
+          add_tally((studied_pics != belong_to_study_list & stim == "picture") & 
+                      recfam_1 == "both", name = "FA__pic_both") %>%
+          add_tally((studied_pics != belong_to_study_list & stim == "picture") & 
+                      ((resp_option != "rf_ratings" & recfam_1 == "guessing") |
+                         (resp_option == "rf_ratings" & (recfam_1 == "rec_0" & recfam_2 == "fam_0"))),
+                            name = "FA.G__pic") %>%
+          na_if(., 0) %>%
+          select(-item_name, -old_new, -old_new_rt, -recfam_1, -recfam_2) %>%
+          summarise_all(coalesce_by_column) %>%
+          mutate_all(~replace_na(., 0)) %>%
+          arrange(id) %>%
+        
+####################################################################################################################
+##  Calculate proportions:                                                                                        ##
+####################################################################################################################
+##    Total prop hits and misses:
+          mutate(prop.hit__word = hit__word / (hit__word + miss__word)) %>%
+          mutate(prop.miss__word = miss__word / (hit__word + miss__word)) %>%
+          mutate(prop.hit__pic = hit__pic / (hit__pic + miss__pic)) %>% 
+          mutate(prop.miss__pic = miss__pic / (hit__pic + miss__pic)) %>%
+##    Total prop FA and CR:
+          mutate(prop.FA__word = FA__word / (FA__word + CR__word)) %>%
+          mutate(prop.CR__word = CR__word / (FA__word + CR__word)) %>%
+          mutate(prop.FA__pic = FA__pic / (FA__pic + CR__pic)) %>% 
+          mutate(prop.CR__pic = CR__pic / (FA__pic + CR__pic)) %>% 
+##    Prop rec/fam hits:
+          mutate(prop.hit.R__word = hit.R__word / hit__word) %>%
+          mutate(prop.hit.F__word = hit.F__word / hit__word) %>%
+          mutate(prop.hit.B__word = hit__word_both / hit__word) %>%
+          mutate(prop.hit.G__word = hit.G__word / hit__word) %>%
+          mutate(prop.hit.R__pic = hit.R__pic / hit__pic) %>%
+          mutate(prop.hit.F__pic = hit.F__pic / hit__pic) %>%
+          mutate(prop.hit.B__pic = hit__pic_both / hit__pic) %>%
+          mutate(prop.hit.G__pic = hit.G__pic / hit__pic) %>%
+##    TOTAL prop: 
+          mutate(prop.hit.R.total__word = ifelse(resp_option == "rfbg", prop.hit.R__word + prop.hit.B__word, 
+                                                  prop.hit.R__word)) %>%
+          mutate(prop.hit.F.total__word = ifelse(resp_option == "rfbg", prop.hit.F__word + prop.hit.B__word, 
+                                                  prop.hit.F__word)) %>%
+          mutate(prop.hit.R.total__pic = ifelse(resp_option == "rfbg", prop.hit.R__pic + prop.hit.B__pic, 
+                                                 prop.hit.R__pic)) %>%
+          mutate(prop.hit.F.total__pic = ifelse(resp_option == "rfbg", prop.hit.F__pic + prop.hit.B__pic, 
+                                                 prop.hit.F__pic)) %>%
+##    Prop rec/fam FA:
+          mutate(prop.FA.R__word = FA.R__word / FA__word) %>%
+          mutate(prop.FA.F__word = FA.F__word / FA__word) %>%
+          mutate(prop.FA.B__word = FA__word_both / FA__word) %>%
+          mutate(prop.FA.G__word = FA.G__word / FA__word) %>%
+          mutate(prop.FA.R__pic = FA.R__pic / FA__pic) %>%
+          mutate(prop.FA.F__pic = FA.F__pic / FA__pic) %>%
+          mutate(prop.FA.B__pic = FA__pic_both / FA__pic) %>%
+          mutate(prop.FA.G__pic = FA.G__pic / FA__pic) %>%
+##    TOTAL prop: 
+          mutate(prop.FA.R.total__word = 
+              ifelse(resp_option == "rfbg", prop.FA.R__word + prop.FA.B__word, prop.FA.R__word)) %>%
+          mutate(prop.FA.F.total__word = 
+              ifelse(resp_option == "rfbg", prop.FA.F__word + prop.FA.B__word, prop.FA.F__word)) %>%
+          mutate(prop.FA.R.total__pic = 
+              ifelse(resp_option == "rfbg", prop.FA.R__pic + prop.FA.B__pic, prop.FA.R__pic)) %>%
+          mutate(prop.FA.F.total__pic = 
+              ifelse(resp_option == "rfbg", prop.FA.F__pic + prop.FA.B__pic, prop.FA.F__pic)) %>%
+####################################################################################################################
+##    Accuracy:                                                                                                   ##
+####################################################################################################################
+    ##  Word accuracy:
+          mutate(acc.R__word__raw = hit.R__word / (hit.R__word + FA.R__word)) %>%
+          mutate(acc.F__word__raw = hit.F__word / (hit.F__word + FA.F__word)) %>%
+          mutate(acc.B__word__raw = hit__word_both / (hit__word_both + FA__word_both)) %>%
+          mutate(acc.G__word__raw = hit.G__word / (hit.G__word + FA.G__word)) %>%
+    ##  Pic accuracy:
+          mutate(acc.R__pic__raw = hit.R__pic / (hit.R__pic + FA.R__pic)) %>%
+          mutate(acc.F__pic__raw = hit.F__pic / (hit.F__pic + FA.F__pic)) %>%
+          mutate(acc.B__pic__raw = hit__pic_both / (hit__pic_both + FA__pic_both)) %>%
+          mutate(acc.G__pic__raw = hit.G__pic / (hit.G__pic + FA.G__pic)) %>%
+##    Accuracy totals:
+          mutate(acc.R__word__total = 
+              ifelse(resp_option == "rfbg", ((hit.R__word + hit__word_both) / (hit.R__word + hit__word_both +
+                  FA.R__word + FA__word_both)), acc.R__word__raw)) %>%
+          mutate(acc.F__word__total = 
+              ifelse(resp_option == "rfbg", ((hit.F__word + hit__word_both) / (hit.F__word + hit__word_both +
+                  FA.F__word + FA__word_both)), acc.F__word__raw)) %>%
+          mutate(acc.R__pic__total = 
+              ifelse(resp_option == "rfbg", ((hit.R__pic + hit__pic_both) / (hit.R__pic + hit__pic_both + 
+                  FA.R__pic + FA__pic_both)), acc.R__pic__raw)) %>%
+          mutate(acc.F__pic__total = 
+              ifelse(resp_option == "rfbg", ((hit.F__pic + hit__pic_both) / (hit.F__pic + hit__pic_both + 
+                  FA.F__pic + FA__pic_both)), acc.F__pic__raw)) %>%        
+####################################################################################################################
+##    Recog:                                                                                                      ##
+####################################################################################################################
+        mutate(recog__word = prop.hit__word - prop.FA__word) %>%
+        mutate(recog__pic = prop.hit__pic - prop.FA__pic) %>%   
+####################################################################################################################
+##    Calculate z-scores:                                                                                         ##
+####################################################################################################################
+    ##  z-scores:
+        mutate("z.hit__word" = qnorm((hit__word + 0.5) / (hit__word + miss__word + 1))) %>%
+        mutate("z.FA__word" = qnorm((FA__word + 0.5) / (FA__word + CR__word + 1))) %>%
+        mutate("z.hit__pic" = qnorm((hit__pic + 0.5) / (hit__pic + miss__pic + 1))) %>%
+        mutate("z.FA__pic" = qnorm((FA__pic + 0.5) / (FA__pic + CR__pic + 1)))
+####################################################################################################################
+##    Calculate d-prime:                                                                                          ##
+####################################################################################################################
+##  Words:  --------------------------------------------------------------------------------------------------------
+##  Overall:
+    exp1__word.d.prime <- exp1__test.stats %>%
+        select(id, prop.hit__word, prop.FA__word) %>%
+        mutate(prop.hit__word = replace(prop.hit__word, prop.hit__word == 1, .99)) %>%
+        mutate(prop.hit__word = replace(prop.hit__word, prop.hit__word == 0, .01)) %>%
+        mutate(prop.FA__word = replace(prop.FA__word, prop.FA__word == 1, .99)) %>%
+        mutate(prop.FA__word = replace(prop.FA__word, prop.FA__word == 0, .01)) %>%
+        mutate(d.prime__word = qnorm(prop.hit__word) - qnorm(prop.FA__word)) %>%
+        select(id, d.prime__word)
+##  Rec:
+    exp1__word.d.prime__R <- exp1__test.stats %>%
+        select(id, prop.hit.R__word, prop.FA.R__word) %>%
+        mutate(prop.hit.R__word = replace(prop.hit.R__word, prop.hit.R__word == 1, .99)) %>%
+        mutate(prop.hit.R__word = replace(prop.hit.R__word, prop.hit.R__word == 0, .01)) %>%
+        mutate(prop.FA.R__word = replace(prop.FA.R__word, prop.FA.R__word == 1, .99)) %>%
+        mutate(prop.FA.R__word = replace(prop.FA.R__word, prop.FA.R__word == 0, .01)) %>%
+        mutate(d.prime.R__word = qnorm(prop.hit.R__word) - qnorm(prop.FA.R__word)) %>%
+        select(id, d.prime.R__word)
+##  Fam:
+    exp1__word.d.prime__F <- exp1__test.stats %>%
+        select(id, prop.hit.F__word, prop.FA.F__word) %>%
+        mutate(prop.hit.F__word = replace(prop.hit.F__word, prop.hit.F__word == 1, .99)) %>%
+        mutate(prop.hit.F__word = replace(prop.hit.F__word, prop.hit.F__word == 0, .01)) %>%
+        mutate(prop.FA.F__word = replace(prop.FA.F__word, prop.FA.F__word == 1, .99)) %>%
+        mutate(prop.FA.F__word = replace(prop.FA.F__word, prop.FA.F__word == 0, .01)) %>%
+        mutate(d.prime.F__word = qnorm(prop.hit.F__word) - qnorm(prop.FA.F__word)) %>%
+        select(id, d.prime.F__word)
+##  Both:
+    exp1__word.d.prime__B <- exp1__test.stats %>%
+        select(id, prop.hit.B__word, prop.FA.B__word) %>%
+        mutate(prop.hit.B__word = replace(prop.hit.B__word, prop.hit.B__word == 1, .99)) %>%
+        mutate(prop.hit.B__word = replace(prop.hit.B__word, prop.hit.B__word == 0, .01)) %>%
+        mutate(prop.FA.B__word = replace(prop.FA.B__word, prop.FA.B__word == 1, .99)) %>%
+        mutate(prop.FA.B__word = replace(prop.FA.B__word, prop.FA.B__word == 0, .01)) %>%
+        mutate(d.prime.B__word = qnorm(prop.hit.B__word) - qnorm(prop.FA.B__word)) %>%
+        select(id, d.prime.B__word)
+##  Guessing:
+    exp1__word.d.prime__G <- exp1__test.stats %>%
+        select(id, prop.hit.G__word, prop.FA.G__word) %>%
+        mutate(prop.hit.G__word = replace(prop.hit.G__word, prop.hit.G__word == 1, .99)) %>%
+        mutate(prop.hit.G__word = replace(prop.hit.G__word, prop.hit.G__word == 0, .01)) %>%
+        mutate(prop.FA.G__word = replace(prop.FA.G__word, prop.FA.G__word == 1, .99)) %>%
+        mutate(prop.FA.G__word = replace(prop.FA.G__word, prop.FA.G__word == 0, .01)) %>%
+        mutate(d.prime.G__word = qnorm(prop.hit.G__word) - qnorm(prop.FA.G__word)) %>%
+        select(id, d.prime.G__word)
+##  Pictures:  -----------------------------------------------------------------------------------------------------
+##  Overall:
+    exp1__pic.d.prime <- exp1__test.stats %>%
+        select(id, prop.hit__pic, prop.FA__pic) %>%
+        mutate(prop.hit__pic = replace(prop.hit__pic, prop.hit__pic == 1, .99)) %>%
+        mutate(prop.hit__pic = replace(prop.hit__pic, prop.hit__pic == 0, .01)) %>%
+        mutate(prop.FA__pic = replace(prop.FA__pic, prop.FA__pic == 1, .99)) %>%
+        mutate(prop.FA__pic = replace(prop.FA__pic, prop.FA__pic == 0, .01)) %>%
+        mutate(d.prime__pic = qnorm(prop.hit__pic) - qnorm(prop.FA__pic)) %>%
+        select(id, d.prime__pic)
+##  Rec:
+    exp1__pic.d.prime__R <- exp1__test.stats %>%
+        select(id, prop.hit.R__pic, prop.FA.R__pic) %>%
+        mutate(prop.hit.R__pic = replace(prop.hit.R__pic, prop.hit.R__pic == 1, .99)) %>%
+        mutate(prop.hit.R__pic = replace(prop.hit.R__pic, prop.hit.R__pic == 0, .01)) %>%
+        mutate(prop.FA.R__pic = replace(prop.FA.R__pic, prop.FA.R__pic == 1, .99)) %>%
+        mutate(prop.FA.R__pic = replace(prop.FA.R__pic, prop.FA.R__pic == 0, .01)) %>%
+        mutate(d.prime.R__pic = qnorm(prop.hit.R__pic) - qnorm(prop.FA.R__pic)) %>%
+        select(id, d.prime.R__pic)
+##  Fam:
+    exp1__pic.d.prime__F <- exp1__test.stats %>%
+        select(id, prop.hit.F__pic, prop.FA.F__pic) %>%
+        mutate(prop.hit.F__pic = replace(prop.hit.F__pic, prop.hit.F__pic == 1, .99)) %>%
+        mutate(prop.hit.F__pic = replace(prop.hit.F__pic, prop.hit.F__pic == 0, .01)) %>%
+        mutate(prop.FA.F__pic = replace(prop.FA.F__pic, prop.FA.F__pic == 1, .99)) %>%
+        mutate(prop.FA.F__pic = replace(prop.FA.F__pic, prop.FA.F__pic == 0, .01)) %>%
+        mutate(d.prime.F__pic = qnorm(prop.hit.F__pic) - qnorm(prop.FA.F__pic)) %>%
+        select(id, d.prime.F__pic)
+##  Both:
+    exp1__pic.d.prime__B <- exp1__test.stats %>%
+        select(id, prop.hit.B__pic, prop.FA.B__pic) %>%
+        mutate(prop.hit.B__pic = replace(prop.hit.B__pic, prop.hit.B__pic == 1, .99)) %>%
+        mutate(prop.hit.B__pic = replace(prop.hit.B__pic, prop.hit.B__pic == 0, .01)) %>%
+        mutate(prop.FA.B__pic = replace(prop.FA.B__pic, prop.FA.B__pic == 1, .99)) %>%
+        mutate(prop.FA.B__pic = replace(prop.FA.B__pic, prop.FA.B__pic == 0, .01)) %>%
+        mutate(d.prime.B__pic = qnorm(prop.hit.B__pic) - qnorm(prop.FA.B__pic)) %>%
+        select(id, d.prime.B__pic)
+##  Guessing:
+    exp1__pic.d.prime__G <- exp1__test.stats %>%
+        select(id, prop.hit.G__pic, prop.FA.G__pic) %>%
+        mutate(prop.hit.G__pic = replace(prop.hit.G__pic, prop.hit.G__pic == 1, .99)) %>%
+        mutate(prop.hit.G__pic = replace(prop.hit.G__pic, prop.hit.G__pic == 0, .01)) %>%
+        mutate(prop.FA.G__pic = replace(prop.FA.G__pic, prop.FA.G__pic == 1, .99)) %>%
+        mutate(prop.FA.G__pic = replace(prop.FA.G__pic, prop.FA.G__pic == 0, .01)) %>%
+        mutate(d.prime.G__pic = qnorm(prop.hit.G__pic) - qnorm(prop.FA.G__pic)) %>%
+        select(id, d.prime.G__pic)      
+##  Add new d'prime calculations to 'exp3__test.stats' df:  ------------------------------------------------------ 
+    exp1__test.stats <- exp1__test.stats %>%
+        right_join(exp1__word.d.prime) %>% right_join(exp1__pic.d.prime) %>%
+        right_join(exp1__word.d.prime__R) %>% right_join(exp1__pic.d.prime__R) %>%
+        right_join(exp1__word.d.prime__F) %>% right_join(exp1__pic.d.prime__F) %>%
+        right_join(exp1__word.d.prime__B) %>% right_join(exp1__pic.d.prime__B) %>%
+        right_join(exp1__word.d.prime__G) %>% right_join(exp1__pic.d.prime__G) %>%
+        mutate(resp_option = toupper(resp_option)) %>%
+        mutate(resp_option = str_replace(resp_option, "RF_RATINGS", "RF_Ratings")) %>%
+        mutate(age = na_if(age, 0)) %>%
+        mutate_at(vars(age, study.resp__total, study.word__n.resps, study.pic__n.resps,
+                       study.word__n.correct, study_correct_pic, study_correct, study.total__percent.correct,
+                       mean_study_rt_total, mean_study_rt_corr_word, mean_study_rt_corr_pic), as.numeric)
+#################################################################################################################
+##    Apply exclusion criteria:                                                                                ##
+#################################################################################################################
+##  1. Anyone with less than 90% toward encoding questions:
+    exp1__exclude1 <- exp1__test.stats %>%
+        filter(study.total__percent.correct < 90)
+##  2. Anyone + or - 3.0 z-score for total hits:
+    exp1__exclude2 <- exp1__test.stats %>%
+        mutate("z.hit__total" = qnorm((total_hits + 0.5) / (total_hits + total_miss + 1))) %>%
+        filter(z.hit__total >= 3.0 | z.hit__total <= -3.0)
+##  3. Anyone + or - 3.0 z-score for total FAs:
+    exp1__exclude3 <- exp1__test.stats %>%
+        mutate("z.FA__total" = qnorm((total_FA + 0.5) / (total_FA + total_CR + 1))) %>%
+        filter(z.FA__total >= 3.0 | z.FA__total <= -3.0)
+##  4. Anyone + or - 3.0 z-score for total recognition:
+    exp1__exclude4 <- exp1__test.stats %>%
+        mutate("prop.hit__total" = total_hits / (total_hits + total_miss)) %>%
+        mutate("prop.FA__total" = total_FA / (total_FA + total_CR)) %>%
+        mutate("recog__total" = prop.hit__total - prop.FA__total) %>%
+        mutate("z.recog__total" = (recog__total - mean(recog__total)) / sd(recog__total)) %>%
+        filter(z.recog__total >= 3.0 | z.recog__total <= -3.0)
+##    Join all to-be-excluded participants into single df:
+      exp1__all_exclude <- exp1__exclude1 %>%
+          bind_rows(exp1__exclude2, exp1__exclude3, exp1__exclude4)
+##    Extract just the id's of to-be-excluded participants:
+      exp1__p_to_exclude <- exp1__all_exclude$id
+##    Remove these participants from 'exp1__final.data':
+      exp1__final.data <- exp1__test.stats %>%
+          filter(!id %in% exp1__p_to_exclude)
+##----------------------------------------------------------------------------------------------------------------
+##  Prep key data for analysis:
+##----------------------------------------------------------------------------------------------------------------
+    exp1__d.prime <- exp1__final.data %>%
+        select(id, resp_option, d.prime__word, d.prime__pic) %>%
+        gather(key = "stim", value = "d.prime", d.prime__word, d.prime__pic) %>%
+        mutate(stim = str_remove(stim, "d.prime__"))
+      
+    exp1__d.prime.R <- exp1__final.data %>%
+        select(id, resp_option, d.prime.R__word, d.prime.R__pic) %>%
+        gather(key = "stim", value = "d.prime.R", d.prime.R__word, d.prime.R__pic) %>%
+        mutate(stim = str_remove(stim, "d.prime.R__"))
+      
+    exp1__d.prime.F <- exp1__final.data %>%
+        select(id, resp_option, d.prime.F__word, d.prime.F__pic) %>%
+        gather(key = "stim", value = "d.prime.F", d.prime.F__word, d.prime.F__pic) %>%
+        mutate(stim = str_remove(stim, "d.prime.F__"))
+            
+    exp1__d.prime.G <- exp1__final.data %>%
+        select(id, resp_option, d.prime.G__word, d.prime.G__pic) %>%
+        gather(key = "stim", value = "d.prime.G", d.prime.G__word, d.prime.G__pic) %>%
+        mutate(stim = str_remove(stim, "d.prime.G__"))
+      
+    exp1__prop.hit <- exp1__final.data %>%
+        select(id, resp_option, prop.hit__word, prop.hit__pic) %>%
+        gather(key = "stim", value = "prop.hit", prop.hit__word, prop.hit__pic) %>%
+        mutate(stim = str_remove(stim, "prop.hit__"))
+    
+    exp1__prop.FA <- exp1__final.data %>%
+        select(id, resp_option, prop.FA__word, prop.FA__pic) %>%
+        gather(key = "stim", value = "prop.FA", prop.FA__word, prop.FA__pic) %>%
+        mutate(stim = str_remove(stim, "prop.FA__"))
+    
+    exp1__prop.hit.R <- exp1__final.data %>%
+        select(id, resp_option, prop.hit.R__word, prop.hit.R__pic) %>%
+        gather(key = "stim", value = "prop.hit.R", prop.hit.R__word, prop.hit.R__pic) %>%
+        mutate(stim = str_remove(stim, "prop.hit.R__"))
+    
+    exp1__prop.hit.F <- exp1__final.data %>%
+        select(id, resp_option, prop.hit.F__word, prop.hit.F__pic) %>%
+        gather(key = "stim", value = "prop.hit.F", prop.hit.F__word, prop.hit.F__pic) %>%
+        mutate(stim = str_remove(stim, "prop.hit.F__"))
+    
+    exp1__prop.hit.G <- exp1__final.data %>%
+        select(id, resp_option, prop.hit.G__word, prop.hit.G__pic) %>%
+        gather(key = "stim", value = "prop.hit.G", prop.hit.G__word, prop.hit.G__pic) %>%
+        mutate(stim = str_remove(stim, "prop.hit.G__"))
+    
+    exp1__prop.FA.R <- exp1__final.data %>%
+        select(id, resp_option, prop.FA.R__word, prop.FA.R__pic) %>%
+        gather(key = "stim", value = "prop.FA.R", prop.FA.R__word, prop.FA.R__pic) %>%
+        mutate(stim = str_remove(stim, "prop.FA.R__"))
+    
+    exp1__prop.FA.F <- exp1__final.data %>%
+        select(id, resp_option, prop.FA.F__word, prop.FA.F__pic) %>%
+        gather(key = "stim", value = "prop.FA.F", prop.FA.F__word, prop.FA.F__pic) %>%
+        mutate(stim = str_remove(stim, "prop.FA.F__"))
+    
+    exp1__prop.FA.G <- exp1__final.data %>%
+        select(id, resp_option, prop.FA.G__word, prop.FA.G__pic) %>%
+        gather(key = "stim", value = "prop.FA.G", prop.FA.G__word, prop.FA.G__pic) %>%
+        mutate(stim = str_remove(stim, "prop.FA.G__"))
+##----------------------------------------------------------------------------------------------------------------
+##  Prep data for participants section:
+##----------------------------------------------------------------------------------------------------------------
+    exp1__age.gender <- exp1__test.stats %>%
+        select(age, gender) %>%
+        mutate(age = as.double(age))
+
+    exp1__age.gender__table <- tribble(~"Gender", ~N, ~Age, ~SD,
+        "Female", exp1__age.gender %>% filter(gender == "female") %>% nrow(),
+            exp1__age.gender %>% filter(gender == "female") %>% summarise(mean(age)) %>% pull() %>% round (2),
+            exp1__age.gender %>% filter(gender == "female") %>% summarise(sd(age)) %>% pull() %>% round (2),
+        "Male", exp1__age.gender %>% filter(gender == "male") %>% nrow(),
+            exp1__age.gender %>% filter(gender == "male") %>% summarise(mean(age)) %>% pull() %>% round (2),
+            exp1__age.gender %>% filter(gender == "male") %>% summarise(sd(age)) %>% pull() %>% round (2),
+        "Non-binary", exp1__age.gender %>% filter(gender == "non-binary") %>% nrow(),
+            exp1__age.gender %>% filter(gender == "non-binary") %>% summarise(mean(age)) %>% pull(),
+            0,
+        "Unspecified", exp1__age.gender %>% filter(gender == "unspecified") %>% nrow(),
+            exp1__age.gender %>% filter(gender == "unspecified") %>% summarise(mean(age, na.rm=T)) %>% pull(),
+            0,
+        "Total", exp1__age.gender %>% nrow(),
+            exp1__age.gender %>% summarise(mean(age, na.rm=T)) %>% pull() %>% round (2),
+            exp1__age.gender %>% summarise(sd(age, na.rm=T)) %>% pull() %>% round (2)) %>%
+        mutate(SD = as.character(SD)) %>%
+        mutate(SD = str_replace(SD, "^0", "-"))
+    
+    exp1__n.sona <- nrow(exp1__final.data %>% 
+                           filter(source == "rpt-a" | source == "rpt-b" | source == "rpt-c" | source == "rpt-d"))
+    exp1__n.sona <- round((exp1__n.sona / nrow(exp1__final.data %>% select(source))) * 100, 2)
+
+    exp1__n.prolific <- nrow(exp1__final.data %>% filter(source == "pa"))
+    exp1__n.prolific <- round((exp1__n.prolific / nrow(exp1__final.data)) * 100, 2)
+
+    exp1__n.facebook <- nrow(exp1__final.data %>% filter(source == "fb"))
+    exp1__n.facebook <- round((exp1__n.facebook / nrow(exp1__final.data)) * 100, 2)
+  
+    exp1__n.reddit <- nrow(exp1__final.data %>% filter(source == "rdt"))
+    exp1__n.reddit <- round((exp1__n.reddit / nrow(exp1__final.data)) * 100, 2)
+    
+    exp1__n.c4p <- nrow(exp1__final.data %>% filter(source == "c4p"))
+    exp1__n.c4p <- round((exp1__n.c4p / nrow(exp1__final.data)) * 100, 2)
+    
+    exp1__n.unspecified <- nrow(exp1__final.data %>% filter(source == "unspecified"))
+    exp1__n.unspecified <- round((exp1__n.unspecified / nrow(exp1__final.data)) * 100, 2)
+    
+    exp1__n.eng.lang <- nrow(exp1__final.data %>% filter(eng_first_lang == "yes"))
+    exp1__n.eng.lang <- round((exp1__n.eng.lang / nrow(exp1__final.data)) * 100, 2)
+```
