@@ -291,109 +291,100 @@ output: html_notebook
           rowid_to_column(., "id") %>%
           mutate(id = as.character(id))
       exp1__all_participants$id <- str_pad(exp1__all_participants$id, width=3, side="left", pad="0")
-##    Join data for participants with both study and test:
+##    Prepare to join data for participants who completed both study and test:
       exp1__study.data <- exp1__study.data %>%
           filter(study_id %in% exp1__all_participants$study_id)
       exp1__test.data <- exp1__test.data %>%
           filter(test_id %in% exp1__all_participants$test_id)
-      exp1__test.stats <- exp1__all_participants %>%
-          full_join(exp1__study.data, by = "study_id") %>%
-          full_join(exp1__test.data, by = "test_id")
-        
-        write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv', row.names = FALSE)
-
-      
-      
-      
 ####################################################################################################################
 ##    Calculations:                                                                                               ##
 ####################################################################################################################
-##    Total hits and misses:
-          add_tally(studied_words == belong_to_study_list & stim == "word" & old_new == "old",
+      exp1__test.stats <- exp1__all_participants %>%
+          full_join(exp1__study.data, by = "study_id") %>%
+          full_join(exp1__test.data, by = "test_id") %>%
+          group_by(id) %>%
+    ##  Total hits and misses:
+          add_tally(studied_words == belong_to_study_list & shown_format == "word" & old.new == "old",
                     name = "hit__word") %>%
-          add_tally(studied_words == belong_to_study_list & stim == "word" & old_new == "new", 
+          add_tally(studied_words == belong_to_study_list & shown_format == "word" & old.new == "new", 
                     name = "miss__word") %>%
-          add_tally(studied_pics == belong_to_study_list & stim == "picture" & old_new == "old", 
+          add_tally(studied_pics == belong_to_study_list & shown_format == "picture" & old.new == "old", 
                     name = "hit__pic") %>%
-          add_tally(studied_pics == belong_to_study_list & stim == "picture" & old_new == "new", 
+          add_tally(studied_pics == belong_to_study_list & shown_format == "picture" & old.new == "new", 
                     name = "miss__pic") %>%
           mutate(total_hits = hit__word + hit__pic) %>%
           mutate(total_miss = miss__word + miss__pic) %>%
-##    Total FA and CR:
-          add_tally(studied_words != belong_to_study_list & stim == "word" & old_new == "old",
+    ##  Total FA and CR:
+          add_tally(studied_words != belong_to_study_list & shown_format == "word" & old.new == "old",
                     name = "FA__word") %>%
-          add_tally(studied_words != belong_to_study_list & stim == "word" & old_new == "new", 
+          add_tally(studied_words != belong_to_study_list & shown_format == "word" & old.new == "new", 
                     name = "CR__word") %>%
-          add_tally(studied_pics != belong_to_study_list & stim == "picture" & old_new == "old", 
+          add_tally(studied_pics != belong_to_study_list & shown_format == "picture" & old.new == "old", 
                     name = "FA__pic") %>%
-          add_tally(studied_pics != belong_to_study_list & stim == "picture" & old_new == "new", 
+          add_tally(studied_pics != belong_to_study_list & shown_format == "picture" & old.new == "new", 
                     name = "CR__pic") %>%
           mutate(total_FA = FA__word + FA__pic) %>%
           mutate(total_CR = CR__word + CR__pic) %>%
 ##    Rec/fam hits: 
-          add_tally((studied_words == belong_to_study_list & stim == "word") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "recollection") |
-                         (resp_option == "rf_ratings" & recfam_1 == "rec_3" | 
-                            recfam_1 == "rec_4" | recfam_1 == "rec_5")), name = "hit.R__word") %>%
-          add_tally((studied_words == belong_to_study_list & stim == "word") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "familiarity") |
-                         (resp_option == "rf_ratings" & recfam_2 == "fam_3" | 
-                            recfam_2 == "fam_4" | recfam_2 == "fam_5")), name = "hit.F__word") %>%
-          add_tally((studied_words == belong_to_study_list & stim == "word") & 
-                      recfam_1 == "both", name = "hit__word_both") %>%
-          add_tally((studied_words == belong_to_study_list & stim == "word") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "guessing") |
-                         (resp_option == "rf_ratings" & (recfam_1 == "rec_0" & recfam_2 == "fam_0"))),
-                            name = "hit.G__word") %>%
-        
-          add_tally((studied_pics == belong_to_study_list & stim == "picture") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "recollection") |
-                         (resp_option == "rf_ratings" & recfam_1 == "rec_3" | 
-                            recfam_1 == "rec_4" | recfam_1 == "rec_5")), name = "hit.R__pic") %>%
-          add_tally((studied_pics == belong_to_study_list & stim == "picture") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "familiarity") |
-                         (resp_option == "rf_ratings" & recfam_2 == "fam_3" | 
-                            recfam_2 == "fam_4" | recfam_2 == "fam_5")), name = "hit.F__pic") %>%
-          add_tally((studied_pics == belong_to_study_list & stim == "picture") & 
-                      recfam_1 == "both", name = "hit__pic_both") %>%
-          add_tally((studied_pics == belong_to_study_list & stim == "picture") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "guessing") |
-                         (resp_option == "rf_ratings" & (recfam_1 == "rec_0" & recfam_2 == "fam_0"))),
-                            name = "hit.G__pic") %>%
+          add_tally((studied_words == belong_to_study_list & shown_format == "word") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "rec") |
+                         (resp_option == "rf_ratings" & rfg1 == "rec_3" | rfg1 == "rec_4" | rfg1 == "rec_5")), 
+                              name = "hit.R__word") %>%
+          add_tally((studied_words == belong_to_study_list & shown_format == "word") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "fam") |
+                         (resp_option == "rf_ratings" & rfg2 == "fam_3" | rfg2 == "fam_4" | rfg2 == "fam_5")), 
+                              name = "hit.F__word") %>%
+          add_tally((studied_words == belong_to_study_list & shown_format == "word") & 
+                      rfg1 == "both", name = "hit__word_both") %>%
+          add_tally((studied_words == belong_to_study_list & shown_format == "word") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "guess") |
+                         (resp_option == "rf_ratings" & (rfg1 == "rec_0" & rfg2 == "fam_0"))),
+                              name = "hit.G__word") %>%
+          add_tally((studied_pics == belong_to_study_list & shown_format == "picture") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "rec") |
+                         (resp_option == "rf_ratings" & rfg1 == "rec_3" | rfg1 == "rec_4" | rfg1 == "rec_5")), 
+                              name = "hit.R__pic") %>%
+          add_tally((studied_pics == belong_to_study_list & shown_format == "picture") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "fam") |
+                         (resp_option == "rf_ratings" & rfg2 == "fam_3" | rfg2 == "fam_4" | rfg2 == "fam_5")), 
+                              name = "hit.F__pic") %>%
+          add_tally((studied_pics == belong_to_study_list & shown_format == "picture") & 
+                      rfg1 == "both", name = "hit__pic_both") %>%
+          add_tally((studied_pics == belong_to_study_list & shown_format == "picture") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "guess") |
+                         (resp_option == "rf_ratings" & (rfg1 == "rec_0" & rfg2 == "fam_0"))),
+                              name = "hit.G__pic") %>%
 ##    Rec/fam FA: 
-          add_tally((studied_words != belong_to_study_list & stim == "word") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "recollection") |
-                         (resp_option == "rf_ratings" & recfam_1 == "rec_3" | 
-                            recfam_1 == "rec_4" | recfam_1 == "rec_5")), name = "FA.R__word") %>%
-          add_tally((studied_words != belong_to_study_list & stim == "word") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "familiarity") |
-                         (resp_option == "rf_ratings" & recfam_2 == "fam_3" | 
-                            recfam_2 == "fam_4" | recfam_2 == "fam_5")), name = "FA.F__word") %>%
-          add_tally((studied_words != belong_to_study_list & stim == "word") & 
-                      recfam_1 == "both", name = "FA__word_both") %>%
-          add_tally((studied_words != belong_to_study_list & stim == "word") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "guessing") |
-                         (resp_option == "rf_ratings" & (recfam_1 == "rec_0" & recfam_2 == "fam_0"))),
-                            name = "FA.G__word") %>%
-          add_tally((studied_pics != belong_to_study_list & stim == "picture") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "recollection") |
-                         (resp_option == "rf_ratings" & recfam_1 == "rec_3" | 
-                            recfam_1 == "rec_4" | recfam_1 == "rec_5")), name = "FA.R__pic") %>%
-          add_tally((studied_pics != belong_to_study_list & stim == "picture") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "familiarity") |
-                         (resp_option == "rf_ratings" & recfam_2 == "fam_3" | 
-                            recfam_2 == "fam_4" | recfam_2 == "fam_5")), name = "FA.F__pic") %>%
-          add_tally((studied_pics != belong_to_study_list & stim == "picture") & 
-                      recfam_1 == "both", name = "FA__pic_both") %>%
-          add_tally((studied_pics != belong_to_study_list & stim == "picture") & 
-                      ((resp_option != "rf_ratings" & recfam_1 == "guessing") |
-                         (resp_option == "rf_ratings" & (recfam_1 == "rec_0" & recfam_2 == "fam_0"))),
+          add_tally((studied_words != belong_to_study_list & shown_format == "word") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "rec") |
+                         (resp_option == "rf_ratings" & rfg1 == "rec_3" | rfg1 == "rec_4" | rfg1 == "rec_5")), 
+                              name = "FA.R__word") %>%
+          add_tally((studied_words != belong_to_study_list & shown_format == "word") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "fam") |
+                         (resp_option == "rf_ratings" & rfg2 == "fam_3" | rfg2 == "fam_4" | rfg2 == "fam_5")), 
+                              name = "FA.F__word") %>%
+          add_tally((studied_words != belong_to_study_list & shown_format == "word") & 
+                      rfg1 == "both", name = "FA__word_both") %>%
+          add_tally((studied_words != belong_to_study_list & shown_format == "word") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "guess") | 
+                         (resp_option == "rf_ratings" & (rfg1 == "rec_0" & rfg2 == "fam_0"))),
+                              name = "FA.G__word") %>%
+          add_tally((studied_pics != belong_to_study_list & shown_format == "picture") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "rec") |
+                         (resp_option == "rf_ratings" & rfg1 == "rec_3" | rfg1 == "rec_4" | rfg1 == "rec_5")), 
+                              name = "FA.R__pic") %>%
+          add_tally((studied_pics != belong_to_study_list & shown_format == "picture") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "fam") |
+                         (resp_option == "rf_ratings" & rfg2 == "fam_3" | rfg2 == "fam_4" | rfg2 == "fam_5")), 
+                              name = "FA.F__pic") %>%
+          add_tally((studied_pics != belong_to_study_list & shown_format == "picture") & 
+                      rfg1 == "both", name = "FA__pic_both") %>%
+          add_tally((studied_pics != belong_to_study_list & shown_format == "picture") & 
+                      ((resp_option != "rf_ratings" & rfg1 == "guess") |
+                         (resp_option == "rf_ratings" & (rfg1 == "rec_0" & rfg2 == "fam_0"))),
                             name = "FA.G__pic") %>%
-          na_if(., 0) %>%
-          select(-item_name, -old_new, -old_new_rt, -recfam_1, -recfam_2) %>%
-          mutate_all(~replace_na(., 0)) %>%
-          arrange(id) %>%
-        
+          select(-item_name, -old.new, -rfg1, -rfg2) %>%
+      
 ####################################################################################################################
 ##  Calculate proportions:                                                                                        ##
 ####################################################################################################################
@@ -443,6 +434,7 @@ output: html_notebook
               ifelse(resp_option == "rfbg", prop.FA.R__pic + prop.FA.B__pic, prop.FA.R__pic)) %>%
           mutate(prop.FA.F.total__pic = 
               ifelse(resp_option == "rfbg", prop.FA.F__pic + prop.FA.B__pic, prop.FA.F__pic)) %>%
+          mutate_if(is.numeric, funs(replace_na(., 0))) %>%
 ####################################################################################################################
 ##    Accuracy:                                                                                                   ##
 ####################################################################################################################
@@ -468,7 +460,9 @@ output: html_notebook
                   FA.R__pic + FA__pic_both)), acc.R__pic__raw)) %>%
           mutate(acc.F__pic__total = 
               ifelse(resp_option == "rfbg", ((hit.F__pic + hit__pic_both) / (hit.F__pic + hit__pic_both + 
-                  FA.F__pic + FA__pic_both)), acc.F__pic__raw)) %>%        
+                  FA.F__pic + FA__pic_both)), acc.F__pic__raw)) %>%       
+          mutate_if(is.numeric, funs(replace_na(., 0))) %>%
+
 ####################################################################################################################
 ##    Recog:                                                                                                      ##
 ####################################################################################################################
@@ -576,7 +570,15 @@ output: html_notebook
         mutate(prop.FA.G__pic = replace(prop.FA.G__pic, prop.FA.G__pic == 1, .99)) %>%
         mutate(prop.FA.G__pic = replace(prop.FA.G__pic, prop.FA.G__pic == 0, .01)) %>%
         mutate(d.prime.G__pic = qnorm(prop.hit.G__pic) - qnorm(prop.FA.G__pic)) %>%
-        select(id, d.prime.G__pic)      
+        select(id, d.prime.G__pic)
+    
+ 
+    
+    write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv', row.names = FALSE)
+
+                            
+                            
+                            
 ##  Add new d'prime calculations to 'exp3__test.stats' df:  ------------------------------------------------------ 
     exp1__test.stats <- exp1__test.stats %>%
         right_join(exp1__word.d.prime) %>% right_join(exp1__pic.d.prime) %>%
@@ -585,11 +587,21 @@ output: html_notebook
         right_join(exp1__word.d.prime__B) %>% right_join(exp1__pic.d.prime__B) %>%
         right_join(exp1__word.d.prime__G) %>% right_join(exp1__pic.d.prime__G) %>%
         mutate(resp_option = toupper(resp_option)) %>%
-        mutate(resp_option = str_replace(resp_option, "RF_RATINGS", "RF_Ratings")) %>%
-        mutate(age = na_if(age, 0)) %>%
+        mutate(resp_option = str_replace(resp_option, "RF_RATINGS", "RF_Ratings"))
+    
+    
+    %>%
+        mutate(age = na_if(age, 0))
+    
+    
         mutate_at(vars(age, study.total__n.resps, study.word__n.resps, study.pic__n.resps,
                        study.word__n.correct, study_correct_pic, study_correct, study.total__percent.correct,
                        mean_study_rt_total, mean_study_rt_corr_word, mean_study_rt_corr_pic), as.numeric)
+    
+    
+    
+    write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv', row.names = FALSE)
+
 #################################################################################################################
 ##    Apply exclusion criteria:                                                                                ##
 #################################################################################################################
