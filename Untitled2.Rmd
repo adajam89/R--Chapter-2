@@ -277,15 +277,15 @@ output: html_notebook
 ##    certainly the same people. First we'll remove duplicates from the test_id column, and then we'll add those 
 ##    duplicated ids back into the NA gaps of the corresponding study_ids.  
       exp1__all_participants <- exp1__all_participants %>%
-          filter(is.na(test_id) | (test_id != "2fwc8n0fuonvta3" | test_id != "247estlk1nx9ljy"))
+          filter(is.na(test_id) | (test_id != "2fwc8n0fuonvta3" & test_id != "247estlk1nx9ljy"))
 
         
-                                   
+  write.csv(exp1__all_participants,'~/Desktop/exp1__all_participants.csv', row.names = FALSE)
+
                                    
         
           filter(is.na(test_id) | test_id != "2fwc8n0fuonvta3")
       
-  write.csv(exp1__all_participants,'~/Desktop/exp1__all_participants.csv', row.names = FALSE)
 
             
           
