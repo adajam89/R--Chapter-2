@@ -185,7 +185,7 @@ output: html_notebook
     ##  Remove empty / unimportant rows:
           filter(!str_detect(question, "timing")) %>%
           drop_na(response) %>%
-          filter(!str_detect(response, "old")) %>%
+          #filter(!str_detect(response, "old")) %>%
     ##  Replace stim code with actual item name:
           mutate(question = str_remove(question, 
                   "https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
@@ -202,58 +202,55 @@ output: html_notebook
                                          str_detect(question.number, "tion") ~ "rf_ratings",
                                          str_detect(question.number, "rity") ~ "rf_ratings")) %>%
           merge(x = ., y = exp1__image_urls, by.x = "question", by.y = "url") %>%
+          rename(belong_to_study_list = "study_list") %>%
           arrange(test_id, stim) %>%
-          select(test_id, study_list, resp_option, stim, response, question.number) %>%
-      ##  Remove filler items:
-          filter(!str_detect(study_list, 'filler')) %>%
-      ##  Split the 'stim' column up, so item name and stimuli format are separate:
-          separate(stim, c("item_name", "shown_format")) %>%
-      ##  Clearly show which lists were presented as words and pics at test: 
-          mutate(words.at.test = ifelse(shown_format == "word", study_list, NA)) %>%
-          mutate(pics.at.test = ifelse(shown_format == "picture", study_list, NA)) %>%
+          select(test_id, belong_to_study_list, resp_option, stim, response, question.number) %>%
       ##  Recode R/F responses for clarity:
           mutate(response = str_replace(response, "recollection", "rec")) %>%
           mutate(response = str_replace(response, "familiarity", "fam")) %>%
           mutate(response = ifelse(question.number == "recollection", str_c("rec_", response), response)) %>%
           mutate(response = ifelse(question.number == "familiarity", str_c("fam_", response), response)) %>%
           mutate(response = str_extract(response, "^.{0,5}")) %>%
-          select(-study_list, -question.number) %>%
+          select(-question.number) %>%        
+      ##  Separate 'response' into 3 columns ('old.new', 'rfg1', 'rfg2'):
+          group_by(test_id, belong_to_study_list, resp_option, stim) %>% 
+          summarise(response = paste(response, collapse=", ")) %>%
+          ungroup() %>% group_by(test_id) %>%
+          mutate(rfg1 = response) %>%
+          mutate(response = ifelse(str_detect(response, "old") | response == "new", response, NA)) %>%
+          mutate(response = ifelse(str_detect(response, "old"), "old", response)) %>%
+          rename(old.new = "response") %>%
+          mutate(rfg1 = ifelse(rfg1 == "new", NA, rfg1)) %>%
+          mutate(rfg1 = str_remove_all(rfg1, "old")) %>%
+          mutate(rfg1 = str_remove_all(rfg1, ",")) %>%
+          mutate(rfg2 = ifelse(str_detect(rfg1, "fam_[0-5]"), rfg1, NA)) %>%
+          mutate(rfg1 = str_remove(rfg1, "fam_[0-5]")) %>%
+          mutate(rfg2 = str_remove(rfg2, "rec_[0-5]")) %>%
+          mutate_if(is.character, str_trim) %>%
+      ##  Remove filler items:
+          filter(!str_detect(belong_to_study_list, 'filler')) %>%
+      ##  Split the 'stim' column up, so item name and stimuli format are separate:
+          separate(stim, c("item_name", "shown_format")) %>%
       ##  Count total test resp_options (should be 120):
           group_by(test_id) %>%
           add_tally(shown_format == "word" | shown_format == "picture", sort = FALSE, 
                     name = "test.total__n.resps") %>%
       ##  Count total test resp_options by stim-format (should be 60 each):
           add_tally(shown_format == "word", sort = FALSE, name = "test.word__n.resps") %>%
-          add_tally(shown_format == "picture", sort = FALSE, name = "test.pic__n.resps")
-            
-       write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv')
-
-          
-          
-
-       
-##    Add justifications back in: 
-      exp1__test.stats <- exp1__test.stats %>%
+          add_tally(shown_format == "picture", sort = FALSE, name = "test.pic__n.resps") %>%
+      ##  Add justifications back in: 
           merge(., exp1__justifications, by = "test_id") %>%
-          select(test_id, ip, start_date, rec_justification, fam_justification, both_justification,
-                 guess_justification, comments, resp_option, item_name, stim, belong_to_study_list, 
-                 old_new, old_new_rt, recfam_1, recfam_2, test.total__n.resps, test.word__n.resps, 
-                 test.pic__n.resps, mean_old_new_rt_total, mean_test_rt_word, mean_test_rt_pic) %>%
+          rename(test_start_time = "start_date") %>%
+          select(test_id, ip, test_start_time, rec_justification, fam_justification, both_justification,
+                 guess_justification, comments, resp_option, item_name, shown_format, belong_to_study_list,
+                 old.new, rfg1, rfg2, test.total__n.resps, test.word__n.resps, test.pic__n.resps) %>%
           mutate_if(is.character, list(~na_if(., ""))) %>%
-          rename( test_start_time = "start_date")
-##    Remove Ps with incomplete test data:
-      exp1__incomplete_exp1__test.stats <- exp1__test.stats %>%
-          select(test_id, test.total__n.resps) %>%
-          distinct(test_id, .keep_all = TRUE) %>%
-          filter(test.total__n.resps != 120) %>%
-          pull(test_id)
-      exp1__test.stats <- exp1__test.stats %>%
-          filter(!test_id %in% exp1__incomplete_exp1__test.stats)
-      
-      
-      
-      
-      
+      ##    Remove Ps with incomplete test data:
+          filter(test.total__n.resps == 120)
+
+          write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats2.csv')
+
+          
 ####################################################################################################################
 ##    Match study across seperate study and test files:                                                           ##
 ####################################################################################################################
@@ -399,7 +396,6 @@ output: html_notebook
                             name = "FA.G__pic") %>%
           na_if(., 0) %>%
           select(-item_name, -old_new, -old_new_rt, -recfam_1, -recfam_2) %>%
-          summarise_all(coalesce_by_column) %>%
           mutate_all(~replace_na(., 0)) %>%
           arrange(id) %>%
         
