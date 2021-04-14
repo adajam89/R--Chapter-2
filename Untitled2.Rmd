@@ -169,23 +169,22 @@ output: html_notebook
           gather(., "question", "response", -test_id) %>%
           arrange(test_id)
 #------------------------------------------------------------------------------------------------------------------
-    exp1__test.stats <- bind_rows(exp1__data.part1, exp1__data.part2)
+    exp1__test.data <- bind_rows(exp1__data.part1, exp1__data.part2)
 ##    Temporarily extract justifications:
-      exp1__justifications <- exp1__test.stats %>%
+      exp1__justifications <- exp1__test.data %>%
           filter(question == "ip" | question == "start_date" | question == "progress" | 
                  question == "rec_justification" | question == "fam_justification" |
                  question == "both_justification" | question == "guess_justification" | question == "comments") %>%
           spread(question, response)
 ##    Tidy test data:
-      exp1__test.stats <- exp1__test.stats %>%
-          filter(question != "ip" & question != "start_date" & question != "progress" &
-                   question != "rec_justification" & question != "fam_justification" &
-                   question != "both_justification" & question != "guess_justification" & 
-                   question != "comments") %>%
+      exp1__test.data <- exp1__test.data %>%
+          filter(question != "ip" & question != "start_date" & question != "progress" & 
+                   question != "recorded_date" & question != "rec_justification" & 
+                   question != "fam_justification" & question != "both_justification" & 
+                   question != "guess_justification" & question != "comments") %>%
     ##  Remove empty / unimportant rows:
           filter(!str_detect(question, "timing")) %>%
           drop_na(response) %>%
-          #filter(!str_detect(response, "old")) %>%
     ##  Replace stim code with actual item name:
           mutate(question = str_remove(question, 
                   "https_keelepsych_co1_qualtrics_com_control_panel_graphic_php_im_im_")) %>%
@@ -202,6 +201,7 @@ output: html_notebook
                                          str_detect(question.number, "tion") ~ "rf_ratings",
                                          str_detect(question.number, "rity") ~ "rf_ratings")) %>%
           merge(x = ., y = exp1__image_urls, by.x = "question", by.y = "url") %>%
+          as.tibble() %>%
           rename(belong_to_study_list = "study_list") %>%
           arrange(test_id, stim) %>%
           select(test_id, belong_to_study_list, resp_option, stim, response, question.number) %>%
@@ -240,6 +240,7 @@ output: html_notebook
           add_tally(shown_format == "picture", sort = FALSE, name = "test.pic__n.resps") %>%
       ##  Add justifications back in: 
           merge(., exp1__justifications, by = "test_id") %>%
+          as.tibble() %>%
           rename(test_start_time = "start_date") %>%
           select(test_id, ip, test_start_time, rec_justification, fam_justification, both_justification,
                  guess_justification, comments, resp_option, item_name, shown_format, belong_to_study_list,
@@ -255,8 +256,8 @@ output: html_notebook
           rename(time = "study_end_time") %>%
           mutate(time = str_remove(time , "...$")) %>%
           arrange(ip, time)
-##    List all unique participants we have in 'exp1__test.stats', and format test_start_time to simplified version:
-      exp1__unique_p_at_test <- exp1__test.stats %>%
+##    List all unique participants we have in 'exp1__test.data', and format test_start_time to simplified version:
+      exp1__unique_p_at_test <- exp1__test.data %>%
           select(test_id, ip, test_start_time) %>%
           distinct(test_id, .keep_all = TRUE) %>%
           rename(time = "test_start_time") %>%
@@ -277,45 +278,33 @@ output: html_notebook
 ##    certainly the same people. First we'll remove duplicates from the test_id column, and then we'll add those 
 ##    duplicated ids back into the NA gaps of the corresponding study_ids.  
       exp1__all_participants <- exp1__all_participants %>%
-          filter(is.na(test_id) | (test_id != "2fwc8n0fuonvta3" & test_id != "247estlk1nx9ljy"))
-
-        
-  write.csv(exp1__all_participants,'~/Desktop/exp1__all_participants.csv', row.names = FALSE)
-
-                                   
-        
-          filter(is.na(test_id) | test_id != "2fwc8n0fuonvta3")
-      
-
-            
-          
-          mutate(test_id = replace(test_id, study_id == "pfexrfarjkpsygf", "2fwc8n0fuonvta3")) %>%
-          mutate(test_id = replace(test_id, study_id == "3i69jnaz1wrx4fq", "247estlk1nx9ljy")) %>%
-          mutate(test_id = replace(test_id, study_id == "3sbkutkpbz0t7y1", "uenhxpj5gjopn4t")) %>%
-          mutate(test_id = replace(test_id, study_id == "1i3sv43b6k977mc", "3p3jpgswhnvaycz")) %>%
-          
-            
-            
-            !is.na(study_id) & test_id != "2fwc8n0fuonvta3")
-        
-
-##    After removing the no-longer-needed duplicate rows (because we copied the relevant test_ids into one row), 
-##    we're left with 11 participants that cannot be reconciled. We will exclude these participants, as they are
-##    either missing test data or study data. 
-          drop_na() %>%
+          filter(is.na(test_id) | (test_id != "2fwc8n0fuonvta3" & test_id != "247estlk1nx9ljy"
+                                 & test_id != "uenhxpj5gjopn4t" & test_id != "3p3jpgswhnvaycz")) %>%
+          mutate(test_id = ifelse(str_detect(study_id, "pfexrfarjkpsygf"), "2fwc8n0fuonvta3", test_id)) %>%
+          mutate(test_id = ifelse(str_detect(study_id, "3i69jnaz1wrx4fq"), "247estlk1nx9ljy", test_id)) %>%
+          mutate(test_id = ifelse(str_detect(study_id, "3sbkutkpbz0t7y1"), "uenhxpj5gjopn4t", test_id)) %>%
+          mutate(test_id = ifelse(str_detect(study_id, "1i3sv43b6k977mc"), "3p3jpgswhnvaycz", test_id)) %>%
+##    Some P only have study data, and no test data, so we remove those:
+          drop_na(test_id) %>%
           select(-ip, -time) %>%
 ##    Assign new, simpler P ids:
           rowid_to_column(., "id") %>%
           mutate(id = as.character(id))
       exp1__all_participants$id <- str_pad(exp1__all_participants$id, width=3, side="left", pad="0")
-##    Join study and test data for our 'complete' participants:
-      exp1__participant_info <- exp1__participant_info %>%
+##    Join data for participants with both study and test:
+      exp1__study.data <- exp1__study.data %>%
           filter(study_id %in% exp1__all_participants$study_id)
-      exp1__test.stats <- exp1__test.stats %>%
+      exp1__test.data <- exp1__test.data %>%
           filter(test_id %in% exp1__all_participants$test_id)
       exp1__test.stats <- exp1__all_participants %>%
-          full_join(exp1__participant_info, by = "study_id") %>%
-          full_join(exp1__test.stats, by = "test_id") %>%    
+          full_join(exp1__study.data, by = "study_id") %>%
+          full_join(exp1__test.data, by = "test_id")
+        
+        write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv', row.names = FALSE)
+
+      
+      
+      
 ####################################################################################################################
 ##    Calculations:                                                                                               ##
 ####################################################################################################################
