@@ -247,15 +247,10 @@ output: html_notebook
           mutate_if(is.character, list(~na_if(., ""))) %>%
       ##    Remove Ps with incomplete test data:
           filter(test.total__n.resps == 120)
-
-          write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats2.csv')
-
-          
-####################################################################################################################
-##    Match study across seperate study and test files:                                                           ##
-####################################################################################################################
-##    List all the unique participants we have in 'participant info': 
-      exp1__unique_p_at_study <- exp1__participant_info %>%
+#------------------------------------------------------------------------------------------------------------------
+##    Match study across separate study and test files:
+##    List all the unique participants we have in 'exp1__study.data': 
+      exp1__unique_p_at_study <- exp1__study.data %>%
           select(study_id, ip, study_end_time) %>%
           rename(time = "study_end_time") %>%
           mutate(time = str_remove(time , "...$")) %>%
@@ -265,34 +260,45 @@ output: html_notebook
           select(test_id, ip, test_start_time) %>%
           distinct(test_id, .keep_all = TRUE) %>%
           rename(time = "test_start_time") %>%
-          mutate(time = as.character(time)) %>%
-##    Remove seconds precision from time data. Study and test times won't match *exactly* because it took a 
-##    couple of seconds for them to redirect from the study project to the test project on Qualtrics, so here 
-##    we remove some precision:
-          mutate(time = str_remove(time , "...$")) %>%        
-          mutate(time = str_replace(time , " ", "_")) %>%
-          mutate(time = str_replace_all(time , "-", "_")) %>%
-          arrange(ip, time)
-##    Here we join 'exp1__unique_p_at_study' with 'exp1__unique_p_at_test' by ip and time. 
-      exp1__all_participants <- exp1__unique_p_at_study %>%
-          full_join(exp1__unique_p_at_test, by = c("ip", "time"))
+          mutate(time = str_remove(time , "...$"))
+##    Here we join 'exp1__unique_p_at_study' with 'exp1__unique_p_at_test'.
+      exp1__all_participants <- full_join(exp1__unique_p_at_study, exp1__unique_p_at_test)
 ##    However, we're left with a few NA rows where no match was found. We now separate those P to investigate,
 ##    and determine whether they do match or not (i.e. did the time change by 1-minute whilst P were 
 ##    transferring from study > test, hence why a match was not found. 
       exp1__unmatched <- exp1__all_participants %>%
           filter(is.na(study_id) | is.na(test_id))
-##    First we see which IPs match (if theres an IP match between a 'study_id' NA row and a 'test_id' NA row,
-##    and their times look similar, it's almost certainly the same person). 
+##    First we see which IPs match (if there's an IP match between a 'study_id' NA row and a 'test_id' NA row,
+##    and their times are similar, it's almost certainly the same person). 
       exp1__duplicate_ips <- exp1__unmatched %>%
           group_by(ip) %>% 
           filter(n()>1)
-##    4 out of 5 duplicate IPs have a very similar times between study and test, and are therefore almost 
-##    certainly the same people. We'll join these rows in 'exp1__all_participants':
+##    Of the duplicated IPs, each share a very similar time between study and test, and are therefore almost 
+##    certainly the same people. First we'll remove duplicates from the test_id column, and then we'll add those 
+##    duplicated ids back into the NA gaps of the corresponding study_ids.  
       exp1__all_participants <- exp1__all_participants %>%
+          filter(is.na(test_id) | (test_id != "2fwc8n0fuonvta3" | test_id != "247estlk1nx9ljy"))
+
+        
+                                   
+                                   
+        
+          filter(is.na(test_id) | test_id != "2fwc8n0fuonvta3")
+      
+  write.csv(exp1__all_participants,'~/Desktop/exp1__all_participants.csv', row.names = FALSE)
+
+            
+          
+          mutate(test_id = replace(test_id, study_id == "pfexrfarjkpsygf", "2fwc8n0fuonvta3")) %>%
+          mutate(test_id = replace(test_id, study_id == "3i69jnaz1wrx4fq", "247estlk1nx9ljy")) %>%
           mutate(test_id = replace(test_id, study_id == "3sbkutkpbz0t7y1", "uenhxpj5gjopn4t")) %>%
           mutate(test_id = replace(test_id, study_id == "1i3sv43b6k977mc", "3p3jpgswhnvaycz")) %>%
-          mutate(test_id = replace(test_id, study_id == "3i69jnaz1wrx4fq", "247estlk1nx9ljy")) %>%
-          mutate(test_id = replace(test_id, study_id == "pfexrfarjkpsygf", "2fwc8n0fuonvta3")) %>%
+          
+            
+            
+            !is.na(study_id) & test_id != "2fwc8n0fuonvta3")
+        
+
 ##    After removing the no-longer-needed duplicate rows (because we copied the relevant test_ids into one row), 
 ##    we're left with 11 participants that cannot be reconciled. We will exclude these participants, as they are
 ##    either missing test data or study data. 
