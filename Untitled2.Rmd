@@ -384,7 +384,13 @@ output: html_notebook
                          (resp_option == "rf_ratings" & (rfg1 == "rec_0" & rfg2 == "fam_0"))),
                             name = "FA.G__pic") %>%
           select(-item_name, -old.new, -rfg1, -rfg2) %>%
-      
+##  Merge multiple rows into one (per participant):
+          summarise_all(coalesce_by_column)
+        
+write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv', row.names = FALSE)
+
+                
+                
 ####################################################################################################################
 ##  Calculate proportions:                                                                                        ##
 ####################################################################################################################
@@ -572,16 +578,12 @@ output: html_notebook
         mutate(d.prime.G__pic = qnorm(prop.hit.G__pic) - qnorm(prop.FA.G__pic)) %>%
         select(id, d.prime.G__pic)
     
- 
     
-    write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv', row.names = FALSE)
-
-                            
-                            
-                            
+    
 ##  Add new d'prime calculations to 'exp3__test.stats' df:  ------------------------------------------------------ 
-    exp1__test.stats <- exp1__test.stats %>%
-        right_join(exp1__word.d.prime) %>% right_join(exp1__pic.d.prime) %>%
+    test <- exp1__test.stats %>%
+        right_join(exp1__word.d.prime) %>% right_join(exp1__pic.d.prime) 
+    %>%
         right_join(exp1__word.d.prime__R) %>% right_join(exp1__pic.d.prime__R) %>%
         right_join(exp1__word.d.prime__F) %>% right_join(exp1__pic.d.prime__F) %>%
         right_join(exp1__word.d.prime__B) %>% right_join(exp1__pic.d.prime__B) %>%
@@ -589,6 +591,11 @@ output: html_notebook
         mutate(resp_option = toupper(resp_option)) %>%
         mutate(resp_option = str_replace(resp_option, "RF_RATINGS", "RF_Ratings"))
     
+    
+        write.csv(exp1__test.stats,'~/Desktop/exp1__test.stats.csv', row.names = FALSE)
+
+        
+        
     
     %>%
         mutate(age = na_if(age, 0))
