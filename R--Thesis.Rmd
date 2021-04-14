@@ -1202,11 +1202,13 @@ Taken together, the findings demonstrate a replication of the PSE in the current
 ```
 
 
+
+
+#### Recollection and Familiarity
+
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
 figure_numbering(name = "exp1__prop.hit.R__interaction.figure", caption = "Interaction plot between stimuli format and response option for the mean proportion of hits assigned Recollection.")
 ```
-
-#### Recollection and Familiarity
 **Recollection (hits):** For R hits, there was a significant interaction between stimuli format and response option option condition, `r apa::anova_apa(exp1__prop.hit.R.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp1__prop.hit.R__interaction.figure", display = "cite")`).
 
 ```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
@@ -1220,6 +1222,154 @@ The interaction is evident following comparisons of the same stimuli format acro
 (RFG [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`] vs. RF-Ratings [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RF_Ratings" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.R__pairs__interaction)$statistic$RF_Ratingsword_RFGword%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`) and the the RFBG group (RFBG [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`] vs. RF-Ratings [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RF_Ratings" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.R__pairs__interaction)$statistic$RF_Ratingsword_RFBGword%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). The RFG and RFBG groups did not significantly differ in the proportion of word hits assigned *Recollection* (RFG [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`] vs. RFBG [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`],  `r papaja::apa_print(exp1__prop.hit.R__pairs__interaction)$statistic$RFBGword_RFGword%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). 
 
 For pictures, the RF-Ratings group again showed a significantly higher proportion of R hits than the RFBG group (RFBG [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Pictures") %>% pull(emmean),2)`] vs. RF-Ratings [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RF_Ratings" & stim == "Pictures") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.R__pairs__interaction)$statistic$RF_Ratingspic_RFBGpic%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). While words produced a significant difference between the RFG and RF-Ratings group for R hits, the same was not found for pictures (RFG [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Pictures") %>% pull(emmean),2)`] vs. RF-Ratings [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RF_Ratings" & stim == "Pictures") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.R__pairs__interaction)$statistic$RF_Ratingspic_RFGpic%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). Instead, the RFG group also produced a significantly higher proportion of R hits than the RFBG group (RFG [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RFG" & stim == "Pictures") %>% pull(emmean),2)`] vs. RFBG [*M* = `r round(exp1__prop.hit.R__interaction.means %>% filter(resp_option == "RFBG" & stim == "Pictures") %>% pull(emmean),2)`],  `r papaja::apa_print(exp1__prop.hit.R__pairs__interaction)$statistic$RFBGpic_RFGpic%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`).
+
+```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+##################################################################################################################
+##  Exp1 Prop F Hits:                                                                                           ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp1__prop.hit.F.aov <- afex::aov_ez('id', 'prop.hit.F', fun_aggregate = mean, exp1__prop.hit.F,
+                                         between = "resp_option", within = 'stim',
+                                         anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp1__prop.hit.F.aov__sphericity <- test_sphericity(exp1__prop.hit.F.aov)
+##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+    exp1__prop.hit.F.aov <- afex::aov_ez('id', 'prop.hit.F', fun_aggregate = mean, exp1__prop.hit.F, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "GG", es = "ges"))
+##-----------------------------------------------------------------------------------------------------------------   
+##  Significant INTERACTION, so perform paired contrasts:
+    exp1__prop.hit.F__pairs__interaction <- 
+        pairs(emmeans(exp1__prop.hit.F.aov, ~ resp_option:stim), adjust = "bonferroni")
+##  Get all means:
+    exp1__prop.hit.F__stim.means <- as.tibble(summary(emmeans(exp1__prop.hit.F.aov, ~stim)))
+    exp1__prop.hit.F__resp.option.means <- as.tibble(summary(emmeans(exp1__prop.hit.F.aov, ~resp_option)))    
+    exp1__prop.hit.F__interaction.means <- as.tibble(summary(emmeans(exp1__prop.hit.F.aov, ~stim:resp_option))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "pic", "Pictures")) %>%
+        transform(stim = factor(stim, levels=c("Words","Pictures")))
+##################################################################################################################
+##  Prop F Hits interaction figure:                                                                             ##
+################################################################################################################## 
+##  Create labels for figure (replaces plot legend):
+    exp1__prop.hit.F__interaction.figure.labels <- exp1__prop.hit.F__interaction.means %>%
+        select(stim, resp_option, emmean) %>%
+        filter(stim == "Pictures") %>%
+        mutate(label = case_when(
+                  resp_option == "RFG" ~ "RFG",
+                  resp_option == "RFBG" ~ "RFBG",
+                  resp_option == "RF_Ratings" ~ "RF_Ratings")) %>%
+        group_by(stim, resp_option, label)
+##  Interaction figure:
+    exp1__prop.hit.F__interaction.figure <- exp1__prop.hit.F__interaction.means %>%
+        select(stim, resp_option, emmean) %>%
+        ggplot() +
+            aes(x = stim, color = resp_option, group = resp_option, y = emmean) +
+            stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
+            stat_summary(fun.y = mean, geom = "line", size = 1.2) +
+            geom_text(size = 4, aes(label = label, color = resp_option), nudge_x = 0.08, hjust = 0,
+                      data = exp1__prop.hit.F__interaction.figure.labels) +
+            scale_color_manual(values = c('#8ec6c5', '#7d9ab5', '#8566aa')) +
+            labs(x = "Stimuli format", y = "Mean proportion of hits assigned Familiarity") +
+            scale_y_continuous(limits = c(0, 3.5),
+                               breaks = c(0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5),
+                               expand = c(0, 0)) +
+            theme_classic() +
+            theme(legend.position = "none",
+                  axis.title.x = element_text(size = 10, vjust = -4),
+                  axis.text.x = element_text(size = 10),
+                  axis.title.y = element_text(size = 10, vjust = 6),
+                  axis.text.y = element_text(size = 10),
+                  plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+                  plot.margin = margin(20, 20, 24, 30))
+```
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+figure_numbering(name = "exp1__prop.hit.F__interaction.figure", caption = "Interaction plot between stimuli format and response option for the mean proportion of hits assigned Recollection.")
+```
+**Familiarity (hits):** For F hits, there was a significant interaction between stimuli format and response option option condition, `r apa::anova_apa(exp1__prop.hit.F.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp1__prop.hit.F__interaction.figure", display = "cite")`).
+
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
+    exp1__prop.hit.F__interaction.figure
+```
+`r figure_numbering("exp1__prop.hit.F__interaction.figure")`
+
+Pictures produced a higher proportion of hits assigned *Familiarity* than words in the RF-Ratings group only (words [*M*= `r round(exp1__prop.hit.F__interaction.means %>% filter(stim == "Words" & resp_option == "RF_Ratings") %>% pull(emmean),2)`] vs. pictures [*M*= `r round(exp1__prop.hit.F__interaction.means %>% filter(stim == "Pictures" & resp_option == "RF_Ratings") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.F__pairs__interaction)$statistic$RF_Ratingsword_RF_Ratingspic%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). In both the RFG and RFBG groups, words produced a higher proportion of hits assigned *Familiarity* than pictures (RFG: words [*M*= `r round(exp1__prop.hit.F__interaction.means %>% filter(stim == "Words" & resp_option == "RFG") %>% pull(emmean),2)`] vs. pictures [*M*= `r round(exp1__prop.hit.F__interaction.means %>% filter(stim == "Pictures" & resp_option == "RFG") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.F__pairs__interaction)$statistic$RFGword_RFGpic%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`; RFBG: words [*M*= `r round(exp1__prop.hit.F__interaction.means %>% filter(stim == "Words" & resp_option == "RFBG") %>% pull(emmean),2)`] vs. pictures [*M*= `r round(exp1__prop.hit.F__interaction.means %>% filter(stim == "Pictures" & resp_option == "RFBG") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.F__pairs__interaction)$statistic$RFBGword_RFBGpic%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`).
+ 
+Comparisons of the same stimuli format across response option conditions showed that, for words, the proportion of F hits was significantly higher in the RF-Ratings group compared to both the RFG group (RFG [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`] vs. RF-Ratings [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RF_Ratings" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.F__pairs__interaction)$statistic$RF_Ratingsword_RFGword%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`) and the the RFBG group (RFBG [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`] vs. RF-Ratings [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RF_Ratings" & stim == "Words") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.F__pairs__interaction)$statistic$RF_Ratingsword_RFBGword%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). The RFG and RFBG groups did not significantly differ in the proportion of word hits assigned *Familiarity* (RFG [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RFG" & stim == "Words") %>% pull(emmean),2)`] vs. RFBG [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RFBG" & stim == "Words") %>% pull(emmean),2)`],  `r papaja::apa_print(exp1__prop.hit.F__pairs__interaction)$statistic$RFBGword_RFGword%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). 
+
+For pictures, the RF-Ratings group again showed a significantly higher proportion of F hits than both the RFG group (RFG [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RFG" & stim == "Pictures") %>% pull(emmean),2)`] vs. RF-Ratings [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RF_Ratings" & stim == "Pictures") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.F__pairs__interaction)$statistic$RF_Ratingspic_RFGpic%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`) and the RFBG group (RFBG [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RFBG" & stim == "Pictures") %>% pull(emmean),2)`] vs. RF-Ratings [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RF_Ratings" & stim == "Pictures") %>% pull(emmean),2)`], `r papaja::apa_print(exp1__prop.hit.F__pairs__interaction)$statistic$RF_Ratingspic_RFBGpic%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`). Similar to words, the RFG and RFBG groups did not significantly differ in the proportion of F hits produced by pictures (RFG [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RFG" & stim == "Pictures") %>% pull(emmean),2)`] vs. RFBG [*M* = `r round(exp1__prop.hit.F__interaction.means %>% filter(resp_option == "RFBG" & stim == "Pictures") %>% pull(emmean),2)`],  `r papaja::apa_print(exp1__prop.hit.F__pairs__interaction)$statistic$RFBGpic_RFGpic%>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*")`).
+
+```{r include=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+##################################################################################################################
+##  Exp1 Prop F Hits:                                                                                           ##
+##################################################################################################################
+##  Two-way mixed ANOVA:
+    exp1__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp1__prop.hit.G,
+                                         between = "resp_option", within = 'stim',
+                                         anova_table=list(correction = "none", es = "ges"))
+##  Mauchlys test of sphericity:
+    exp1__prop.hit.G.aov__sphericity <- test_sphericity(exp1__prop.hit.G.aov)
+##  Assumption of sphericity violated (p<.05), so apply Greenhouse-Geisser correction:
+    exp1__prop.hit.G.aov <- afex::aov_ez('id', 'prop.hit.G', fun_aggregate = mean, exp1__prop.hit.G, 
+                                       between = "resp_option", within = 'stim',
+                                       anova_table=list(correction = "GG", es = "ges"))
+##----------------------------------------------------------------------------------------------------------------- 
+##  Significant INTERACTION, so perform paired contrasts:
+    exp1__prop.hit.G__pairs__interaction <- 
+        pairs(emmeans(exp1__prop.hit.G.aov, ~ resp_option:stim), adjust = "bonferroni")
+##  Get all means:
+    exp1__prop.hit.G__stim.means <- as.tibble(summary(emmeans(exp1__prop.hit.G.aov, ~stim)))
+    exp1__prop.hit.G__resp.option.means <- as.tibble(summary(emmeans(exp1__prop.hit.G.aov, ~resp_option)))    
+    exp1__prop.hit.G__interaction.means <- as.tibble(summary(emmeans(exp1__prop.hit.G.aov, ~stim:resp_option))) %>%
+        mutate(stim = str_replace(stim, "word", "Words")) %>%
+        mutate(stim = str_replace(stim, "pic", "Pictures")) %>%
+        transform(stim = factor(stim, levels=c("Words","Pictures")))
+##################################################################################################################
+##  Prop F Hits interaction figure:                                                                             ##
+################################################################################################################## 
+##  Create labels for figure (replaces plot legend):
+    exp1__prop.hit.G__interaction.figure.labels <- exp1__prop.hit.G__interaction.means %>%
+        select(stim, resp_option, emmean) %>%
+        filter(stim == "Pictures") %>%
+        mutate(label = case_when(
+                  resp_option == "RFG" ~ "RFG",
+                  resp_option == "RFBG" ~ "RFBG",
+                  resp_option == "RF_Ratings" ~ "RF_Ratings")) %>%
+        group_by(stim, resp_option, label)
+##  Interaction figure:
+    exp1__prop.hit.G__interaction.figure <- exp1__prop.hit.G__interaction.means %>%
+        select(stim, resp_option, emmean) %>%
+        ggplot() +
+            aes(x = stim, color = resp_option, group = resp_option, y = emmean) +
+            stat_summary(fun.y = mean, geom = "point", size = 2.4, shape = 15) +
+            stat_summary(fun.y = mean, geom = "line", size = 1.2) +
+            geom_text(size = 4, aes(label = label, color = resp_option), nudge_x = 0.08, hjust = 0,
+                      data = exp1__prop.hit.G__interaction.figure.labels) +
+            scale_color_manual(values = c('#8ec6c5', '#7d9ab5', '#8566aa')) +
+            labs(x = "Stimuli format", y = "Mean proportion of hits assigned Familiarity") +
+            scale_y_continuous(limits = c(0, 3.5),
+                               breaks = c(0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5),
+                               expand = c(0, 0)) +
+            theme_classic() +
+            theme(legend.position = "none",
+                  axis.title.x = element_text(size = 10, vjust = -4),
+                  axis.text.x = element_text(size = 10),
+                  axis.title.y = element_text(size = 10, vjust = 6),
+                  axis.text.y = element_text(size = 10),
+                  plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
+                  plot.margin = margin(20, 20, 24, 30))
+```
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+figure_numbering(name = "exp1__prop.hit.G__interaction.figure", caption = "Interaction plot between stimuli format and response option for the mean proportion of hits assigned Recollection.")
+```
+**Guessinm (hits):** For G hits, there was a significant interaction between stimuli format and response option option condition, `r apa::anova_apa(exp1__prop.hit.G.aov, effect = "resp_option:stim", format = "rmarkdown", print = FALSE)` (see `r figure_numbering("exp1__prop.hit.G__interaction.figure", display = "cite")`).
+
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
+    exp1__prop.hit.G__interaction.figure
+```
+`r figure_numbering("exp1__prop.hit.G__interaction.figure")`
 
 
 ### Discussion
