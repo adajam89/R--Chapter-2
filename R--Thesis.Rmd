@@ -7330,7 +7330,6 @@ Stróżak
         filter(study_list == "yellow_b") %>%         # Lures are still here after this step.
         filter(stim %in% exp5__yellow_a_study_list) %>%    # Remove lures (new) items.
         exp5__FA_and_CR_calc_function()
-    
 ##################################################################################################################
 ##  Combine into one df:                                                                                        ##
 ##################################################################################################################
@@ -7759,7 +7758,7 @@ Stróżak
         mutate(prop.FA.G__col.photo = replace(prop.FA.G__col.photo, prop.FA.G__col.photo == 0, .01)) %>%
         mutate(d.prime.G__col.photo = qnorm(prop.hit.G__col.photo) - qnorm(prop.FA.G__col.photo)) %>%
         select(id, d.prime.G__col.photo)   
-      
+#---------------------------------------------------------------------------------------------------------------- 
 ##  Add new d'prime calculations to 'exp5__test.stats' df: 
     exp5__test.stats <- exp5__test.stats %>%
         right_join(exp5__grey.word.d.prime) %>% right_join(exp5__col.word.d.prime) %>%
