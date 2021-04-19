@@ -26,7 +26,6 @@ header-includes:
     - \titlespacing{\subsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}
     - \titlespacing{\subsubsection}{0pt}{12pt plus 2pt minus 1pt}{0pt plus 1pt minus 1pt}    
     
-    
 ##  Formats headings to APA:
     #- \usepackage{sectsty} \sectionfont{\centering}   ## Heading 1: centred + bold. 
     #- \usepackage{sectsty} \subsubsectionfont{\emph}  ## Heading 3: left + bold + italics.   
@@ -6416,12 +6415,27 @@ table_numbering(name = "exp4__resp.option__main.effects__table", caption = "Main
 #### Response option availability
 \hfill\break In each of the aforementioned ANOVAs, the role of response option was also examined to determine whether the addition of colour information had any differential effects compared to the findings of *Experiment 3*. The only main effect of response option was observed in the ANOVA for the mean proportion of FAs (`r apa::anova_apa(exp3__prop.FA.aov, effect = "resp_option", format = "rmarkdown", print = FALSE)`), whereby a higher proportion of FAs was evident in the RFG group (*M*= `r round(exp4__prop.FA__resp.option.means %>% filter(resp_option == "RFG") %>% pull(emmean),2)`) compared to the RFBG group (*M*= `r round(exp4__prop.FA__resp.option.means %>% filter(resp_option == "RFBG") %>% pull(emmean),2)`), `r str_c(papaja::apa_print(exp4__prop.FA__ttest__rfg.rfbg)$statistic %>% str_remove_all("[$*]") %>% str_replace("t", "*t*") %>% str_replace("p", "*p*"), ", *d* = ", round(abs(as.vector(exp4__prop.FA__ttest__rfg.rfbg__eff.size$effsize)), 2))`. Such results do not support Hypothesis 3, where significant main effects of response option were expected in the ANOVAs for the mean proportion of hits and mean proportion of FAs assigned *Familiarity*. Similarly, the expected interactions for mean *d'* scores and proportion of hits assigned *Familiarity* were also absent. The only consistent finding across *Experiment 3* and the current experiment (with regard to response option) comes from the ANOVA for the mean proportion of hits assigned *Recollection* - where a significant interaction between stimuli format and response option was apparent in both experiments; in both experiments, the proportion of R hits did not differ across RFG and RFBG groups for word stimuli, whereas for drawings and photographs, the RFG group produced a significantly higher proportion of R hits than the RFBG group.
 
+
+
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+
+#### PSE and the availability of different resp_optiononse options:
+To determine whether the availability of different options had an impact on picture superiority within the current paradigm, the main effects of response option were also examined in the aforementioned ANOVAs. Discriminability (*d'*) between hits and FAs showed no significant main effect of resp_optiononse option, supporting the hypothesis that a PSE would be evident in each of the resp_optiononse option conditions. resp_optiononse bias (*c*) scores did show a main effect of resp_optiononse option though, `r exp1__apa_anova_prop_c$full$resp_optiononseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative resp_optiononse bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`. This indicates subjects were less likely to resp_optionond *Old* when they were required to provide more detailed follow-up recognition judgements (i.e., using separate 0-5 scales for R and F), compared to simply selecting one of three options (R,F, or G). This again supports the notion of avoidance from participants when they were required to provide two separate ratings. The ANOVAs on the proportion of hits, FAs, and overall recognition also mostly supported our hypothesis that a PSE would be evident in each of the resp_optiononse option conditions. While the ANOVAs on the proportion of FAs and overall recognition showed no significant main effects of resp_optiononse option, there was a significant main effect for the proportion of hits, `r exp1__apa_anova_prop_hit$full$resp_optiononseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits than the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`. This unexpected result may also reflect the conservative resp_optiononse bias of those in the RF-Ratings group, whereby fewer total *Old* resp_optiononses necessitates fewer hits as a result. However, a lack of differences between groups for FAs and overall recognition indicates a comparable PSE across each of the resp_optiononse option groups. 
+
+With regard to rates of R and F, there was a significant main effect of resp_optiononse-option for R hits, `r exp1__apa_anova_prop_rec_hit$full$resp_optiononseOption`; the RF-Ratings group (`r exp1__rfr_rec_hit_mean`) showed significantly more R hits compared to both the RFG-group (`r exp1__rfg_rec_hit_mean`), `r exp1__rfg_rfr_rec_hit_ttest`, and the RFBG-group (`r exp1__rfbg_rec_hit_mean`), `r exp1__rfbg_rfr_rec_hit_ttest`. R FA's also exhibited an identical pattern; a significant main effect of resp_optiononse-option, `r exp1__apa_anova_prop_rec_FA$full$resp_optiononseOption`, showed that those in the RF-Ratings group (`r exp1__rfr_rec_FA_mean`) produced more Recollection FAs than both the RFG-group (`r exp1__rfg_rec_FA_mean`), `r exp1__rfg_rfr_rec_FA_ttest`, and RFBG-group (`r exp1__rfbg_rec_FA_mean`), `r exp1__rfbg_rfr_rec_FA_ttest`). 
+These findings align with those above to suggest a more conservative resp_optiononse bias in the RF-Ratings group; participants were more likely to resp_optionond *Old* in the RF-Ratings condition when they experienced high certainty in their recognition - regardless of whether or not that recognition was accurate or false. 
+
 &nbsp;
+
+The significant interaction for F hits showed that word stimuli produced significantly more F hits in the RF-Ratings group (`r exp1__rfr_words_fam_hit_mean`) compared to the RFG group (`r exp1__rfg_words_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_resp_optionoption$statistic$Words_RFG_RF_Ratings`. An identical pattern was also observed for pictures between the RF-Ratings group (`r exp1__rfr_pics_fam_hit_mean`) and RFG group (`r exp1__rfg_pics_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_resp_optionoption$statistic$Pictures_RFG_RF_Ratings`, however, F hits in the RF-Ratings group were also higher than the RFBG group (`r exp1__rfbg_pics_fam_hit_mean`) when the stimuli were pictures, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_resp_optionoption$statistic$Pictures_RFBG_RF_Ratings`. The RFBG group (`r exp1__rfbg_pics_fam_hit_mean`) also showed a significantly higher number of F hits compared to the RFG group (`r exp1__rfg_pics_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_resp_optionoption$statistic$Pictures_RFG_RFBG`. There was no significant main effect of resp_optiononse-option for F FAs. Such findings suggest that the proportion of F resp_optiononses increases when participants are given the option to report *Both* - either explicitly, or from rating high on both rating scales. 
+
 &nbsp;
-`r table_numbering("exp3__resp.option__main.effects__table")`
-```{r echo=FALSE, cache=TRUE}
+
+Finally, the significant interaction for G hits demonstrated that word stimuli produced significantly fewer G hits in the RF-Ratings group (`r exp1__rfr_words_guess_hit_mean`) compared to both the RFG group (`r exp1__rfg_words_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_resp_optionoption$statistic$Words_RFG_RF_Ratings`, and the RFBG group (`r exp1__rfbg_words_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_resp_optionoption$statistic$Words_RFBG_RF_Ratings`. Likewise, pictures also produced significantly fewer G hits in the RF-Ratings group (`r exp1__rfr_pics_guess_hit_mean`) compared to both the RFG group (`r exp1__rfg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_resp_optionoption$statistic$Pictures_RFG_RF_Ratings` and RFBG group (`r exp1__rfbg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_resp_optionoption$statistic$Pictures_RFBG_RF_Ratings`. For G FAs, a significant main effect of resp_optiononse-option, `r exp1__apa_anova_prop_guess_FA$full$resp_optiononseOption` revealed that the RF-ratings group (`r exp1__rfr_guess_FA_mean`) again showed significantly fewer G FAs than both the RFG (`r exp1__rfg_guess_FA_mean`), `r exp1__rfg_rfr_guess_FA_ttest`, and RFBG groups (`r exp1__rfbg_guess_FA_mean`), `r exp1__rfbg_rfr_guess_FA_ttest`. These findings again align with the previous results that suggest those in the RF-Ratings group resp_optiononded conservatively overall, and were less likely to resp_optionond *Old* than the other groups unless they felt a high level of certainty. 
+
     exp4__resp.option__main.effects__table %>%
         kable("markdown", booktabs = T, full_width= T, align=rep('r', 3))
+
 ```
 
 ### Discussion
@@ -6437,6 +6451,12 @@ The current results continue to be best explained by the physical distinctivenes
 
 (colour = no effect)
 Stróżak
+
+
+
+
+@rossion2004
+
 
 
 ## Experiment: Manipulating word distinctiveness
@@ -9334,6 +9354,13 @@ For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.m
 
 \newpage
 ######----------------------------------------
+
+\newpage
+# Chapter 6
+## Background
+
+
+
 
 \newpage
 # References

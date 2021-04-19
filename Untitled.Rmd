@@ -1,208 +1,196 @@
 ---
-output:
-#  word_document:
-#  toc: yes
-#  toc_depth: '4'
-    pdf_document:
-        toc_depth: 4
-        toc: yes
-        number_sections: no
-        fig_caption: yes
-        latex_engine: xelatex
+title: "R Notebook"
+output: html_notebook
 ---
-###################################################################################################################
-##    Rec / Fam / Guess hits figure:                                                                             ##
-###################################################################################################################
-      exp1__hit_figure_data <- tribble(~"resp_optiononseOption", ~"stimuliFormat", ~"rfg", ~"emmean", ~"SE",
-          as.character(pull(exp1__rec_hit_figure_data[1,1])), 
-          as.character(pull(exp1__rec_hit_figure_data[1,2])), "Recollection",
-          as.double(pull(exp1__rec_hit_figure_data[1,3])), as.double(pull(exp1__rec_hit_figure_data[1,4])),
-          as.character(pull(exp1__rec_hit_figure_data[2,1])), 
-          as.character(pull(exp1__rec_hit_figure_data[2,2])), "Recollection",
-          as.double(pull(exp1__rec_hit_figure_data[2,3])), as.double(pull(exp1__rec_hit_figure_data[2,4])),
-          as.character(pull(exp1__rec_hit_figure_data[3,1])), 
-          as.character(pull(exp1__rec_hit_figure_data[3,2])), "Recollection",
-          as.double(pull(exp1__rec_hit_figure_data[3,3])), as.double(pull(exp1__rec_hit_figure_data[3,4])),
-          as.character(pull(exp1__rec_hit_figure_data[4,1])), 
-          as.character(pull(exp1__rec_hit_figure_data[4,2])), "Recollection",
-          as.double(pull(exp1__rec_hit_figure_data[4,3])), as.double(pull(exp1__rec_hit_figure_data[4,4])),
-          as.character(pull(exp1__rec_hit_figure_data[5,1])), 
-          as.character(pull(exp1__rec_hit_figure_data[5,2])), "Recollection",
-          as.double(pull(exp1__rec_hit_figure_data[5,3])), as.double(pull(exp1__rec_hit_figure_data[5,4])),
-          as.character(pull(exp1__rec_hit_figure_data[6,1])), 
-          as.character(pull(exp1__rec_hit_figure_data[6,2])), "Recollection",
-          as.double(pull(exp1__rec_hit_figure_data[6,3])), as.double(pull(exp1__rec_hit_figure_data[6,4])),
-          as.character(pull(exp1__fam_hit_figure_data[1,1])), 
-          as.character(pull(exp1__fam_hit_figure_data[1,2])), "Familiarity",
-          as.double(pull(exp1__fam_hit_figure_data[1,3])), as.double(pull(exp1__fam_hit_figure_data[1,4])),
-          as.character(pull(exp1__fam_hit_figure_data[2,1])), 
-          as.character(pull(exp1__fam_hit_figure_data[2,2])), "Familiarity",
-          as.double(pull(exp1__fam_hit_figure_data[2,3])), as.double(pull(exp1__fam_hit_figure_data[2,4])),
-          as.character(pull(exp1__fam_hit_figure_data[3,1])), 
-          as.character(pull(exp1__fam_hit_figure_data[3,2])), "Familiarity",
-          as.double(pull(exp1__fam_hit_figure_data[3,3])), as.double(pull(exp1__fam_hit_figure_data[3,4])),
-          as.character(pull(exp1__fam_hit_figure_data[4,1])), 
-          as.character(pull(exp1__fam_hit_figure_data[4,2])), "Familiarity",
-          as.double(pull(exp1__fam_hit_figure_data[4,3])), as.double(pull(exp1__fam_hit_figure_data[4,4])),
-          as.character(pull(exp1__fam_hit_figure_data[5,1])), 
-          as.character(pull(exp1__fam_hit_figure_data[5,2])), "Familiarity",
-          as.double(pull(exp1__fam_hit_figure_data[5,3])), as.double(pull(exp1__fam_hit_figure_data[5,4])),
-          as.character(pull(exp1__fam_hit_figure_data[6,1])), 
-          as.character(pull(exp1__fam_hit_figure_data[6,2])), "Familiarity",
-          as.double(pull(exp1__fam_hit_figure_data[6,3])), as.double(pull(exp1__fam_hit_figure_data[6,4])),
-          as.character(pull(exp1__guess_hit_figure_data[1,1])),
-          as.character(pull(exp1__guess_hit_figure_data[1,2])), "Guessing",
-          as.double(pull(exp1__guess_hit_figure_data[1,3])), as.double(pull(exp1__guess_hit_figure_data[1,4])),
-          as.character(pull(exp1__guess_hit_figure_data[2,1])),
-          as.character(pull(exp1__guess_hit_figure_data[2,2])), "Guessing",
-          as.double(pull(exp1__guess_hit_figure_data[2,3])), as.double(pull(exp1__guess_hit_figure_data[2,4])),
-          as.character(pull(exp1__guess_hit_figure_data[3,1])),
-          as.character(pull(exp1__guess_hit_figure_data[3,2])), "Guessing",
-          as.double(pull(exp1__guess_hit_figure_data[3,3])), as.double(pull(exp1__guess_hit_figure_data[3,4])),
-          as.character(pull(exp1__guess_hit_figure_data[4,1])),
-          as.character(pull(exp1__guess_hit_figure_data[4,2])), "Guessing",
-          as.double(pull(exp1__guess_hit_figure_data[4,3])), as.double(pull(exp1__guess_hit_figure_data[4,4])),
-          as.character(pull(exp1__guess_hit_figure_data[5,1])),
-          as.character(pull(exp1__guess_hit_figure_data[5,2])), "Guessing",
-          as.double(pull(exp1__guess_hit_figure_data[5,3])), as.double(pull(exp1__guess_hit_figure_data[5,4])),
-          as.character(pull(exp1__guess_hit_figure_data[6,1])),
-          as.character(pull(exp1__guess_hit_figure_data[6,2])), "Guessing",
-          as.double(pull(exp1__guess_hit_figure_data[6,3])), as.double(pull(exp1__guess_hit_figure_data[6,4]))) %>%
-          transform(resp_optiononseOption = factor(resp_optiononseOption, levels=c("RFG","RFBG","RF_Ratings"))) %>%
-          transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
-          transform(stimuliFormat = factor(stimuliFormat, levels=c("Words","Pictures")))
-##    Hit figure:
-      exp1__hit_figure <- ggplot(exp1__hit_figure_data, aes(x = stimuliFormat, y = emmean, fill = rfg)) +
-          scale_fill_manual("legend", values = c("Recollection" = "#1B4251", "Familiarity" = "#6A6C93",
-                                                 "Guessing" = "#D491CA")) + 
-          geom_col(position = position_dodge()) +
-          geom_errorbar(aes(ymin = pmax(emmean-SE, 0), ymax = emmean+SE), width = 0.2, size = 0.3, 
-                        position = position_dodge(0.9)) +
-          facet_wrap(~resp_optiononseOption, strip.position = "bottom") +
-          labs(x = "resp_optiononse-option condition", y = "Mean proportion of hits") +
-          scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
-          theme_classic() +    # Removes grey background and grid lines. 
-          theme(
-              strip.placement = "outside",
-              strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
-              axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
-              axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
-              axis.text.x = element_text(size = 9),
-              axis.text.y = element_text(size = 9),
-              legend.background = element_rect(fill = "white", size = 0.2, linetype = "solid", colour = "black"),
-              legend.title = element_blank(),
-              legend.position = c(0.5, 0.896),
-              legend.margin = margin(6, 6, 6, 6),
-              legend.spacing.y = unit(-1, "pt"),
-              plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
-              plot.margin = margin(20, 20, 24, 30))
-###################################################################################################################
-##    Rec / Fam / Guess FAs figure:                                                                              ##
-###################################################################################################################
-      exp1__rec_FA_figure_data <- as.tibble(exp1__anova_prop_rec_FA_interaction_emmeans) %>%
-          select(-df, -lower.CL, -upper.CL)
-      exp1__fam_FA_figure_data <- as.tibble(exp1__anova_prop_fam_FA_interaction_emmeans) %>%
-          select(-df, -lower.CL, -upper.CL)
-      exp1__guess_FA_figure_data <- as.tibble(exp1__anova_prop_guess_FA_interaction_emmeans) %>%
-          select(-df, -lower.CL, -upper.CL)
-  
-      exp1__FA_figure_data <- tribble(~"resp_optiononseOption", ~"stimuliFormat", ~"rfg", ~"emmean", ~"SE",
-          as.character(pull(exp1__rec_FA_figure_data[1,1])), 
-          as.character(pull(exp1__rec_FA_figure_data[1,2])), "Recollection",
-          as.double(pull(exp1__rec_FA_figure_data[1,3])), as.double(pull(exp1__rec_FA_figure_data[1,4])),
-          as.character(pull(exp1__rec_FA_figure_data[2,1])), 
-          as.character(pull(exp1__rec_FA_figure_data[2,2])), "Recollection",
-          as.double(pull(exp1__rec_FA_figure_data[2,3])), as.double(pull(exp1__rec_FA_figure_data[2,4])),
-          as.character(pull(exp1__rec_FA_figure_data[3,1])), 
-          as.character(pull(exp1__rec_FA_figure_data[3,2])), "Recollection",
-          as.double(pull(exp1__rec_FA_figure_data[3,3])), as.double(pull(exp1__rec_FA_figure_data[3,4])),
-          as.character(pull(exp1__rec_FA_figure_data[4,1])), 
-          as.character(pull(exp1__rec_FA_figure_data[4,2])), "Recollection",
-          as.double(pull(exp1__rec_FA_figure_data[4,3])), as.double(pull(exp1__rec_FA_figure_data[4,4])),
-          as.character(pull(exp1__rec_FA_figure_data[5,1])), 
-          as.character(pull(exp1__rec_FA_figure_data[5,2])), "Recollection",
-          as.double(pull(exp1__rec_FA_figure_data[5,3])), as.double(pull(exp1__rec_FA_figure_data[5,4])),
-          as.character(pull(exp1__rec_FA_figure_data[6,1])), 
-          as.character(pull(exp1__rec_FA_figure_data[6,2])), "Recollection",
-          as.double(pull(exp1__rec_FA_figure_data[6,3])), as.double(pull(exp1__rec_FA_figure_data[6,4])),
-          as.character(pull(exp1__fam_FA_figure_data[1,1])), 
-          as.character(pull(exp1__fam_FA_figure_data[1,2])), "Familiarity",
-          as.double(pull(exp1__fam_FA_figure_data[1,3])), as.double(pull(exp1__fam_FA_figure_data[1,4])),
-          as.character(pull(exp1__fam_FA_figure_data[2,1])), 
-          as.character(pull(exp1__fam_FA_figure_data[2,2])), "Familiarity",
-          as.double(pull(exp1__fam_FA_figure_data[2,3])), as.double(pull(exp1__fam_FA_figure_data[2,4])),
-          as.character(pull(exp1__fam_FA_figure_data[3,1])), 
-          as.character(pull(exp1__fam_FA_figure_data[3,2])), "Familiarity",
-          as.double(pull(exp1__fam_FA_figure_data[3,3])), as.double(pull(exp1__fam_FA_figure_data[3,4])),
-          as.character(pull(exp1__fam_FA_figure_data[4,1])), 
-          as.character(pull(exp1__fam_FA_figure_data[4,2])), "Familiarity",
-          as.double(pull(exp1__fam_FA_figure_data[4,3])), as.double(pull(exp1__fam_FA_figure_data[4,4])),
-          as.character(pull(exp1__fam_FA_figure_data[5,1])), 
-          as.character(pull(exp1__fam_FA_figure_data[5,2])), "Familiarity",
-          as.double(pull(exp1__fam_FA_figure_data[5,3])), as.double(pull(exp1__fam_FA_figure_data[5,4])),
-          as.character(pull(exp1__fam_FA_figure_data[6,1])), 
-          as.character(pull(exp1__fam_FA_figure_data[6,2])), "Familiarity",
-          as.double(pull(exp1__fam_FA_figure_data[6,3])), as.double(pull(exp1__fam_FA_figure_data[6,4])),
-          as.character(pull(exp1__guess_FA_figure_data[1,1])), 
-          as.character(pull(exp1__guess_FA_figure_data[1,2])), "Guessing",
-          as.double(pull(exp1__guess_FA_figure_data[1,3])), as.double(pull(exp1__guess_FA_figure_data[1,4])),
-          as.character(pull(exp1__guess_FA_figure_data[2,1])), 
-          as.character(pull(exp1__guess_FA_figure_data[2,2])), "Guessing",
-          as.double(pull(exp1__guess_FA_figure_data[2,3])), as.double(pull(exp1__guess_FA_figure_data[2,4])),
-          as.character(pull(exp1__guess_FA_figure_data[3,1])), 
-          as.character(pull(exp1__guess_FA_figure_data[3,2])), "Guessing",
-          as.double(pull(exp1__guess_FA_figure_data[3,3])), as.double(pull(exp1__guess_FA_figure_data[3,4])),
-          as.character(pull(exp1__guess_FA_figure_data[4,1])), 
-          as.character(pull(exp1__guess_FA_figure_data[4,2])), "Guessing",
-          as.double(pull(exp1__guess_FA_figure_data[4,3])), as.double(pull(exp1__guess_FA_figure_data[4,4])),
-          as.character(pull(exp1__guess_FA_figure_data[5,1])), 
-          as.character(pull(exp1__guess_FA_figure_data[5,2])), "Guessing",
-          as.double(pull(exp1__guess_FA_figure_data[5,3])), as.double(pull(exp1__guess_FA_figure_data[5,4])),
-          as.character(pull(exp1__guess_FA_figure_data[6,1])), 
-          as.character(pull(exp1__guess_FA_figure_data[6,2])), "Guessing",
-          as.double(pull(exp1__guess_FA_figure_data[6,3])), as.double(pull(exp1__guess_FA_figure_data[6,4]))) %>%
-          transform(resp_optiononseOption = factor(resp_optiononseOption, levels=c("RFG","RFBG","RF_Ratings"))) %>%
-          transform(rfg = factor(rfg, levels=c("Recollection","Familiarity","Guessing"))) %>%
-          transform(stimuliFormat = factor(stimuliFormat, levels=c("Words","Pictures")))
-              
-      exp1__FA_figure <- ggplot(exp1__FA_figure_data, aes(x = stimuliFormat, y = emmean, fill = rfg)) +
-          scale_fill_manual("legend", values = c("Recollection" = "#1B4251", "Familiarity" = "#6A6C93", 
-                                                 "Guessing" = "#D491CA")) + 
-          geom_col(position = position_dodge()) +
-          geom_errorbar(aes(ymin = emmean-SE, ymax = emmean+SE), width = 0.2, size = 0.3, 
-                        position = position_dodge(0.9)) +
-          facet_wrap(~resp_optiononseOption, strip.position = "bottom") +
-          labs(x = "resp_optiononse-option condition", y = "Mean proportion of FAs") +
-          scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) + 
-          theme_classic() +
-          theme(
-              strip.placement = "outside",
-              strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid", colour = "black"),
-              axis.title.x = element_text(vjust=-4),    # Move x-axis label further away from the figure.
-              axis.title.y = element_text(vjust=6),     # Move y-axis label further away from the figure.
-              axis.text.x = element_text(size = 9),
-              axis.text.y = element_text(size = 9),
-              legend.background = element_rect(fill = "white", size = 0.2, linetype = "solid", colour = "black"),
-              legend.title = element_blank(),
-              legend.position = c(0.5, 0.896),
-              legend.margin = margin(6, 6, 6, 6),
-              legend.spacing.y = unit(-1, "pt"),
-              plot.background = element_rect(size = 0.5, linetype = 'solid', colour = "black"),
-              plot.margin = margin(20, 20, 24, 30))
-```
+
+```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
+##################################################################################################################
+##  EXPERIMENT 6 DATA PROCESSING:                                                                               ##
+##################################################################################################################
+##  Import demographics, RFG justifications, and RFBG justifications:
+    exp6__p_info_files <- c(
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-z6yh.csv", # Demog (v6)
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-h32i.csv")  # RFG just (v6)
+
+##  Create raw df from the above files, but only get the following columns:
+    exp6__participant_info <- map_dfr(exp6__p_info_files,~read_csv(.x, col_types = cols_only(
+        "Participant Private ID"='c', "Participant Public ID"='c', "UTC Date"='c', "Participant OS"='c',
+        "Participant Browser"='c', "Participant Monitor Size"='c', "branch-ebg9"='c', "randomiser-6j1g"='c', 
+        "randomiser-rj7w"='c', "randomiser-enay"='c', "randomiser-gw7n"='c', "randomiser-uc11"='c', 
+        "randomiser-hpp5"='c', "randomiser-qhxy"='c', "randomiser-vvav"='c', "Question Key"='c', 
+        "Response"='c'))) %>%
+    ##  Merge columns that contain the same type of data, but were originally split into different columns:
+        unite(study_list, "randomiser-6j1g", "randomiser-rj7w", "randomiser-enay", "randomiser-gw7n",
+              "randomiser-uc11", "randomiser-hpp5", "randomiser-qhxy", "randomiser-vvav", remove = TRUE, 
+              na.rm = TRUE) %>%
+    ##  Rename some columns:    
+        rename(id = "Participant Private ID", prolific_id = "Participant Public ID", date = "UTC Date",
+               system = "Participant OS", browser = "Participant Browser", monitor = "Participant Monitor Size",
+               test_list = "branch-ebg9", question = "Question Key", response = "Response") %>%
+    ##  Reorder columns:    
+        select(id, prolific_id, date, system, browser, monitor, study_list, test_list, question, response) %>%
+    ##  Set participant ID as the grouping variable, and arrange data by participant ID:
+        group_by(id) %>%
+        arrange(id) %>%
+    ##  Remove empty / unimportant rows:
+        drop_na(id) %>%
+        filter(question != "BEGIN QUESTIONNAIRE") %>%    
+        filter(question != "END QUESTIONNAIRE") %>%
+    ##  Reformat from long to wide:
+        spread(key = question, value = response) %>%
+    ##  Remove unimportant columns:    
+        select(-"age-quantised", -"attention_check-quantised", -"EngFirstLang-quantised", -"ethnicity-quantised", 
+               -"ethnicity2-quantised", -"ethnicity3-quantised", -"mem_skills_1-quantised", 
+               -"mem_skills_2-quantised", -"response-6-quantised", -"response-9-quantised") %>%
+    ##  Merge multiple rows into one (per participant):
+        summarise_all(coalesce_by_column) %>%
+    ##  Rename more columns:
+        rename(white = "ethnicity", mixed = "ethnicity2", asian = "ethnicity3", eng_first_lang = "EngFirstLang",
+               mixed_other = "response-4", asian_other = "response-15", black = "response-6", 
+               black_other = "response-7", other_ethnic = "response-9", other_ethnic_specified = "response-4") %>%
+    ##  Reorder columns again:   
+        select(id, prolific_id, date, system, browser, monitor, study_list, test_list, age, gender, 
+                 eng_first_lang, white, white_other, mixed, mixed_other, asian, asian_other, black, 
+                 black_other, other_ethnic, other_ethnic_specified, rec_justification, fam_justification,
+                 guess_justification, mem_skills_1, mem_skills_2, attention_check) %>%
+    ##  Recode attention check to show pass or fail:
+        mutate(attention_check = str_replace(attention_check, "a lot better", "pass")) %>%
+        mutate(attention_check = str_replace_all(attention_check, c("a lot worse" = "fail",
+                                                                    "a little worse" = "fail", "the same" = "fail",
+                                                                    "a little better" = "fail"))) %>%
+    ##  Tidy up responses for clarity:
+        mutate_all(., tolower) %>%
+        mutate(system = str_remove_all(system, "\\ .+")) %>%
+        mutate(browser = str_remove_all(browser, "\\ .+")) %>%
+        mutate(mixed = str_remove_all(mixed, "\\ .+")) %>%
+        mutate(asian = str_remove_all(asian, "\\ .+")) %>%
+        mutate(black = str_remove_all(black, "\\ .+")) %>%
+        mutate(gender = str_replace(gender, "^m$", "male")) %>%
+        mutate(gender = replace_na(gender, "unspecified")) %>%
+        arrange(study_list, test_list)
 
 
+##    Calculate how many items P got correct during study:
+##    Import study data:
+      exp6__study_files <- c(
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-l7li.csv", # Study Red1 (pics=only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qi5x.csv", # Study Red1 (pics-only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-pifd.csv", # Study Red2 (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-uf3l.csv", # Study Red2 (pics+word)          
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-a3o7.csv", # Study Orange1 (pics-only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1u76.csv", # Study Orange2 (pics-only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-3n1f.csv", # Study Orange1 (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-5ium.csv", # Study Orange2 (pics+word)
+                    
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-a9z8.csv",  # Study Yellow (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-bqu6.csv",  # Study Yellow (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1v1k.csv",  # Study Yellow (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-ggr4.csv",  # Study Yellow (pics+word)
+          
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-okc7.csv",  # Study Green (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-wmoz.csv",  # Study Green (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jlur.csv",  # Study Green (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-vbdo.csv",  # Study Green (pics+word)          
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-pygj.csv",  # Study Teal (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qza1.csv",  # Study Teal (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-eia6.csv",  # Study Teal (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-7wwc.csv",  # Study Teal (pics+word)
+          
+        
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-j5hw.csv",  # Study Blue (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-g65w.csv",  # Study Blue (pics only) 
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-s7up.csv",  # Study Purple (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qvph.csv",  # Study Purple (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jsz4.csv",  # Study Pink (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-2j1b.csv")  # Study Pink (pics only)      
 
-#### PSE and the availability of different resp_optiononse options:
-To determine whether the availability of different options had an impact on picture superiority within the current paradigm, the main effects of response option were also examined in the aforementioned ANOVAs. Discriminability (*d'*) between hits and FAs showed no significant main effect of resp_optiononse option, supporting the hypothesis that a PSE would be evident in each of the resp_optiononse option conditions. resp_optiononse bias (*c*) scores did show a main effect of resp_optiononse option though, `r exp1__apa_anova_prop_c$full$resp_optiononseOption`; those in the RF-Ratings condition (`r exp1__rfr_c_mean`) showed higher c-scores (and thus a more conservative resp_optiononse bias) than those in the RFG condition (`r exp1__rfg_c_mean`), `r exp1__rfg_rfr_c_ttest`. This indicates subjects were less likely to resp_optionond *Old* when they were required to provide more detailed follow-up recognition judgements (i.e., using separate 0-5 scales for R and F), compared to simply selecting one of three options (R,F, or G). This again supports the notion of avoidance from participants when they were required to provide two separate ratings. The ANOVAs on the proportion of hits, FAs, and overall recognition also mostly supported our hypothesis that a PSE would be evident in each of the resp_optiononse option conditions. While the ANOVAs on the proportion of FAs and overall recognition showed no significant main effects of resp_optiononse option, there was a significant main effect for the proportion of hits, `r exp1__apa_anova_prop_hit$full$resp_optiononseOption`, with the RFG group (`r exp1__rfg_prop_hit_mean`) showing more hits than the RF-Ratings group (`r exp1__rfratings_prop_hit_mean`), `r exp1__rfg_rfr_hit_ttest`. This unexpected result may also reflect the conservative resp_optiononse bias of those in the RF-Ratings group, whereby fewer total *Old* resp_optiononses necessitates fewer hits as a result. However, a lack of differences between groups for FAs and overall recognition indicates a comparable PSE across each of the resp_optiononse option groups. 
+##  Create raw df from the above files, but only get the following columns:
+    exp6__study_data <- map_dfr(exp6__study_files,~read_csv(.x, col_types = cols_only(
+        "Participant Private ID" = 'c', "Participant Public ID"='c', "Screen Name" = 'c', "stim" = 'c',
+        "correct_answer" = 'c', "Response" = 'c',"Reaction Time" = col_double()))) %>%
+    ##  Rename some columns:
+        rename(id = "Participant Private ID", prolific_id = "Participant Public ID", screen = "Screen Name",
+               rt = "Reaction Time", response = "Response") %>%
+    ##  Reorder columns:    
+        select(id, prolific_id, screen, stim, correct_answer, response, rt) %>%
+    ##  Set participant ID as the grouping variable, and arrange data by participant ID:
+        group_by(id) %>%
+        arrange(id) %>%         
+    ##  Remove empty / unimportant rows:
+        drop_na(screen) %>%
+        filter(screen != "check") %>%
+        filter(screen != "fixation") %>%
+        filter(screen != "filler_start_fixation") %>%
+        filter(screen != "filler_start_stim") %>%
+        filter(screen != "filler_end_fixation") %>%
+        filter(screen != "filler_end_stim") %>%
+        add_count(screen, name = "total_resp")
+    
+    write.csv(exp6__study_data,'~/Desktop/exp6__study_data.csv', row.names = FALSE)
 
-With regard to rates of R and F, there was a significant main effect of resp_optiononse-option for R hits, `r exp1__apa_anova_prop_rec_hit$full$resp_optiononseOption`; the RF-Ratings group (`r exp1__rfr_rec_hit_mean`) showed significantly more R hits compared to both the RFG-group (`r exp1__rfg_rec_hit_mean`), `r exp1__rfg_rfr_rec_hit_ttest`, and the RFBG-group (`r exp1__rfbg_rec_hit_mean`), `r exp1__rfbg_rfr_rec_hit_ttest`. R FA's also exhibited an identical pattern; a significant main effect of resp_optiononse-option, `r exp1__apa_anova_prop_rec_FA$full$resp_optiononseOption`, showed that those in the RF-Ratings group (`r exp1__rfr_rec_FA_mean`) produced more Recollection FAs than both the RFG-group (`r exp1__rfg_rec_FA_mean`), `r exp1__rfg_rfr_rec_FA_ttest`, and RFBG-group (`r exp1__rfbg_rec_FA_mean`), `r exp1__rfbg_rfr_rec_FA_ttest`). 
-These findings align with those above to suggest a more conservative resp_optiononse bias in the RF-Ratings group; participants were more likely to resp_optionond *Old* in the RF-Ratings condition when they experienced high certainty in their recognition - regardless of whether or not that recognition was accurate or false. 
-
-&nbsp;
-
-The significant interaction for F hits showed that word stimuli produced significantly more F hits in the RF-Ratings group (`r exp1__rfr_words_fam_hit_mean`) compared to the RFG group (`r exp1__rfg_words_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_resp_optionoption$statistic$Words_RFG_RF_Ratings`. An identical pattern was also observed for pictures between the RF-Ratings group (`r exp1__rfr_pics_fam_hit_mean`) and RFG group (`r exp1__rfg_pics_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_resp_optionoption$statistic$Pictures_RFG_RF_Ratings`, however, F hits in the RF-Ratings group were also higher than the RFBG group (`r exp1__rfbg_pics_fam_hit_mean`) when the stimuli were pictures, `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_resp_optionoption$statistic$Pictures_RFBG_RF_Ratings`. The RFBG group (`r exp1__rfbg_pics_fam_hit_mean`) also showed a significantly higher number of F hits compared to the RFG group (`r exp1__rfg_pics_fam_hit_mean`), `r exp1__apa_anova_prop_fam_hit_interaction_pairwise_resp_optionoption$statistic$Pictures_RFG_RFBG`. There was no significant main effect of resp_optiononse-option for F FAs. Such findings suggest that the proportion of F resp_optiononses increases when participants are given the option to report *Both* - either explicitly, or from rating high on both rating scales. 
-
-&nbsp;
-
-Finally, the significant interaction for G hits demonstrated that word stimuli produced significantly fewer G hits in the RF-Ratings group (`r exp1__rfr_words_guess_hit_mean`) compared to both the RFG group (`r exp1__rfg_words_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_resp_optionoption$statistic$Words_RFG_RF_Ratings`, and the RFBG group (`r exp1__rfbg_words_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_resp_optionoption$statistic$Words_RFBG_RF_Ratings`. Likewise, pictures also produced significantly fewer G hits in the RF-Ratings group (`r exp1__rfr_pics_guess_hit_mean`) compared to both the RFG group (`r exp1__rfg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_resp_optionoption$statistic$Pictures_RFG_RF_Ratings` and RFBG group (`r exp1__rfbg_pics_guess_hit_mean`), `r exp1__apa_anova_prop_guess_hit_interaction_pairwise_resp_optionoption$statistic$Pictures_RFBG_RF_Ratings`. For G FAs, a significant main effect of resp_optiononse-option, `r exp1__apa_anova_prop_guess_FA$full$resp_optiononseOption` revealed that the RF-ratings group (`r exp1__rfr_guess_FA_mean`) again showed significantly fewer G FAs than both the RFG (`r exp1__rfg_guess_FA_mean`), `r exp1__rfg_rfr_guess_FA_ttest`, and RFBG groups (`r exp1__rfbg_guess_FA_mean`), `r exp1__rfbg_rfr_guess_FA_ttest`. These findings again align with the previous results that suggest those in the RF-Ratings group resp_optiononded conservatively overall, and were less likely to resp_optionond *Old* than the other groups unless they felt a high level of certainty. 
+    
+    
+##  Calculate how many responses were correct for each stimuli format, then join these together:
+    exp6__grey_word <- exp6__study_data %>%
+        filter(str_detect(stim, "grey-word") & correct_answer == "word.png") %>%
+        add_count(screen, name = "study_grey_word_resps") %>%
+        filter(response == "word.png") %>%
+        add_count(screen, name = "study_grey_word_correct") %>%
+        distinct(id, .keep_all = TRUE) %>%
+        select(id, study_grey_word_resps, study_grey_word_correct)
+    exp6__distinctive_word <- exp6__study_data %>%
+        filter(str_detect(stim, "distinctive-word") & correct_answer == "word.png") %>%
+        add_count(screen, name = "study_distinctive_word_resps") %>%
+        filter(response == "word.png") %>%
+        add_count(screen, name = "study_distinctive_word_correct") %>%
+        distinct(id, .keep_all = TRUE) %>%
+        select(id, study_distinctive_word_resps, study_distinctive_word_correct)
+    exp6__grey_drawing <- exp6__study_data %>%
+        filter(str_detect(stim, "grey-drawing") & correct_answer == "drawing.png") %>%
+        add_count(screen, name = "study_grey_drawing_resps") %>%
+        filter(response == "drawing.png") %>%
+        add_count(screen, name = "study_grey_drawing_correct") %>%
+        distinct(id, .keep_all = TRUE) %>%
+        select(id, study_grey_drawing_resps, study_grey_drawing_correct)
+    exp6__col_drawing <- exp6__study_data %>%
+        filter(str_detect(stim, "col-drawing") & correct_answer == "drawing.png") %>%
+        add_count(screen, name = "study_col_drawing_resps") %>%
+        filter(response == "drawing.png") %>%
+        add_count(screen, name = "study_col_drawing_correct") %>%
+        distinct(id, .keep_all = TRUE) %>%
+        select(id, study_col_drawing_resps, study_col_drawing_correct)
+    exp6__grey_photo <- exp6__study_data %>%
+        filter(str_detect(stim, "grey-photo") & correct_answer == "photo.png") %>%
+        add_count(screen, name = "study_grey_photo_resps") %>%
+        filter(response == "photo.png") %>%
+        add_count(screen, name = "study_grey_photo_correct") %>%
+        distinct(id, .keep_all = TRUE) %>%
+        select(id, study_grey_photo_resps, study_grey_photo_correct)
+    exp6__col_photo <- exp6__study_data %>%
+        filter(str_detect(stim, "col-photo") & correct_answer == "photo.png") %>%
+        add_count(screen, name = "study_col_photo_resps") %>%
+        filter(response == "photo.png") %>%
+        add_count(screen, name = "study_col_photo_correct") %>%
+        distinct(id, .keep_all = TRUE) %>%
+        select(id, study_col_photo_resps, study_col_photo_correct)
+    exp6__study_totals <- right_join(exp6__grey_word, exp6__distinctive_word, by = "id") %>%
+        right_join(exp6__grey_drawing, by = "id") %>%
+        right_join(exp6__col_drawing, by = "id") %>%
+        right_join(exp6__grey_photo, by = "id") %>%
+        right_join(exp6__col_photo, by = "id")
+      
+##  Add 'exp6__study_totals' to 'exp6__participant_info' df:
+    exp6__participant_info <- exp6__participant_info %>%
+        right_join(exp6__study_totals, by = "id") %>%
+        mutate(study_responses_total = study_grey_word_resps + study_distinctive_word_resps +
+                 study_grey_drawing_resps + study_col_drawing_resps +
+                 study_grey_photo_resps + study_col_photo_resps) %>%
+        mutate(study_correct = study_grey_word_correct + study_distinctive_word_correct +
+                 study_grey_drawing_correct + study_col_drawing_correct +
+                 study_grey_photo_correct + study_col_photo_correct) %>%
+        mutate(study_correct_percent = study_correct*(100/study_responses_total)) %>%
+        mutate(study_error = study_responses_total - study_correct) %>%
+        mutate(study_error_percent = study_error*(100/study_responses_total)) %>%
+        arrange(study_list, test_list) %>%
+        select(id, prolific_id, everything())
+```      
