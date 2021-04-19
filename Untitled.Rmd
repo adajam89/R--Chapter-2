@@ -764,8 +764,8 @@ output: html_notebook
                  replace(prop.FA.R__drawing.only, prop.FA.R__drawing.only == 1, .99)) %>%
         mutate(prop.FA.R__drawing.only = 
                  replace(prop.FA.R__drawing.only, prop.FA.R__drawing.only == 0, .01)) %>%
-        mutate(d.prime__drawing.only = qnorm(prop.hit.R__drawing.only) - qnorm(prop.FA.R__drawing.only)) %>%
-        select(id, d.prime__drawing.only)
+        mutate(d.prime__drawing.only.rec = qnorm(prop.hit.R__drawing.only) - qnorm(prop.FA.R__drawing.only)) %>%
+        select(id, d.prime__drawing.only.rec)
 ##  Fam:
     exp6__drawing.only__d.prime.fam <- exp6__test.stats %>%
         select(id, prop.hit.F__drawing.only, prop.FA.F__drawing.only) %>%
@@ -777,8 +777,8 @@ output: html_notebook
                  replace(prop.FA.F__drawing.only, prop.FA.F__drawing.only == 1, .99)) %>%
         mutate(prop.FA.F__drawing.only = 
                  replace(prop.FA.F__drawing.only, prop.FA.F__drawing.only == 0, .01)) %>%
-        mutate(d.prime__drawing.only = qnorm(prop.hit.F__drawing.only) - qnorm(prop.FA.F__drawing.only)) %>%
-        select(id, d.prime__drawing.only)
+        mutate(d.prime__drawing.only.fam = qnorm(prop.hit.F__drawing.only) - qnorm(prop.FA.F__drawing.only)) %>%
+        select(id, d.prime__drawing.only.fam)
 ##  Guess:
     exp6__drawing.only__d.prime.guess <- exp6__test.stats %>%
         select(id, prop.hit.G__drawing.only, prop.FA.G__drawing.only) %>%
@@ -790,9 +790,9 @@ output: html_notebook
                  replace(prop.FA.G__drawing.only, prop.FA.G__drawing.only == 1, .99)) %>%
         mutate(prop.FA.G__drawing.only = 
                  replace(prop.FA.G__drawing.only, prop.FA.G__drawing.only == 0, .01)) %>%
-        mutate(d.prime__drawing.only = qnorm(prop.hit.G__drawing.only) - qnorm(prop.FA.G__drawing.only)) %>%
-        select(id, d.prime__drawing.only)
-#----------------------------------------------------------------------------------------------------------------  ##  Photos only:      
+        mutate(d.prime__drawing.only.guess = qnorm(prop.hit.G__drawing.only) - qnorm(prop.FA.G__drawing.only)) %>%
+        select(id, d.prime__drawing.only.guess)
+#---------------------------------------------------------------------------------------------------------------- ##  Photos only:      
 ##  Overall:
     exp6__photo.only__d.prime <- exp6__test.stats %>%
         select(id, prop.hit__photo.only, prop.FA__photo.only) %>%
@@ -813,8 +813,8 @@ output: html_notebook
                  replace(prop.FA.R__photo.only, prop.FA.R__photo.only == 1, .99)) %>%
         mutate(prop.FA.R__photo.only = 
                  replace(prop.FA.R__photo.only, prop.FA.R__photo.only == 0, .01)) %>%
-        mutate(d.prime__photo.only = qnorm(prop.hit.R__photo.only) - qnorm(prop.FA.R__photo.only)) %>%
-        select(id, d.prime__photo.only)
+        mutate(d.prime__photo.only.rec = qnorm(prop.hit.R__photo.only) - qnorm(prop.FA.R__photo.only)) %>%
+        select(id, d.prime__photo.only.rec)
 ##  Fam:
     exp6__photo.only__d.prime.fam <- exp6__test.stats %>%
         select(id, prop.hit.F__photo.only, prop.FA.F__photo.only) %>%
@@ -826,8 +826,8 @@ output: html_notebook
                  replace(prop.FA.F__photo.only, prop.FA.F__photo.only == 1, .99)) %>%
         mutate(prop.FA.F__photo.only = 
                  replace(prop.FA.F__photo.only, prop.FA.F__photo.only == 0, .01)) %>%
-        mutate(d.prime__photo.only = qnorm(prop.hit.F__photo.only) - qnorm(prop.FA.F__photo.only)) %>%
-        select(id, d.prime__photo.only)
+        mutate(d.prime__photo.only.fam = qnorm(prop.hit.F__photo.only) - qnorm(prop.FA.F__photo.only)) %>%
+        select(id, d.prime__photo.only.fam)
 ##  Guess:
     exp6__photo.only__d.prime.guess <- exp6__test.stats %>%
         select(id, prop.hit.G__photo.only, prop.FA.G__photo.only) %>%
@@ -839,8 +839,8 @@ output: html_notebook
                  replace(prop.FA.G__photo.only, prop.FA.G__photo.only == 1, .99)) %>%
         mutate(prop.FA.G__photo.only = 
                  replace(prop.FA.G__photo.only, prop.FA.G__photo.only == 0, .01)) %>%
-        mutate(d.prime__photo.only = qnorm(prop.hit.G__photo.only) - qnorm(prop.FA.G__photo.only)) %>%
-        select(id, d.prime__photo.only)
+        mutate(d.prime__photo.only.guess = qnorm(prop.hit.G__photo.only) - qnorm(prop.FA.G__photo.only)) %>%
+        select(id, d.prime__photo.only.guess)
 #----------------------------------------------------------------------------------------------------------------  ##  Drawing plus word:      
 ##  Overall:
     exp6__drawing.plus.word__d.prime <- exp6__test.stats %>%
@@ -867,9 +867,9 @@ output: html_notebook
                  replace(prop.FA.R__drawing.plus.word, prop.FA.R__drawing.plus.word == 1, .99)) %>%
         mutate(prop.FA.R__drawing.plus.word = 
                  replace(prop.FA.R__drawing.plus.word, prop.FA.R__drawing.plus.word == 0, .01)) %>%
-        mutate(d.prime__drawing.plus.word = 
+        mutate(d.prime__drawing.plus.word.rec = 
                  qnorm(prop.hit.R__drawing.plus.word) - qnorm(prop.FA.R__drawing.plus.word)) %>%
-        select(id, d.prime__drawing.plus.word)
+        select(id, d.prime__drawing.plus.word.rec)
 ##  Fam:
     exp6__drawing.plus.word__d.prime.fam <- exp6__test.stats %>%
         select(id, prop.hit.F__drawing.plus.word, prop.FA.F__drawing.plus.word) %>%
@@ -881,9 +881,9 @@ output: html_notebook
                  replace(prop.FA.F__drawing.plus.word, prop.FA.F__drawing.plus.word == 1, .99)) %>%
         mutate(prop.FA.F__drawing.plus.word = 
                  replace(prop.FA.F__drawing.plus.word, prop.FA.F__drawing.plus.word == 0, .01)) %>%
-        mutate(d.prime__drawing.plus.word = 
+        mutate(d.prime__drawing.plus.word.fam = 
                  qnorm(prop.hit.F__drawing.plus.word) - qnorm(prop.FA.F__drawing.plus.word)) %>%
-        select(id, d.prime__drawing.plus.word)
+        select(id, d.prime__drawing.plus.word.fam)
 ##  Guess:
     exp6__drawing.plus.word__d.prime.guess <- exp6__test.stats %>%
         select(id, prop.hit.G__drawing.plus.word, prop.FA.G__drawing.plus.word) %>%
@@ -895,9 +895,9 @@ output: html_notebook
                  replace(prop.FA.G__drawing.plus.word, prop.FA.G__drawing.plus.word == 1, .99)) %>%
         mutate(prop.FA.G__drawing.plus.word = 
                  replace(prop.FA.G__drawing.plus.word, prop.FA.G__drawing.plus.word == 0, .01)) %>%
-        mutate(d.prime__drawing.plus.word = 
+        mutate(d.prime__drawing.plus.word.guess = 
                  qnorm(prop.hit.G__drawing.plus.word) - qnorm(prop.FA.G__drawing.plus.word)) %>%
-        select(id, d.prime__drawing.plus.word)
+        select(id, d.prime__drawing.plus.word.guess)
 #----------------------------------------------------------------------------------------------------------------  ##  Photo plus word:      
 ##  Overall:
     exp6__photo.plus.word__d.prime <- exp6__test.stats %>%
@@ -924,9 +924,9 @@ output: html_notebook
                  replace(prop.FA.R__photo.plus.word, prop.FA.R__photo.plus.word == 1, .99)) %>%
         mutate(prop.FA.R__photo.plus.word = 
                  replace(prop.FA.R__photo.plus.word, prop.FA.R__photo.plus.word == 0, .01)) %>%
-        mutate(d.prime__photo.plus.word = 
+        mutate(d.prime__photo.plus.word.rec = 
                  qnorm(prop.hit.R__photo.plus.word) - qnorm(prop.FA.R__photo.plus.word)) %>%
-        select(id, d.prime__photo.plus.word)
+        select(id, d.prime__photo.plus.word.rec)
 ##  Fam:
     exp6__photo.plus.word__d.prime.fam <- exp6__test.stats %>%
         select(id, prop.hit.F__photo.plus.word, prop.FA.F__photo.plus.word) %>%
@@ -938,9 +938,9 @@ output: html_notebook
                  replace(prop.FA.F__photo.plus.word, prop.FA.F__photo.plus.word == 1, .99)) %>%
         mutate(prop.FA.F__photo.plus.word = 
                  replace(prop.FA.F__photo.plus.word, prop.FA.F__photo.plus.word == 0, .01)) %>%
-        mutate(d.prime__photo.plus.word = 
+        mutate(d.prime__photo.plus.word.fam = 
                  qnorm(prop.hit.F__photo.plus.word) - qnorm(prop.FA.F__photo.plus.word)) %>%
-        select(id, d.prime__photo.plus.word)
+        select(id, d.prime__photo.plus.word.fam)
 ##  Guess:
     exp6__photo.plus.word__d.prime.guess <- exp6__test.stats %>%
         select(id, prop.hit.G__photo.plus.word, prop.FA.G__photo.plus.word) %>%
@@ -952,14 +952,14 @@ output: html_notebook
                  replace(prop.FA.G__photo.plus.word, prop.FA.G__photo.plus.word == 1, .99)) %>%
         mutate(prop.FA.G__photo.plus.word = 
                  replace(prop.FA.G__photo.plus.word, prop.FA.G__photo.plus.word == 0, .01)) %>%
-        mutate(d.prime__photo.plus.word = 
+        mutate(d.prime__photo.plus.word.guess = 
                  qnorm(prop.hit.G__photo.plus.word) - qnorm(prop.FA.G__photo.plus.word)) %>%
-        select(id, d.prime__photo.plus.word)    
+        select(id, d.prime__photo.plus.word.guess)
 #---------------------------------------------------------------------------------------------------------------- 
 ##  Add new d'prime calculations to 'exp6__test.stats' df: 
-    exp6__test.stats <- exp6__test.stats %>%
+    test <- exp6__test.stats %>%
         right_join(exp6__drawing.only__d.prime) %>% right_join(exp6__photo.only__d.prime) %>%
-        right_join(exp6__drawing.plus.word__d.prime) %>% right_join(exp6__photo.plus.word__d.prime) %>%
+        right_join(exp6__drawing.plus.word__d.prime)%>% right_join(exp6__photo.plus.word__d.prime) %>%
         right_join(exp6__drawing.only__d.prime.rec) %>% right_join(exp6__photo.only__d.prime.rec) %>%
         right_join(exp6__drawing.plus.word__d.prime.rec) %>% right_join(exp6__photo.plus.word__d.prime.rec) %>% 
         right_join(exp6__drawing.only__d.prime.fam) %>% right_join(exp6__photo.only__d.prime.fam) %>%
@@ -968,7 +968,7 @@ output: html_notebook
 ##  Merge 'exp6__participant_info' and 'exp6__test.stats' to create final tidy df: 
     exp6__final.data <- exp6__participant_info %>%
         right_join(exp6__test.stats) %>%
-        arrange(prolific_id, study_list, test_list) %>%   
+        arrange(prolific_id, study_list, test_list) %>%
 ##  Programming error (these P didn't see non-word items, so we remove them):    
         filter(prolific_id != 14637 & prolific_id != 14020) 
   
