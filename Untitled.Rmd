@@ -285,14 +285,69 @@ output: html_notebook
                                "swing--photo-word.png","tiger--photo-word.png","tomato--photo-word.png",
                                "train--drawing-word.png","well--photo.png","whistle--photo.png",
                                "window--drawing-word.png")
-    exp6__blue.study.list <- c(
-    
-    
-    
-    )
-    
-    
-    
+    exp6__blue.study.list <- c("apple--photo.png","ashtray--photo-word.png","banana--drawing.png",
+                               "barrel--photo.png","bear--drawing.png","bell--drawing-word.png",
+                               "belt--drawing-word.png","book--photo-word.png","bread--photo-word.png",
+                               "brush--photo.png","cannon--drawing-word.png","carrot--photo-word.png",
+                               "chain--drawing.png","chair--photo.png","cherry--drawing.png",
+                               "chicken--photo-word.png","crown--photo.png","deer--drawing-word.png",
+                               "dress--drawing-word.png","duck--drawing.png","fence--drawing-word.png",
+                               "flag--photo.png","flower--photo-word.png","foot--drawing.png",
+                               "frog--photo-word.png","giraffe--drawing-word.png","glasses--drawing.png",
+                               "harp--photo.png","jacket--drawing.png","kettle--drawing-word.png",
+                               "leaf--photo-word.png","lemon--drawing-word.png","lion--drawing.png",
+                               "lips--drawing-word.png","lock--photo-word.png","mitten--photo.png",
+                               "monkey--drawing-word.png","moon--drawing-word.png","mouse--drawing-word.png",
+                               "nose--photo-word.png","orange--photo.png","ostrich--drawing-word.png",
+                               "pencil--photo.png","penguin--drawing-word.png","pepper--photo-word.png",
+                               "pipe--photo-word.png","plug--photo-word.png","pumpkin--photo.png",
+                               "raccoon--photo-word.png","ruler--drawing.png","seal--photo.png","shoe--drawing.png",
+                               "skirt--drawing.png","snake--drawing.png","snowman--drawing.png",
+                               "stool--drawing-word.png","swan--photo.png","swing--photo.png","tiger--photo.png",
+                               "tomato--photo.png","train--drawing.png","well--photo-word.png",
+                               "whistle--photo-word.png","window--drawing.png")
+    exp6__purple.study.list <- c("apple--drawing-word.png","ashtray--drawing.png","banana--photo-word.png",
+                                 "barrel--drawing-word.png","bear--photo-word.png","bell--photo.png",
+                                 "belt--photo.png","book--drawing.png","bread--drawing.png",
+                                 "brush--drawing-word.png","cannon--photo.png","carrot--drawing.png",
+                                 "chain--photo-word.png","chair--drawing-word.png","cherry--photo-word.png",
+                                 "chicken--drawing.png","crown--drawing-word.png","deer--photo.png",
+                                 "dress--photo.png","duck--photo-word.png","fence--photo.png",
+                                 "flag--drawing-word.png","flower--drawing.png","foot--photo-word.png",
+                                 "frog--drawing.png","giraffe--photo.png","glasses--photo-word.png",
+                                 "harp--drawing-word.png","jacket--photo-word.png","kettle--photo.png",
+                                 "leaf--drawing.png","lemon--photo.png","lion--photo-word.png","lips--photo.png",
+                                 "lock--drawing.png","mitten--drawing-word.png","monkey--photo.png",
+                                 "moon--photo.png","mouse--photo.png","nose--drawing.png",
+                                 "orange--drawing-word.png","ostrich--photo.png","pencil--drawing-word.png",
+                                 "penguin--photo.png","pepper--drawing.png","pipe--drawing.png","plug--drawing.png",
+                                 "pumpkin--drawing-word.png","raccoon--drawing.png","ruler--photo-word.png",
+                                 "seal--drawing-word.png","shoe--photo-word.png","skirt--photo-word.png",
+                                 "snake--photo-word.png","snowman--photo-word.png","stool--photo.png",
+                                 "swan--drawing-word.png","swing--drawing-word.png","tiger--drawing-word.png",
+                                 "tomato--drawing-word.png","train--photo-word.png","well--drawing.png",
+                                 "whistle--drawing.png","window--photo-word.png")
+    exp6__pink.study.list <- c("apple--drawing.png","ashtray--drawing-word.png","banana--photo.png",
+                               "barrel--drawing.png","bear--photo.png","bell--photo-word.png",
+                               "belt--photo-word.png","book--drawing-word.png","bread--drawing-word.png",
+                               "brush--drawing.png","cannon--photo-word.png","carrot--drawing-word.png",
+                               "chain--photo.png","chair--drawing.png","cherry--photo.png",
+                               "chicken--drawing-word.png","crown--drawing.png","deer--photo-word.png",
+                               "dress--photo-word.png","duck--photo.png","fence--photo-word.png",
+                               "flag--drawing.png","flower--drawing-word.png","foot--photo.png",
+                               "frog--drawing-word.png","giraffe--photo-word.png","glasses--photo.png",
+                               "harp--drawing.png","jacket--photo.png","kettle--photo-word.png",
+                               "leaf--drawing-word.png","lemon--photo-word.png","lion--photo.png",
+                               "lips--photo-word.png","lock--drawing-word.png","mitten--drawing.png",
+                               "monkey--photo-word.png","moon--photo-word.png","mouse--photo-word.png",
+                               "nose--drawing-word.png","orange--drawing.png","ostrich--photo-word.png",
+                               "pencil--drawing.png","penguin--photo-word.png","pepper--drawing-word.png",
+                               "pipe--drawing-word.png","plug--drawing-word.png","pumpkin--drawing.png",
+                               "raccoon--drawing-word.png","ruler--photo.png","seal--drawing.png","shoe--photo.png",
+                               "skirt--photo.png","snake--photo.png","snowman--photo.png","stool--photo-word.png",
+                               "swan--drawing.png","swing--drawing.png","tiger--drawing.png","tomato--drawing.png",
+                               "train--photo.png","well--drawing-word.png","whistle--drawing-word.png",
+                               "window--photo.png")
     
         write.csv(exp6__participant_info,'~/Desktop/exp6__participant_info.csv', row.names = FALSE)
 
