@@ -10,7 +10,9 @@ output: html_notebook
 ##  Import demographics, RFG justifications, and RFBG justifications:
     exp6__p_info_files <- c(
         "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-z6yh.csv", # Demog (v6)
-        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-h32i.csv")  # RFG just (v6)
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_questionnaire-z6yh.csv", # Demog (v7)
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-h32i.csv",  # RFG just (v6)
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_questionnaire-h32i.csv")  # RFG just (v7)
 
 ##  Create raw df from the above files, but only get the following columns:
     exp6__participant_info <- map_dfr(exp6__p_info_files,~read_csv(.x, col_types = cols_only(
@@ -68,48 +70,79 @@ output: html_notebook
         mutate(gender = str_replace(gender, "^m$", "male")) %>%
         mutate(gender = replace_na(gender, "unspecified")) %>%
         arrange(study_list, test_list)
-
-
+    
 ##    Calculate how many items P got correct during study:
 ##    Import study data:
       exp6__study_files <- c(
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-l7li.csv", # Study Red1 (pics=only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qi5x.csv", # Study Red1 (pics-only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-pifd.csv", # Study Red2 (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-uf3l.csv", # Study Red2 (pics+word)          
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-uf3l.csv", # Study Red2 (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l7li.csv", # Study Red1 (pics=only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qi5x.csv", # Study Red1 (pics-only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pifd.csv", # Study Red2 (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-uf3l.csv", # Study Red2 (pics+word)          
+          
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-a3o7.csv", # Study Orange1 (pics-only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1u76.csv", # Study Orange2 (pics-only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-3n1f.csv", # Study Orange1 (pics+word)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-5ium.csv", # Study Orange2 (pics+word)
-                    
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-a3o7.csv", # Study Orange1 (pics-only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1u76.csv", # Study Orange2 (pics-only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-3n1f.csv", # Study Orange1 (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-5ium.csv", # Study Orange2 (pics+word)
+                              
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-a9z8.csv",  # Study Yellow (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-bqu6.csv",  # Study Yellow (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1v1k.csv",  # Study Yellow (pics+word)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-ggr4.csv",  # Study Yellow (pics+word)
-          
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-a9z8.csv",  # Study Yellow (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-bqu6.csv",  # Study Yellow (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1v1k.csv",  # Study Yellow (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-ggr4.csv",  # Study Yellow (pics+word)          
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-okc7.csv",  # Study Green (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-wmoz.csv",  # Study Green (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jlur.csv",  # Study Green (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-vbdo.csv",  # Study Green (pics+word)          
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-vbdo.csv",  # Study Green (pics+word)   
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-okc7.csv",  # Study Green (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-wmoz.csv",  # Study Green (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jlur.csv",  # Study Green (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-vbdo.csv",  # Study Green (pics+word)           
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-pygj.csv",  # Study Teal (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qza1.csv",  # Study Teal (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-eia6.csv",  # Study Teal (pics+word)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-7wwc.csv",  # Study Teal (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pygj.csv",  # Study Teal (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qza1.csv",  # Study Teal (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-eia6.csv",  # Study Teal (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-7wwc.csv",  # Study Teal (pics+word)          
           
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-j5hw.csv",  # Study Blue (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-g65w.csv",  # Study Blue (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jayr.csv",  # Study Blue (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-l2v4.csv",  # Study Blue (pics+word)          
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-l2v4.csv",  # Study Blue (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-j5hw.csv",  # Study Blue (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-g65w.csv",  # Study Blue (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jayr.csv",  # Study Blue (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l2v4.csv",  # Study Blue (pics+word)          
+          
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-s7up.csv",  # Study Purple (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qvph.csv",  # Study Purple (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-9x5b.csv",  # Study Purple (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1nqy.csv",  # Study Purple ()
-          
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1nqy.csv",  # Study Purple (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-s7up.csv",  # Study Purple (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qvph.csv",  # Study Purple (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-9x5b.csv",  # Study Purple (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1nqy.csv",  # Study Purple (pics+word)          
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jsz4.csv",  # Study Pink (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-2j1b.csv",  # Study Pink (pics only)
-          
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-od4o.csv",  # Study Pink (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qacf.csv")  # Study Pink (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qacf.csv",  # Study Pink (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jsz4.csv",  # Study Pink (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-2j1b.csv",  # Study Pink (pics only)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-od4o.csv",  # Study Pink (pics+word)
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qacf.csv")  # Study Pink (pics+word)          
+            
 ##  Create raw df from the above files, but only get the following columns:
     exp6__study_data <- map_dfr(exp6__study_files,~read_csv(.x, col_types = cols_only(
         "Participant Private ID" = 'c', "Participant Public ID"='c', "Screen Name" = 'c', "stim" = 'c',
@@ -182,174 +215,184 @@ output: html_notebook
 ##  Define study lists:                                                                                       ##
 #################################################################################################################
     exp6__red.study.list <- c("anchor--photo-word.png","balloon--drawing-word.png","basket--photo-word.png",
-                              "boot--photo-word.png","bottle--drawing.png","bowl--photo-word.png",
-                              "broom--drawing.png","button--photo-word.png","cake--drawing.png",
-                              "camel--drawing-word.png","candle--photo.png","celery--photo.png",
-                              "clock--photo.png","cloud--photo-word.png","comb--photo-word.png","corn--photo.png",
-                              "doll--photo-word.png","donkey--photo-word.png","door--photo.png",
-                              "drum--drawing-word.png","eagle--photo.png","fish--drawing.png","flute--photo.png",
-                              "goat--drawing-word.png","grapes--photo-word.png","guitar--drawing.png",
-                              "hammer--photo-word.png","horse--drawing-word.png","house--photo.png",
-                              "iron--drawing-word.png","kite--drawing.png","knife--drawing.png",
-                              "ladder--drawing-word.png","lamp--photo-word.png","lobster--drawing-word.png",
-                              "nail--photo-word.png","needle--drawing-word.png","onion--photo.png",
-                              "peach--photo.png","peacock--photo-word.png","peanut--drawing.png",
-                              "pear--drawing-word.png","piano--drawing-word.png","pliers--photo.png",
-                              "potato--drawing-word.png","rabbit--photo-word.png","ring--drawing.png",
-                              "screw--drawing.png","sheep--drawing-word.png","shirt--drawing-word.png",
-                              "skunk--photo.png","snail--drawing.png","socks--drawing-word.png",
-                              "spider--drawing.png","spoon--photo.png","table--photo.png","thimble--drawing.png",
-                              "thumb--drawing.png","toaster--photo.png","tree--drawing.png",
-                              "trumpet--drawing.png","violin--photo-word.png","watch--photo.png",
-                              "zebra--drawing-word.png")    
+        "boot--photo-word.png","bottle--drawing.png","bowl--photo-word.png","broom--drawing.png",
+        "button--photo-word.png","cake--drawing.png","camel--drawing-word.png","candle--photo.png",
+        "celery--photo.png","clock--photo.png","cloud--photo-word.png","comb--photo-word.png","corn--photo.png",
+        "doll--photo-word.png","donkey--photo-word.png","door--photo.png","drum--drawing-word.png",
+        "eagle--photo.png","fish--drawing.png","flute--photo.png","goat--drawing-word.png","grapes--photo-word.png",
+        "guitar--drawing.png","hammer--photo-word.png","horse--drawing-word.png","house--photo.png",
+        "iron--drawing-word.png","kite--drawing.png","knife--drawing.png","ladder--drawing-word.png",
+        "lamp--photo-word.png","lobster--drawing-word.png","nail--photo-word.png","needle--drawing-word.png",
+        "onion--photo.png","peach--photo.png","peacock--photo-word.png","peanut--drawing.png",
+        "pear--drawing-word.png","piano--drawing-word.png","pliers--photo.png","potato--drawing-word.png",
+        "rabbit--photo-word.png","ring--drawing.png","screw--drawing.png","sheep--drawing-word.png",
+        "shirt--drawing-word.png","skunk--photo.png","snail--drawing.png","socks--drawing-word.png",
+        "spider--drawing.png","spoon--photo.png","table--photo.png","thimble--drawing.png","thumb--drawing.png",
+        "toaster--photo.png","tree--drawing.png","trumpet--drawing.png","violin--photo-word.png","watch--photo.png",
+        "zebra--drawing-word.png")    
     exp6__orange.study.list <- c("anchor--photo.png","balloon--drawing.png","basket--photo.png","boot--photo.png",
-                                 "bottle--drawing-word.png","bowl--photo.png","broom--drawing-word.png",
-                                 "button--photo.png","cake--drawing-word.png","camel--drawing.png",
-                                 "candle--photo-word.png","celery--photo-word.png","clock--photo-word.png",
-                                 "cloud--photo.png","comb--photo.png","corn--photo-word.png","doll--photo.png",
-                                 "donkey--photo.png","door--photo-word.png","drum--drawing.png",
-                                 "eagle--photo-word.png","fish--drawing-word.png","flute--photo-word.png",
-                                 "goat--drawing.png","grapes--photo.png","guitar--drawing-word.png",
-                                 "hammer--photo.png","horse--drawing.png","house--photo-word.png",
-                                 "iron--drawing.png","kite--drawing-word.png","knife--drawing-word.png",
-                                 "ladder--drawing.png","lamp--photo.png","lobster--drawing.png","nail--photo.png",
-                                 "needle--drawing.png","onion--photo-word.png","peach--photo-word.png",
-                                 "peacock--photo.png","peanut--drawing-word.png","pear--drawing.png",
-                                 "piano--drawing.png","pliers--photo-word.png","potato--drawing.png",
-                                 "rabbit--photo.png","ring--drawing-word.png","screw--drawing-word.png",
-                                 "sheep--drawing.png","shirt--drawing.png","skunk--photo-word.png",
-                                 "snail--drawing-word.png","socks--drawing.png","spider--drawing-word.png",
-                                 "spoon--photo-word.png","table--photo-word.png","thimble--drawing-word.png",
-                                 "thumb--drawing-word.png","toaster--photo-word.png","tree--drawing-word.png",
-                                 "trumpet--drawing-word.png","violin--photo.png","watch--photo-word.png",
-                                 "zebra--drawing.png")
+        "bottle--drawing-word.png","bowl--photo.png","broom--drawing-word.png","button--photo.png",
+        "cake--drawing-word.png","camel--drawing.png","candle--photo-word.png","celery--photo-word.png",
+        "clock--photo-word.png","cloud--photo.png","comb--photo.png","corn--photo-word.png","doll--photo.png",
+        "donkey--photo.png","door--photo-word.png","drum--drawing.png","eagle--photo-word.png",
+        "fish--drawing-word.png","flute--photo-word.png","goat--drawing.png","grapes--photo.png",
+        "guitar--drawing-word.png","hammer--photo.png","horse--drawing.png","house--photo-word.png",
+        "iron--drawing.png","kite--drawing-word.png","knife--drawing-word.png","ladder--drawing.png",
+        "lamp--photo.png","lobster--drawing.png","nail--photo.png","needle--drawing.png","onion--photo-word.png",
+        "peach--photo-word.png","peacock--photo.png","peanut--drawing-word.png","pear--drawing.png",
+        "piano--drawing.png","pliers--photo-word.png","potato--drawing.png","rabbit--photo.png",
+        "ring--drawing-word.png","screw--drawing-word.png","sheep--drawing.png","shirt--drawing.png",
+        "skunk--photo-word.png","snail--drawing-word.png","socks--drawing.png","spider--drawing-word.png",
+        "spoon--photo-word.png","table--photo-word.png","thimble--drawing-word.png","thumb--drawing-word.png",
+        "toaster--photo-word.png","tree--drawing-word.png","trumpet--drawing-word.png","violin--photo.png",
+        "watch--photo-word.png","zebra--drawing.png")
     exp6__yellow.study.list <- c("anchor--drawing-word.png","balloon--photo-word.png","basket--drawing-word.png",
-                                 "boot--drawing-word.png","bottle--photo.png","bowl--drawing-word.png",
-                                 "broom--photo.png","button--drawing-word.png","cake--photo.png",
-                                 "camel--photo-word.png","candle--drawing.png","celery--drawing.png",
-                                 "clock--drawing.png","cloud--drawing-word.png","comb--drawing-word.png",
-                                 "corn--drawing.png","doll--drawing-word.png","donkey--drawing-word.png",
-                                 "door--drawing.png","drum--photo-word.png","eagle--drawing.png","fish--photo.png",
-                                 "flute--drawing.png","goat--photo-word.png","grapes--drawing-word.png",
-                                 "guitar--photo.png","hammer--drawing-word.png","horse--photo-word.png",
-                                 "house--drawing.png","iron--photo-word.png","kite--photo.png","knife--photo.png",
-                                 "ladder--photo-word.png","lamp--drawing-word.png","lobster--photo-word.png",
-                                 "nail--drawing-word.png","needle--photo-word.png","onion--drawing.png",
-                                 "peach--drawing.png","peacock--drawing-word.png","peanut--photo.png",
-                                 "pear--photo-word.png","piano--photo-word.png","pliers--drawing.png",
-                                 "potato--photo-word.png","rabbit--drawing-word.png","ring--photo.png",
-                                 "screw--photo.png","sheep--photo-word.png","shirt--photo-word.png",
-                                 "skunk--drawing.png","snail--photo.png","socks--photo-word.png",
-                                 "spider--photo.png","spoon--drawing.png","table--drawing.png","thimble--photo.png",
-                                 "thumb--photo.png","toaster--drawing.png","tree--photo.png","trumpet--photo.png",
-                                 "violin--drawing-word.png","watch--drawing.png","zebra--photo-word.png")
+        "boot--drawing-word.png","bottle--photo.png","bowl--drawing-word.png","broom--photo.png",
+        "button--drawing-word.png","cake--photo.png","camel--photo-word.png","candle--drawing.png",
+        "celery--drawing.png","clock--drawing.png","cloud--drawing-word.png","comb--drawing-word.png",
+        "corn--drawing.png","doll--drawing-word.png","donkey--drawing-word.png","door--drawing.png",
+        "drum--photo-word.png","eagle--drawing.png","fish--photo.png","flute--drawing.png","goat--photo-word.png",
+        "grapes--drawing-word.png","guitar--photo.png","hammer--drawing-word.png","horse--photo-word.png",
+        "house--drawing.png","iron--photo-word.png","kite--photo.png","knife--photo.png","ladder--photo-word.png",
+        "lamp--drawing-word.png","lobster--photo-word.png","nail--drawing-word.png","needle--photo-word.png",
+        "onion--drawing.png","peach--drawing.png","peacock--drawing-word.png","peanut--photo.png",
+        "pear--photo-word.png","piano--photo-word.png","pliers--drawing.png","potato--photo-word.png",
+        "rabbit--drawing-word.png","ring--photo.png","screw--photo.png","sheep--photo-word.png",
+        "shirt--photo-word.png","skunk--drawing.png","snail--photo.png","socks--photo-word.png",
+        "spider--photo.png","spoon--drawing.png","table--drawing.png","thimble--photo.png","thumb--photo.png",
+        "toaster--drawing.png","tree--photo.png","trumpet--photo.png","violin--drawing-word.png",
+        "watch--drawing.png","zebra--photo-word.png")
     exp6__green.study.list <- c("anchor--drawing.png","balloon--photo.png","basket--drawing.png",
-                                "boot--drawing.png","bottle--photo-word.png","bowl--drawing.png",
-                                "broom--photo-word.png","button--drawing.png","cake--photo-word.png",
-                                "camel--photo.png","candle--drawing-word.png","celery--drawing-word.png",
-                                "clock--drawing-word.png","cloud--drawing.png","comb--drawing.png",
-                                "corn--drawing-word.png","doll--drawing.png","donkey--drawing.png",
-                                "door--drawing-word.png","drum--photo.png","eagle--drawing-word.png",
-                                "fish--photo-word.png","flute--drawing-word.png","goat--photo.png",
-                                "grapes--drawing.png","guitar--photo-word.png","hammer--drawing.png",
-                                "horse--photo.png","house--drawing-word.png","iron--photo.png",
-                                "kite--photo-word.png","knife--photo-word.png","ladder--photo.png",
-                                "lamp--drawing.png","lobster--photo.png","nail--drawing.png","needle--photo.png",
-                                "onion--drawing-word.png","peach--drawing-word.png","peacock--drawing.png",
-                                "peanut--photo-word.png","pear--photo.png","piano--photo.png",
-                                "pliers--drawing-word.png","potato--photo.png","rabbit--drawing.png",
-                                "ring--photo-word.png","screw--photo-word.png","sheep--photo.png",
-                                "shirt--photo.png","skunk--drawing-word.png","snail--photo-word.png",
-                                "socks--photo.png","spider--photo-word.png","spoon--drawing-word.png",
-                                "table--drawing-word.png","thimble--photo-word.png","thumb--photo-word.png",
-                                "toaster--drawing-word.png","tree--photo-word.png","trumpet--photo-word.png",
-                                "violin--drawing.png","watch--drawing-word.png","zebra--photo.png")
+        "boot--drawing.png","bottle--photo-word.png","bowl--drawing.png","broom--photo-word.png",
+        "button--drawing.png","cake--photo-word.png","camel--photo.png","candle--drawing-word.png",
+        "celery--drawing-word.png","clock--drawing-word.png","cloud--drawing.png","comb--drawing.png",
+        "corn--drawing-word.png","doll--drawing.png","donkey--drawing.png","door--drawing-word.png",
+        "drum--photo.png","eagle--drawing-word.png","fish--photo-word.png","flute--drawing-word.png",
+        "goat--photo.png","grapes--drawing.png","guitar--photo-word.png","hammer--drawing.png","horse--photo.png",
+        "house--drawing-word.png","iron--photo.png","kite--photo-word.png","knife--photo-word.png",
+        "ladder--photo.png","lamp--drawing.png","lobster--photo.png","nail--drawing.png","needle--photo.png",
+        "onion--drawing-word.png","peach--drawing-word.png","peacock--drawing.png","peanut--photo-word.png",
+        "pear--photo.png","piano--photo.png","pliers--drawing-word.png","potato--photo.png","rabbit--drawing.png",
+        "ring--photo-word.png","screw--photo-word.png","sheep--photo.png","shirt--photo.png",
+        "skunk--drawing-word.png","snail--photo-word.png","socks--photo.png","spider--photo-word.png",
+        "spoon--drawing-word.png","table--drawing-word.png","thimble--photo-word.png","thumb--photo-word.png",
+        "toaster--drawing-word.png","tree--photo-word.png","trumpet--photo-word.png","violin--drawing.png",
+        "watch--drawing-word.png","zebra--photo.png")
     exp6__teal.study.list <- c("apple--photo-word.png","ashtray--photo.png","banana--drawing-word.png",
-                               "barrel--photo-word.png","bear--drawing-word.png","bell--drawing.png",
-                               "belt--drawing.png","book--photo.png","bread--photo.png","brush--photo-word.png",
-                               "cannon--drawing.png","carrot--photo.png","chain--drawing-word.png",
-                               "chair--photo-word.png","cherry--drawing-word.png","chicken--photo.png",
-                               "crown--photo-word.png","deer--drawing.png","dress--drawing.png",
-                               "duck--drawing-word.png","fence--drawing.png","flag--photo-word.png",
-                               "flower--photo.png","foot--drawing-word.png","frog--photo.png",
-                               "giraffe--drawing.png","glasses--drawing-word.png","harp--photo-word.png",
-                               "jacket--drawing-word.png","kettle--drawing.png","leaf--photo.png",
-                               "lemon--drawing.png","lion--drawing-word.png","lips--drawing.png","lock--photo.png",
-                               "mitten--photo-word.png","monkey--drawing.png","moon--drawing.png",
-                               "mouse--drawing.png","nose--photo.png","orange--photo-word.png",
-                               "ostrich--drawing.png","pencil--photo-word.png","penguin--drawing.png",
-                               "pepper--photo.png","pipe--photo.png","plug--photo.png","pumpkin--photo-word.png",
-                               "raccoon--photo.png","ruler--drawing-word.png","seal--photo-word.png",
-                               "shoe--drawing-word.png","skirt--drawing-word.png","snake--drawing-word.png",
-                               "snowman--drawing-word.png","stool--drawing.png","swan--photo-word.png",
-                               "swing--photo-word.png","tiger--photo-word.png","tomato--photo-word.png",
-                               "train--drawing-word.png","well--photo.png","whistle--photo.png",
-                               "window--drawing-word.png")
+        "barrel--photo-word.png","bear--drawing-word.png","bell--drawing.png","belt--drawing.png","book--photo.png",
+        "bread--photo.png","brush--photo-word.png","cannon--drawing.png","carrot--photo.png",
+        "chain--drawing-word.png","chair--photo-word.png","cherry--drawing-word.png","chicken--photo.png",
+        "crown--photo-word.png","deer--drawing.png","dress--drawing.png","duck--drawing-word.png",
+        "fence--drawing.png","flag--photo-word.png","flower--photo.png","foot--drawing-word.png","frog--photo.png",
+        "giraffe--drawing.png","glasses--drawing-word.png","harp--photo-word.png","jacket--drawing-word.png",
+        "kettle--drawing.png","leaf--photo.png","lemon--drawing.png","lion--drawing-word.png","lips--drawing.png",
+        "lock--photo.png","mitten--photo-word.png","monkey--drawing.png","moon--drawing.png","mouse--drawing.png",
+        "nose--photo.png","orange--photo-word.png","ostrich--drawing.png","pencil--photo-word.png",
+        "penguin--drawing.png","pepper--photo.png","pipe--photo.png","plug--photo.png","pumpkin--photo-word.png",
+        "raccoon--photo.png","ruler--drawing-word.png","seal--photo-word.png","shoe--drawing-word.png",
+        "skirt--drawing-word.png","snake--drawing-word.png","snowman--drawing-word.png","stool--drawing.png",
+        "swan--photo-word.png","swing--photo-word.png","tiger--photo-word.png","tomato--photo-word.png",
+        "train--drawing-word.png","well--photo.png","whistle--photo.png","window--drawing-word.png")
     exp6__blue.study.list <- c("apple--photo.png","ashtray--photo-word.png","banana--drawing.png",
-                               "barrel--photo.png","bear--drawing.png","bell--drawing-word.png",
-                               "belt--drawing-word.png","book--photo-word.png","bread--photo-word.png",
-                               "brush--photo.png","cannon--drawing-word.png","carrot--photo-word.png",
-                               "chain--drawing.png","chair--photo.png","cherry--drawing.png",
-                               "chicken--photo-word.png","crown--photo.png","deer--drawing-word.png",
-                               "dress--drawing-word.png","duck--drawing.png","fence--drawing-word.png",
-                               "flag--photo.png","flower--photo-word.png","foot--drawing.png",
-                               "frog--photo-word.png","giraffe--drawing-word.png","glasses--drawing.png",
-                               "harp--photo.png","jacket--drawing.png","kettle--drawing-word.png",
-                               "leaf--photo-word.png","lemon--drawing-word.png","lion--drawing.png",
-                               "lips--drawing-word.png","lock--photo-word.png","mitten--photo.png",
-                               "monkey--drawing-word.png","moon--drawing-word.png","mouse--drawing-word.png",
-                               "nose--photo-word.png","orange--photo.png","ostrich--drawing-word.png",
-                               "pencil--photo.png","penguin--drawing-word.png","pepper--photo-word.png",
-                               "pipe--photo-word.png","plug--photo-word.png","pumpkin--photo.png",
-                               "raccoon--photo-word.png","ruler--drawing.png","seal--photo.png","shoe--drawing.png",
-                               "skirt--drawing.png","snake--drawing.png","snowman--drawing.png",
-                               "stool--drawing-word.png","swan--photo.png","swing--photo.png","tiger--photo.png",
-                               "tomato--photo.png","train--drawing.png","well--photo-word.png",
-                               "whistle--photo-word.png","window--drawing.png")
+        "barrel--photo.png","bear--drawing.png","bell--drawing-word.png","belt--drawing-word.png",
+        "book--photo-word.png","bread--photo-word.png","brush--photo.png","cannon--drawing-word.png",
+        "carrot--photo-word.png","chain--drawing.png","chair--photo.png","cherry--drawing.png",
+        "chicken--photo-word.png","crown--photo.png","deer--drawing-word.png","dress--drawing-word.png",
+        "duck--drawing.png","fence--drawing-word.png","flag--photo.png","flower--photo-word.png",
+        "foot--drawing.png","frog--photo-word.png","giraffe--drawing-word.png","glasses--drawing.png",
+        "harp--photo.png","jacket--drawing.png","kettle--drawing-word.png","leaf--photo-word.png",
+        "lemon--drawing-word.png","lion--drawing.png","lips--drawing-word.png","lock--photo-word.png",
+        "mitten--photo.png","monkey--drawing-word.png","moon--drawing-word.png","mouse--drawing-word.png",
+        "nose--photo-word.png","orange--photo.png","ostrich--drawing-word.png","pencil--photo.png",
+        "penguin--drawing-word.png","pepper--photo-word.png","pipe--photo-word.png","plug--photo-word.png",
+        "pumpkin--photo.png","raccoon--photo-word.png","ruler--drawing.png","seal--photo.png","shoe--drawing.png",
+        "skirt--drawing.png","snake--drawing.png","snowman--drawing.png","stool--drawing-word.png",
+        "swan--photo.png","swing--photo.png","tiger--photo.png","tomato--photo.png","train--drawing.png",
+        "well--photo-word.png","whistle--photo-word.png","window--drawing.png")
     exp6__purple.study.list <- c("apple--drawing-word.png","ashtray--drawing.png","banana--photo-word.png",
-                                 "barrel--drawing-word.png","bear--photo-word.png","bell--photo.png",
-                                 "belt--photo.png","book--drawing.png","bread--drawing.png",
-                                 "brush--drawing-word.png","cannon--photo.png","carrot--drawing.png",
-                                 "chain--photo-word.png","chair--drawing-word.png","cherry--photo-word.png",
-                                 "chicken--drawing.png","crown--drawing-word.png","deer--photo.png",
-                                 "dress--photo.png","duck--photo-word.png","fence--photo.png",
-                                 "flag--drawing-word.png","flower--drawing.png","foot--photo-word.png",
-                                 "frog--drawing.png","giraffe--photo.png","glasses--photo-word.png",
-                                 "harp--drawing-word.png","jacket--photo-word.png","kettle--photo.png",
-                                 "leaf--drawing.png","lemon--photo.png","lion--photo-word.png","lips--photo.png",
-                                 "lock--drawing.png","mitten--drawing-word.png","monkey--photo.png",
-                                 "moon--photo.png","mouse--photo.png","nose--drawing.png",
-                                 "orange--drawing-word.png","ostrich--photo.png","pencil--drawing-word.png",
-                                 "penguin--photo.png","pepper--drawing.png","pipe--drawing.png","plug--drawing.png",
-                                 "pumpkin--drawing-word.png","raccoon--drawing.png","ruler--photo-word.png",
-                                 "seal--drawing-word.png","shoe--photo-word.png","skirt--photo-word.png",
-                                 "snake--photo-word.png","snowman--photo-word.png","stool--photo.png",
-                                 "swan--drawing-word.png","swing--drawing-word.png","tiger--drawing-word.png",
-                                 "tomato--drawing-word.png","train--photo-word.png","well--drawing.png",
-                                 "whistle--drawing.png","window--photo-word.png")
+        "barrel--drawing-word.png","bear--photo-word.png","bell--photo.png","belt--photo.png","book--drawing.png",
+        "bread--drawing.png","brush--drawing-word.png","cannon--photo.png","carrot--drawing.png",
+        "chain--photo-word.png","chair--drawing-word.png","cherry--photo-word.png","chicken--drawing.png",
+        "crown--drawing-word.png","deer--photo.png","dress--photo.png","duck--photo-word.png","fence--photo.png",
+        "flag--drawing-word.png","flower--drawing.png","foot--photo-word.png","frog--drawing.png",
+        "giraffe--photo.png","glasses--photo-word.png","harp--drawing-word.png","jacket--photo-word.png",
+        "kettle--photo.png","leaf--drawing.png","lemon--photo.png","lion--photo-word.png","lips--photo.png",
+        "lock--drawing.png","mitten--drawing-word.png","monkey--photo.png","moon--photo.png","mouse--photo.png",
+        "nose--drawing.png","orange--drawing-word.png","ostrich--photo.png","pencil--drawing-word.png",
+        "penguin--photo.png","pepper--drawing.png","pipe--drawing.png","plug--drawing.png",
+        "pumpkin--drawing-word.png","raccoon--drawing.png","ruler--photo-word.png","seal--drawing-word.png",
+        "shoe--photo-word.png","skirt--photo-word.png","snake--photo-word.png","snowman--photo-word.png",
+        "stool--photo.png","swan--drawing-word.png","swing--drawing-word.png","tiger--drawing-word.png",
+        "tomato--drawing-word.png","train--photo-word.png","well--drawing.png","whistle--drawing.png",
+        "window--photo-word.png")
     exp6__pink.study.list <- c("apple--drawing.png","ashtray--drawing-word.png","banana--photo.png",
-                               "barrel--drawing.png","bear--photo.png","bell--photo-word.png",
-                               "belt--photo-word.png","book--drawing-word.png","bread--drawing-word.png",
-                               "brush--drawing.png","cannon--photo-word.png","carrot--drawing-word.png",
-                               "chain--photo.png","chair--drawing.png","cherry--photo.png",
-                               "chicken--drawing-word.png","crown--drawing.png","deer--photo-word.png",
-                               "dress--photo-word.png","duck--photo.png","fence--photo-word.png",
-                               "flag--drawing.png","flower--drawing-word.png","foot--photo.png",
-                               "frog--drawing-word.png","giraffe--photo-word.png","glasses--photo.png",
-                               "harp--drawing.png","jacket--photo.png","kettle--photo-word.png",
-                               "leaf--drawing-word.png","lemon--photo-word.png","lion--photo.png",
-                               "lips--photo-word.png","lock--drawing-word.png","mitten--drawing.png",
-                               "monkey--photo-word.png","moon--photo-word.png","mouse--photo-word.png",
-                               "nose--drawing-word.png","orange--drawing.png","ostrich--photo-word.png",
-                               "pencil--drawing.png","penguin--photo-word.png","pepper--drawing-word.png",
-                               "pipe--drawing-word.png","plug--drawing-word.png","pumpkin--drawing.png",
-                               "raccoon--drawing-word.png","ruler--photo.png","seal--drawing.png","shoe--photo.png",
-                               "skirt--photo.png","snake--photo.png","snowman--photo.png","stool--photo-word.png",
-                               "swan--drawing.png","swing--drawing.png","tiger--drawing.png","tomato--drawing.png",
-                               "train--photo.png","well--drawing-word.png","whistle--drawing-word.png",
-                               "window--photo.png")
+        "barrel--drawing.png","bear--photo.png","bell--photo-word.png","belt--photo-word.png",
+        "book--drawing-word.png","bread--drawing-word.png","brush--drawing.png","cannon--photo-word.png",
+        "carrot--drawing-word.png","chain--photo.png","chair--drawing.png","cherry--photo.png",
+        "chicken--drawing-word.png","crown--drawing.png","deer--photo-word.png","dress--photo-word.png",
+        "duck--photo.png","fence--photo-word.png","flag--drawing.png","flower--drawing-word.png","foot--photo.png",
+        "frog--drawing-word.png","giraffe--photo-word.png","glasses--photo.png","harp--drawing.png",
+        "jacket--photo.png","kettle--photo-word.png","leaf--drawing-word.png","lemon--photo-word.png",
+        "lion--photo.png","lips--photo-word.png","lock--drawing-word.png","mitten--drawing.png",
+        "monkey--photo-word.png","moon--photo-word.png","mouse--photo-word.png","nose--drawing-word.png",
+        "orange--drawing.png","ostrich--photo-word.png","pencil--drawing.png","penguin--photo-word.png",
+        "pepper--drawing-word.png","pipe--drawing-word.png","plug--drawing-word.png","pumpkin--drawing.png",
+        "raccoon--drawing-word.png","ruler--photo.png","seal--drawing.png","shoe--photo.png","skirt--photo.png",
+        "snake--photo.png","snowman--photo.png","stool--photo-word.png","swan--drawing.png","swing--drawing.png",
+        "tiger--drawing.png","tomato--drawing.png","train--photo.png","well--drawing-word.png",
+        "whistle--drawing-word.png","window--photo.png")
+##################################################################################################################
+##  Test data:                                                                                                  ##
+##################################################################################################################
+##  Import test data:
+    exp6__test_files <- c(
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-eo3t.csv", # Red + Teal
+        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-eo3t.csv", # Red + Teal
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-hnun.csv", # Orange + Blue
+        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-hnun.csv", # Orange + Blue
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-tmr7.csv", # Yellow + Purple
+        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-tmr7.csv", # Yellow + Purple
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-cdc5.csv") # Green + Pink
+        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-cdc5.csv") # Green + Pink
     
-        write.csv(exp6__participant_info,'~/Desktop/exp6__participant_info.csv', row.names = FALSE)
+##  Create raw df from the above files, but only get the following columns:
+    exp6__test_data <- map_dfr(exp6__test_files,~read_csv(.x, col_types = cols_only(
+        "Participant Private ID" = 'c', "Participant Public ID"='c', "Task Name" = 'c', "Screen Name" = 'c',
+        "randomiser-6j1g"='c', "randomiser-rj7w"='c', "randomiser-enay"='c', "randomiser-gw7n"='c',
+        "randomiser-uc11"='c', "randomiser-hpp5"='c', "randomiser-qhxy" = 'c', "randomiser-vvav" = 'c', 
+        "stim" = 'c', "Response" = 'c', "Reaction Time" = col_double()))) %>%
+    ##  Merge columns that contain the same type of data, but were originally split into different columns:
+        unite(study_list,  "randomiser-6j1g", "randomiser-rj7w", "randomiser-enay","randomiser-gw7n",
+              "randomiser-uc11", "randomiser-hpp5", "randomiser-qhxy", "randomiser-vvav", remove = TRUE, 
+              na.rm = TRUE) %>% 
+    ##  Rename some columns:    
+        rename(id = "Participant Private ID", prolific_id = "Participant Public ID", test_list = "Task Name",
+               screen = "Screen Name", response = "Response", rt = "Reaction Time") %>%
+    ##  Reorder columns:    
+        select(id, prolific_id, study_list, test_list, screen, stim, response, rt) %>%
+    ##  Set participant ID as the grouping variable, and arrange data by participant ID:
+        group_by(id) %>%
+        arrange(id) %>%
+    ##  Remove empty / unimportant rows:
+        drop_na(screen) %>%
+        filter(screen != "check") %>% 
+        filter(screen != "Screen 1") %>% 
+        filter(screen != "Fixation") %>% 
+        filter(response != "old.png") %>%
+    ##  Tidy up responses for clarity:
+        mutate_all(., tolower) %>%
+        mutate(stim = str_remove_all(stim, ".png")) %>%
+        mutate(response = str_remove_all(response, ".png")) %>%
+        arrange(id, response, stim) %>%
+        mutate(test_list= str_remove_all(test_list, " test"))
+        
+ write.csv(exp6__test_data,'~/Desktop/exp6__test_data.csv', row.names = FALSE)
+       
+                                  
+    
+
+    
+    
 
     
     
