@@ -10,9 +10,9 @@ output: html_notebook
 ##  Import demographics, RFG justifications, and RFBG justifications:
     exp6__p_info_files <- c(
         "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-z6yh.csv", # Demog (v6)
-        "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_questionnaire-z6yh.csv", # Demog (v7)
-        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-h32i.csv",  # RFG just (v6)
-        "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_questionnaire-h32i.csv")  # RFG just (v7)
+        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_questionnaire-z6yh.csv", # Demog (v7)
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-h32i.csv")  # RFG just (v6)
+        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_questionnaire-h32i.csv")  # RFG just (v7)
 
 ##  Create raw df from the above files, but only get the following columns:
     exp6__participant_info <- map_dfr(exp6__p_info_files,~read_csv(.x, col_types = cols_only(
@@ -78,70 +78,70 @@ output: html_notebook
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qi5x.csv", # Study Red1 (pics-only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-pifd.csv", # Study Red2 (pics+word)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-uf3l.csv", # Study Red2 (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l7li.csv", # Study Red1 (pics=only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qi5x.csv", # Study Red1 (pics-only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pifd.csv", # Study Red2 (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-uf3l.csv", # Study Red2 (pics+word)          
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l7li.csv", # Study Red1 (pics=only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qi5x.csv", # Study Red1 (pics-only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pifd.csv", # Study Red2 (pics+word)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-uf3l.csv", # Study Red2 (pics+word)          
           
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-a3o7.csv", # Study Orange1 (pics-only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1u76.csv", # Study Orange2 (pics-only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-3n1f.csv", # Study Orange1 (pics+word)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-5ium.csv", # Study Orange2 (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-a3o7.csv", # Study Orange1 (pics-only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1u76.csv", # Study Orange2 (pics-only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-3n1f.csv", # Study Orange1 (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-5ium.csv", # Study Orange2 (pics+word)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-a3o7.csv", # Study Orange1 (pics-only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1u76.csv", # Study Orange2 (pics-only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-3n1f.csv", # Study Orange1 (pics+word)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-5ium.csv", # Study Orange2 (pics+word)
                               
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-a9z8.csv",  # Study Yellow (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-bqu6.csv",  # Study Yellow (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1v1k.csv",  # Study Yellow (pics+word)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-ggr4.csv",  # Study Yellow (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-a9z8.csv",  # Study Yellow (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-bqu6.csv",  # Study Yellow (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1v1k.csv",  # Study Yellow (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-ggr4.csv",  # Study Yellow (pics+word)          
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-a9z8.csv",  # Study Yellow (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-bqu6.csv",  # Study Yellow (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1v1k.csv",  # Study Yellow (pics+word)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-ggr4.csv",  # Study Yellow (pics+word)          
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-okc7.csv",  # Study Green (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-wmoz.csv",  # Study Green (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jlur.csv",  # Study Green (pics+word)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-vbdo.csv",  # Study Green (pics+word)   
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-okc7.csv",  # Study Green (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-wmoz.csv",  # Study Green (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jlur.csv",  # Study Green (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-vbdo.csv",  # Study Green (pics+word)           
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-okc7.csv",  # Study Green (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-wmoz.csv",  # Study Green (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jlur.csv",  # Study Green (pics+word)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-vbdo.csv",  # Study Green (pics+word)           
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-pygj.csv",  # Study Teal (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qza1.csv",  # Study Teal (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-eia6.csv",  # Study Teal (pics+word)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-7wwc.csv",  # Study Teal (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pygj.csv",  # Study Teal (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qza1.csv",  # Study Teal (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-eia6.csv",  # Study Teal (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-7wwc.csv",  # Study Teal (pics+word)          
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pygj.csv",  # Study Teal (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qza1.csv",  # Study Teal (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-eia6.csv",  # Study Teal (pics+word)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-7wwc.csv",  # Study Teal (pics+word)          
           
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-j5hw.csv",  # Study Blue (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-g65w.csv",  # Study Blue (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jayr.csv",  # Study Blue (pics+word)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-l2v4.csv",  # Study Blue (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-j5hw.csv",  # Study Blue (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-g65w.csv",  # Study Blue (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jayr.csv",  # Study Blue (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l2v4.csv",  # Study Blue (pics+word)          
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-j5hw.csv",  # Study Blue (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-g65w.csv",  # Study Blue (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jayr.csv",  # Study Blue (pics+word)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l2v4.csv",  # Study Blue (pics+word)          
           
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-s7up.csv",  # Study Purple (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qvph.csv",  # Study Purple (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-9x5b.csv",  # Study Purple (pics+word)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1nqy.csv",  # Study Purple (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-s7up.csv",  # Study Purple (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qvph.csv",  # Study Purple (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-9x5b.csv",  # Study Purple (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1nqy.csv",  # Study Purple (pics+word)          
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-s7up.csv",  # Study Purple (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qvph.csv",  # Study Purple (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-9x5b.csv",  # Study Purple (pics+word)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1nqy.csv",  # Study Purple (pics+word)          
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jsz4.csv",  # Study Pink (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-2j1b.csv",  # Study Pink (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-od4o.csv",  # Study Pink (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qacf.csv",  # Study Pink (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jsz4.csv",  # Study Pink (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-2j1b.csv",  # Study Pink (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-od4o.csv",  # Study Pink (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qacf.csv")  # Study Pink (pics+word)          
+          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qacf.csv")  # Study Pink (pics+word)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jsz4.csv",  # Study Pink (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-2j1b.csv",  # Study Pink (pics only)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-od4o.csv",  # Study Pink (pics+word)
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qacf.csv")  # Study Pink (pics+word)          
             
 ##  Create raw df from the above files, but only get the following columns:
     exp6__study_data <- map_dfr(exp6__study_files,~read_csv(.x, col_types = cols_only(
@@ -211,136 +211,136 @@ output: html_notebook
         arrange(study_list, test_list) %>%
         select(id, prolific_id, everything())
 
-#################################################################################################################
-##  Define study lists:                                                                                       ##
-#################################################################################################################
-    exp6__red.study.list <- c("anchor--photo-word.png","balloon--drawing-word.png","basket--photo-word.png",
-        "boot--photo-word.png","bottle--drawing.png","bowl--photo-word.png","broom--drawing.png",
-        "button--photo-word.png","cake--drawing.png","camel--drawing-word.png","candle--photo.png",
-        "celery--photo.png","clock--photo.png","cloud--photo-word.png","comb--photo-word.png","corn--photo.png",
-        "doll--photo-word.png","donkey--photo-word.png","door--photo.png","drum--drawing-word.png",
-        "eagle--photo.png","fish--drawing.png","flute--photo.png","goat--drawing-word.png","grapes--photo-word.png",
-        "guitar--drawing.png","hammer--photo-word.png","horse--drawing-word.png","house--photo.png",
-        "iron--drawing-word.png","kite--drawing.png","knife--drawing.png","ladder--drawing-word.png",
-        "lamp--photo-word.png","lobster--drawing-word.png","nail--photo-word.png","needle--drawing-word.png",
-        "onion--photo.png","peach--photo.png","peacock--photo-word.png","peanut--drawing.png",
-        "pear--drawing-word.png","piano--drawing-word.png","pliers--photo.png","potato--drawing-word.png",
-        "rabbit--photo-word.png","ring--drawing.png","screw--drawing.png","sheep--drawing-word.png",
-        "shirt--drawing-word.png","skunk--photo.png","snail--drawing.png","socks--drawing-word.png",
-        "spider--drawing.png","spoon--photo.png","table--photo.png","thimble--drawing.png","thumb--drawing.png",
-        "toaster--photo.png","tree--drawing.png","trumpet--drawing.png","violin--photo-word.png","watch--photo.png",
-        "zebra--drawing-word.png")    
-    exp6__orange.study.list <- c("anchor--photo.png","balloon--drawing.png","basket--photo.png","boot--photo.png",
-        "bottle--drawing-word.png","bowl--photo.png","broom--drawing-word.png","button--photo.png",
-        "cake--drawing-word.png","camel--drawing.png","candle--photo-word.png","celery--photo-word.png",
-        "clock--photo-word.png","cloud--photo.png","comb--photo.png","corn--photo-word.png","doll--photo.png",
-        "donkey--photo.png","door--photo-word.png","drum--drawing.png","eagle--photo-word.png",
-        "fish--drawing-word.png","flute--photo-word.png","goat--drawing.png","grapes--photo.png",
-        "guitar--drawing-word.png","hammer--photo.png","horse--drawing.png","house--photo-word.png",
-        "iron--drawing.png","kite--drawing-word.png","knife--drawing-word.png","ladder--drawing.png",
-        "lamp--photo.png","lobster--drawing.png","nail--photo.png","needle--drawing.png","onion--photo-word.png",
-        "peach--photo-word.png","peacock--photo.png","peanut--drawing-word.png","pear--drawing.png",
-        "piano--drawing.png","pliers--photo-word.png","potato--drawing.png","rabbit--photo.png",
-        "ring--drawing-word.png","screw--drawing-word.png","sheep--drawing.png","shirt--drawing.png",
-        "skunk--photo-word.png","snail--drawing-word.png","socks--drawing.png","spider--drawing-word.png",
-        "spoon--photo-word.png","table--photo-word.png","thimble--drawing-word.png","thumb--drawing-word.png",
-        "toaster--photo-word.png","tree--drawing-word.png","trumpet--drawing-word.png","violin--photo.png",
-        "watch--photo-word.png","zebra--drawing.png")
-    exp6__yellow.study.list <- c("anchor--drawing-word.png","balloon--photo-word.png","basket--drawing-word.png",
-        "boot--drawing-word.png","bottle--photo.png","bowl--drawing-word.png","broom--photo.png",
-        "button--drawing-word.png","cake--photo.png","camel--photo-word.png","candle--drawing.png",
-        "celery--drawing.png","clock--drawing.png","cloud--drawing-word.png","comb--drawing-word.png",
-        "corn--drawing.png","doll--drawing-word.png","donkey--drawing-word.png","door--drawing.png",
-        "drum--photo-word.png","eagle--drawing.png","fish--photo.png","flute--drawing.png","goat--photo-word.png",
-        "grapes--drawing-word.png","guitar--photo.png","hammer--drawing-word.png","horse--photo-word.png",
-        "house--drawing.png","iron--photo-word.png","kite--photo.png","knife--photo.png","ladder--photo-word.png",
-        "lamp--drawing-word.png","lobster--photo-word.png","nail--drawing-word.png","needle--photo-word.png",
-        "onion--drawing.png","peach--drawing.png","peacock--drawing-word.png","peanut--photo.png",
-        "pear--photo-word.png","piano--photo-word.png","pliers--drawing.png","potato--photo-word.png",
-        "rabbit--drawing-word.png","ring--photo.png","screw--photo.png","sheep--photo-word.png",
-        "shirt--photo-word.png","skunk--drawing.png","snail--photo.png","socks--photo-word.png",
-        "spider--photo.png","spoon--drawing.png","table--drawing.png","thimble--photo.png","thumb--photo.png",
-        "toaster--drawing.png","tree--photo.png","trumpet--photo.png","violin--drawing-word.png",
-        "watch--drawing.png","zebra--photo-word.png")
-    exp6__green.study.list <- c("anchor--drawing.png","balloon--photo.png","basket--drawing.png",
-        "boot--drawing.png","bottle--photo-word.png","bowl--drawing.png","broom--photo-word.png",
-        "button--drawing.png","cake--photo-word.png","camel--photo.png","candle--drawing-word.png",
-        "celery--drawing-word.png","clock--drawing-word.png","cloud--drawing.png","comb--drawing.png",
-        "corn--drawing-word.png","doll--drawing.png","donkey--drawing.png","door--drawing-word.png",
-        "drum--photo.png","eagle--drawing-word.png","fish--photo-word.png","flute--drawing-word.png",
-        "goat--photo.png","grapes--drawing.png","guitar--photo-word.png","hammer--drawing.png","horse--photo.png",
-        "house--drawing-word.png","iron--photo.png","kite--photo-word.png","knife--photo-word.png",
-        "ladder--photo.png","lamp--drawing.png","lobster--photo.png","nail--drawing.png","needle--photo.png",
-        "onion--drawing-word.png","peach--drawing-word.png","peacock--drawing.png","peanut--photo-word.png",
-        "pear--photo.png","piano--photo.png","pliers--drawing-word.png","potato--photo.png","rabbit--drawing.png",
-        "ring--photo-word.png","screw--photo-word.png","sheep--photo.png","shirt--photo.png",
-        "skunk--drawing-word.png","snail--photo-word.png","socks--photo.png","spider--photo-word.png",
-        "spoon--drawing-word.png","table--drawing-word.png","thimble--photo-word.png","thumb--photo-word.png",
-        "toaster--drawing-word.png","tree--photo-word.png","trumpet--photo-word.png","violin--drawing.png",
-        "watch--drawing-word.png","zebra--photo.png")
-    exp6__teal.study.list <- c("apple--photo-word.png","ashtray--photo.png","banana--drawing-word.png",
-        "barrel--photo-word.png","bear--drawing-word.png","bell--drawing.png","belt--drawing.png","book--photo.png",
-        "bread--photo.png","brush--photo-word.png","cannon--drawing.png","carrot--photo.png",
-        "chain--drawing-word.png","chair--photo-word.png","cherry--drawing-word.png","chicken--photo.png",
-        "crown--photo-word.png","deer--drawing.png","dress--drawing.png","duck--drawing-word.png",
-        "fence--drawing.png","flag--photo-word.png","flower--photo.png","foot--drawing-word.png","frog--photo.png",
-        "giraffe--drawing.png","glasses--drawing-word.png","harp--photo-word.png","jacket--drawing-word.png",
-        "kettle--drawing.png","leaf--photo.png","lemon--drawing.png","lion--drawing-word.png","lips--drawing.png",
-        "lock--photo.png","mitten--photo-word.png","monkey--drawing.png","moon--drawing.png","mouse--drawing.png",
-        "nose--photo.png","orange--photo-word.png","ostrich--drawing.png","pencil--photo-word.png",
-        "penguin--drawing.png","pepper--photo.png","pipe--photo.png","plug--photo.png","pumpkin--photo-word.png",
-        "raccoon--photo.png","ruler--drawing-word.png","seal--photo-word.png","shoe--drawing-word.png",
-        "skirt--drawing-word.png","snake--drawing-word.png","snowman--drawing-word.png","stool--drawing.png",
-        "swan--photo-word.png","swing--photo-word.png","tiger--photo-word.png","tomato--photo-word.png",
-        "train--drawing-word.png","well--photo.png","whistle--photo.png","window--drawing-word.png")
-    exp6__blue.study.list <- c("apple--photo.png","ashtray--photo-word.png","banana--drawing.png",
-        "barrel--photo.png","bear--drawing.png","bell--drawing-word.png","belt--drawing-word.png",
-        "book--photo-word.png","bread--photo-word.png","brush--photo.png","cannon--drawing-word.png",
-        "carrot--photo-word.png","chain--drawing.png","chair--photo.png","cherry--drawing.png",
-        "chicken--photo-word.png","crown--photo.png","deer--drawing-word.png","dress--drawing-word.png",
-        "duck--drawing.png","fence--drawing-word.png","flag--photo.png","flower--photo-word.png",
-        "foot--drawing.png","frog--photo-word.png","giraffe--drawing-word.png","glasses--drawing.png",
-        "harp--photo.png","jacket--drawing.png","kettle--drawing-word.png","leaf--photo-word.png",
-        "lemon--drawing-word.png","lion--drawing.png","lips--drawing-word.png","lock--photo-word.png",
-        "mitten--photo.png","monkey--drawing-word.png","moon--drawing-word.png","mouse--drawing-word.png",
-        "nose--photo-word.png","orange--photo.png","ostrich--drawing-word.png","pencil--photo.png",
-        "penguin--drawing-word.png","pepper--photo-word.png","pipe--photo-word.png","plug--photo-word.png",
-        "pumpkin--photo.png","raccoon--photo-word.png","ruler--drawing.png","seal--photo.png","shoe--drawing.png",
-        "skirt--drawing.png","snake--drawing.png","snowman--drawing.png","stool--drawing-word.png",
-        "swan--photo.png","swing--photo.png","tiger--photo.png","tomato--photo.png","train--drawing.png",
-        "well--photo-word.png","whistle--photo-word.png","window--drawing.png")
-    exp6__purple.study.list <- c("apple--drawing-word.png","ashtray--drawing.png","banana--photo-word.png",
-        "barrel--drawing-word.png","bear--photo-word.png","bell--photo.png","belt--photo.png","book--drawing.png",
-        "bread--drawing.png","brush--drawing-word.png","cannon--photo.png","carrot--drawing.png",
-        "chain--photo-word.png","chair--drawing-word.png","cherry--photo-word.png","chicken--drawing.png",
-        "crown--drawing-word.png","deer--photo.png","dress--photo.png","duck--photo-word.png","fence--photo.png",
-        "flag--drawing-word.png","flower--drawing.png","foot--photo-word.png","frog--drawing.png",
-        "giraffe--photo.png","glasses--photo-word.png","harp--drawing-word.png","jacket--photo-word.png",
-        "kettle--photo.png","leaf--drawing.png","lemon--photo.png","lion--photo-word.png","lips--photo.png",
-        "lock--drawing.png","mitten--drawing-word.png","monkey--photo.png","moon--photo.png","mouse--photo.png",
-        "nose--drawing.png","orange--drawing-word.png","ostrich--photo.png","pencil--drawing-word.png",
-        "penguin--photo.png","pepper--drawing.png","pipe--drawing.png","plug--drawing.png",
-        "pumpkin--drawing-word.png","raccoon--drawing.png","ruler--photo-word.png","seal--drawing-word.png",
-        "shoe--photo-word.png","skirt--photo-word.png","snake--photo-word.png","snowman--photo-word.png",
-        "stool--photo.png","swan--drawing-word.png","swing--drawing-word.png","tiger--drawing-word.png",
-        "tomato--drawing-word.png","train--photo-word.png","well--drawing.png","whistle--drawing.png",
-        "window--photo-word.png")
-    exp6__pink.study.list <- c("apple--drawing.png","ashtray--drawing-word.png","banana--photo.png",
-        "barrel--drawing.png","bear--photo.png","bell--photo-word.png","belt--photo-word.png",
-        "book--drawing-word.png","bread--drawing-word.png","brush--drawing.png","cannon--photo-word.png",
-        "carrot--drawing-word.png","chain--photo.png","chair--drawing.png","cherry--photo.png",
-        "chicken--drawing-word.png","crown--drawing.png","deer--photo-word.png","dress--photo-word.png",
-        "duck--photo.png","fence--photo-word.png","flag--drawing.png","flower--drawing-word.png","foot--photo.png",
-        "frog--drawing-word.png","giraffe--photo-word.png","glasses--photo.png","harp--drawing.png",
-        "jacket--photo.png","kettle--photo-word.png","leaf--drawing-word.png","lemon--photo-word.png",
-        "lion--photo.png","lips--photo-word.png","lock--drawing-word.png","mitten--drawing.png",
-        "monkey--photo-word.png","moon--photo-word.png","mouse--photo-word.png","nose--drawing-word.png",
-        "orange--drawing.png","ostrich--photo-word.png","pencil--drawing.png","penguin--photo-word.png",
-        "pepper--drawing-word.png","pipe--drawing-word.png","plug--drawing-word.png","pumpkin--drawing.png",
-        "raccoon--drawing-word.png","ruler--photo.png","seal--drawing.png","shoe--photo.png","skirt--photo.png",
-        "snake--photo.png","snowman--photo.png","stool--photo-word.png","swan--drawing.png","swing--drawing.png",
-        "tiger--drawing.png","tomato--drawing.png","train--photo.png","well--drawing-word.png",
-        "whistle--drawing-word.png","window--photo.png")
+##################################################################################################################
+##  Define study lists:                                                                                         ##
+##################################################################################################################
+    exp6__red.study.list <- c("anchor--photo-word","balloon--drawing-word","basket--photo-word",
+        "boot--photo-word","bottle--drawing","bowl--photo-word","broom--drawing",
+        "button--photo-word","cake--drawing","camel--drawing-word","candle--photo",
+        "celery--photo","clock--photo","cloud--photo-word","comb--photo-word","corn--photo",
+        "doll--photo-word","donkey--photo-word","door--photo","drum--drawing-word",
+        "eagle--photo","fish--drawing","flute--photo","goat--drawing-word","grapes--photo-word",
+        "guitar--drawing","hammer--photo-word","horse--drawing-word","house--photo",
+        "iron--drawing-word","kite--drawing","knife--drawing","ladder--drawing-word",
+        "lamp--photo-word","lobster--drawing-word","nail--photo-word","needle--drawing-word",
+        "onion--photo","peach--photo","peacock--photo-word","peanut--drawing",
+        "pear--drawing-word","piano--drawing-word","pliers--photo","potato--drawing-word",
+        "rabbit--photo-word","ring--drawing","screw--drawing","sheep--drawing-word",
+        "shirt--drawing-word","skunk--photo","snail--drawing","socks--drawing-word",
+        "spider--drawing","spoon--photo","table--photo","thimble--drawing","thumb--drawing",
+        "toaster--photo","tree--drawing","trumpet--drawing","violin--photo-word","watch--photo",
+        "zebra--drawing-word")    
+    exp6__orange.study.list <- c("anchor--photo","balloon--drawing","basket--photo","boot--photo",
+        "bottle--drawing-word","bowl--photo","broom--drawing-word","button--photo",
+        "cake--drawing-word","camel--drawing","candle--photo-word","celery--photo-word",
+        "clock--photo-word","cloud--photo","comb--photo","corn--photo-word","doll--photo",
+        "donkey--photo","door--photo-word","drum--drawing","eagle--photo-word",
+        "fish--drawing-word","flute--photo-word","goat--drawing","grapes--photo",
+        "guitar--drawing-word","hammer--photo","horse--drawing","house--photo-word",
+        "iron--drawing","kite--drawing-word","knife--drawing-word","ladder--drawing",
+        "lamp--photo","lobster--drawing","nail--photo","needle--drawing","onion--photo-word",
+        "peach--photo-word","peacock--photo","peanut--drawing-word","pear--drawing",
+        "piano--drawing","pliers--photo-word","potato--drawing","rabbit--photo",
+        "ring--drawing-word","screw--drawing-word","sheep--drawing","shirt--drawing",
+        "skunk--photo-word","snail--drawing-word","socks--drawing","spider--drawing-word",
+        "spoon--photo-word","table--photo-word","thimble--drawing-word","thumb--drawing-word",
+        "toaster--photo-word","tree--drawing-word","trumpet--drawing-word","violin--photo",
+        "watch--photo-word","zebra--drawing")
+    exp6__yellow.study.list <- c("anchor--drawing-word","balloon--photo-word","basket--drawing-word",
+        "boot--drawing-word","bottle--photo","bowl--drawing-word","broom--photo",
+        "button--drawing-word","cake--photo","camel--photo-word","candle--drawing",
+        "celery--drawing","clock--drawing","cloud--drawing-word","comb--drawing-word",
+        "corn--drawing","doll--drawing-word","donkey--drawing-word","door--drawing",
+        "drum--photo-word","eagle--drawing","fish--photo","flute--drawing","goat--photo-word",
+        "grapes--drawing-word","guitar--photo","hammer--drawing-word","horse--photo-word",
+        "house--drawing","iron--photo-word","kite--photo","knife--photo","ladder--photo-word",
+        "lamp--drawing-word","lobster--photo-word","nail--drawing-word","needle--photo-word",
+        "onion--drawing","peach--drawing","peacock--drawing-word","peanut--photo",
+        "pear--photo-word","piano--photo-word","pliers--drawing","potato--photo-word",
+        "rabbit--drawing-word","ring--photo","screw--photo","sheep--photo-word",
+        "shirt--photo-word","skunk--drawing","snail--photo","socks--photo-word",
+        "spider--photo","spoon--drawing","table--drawing","thimble--photo","thumb--photo",
+        "toaster--drawing","tree--photo","trumpet--photo","violin--drawing-word",
+        "watch--drawing","zebra--photo-word")
+    exp6__green.study.list <- c("anchor--drawing","balloon--photo","basket--drawing",
+        "boot--drawing","bottle--photo-word","bowl--drawing","broom--photo-word",
+        "button--drawing","cake--photo-word","camel--photo","candle--drawing-word",
+        "celery--drawing-word","clock--drawing-word","cloud--drawing","comb--drawing",
+        "corn--drawing-word","doll--drawing","donkey--drawing","door--drawing-word",
+        "drum--photo","eagle--drawing-word","fish--photo-word","flute--drawing-word",
+        "goat--photo","grapes--drawing","guitar--photo-word","hammer--drawing","horse--photo",
+        "house--drawing-word","iron--photo","kite--photo-word","knife--photo-word",
+        "ladder--photo","lamp--drawing","lobster--photo","nail--drawing","needle--photo",
+        "onion--drawing-word","peach--drawing-word","peacock--drawing","peanut--photo-word",
+        "pear--photo","piano--photo","pliers--drawing-word","potato--photo","rabbit--drawing",
+        "ring--photo-word","screw--photo-word","sheep--photo","shirt--photo",
+        "skunk--drawing-word","snail--photo-word","socks--photo","spider--photo-word",
+        "spoon--drawing-word","table--drawing-word","thimble--photo-word","thumb--photo-word",
+        "toaster--drawing-word","tree--photo-word","trumpet--photo-word","violin--drawing",
+        "watch--drawing-word","zebra--photo")
+    exp6__teal.study.list <- c("apple--photo-word","ashtray--photo","banana--drawing-word",
+        "barrel--photo-word","bear--drawing-word","bell--drawing","belt--drawing","book--photo",
+        "bread--photo","brush--photo-word","cannon--drawing","carrot--photo",
+        "chain--drawing-word","chair--photo-word","cherry--drawing-word","chicken--photo",
+        "crown--photo-word","deer--drawing","dress--drawing","duck--drawing-word",
+        "fence--drawing","flag--photo-word","flower--photo","foot--drawing-word","frog--photo",
+        "giraffe--drawing","glasses--drawing-word","harp--photo-word","jacket--drawing-word",
+        "kettle--drawing","leaf--photo","lemon--drawing","lion--drawing-word","lips--drawing",
+        "lock--photo","mitten--photo-word","monkey--drawing","moon--drawing","mouse--drawing",
+        "nose--photo","orange--photo-word","ostrich--drawing","pencil--photo-word",
+        "penguin--drawing","pepper--photo","pipe--photo","plug--photo","pumpkin--photo-word",
+        "raccoon--photo","ruler--drawing-word","seal--photo-word","shoe--drawing-word",
+        "skirt--drawing-word","snake--drawing-word","snowman--drawing-word","stool--drawing",
+        "swan--photo-word","swing--photo-word","tiger--photo-word","tomato--photo-word",
+        "train--drawing-word","well--photo","whistle--photo","window--drawing-word")
+    exp6__blue.study.list <- c("apple--photo","ashtray--photo-word","banana--drawing",
+        "barrel--photo","bear--drawing","bell--drawing-word","belt--drawing-word",
+        "book--photo-word","bread--photo-word","brush--photo","cannon--drawing-word",
+        "carrot--photo-word","chain--drawing","chair--photo","cherry--drawing",
+        "chicken--photo-word","crown--photo","deer--drawing-word","dress--drawing-word",
+        "duck--drawing","fence--drawing-word","flag--photo","flower--photo-word",
+        "foot--drawing","frog--photo-word","giraffe--drawing-word","glasses--drawing",
+        "harp--photo","jacket--drawing","kettle--drawing-word","leaf--photo-word",
+        "lemon--drawing-word","lion--drawing","lips--drawing-word","lock--photo-word",
+        "mitten--photo","monkey--drawing-word","moon--drawing-word","mouse--drawing-word",
+        "nose--photo-word","orange--photo","ostrich--drawing-word","pencil--photo",
+        "penguin--drawing-word","pepper--photo-word","pipe--photo-word","plug--photo-word",
+        "pumpkin--photo","raccoon--photo-word","ruler--drawing","seal--photo","shoe--drawing",
+        "skirt--drawing","snake--drawing","snowman--drawing","stool--drawing-word",
+        "swan--photo","swing--photo","tiger--photo","tomato--photo","train--drawing",
+        "well--photo-word","whistle--photo-word","window--drawing")
+    exp6__purple.study.list <- c("apple--drawing-word","ashtray--drawing","banana--photo-word",
+        "barrel--drawing-word","bear--photo-word","bell--photo","belt--photo","book--drawing",
+        "bread--drawing","brush--drawing-word","cannon--photo","carrot--drawing",
+        "chain--photo-word","chair--drawing-word","cherry--photo-word","chicken--drawing",
+        "crown--drawing-word","deer--photo","dress--photo","duck--photo-word","fence--photo",
+        "flag--drawing-word","flower--drawing","foot--photo-word","frog--drawing",
+        "giraffe--photo","glasses--photo-word","harp--drawing-word","jacket--photo-word",
+        "kettle--photo","leaf--drawing","lemon--photo","lion--photo-word","lips--photo",
+        "lock--drawing","mitten--drawing-word","monkey--photo","moon--photo","mouse--photo",
+        "nose--drawing","orange--drawing-word","ostrich--photo","pencil--drawing-word",
+        "penguin--photo","pepper--drawing","pipe--drawing","plug--drawing",
+        "pumpkin--drawing-word","raccoon--drawing","ruler--photo-word","seal--drawing-word",
+        "shoe--photo-word","skirt--photo-word","snake--photo-word","snowman--photo-word",
+        "stool--photo","swan--drawing-word","swing--drawing-word","tiger--drawing-word",
+        "tomato--drawing-word","train--photo-word","well--drawing","whistle--drawing",
+        "window--photo-word")
+    exp6__pink.study.list <- c("apple--drawing","ashtray--drawing-word","banana--photo",
+        "barrel--drawing","bear--photo","bell--photo-word","belt--photo-word",
+        "book--drawing-word","bread--drawing-word","brush--drawing","cannon--photo-word",
+        "carrot--drawing-word","chain--photo","chair--drawing","cherry--photo",
+        "chicken--drawing-word","crown--drawing","deer--photo-word","dress--photo-word",
+        "duck--photo","fence--photo-word","flag--drawing","flower--drawing-word","foot--photo",
+        "frog--drawing-word","giraffe--photo-word","glasses--photo","harp--drawing",
+        "jacket--photo","kettle--photo-word","leaf--drawing-word","lemon--photo-word",
+        "lion--photo","lips--photo-word","lock--drawing-word","mitten--drawing",
+        "monkey--photo-word","moon--photo-word","mouse--photo-word","nose--drawing-word",
+        "orange--drawing","ostrich--photo-word","pencil--drawing","penguin--photo-word",
+        "pepper--drawing-word","pipe--drawing-word","plug--drawing-word","pumpkin--drawing",
+        "raccoon--drawing-word","ruler--photo","seal--drawing","shoe--photo","skirt--photo",
+        "snake--photo","snowman--photo","stool--photo-word","swan--drawing","swing--drawing",
+        "tiger--drawing","tomato--drawing","train--photo","well--drawing-word",
+        "whistle--drawing-word","window--photo")
 ##################################################################################################################
 ##  Test data:                                                                                                  ##
 ##################################################################################################################
@@ -384,17 +384,315 @@ output: html_notebook
         mutate(stim = str_remove_all(stim, ".png")) %>%
         mutate(response = str_remove_all(response, ".png")) %>%
         arrange(id, response, stim) %>%
-        mutate(test_list= str_remove_all(test_list, " test"))
-        
- write.csv(exp6__test_data,'~/Desktop/exp6__test_data.csv', row.names = FALSE)
-       
-                                  
-    
+        mutate(test_list = str_remove_all(test_list, " test")) %>%
+        mutate(study_list = str_remove_all(study_list, "\\.(.*)"))
+      
+##  Remove filler responses:
+    exp6__filler_stim <- c("alligator--drawing","beetle--photo","bicycle--photo","butterfly--drawing",
+        "chisel--photo","desk--drawing","dresser--photo-word","glass--drawing-word","hand--photo",
+        "helicopter--drawing-word","lightbulb--drawing-word","pitcher--photo-word","strawberry--drawing",
+        "toothbrush--drawing-word","turtle--photo-word","vest--photo-word")
+    exp6__test_data <- exp6__test_data %>%
+        filter(!stim %in% exp6__filler_stim)
 
+##################################################################################################################
+##    Hit and miss calculations:                                                                                ##
+##################################################################################################################
+##  Define our own function that calculates hit and miss totals. 
+      exp6__hit_and_miss_calc_function <- function(x){
+    ##  Count general totals:
+          x <- x %>%
+              add_tally(response != "new", sort = FALSE, name = "hit__total") %>%
+              add_tally(response == "new", sort = FALSE, name = "miss__total") %>%
+              add_tally(response == "recollection", sort = FALSE, name = "hit.R__total") %>%
+              add_tally(response == "familiarity", sort = FALSE, name = "hit.F__total") %>%
+              add_tally(response == "guessing", sort = FALSE, name = "hit.G__total") %>%
+    ##  Count stim-format totals:
+        ##  Drawings only:
+              add_tally(str_detect(stim, "drawing") & !str_detect(stim, "word") & response != "new",
+                  sort = FALSE, name = "hit__drawing.only") %>%
+              add_tally((str_detect(stim, "drawing") & !str_detect(stim, "word")) & response == "new",
+                  sort = FALSE, name = "miss__drawing.only") %>%
+        ##  Photos only:
+              add_tally(str_detect(stim, "photo") & !str_detect(stim, "word") & response != "new",
+                  sort = FALSE, name = "hit__photo.only") %>%
+              add_tally(str_detect(stim, "photo") & !str_detect(stim, "word") & response == "new",
+                  sort = FALSE, name = "miss__photo.only") %>%
+        ##  Drawings + words:
+              add_tally(str_detect(stim, "drawing-word") & response != "new",
+                  sort = FALSE, name = "hit__drawing.plus.word") %>%
+              add_tally(str_detect(stim, "drawing-word") & response == "new",
+                  sort = FALSE, name = "miss__drawing.plus.word") %>%
+        ##  Drawings + words:
+              add_tally(str_detect(stim, "photo-word") & response != "new",
+                  sort = FALSE, name = "hit__photo.plus.word") %>%
+              add_tally(str_detect(stim, "photo-word") & response == "new",
+                  sort = FALSE, name = "miss__photo.plus.word") %>%
+    ##  Count stim-format totals by response option:
+        ##  Drawings only:
+              add_tally(str_detect(stim, "drawing") & !str_detect(stim, "word") & response == "recollection",
+                            sort = FALSE, name = "hit.R__drawing.only") %>%
+              add_tally(str_detect(stim, "drawing") & !str_detect(stim, "word") & response == "familiarity",
+                            sort = FALSE, name = "hit.F__drawing.only") %>%        
+              add_tally(str_detect(stim, "drawing") & !str_detect(stim, "word") & response == "guessing",
+                            sort = FALSE, name = "hit.G__drawing.only") %>%           
+        ##  Photos only:
+              add_tally(str_detect(stim, "photo") & !str_detect(stim, "word") & response == "recollection",
+                            sort = FALSE, name = "hit.R__photo.only") %>%
+              add_tally(str_detect(stim, "photo") & !str_detect(stim, "word") & response == "familiarity",
+                            sort = FALSE, name = "hit.F__photo.only") %>%        
+              add_tally(str_detect(stim, "photo") & !str_detect(stim, "word") & response == "guessing",
+                            sort = FALSE, name = "hit.G__photo.only") %>%   
+        ##  Drawings plus words:
+              add_tally(str_detect(stim, "drawing-word") & response == "recollection",
+                            sort = FALSE, name = "hit.R__drawing.plus.word") %>%
+              add_tally(str_detect(stim, "drawing-word") & response == "familiarity",
+                            sort = FALSE, name = "hit.F__drawing.plus.word") %>%        
+              add_tally(str_detect(stim, "drawing-word") & response == "guessing",
+                            sort = FALSE, name = "hit.G__drawing.plus.word") %>%           
+        ##  Photos plus words:
+              add_tally(str_detect(stim, "photo-word") & response == "recollection",
+                            sort = FALSE, name = "hit.R__photo.plus.word") %>%
+              add_tally(str_detect(stim, "photo-word") & response == "familiarity",
+                            sort = FALSE, name = "hit.F__photo.plus.word") %>%        
+              add_tally(str_detect(stim, "photo-word") & response == "guessing",
+                            sort = FALSE, name = "hit.G__photo.plus.word")}    
     
+##################################################################################################################
+##  Filter 'exp6__test_data' by each study list, one-at-a-time, resulting in x8 df (red, orange, yellow, green, ##
+##  teal, blue, purple, pink). For each, run our function that calculates the hit and miss totals, then rejoin  ##
+##  into one df:                                                                                                ##
+##################################################################################################################
+##  Study Red:
+    exp6__hit.miss__study.red <- exp6__test_data %>%    ##  Get all test data (targets + lures). 
+        filter(study_list == "red") %>%                 ##  Filter by P who studied this list.
+        filter(stim %in% exp6__red.study.list) %>%      ##  Filter by items in this study list (only get targets).
+        exp6__hit_and_miss_calc_function                ##  Run custom function to calculate hits and misses. 
+##  Study Orange:
+    exp6__hit.miss__study.orange <- exp6__test_data %>%
+        filter(study_list == "orange") %>%
+        filter(stim %in% exp6__orange.study.list) %>%
+        exp6__hit_and_miss_calc_function
+##  Study Yellow:
+    exp6__hit.miss__study.yellow <- exp6__test_data %>%
+        filter(study_list == "yellow") %>%
+        filter(stim %in% exp6__yellow.study.list) %>%
+        exp6__hit_and_miss_calc_function
+##  Study Green:
+    exp6__hit.miss__study.green <- exp6__test_data %>%
+        filter(study_list == "green") %>%
+        filter(stim %in% exp6__green.study.list) %>%
+        exp6__hit_and_miss_calc_function
+##  Study Teal:
+    exp6__hit.miss__study.teal <- exp6__test_data %>%
+        filter(study_list == "teal") %>%
+        filter(stim %in% exp6__teal.study.list) %>%
+        exp6__hit_and_miss_calc_function
+##  Study Blue:
+    exp6__hit.miss__study.blue <- exp6__test_data %>%
+        filter(study_list == "blue") %>%
+        filter(stim %in% exp6__blue.study.list) %>%
+        exp6__hit_and_miss_calc_function
+##  Study Purple:
+    exp6__hit.miss__study.purple <- exp6__test_data %>%
+        filter(study_list == "purple") %>%
+        filter(stim %in% exp6__purple.study.list) %>%
+        exp6__hit_and_miss_calc_function
+##  Study Pink:
+    exp6__hit.miss__study.pink <- exp6__test_data %>%
+        filter(study_list == "pink") %>%
+        filter(stim %in% exp6__pink.study.list) %>%
+        exp6__hit_and_miss_calc_function    
+##################################################################################################################
+##  Combine into one df:                                                                                        ##
+##################################################################################################################
+    exp6__hit_and_miss <- bind_rows(exp6__hit.miss__study.red, exp6__hit.miss__study.orange,
+                                    exp6__hit.miss__study.yellow, exp6__hit.miss__study.green,
+                                    exp6__hit.miss__study.teal, exp6__hit.miss__study.blue,
+                                    exp6__hit.miss__study.purple, exp6__hit.miss__study.pink) %>%
+    ##  Merge multiple rows into one (per participant):
+        summarise_all(coalesce_by_column) %>%
+    ##  Remove redundant rows: 
+        select(-screen, -stim, -response, -rt)
+##################################################################################################################
+##    FA and CR calculations:                                                                                   ##
+##################################################################################################################
+##  Define our own function that calculates FA and CR totals. 
+      exp6__FA_and_CR_calc_function <- function(x){
+    ##  Count general totals:
+          x <- x %>%
+              add_tally(response != "new", sort = FALSE, name = "FA__total") %>%
+              add_tally(response == "new", sort = FALSE, name = "CR__total") %>%
+              add_tally(response == "recollection", sort = FALSE, name = "FA.R__total") %>%
+              add_tally(response == "familiarity", sort = FALSE, name = "FA.F__total") %>%
+              add_tally(response == "guessing", sort = FALSE, name = "FA.G__total") %>%   
+    ##  Count stim-format totals:
+        ##  Drawings only:
+              add_tally(str_detect(stim, "drawing") & !str_detect(stim, "word") & response != "new",
+                  sort = FALSE, name = "FA__drawing.only") %>%
+              add_tally(str_detect(stim, "drawing") & !str_detect(stim, "word") & response == "new",
+                  sort = FALSE, name = "CR__drawing.only") %>%
+        ##  Photos only:
+              add_tally(str_detect(stim, "photo") & !str_detect(stim, "word") & response != "new",
+                  sort = FALSE, name = "FA__photo.only") %>%
+              add_tally(str_detect(stim, "photo") & !str_detect(stim, "word") & response == "new",
+                  sort = FALSE, name = "CR__photo.only") %>%
+        ##  Drawings + words:
+              add_tally(str_detect(stim, "drawing-word") & response != "new",
+                  sort = FALSE, name = "FA__drawing.plus.word") %>%
+              add_tally(str_detect(stim, "drawing-word") & response == "new",
+                  sort = FALSE, name = "CR__drawing.plus.word") %>%
+        ##  Drawings + words:
+              add_tally(str_detect(stim, "photo-word") & response != "new",
+                  sort = FALSE, name = "FA__photo.plus.word") %>%
+              add_tally(str_detect(stim, "photo-word") & response == "new",
+                  sort = FALSE, name = "CR__photo.plus.word") %>%
+    ##  Count stim-format totals by response option:
+        ##  Drawings only:
+              add_tally(str_detect(stim, "drawing") & !str_detect(stim, "word") & response == "recollection",
+                            sort = FALSE, name = "FA.R__drawing.only") %>%
+              add_tally(str_detect(stim, "drawing") & !str_detect(stim, "word") & response == "familiarity",
+                            sort = FALSE, name = "FA.F__drawing.only") %>%        
+              add_tally(str_detect(stim, "drawing") & !str_detect(stim, "word") & response == "guessing",
+                            sort = FALSE, name = "FA.G__drawing.only") %>%           
+        ##  Photos only:
+              add_tally(str_detect(stim, "photo") & !str_detect(stim, "word") & response == "recollection",
+                            sort = FALSE, name = "FA.R__photo.only") %>%
+              add_tally(str_detect(stim, "photo") & !str_detect(stim, "word") & response == "familiarity",
+                            sort = FALSE, name = "FA.F__photo.only") %>%        
+              add_tally(str_detect(stim, "photo") & !str_detect(stim, "word") & response == "guessing",
+                            sort = FALSE, name = "FA.G__photo.only") %>%   
+        ##  Drawings plus words:
+              add_tally(str_detect(stim, "drawing-word") & response == "recollection",
+                            sort = FALSE, name = "FA.R__drawing.plus.word") %>%
+              add_tally(str_detect(stim, "drawing-word") & response == "familiarity",
+                            sort = FALSE, name = "FA.F__drawing.plus.word") %>%        
+              add_tally(str_detect(stim, "drawing-word") & response == "guessing",
+                            sort = FALSE, name = "FA.G__drawing.plus.word") %>%           
+        ##  Photos plus words:
+              add_tally(str_detect(stim, "photo-word") & response == "recollection",
+                            sort = FALSE, name = "FA.R__photo.plus.word") %>%
+              add_tally(str_detect(stim, "photo-word") & response == "familiarity",
+                            sort = FALSE, name = "FA.F__photo.plus.word") %>%        
+              add_tally(str_detect(stim, "photo-word") & response == "guessing",
+                            sort = FALSE, name = "FA.G__photo.plus.word")}
+##################################################################################################################
+##  Filter 'exp6__test_data' by each study list, one-at-a-time, resulting in x8 df (red, orange, yellow, green, ##
+##  teal, blue, purple, pink). For each, run our function that calculates the FA and CR totals, then rejoin     ##
+##  into one df:                                                                                                ##
+##################################################################################################################
+##  Study Red:
+    exp6__FA.CR__study.red <- exp6__test_data %>%       ##  Get all test data (targets + lures). 
+        filter(study_list == "red") %>%                 ##  Filter by P who studied this list.
+        filter(stim %in% exp6__teal.study.list) %>%     ##  Filter by items in the unstudied list (only lures).
+        exp6__FA_and_CR_calc_function                   ##  Run custom function to calculate FAs and CRs. 
+##  Study Orange:
+    exp6__FA.CR__study.orange <- exp6__test_data %>%
+        filter(study_list == "orange") %>%
+        filter(stim %in% exp6__blue.study.list) %>%
+        exp6__FA_and_CR_calc_function
+##  Study Yellow:
+    exp6__FA.CR__study.yellow <- exp6__test_data %>%
+        filter(study_list == "yellow") %>%
+        filter(stim %in% exp6__purple.study.list) %>%
+        exp6__FA_and_CR_calc_function
+##  Study Green:
+    exp6__FA.CR__study.green <- exp6__test_data %>%
+        filter(study_list == "green") %>%
+        filter(stim %in% exp6__pink.study.list) %>%
+        exp6__FA_and_CR_calc_function
+##  Study Teal:
+    exp6__FA.CR__study.teal <- exp6__test_data %>%
+        filter(study_list == "teal") %>%
+        filter(stim %in% exp6__red.study.list) %>%
+        exp6__FA_and_CR_calc_function
+##  Study Blue:
+    exp6__FA.CR__study.blue <- exp6__test_data %>%
+        filter(study_list == "blue") %>%
+        filter(stim %in% exp6__orange.study.list) %>%
+        exp6__FA_and_CR_calc_function
+##  Study Purple:
+    exp6__FA.CR__study.purple <- exp6__test_data %>%
+        filter(study_list == "purple") %>%
+        filter(stim %in% exp6__yellow.study.list) %>%
+        exp6__FA_and_CR_calc_function
+##  Study Pink:
+    exp6__FA.CR__study.pink <- exp6__test_data %>%
+        filter(study_list == "pink") %>%
+        filter(stim %in% exp6__green.study.list) %>%
+        exp6__FA_and_CR_calc_function
+##################################################################################################################
+##  Combine into one df:                                                                                        ##
+##################################################################################################################
+    exp6__FA_and_CR <- bind_rows(exp6__FA.CR__study.red, exp6__FA.CR__study.orange,
+                                    exp6__FA.CR__study.yellow, exp6__FA.CR__study.green,
+                                    exp6__FA.CR__study.teal, exp6__FA.CR__study.blue,
+                                    exp6__FA.CR__study.purple, exp6__FA.CR__study.pink) %>%
+    ##  Merge multiple rows into one (per participant):
+        summarise_all(coalesce_by_column) %>%
+    ##  Remove redundant rows: 
+        select(-screen, -stim, -response, -rt)
+##################################################################################################################
+##  Proportions, z-scores, d', c:                                                                               ##
+##################################################################################################################
+##  Join 'exp6__hit_and_miss' and 'exp6__FA_and_CR' dfs:
+    exp6__test.stats <- exp6__hit_and_miss %>%
+        right_join(exp6__FA_and_CR) %>%
+##################################################################################################################
+##  Calculate hit proportions:                                                                                  ##
+##################################################################################################################
+    ##  Drawings only:
+        mutate(prop.hit__drawing.only = hit__drawing.only / (hit__drawing.only + miss__drawing.only)) %>%
+            mutate(prop.hit__drawing.only = replace_na(prop.hit__drawing.only, 0)) %>%
+        mutate(prop.miss__drawing.only = miss__drawing.only / (hit__drawing.only + miss__drawing.only)) %>%
+            mutate(prop.miss__drawing.only = replace_na(prop.miss__drawing.only, 0)) %>%
+        mutate(prop.hit.R__drawing.only = hit.R__drawing.only / hit__drawing.only) %>% 
+            mutate(prop.hit.R__drawing.only = replace_na(prop.hit.R__drawing.only, 0)) %>%
+        mutate(prop.hit.F__drawing.only = hit.F__drawing.only / hit__drawing.only) %>% 
+            mutate(prop.hit.F__drawing.only = replace_na(prop.hit.F__drawing.only, 0)) %>%
+        mutate(prop.hit.G__drawing.only = hit.G__drawing.only / hit__drawing.only) %>% 
+            mutate(prop.hit.G__drawing.only = replace_na(prop.hit.G__drawing.only, 0)) %>%
+    ##  Photos only:
+        mutate(prop.hit__photo.only = hit__photo.only / (hit__photo.only + miss__photo.only)) %>%
+            mutate(prop.hit__photo.only = replace_na(prop.hit__photo.only, 0)) %>%
+        mutate(prop.miss__photo.only = miss__photo.only / (hit__photo.only + miss__photo.only)) %>%
+            mutate(prop.miss__photo.only = replace_na(prop.miss__photo.only, 0)) %>%
+        mutate(prop.hit.R__photo.only = hit.R__photo.only / hit__photo.only) %>% 
+            mutate(prop.hit.R__photo.only = replace_na(prop.hit.R__photo.only, 0)) %>%
+        mutate(prop.hit.F__photo.only = hit.F__photo.only / hit__photo.only) %>% 
+            mutate(prop.hit.F__photo.only = replace_na(prop.hit.F__photo.only, 0)) %>%
+        mutate(prop.hit.G__photo.only = hit.G__photo.only / hit__photo.only) %>% 
+            mutate(prop.hit.G__photo.only = replace_na(prop.hit.G__photo.only, 0)) %>%     
+    ##  Drawings plus words:
+        mutate(prop.hit__drawing.plus.word = hit__drawing.plus.word / 
+              (hit__drawing.plus.word + miss__drawing.plus.word)) %>%
+            mutate(prop.hit__drawing.plus.word = replace_na(prop.hit__drawing.plus.word, 0)) %>%
+        mutate(prop.miss__drawing.plus.word = miss__drawing.plus.word / 
+              (hit__drawing.plus.word + miss__drawing.plus.word)) %>%
+            mutate(prop.miss__drawing.plus.word = replace_na(prop.miss__drawing.plus.word, 0)) %>%
+        mutate(prop.hit.R__drawing.plus.word = hit.R__drawing.plus.word / hit__drawing.plus.word) %>% 
+            mutate(prop.hit.R__drawing.plus.word = replace_na(prop.hit.R__drawing.plus.word, 0)) %>%
+        mutate(prop.hit.F__drawing.plus.word = hit.F__drawing.plus.word / hit__drawing.plus.word) %>% 
+            mutate(prop.hit.F__drawing.plus.word = replace_na(prop.hit.F__drawing.plus.word, 0)) %>%
+        mutate(prop.hit.G__drawing.plus.word = hit.G__drawing.plus.word / hit__drawing.plus.word) %>% 
+            mutate(prop.hit.G__drawing.plus.word = replace_na(prop.hit.G__drawing.plus.word, 0)) %>%
+    ##  Photos plus words:
+        mutate(prop.hit__photo.plus.word = hit__photo.plus.word / 
+              (hit__photo.plus.word + miss__photo.plus.word)) %>%
+            mutate(prop.hit__photo.plus.word = replace_na(prop.hit__photo.plus.word, 0)) %>%
+        mutate(prop.miss__photo.plus.word = miss__photo.plus.word / 
+              (hit__photo.plus.word + miss__photo.plus.word)) %>%
+            mutate(prop.miss__photo.plus.word = replace_na(prop.miss__photo.plus.word, 0)) %>%
+        mutate(prop.hit.R__photo.plus.word = hit.R__photo.plus.word / hit__photo.plus.word) %>% 
+            mutate(prop.hit.R__photo.plus.word = replace_na(prop.hit.R__photo.plus.word, 0)) %>%
+        mutate(prop.hit.F__photo.plus.word = hit.F__photo.plus.word / hit__photo.plus.word) %>% 
+            mutate(prop.hit.F__photo.plus.word = replace_na(prop.hit.F__photo.plus.word, 0)) %>%
+        mutate(prop.hit.G__photo.plus.word = hit.G__photo.plus.word / hit__photo.plus.word) %>% 
+            mutate(prop.hit.G__photo.plus.word = replace_na(prop.hit.G__photo.plus.word, 0)) %>%
+## Programming error (these P didn't see non-word items, so we remove them):    
+          filter(prolific_id != 14637 & prolific_id != 14020) 
     
-
+  
     
-    
-    
+write.csv(exp6__test.stats,'~/Desktop/exp6__test.stats.csv', row.names = FALSE)
 ```      
