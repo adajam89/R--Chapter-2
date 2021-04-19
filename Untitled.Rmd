@@ -968,10 +968,44 @@ output: html_notebook
 ##  Merge 'exp6__participant_info' and 'exp6__test.stats' to create final tidy df: 
     exp6__final.data <- exp6__participant_info %>%
         right_join(exp6__test.stats) %>%
-        arrange(prolific_id, study_list, test_list) %>%
+        arrange(prolific_id, study_list, test_list)
+##################################################################################################################
+##  Apply exclusion criteria:                                                                                   ##
+##################################################################################################################
+##  Anyone with less than 90% toward encoding questions:
+    exp6__exclude1 <- exp6__final.data %>%
+        filter(study_correct_percent < 90)
+##  Anyone + or - 3.0 z-score for total hits:
+    exp6__exclude2 <- exp6__final.data %>%
+        mutate("z.hit" = qnorm((hit__total + 0.5) / (hit__total + miss__total + 1))) %>%
+        filter(z.hit >= 3.0 | z.hit <= -3.0)
+##  Anyone + or - 3.0 z-score for total FAs:
+    exp6__exclude3 <- exp6__final.data %>%
+        mutate("z.FA" = qnorm((FA__total + 0.5) / (FA__total + CR__total + 1))) %>%
+        filter(z.FA >= 3.0 | z.FA <= -3.0)
+##  Anyone + or - 3.0 z-score for total recognition:
+    exp6__exclude4 <- exp6__final.data %>%
+        mutate("prop.hit__total" = hit__total / (hit__total + miss__total)) %>%
+        mutate("prop.FA__total" = FA__total / (FA__total + CR__total)) %>%
+        mutate("recog__total" = prop.hit__total - prop.FA__total) %>%
+        mutate("z.recog" = (recog__total - mean(recog__total)) / sd(recog__total)) %>%
+        filter(z.recog >= 3.0 | z.recog <= -3.0)
+##  Join all to-be-excluded participants into single df:
+    exp6__all_exclude <- exp6__exclude1 %>%
+        bind_rows(exp6__exclude2, exp6__exclude3, exp6__exclude4)
+##  Just get the id's for the to-be-excluded participants:
+    exp6__p_to_exclude <- exp6__all_exclude$id
+##  Remove these participants from 'exp6__final.data':
+    exp6__final.data <- exp6__final.data %>%
+        filter(!id %in% exp6__p_to_exclude) %>%
 ##  Programming error (these P didn't see non-word items, so we remove them):    
-        filter(prolific_id != 14637 & prolific_id != 14020) 
-  
+        filter(prolific_id != 14637 & prolific_id != 14020) %>%
+        arrange(test_list, study_list)
+        
+    ## lots of NAs in participant info
+        
+        %>%
+        mutate_at(vars(prop.hit__grey.word:prop.FA.G__col.photo), ~replace_na(., 0))  
     
 write.csv(exp6__final.data,'~/Desktop/exp6__final.data.csv', row.names = FALSE)
 ```      
