@@ -949,7 +949,7 @@ The picture stimuli utilised in the current study were created in Photoshop CC (
 #### Data processing
 \hfill\break Measured variables included the total number of hits and FAs, and the total number of hits and FAs assigned to each of the available response options (RFG, RFBG, and RF Ratings). In order to create a common dependant variable, proportions were calculated from these variables in slightly different ways depending on the response option group. In the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, similar proportions were calculated by separately adding the proportion of Both responses to the proportion of R and proportion of F responses. In the RF-Ratings group, proportions of R and F were calculated based on the number of responses scoring +>3; a response was classified R when subjects rated between 3-5 on the "Recollection" scale (regardless of the Familiarity rating), and a response was classified F when subjects rated between 3-5 on the "Familiarity" scale (regardless of the Recollection rating). The scales therefore allowed for pure R responses (R=3-5 + F=0-2), pure F responses (F=3-5 + R=0-2), both responses (R=3-5 + F=3-5) and Guessing responses (R=0 + F=0). Additional DVs included: i) d’ (d-prime, a signal detection measure of sensitivity); ii) c-value (a measure of response bias); iii) overall accuracy (hits / (hits + FAs)); iv) reaction times for all responses.
 
-All analyses were conducted using R [@rcoreteam2020]. *d'* (sensitivity) and *c* (bias) scores were calculated using the 'psycho' package [`r str_c("v", str_remove(packages_versions("psycho"), "([^\\s]+)\\s"))`; @psycho]. *d'* scores were calculated via: z-scores for correct hits minus z-scores for false alarms [@hautus1995 adjustments for extreme values were applied].
+All analyses were conducted using *R* [@rcoreteam2020] using the *afex* [`r str_c("v", str_remove(packages_versions("afex"), "([^\\s]+)\\s"))`; @afex] and *rstatix* packages [`r str_c("v", str_remove(packages_versions("rstatix"), "([^\\s]+)\\s"))`; @rstatix].
 
 A series of exclusion criteria were defined before analysis. First, subjects were to be excluded from analysis if they showed poor performance during the encoding task; the relative ease of reporting whether each item was shown as a word or picture prompted a performance cut off of 90% accuracy. This would allow for some accidental clicks, though subjects scoring less than 90% were to be excluded on the assumption they did not dedicate their full attention to the task. Second, subjects would be considered outliers (and thus excluded from analysis) if they presented extreme z-scores of +/- 3 for total hits, total FAs, or overall recognition (hits minus FAs). However, no subjects were found to meet any of these criteria. 
 
@@ -5414,7 +5414,7 @@ The current experiment aims to establish whether colour information facilitates 
 &nbsp;
 
 #### Data processing
-\hfill\break The primary DVs of interest consisted of the mean proportion of hits and false alarms (FAs), mean *d’* scores (d-prime, a signal detection measure of sensitivity), and the total number of hits and FAs assigned to each of the available response options (R/F/G or R/F/B/G). Proportions of Recollection and Familiarity were calculated slightly differently depending on the response option condition; in the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, the proportion of Both responses were added separately to R proportions and F proportions. All analyses were conducted using R [@rcoreteam2020] using the 'rstatix' package [`r str_c("v", str_remove(packages_versions("rstatix"), "([^\\s]+)\\s"))`; @rstatix]. 
+\hfill\break The primary DVs of interest consisted of the mean proportion of hits and false alarms (FAs), mean *d’* scores (d-prime, a signal detection measure of sensitivity), and the total number of hits and FAs assigned to each of the available response options (R/F/G or R/F/B/G). Proportions of Recollection and Familiarity were calculated slightly differently depending on the response option condition; in the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, the proportion of Both responses were added separately to R proportions and F proportions. All analyses were conducted using *R* [@rcoreteam2020] using the *afex* [`r str_c("v", str_remove(packages_versions("afex"), "([^\\s]+)\\s"))`; @afex] and *rstatix* packages [`r str_c("v", str_remove(packages_versions("rstatix"), "([^\\s]+)\\s"))`; @rstatix].
 
 Subjects were excluded from analyses on the basis of two key criteria; 1) less than 90% accuracy during the encoding task ("Is this a word, drawing, or photograph?"); 2) extreme z-scores (those presenting z-scores of +/- 3 for total hits, total FAs, or overall recognition [hits minus FAs]). A total of `r nrow(exp4__all.exclude)` participants were found to meet (at least) one of these criteria, and were thus considered outliers and excluded from analysis, leaving a total of `r nrow(exp4__final.data)` datasets.
 
@@ -6437,21 +6437,22 @@ The aim of the current experiment was to determine the effects of colour on reco
 
 The current results continue to be best explained by the physical distinctiveness account of the PSE. Across each of the key variables, photographs demonstrated clear recognition benefits compared to drawings, replicating that found in *Experiment 3* and further supporting the notion that the current set of stimuli appear to effectively capture different 'levels' of stimuli distinctiveness. The additional real-world detail present in the photographs, and the increased variability between items as a result, provides memorial advantages over simple line drawn representations of objects. The key manipulation in the current study - the addition of colour - was unsuccessful in providing an additional layer of distinctiveness that would further enhance recognition for the objects compared to when they are presented in greyscale. Failure to discern any impact of colour does not seem attributable to ceiling effects, whereby performance is already so high that benefits are imperceivable, since responses toward drawings were equally unaffected by the manipulation. 
 
-######----------------------------------------
-
-\newpage
-# Chapter 5
-## Background
-
 (colour = no effect)
 Stróżak
 
+######----------------------------------------
+
+\newpage
+# Chapter 5 - Word distinctiveness
+## Background
 
 
 
 @rossion2004
 
-                   
+
+
+     
 1) Manipulation check (1st Bonferroni pool)
 
     - Are distinctive words actually more distinctive?
@@ -8401,21 +8402,30 @@ Stróżak
         row_spec(5, bold = TRUE)
 ```
 
-All stimuli were presented as 500x500px image files at their actual size (i.e. without scaling) to ensure consistency across participants. Adobe Photoshop 2021 (22.0.0 Release) was used to create the image files, all on a plain white canvas. The Rossion and Pourtois (2004) line-drawings were sourced directly from the authors, and were trimmed of any pre-existing background before being resized to fit the 500x500px canvas (for some items this was determined by a maximum width of 500px, whilst for others it was determined by a maximum height of 500px). 
 
-word stimuli 
-were created in 
-Roboto (light, 54pt)
+#### Materials
+\hfill\break Stimuli consisted of words, drawings, and photographs - each comprised of high and low distinctiveness variations (see `r figure_numbering("exp5__stim_examples", display = "cite")` for example stimuli). The Rossion and Pourtois (2004) line-drawings were sourced directly from the authors, and consisted of shaded illustrations of innocuous, everyday objects (e.g. clock, rabbit, shoe); greyscale items acted as the low distinctive drawings, while the colour versions acted as the high distinctive drawings (both versions were provided by the authors). 
+
+and were trimmed of any pre-existing background before being resized to fit the 500x500px canvas (for some items this was determined by a maximum width of 500px, whilst for others it was determined by a maximum height of 500px).
+
+The low distinctive word stimuli were created using the Roboto sans-serif typeface (weight: light; size: 54pt).
+High distinctive word stimuli were created using \href{https://cooltext.com/}{Cool Text Graphics Generator}.
+
+All stimuli were separately placed on a 500x500px blank canvas using Adobe Photoshop 2021 (22.0.0 Release); some items were constrained to this canvas size by their height, while others were constrained by their width, depending on which came first. All items were exported as .pngs files for presentation by the online survey platform, where they were presented at their actual size (i.e. without scaling) to ensure consistency across participants. 
+
+
+
+
+
+
+Stimuli were the same as those utilised in *Experiment 3*, except the greyscale drawings and photographs were substituted for their colour versions. Items consisted of 126 innocuous, everyday objects (e.g. clock, rabbit, shoe), presented across three individual stimuli formats: written words, line drawings, and photographs. Words and line drawings were sourced from @rossion2004; the drawings consisted of shaded, colour illustrations, and the words were simply the written names of the depicted objects (these were presented in a clear Sans-serif typeface in the current experiment). A matching set of photograph stimuli were curated in *Experiment 2*; high quality photographs were sourced to similarly depict the same everyday objects as those found in the @rossion2004 line drawings. In each photograph, the object of interest was isolated from its original background and rotated to match the orientations shown in the line-drawn items. See `r figure_numbering("exp4__stim_examples", display = "cite")` for examples of each stimuli format. 
+
+
 
 #### Data processing
 \hfill\break Subjects were excluded from analyses on the basis of two key criteria; 1) less than 90% accuracy during the encoding task (*N*= `r nrow(exp5__exclude1)`; where they were asked to report whether each item was shown as a word, drawing, or photograph); 2) extreme z-scores (*N*= `r nrow(exp5__exclude4)`; i.e. those presenting z-scores of +/- 3 for total hits, total FAs, or overall recognition [hits minus FAs]).The subjects to meet these criteria were considered outliers and excluded from analysis, leaving a total of `r nrow(exp5__final.data)` datasets.
 
-
-The primary DVs of interest consisted of the mean proportion of hits and false alarms (FAs), mean *d’* scores (d-prime, a signal detection measure of sensitivity), and the total number of hits and FAs assigned to each of the available response options (R/F/G or R/F/B/G). Proportions of Recollection and Familiarity were calculated slightly differently depending on the response option condition; in the RFG-judgement group, simple proportions were created from the total number of R responses and the total number of F responses. In the RFBG condition, the proportion of Both responses were added separately to R proportions and F proportions. All analyses were conducted using R [@rcoreteam2020] using the 'rstatix' package [`r str_c("v", str_remove(packages_versions("rstatix"), "([^\\s]+)\\s"))`; @rstatix]. 
-
-
-
-
+The primary DVs of interest consisted of the mean proportion of hits and false alarms (FAs), mean *d’* scores (d-prime, a signal detection measure of sensitivity), and the total number of hits and FAs assigned *Recollection*, *Familiarity*, and *Guessing*. All analyses were conducted using *R* [@rcoreteam2020] using the *afex* [`r str_c("v", str_remove(packages_versions("afex"), "([^\\s]+)\\s"))`; @afex] and *rstatix* packages [`r str_c("v", str_remove(packages_versions("rstatix"), "([^\\s]+)\\s"))`; @rstatix].
                       
 ### Results
 Comparisons are made in relation to the first two experiments of @ensor2019b, the methodologies of which were identical to one another, apart from the number of trials involved (one experiment consisting of 40 trials at study and 80 at test, and the other consisting of 80 trials at study and 160 at test). With regard to trial numbers, the current study sits between the two @ensor2019b experiments, with 60 trials at study and 120 at test.
