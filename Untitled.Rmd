@@ -58,8 +58,7 @@ output: html_notebook
     ##  Recode attention check to show pass or fail:
         mutate(attention_check = str_replace(attention_check, "a lot better", "pass")) %>%
         mutate(attention_check = str_replace_all(attention_check, c("a lot worse" = "fail",
-                                                                    "a little worse" = "fail", "the same" = "fail",
-                                                                    "a little better" = "fail"))) %>%
+            "a little worse" = "fail", "the same" = "fail", "a little better" = "fail"))) %>%
     ##  Tidy up responses for clarity:
         mutate_all(., tolower) %>%
         mutate(system = str_remove_all(system, "\\ .+")) %>%
@@ -115,7 +114,7 @@ output: html_notebook
           #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pygj.csv",  # Study Teal (pics only)
           #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qza1.csv",  # Study Teal (pics only)
           #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-eia6.csv",  # Study Teal (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-7wwc.csv",  # Study Teal (pics+word)          
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-7wwc.csv",  # Study Teal (pics+word)  
           
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-j5hw.csv",  # Study Blue (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-g65w.csv",  # Study Blue (pics only)
@@ -124,7 +123,7 @@ output: html_notebook
           #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-j5hw.csv",  # Study Blue (pics only)
           #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-g65w.csv",  # Study Blue (pics only)
           #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jayr.csv",  # Study Blue (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l2v4.csv",  # Study Blue (pics+word)          
+          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l2v4.csv",  # Study Blue (pics+word)  
           
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-s7up.csv",  # Study Purple (pics only)
           "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qvph.csv",  # Study Purple (pics only)
@@ -208,9 +207,15 @@ output: html_notebook
         mutate(study_correct_percent = study_correct*(100/study_responses_total)) %>%
         mutate(study_error = study_responses_total - study_correct) %>%
         mutate(study_error_percent = study_error*(100/study_responses_total)) %>%
+        mutate(study_list = str_remove_all(study_list, "\\.(.*)")) %>%
+        mutate(test_list = ifelse(
+          str_detect(test_list, "red") | str_detect(test_list, "teal"), "red.teal", 
+          ifelse(str_detect(test_list, "orange") | str_detect(test_list, "blue"), "orange.blue", 
+          ifelse(str_detect(test_list, "yellow") | str_detect(test_list, "purple"), "yellow.purple", 
+          ifelse(str_detect(test_list, "green") | str_detect(test_list, "pink"), "green.pink", NA))))) %>%
         arrange(study_list, test_list) %>%
         select(id, prolific_id, everything())
-
+      
 ##################################################################################################################
 ##  Define study lists:                                                                                         ##
 ##################################################################################################################
@@ -963,12 +968,13 @@ output: html_notebook
         right_join(exp6__drawing.only__d.prime.rec) %>% right_join(exp6__photo.only__d.prime.rec) %>%
         right_join(exp6__drawing.plus.word__d.prime.rec) %>% right_join(exp6__photo.plus.word__d.prime.rec) %>% 
         right_join(exp6__drawing.only__d.prime.fam) %>% right_join(exp6__photo.only__d.prime.fam) %>%
-        right_join(exp6__drawing.plus.word__d.prime.fam) %>% right_join(exp6__photo.plus.word__d.prime.fam) %>%            right_join(exp6__drawing.only__d.prime.guess) %>% right_join(exp6__photo.only__d.prime.guess) %>%
+        right_join(exp6__drawing.plus.word__d.prime.fam) %>% right_join(exp6__photo.plus.word__d.prime.fam) %>%           right_join(exp6__drawing.only__d.prime.guess) %>% right_join(exp6__photo.only__d.prime.guess) %>%
         right_join(exp6__drawing.plus.word__d.prime.guess) %>% right_join(exp6__photo.plus.word__d.prime.guess)  
 ##  Merge 'exp6__participant_info' and 'exp6__test.stats' to create final tidy df: 
     exp6__final.data <- exp6__participant_info %>%
-        right_join(exp6__test.stats) %>%
+        right_join(exp6__test.stats, by = c("id", "prolific_id", "study_list", "test_list")) %>%
         arrange(prolific_id, study_list, test_list)
+
 ##################################################################################################################
 ##  Apply exclusion criteria:                                                                                   ##
 ##################################################################################################################
@@ -1001,11 +1007,14 @@ output: html_notebook
 ##  Programming error (these P didn't see non-word items, so we remove them):    
         filter(prolific_id != 14637 & prolific_id != 14020) %>%
         arrange(test_list, study_list)
-        
-    ## lots of NAs in participant info
-        
-        %>%
-        mutate_at(vars(prop.hit__grey.word:prop.FA.G__col.photo), ~replace_na(., 0))  
     
-write.csv(exp6__final.data,'~/Desktop/exp6__final.data.csv', row.names = FALSE)
+  #write.csv(exp6__final.data,'~/Desktop/exp6__final.data.csv', row.names = FALSE)
+
+    
+
+complete_datasets <- exp6__final.data %>%
+    select(id, prolific_id, study_list) %>%
+    count(study_list)
+write.csv(complete_datasets,'~/Desktop/complete_datasets.csv', row.names = FALSE)
+
 ```      
