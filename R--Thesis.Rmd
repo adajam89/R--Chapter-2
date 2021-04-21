@@ -8402,24 +8402,22 @@ Stróżak
         row_spec(5, bold = TRUE)
 ```
 
-
 #### Materials
-\hfill\break Stimuli consisted of words, drawings, and photographs - each comprised of high and low distinctiveness variations (see `r figure_numbering("exp5__stim_examples", display = "cite")` for example stimuli). The Rossion and Pourtois (2004) line-drawings were sourced directly from the authors, and consisted of shaded illustrations of innocuous, everyday objects (e.g. clock, rabbit, shoe); greyscale items acted as the low distinctive drawings, while the colour versions acted as the high distinctive drawings (both versions were provided by the authors). 
+\hfill\break Three stimuli formats were utilised in the current experiment - words, drawings, and photographs - each of which had colour and greyscale variations (see `r figure_numbering("exp5__stim_examples", display = "cite")` for example stimuli). Line drawings were sourced from Rossion and Pourtois (2004) and consisted of shaded illustrations of innocuous, everyday objects (e.g. clock, rabbit, shoe). The photographs were those curated in *Experiment 2* - high quality photographs that similarly depicted the same everyday objects as those found in the @rossion2004 line drawings, with the objects of interest isolated from their original backgrounds. Word stimuli consisted of the written-word labels for each of the objects; the greyscale word stimuli consisted of a simple sans-serif typeface (Roboto light; 54pt) presented in plain black ink, while the colour variations contained manipulations to font, size, colour, and capitalisation. In their experiment, @ensor2019b made comparisons to the same set of line drawings used in the current study; as such, many of their colour word items could be re-purposed for use in the current study. However, as not *all* of the current pool of items were represented in this previous experiment, new colour word items were also created using the same design source (\href{https://cooltext.com/}{Cool Text Graphics Generator}). Every effort was made to match the font styles of the newly created words (objects that had not been present in the @ensor2019b study) with those that had been utilised in the @ensor2019b study for different objects. All stimuli were separately placed on a 500x500px blank canvas using Adobe Photoshop 2021 (22.0.0 Release); some items were constrained to this canvas size by their height, while others were constrained by their width, depending on which came first. All items were exported as .pngs files for presentation by the online survey platform, where they were presented at their actual size (i.e. without scaling) to ensure consistency across participants. 
 
-and were trimmed of any pre-existing background before being resized to fit the 500x500px canvas (for some items this was determined by a maximum width of 500px, whilst for others it was determined by a maximum height of 500px).
+&nbsp;
+&nbsp;
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp5__stim_examples",
+                     caption = "Examples of the greyscale and colour words, drawings, and photograph stimuli utilised in the current experiment.")
+```
 
-The low distinctive word stimuli were created using the Roboto sans-serif typeface (weight: light; size: 54pt).
-High distinctive word stimuli were created using \href{https://cooltext.com/}{Cool Text Graphics Generator}.
-
-All stimuli were separately placed on a 500x500px blank canvas using Adobe Photoshop 2021 (22.0.0 Release); some items were constrained to this canvas size by their height, while others were constrained by their width, depending on which came first. All items were exported as .pngs files for presentation by the online survey platform, where they were presented at their actual size (i.e. without scaling) to ensure consistency across participants. 
-
-
-
-
-
-
-Stimuli were the same as those utilised in *Experiment 3*, except the greyscale drawings and photographs were substituted for their colour versions. Items consisted of 126 innocuous, everyday objects (e.g. clock, rabbit, shoe), presented across three individual stimuli formats: written words, line drawings, and photographs. Words and line drawings were sourced from @rossion2004; the drawings consisted of shaded, colour illustrations, and the words were simply the written names of the depicted objects (these were presented in a clear Sans-serif typeface in the current experiment). A matching set of photograph stimuli were curated in *Experiment 2*; high quality photographs were sourced to similarly depict the same everyday objects as those found in the @rossion2004 line drawings. In each photograph, the object of interest was isolated from its original background and rotated to match the orientations shown in the line-drawn items. See `r figure_numbering("exp4__stim_examples", display = "cite")` for examples of each stimuli format. 
-
+```{r echo=FALSE, out.width = '65%', cache=FALSE}
+    knitr::include_graphics("./resources/images/exp5__stim_examples.png")
+```
+&nbsp;
+&nbsp;
+`r figure_numbering("exp5__stim_examples")`
 
 
 #### Data processing
@@ -9439,9 +9437,11 @@ For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.m
 ##  Import demographics, RFG justifications, and RFBG justifications:
     exp6__p_info_files <- c(
         "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-z6yh.csv", # Demog (v6)
-        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_questionnaire-z6yh.csv", # Demog (v7)
-        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-h32i.csv")  # RFG just (v6)
-        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_questionnaire-h32i.csv")  # RFG just (v7)
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_questionnaire-z6yh.csv", # Demog (v7)
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_questionnaire-z6yh.csv", # Demog (v10)
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_questionnaire-h32i.csv",  # RFG just (v6)
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_questionnaire-h32i.csv",  # RFG just (v7)
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_questionnaire-h32i.csv")  # RFG just (v10)
 
 ##  Create raw df from the above files, but only get the following columns:
     exp6__participant.info <- map_dfr(exp6__p_info_files,~read_csv(.x, col_types = cols_only(
@@ -9502,74 +9502,131 @@ For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.m
 ##    Calculate how many items P got correct during study:
 ##    Import study data:
       exp6__study_files <- c(
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-l7li.csv", # Study Red1 (pics=only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qi5x.csv", # Study Red1 (pics-only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-pifd.csv", # Study Red2 (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-uf3l.csv", # Study Red2 (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l7li.csv", # Study Red1 (pics=only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qi5x.csv", # Study Red1 (pics-only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pifd.csv", # Study Red2 (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-uf3l.csv", # Study Red2 (pics+word)          
-          
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-a3o7.csv", # Study Orange1 (pics-only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1u76.csv", # Study Orange2 (pics-only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-3n1f.csv", # Study Orange1 (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-5ium.csv", # Study Orange2 (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-a3o7.csv", # Study Orange1 (pics-only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1u76.csv", # Study Orange2 (pics-only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-3n1f.csv", # Study Orange1 (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-5ium.csv", # Study Orange2 (pics+word)
-                              
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-a9z8.csv",  # Study Yellow (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-bqu6.csv",  # Study Yellow (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1v1k.csv",  # Study Yellow (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-ggr4.csv",  # Study Yellow (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-a9z8.csv",  # Study Yellow (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-bqu6.csv",  # Study Yellow (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1v1k.csv",  # Study Yellow (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-ggr4.csv",  # Study Yellow (pics+word)          
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-okc7.csv",  # Study Green (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-wmoz.csv",  # Study Green (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jlur.csv",  # Study Green (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-vbdo.csv",  # Study Green (pics+word)   
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-okc7.csv",  # Study Green (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-wmoz.csv",  # Study Green (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jlur.csv",  # Study Green (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-vbdo.csv",  # Study Green (pics+word)           
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-pygj.csv",  # Study Teal (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qza1.csv",  # Study Teal (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-eia6.csv",  # Study Teal (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-7wwc.csv",  # Study Teal (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pygj.csv",  # Study Teal (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qza1.csv",  # Study Teal (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-eia6.csv",  # Study Teal (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-7wwc.csv",  # Study Teal (pics+word)  
-          
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-j5hw.csv",  # Study Blue (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-g65w.csv",  # Study Blue (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jayr.csv",  # Study Blue (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-l2v4.csv",  # Study Blue (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-j5hw.csv",  # Study Blue (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-g65w.csv",  # Study Blue (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jayr.csv",  # Study Blue (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l2v4.csv",  # Study Blue (pics+word)  
-          
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-s7up.csv",  # Study Purple (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qvph.csv",  # Study Purple (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-9x5b.csv",  # Study Purple (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1nqy.csv",  # Study Purple (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-s7up.csv",  # Study Purple (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qvph.csv",  # Study Purple (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-9x5b.csv",  # Study Purple (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1nqy.csv",  # Study Purple (pics+word)          
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jsz4.csv",  # Study Pink (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-2j1b.csv",  # Study Pink (pics only)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-od4o.csv",  # Study Pink (pics+word)
-          "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qacf.csv")  # Study Pink (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jsz4.csv",  # Study Pink (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-2j1b.csv",  # Study Pink (pics only)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-od4o.csv",  # Study Pink (pics+word)
-          #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qacf.csv")  # Study Pink (pics+word)          
+##  Red: ---------------------------------------------------------------------------------------------------------
+    ##  Version 6: 
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-l7li.csv", # Red (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qi5x.csv", # Red (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-pifd.csv", # Red (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-uf3l.csv", # Red (pics+word - order 2)
+    ##  Version 7: 
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l7li.csv", # Red (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qi5x.csv", # Red (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pifd.csv", # Red (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-uf3l.csv", # Red (pics+word - order 2)          ##  Version 10: 
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-l7li.csv", # Red (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-qi5x.csv", # Red (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-pifd.csv", # Red (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-uf3l.csv", # Red (pics+word - order 2)     ##  Orange: ------------------------------------------------------------------------------------------------------
+    ##  Version 6:         
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-a3o7.csv", # Orange (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1u76.csv", # Orange (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-3n1f.csv", # Orange (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-5ium.csv", # Orange (pics+word - order 2)
+    ##  Version 7:         
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-a3o7.csv", # Orange (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1u76.csv", # Orange (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-3n1f.csv", # Orange (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-5ium.csv", # Orange (pics+word - order 2)       ##  Version 10:         
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-a3o7.csv", # Orange (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-1u76.csv", # Orange (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-3n1f.csv", # Orange (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-5ium.csv", # Orange (pics+word - order 2)  ##  Yellow: ------------------------------------------------------------------------------------------------------
+    ##  Version 6:        
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-a9z8.csv", # Yellow (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-bqu6.csv", # Yellow (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1v1k.csv", # Yellow (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-ggr4.csv", # Yellow (pics+word - order 2)
+    ##  Version 7:        
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-a9z8.csv", # Yellow (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-bqu6.csv", # Yellow (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1v1k.csv", # Yellow (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-ggr4.csv", # Yellow (pics+word - order 2)
+    ##  Version 10:        
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-a9z8.csv", # Yellow (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-bqu6.csv", # Yellow (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-1v1k.csv", # Yellow (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-ggr4.csv", # Yellow (pics+word - order 2)
+##  Green: ------------------------------------------------------------------------------------------------------
+    ##  Version 6:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-okc7.csv", # Green (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-wmoz.csv", # Green (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jlur.csv", # Green (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-vbdo.csv", # Green (pics+word - order 2)
+    ##  Version 7:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-okc7.csv", # Green (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-wmoz.csv", # Green (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jlur.csv", # Green (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-vbdo.csv", # Green (pics+word - order 2)
+    ##  Version 10:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-okc7.csv", # Green (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-wmoz.csv", # Green (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-jlur.csv", # Green (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-vbdo.csv", # Green (pics+word - order 2)
+##  Teal: ------------------------------------------------------------------------------------------------------
+    ##  Version 6:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-pygj.csv", # Teal (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qza1.csv", # Teal (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-eia6.csv", # Teal (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-7wwc.csv", # Teal (pics+word - order 2)
+    ##  Version 7:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-pygj.csv", # Teal (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qza1.csv", # Teal (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-eia6.csv", # Teal (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-7wwc.csv", # Teal (pics+word - order 2)
+    ##  Version 10:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-pygj.csv", # Teal (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-qza1.csv", # Teal (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-eia6.csv", # Teal (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-7wwc.csv", # Teal (pics+word - order 2)
+##  Blue: ------------------------------------------------------------------------------------------------------
+    ##  Version 6:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-j5hw.csv", # Blue (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-g65w.csv", # Blue (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jayr.csv", # Blue (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-l2v4.csv", # Blue (pics+word - order 2)
+    ##  Version 7:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-j5hw.csv", # Blue (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-g65w.csv", # Blue (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jayr.csv", # Blue (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-l2v4.csv", # Blue (pics+word - order 2)
+    ##  Version 10:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-j5hw.csv", # Blue (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-g65w.csv", # Blue (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-jayr.csv", # Blue (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-l2v4.csv", # Blue (pics+word - order 2)
+##  Purple: ------------------------------------------------------------------------------------------------------
+    ##  Version 6:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-s7up.csv", # Purple (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qvph.csv", # Purple (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-9x5b.csv", # Purple (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-1nqy.csv", # Purple (pics+word - order 2)
+    ##  Version 7:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-s7up.csv", # Purple (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qvph.csv", # Purple (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-9x5b.csv", # Purple (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-1nqy.csv", # Purple (pics+word - order 2)
+    ##  Version 10:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-s7up.csv", # Purple (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-qvph.csv", # Purple (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-9x5b.csv", # Purple (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-1nqy.csv", # Purple (pics+word - order 2)
+##  Pink: ------------------------------------------------------------------------------------------------------
+    ##  Version 6:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-jsz4.csv", # Pink (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-2j1b.csv", # Pink (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-od4o.csv", # Pink (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-qacf.csv", # Pink (pics+word - order 2)
+    ##  Version 7:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-jsz4.csv", # Pink (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-2j1b.csv", # Pink (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-od4o.csv", # Pink (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-qacf.csv", # Pink (pics+word - order 2)
+    ##  Version 10:
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-jsz4.csv", # Pink (pics-only - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-2j1b.csv", # Pink (pics-only - order 2)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-od4o.csv", # Pink (pics+word - order 1)
+      "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-qacf.csv") # Pink (pics+word - order 2)
+  
             
 ##  Create raw df from the above files, but only get the following columns:
     exp6__study_data <- map_dfr(exp6__study_files,~read_csv(.x, col_types = cols_only(
@@ -9780,14 +9837,21 @@ For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.m
 ##################################################################################################################
 ##  Import test data:
     exp6__test_files <- c(
-        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-eo3t.csv", # Red + Teal
-        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-eo3t.csv", # Red + Teal
-        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-hnun.csv", # Orange + Blue
-        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-hnun.csv", # Orange + Blue
-        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-tmr7.csv", # Yellow + Purple
-        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-tmr7.csv", # Yellow + Purple
-        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-cdc5.csv") # Green + Pink
-        #"./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-cdc5.csv") # Green + Pink
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-eo3t.csv",   ##  Red + Teal:
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-eo3t.csv",
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-eo3t.csv",
+
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-hnun.csv",   ##  Orange + Blue:
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-hnun.csv",
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-hnun.csv",
+        
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-tmr7.csv",   ##  Yellow + Purple:
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-tmr7.csv",
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-tmr7.csv",
+
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v6_task-cdc5.csv",   ##  Green + Pink:
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v7_task-cdc5.csv",
+        "./resources/experiment_6/experiment_6_data/data_exp_47727-v10_task-cdc5.csv")
     
 ##  Create raw df from the above files, but only get the following columns:
     exp6__test_data <- map_dfr(exp6__test_files,~read_csv(.x, col_types = cols_only(
@@ -10443,6 +10507,7 @@ complete_datasets <- exp6__final.data %>%
     select(id, prolific_id, study_list) %>%
     count(study_list)
 write.csv(complete_datasets,'~/Desktop/complete_datasets.csv', row.names = FALSE)
+write.csv(exp6__participant.info,'~/Desktop/exp6__participant.info.csv', row.names = FALSE)
 
 ```
 
