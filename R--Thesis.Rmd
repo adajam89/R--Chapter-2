@@ -40,8 +40,7 @@ header-includes:
     - \newcommand{\elandscape}{\end{landscape}}
 ---
 
-```{r include=FALSE, cache=FALSE}
-#__________________________________________________________________________________________________________________
+```{r setup}
 ##    Clear environment and list required packages:
       rm(list=ls())  
       packages <- c("tidyverse", "dplyr", "captioner", "tinytex", "kableExtra", "formattable", "readr", "irr",
@@ -81,11 +80,11 @@ header-includes:
 ##  Captioner:
     figure_numbering <- captioner()
     table_numbering <- captioner(prefix = "Table")
-    appendix_numbering <- captioner(prefix = "Appendix", type = "C")
-    appendix_numbering("spelling.corrections", "Spelling corrections / manipulations to naming responses.", 
-                       display = FALSE)
-    appendix_numbering("exp2.full.norms", "Normative data for all photograph items.", 
-                       display = FALSE)
+    appendix_numbering <- captioner(prefix = "Appendix", type = c("C")) ## Use letters rather than numbers. 
+    appendix_numbering("spelling.corrections", 
+                       "Manipulations / spelling corrections of naming responses (Experiment 2).", display = FALSE)
+    appendix_numbering("exp2.full.norms", 
+                       "Normative data for newly curated photograph items (Experiment 2).", display = FALSE)
 ```
 
 \newpage
@@ -172,7 +171,7 @@ The objective of the current programme of research is to better understand how d
 1. **Overall PSE**: a PSE will be evident within the current paradigm, manifesting as:
     + i) higher overall *d'* scores for pictures compared to words;
     + ii) higher proportion of correct hits; 
-    + ii) lower proportion of false alarms; 
+    + iii) lower proportion of false alarms; 
     + iv) better overall recognition.
 2. **PSE in rates of Recollection and Familiarity**:
     + i) pictures will produce a higher proportion of R hits and a lower proportion of R FAs than words. 
@@ -4832,7 +4831,7 @@ Across a range of performance variables, the results show a clear effect of stim
 \newpage
 # Chapter 4 - The role of colour
 ## Background
-In Chapter 3, the role of stimuli distinctiveness on recognition was explored by curating a new set of detailed, real-world object photographs, and comparing recognition performance toward these items with matched line drawn images and written word counterparts. Standard picture superiority effects (PSEs) were observed, with both types of picture producing enhanced recognition performance compared to word stimuli, however, a clear *photograph* superiority effect was also evident when comparisons were made between the photographs and drawings. Such results were attributed to the physical distinctiveness account of the PSE, whereby increased item-to-item variability results in items being remembered better than those with low variability. Studies have previously offered support for this hypothesis by attempting to manipulate the level of variability between items; @ensor2019a demonstrated how the PSE could be eliminated by i) increasing the variability between word stimuli, where each item was made more distinctive by manipulations to font, size, and colour, and ii) reducing the variability between picture stimuli, where line drawing items consisted of objects with highly similar shapes, size, and orientation. The current programme of research extended support for this hypothesis by increasing the variability between picture stimuli through the creation of a set of photographic stimuli where differences in detail, texture, and shading were intended to be more apparent across items than they would be across line drawings. While the *photograph* superiority effect (PhSE) demonstrated in the previous study highlights the importance of real world texture and shading in recognition memory, there are other inconsistencies across recognition memory studies with regard to distinctiveness - namely, whether images are presented to participants in greyscale or colour. 
+In Chapter 3, the role of stimuli distinctiveness on recognition was explored by curating a new set of detailed, real-world object photographs, and comparing recognition performance toward these items with matched line drawn images and written word counterparts. Standard picture superiority effects (PSEs) were observed, with both types of picture producing enhanced recognition performance compared to word stimuli, however, a clear *photograph* superiority effect was also evident when comparisons were made between the photographs and drawings. Such results were attributed to the physical distinctiveness account of the PSE, whereby increased item-to-item variability results in items being remembered better than those with low variability. Studies have previously offered support for this hypothesis by attempting to manipulate the level of variability between items; @ensor2019b demonstrated how the PSE could be eliminated by i) increasing the variability between word stimuli, where each item was made more distinctive by manipulations to font, size, and colour, and ii) reducing the variability between picture stimuli, where line drawing items consisted of objects with highly similar shapes, size, and orientation. The current programme of research extended support for this hypothesis by increasing the variability between picture stimuli through the creation of a set of photographic stimuli where differences in detail, texture, and shading were intended to be more apparent across items than they would be across line drawings. While the *photograph* superiority effect (PhSE) demonstrated in the previous study highlights the importance of real world texture and shading in recognition memory, there are other inconsistencies across recognition memory studies with regard to distinctiveness - namely, whether images are presented to participants in greyscale or colour. 
 
 The extent to which colour affects the memorability of stimuli is unclear, though there is evidence to suggest this additional layer of information may increase the perceived distinctiveness of items. In a scene recognition paradigm, @suzuki1997 demonstrated that black & white images may not facilitate successful recognition in the same way as colour images. In an initial study phase, subjects were instructed to passively memorise a number of real-world scene photographs (e.g. train stations, city streets etc.). At test, participants were presented with two photographs side-by-side (one target + one similar lure) and asked to select the item shown during the study phase. The congruency of colour was manipulated, such that photographs were either presented in the same colour modality across both study and test (1. greyscale at study / greyscale at test; 2. colour at study / colour at test) or different (3. greyscale at study / colour at test; 4. colour at study / greyscale at test). Results showed that colour information produced superior recognition performance when presented congruently across encoding and retrieval.Interestingly, this colour benefit was *only* evident in the congruent condition; if colour images were paired with greyscale images - regardless of the order at encoding and test - recognition benefits were absent. A source judgement question at test, probing whether the colour format for each item was the same or different as at study showed similar performance across all four conditions (though performance was particularly poor for items presented in colour); such findings indicate the recognition benefits of the congruent colour condition were not a result of accessing memory for the colour information itself, but rather colour indirectly highlighted certain features within the photographs that were not otherwise noticed as prominently in greyscale, and thus the colour photographs were overall more distinctive as a result. 
 
@@ -6452,13 +6451,48 @@ Stróżak
 
 
 
+
+The objective of the current programme of research is to better understand how different methodologies inform understandings about the underlying processes of recollection and familiarity. Across a number of experiments, the distinctiveness of to-be-remembered stimuli will be systematically examined to determine the level at which successful recognition is impacted, and which process(es) are most susceptible. The aim of the first experiment, outlined below, is to establish baseline PSE response patterns in a novel, modified RK paradigm. In a 2x3 mixed factorial design, a within-subjects variable of stimulus type (words / simple pictures) will be used to determine whether the magnitude of picture superiority effects (PSEs) is mediated by the particular response options available at test (between-subjects variable of response option: RFG, RFBG, RF-Ratings). In each condition, the labels *Recollection*/*Familiarity* will be used in place of the standard *Remember*/*Know*, in an effort to reduce the impact of colloquial understandings on the current experimental definitions. To avoid guesses biasing estimations of familiarity [@belleville2011; @eldridge2002; @larsson2006; @tunney2007; @williams2019], participants in all response-option conditions are also given the option to report that they are merely *Guessing* that an item is old. At test, subjects will be presented with either i) three response options (RFG); ii) four response options (RFBG; where a *Both* response option allows subjects to report the co-occurrence of R and F; iii) separate 0-5 rating scales for R and F (where subjects could report either process occurring alone, both processes occurring conjointly, or that they are guessing by providing a '0' rating on both scales). To establish whether a PSE is evident in the current paradigm, *d'* (d-prime) scores will be calculated for each participant. *d'* is a signal detection statistic, calculated by taking the standardised difference between the signal (i.e. correct hits) and signal+noise (i.e. false alarms); in other words, *d'* offers a representation of global recognition performance and participants' ability to distinguish target items from lures [@doi:https://doi.org/10.1002/9781118445112.stat06743]. Higher *d'* scores demonstrate better overall performance on the memory task. 
+
+
+
+
+
+A secondary aim is to explore the role of colour in the previously established photo superiority effect (PhSE). Within *Experiment 3* (greyscale pictures) and *Experiment 4* (colour pictures), photographs produced clear recognition benefits over line drawings. In both studies, photograph items produced a significantly higher proportion of hits, lower proportion of FAs, and higher *d'* scores than drawings. Such findings were interpreted within a distinctiveness framework, whereby increased item-to-item variability between the more detailed photograph items increased their memorability in comparison to simpler line drawings. However, since analyses could only be performed between drawings and photographs of the same colour modality (i.e. i) drawings without vs. photographs without in *Experiment 3*; and ii) drawings with vs. photographs with in *Experiment 4*) the role of colour in the PhSE is not entirely clear.
+
+While visual inspection of results between *Experiment 3* and *Experiment 4* showed little difference with regard to overall patterns (both showed a PSE, PhSE, and similar patterns of RFG responding), suggesting a negligable effect of colour 
+
+
+In the same way the PSE was eliminated by @ensor2019b when comparing drawings and distinctive words, if colour information 
+
+plays a role in the 
+
+the PhSE may too be eliminated 
+
+
+
+
+
+Based on the discussed research, the following results are hypothesised:
+
+1. Recognition will be enhanced for word stimuli characterised by distinct variations to colour, font, and capitalisation across items, compared to those consistently presented in the same black typeface. For colour words, this enhancement is expected to manifest as the following compared to greyscale words:
+    + i) higher overall *d'* scores;
+    + ii) higher proportion of correct hits;
+    + iii) lower proportion of false alarms;
+    + While such a result would be far from surprising given the results of @ensor2019b, it is important to establish whether colour words do indeed also produce superior recognition over greyscale words in the current paradigm. 
      
-1) Manipulation check (1st Bonferroni pool)
+2. A picture superiority effect (PSE) will be evident, whereby recognition for either picture type (drawings / photographs) will be enhanced in comparison to greyscale words. Drawings and photographs are expected to show the same performance benefits as above compared to greyscale words:
+    + i) higher overall *d'* scores;
+    + ii) higher proportion of correct hits;
+    + iii) lower proportion of false alarms;
+    + Following the results of *Experiment 3* and *Experiment 4*, it is hypothesised that a *photograph* superiority effect will also be apparent. Photographs are expected to produce better recognition compared to drawings of the same 
 
-    - Are distinctive words actually more distinctive?
-    - If its not significant, might as well stop analysis.
-    - low word vs high word.
 
+
+Such an enhancement is again expected to manifest as 
+    
+  it is essential baseline PSEs are established 
+    
 
 2) Have I established a PSE? (2 + 3 in same Bonferroni pool)
     
@@ -8386,8 +8420,11 @@ Stróżak
 
 ### Method
 #### Participants
-\hfill\break A total of `r nrow(exp5__participant.info)` participants completed the online experiment, all between the age of 18-59 years (actual range: `r min(exp5__age.gender$age, na.rm = TRUE)`-`r max(exp5__age.gender$age, na.rm = TRUE)`) - see `r table_numbering("exp5__age.gender__table", display = "cite")` for a breakdown of the age/gender of the current sample). The majority of participants reported English as being their first language (`r exp5__n.eng.lang`%). Participants were primarily recruited from the in-house \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r exp5__n.sona`%), though some were also sourced from the voluntary participation website \href{https://www.prolific.co/}{Prolific Academic} (`r exp5__n.prolific`%), where payment at the rate of £5/hr was given, and from other online social media (e.g. Facebook; `r exp5__n.social.media`%). Sample size was calculated a-priori using \href{https://www.psychologie.hhu.de/arbeitsgruppen/allgemeine-psychologie-und-arbeitspsychologie/gpower}{G*Power} [@faul2009] to detect a small effect size of Cohen’s *f* = 0.1 with 95% power (*α* = .05, two-tailed), 166 subjects would be necessary in a one-way repeated measures ANOVA.
-  
+\hfill\break A total of `r nrow(exp5__participant.info)` participants completed the online experiment, all between the ages `r min(exp5__age.gender$age, na.rm = TRUE)`-`r max(exp5__age.gender$age, na.rm = TRUE)` years (see `r table_numbering("exp5__age.gender__table", display = "cite")` for a breakdown of the age/gender of the current sample). The majority of participants reported English as being their first language (`r exp5__n.eng.lang`%). Participants were primarily recruited from the in-house \href{https://keelepsychology.sona-systems.com/}{research participation system} (`r exp5__n.sona`%), though some were also sourced from the voluntary participation website \href{https://www.prolific.co/}{Prolific Academic} (`r exp5__n.prolific`%), where payment at the rate of £5/hr was given, and from other online social media (e.g. Facebook; `r exp5__n.social.media`%). Sample size was calculated a-priori using \href{https://www.psychologie.hhu.de/arbeitsgruppen/allgemeine-psychologie-und-arbeitspsychologie/gpower}{G*Power} [@faul2009] to detect a small effect size of Cohen’s *f* = 0.1 with 95% power (*α* = .05, two-tailed), 166 subjects would be necessary in a one-way repeated measures ANOVA.
+
+&nbsp;
+&nbsp;
+
 `r table_numbering("exp5__age.gender__table")`
 ```{r echo=FALSE, cache=TRUE}
     exp5__age.gender__table %>%
@@ -8429,10 +8466,7 @@ Stróżak
 #### Data processing
 \hfill\break Subjects were excluded from analyses on the basis of two key criteria; 1) less than 90% accuracy during the encoding task (*N*= `r nrow(exp5__exclude1)`; where they were asked to report whether each item was shown as a word, drawing, or photograph); 2) extreme z-scores (*N*= `r nrow(exp5__exclude4)`; i.e. those presenting z-scores of +/- 3 for total hits, total FAs, or overall recognition [hits minus FAs]).The subjects to meet these criteria were considered outliers and excluded from analysis, leaving a total of `r nrow(exp5__final.data)` datasets.
 
-The primary DVs of interest consisted of the mean proportion of hits and false alarms (FAs), mean *d’* scores (d-prime, a signal detection measure of sensitivity), and the total number of hits and FAs assigned *Recollection*, *Familiarity*, and *Guessing*. All analyses were conducted with *R* [@rcoreteam2020] using the *afex* [`r str_c("v", str_remove(packages_versions("afex"), "([^\\s]+)\\s"))`; @afex] and *rstatix* packages [`r str_c("v", str_remove(packages_versions("rstatix"), "([^\\s]+)\\s"))`; @rstatix].
-
-### Results
-Comparisons are made in relation to the first two experiments of @ensor2019b, the methodologies of which were identical to one another, apart from the number of trials involved (one experiment consisting of 40 trials at study and 80 at test, and the other consisting of 80 trials at study and 160 at test). With regard to trial numbers, the current study sits between the two @ensor2019b experiments, with 60 trials at study and 120 at test.
+The primary DVs of interest consisted of the mean proportion of hits and false alarms (FAs), mean *d’* scores (d-prime, a signal detection measure of sensitivity), and the total number of hits and FAs assigned *Recollection*, *Familiarity*, and *Guessing*. Comparisons are made in relation to the first two experiments of @ensor2019b, the methodologies of which were identical to one another, apart from the number of trials involved (one experiment consisting of 40 trials at study and 80 at test, and the other consisting of 80 trials at study and 160 at test). With regard to trial numbers, the current study sits between the two @ensor2019b experiments, with 60 trials at study and 120 at test. All analyses were conducted with *R* [@rcoreteam2020] using the *afex* [`r str_c("v", str_remove(packages_versions("afex"), "([^\\s]+)\\s"))`; @afex] and *rstatix* packages [`r str_c("v", str_remove(packages_versions("rstatix"), "([^\\s]+)\\s"))`; @rstatix]. 
 
 ```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 ##################################################################################################################
@@ -8655,6 +8689,8 @@ Comparisons are made in relation to the first two experiments of @ensor2019b, th
 `r figure_numbering("exp5__manip.check__figure")`
 
 \newpage
+
+### Results
 #### Manipulation check
 To establish whether the distinctive word stimuli were indeed more distinctive than regular words, a series of one-way repeated measures analyses of variance (ANOVA) - using six factors (grey & distinctive words, grey & colour drawings, grey & colour photographs) - were conducted on the mean scores of *d'*, mean proportions of hits, and mean proportion of FAs. Sphericity was assessed using Mauchly's Test; when the assumption of sphericity was violated, Greenhouse-Geisser corrections were applied. 
 
@@ -10514,7 +10550,6 @@ complete_datasets <- exp6__final.data %>%
     count(study_list)
 write.csv(complete_datasets,'~/Desktop/complete_datasets.csv', row.names = FALSE)
 write.csv(exp6__participant.info,'~/Desktop/exp6__participant.info.csv', row.names = FALSE)
-
 ```
 
 
@@ -10532,77 +10567,80 @@ write.csv(exp6__participant.info,'~/Desktop/exp6__participant.info.csv', row.nam
 
 # Appendices
 ## `r appendix_numbering("spelling.corrections")`
-```{r echo=FALSE, warning = FALSE, message=FALSE, cache=TRUE}
+```{r echo=FALSE, warning = FALSE, message=FALSE, cache=FALSE}
     exp2__spelling_corrections <- read_csv("./resources/experiment_2/spelling_corrections.csv") %>%
-        mutate(Response = replace_na(Response, "")) %>%
-        mutate(Correction = replace_na(Correction, "")) %>%
-        mutate(Response_1 = replace_na(Response_1, "")) %>%
-        mutate(Correction_1 = replace_na(Correction_1, "")) %>%
-        mutate(Response_2 = replace_na(Response_2, "")) %>%
-        mutate(Correction_2 = replace_na(Correction_2, "")) %>%
-        rename("Response " = "Response_1", "Correction " = "Correction_1",
-               "Response  " = "Response_2", "Correction  " = "Correction_2")
+        replace(is.na(.), "") %>%
+        rename("Item:" = "Item1", "Item: " = "Item2", "Item:  " = "Item3",
+               "Response:" = "Response1", "Response " = "Response2", "Response  " = "Response3",
+               "Corrected to:" = "Correction1", "Corrected to: " = "Correction2", 
+               "Corrected to:  " = "Correction3")
+
     exp2__spelling_corrections %>%
-        kable("latex", longtable = T, booktabs = T) %>%
+        kable("latex", longtable = T, booktabs = T, linesep = "") %>%
         kable_styling(bootstrap_options = c("striped","condensed")) %>%
-        kable_styling(latex_options = c("repeat_header"), font_size = 7) %>%
-        column_spec(1, width = "2.6cm") %>%
-        column_spec(2, width = "2.3cm", border_right = T) %>%
-        column_spec(3, width = "2.6cm") %>%
-        column_spec(4, width = "2.3cm", border_right = T) %>%
-        column_spec(5, width = "2.6cm") %>%
-        column_spec(6, width = "2.6cm")
+        kable_styling(latex_options = c("repeat_header"), font_size = 10) %>%
+        row_spec(0, bold = T) %>%
+        column_spec(1, width = "1.8cm", bold = T) %>%
+        column_spec(2, width = "1.8cm") %>%
+        column_spec(3, width = "2.2cm", border_right = T) %>%
+        column_spec(4, width = "1.8cm", bold = T) %>%
+        column_spec(5, width = "1.8cm") %>%
+        column_spec(6, width = "2.2cm", border_right = T) %>%
+        column_spec(7, width = "1.8cm", bold = T) %>%
+        column_spec(8, width = "1.8cm") %>%
+        column_spec(9, width = "2.2cm")
 ```
 \elandscape
 
 \newpage
 ## `r appendix_numbering("exp2.full.norms")`
 ```{r echo=FALSE, cache=TRUE, warnings=FALSE}
-    exp2__norms <- exp2__raw_data %>%
-        ungroup() %>% 
-        select(stim, familiarity, visualcomplexity, colourdiagnosticity, mentalimageryagreement) %>%
-        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
-        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
-        mutate(familiarity = str_remove(familiarity, "fam_")) %>%
-        mutate(visualcomplexity = str_remove(visualcomplexity, "viscom_")) %>%
-        mutate(colourdiagnosticity = str_remove(colourdiagnosticity, "coldia_")) %>%
-        mutate(mentalimageryagreement = str_remove(mentalimageryagreement, "menima_")) %>%
-        mutate(familiarity = as.double(familiarity)) %>%
-        mutate(visualcomplexity = as.double(visualcomplexity)) %>%
-        mutate(colourdiagnosticity = as.double(colourdiagnosticity)) %>%
-        mutate(mentalimageryagreement = as.double(mentalimageryagreement)) %>%
-        group_by(stim) %>%
-        summarise_all(tibble::lst(mean, sd), na.rm = TRUE) %>%
-        rename(Photograph = "stim", Fam_Mean = "familiarity_mean", Fam_SD = "familiarity_sd",   
-               VisCom_Mean = "visualcomplexity_mean", VisCom_SD = "visualcomplexity_sd",
-               ColDia_Mean = "colourdiagnosticity_mean", ColDia_SD = "colourdiagnosticity_sd", 
-               MenIma_Mean = "mentalimageryagreement_mean", MenIma_SD = "mentalimageryagreement_sd") %>%
-        select(Photograph, Fam_Mean, Fam_SD, VisCom_Mean, VisCom_SD, ColDia_Mean, 
-               ColDia_SD, MenIma_Mean, MenIma_SD) %>%
-        mutate_at(c("Fam_Mean", "Fam_SD", "VisCom_Mean", "VisCom_SD", "ColDia_Mean", 
-                    "ColDia_SD", "MenIma_Mean", "MenIma_SD"), round, 2) %>%
-        mutate_all(as.character) %>%
-        mutate(Fam_SD = str_c("(", Fam_SD, ")")) %>%
-        mutate(VisCom_SD = str_c("(", VisCom_SD, ")")) %>%
-        mutate(ColDia_SD = str_c("(", ColDia_SD, ")")) %>%
-        mutate(MenIma_SD = str_c("(", MenIma_SD, ")")) %>%
-        unite("Familiarity", Fam_Mean:Fam_SD, sep = " ", remove = TRUE) %>%
-        unite("Visual Complexity", VisCom_Mean:VisCom_SD, sep = " ", remove = TRUE) %>%
-        unite("Mental Imagery", MenIma_Mean:MenIma_SD, sep = " ", remove = TRUE) %>%
-        unite("Colour_Diagnosticity", ColDia_Mean:ColDia_SD, sep = " ", remove = TRUE) %>%
-        mutate(Colour_Diagnosticity = str_replace(Colour_Diagnosticity, "NaN NA", "")) %>%
-        rename("Colour Diagnosticity" = "Colour_Diagnosticity")
-#image_refs <- read_csv("./resources/experiment_2/image_refs.csv")
-#        norms2 <- (bind_cols(norms, image_refs))
+exp2__norms <- exp2__raw_data %>%
+  ungroup() %>% 
+  select(stim, familiarity, visualcomplexity, colourdiagnosticity, mentalimageryagreement) %>%
+  mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+  mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+  mutate(familiarity = str_remove(familiarity, "fam_")) %>%
+  mutate(visualcomplexity = str_remove(visualcomplexity, "viscom_")) %>%
+  mutate(colourdiagnosticity = str_remove(colourdiagnosticity, "coldia_")) %>%
+  mutate(mentalimageryagreement = str_remove(mentalimageryagreement, "menima_")) %>%
+  mutate(familiarity = as.double(familiarity)) %>%
+  mutate(visualcomplexity = as.double(visualcomplexity)) %>%
+  mutate(colourdiagnosticity = as.double(colourdiagnosticity)) %>%
+  mutate(mentalimageryagreement = as.double(mentalimageryagreement)) %>%
+  group_by(stim) %>%
+  summarise_all(tibble::lst(mean, sd), na.rm = TRUE) %>%
+  rename(Photograph = "stim", Fam_Mean = "familiarity_mean", Fam_SD = "familiarity_sd",   
+         VisCom_Mean = "visualcomplexity_mean", VisCom_SD = "visualcomplexity_sd",
+         ColDia_Mean = "colourdiagnosticity_mean", ColDia_SD = "colourdiagnosticity_sd", 
+         MenIma_Mean = "mentalimageryagreement_mean", MenIma_SD = "mentalimageryagreement_sd") %>%
+  select(Photograph, Fam_Mean, Fam_SD, VisCom_Mean, VisCom_SD, ColDia_Mean, 
+         ColDia_SD, MenIma_Mean, MenIma_SD) %>%
+  mutate(Fam_Mean = round(Fam_Mean, 2)) %>%
+  mutate_all(as.character) %>%
+  mutate(Fam_SD = str_c("(", Fam_SD, ")")) %>%
+  mutate(VisCom_SD = str_c("(", VisCom_SD, ")")) %>%
+  mutate(ColDia_SD = str_c("(", ColDia_SD, ")")) %>%
+  mutate(MenIma_SD = str_c("(", MenIma_SD, ")")) %>%
+  unite("Familiarity", Fam_Mean:Fam_SD, sep = " ", remove = TRUE) %>%
+  unite("Visual Complexity", VisCom_Mean:VisCom_SD, sep = " ", remove = TRUE) %>%
+  unite("Mental Imagery", MenIma_Mean:MenIma_SD, sep = " ", remove = TRUE) %>%
+  unite("Colour_Diagnosticity", ColDia_Mean:ColDia_SD, sep = " ", remove = TRUE) %>%
+  mutate(Colour_Diagnosticity = str_replace(Colour_Diagnosticity, "NaN NA", "")) %>%
+  rename("Colour Diagnosticity" = "Colour_Diagnosticity")
 
-    exp2__norms %>%
-        kable("latex", longtable = T, booktabs = T) %>%
-        kable_styling(bootstrap_options = c("striped","condensed")) %>%
-        kable_styling(latex_options = c("repeat_header"), font_size = 8) %>%
-        pack_rows(index = table(gsub("[0-9].*", "", exp2__norms$Photograph))) %>%
-        column_spec(1, width = "4cm") %>%
-        column_spec(2, width = "2cm") %>%
-        column_spec(3, width = "2cm") %>%
-        column_spec(4, width = "2cm") %>%
-        column_spec(5, width = "2cm")
+exp2__norms %>%
+  kable("latex", longtable = T, booktabs = T, align = "lcccc") %>%
+  kable_styling(bootstrap_options = c("striped","condensed")) %>%
+  kable_styling(latex_options = c("repeat_header"), font_size = 10) %>%
+  pack_rows(index = table(gsub("[0-9].*", "", exp2__norms$Photograph))) %>%
+  row_spec(0, bold = T) %>%
+  column_spec(1, width = "3cm") %>%
+  column_spec(2, width = "2cm") %>%
+  column_spec(3, width = "2cm") %>%
+  column_spec(4, width = "2cm") %>%
+  column_spec(5, width = "2cm")
+
 ```
+
+
