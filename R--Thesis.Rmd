@@ -6457,66 +6457,39 @@ The objective of the current programme of research is to better understand how d
 
 
 
+\newpage
+A secondary aim is to further characterise the role of colour in the previously established *photo* superiority effect (PhSE). In *Experiment 3* (greyscale pictures) and *Experiment 4* (colour pictures), photographs produced clear recognition benefits over line drawings; in both studies, photograph items produced a significantly higher proportion of hits, lower proportion of FAs, and higher *d'* scores compared to drawings. Such findings cannot readily be accounted for by dual-coding accounts of the PSE [@paivio1968], where one would expect both drawings and photographs to similarly generate imagined and verbal representations of the stimulus (and thus their superiority over words should be the same, with no additional advantage for photographs). The PhSE demonstrated in the previous experiments is best understood within a distinctiveness framework [@mintzer1999]; increased item-to-item variability between the detailed photograph items acted to enhance their memorability in comparison to line drawings, where this item-to-item variability was less apparent. Since analyses could only be performed between drawings and photographs of the same colour modality (i.e. i) drawings without vs. photographs without in *Experiment 3*; and ii) drawings with vs. photographs with in *Experiment 4*), the extent to which colour plays a role in the PhSE remains mostly unclear. Using scene recognition, @suzuki1997 proposed that colour information acts to indirectly highlight certain features in a photograph - details that were not otherwise noticed as prominently in greyscale - and thus increases their distinctiveness as a result. If similar benefits of colour information are also present in object recognition, the PhSE may not always be observed. In the same way the PSE was eliminated by @ensor2019b when comparing distinctive word stimuli and drawings, the PhSE may too be eliminated when comparisons are made between drawings whose distinctiveness is heightened by colour and greyscale photographs (whose distinctiveness is characterised by additional detail in comparison to drawings, but colour information is absent). Visual inspection of results from *Experiment 3* and *Experiment 4*, however, suggest this to be unlikely; any effects of colour information appeared negligible (both experiments showed a PSE and PhSE of similar magnitudes, highly similar proportions of hits and FAs / mean *d'* scores, and similar patterns of RFG responding). Comparisons between these studies indicate that object recognition does not benefit from any additive effects of colour information to render items more distinctive as in scene recognition. Regardless, the current study provides an opportunity to  
 
-A secondary aim is to further characterise the role of colour in the previously established *photo* superiority effect (PhSE). In *Experiment 3* (greyscale pictures) and *Experiment 4* (colour pictures), photographs produced clear recognition benefits over line drawings; in both studies, photograph items produced a significantly higher proportion of hits, lower proportion of FAs, and higher *d'* scores compared to drawings. Such findings cannot readily be accounted for by dual-coding accounts of the PSE [@paivio1968], where one would expect both drawings and photographs to similarly generate imagined and verbal representations of the stimulus (and thus their superiority over words should be the same, with no additional advantage for photographs). The PhSE demonstrated in the previous experiments is best understood within a distinctiveness framework [@mintzer1999]; increased item-to-item variability between the detailed photograph items acted to enhance their memorability in comparison to line drawings, where this item-to-item variability was less apparent. Since analyses could only be performed between drawings and photographs of the same colour modality (i.e. i) drawings without vs. photographs without in *Experiment 3*; and ii) drawings with vs. photographs with in *Experiment 4*), the extent to which colour plays a role in the PhSE remains mostly unclear. Using scene recognition, @suzuki1997 proposed that colour information acts to indirectly highlight certain features in a photograph - details that were not otherwise noticed as prominently in greyscale - and thus increases their distinctiveness as a result. If similar benefits of colour information are present in object recognition, the PhSE may not always be observed. In the same way the PSE was eliminated by @ensor2019b when comparing distinctive word stimuli and drawings, the PhSE may too be eliminated when comparisons are made between drawings whose distinctiveness is heightened by colour and greyscale photographs (whose distinctiveness is characterised by additional detail in comparsion to drawings, but colour information is missing).
-
-
-
-Visual inspection of results between *Experiment 3* and *Experiment 4*, however, somewhat surprisingly suggest colour information has a negligible effect on distinctiveness (both experiments showed a PSE and PhSE of similar magnitudes, highly similar proportions of hits and FAs / mean *d'* scores, and similar patterns of RFG responding). 
-
-
-
-
-
-plays a role in the 
-
-the PhSE may too be eliminated 
-
-
-
-
-
-Based on the discussed research, the following results are hypothesised:
+Based on results of the previous experiments, and the research discussed above, the following hypotheses are proposed:
 
 1. Recognition will be enhanced for word stimuli characterised by distinct variations to colour, font, and capitalisation across items, compared to those consistently presented in the same black typeface. For colour words, this enhancement is expected to manifest as the following compared to greyscale words:
     + i) higher overall *d'* scores;
     + ii) higher proportion of correct hits;
     + iii) lower proportion of false alarms;
-    + While such a result would be far from surprising given the results of @ensor2019b, it is important to establish whether colour words do indeed also produce superior recognition over greyscale words in the current paradigm. 
+
+Such findings will establish a successful replication of the @ensor2019b manipulation, and allow for the examination of PSE elimination effects in the current paradigm. 
      
-2. A picture superiority effect (PSE) will be evident, whereby recognition for either picture type (drawings / photographs) will be enhanced in comparison to greyscale words. Drawings and photographs are expected to show the same performance benefits as above compared to greyscale words:
-    + i) higher overall *d'* scores;
-    + ii) higher proportion of correct hits;
-    + iii) lower proportion of false alarms;
-    + Following the results of *Experiment 3* and *Experiment 4*, it is hypothesised that a *photograph* superiority effect will also be apparent. Photographs are expected to produce better recognition compared to drawings of the same 
+2. A picture superiority effect (PSE) will be evident, whereby recognition for either picture type (drawings / photographs) will be enhanced in comparison to greyscale words. Drawings and photographs are expected to show the same performance benefits as above compared to greyscale words.
+
+3. PSEs will be eliminated when recognition is compared for colour words and line drawings: 
+    + Elimination of the PSE when colour words are compared with greyscale drawings;
+    + Attenuation or elimination of the PSE when colour words are compared with colour drawings. 
+        + @ensor2019b observed differences in the comparison between colour words and colour drawings, depending upon the number of trials presented to participants (attenuation: 40 trials at study + 80 at test; elimination: 80 trials at study + 160 at test). As the current study is situated between these (60 trials at study + 120 at test), either outcome is expected. 
+        
+4. A *photograph* superiority effect (PhSE) will also be apparent:
+    + Greyscale photographs will produce better recognition than greyscale drawings (as in *Experiment 3*);
+    + Colour photographs will produce better recognition than colour drawings (as in *Experiment 4*);
+    + Greyscale photographs will produce better recognition than colour drawings (the PhSE will not be eliminated when drawings are shown in colour). 
+    
 
 
-
-Such an enhancement is again expected to manifest as 
-    
-  it is essential baseline PSEs are established 
-    
-
-2) Have I established a PSE? (2 + 3 in same Bonferroni pool)
-    
-    - Must demonstrate a PSE first before we can even begin to check whether any of the sub-conditions can eliminate it. 
-        - Main effect of stim format + contrasts:
-        - all 3(?)
-    - Main effect might not be the only indication of this though (if l
-    - Have to do planned contrasts to see if High > Low relationship holds to words. 
-    
-    (wouldn't do all 3 contrasts. only ever do 2 comparisons (or at least start with 2). if words bigger than        pics) 
-
-3) Have I managed to eliminate PSE in the same way Ensor has?
-
-    - Distinctive words vs. grey drawings (reverse PSE)
-    - Distinctive words vs. colour drawings (PSE - reduced)
-    
-    
 4) Have I extended it to photos? (3rd Bonferroni pool)
 
     - Do they behave differently to each other? Are photos more distinctive than drawings?
         - drawings high vs photos high
+
+
+
 
 ## Experiment: Manipulating word distinctiveness
 ```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
