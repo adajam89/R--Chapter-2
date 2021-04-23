@@ -8451,14 +8451,33 @@ The primary DVs of interest consisted of the mean proportion of hits and false a
       exp5__prop.hit.aov <- afex::aov_ez('id', 'prop.hit', fun_aggregate = mean, exp5__prop.hit, within = 'stim', 
                         anova_table=list(correction = "GG", es = "ges"))
 #-----------------------------------------------------------------------------------------------------------------
-##    Significant main effect, so perform Paired Samples t-test:
-      exp5__prop.hit__ttest <- exp5__prop.hit %>% filter(stim == "grey.word" | stim == "col.word") %>%
-                                      t.test(prop.hit~stim, paired=TRUE, data = .)
+##  Significant main effect, so perform Paired Samples t-tests:
+  ##  Standard PSE:      
+      exp5__prop.hit__ttest__grey.word.vs.grey.drawing <- 
+          exp5__prop.hit %>% filter(stim == "grey.word" | stim == "grey.drawing") %>%
+              t.test(prop.hit~stim, paired=TRUE, data = .)    
+      exp5__prop.hit__ttest__grey.word.vs.grey.photo <- 
+          exp5__prop.hit %>% filter(stim == "grey.word" | stim == "grey.photo") %>%
+              t.test(prop.hit~stim, paired=TRUE, data = .)
+      exp5__prop.hit__ttest__grey.word.vs.col.drawing <- 
+          exp5__prop.hit %>% filter(stim == "grey.word" | stim == "col.drawing") %>%
+              t.test(prop.hit~stim, paired=TRUE, data = .)    
+      exp5__prop.hit__ttest__grey.word.vs.col.photo <- 
+          exp5__prop.hit %>% filter(stim == "grey.word" | stim == "col.photo") %>%
+              t.test(prop.hit~stim, paired=TRUE, data = .)
+  ##  Distinctive words:        
+      exp5__prop.hit__ttest__grey.word.vs.col.word <- 
+          exp5__prop.hit %>% filter(stim == "grey.word" | stim == "col.word") %>%
+              t.test(prop.hit~stim, paired=TRUE, data = .)
+
 ##    Get means:
       exp5__prop.hit.means <- emmeans(exp5__prop.hit.aov, ~stim)
       exp5__prop.hit.means__grey.word <- summary(exp5__prop.hit.means)$emmean[1] %>% round(2)
       exp5__prop.hit.means__col.word <- summary(exp5__prop.hit.means)$emmean[2] %>% round(2)
       exp5__prop.hit.means__grey.drawing <- summary(exp5__prop.hit.means)$emmean[3] %>% round(2)
+      exp5__prop.hit.means__col.drawing <- summary(exp5__prop.hit.means)$emmean[4] %>% round(2)
+      exp5__prop.hit.means__grey.photo <- summary(exp5__prop.hit.means)$emmean[5] %>% round(2)
+      exp5__prop.hit.means__col.photo <- summary(exp5__prop.hit.means)$emmean[6] %>% round(2)
 ##################################################################################################################
 ##    Exp5 Prop FAs:                                                                                            ##
 ##################################################################################################################
@@ -8474,14 +8493,34 @@ The primary DVs of interest consisted of the mean proportion of hits and false a
       exp5__prop.FA.aov <- afex::aov_ez('id', 'prop.FA', fun_aggregate = mean, exp5__prop.FA, within = 'stim', 
                         anova_table=list(correction = "GG", es = "ges"))
 #----------------------------------------------------------------------------------------------------------------
-##    Significant main effect, so perform Paired Samples t-test:
-      exp5__prop.FA__ttest <- exp5__prop.FA %>% filter(stim == "grey.word" | stim == "col.word") %>%
-                                      t.test(prop.FA~stim, paired=TRUE, data = .)
+##  Significant main effect, so perform Paired Samples t-test:
+##  Significant main effect, so perform Paired Samples t-tests:
+  ##  Standard PSE:      
+      exp5__prop.FA__ttest__grey.word.vs.grey.drawing <- 
+          exp5__prop.FA %>% filter(stim == "grey.word" | stim == "grey.drawing") %>%
+              t.test(prop.FA~stim, paired=TRUE, data = .)    
+      exp5__prop.FA__ttest__grey.word.vs.grey.photo <- 
+          exp5__prop.FA %>% filter(stim == "grey.word" | stim == "grey.photo") %>%
+              t.test(prop.FA~stim, paired=TRUE, data = .)
+      exp5__prop.FA__ttest__grey.word.vs.col.drawing <- 
+          exp5__prop.FA %>% filter(stim == "grey.word" | stim == "col.drawing") %>%
+              t.test(prop.FA~stim, paired=TRUE, data = .)    
+      exp5__prop.FA__ttest__grey.word.vs.col.photo <- 
+          exp5__prop.FA %>% filter(stim == "grey.word" | stim == "col.photo") %>%
+              t.test(prop.FA~stim, paired=TRUE, data = .)
+  ##  Distinctive words:        
+      exp5__prop.FA__ttest__grey.word.vs.col.word <- 
+          exp5__prop.FA %>% filter(stim == "grey.word" | stim == "col.word") %>%
+              t.test(prop.FA~stim, paired=TRUE, data = .)
+      
 ##    Get means:
       exp5__prop.FA.means <- emmeans(exp5__prop.FA.aov, ~stim)
       exp5__prop.FA.means__grey.word <- summary(exp5__prop.FA.means)$emmean[1] %>% round(2)
-      exp5__prop.FA.means__col.word <- summary(exp5__prop.FA.means)$emmean[2] %>% round(2)      
-      exp5__prop.FA.means__grey.drawing <- summary(exp5__prop.FA.means)$emmean[3] %>% round(2)      
+      exp5__prop.FA.means__col.word <- summary(exp5__prop.FA.means)$emmean[2] %>% round(2)
+      exp5__prop.FA.means__grey.drawing <- summary(exp5__prop.FA.means)$emmean[3] %>% round(2)
+      exp5__prop.FA.means__col.drawing <- summary(exp5__prop.FA.means)$emmean[4] %>% round(2)
+      exp5__prop.FA.means__grey.photo <- summary(exp5__prop.FA.means)$emmean[5] %>% round(2)
+      exp5__prop.FA.means__col.photo <- summary(exp5__prop.FA.means)$emmean[6] %>% round(2)   
 
 ##################################################################################################################
 ##    Exp5 d-prime:                                                                                             ##
@@ -8658,10 +8697,18 @@ The primary DVs of interest consisted of the mean proportion of hits and false a
 \newpage
 
 ### Results
+
+#### Picture superiority (PSE)
+Standard PSEs were apparent; grey words (*M* = `r exp5__prop.hit.means__grey.word`) showed a significantly lower proportion of hits compared to all types of picture: grey drawings (*M* = `r exp5__prop.hit.means__grey.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`, grey photographs (*M* = `r exp5__prop.hit.means__grey.photo`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`, colour drawings (*M* = `r exp5__prop.hit.means__col.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`, and colour photographs (*M* = `r exp5__prop.hit.means__col.photo`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`.
+
+Grey words (*M* = `r exp5__prop.FA.means__grey.word`) also showed a significantly higher proportion of FAs compared to all types of picture: grey drawings (*M* = `r exp5__prop.FA.means__grey.drawing`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`, grey photographs (*M* = `r exp5__prop.FA.means__grey.photo`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`, colour drawings (*M* = `r exp5__prop.FA.means__col.drawing`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`, and colour photographs (*M* = `r exp5__prop.FA.means__col.photo`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`.
+
+
+
 #### Manipulation check
 To establish whether the distinctive word stimuli were indeed more distinctive than regular words, a series of one-way repeated measures analyses of variance (ANOVA) - using six factors (grey & distinctive words, grey & colour drawings, grey & colour photographs) - were conducted on the mean scores of *d'*, mean proportions of hits, and mean proportion of FAs. Sphericity was assessed using Mauchly's Test; when the assumption of sphericity was violated, Greenhouse-Geisser corrections were applied. 
 
-Throughout each of the conducted ANOVAs, there was consistently a significant main effect of stimuli format: mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], *d'*-scores [`r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons following these significant results, however, did not always demonstrate that the distinctive word stimuli were indeed any more distinctive than the regular word stimuli. Primarily, there was no difference in the proportion of overall hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest, format = "rmarkdown", print = FALSE)` - recognition performance (i.e. the number of items subjects were able to correctly identify) was the same regardless of the format word stimuli were presented in. Subjects did, however, make significantly fewer FAs as a result of the manipulation (distinctive words *M* = `r exp5__prop.FA.means__col.word`, regular words *M* = `r exp5__prop.FA.means__grey.word`; `r apa::apa(exp5__prop.FA__ttest, format = "rmarkdown", print = FALSE)`), offering some support to the manipulation, as subjects were better able to correctly reject lure items when they were presented in a distinctive format, rather than regular format, highlighting some performance benefits. Furthermore, distinctive words (*M* = `r exp5__d.prime.means__col.word`) also showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest, format = "rmarkdown", print = FALSE)`; subjects were better able to accurately discriminate between hits and FAs when responding to the distinctive words over regular words.
+Throughout each of the conducted ANOVAs, there was consistently a significant main effect of stimuli format: mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], *d'*-scores [`r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons following these significant results, however, did not always demonstrate that the distinctive word stimuli were indeed any more distinctive than the regular word stimuli. Primarily, there was no difference in the proportion of overall hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)` - recognition performance (i.e. the number of items subjects were able to correctly identify) was the same regardless of the format word stimuli were presented in. Subjects did, however, make significantly fewer FAs as a result of the manipulation (distinctive words *M* = `r exp5__prop.FA.means__col.word`, regular words *M* = `r exp5__prop.FA.means__grey.word`; `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)`), offering some support to the manipulation, as subjects were better able to correctly reject lure items when they were presented in a distinctive format, rather than regular format, highlighting some performance benefits. Furthermore, distinctive words (*M* = `r exp5__d.prime.means__col.word`) also showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest, format = "rmarkdown", print = FALSE)`; subjects were better able to accurately discriminate between hits and FAs when responding to the distinctive words over regular words.
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
       figure_numbering(name = "exp5__figure__rfg.hits", 
@@ -8834,7 +8881,7 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
                   "Trials: 60 study / 120 test:", 
                       round(exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit) %>% mean(),2),
                       round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
-                      apa::apa(exp5__prop.hit__ttest, format = "rmarkdown", print = FALSE))
+                      apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE))
 #################################################################################################################
 ##    Ensor vs. current FAs table:                                                                             ##
 ################################################################################################################# 
@@ -8851,7 +8898,7 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
                   "Trials: 60 study / 120 test:", 
                       round(exp5__prop.FA %>% filter(stim == "grey.word") %>% pull(prop.FA) %>% mean(),2),
                       round(exp5__prop.FA %>% filter(stim == "col.word") %>% pull(prop.FA) %>% mean(),2),
-                      apa::apa(exp5__prop.FA__ttest, format = "rmarkdown", print = FALSE))
+                      apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE))
 #################################################################################################################
 ##    Ensor vs. current d-prime table:                                                                         ##
 #################################################################################################################
@@ -8939,7 +8986,15 @@ For the mean proportion of FAs, the second experiment of @ensor2019b showed a si
 ```
 
 \newpage
-#### Elimination of the PSE: comparison with @ensor2019b
+
+
+
+
+#### Photograph superiority (PhSE)
+
+
+
+#### Elimination of PSE (comparison with @ensor2019b)
 ```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
       ensor.exp1__d.prime__ttest2 <- ensor.exp1__d.prime %>% filter(stim == "col.word" | 
                                                                       stim == "grey.drawing") %>%
@@ -8997,7 +9052,7 @@ A key finding in @ensor2019b data was an elimination of the PSE; distinctive wor
       ensor.exp2__prop.hit__ttest2 <- ensor.exp2__prop.hit %>% filter(stim == "col.word" | 
                                                                       stim == "grey.drawing") %>%
                                       t.test(prop.hit~stim, paired=TRUE, data = .)
-      exp5__prop.hit__ttest2 <- exp5__prop.hit %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+      exp5__prop.hit__ttest__grey.word.vs.col.word2 <- exp5__prop.hit %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
                                       t.test(prop.hit~stim, paired=TRUE, data = .)
 #################################################################################################################
 ##    Ensor vs. current prop hits table - PSE elimination:                                                     ##
@@ -9016,7 +9071,7 @@ A key finding in @ensor2019b data was an elimination of the PSE; distinctive wor
                       round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
                       round(exp5__prop.hit %>% filter(stim == "grey.drawing") %>% pull(prop.hit) %>%
                               mean(),2),
-                      apa::apa(exp5__prop.hit__ttest2, format = "rmarkdown", print = FALSE))      
+                      apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.word2, format = "rmarkdown", print = FALSE))      
 ```        
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
@@ -9048,7 +9103,7 @@ Similarly, @ensor2019b also showed no difference in the number of hits between t
       ensor.exp2__prop.FA__ttest2 <- ensor.exp2__prop.FA %>% filter(stim == "col.word" | 
                                                                       stim == "grey.drawing") %>%
                                       t.test(prop.FA~stim, paired=TRUE, data = .)
-      exp5__prop.FA__ttest2 <- exp5__prop.FA %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
+      exp5__prop.FA__ttest__grey.word.vs.col.word2 <- exp5__prop.FA %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
                                       t.test(prop.FA~stim, paired=TRUE, data = .)
 #################################################################################################################
 ##    Ensor vs. current prop FAs table - PSE elimination:                                                     ##
@@ -9067,7 +9122,7 @@ Similarly, @ensor2019b also showed no difference in the number of hits between t
                       round(exp5__prop.FA %>% filter(stim == "col.word") %>% pull(prop.FA) %>% mean(),2),
                       round(exp5__prop.FA %>% filter(stim == "grey.drawing") %>% pull(prop.FA) %>%
                               mean(),2),
-                      apa::apa(exp5__prop.FA__ttest2, format = "rmarkdown", print = FALSE))      
+                      apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.word2, format = "rmarkdown", print = FALSE))      
 ```        
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
@@ -9091,8 +9146,11 @@ Finally, @ensor2019b also showed no difference in the number of FAs between the 
           pack_rows("Current study", 3, 0)
 ```
 
+
+
+
 \newpage
-### Recollection and Familiarity 
+#### Recollection and Familiarity 
 To determine if recollection and familiarity response patterns were mediated by the format of word stimuli, further one-way repeated measures analyses of variance (ANOVA) were conducted on the mean proportion of hits and false alarms (FAs) assigned *Recollection* (R), *Familiarity* (F), and *Guessing* (G). 
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
@@ -10607,6 +10665,10 @@ exp2__norms %>%
   column_spec(3, width = "2cm") %>%
   column_spec(4, width = "2cm") %>%
   column_spec(5, width = "2cm")
+
+
+#image_refs <- read_csv("./resources/experiment_2/image_refs.csv")
+#        norms2 <- (bind_cols(norms, image_refs))
 
 ```
 
