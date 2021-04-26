@@ -6452,7 +6452,9 @@ By manipulating the format of pictures, the previous experiments were able to of
 
 @haber1982
 
-@ensor2019b manipulated the distinctiveness of word stimuli to examine how the PSE would be affected. 
+In a recent effort to disentangle prevalent theories of the PSE, @ensor2019b examined whether the effect could be eliminated by manipulating the distinctiveness of word stimuli. In recognition memory paradigms, word stimuli are typically presented in a plain black, readable typeface (e.g. Arial, Times), with a focus on consistency between items (i.e. aside from the word itself, all other variables should be equal). Such items produce robust PSEs when comparisons are made with picture stimuli, but according to physical distinctiveness accounts of the PSE, it should be possible to 
+
+
 
 DCT would predict no elimination of the PSE; since manipulations to the colour, font, and capitalisation of word stimuli does not negate the additional imagery code that is readily available for pictures (image + verbal), pictures should continue to show a memory advantage compared to *all* words.
 
