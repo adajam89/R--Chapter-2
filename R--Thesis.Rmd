@@ -6444,18 +6444,40 @@ Stróżak
 \newpage
 # Chapter 5 - Word distinctiveness
 ## Background
+In the previous two experiments, picture superiority effects (PSEs) were examined by systematically comparing recognition performance across three distinct stimuli formats. Word stimuli acted as a baseline to allow PSEs to become apparent, while line drawings and photographs provided varying levels of detail upon which the magnitude of picture superiority could be compared. Not only were standard PSEs observed, but clear *photo* superiority effects (PhSE) were also apparent; in *Experiment 3* (greyscale pictures) and *Experiment 4* (colour pictures), photographs produced clear recognition benefits over line drawings; in both studies, photograph items produced a significantly higher proportion of hits, lower proportion of FAs, and higher *d'* scores compared to drawings. Such findings are best understood by physical distinctiveness accounts of the PSE [@mintzer1999]. Increased item-to-item variability between the detailed photograph items acted to enhance their memorability in comparison to line drawings, where this item-to-item variability was less apparent. Such findings cannot readily be accounted for by the dual-coding theory [DCT; @paivio1968; @paivio1991; @paivio2007] of the PSE, where one would expect both drawings and photographs to similarly generate imagined and verbal representations of the stimulus (and thus their superiority over words should be the same, with no additional advantage for photographs).
 
+By manipulating the format of pictures, the previous experiments were able to offer convincing support for the physical distinctiveness account of the PSE, and highlight areas that would benefit from continued investigation; namely, the ways in which word stimuli could similarly be manipulated to further inform our understandings of the PSE. Only a few studies to date have pursued the thread of manipulating word stimuli. @paivio1968 examined the effects of adding colour to word stimuli; participants studied one of four possible stimuli formats (greyscale words / colour words / greyscale drawings / colour drawings) before completing a written free recall test. Results showed no difference between greyscale words and colour words - a finding interpreted as support for a DCT of the PSE. Some studies have also utilised pictograms
 
+@peeck1977
 
-Such findings cannot readily be accounted for by the dual-coding theory [DCT; @paivio1968] of the PSE, where one would expect both drawings and photographs to similarly generate imagined and verbal representations of the stimulus (and thus their superiority over words should be the same, with no additional advantage for photographs). The PhSE demonstrated in the previous experiments is best understood within a distinctiveness framework [@mintzer1999]; increased item-to-item variability between the detailed photograph items acted to enhance their memorability in comparison to line drawings, where this item-to-item variability was less apparent. 
+@haber1982
+
+@ensor2019b manipulated the distinctiveness of word stimuli to examine how the PSE would be affected. 
+
+DCT would predict no elimination of the PSE; since manipulations to the colour, font, and capitalisation of word stimuli does not negate the additional imagery code that is readily available for pictures (image + verbal), pictures should continue to show a memory advantage compared to *all* words.
+
+(see `r figure_numbering("exp5__background_stim_examples", display = "cite")`)
 
 The current study aims to 
 
 
+&nbsp;
+&nbsp;
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp5__background_stim_examples",
+                     caption = "Example stimuli taken from @peeck1977, @haber1982, and @ensor2019b.")
+```
 
-A secondary aim is to further characterise the role of colour in the previously established *photo* superiority effect (PhSE). In *Experiment 3* (greyscale pictures) and *Experiment 4* (colour pictures), photographs produced clear recognition benefits over line drawings; in both studies, photograph items produced a significantly higher proportion of hits, lower proportion of FAs, and higher *d'* scores compared to drawings. Since analyses could only be performed between drawings and photographs of the same colour modality (i.e. i) drawings without vs. photographs without in *Experiment 3*; and ii) drawings with vs. photographs with in *Experiment 4*), the extent to which colour is involved in the PhSE, if at all, remains mostly unclear. In a scene recognition paradigm (utilising pictures of city streets, parks etc.), @suzuki1997 demonstrated enhanced recognition performance when colour - as opposed to greyscale - items were shown at study and test. Interestingly, this benefit was only apparent when study and test conditions congruently presented items in colour; any recognition enhancements attributed to colour disappeared when blocks were incongruent (e.g. items presented in grey at study, and the same items presented in colour at test).  found that subjects' memory for the colour mode items had been presented in at study was poor; in other words, participants could not remember well whether they had studied items in colour or greyscale, despite exhibiting better recognition for colour/colour items. Since the benefits of colour information could not be attributed to any conscious recall of the actual colours in the pictures, it was instead hypothesised colour information acts to indirectly highlight certain features in a picture - i.e. details that were not otherwise noticed as prominently in greyscale - and thus increases their distinctiveness (and memorability) as a result. It is unclear whether colour information provides similar benefits in object recognition, or if this effect applies exclusively to real-world photographs of scenes (presumably comprised of a multitude of items).
+```{r echo=FALSE, out.width = '100%', cache=FALSE, fig.align="center"}
+    knitr::include_graphics("./resources/images/exp5__background_stim_examples.png")
+```
+`r figure_numbering("exp5__background_stim_examples")`
 
-If colour enhancements akin to those demonstrated by @suzuki1997 are indeed also present in object recognition, it is possible that the PhSE could be eliminated as a result. In the same way the PSE is eliminated between words and drawings when word stimuli are made more distinctive [@ensor2019b], the PhSE may too be eliminated when comparisons are made between colour drawings (whose distinctiveness is presumably somewhat enhanced by colour) and greyscale photographs (whose real-world details and textures increase their distinctiveness in relation to drawings, but colour enhancements are absent). Some differential effects of colour have been observed in object recognition. In their first experiment, @ensor2019b demonstrated an elimination of the PSE when comparing their distinctive words with greyscale drawings - suggesting both formats exhibited similar levels of distinctiveness. For *colour* drawings, the comparison with distinctive words did not eliminate the PSE (though it was attenuated), suggesting the colour drawings were presumably more distinct than the greyscale drawings). This colour benefit was no longer evident, however, when the number of study and test trials were doubled; the PSE was then eliminated for greyscale *and* colour drawings, suggesting that any distinctiveness benefits afforded by colour are susceptible to particular methodological circumstances. The lack of any observable colour enhancements in item recognition is demonstrated elsewhere too; @paivio1968 compared PSE effects for greyscale and colour items and found no effect of colour, with recognition generally poorer for colour items. Such findings were interpreted as support for a DCT of the PSE. Indeed, visual inspection of the results from the current programme of research similarly suggest no enhancements as a result of colour with *Experiment 3* (greyscale pictures) and *Experiment 4* (colour pictures) displaying highly similar PSE and PhSE magnitudes, proportions of hits, FAs, and mean *d'* scores, and patterns of RFG responding. As photographs were consistently recognised better than drawings, however, we cannot interpret the lack of a colour enhancement as evidence of DCT in the same was as @paivio1968. Rather, the findings instead characterise colour as a factor that does not contribute to the physical distinctiveness of an object, contrary to what we might assume. An elimination of the PhSE therefore seems unlikely; if colour information shows no discernible benefit in object recognition, performance toward greyscale photographs will likely remain superior in comparison to colour drawings.
+A secondary aim is to further characterise the role of colour in the previously established *photo* superiority effect (PhSE). Since previous analyses could only be performed between drawings and photographs of the same colour modality (i.e. i) drawings without vs. photographs without in *Experiment 3*; and ii) drawings with vs. photographs with in *Experiment 4*), the extent to which colour is involved in the PhSE, if at all, remains mostly unclear. In a scene recognition paradigm (utilising pictures of city streets, parks etc.), @suzuki1997 demonstrated enhanced recognition performance when colour - as opposed to greyscale - items were shown at study and test. Interestingly, this benefit was only apparent when study and test conditions congruently presented items in colour; any recognition enhancements attributed to colour disappeared when blocks were incongruent (e.g. items presented in grey at study, and the same items presented in colour at test). @suzuki1997 also found that subjects' memory for the colour mode they had seen items in at study was poor; in other words, participants could not remember well whether they had studied items in colour or greyscale, despite exhibiting better recognition for congruent colour items. Since the benefits of colour information could not be attributed to any conscious recall of the actual colours in the pictures, it was instead hypothesised colour information acts to indirectly highlight certain features in a picture - i.e. details that were not otherwise noticed as prominently in greyscale - and thus increases their distinctiveness (and memorability) as a result. It is unclear whether colour information provides similar benefits in object recognition, or if this effect applies exclusively to real-world photographs of scenes (presumably comprised of a multitude of items).
+
+If colour enhancements akin to those demonstrated by @suzuki1997 are indeed also present in object recognition, it is possible that the PhSE could be eliminated as a result. In the same way the PSE is eliminated between words and drawings when word stimuli are made more distinctive [@ensor2019b], the PhSE may too be eliminated when comparisons are made between colour drawings (whose distinctiveness is presumably somewhat enhanced by colour) and greyscale photographs (whose real-world details and textures increase their distinctiveness in relation to drawings, but colour enhancements are absent). Indeed, there is some evidence to support this notion; the normative data obtained by @rossion2004 for their revised set of @snodgrass1980 object drawings revealed clear object naming benefits when items were presented in colour. When subjects were asked to provide single-word, unambiguous labels toward a number of illustrated object stimuli, naming agreement scores across participants were significantly higher for items presented in colour, as opposed to illustrations shown in greyscale (and simple un-shaded outlines). Reaction times were also significantly faster for the colour items compared to the other types. While these effects were most pronounced when items had a diagnostic colour (e.g. fruits), items depicting man-made objects without diagnostic colours also showed such benefits. The researchers concluded colour information clearly plays a role in facilitating basic everyday item recognition, however, similar benefits are not consistently supported in other experimental paradigms involving memory. In a free recall task, @paivio1968 compared PSE effects for greyscale and colour items and found no effect of colour - in fact, recall was generally poorer for the colour items. In a recognition memory paradigm, @ensor2019b demonstrated some minor differential effects of colour; in their first experiment, an elimination of the PSE was demonstrated when their distinctive words were compared with *greyscale* drawings (suggesting both formats exhibited similar levels of distinctiveness), but the PSE was only attenuated when their distinctive words were compared with *colour* drawings (suggesting the colour drawings were presumably more distinct than the greyscale drawings). However, this minor benefit of colour information disappeared when the number of study and test trials were doubled, as the PSE was then eliminated for greyscale *and* colour drawings. 
+
+It may be that any distinctiveness benefits afforded by colour are particularly susceptible to methodological circumstances, or indeed are simply negligible - a notion supported thus far in the current programme of research. Visual inspection of the results from *Experiment 3* (greyscale pictures) and *Experiment 4* (colour pictures) suggest no enhancements as a result of colour information with both presentation types displaying highly similar PSE and PhSE magnitudes, proportions of hits, FAs, and mean *d'* scores, and patterns of RFG responding. As photographs were consistently recognised better than drawings, however, we cannot interpret the lack of a colour enhancement as evidence of DCT in the same was as @paivio1968. Rather, the findings instead characterise colour as a factor that does not contribute to the physical distinctiveness of an object, contrary to what we might assume. An elimination of the PhSE therefore seems unlikely; if colour information shows no discernible benefit in recognition memory paradigms, performance toward greyscale photographs will likely remain superior in comparison to colour drawings.
 
 Based on results of the previous experiments, and the research discussed above, the following hypotheses are proposed:
 
@@ -8409,23 +8431,20 @@ Such findings will establish a successful replication of the @ensor2019b manipul
 #### Materials
 \hfill\break Three stimuli formats were utilised in the current experiment - words, drawings, and photographs - each of which had colour and greyscale variations (see `r figure_numbering("exp5__stim_examples", display = "cite")` for example stimuli). Line drawings were sourced from Rossion and Pourtois (2004) and consisted of shaded illustrations of innocuous, everyday objects (e.g. clock, rabbit, shoe). The photographs were those curated in *Experiment 2* - high quality photographs that similarly depicted the same everyday objects as those found in the @rossion2004 line drawings, with the objects of interest isolated from their original backgrounds. Word stimuli consisted of the written-word labels for each of the objects; the greyscale word stimuli consisted of a simple sans-serif typeface (Roboto light; 54pt) presented in plain black ink, while the colour variations contained manipulations to font, size, colour, and capitalisation. In their experiment, @ensor2019b made comparisons to the same set of line drawings used in the current study; as such, many of their colour word items could be re-purposed for use in the current study. However, as not *all* of the current pool of items were represented in this previous experiment, new colour word items were also created using the same design source (\href{https://cooltext.com/}{Cool Text Graphics Generator}). Every effort was made to match the font styles of the newly created words (objects that had not been present in the @ensor2019b study) with those that had been utilised in the @ensor2019b study for different objects. All stimuli were separately placed on a 500x500px blank canvas using Adobe Photoshop 2021 (22.0.0 Release); some items were constrained to this canvas size by their height, while others were constrained by their width, depending on the dimensions of the object. All items were exported as .pngs files for presentation by the online survey platform, where they were presented at their actual size (i.e. without scaling) to ensure consistency across participants. 
 
+#### Design
+\hfill\break A one-way repeated measures design was utilised, consisting of a within-subjects factor of stimuli format with six levels: i) greyscale words; ii) colour words; iii) greyscale drawings; iv) colour drawings; v) greyscale photographs; vi) colour photographs. Participants completed a single study block (60 items) and a single test block (120 items), both of which were comprised of an equal number of items for each of the six stimuli formats. The particular format objects were presented in (for example, whether the item "penguin" was presented as a colour word or as a greyscale photograph) was counterbalanced across participants via blocked randomisation. All study / test counterbalancing routes were of equal length.
+
 &nbsp;
 &nbsp;
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
     figure_numbering(name = "exp5__stim_examples",
-                     caption = "Examples of the greyscale and colour words, drawings, and photograph stimuli utilised in the current experiment.")
+                     caption = "Examples of the six stimuli formats utilised in the current experiment: greyscale and colour variations of words, drawings, and photographs.")
 ```
 
-```{r echo=FALSE, out.width = '65%', cache=FALSE}
+```{r echo=FALSE, out.width = '74%', cache=FALSE, fig.align="center"}
     knitr::include_graphics("./resources/images/exp5__stim_examples.png")
 ```
-&nbsp;
-&nbsp;
-
 `r figure_numbering("exp5__stim_examples")`
-
-#### Design
-\hfill\break A one-way repeated measures design was utilised, consisting of a within-subjects factor of stimuli format with six levels: i) greyscale words; ii) colour words; iii) greyscale drawings; iv) colour drawings; v) greyscale photographs; vi) colour photographs. Participants completed a single study block (60 items) and a single test block (120 items), both of which were comprised of an equal number of items for each of the six stimuli formats. The particular format objects were presented in (for example, whether the item "penguin" was presented as a colour word or as a greyscale photograph) was counterbalanced across participants via blocked randomisation. All study / test counterbalancing routes were of equal length.
 
 #### Procedure
 \hfill\break As in previous experiments, data was collected online using the \href{https://gorilla.sc/}{Gorilla} experiment platform. Participants completed three self-paced phases: i) study phase, ii) distractor task, and iii) recognition test. In the study phase, subjects were instructed to learn each of the items presented in preparation for a later memory test. Word, drawing, and photograph items were displayed one-at-a-time at random on-screen, and for each subjects required to report whether the current format was a word, drawing, or photograph. No distinction was made between greyscale and colour items in the wording of these response options (i.e. participants should respond "Word" to greyscale words *and* colour words), since this encoding judgement was utilised simply to ensure subjects directed their attention toward the to-be-remembered stimuli. Following the study phase, subjects completed a distractor task consisting of simple multiple choice mathematical questions (e.g. 6 x 4 = ?), before finally being presented with the recognition test. Subjects were again presented with items from each of the six stimuli formats. shown one-at-a-time at random on-screen. While half of the test items had been presented earlier in the study phase, the other half were new and had not been studied. First, subjects were first required to make *Old*/*New* judgements based on whether they recognised each of the items. If subjects experienced no recognition toward an item (and thus selected *New*) they would simply continue to the next item. If subjects did experience recognition (and thus selected *Old*), they were presented with a follow-up screen probing how they had arrived at this decision; subjects were asked to report whether they had recognised the item via *Recollection*, *Familiarity*, or were simply *Guessing* that it was old. Within participants, the format items were presented in remained the same across study and test (e.g. if the item "penguin" was shown in grey word format at study, it was also shown as a grey word at test). 
@@ -8734,18 +8753,6 @@ The primary DVs of interest consisted of the mean proportion of hits and false a
             plot.margin = margin(20, 20, 24, 30))      
 ```
 
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-    figure_numbering(name = "exp5__manip.check__figure", caption = "Mean proportion of hits, FAs, and d' scores by stimuli format.")
-```
-
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE, warning=FALSE}
-    exp5__manip.check__figure
-    exp5__manip.check__figure2
-```
-`r figure_numbering("exp5__manip.check__figure")`
-
-\newpage
-
 ### Results
 #### Picture superiority (PSE)
 Standard PSEs were apparent for the mean proportion of hits, mean proportion of FAs, and mean *d'* scores. Grey words (*M* = `r exp5__prop.hit.means__grey.word`) showed a significantly lower proportion of hits compared to all types of picture: grey drawings (*M* = `r exp5__prop.hit.means__grey.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__prop.hit.means__grey.photo`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`; colour drawings (*M* = `r exp5__prop.hit.means__col.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`; colour photographs (*M* = `r exp5__prop.hit.means__col.photo`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`.
@@ -8763,6 +8770,16 @@ To examine the role of colour, colour drawings were compared with greyscale phot
 `r apa::apa(exp5__prop.hit__ttest__col.drawing.vs.grey.photo, format = "rmarkdown", print = FALSE)`. Colour drawings also (*M* = `r exp5__d.prime.means__col.drawing`) showed a significantly lower mean *d'* scores compared to grey photographs (*M* = `r exp5__d.prime.means__grey.photo`),
 `r apa::apa(exp5__d.prime__ttest__col.drawing.vs.grey.photo, format = "rmarkdown", print = FALSE)`. However, the PhSE was eliminated when comparing colour drawings (*M* = `r exp5__prop.FA.means__col.drawing`) and grey photographs (*M* = `r exp5__prop.FA.means__grey.photo`) on the mean proportion of FAs, where there was no difference between the formats, `r apa::apa(exp5__prop.FA__ttest__col.drawing.vs.grey.photo, format = "rmarkdown", print = FALSE)`.
 
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+    figure_numbering(name = "exp5__manip.check__figure", caption = "Mean proportion of hits, FAs, and d' scores by stimuli format.")
+```
+
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE, warning=FALSE}
+    exp5__manip.check__figure
+    exp5__manip.check__figure2
+```
+`r figure_numbering("exp5__manip.check__figure")`
+
 #### Manipulation check
 To establish whether the distinctive word stimuli were indeed more distinctive than regular words, a series of one-way repeated measures analyses of variance (ANOVA) - using six factors (grey & distinctive words, grey & colour drawings, grey & colour photographs) - were conducted on the mean scores of *d'*, mean proportions of hits, and mean proportion of FAs. Sphericity was assessed using Mauchly's Test; when the assumption of sphericity was violated, Greenhouse-Geisser corrections were applied. 
 
@@ -8770,7 +8787,7 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
       figure_numbering(name = "exp5__figure__rfg.hits", 
-                       caption = "Mean proportion of hits and FAs by stimuli format.")
+                       caption = "Mean proportion of hits and FAs assigned Recollection, Familiarity, and Guessing by stimuli format.")
 ```
 
 ```{r fig.width=7, fig.height=5, echo=FALSE, cache=TRUE, warning=FALSE}
@@ -8979,9 +8996,8 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
       table_numbering(name = "exp5__table__ensor.vs.current__d.prime", 
                       caption = "Mean *d'* scores for regular and distinctive word stimuli, across the current experiment and @ensor2019b.", display = FALSE)
-```      
+```
 
-\newpage 
 Raw data provided by @ensor2019b was re-analysed to allow for direct comparisons with data from the current study. For evidence of the manipulation check: 
 
 For mean *d'* scores, there were significant main effects of stimuli format in both the first [`r apa::anova_apa(ensor.exp1__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]
@@ -8989,6 +9005,10 @@ and second [`r apa::anova_apa(ensor.exp2__d.prime.aov, effect = "stim", format =
 
 &nbsp;
 
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+      table_numbering(name = "exp5__table__ensor.vs.current__hits",
+                      caption = "Mean proportion of hits for regular and distinctive word stimuli, across the current experiment and @ensor2019b.", display = FALSE)
+```      
 `r table_numbering("exp5__table__ensor.vs.current__d.prime")`
 ```{r echo=FALSE, cache=TRUE}
       exp5__table__ensor.vs.current__d.prime %>%
@@ -9000,16 +9020,16 @@ and second [`r apa::anova_apa(ensor.exp2__d.prime.aov, effect = "stim", format =
           pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
           pack_rows("Current study", 3, 0)
 ```
-
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-      table_numbering(name = "exp5__table__ensor.vs.current__hits",
-                      caption = "Mean proportion of hits for regular and distinctive word stimuli, across the current experiment and @ensor2019b.", display = FALSE)
-```      
+&nbsp;
+&nbsp;
 
 The ANOVA on the mean proportion of hits also showed evidence of the distinctiveness manipulation; significant main effects of stimuli format in their first [`r apa::anova_apa(ensor.exp1__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] and second [`r apa::anova_apa(ensor.exp2__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] experiments produced follow-up comparisons that consistently showed distinctive words resulted in significantly more hits than regular words (see `r table_numbering("exp5__table__ensor.vs.current__hits", display = "cite")`). This is in contrast to the results of the current study, whereby no difference was found as a result of the distinctiveness manipulation. Visual inspection of the data does not indicate the number of trials had an impact on the number of hits; while @ensor2019b did observe a reduction in the proportion of hits for both word formats when trial numbers were increased, the current study still showed a lower proportion of hits than both of the @ensor2019b experiments (including the experiment with more trials). 
 
 &nbsp;
-
+```{r echo=FALSE, results = FALSE, cache=FALSE}
+      table_numbering(name = "exp5__table__ensor.vs.current__FAs",
+                      caption = "Mean proportion of FAs for regular and distinctive word stimuli, across the current experiment and @ensor2019b.", display = FALSE)
+```
 `r table_numbering("exp5__table__ensor.vs.current__hits")`
 ```{r echo=FALSE, cache=TRUE}
       exp5__table__ensor.vs.current__hits %>%
@@ -9021,11 +9041,7 @@ The ANOVA on the mean proportion of hits also showed evidence of the distinctive
           pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
           pack_rows("Current study", 3, 0)
 ```
-
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-      table_numbering(name = "exp5__table__ensor.vs.current__FAs",
-                      caption = "Mean proportion of FAs for regular and distinctive word stimuli, across the current experiment and @ensor2019b.", display = FALSE)
-```
+&nbsp;
 
 For the mean proportion of FAs, the second experiment of @ensor2019b showed a significant main effect of stimuli format [`r apa::anova_apa(ensor.exp2__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], much like the currents study. However, while the current study showed distinctive words produced significantly fewer FAs than regular words, this comparison was not significant for @ensor2019b (see `r table_numbering("exp5__table__ensor.vs.current__FAs", display = "cite")`). In their first experiment, there was no significant main effect of stimuli format [`r apa::anova_apa(ensor.exp1__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], or follow-up comparison. Visual inspection of the data shows that subjects generally made more FAs in the @ensor2019b experiments compared to the current study; this is especially apparent when comparisons are made toward the experiment with more trials.
 
@@ -9042,8 +9058,6 @@ For the mean proportion of FAs, the second experiment of @ensor2019b showed a si
           pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
           pack_rows("Current study", 3, 0)
 ```
-
-\newpage
 
 #### Elimination of PSE (comparison with @ensor2019b)
 ```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
@@ -9537,6 +9551,15 @@ no difference in mean *d'* scores between regular words (*M* = `r exp5__d.prime.
 **Elimination of the PSE (distinctive words vs. greyscale drawings):** 
 
 For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.means__col.word`) produced a significantly higher proportion compared to the grey drawings (*M* = `r exp5__prop.hit.G.means__grey.drawing`), `r apa::apa(exp5__prop.hit.G__ttest2, format = "rmarkdown", print = FALSE)`. There was no significant difference for the number of FAs assigned G between distinctive words (*M* = `r exp5__prop.FA.G.means__col.word`) and grey drawings (*M* = `r exp5__prop.FA.G.means__grey.drawing`), `r apa::apa(exp5__prop.FA.G__ttest2, format = "rmarkdown", print = FALSE)`, or mean *d'* scores (distinctive words *M* = `r exp5__d.prime.G.means__col.word`, grey drawings *M* = `r exp5__d.prime.G.means__grey.drawing`, `r apa::apa(exp5__d.prime.G__ttest2, format = "rmarkdown", print = FALSE)`.  
+
+
+### Discussion
+
+Ensor, Surprenant, Neath (2019) made words more distinctive – but without rationale for their choices?
+Are all 4 factors contributing to word distinctiveness (font, colour, size, capitals), or just some?
+Our results suggest colour isn't a contributing factor
+
+
 
 \newpage
 ######----------------------------------------
@@ -10671,52 +10694,59 @@ write.csv(exp6__participant.info,'~/Desktop/exp6__participant.info.csv', row.nam
 \newpage
 ## `r appendix_numbering("exp2.full.norms")`
 ```{r echo=FALSE, cache=TRUE, warnings=FALSE}
-exp2__norms <- exp2__raw_data %>%
-  ungroup() %>% 
-  select(stim, familiarity, visualcomplexity, colourdiagnosticity, mentalimageryagreement) %>%
-  mutate(stim = str_replace(stim, "colour1", "colour")) %>%
-  mutate(stim = str_replace(stim, "grey1", "grey")) %>%
-  mutate(familiarity = str_remove(familiarity, "fam_")) %>%
-  mutate(visualcomplexity = str_remove(visualcomplexity, "viscom_")) %>%
-  mutate(colourdiagnosticity = str_remove(colourdiagnosticity, "coldia_")) %>%
-  mutate(mentalimageryagreement = str_remove(mentalimageryagreement, "menima_")) %>%
-  mutate(familiarity = as.double(familiarity)) %>%
-  mutate(visualcomplexity = as.double(visualcomplexity)) %>%
-  mutate(colourdiagnosticity = as.double(colourdiagnosticity)) %>%
-  mutate(mentalimageryagreement = as.double(mentalimageryagreement)) %>%
-  group_by(stim) %>%
-  summarise_all(tibble::lst(mean, sd), na.rm = TRUE) %>%
-  rename(Photograph = "stim", Fam_Mean = "familiarity_mean", Fam_SD = "familiarity_sd",   
-         VisCom_Mean = "visualcomplexity_mean", VisCom_SD = "visualcomplexity_sd",
-         ColDia_Mean = "colourdiagnosticity_mean", ColDia_SD = "colourdiagnosticity_sd", 
-         MenIma_Mean = "mentalimageryagreement_mean", MenIma_SD = "mentalimageryagreement_sd") %>%
-  select(Photograph, Fam_Mean, Fam_SD, VisCom_Mean, VisCom_SD, ColDia_Mean, 
-         ColDia_SD, MenIma_Mean, MenIma_SD) %>%
-  mutate(Fam_Mean = round(Fam_Mean, 2)) %>%
-  mutate_all(as.character) %>%
-  mutate(Fam_SD = str_c("(", Fam_SD, ")")) %>%
-  mutate(VisCom_SD = str_c("(", VisCom_SD, ")")) %>%
-  mutate(ColDia_SD = str_c("(", ColDia_SD, ")")) %>%
-  mutate(MenIma_SD = str_c("(", MenIma_SD, ")")) %>%
-  unite("Familiarity", Fam_Mean:Fam_SD, sep = " ", remove = TRUE) %>%
-  unite("Visual Complexity", VisCom_Mean:VisCom_SD, sep = " ", remove = TRUE) %>%
-  unite("Mental Imagery", MenIma_Mean:MenIma_SD, sep = " ", remove = TRUE) %>%
-  unite("Colour_Diagnosticity", ColDia_Mean:ColDia_SD, sep = " ", remove = TRUE) %>%
-  mutate(Colour_Diagnosticity = str_replace(Colour_Diagnosticity, "NaN NA", "")) %>%
-  rename("Colour Diagnosticity" = "Colour_Diagnosticity")
+    exp2__norms <- exp2__raw_data %>%
+        ungroup() %>% 
+        select(stim, familiarity, visualcomplexity, colourdiagnosticity, mentalimageryagreement) %>%
+        mutate(stim = str_replace(stim, "colour1", "colour")) %>%
+        mutate(stim = str_replace(stim, "grey1", "grey")) %>%
+        mutate(familiarity = str_remove(familiarity, "fam_")) %>%
+        mutate(visualcomplexity = str_remove(visualcomplexity, "viscom_")) %>%
+        mutate(colourdiagnosticity = str_remove(colourdiagnosticity, "coldia_")) %>%
+        mutate(mentalimageryagreement = str_remove(mentalimageryagreement, "menima_")) %>%
+        mutate(familiarity = as.double(familiarity)) %>%
+        mutate(visualcomplexity = as.double(visualcomplexity)) %>%
+        mutate(colourdiagnosticity = as.double(colourdiagnosticity)) %>%
+        mutate(mentalimageryagreement = as.double(mentalimageryagreement)) %>%
+        group_by(stim) %>%
+        summarise_all(tibble::lst(mean, sd), na.rm = TRUE) %>%
+        mutate(familiarity_mean = round(familiarity_mean, 2)) %>%
+        mutate(familiarity_sd = round(familiarity_sd, 2)) %>%
+        mutate(visualcomplexity_mean = round(visualcomplexity_mean, 2)) %>%
+        mutate(visualcomplexity_sd = round(visualcomplexity_sd, 2)) %>%
+        mutate(colourdiagnosticity_mean = round(colourdiagnosticity_mean, 2)) %>%
+        mutate(colourdiagnosticity_sd = round(colourdiagnosticity_sd, 2)) %>%
+        mutate(mentalimageryagreement_mean = round(mentalimageryagreement_mean, 2)) %>%
+        mutate(mentalimageryagreement_sd = round(mentalimageryagreement_sd, 2)) %>%
+        rename(Photograph = "stim", Fam_Mean = "familiarity_mean", Fam_SD = "familiarity_sd",   
+               VisCom_Mean = "visualcomplexity_mean", VisCom_SD = "visualcomplexity_sd",
+               ColDia_Mean = "colourdiagnosticity_mean", ColDia_SD = "colourdiagnosticity_sd", 
+               MenIma_Mean = "mentalimageryagreement_mean", MenIma_SD = "mentalimageryagreement_sd") %>%
+        select(Photograph, Fam_Mean, Fam_SD, VisCom_Mean, VisCom_SD, ColDia_Mean, 
+               ColDia_SD, MenIma_Mean, MenIma_SD) %>%
+        mutate(Fam_Mean = round(Fam_Mean, 2)) %>%
+        mutate_all(as.character) %>%
+        mutate(Fam_SD = str_c("(", Fam_SD, ")")) %>%
+        mutate(VisCom_SD = str_c("(", VisCom_SD, ")")) %>%
+        mutate(ColDia_SD = str_c("(", ColDia_SD, ")")) %>%
+        mutate(MenIma_SD = str_c("(", MenIma_SD, ")")) %>%
+        unite("Familiarity", Fam_Mean:Fam_SD, sep = " ", remove = TRUE) %>%
+        unite("Visual Complexity", VisCom_Mean:VisCom_SD, sep = " ", remove = TRUE) %>%
+        unite("Mental Imagery", MenIma_Mean:MenIma_SD, sep = " ", remove = TRUE) %>%
+        unite("Colour_Diagnosticity", ColDia_Mean:ColDia_SD, sep = " ", remove = TRUE) %>%
+        mutate(Colour_Diagnosticity = str_replace(Colour_Diagnosticity, "NaN NA", "")) %>%
+        rename("Colour Diagnosticity" = "Colour_Diagnosticity")
 
-exp2__norms %>%
-  kable("latex", longtable = T, booktabs = T, align = "lcccc") %>%
-  kable_styling(bootstrap_options = c("striped","condensed")) %>%
-  kable_styling(latex_options = c("repeat_header"), font_size = 10) %>%
-  pack_rows(index = table(gsub("[0-9].*", "", exp2__norms$Photograph))) %>%
-  row_spec(0, bold = T) %>%
-  column_spec(1, width = "3cm") %>%
-  column_spec(2, width = "2cm") %>%
-  column_spec(3, width = "2cm") %>%
-  column_spec(4, width = "2cm") %>%
-  column_spec(5, width = "2cm")
-
+    exp2__norms %>%
+        kable("latex", longtable = T, booktabs = T, align = "lcccc") %>%
+        kable_styling(bootstrap_options = c("striped","condensed")) %>%
+        kable_styling(latex_options = c("repeat_header"), font_size = 10) %>%
+        pack_rows(index = table(gsub("[0-9].*", "", exp2__norms$Photograph))) %>%
+        row_spec(0, bold = T) %>%
+        column_spec(1, width = "4cm") %>%
+        column_spec(2, width = "2cm") %>%
+        column_spec(3, width = "2cm") %>%
+        column_spec(4, width = "2cm") %>%
+        column_spec(5, width = "2cm")
 
 #image_refs <- read_csv("./resources/experiment_2/image_refs.csv")
 #        norms2 <- (bind_cols(norms, image_refs))
