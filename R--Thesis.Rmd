@@ -8753,11 +8753,11 @@ To address each of the hypotheses, a series of one-way repeated measures analyse
 To compare the results of the current study with previous findings, the raw data from the first two experiments of @ensor2019b was re-analysed in order to calculate statistics that were not reported in their paper. 
 
 \newpage
-#### Picture superiority (PSE)
+#### Picture superiority (PSE): pictures (drawings + photographs) vs. regular words
 Standard PSEs were apparent in the ANOVAs on the mean proportion of hits, mean proportion of FAs, and mean *d'* scores. Grey words (*M* = `r exp5__prop.hit.means__grey.word`) showed a significantly lower proportion of hits compared to all types of picture: grey drawings (*M* = `r exp5__prop.hit.means__grey.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__prop.hit.means__grey.photo`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`; colour drawings (*M* = `r exp5__prop.hit.means__col.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`; and colour photographs (*M* = `r exp5__prop.hit.means__col.photo`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`. Grey words (*M* = `r exp5__prop.FA.means__grey.word`) also showed a significantly higher proportion of FAs compared to all types of picture: grey drawings (*M* = `r exp5__prop.FA.means__grey.drawing`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__prop.FA.means__grey.photo`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`; colour drawings (*M* = `r exp5__prop.FA.means__col.drawing`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`; and colour photographs (*M* = `r exp5__prop.FA.means__col.photo`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`. Finally, mean *d'* scores were also significantly lower for grey words (*M* = `r exp5__d.prime.means__grey.word`) compared to all types of picture: grey drawings (*M* = `r exp5__d.prime.means__grey.drawing`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__d.prime.means__grey.photo`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`; colour drawings (*M* = `r exp5__d.prime.means__col.drawing`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`; and colour photographs (*M* = `r exp5__d.prime.means__col.photo`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`.
 
 \newpage
-#### Photograph superiority (PhSE)
+#### Photograph superiority (PhSE): photographs vs. drawings
 Examining greyscale items only, a PhSE was apparent across each of the variables (as demonstrated previously in *Experiment 3*). Grey photographs (*M* = `r exp5__prop.hit.means__grey.photo`) showed a significantly higher proportion of hits compared to grey drawings (*M* = `r exp5__prop.hit.means__grey.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.drawing.vs.grey.photo, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__prop.FA.means__grey.photo`) showed a significantly lower proportion of FAs compared to grey drawings (*M* = `r exp5__prop.FA.means__grey.drawing`), `r apa::apa(exp5__prop.FA__ttest__grey.drawing.vs.grey.photo, format = "rmarkdown", print = FALSE)`; and grey photographs (*M* = `r exp5__d.prime.means__grey.photo`) showed significantly higher mean *d'* scores than grey drawings (*M* = `r exp5__d.prime.means__grey.drawing`), `r apa::apa(exp5__d.prime__ttest__grey.drawing.vs.grey.photo, format = "rmarkdown", print = FALSE)`. Examining colour items only, a PhSE was similarly apparent across each of the variables (as demonstrated previously in *Experiment 4*). Colour photographs (*M* = `r exp5__prop.hit.means__col.photo`) showed a significantly higher proportion of hits compared to colour drawings (*M* = `r exp5__prop.hit.means__col.drawing`), `r apa::apa(exp5__prop.hit__ttest__col.drawing.vs.col.photo, format = "rmarkdown", print = FALSE)`; colour photographs (*M* = `r exp5__prop.FA.means__col.photo`) showed a significantly lower proportion of FAs compared to colour drawings (*M* = `r exp5__prop.FA.means__col.drawing`), `r apa::apa(exp5__prop.FA__ttest__col.drawing.vs.col.photo, format = "rmarkdown", print = FALSE)`; and colour photographs (*M* = `r exp5__d.prime.means__col.photo`) showed significantly higher mean *d'* scores than colour drawings (*M* = `r exp5__d.prime.means__col.drawing`), `r apa::apa(exp5__d.prime__ttest__col.drawing.vs.col.photo, format = "rmarkdown", print = FALSE)`. 
 
 To examine the role of colour vs. greyscale in the PhSE, colour drawings were compared with greyscale photographs to examine whether the PhSE was eliminated. Colour drawings (*M* = `r exp5__prop.hit.means__col.drawing`) showed a significantly lower proportion of hits compared to grey photographs (*M* = `r exp5__prop.hit.means__grey.photo`),
@@ -8775,7 +8775,7 @@ To examine the role of colour vs. greyscale in the PhSE, colour drawings were co
 `r figure_numbering("exp5__manip.check__figure")`
 
 \newpage
-#### Manipulation check
+#### Manipulation check: distinctive words vs. regular words
 Throughout each of the conducted ANOVAs, there was consistently a significant main effect of stimuli format: mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean *d'*-scores [`r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons following these significant results, however, did not always demonstrate that the distinctive word stimuli were indeed any more distinctive than the regular word stimuli. Primarily, there was no difference in the proportion of overall hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)` - recognition performance (i.e. the number of items subjects were able to correctly identify) was the same regardless of the format word stimuli were presented in. Subjects did, however, make significantly fewer FAs as a result of the manipulation (distinctive words *M* = `r exp5__prop.FA.means__col.word`, regular words *M* = `r exp5__prop.FA.means__grey.word`; `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)`), offering some support to the manipulation, as subjects were better able to correctly reject lure items when they were presented in a distinctive format, rather than regular format, highlighting some performance benefits. Furthermore, distinctive words (*M* = `r exp5__d.prime.means__col.word`) also showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)`; subjects were better able to accurately discriminate between hits and FAs when responding to the distinctive words over regular words.
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
@@ -8783,7 +8783,7 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
                        caption = "Mean proportion of hits and FAs assigned Recollection, Familiarity, and Guessing by stimuli format.")
 ```
 
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE, warning=FALSE}
       exp5__figure__rfg.hits
 ```
 `r figure_numbering("exp5__figure__rfg.hits")`
@@ -9021,7 +9021,6 @@ and second [`r apa::anova_apa(ensor.exp2__d.prime.aov, effect = "stim", format =
         pack_rows("FAs", 4, 6) %>%
         pack_rows("d'", 7, 9)
 
-
         #column_spec(1, width = "2cm", bold = T)
         ##column_spec(2, width = "3cm") %>%
         #column_spec(3:4, width = "1.5cm") %>%
@@ -9029,7 +9028,7 @@ and second [`r apa::anova_apa(ensor.exp2__d.prime.aov, effect = "stim", format =
 ```
 
 \newpage
-#### Elimination of PSE (comparison with @ensor2019b)
+#### Elimination of PSE (distinctive words vs. drawings
 ```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
 #################################################################################################################
 ##    Ensor vs. current prop hits table - PSE elimination:                                                     ##
@@ -9126,6 +9125,17 @@ and second [`r apa::anova_apa(ensor.exp2__d.prime.aov, effect = "stim", format =
                       caption = "Mean *d;* scores for distinctive word stimuli and grey drawings, across the current experiment and @ensor2019b.", display = FALSE)
 ```
 
+A key finding in @ensor2019b data was an elimination of the PSE; they demonstrated no difference in the number of hits, FAs, or *d'* scores between the distinctive words and grey drawings across both experiments. Such findings suggest their manipulation was successful in increasing the distinctiveness of word stimuli. 
+
+
+
+In the current experiment, however, these findings were not replicated; grey drawings showed superior performance in comparison to the distinctive words for the proportion of hits and mean *d'* scores. 
+
+
+Again, the current experiment produced different results; interestingly though, there were significantly more FAs for the grey drawings, as opposed to the distinctive word stimuli. This is somewhat unexpected, since the rest of the findings identify the grey drawings as having increased memorability compared to the distinctive words.
+
+
+\newpage
 `r table_numbering("exp5__table__ensor.vs.current2__full")`
 ```{r echo=FALSE, cache=TRUE}
     exp5__table__ensor.vs.current2__full %>%
@@ -9137,12 +9147,6 @@ and second [`r apa::anova_apa(ensor.exp2__d.prime.aov, effect = "stim", format =
         pack_rows("d'", 7, 9)
 ```
 
-A key finding in @ensor2019b data was an elimination of the PSE; distinctive word stimuli and grey drawings produced similar *d'* scores, indicative of comparable distinctiveness between the two stimuli formats. Such findings were replicated in the current reanalysis of their data (see `r table_numbering("exp5__table__ensor.vs.current2__full", display = "cite")`). In the current experiment, however, this finding was not replicated, with drawings showing significantly higher *d'* than the distinctive words, suggesting the manipulation was not effective. 
-
-Similarly, @ensor2019b also showed no difference in the number of hits between the distinctive words and grey drawings, across both experiments. This again suggests their distinctiveness manipulation was successful in eliminating the PSE, however, such a finding was not apparent in the current study, where grey drawings produced significantly more hits than the distinctive words. 
-
-Finally, @ensor2019b also showed no difference in the number of FAs between the distinctive words and grey drawings, across both experiments - an expected result if the distinctiveness manipulation resulted in similar levels between the distinctive words and grey drawings. Again, the current experiment produced different results; interestingly though, there were significantly more FAs for the grey drawings, as opposed to the distinctive word stimuli. This is somewhat unexpected, since the rest of the findings identify the grey drawings as having increased memorability compared to the distinctive words.
-
 \newpage
 #### Recollection and Familiarity 
 To determine if recollection and familiarity response patterns were mediated by the format of word stimuli, further one-way repeated measures analyses of variance (ANOVA) were conducted on the mean proportion of hits and false alarms (FAs) assigned *Recollection* (R), *Familiarity* (F), and *Guessing* (G). 
@@ -9152,7 +9156,7 @@ To determine if recollection and familiarity response patterns were mediated by 
                        caption = "Mean d' scores by stimuli format and recognition judgement.")
 ```
 
-```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE, warning=FALSE}
       exp5__figure__rfg.d.prime
 ```
 `r figure_numbering("exp5__figure__rfg.d.prime")`
@@ -9252,7 +9256,7 @@ To determine if recollection and familiarity response patterns were mediated by 
       exp5__d.prime.R.means__col.photo <- summary(exp5__d.prime.R.means)$emmean[6] %>% round(2)
 
 ```      
-\newpage
+
 For responses assigned *Recollection*, there was a significant main effect of stimuli format for the mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], and mean *d'* scores [`r apa::anova_apa(exp5__d.prime.R.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. 
 
 **Distinctiveness manipulation (regular words vs. distinctive words):** Across each of the variables, the distinctive word stimuli indeed appeared to be more distinctive than the regular words. Planned comparisons showed that distinctive words (*M* = `r exp5__prop.hit.R.means__col.word`) produced significantly more R hits than regular words (*M* = `r exp5__prop.hit.R.means__grey.word`), `r apa::apa(exp5__prop.hit.R__ttest, format = "rmarkdown", print = FALSE)`, and also significantly higher *d'* scores (distinctive words *M* = `r exp5__d.prime.R.means__col.word`, regular words *M* = `r exp5__d.prime.R.means__grey.word`, `r apa::apa(exp5__d.prime.R__ttest1, format = "rmarkdown", print = FALSE)`. Conversely, regular words (*M* = `r exp5__prop.FA.R.means__grey.word`) produced a significantly higher proportion of FAs assigned R than distinctive words (*M* = `r exp5__prop.FA.R.means__col.word`), `r apa::apa(exp5__prop.FA.R__ttest, format = "rmarkdown", print = FALSE)`. 
@@ -9483,26 +9487,19 @@ For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.m
 
 
 ### Discussion
-@ensor2019b demonstrated how picture superiority effects (PSEs) could be eliminated by increasing the distinctiveness of word stimuli (relative to shaded drawings) via manipulations to colour, font, size, and capitalisation. The current experiment aimed to replicate such findings in order to examine whether such effect would extend to the *photograph* superiority effect (PhSE). The first hypothesis proposed that the distinctive word stimuli would produce a higher proportion of correct hits, lower proportion of false alarms (FAs), and higher overall *d'* scores in comparison to regular word stimuli, however, these predictions were not wholly supported by the data. While the distinctive words showed a lower proportion of FAs and higher *d'* scores compared to regular words, the formats did not differ in the proportion of obtained hits. 
+@ensor2019b demonstrated how picture superiority effects (PSEs) could be eliminated by increasing the distinctiveness of word stimuli (relative to shaded drawings) via manipulations to colour, font, size, and capitalisation. The current study had two primary aims: i) replicate this elimination of the PSE; ii) examine whether this effect can extend to attenuate / eliminate the *photograph* superiority effect (PhSE). 
+
+Despite predictions that the distinctive word stimuli would produce a higher proportion of correct hits, lower proportion of false alarms (FAs), and higher overall *d'* scores compared to regular word stimuli, the results suggest the manipulation was not wholly effective. While a lower proportion of FAs and higher *d'* scores were found for the distinctive words, they did not differ from regular words in the proportion of obtained hits. Such results make it difficult to conclude whether the distinctive word stimuli used in the current experiment were indeed more distinctive than the regular words. Indeed, one would expect items of a higher distinctiveness (and thus enhanced memorability) to specifically show a higher number of hits than items of lower distinctiveness. Indeed, this was the case in both @ensor2019b experiments, whereby the distinctive words produced a significantly higher proportion of hits compared to the regular words. The current findings could be interpreted within a DCT framework, whereby *all* words are inferior to the dual-codes of pictures (and thus 'distinctive' words will not produce better performance), there is still clear support for the distinctiveness hypothesis in the current results. While standard PSEs were expected - a finding that was abundantly clear from the data, with *all* pictures (greyscale drawings; colour drawings; greyscale photographs; colour photographs) demonstrating superior performance compared to regular words (manifesting as significantly higher proportions of hits, lower proportions of FAs, and a higher mean *d'* scores) - the *photo* superiority effects (PhSEs) of previous experiments was again evident. Whether recognition performance was compared between greyscale photograph and drawing items, or colour photograph and drawing items, photographs consistently demonstrated superior performance over drawings. 
 
 
-It is difficult to conclude the distinctive word stimuli were indeed more distinctive than the regular words on the basis of these findings. In both @ensor2019b experiments, the distinctive words produced a significantly higher proportion of hits compared to the regular words. This is in contrast to the results of the current study, whereby no difference was found as a result of the distinctiveness manipulation. Visual inspection of the data does not indicate the number of trials had an impact on the number of hits; while @ensor2019b did observe a reduction in the proportion of hits for both word formats when trial numbers were increased, the current study (whose trial numbers were between the two @ensor2019b experiments) still showed a lower proportion of hits than both. 
 
 
-Visual inspection of the data shows that subjects generally made more FAs in the @ensor2019b experiments compared to the current study; this is especially apparent when comparisons are made toward the experiment with more trials.
+Visual inspection of the data does not suggest the number of trials had an impact on the number of hits; while @ensor2019b did observe a reduction in the proportion of hits for both word formats when trial numbers were increased, the current study (whose trial numbers sit between the two @ensor2019b experiments) still showed a lower proportion of hits than both. While obtained *d'* scores sit between the @ensor2019b experiments - in line with reducing scores as the number of trials increases - visual inspection of the data shows that subjects generally made more FAs in the @ensor2019b experiments compared to the current study; this is especially apparent when comparisons are made between the current experiment and the @ensor2019b experiment with more trials.
+
+While the PSE was not eliminated in the current experiment. 
 
 
- Visual inspection of the data shows that the *d'* scores obtained in the current experiment sit between the @ensor2019b experiments - in line with reducing scores as the number of trials increases. 
 
-pertained to the current manipulation, whereby the word items with manipulations to colour, font, and capitalisation were expected to produce enhanced recognition relative to regular word stimuli.  
-
-
-The current study has two primary aims: i) replicate the elimination of the PSE demonstrated by @ensor2019b; ii) examine whether the PhSE is also attenuated / eliminated when comparing photograph items with distinctive word stimuli. A secondary aim is to further characterise the role of colour in the previously established *photo* superiority effect (PhSE).     
-    
-It is not entirely clear why 
-
-
-The second hypothesis proposed standard picture superiority effects (PSEs) would emerge - a finding that was abundantly clear when examining the data, with *all* pictures (greyscale drawings; colour drawings; greyscale photographs; colour photographs) demonstrating superior performance compared to regular words (manifesting as significantly higher proportions of hits, lower proportions of FAs, and a higher mean *d'* scores). In a similar fashion, *photo* superiority effects (PhSEs) were also demonstrated when comparing performance for photograph items against that of drawing items; this effect was evident in both greyscale items (replicating the finding of *Experiment 3*) and colour items (replicating the finding of *Experiment 4*). 
 
 
 
