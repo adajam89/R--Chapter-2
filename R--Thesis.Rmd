@@ -9570,6 +9570,8 @@ A limitation of the current study lies in its' inability to determine how a numb
 
 @ensor2019b designed distinctive word stimuli that contained manipulations to colour, font, size, and capitalisation, however, there was little rationale for why these particular factors were selected. 
 
+Such comparisons are outside the scope of the current programme of research, where innumerable combinations of such factors would need to be compared
+
 
 It could simply be assumed that each of these factors provide similar contributions, and that they each play a role in the overall levels of distinctiveness of a stimulus. However, across three experiments, the current programme of research has consistently demonstrated that colour information has no discernible impact on recognition performance - and as such, does not contribute to making stimuli more distinctive. 
 
