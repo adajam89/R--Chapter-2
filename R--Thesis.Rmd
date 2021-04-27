@@ -8748,9 +8748,15 @@ The primary DVs of interest consisted of the mean proportion of hits and false a
 ```
 
 ### Results
-#### Picture superiority (PSE)
-Standard PSEs were apparent in the ANOVAs on the mean proportion of hits, mean proportion of FAs, and mean *d'* scores. Grey words (*M* = `r exp5__prop.hit.means__grey.word`) showed a significantly lower proportion of hits compared to all types of picture: grey drawings (*M* = `r exp5__prop.hit.means__grey.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__prop.hit.means__grey.photo`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`; colour drawings (*M* = `r exp5__prop.hit.means__col.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`; colour photographs (*M* = `r exp5__prop.hit.means__col.photo`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`. Grey words (*M* = `r exp5__prop.FA.means__grey.word`) also showed a significantly higher proportion of FAs compared to all types of picture: grey drawings (*M* = `r exp5__prop.FA.means__grey.drawing`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__prop.FA.means__grey.photo`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`; colour drawings (*M* = `r exp5__prop.FA.means__col.drawing`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`; colour photographs (*M* = `r exp5__prop.FA.means__col.photo`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`. Finally, mean *d'* scores were also significantly lower for grey words (*M* = `r exp5__d.prime.means__grey.word`) compared to all types of picture: grey drawings (*M* = `r exp5__d.prime.means__grey.drawing`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__d.prime.means__grey.photo`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`; colour drawings (*M* = `r exp5__d.prime.means__col.drawing`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`; colour photographs (*M* = `r exp5__d.prime.means__col.photo`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`.
+To address each of the hypotheses, a series of one-way repeated measures analyses of variance (ANOVA) - using six factors (grey & distinctive words, grey & colour drawings, grey & colour photographs) - were conducted on the mean proportions of hits, mean proportion of FAs, and mean  *d'*scores. Sphericity was assessed using Mauchly's Test; when the assumption of sphericity was violated, Greenhouse-Geisser corrections were applied.
 
+To compare the results of the current study with previous findings, the raw data from the first two experiments of @ensor2019b was re-analysed in order to calculate statistics that were not reported in their paper. 
+
+\newpage
+#### Picture superiority (PSE)
+Standard PSEs were apparent in the ANOVAs on the mean proportion of hits, mean proportion of FAs, and mean *d'* scores. Grey words (*M* = `r exp5__prop.hit.means__grey.word`) showed a significantly lower proportion of hits compared to all types of picture: grey drawings (*M* = `r exp5__prop.hit.means__grey.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__prop.hit.means__grey.photo`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`; colour drawings (*M* = `r exp5__prop.hit.means__col.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`; and colour photographs (*M* = `r exp5__prop.hit.means__col.photo`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`. Grey words (*M* = `r exp5__prop.FA.means__grey.word`) also showed a significantly higher proportion of FAs compared to all types of picture: grey drawings (*M* = `r exp5__prop.FA.means__grey.drawing`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__prop.FA.means__grey.photo`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`; colour drawings (*M* = `r exp5__prop.FA.means__col.drawing`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`; and colour photographs (*M* = `r exp5__prop.FA.means__col.photo`), `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`. Finally, mean *d'* scores were also significantly lower for grey words (*M* = `r exp5__d.prime.means__grey.word`) compared to all types of picture: grey drawings (*M* = `r exp5__d.prime.means__grey.drawing`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.grey.drawing, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__d.prime.means__grey.photo`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.grey.photo, format = "rmarkdown", print = FALSE)`; colour drawings (*M* = `r exp5__d.prime.means__col.drawing`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.col.drawing, format = "rmarkdown", print = FALSE)`; and colour photographs (*M* = `r exp5__d.prime.means__col.photo`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.col.photo, format = "rmarkdown", print = FALSE)`.
+
+\newpage
 #### Photograph superiority (PhSE)
 Examining greyscale items only, a PhSE was apparent across each of the variables (as demonstrated previously in *Experiment 3*). Grey photographs (*M* = `r exp5__prop.hit.means__grey.photo`) showed a significantly higher proportion of hits compared to grey drawings (*M* = `r exp5__prop.hit.means__grey.drawing`), `r apa::apa(exp5__prop.hit__ttest__grey.drawing.vs.grey.photo, format = "rmarkdown", print = FALSE)`; grey photographs (*M* = `r exp5__prop.FA.means__grey.photo`) showed a significantly lower proportion of FAs compared to grey drawings (*M* = `r exp5__prop.FA.means__grey.drawing`), `r apa::apa(exp5__prop.FA__ttest__grey.drawing.vs.grey.photo, format = "rmarkdown", print = FALSE)`; and grey photographs (*M* = `r exp5__d.prime.means__grey.photo`) showed significantly higher mean *d'* scores than grey drawings (*M* = `r exp5__d.prime.means__grey.drawing`), `r apa::apa(exp5__d.prime__ttest__grey.drawing.vs.grey.photo, format = "rmarkdown", print = FALSE)`. Examining colour items only, a PhSE was similarly apparent across each of the variables (as demonstrated previously in *Experiment 4*). Colour photographs (*M* = `r exp5__prop.hit.means__col.photo`) showed a significantly higher proportion of hits compared to colour drawings (*M* = `r exp5__prop.hit.means__col.drawing`), `r apa::apa(exp5__prop.hit__ttest__col.drawing.vs.col.photo, format = "rmarkdown", print = FALSE)`; colour photographs (*M* = `r exp5__prop.FA.means__col.photo`) showed a significantly lower proportion of FAs compared to colour drawings (*M* = `r exp5__prop.FA.means__col.drawing`), `r apa::apa(exp5__prop.FA__ttest__col.drawing.vs.col.photo, format = "rmarkdown", print = FALSE)`; and colour photographs (*M* = `r exp5__d.prime.means__col.photo`) showed significantly higher mean *d'* scores than colour drawings (*M* = `r exp5__d.prime.means__col.drawing`), `r apa::apa(exp5__d.prime__ttest__col.drawing.vs.col.photo, format = "rmarkdown", print = FALSE)`. 
 
@@ -8768,17 +8774,16 @@ To examine the role of colour vs. greyscale in the PhSE, colour drawings were co
 ```
 `r figure_numbering("exp5__manip.check__figure")`
 
+\newpage
 #### Manipulation check
-To establish whether the distinctive word stimuli were indeed more distinctive than regular words, a series of one-way repeated measures analyses of variance (ANOVA) - using six factors (grey & distinctive words, grey & colour drawings, grey & colour photographs) - were conducted on the mean scores of *d'*, mean proportions of hits, and mean proportion of FAs. Sphericity was assessed using Mauchly's Test; when the assumption of sphericity was violated, Greenhouse-Geisser corrections were applied. 
-
-Throughout each of the conducted ANOVAs, there was consistently a significant main effect of stimuli format: mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], *d'*-scores [`r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons following these significant results, however, did not always demonstrate that the distinctive word stimuli were indeed any more distinctive than the regular word stimuli. Primarily, there was no difference in the proportion of overall hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)` - recognition performance (i.e. the number of items subjects were able to correctly identify) was the same regardless of the format word stimuli were presented in. Subjects did, however, make significantly fewer FAs as a result of the manipulation (distinctive words *M* = `r exp5__prop.FA.means__col.word`, regular words *M* = `r exp5__prop.FA.means__grey.word`; `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)`), offering some support to the manipulation, as subjects were better able to correctly reject lure items when they were presented in a distinctive format, rather than regular format, highlighting some performance benefits. Furthermore, distinctive words (*M* = `r exp5__d.prime.means__col.word`) also showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)`; subjects were better able to accurately discriminate between hits and FAs when responding to the distinctive words over regular words.
+Throughout each of the conducted ANOVAs, there was consistently a significant main effect of stimuli format: mean proportion of hits [`r apa::anova_apa(exp5__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean proportion of FAs [`r apa::anova_apa(exp5__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], mean *d'*-scores [`r apa::anova_apa(exp5__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]. Planned comparisons following these significant results, however, did not always demonstrate that the distinctive word stimuli were indeed any more distinctive than the regular word stimuli. Primarily, there was no difference in the proportion of overall hits between distinctive (*M* = `r exp5__prop.hit.means__col.word`) and regular words (*M* = `r exp5__prop.hit.means__grey.word`), `r apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)` - recognition performance (i.e. the number of items subjects were able to correctly identify) was the same regardless of the format word stimuli were presented in. Subjects did, however, make significantly fewer FAs as a result of the manipulation (distinctive words *M* = `r exp5__prop.FA.means__col.word`, regular words *M* = `r exp5__prop.FA.means__grey.word`; `r apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)`), offering some support to the manipulation, as subjects were better able to correctly reject lure items when they were presented in a distinctive format, rather than regular format, highlighting some performance benefits. Furthermore, distinctive words (*M* = `r exp5__d.prime.means__col.word`) also showed significantly higher *d'* scores than regular words (*M* = `r exp5__d.prime.means__grey.word`), `r apa::apa(exp5__d.prime__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)`; subjects were better able to accurately discriminate between hits and FAs when responding to the distinctive words over regular words.
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
       figure_numbering(name = "exp5__figure__rfg.hits", 
                        caption = "Mean proportion of hits and FAs assigned Recollection, Familiarity, and Guessing by stimuli format.")
 ```
 
-```{r fig.width=7, fig.height=5, echo=FALSE, cache=TRUE, warning=FALSE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
       exp5__figure__rfg.hits
 ```
 `r figure_numbering("exp5__figure__rfg.hits")`
@@ -8932,15 +8937,18 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
 ##    Ensor vs. current hits table:                                                                            ##
 ################################################################################################################# 
       exp5__table__ensor.vs.current__hits <- 
-            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
+            tribble(~" ", ~"  ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
+                  "Ensor, Surprenant, & Neath (2019)",
                   "Trials: 40 study / 80 test:",
                       round(mean(ensor.exp1.data$prop.hit__grey.word),2),
                       round(mean(ensor.exp1.data$prop.hit__col.word),2),
                       apa::apa(ensor.exp1__prop.hit__ttest, format = "rmarkdown", print = FALSE),
+                  "Ensor, Surprenant, & Neath (2019)",
                   "Trials: 80 study / 160 test:",
                       round(mean(ensor.exp2.data$prop.hit__grey.word),2),
                       round(mean(ensor.exp2.data$prop.hit__col.word),2),
                       apa::apa(ensor.exp2__prop.hit__ttest, format = "rmarkdown", print = FALSE),
+                  "Current study",
                   "Trials: 60 study / 120 test:", 
                       round(exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit) %>% mean(),2),
                       round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
@@ -8949,15 +8957,18 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
 ##    Ensor vs. current FAs table:                                                                             ##
 ################################################################################################################# 
       exp5__table__ensor.vs.current__FAs <- 
-            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
+            tribble(~" ", ~"  ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
+                  "Ensor, Surprenant, & Neath (2019)",
                   "Trials: 40 study / 80 test:",
                       round(mean(ensor.exp1.data$prop.FA__grey.word),2),
                       round(mean(ensor.exp1.data$prop.FA__col.word),2),
                       apa::apa(ensor.exp1__prop.FA__ttest, format = "rmarkdown", print = FALSE),
+                  "Ensor, Surprenant, & Neath (2019)",
                   "Trials: 80 study / 160 test:",
                       round(mean(ensor.exp2.data$prop.FA__grey.word),2),
                       round(mean(ensor.exp2.data$prop.FA__col.word),2),
                       apa::apa(ensor.exp2__prop.FA__ttest, format = "rmarkdown", print = FALSE),
+                  "Current study",
                   "Trials: 60 study / 120 test:", 
                       round(exp5__prop.FA %>% filter(stim == "grey.word") %>% pull(prop.FA) %>% mean(),2),
                       round(exp5__prop.FA %>% filter(stim == "col.word") %>% pull(prop.FA) %>% mean(),2),
@@ -8966,241 +8977,171 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
 ##    Ensor vs. current d-prime table:                                                                         ##
 #################################################################################################################
       exp5__table__ensor.vs.current__d.prime <- 
-            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
+            tribble(~" ", ~"  ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
+                  "Ensor, Surprenant, & Neath (2019)",
                   "Trials: 40 study / 80 test:",
                       round(mean(ensor.exp1__grey.word.d.prime$dprime__grey.word),2),
                       round(mean(ensor.exp1__col.word.d.prime$dprime__col.word),2),
                       apa::apa(ensor.exp1__d.prime__ttest, format = "rmarkdown", print = FALSE),
+                  "Ensor, Surprenant, & Neath (2019)",
                   "Trials: 80 study / 160 test:",
                       round(mean(ensor.exp2__grey.word.d.prime$dprime__grey.word),2),
                       round(mean(ensor.exp2__col.word.d.prime$dprime__col.word),2),
                       apa::apa(ensor.exp2__d.prime__ttest, format = "rmarkdown", print = FALSE),
+                  "Current study",
                   "Trials: 60 study / 120 test:", 
                       round(exp5__d.prime %>% filter(stim == "grey.word") %>% pull(d.prime) %>% mean(),2),
                       round(exp5__d.prime %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
-                      apa::apa(exp5__d.prime__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE))     
+                      apa::apa(exp5__d.prime__ttest__grey.word.vs.col.word, format = "rmarkdown", print = FALSE)) 
+##################################################################################################################
+##    Ensor vs. current full table:                                                                             ##
+##################################################################################################################
+      exp5__table__ensor.vs.current__full <- exp5__table__ensor.vs.current__hits %>%
+        bind_rows(exp5__table__ensor.vs.current__FAs) %>%
+        bind_rows(exp5__table__ensor.vs.current__d.prime)
 ```
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
-      table_numbering(name = "exp5__table__ensor.vs.current__d.prime", 
-                      caption = "Mean *d'* scores for regular and distinctive word stimuli, across the current experiment and @ensor2019b.", display = FALSE)
-```
-
-Raw data provided by @ensor2019b was re-analysed to allow for direct comparisons with data from the current study. For evidence of the manipulation check: 
-
-For mean *d'* scores, there were significant main effects of stimuli format in both the first [`r apa::anova_apa(ensor.exp1__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]
-and second [`r apa::anova_apa(ensor.exp2__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] experiments. Follow-up comparisons showed evidence of the distinctiveness manipulation, whereby distinctive words produced significantly higher *d'* scores compared to regular words in both experiments (see `r table_numbering("exp5__table__ensor.vs.current__d.prime", display = "cite")`). Visual inspection of the data shows that the *d'* scores obtained in the current experiment sit between the @ensor2019b experiments - in line with reducing scores as the number of trials increases. 
-
-&nbsp;
-
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-      table_numbering(name = "exp5__table__ensor.vs.current__hits",
+      table_numbering(name = "exp5__table__ensor.vs.current__full",
                       caption = "Mean proportion of hits for regular and distinctive word stimuli, across the current experiment and @ensor2019b.", display = FALSE)
 ```      
-`r table_numbering("exp5__table__ensor.vs.current__d.prime")`
-```{r echo=FALSE, cache=TRUE}
-      exp5__table__ensor.vs.current__d.prime %>%
-          kable("latex", booktabs = T, align = "rccc", escape = F) %>%
-          kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
-          column_spec(2:3, width = "1.2cm") %>%
-          column_spec(4, width = "6cm") %>%
-          add_header_above(c(" " = 1, "*d'" = 3), bold = T) %>%
-          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
-          pack_rows("Current study", 3, 0)
-```
-&nbsp;
-&nbsp;
 
-The ANOVA on the mean proportion of hits also showed evidence of the distinctiveness manipulation; significant main effects of stimuli format in their first [`r apa::anova_apa(ensor.exp1__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] and second [`r apa::anova_apa(ensor.exp2__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] experiments produced follow-up comparisons that consistently showed distinctive words resulted in significantly more hits than regular words (see `r table_numbering("exp5__table__ensor.vs.current__hits", display = "cite")`). This is in contrast to the results of the current study, whereby no difference was found as a result of the distinctiveness manipulation. Visual inspection of the data does not indicate the number of trials had an impact on the number of hits; while @ensor2019b did observe a reduction in the proportion of hits for both word formats when trial numbers were increased, the current study still showed a lower proportion of hits than both of the @ensor2019b experiments (including the experiment with more trials). 
-
-&nbsp;
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-      table_numbering(name = "exp5__table__ensor.vs.current__FAs",
-                      caption = "Mean proportion of FAs for regular and distinctive word stimuli, across the current experiment and @ensor2019b.", display = FALSE)
-```
-`r table_numbering("exp5__table__ensor.vs.current__hits")`
-```{r echo=FALSE, cache=TRUE}
-      exp5__table__ensor.vs.current__hits %>%
-          kable("latex", booktabs = T, align = "rccc", escape = T) %>%
-          kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
-          column_spec(2:3, width = "1.2cm") %>%
-          column_spec(4, width = "6cm") %>%
-          add_header_above(c(" " = 1, "Hits" = 3), bold = T) %>%
-          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
-          pack_rows("Current study", 3, 0)
-```
-&nbsp;
-
-For the mean proportion of FAs, the second experiment of @ensor2019b showed a significant main effect of stimuli format [`r apa::anova_apa(ensor.exp2__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], much like the currents study. However, while the current study showed distinctive words produced significantly fewer FAs than regular words, this comparison was not significant for @ensor2019b (see `r table_numbering("exp5__table__ensor.vs.current__FAs", display = "cite")`). In their first experiment, there was no significant main effect of stimuli format [`r apa::anova_apa(ensor.exp1__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], or follow-up comparison. Visual inspection of the data shows that subjects generally made more FAs in the @ensor2019b experiments compared to the current study; this is especially apparent when comparisons are made toward the experiment with more trials.
+Analysis of the @ensor2019b data showed evidence of the distinctiveness manipulation. For the mean proportion of hits, there were significant main effects of stimuli format in their first [`r apa::anova_apa(ensor.exp1__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] and second [`r apa::anova_apa(ensor.exp2__prop.hit.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] experiments. Follow-up comparisons showed distinctive words resulted in significantly more hits than regular words across both experiments (see `r table_numbering("exp5__table__ensor.vs.current__hits", display = "cite")`). For the mean proportion of FAs, the first experiment of @ensor2019b showed no significant main effect of stimuli format [`r apa::anova_apa(ensor.exp1__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`], however, the second experiment did [`r apa::anova_apa(ensor.exp2__prop.FA.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]; though follow-up comparisons showed no difference in the proportion of FAs between distinctive and regular words. Finally, for mean *d'* scores, there was a significant main effect of stimuli format in both the first [`r apa::anova_apa(ensor.exp1__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`]
+and second [`r apa::anova_apa(ensor.exp2__d.prime.aov, effect = "stim", format = "rmarkdown", print = FALSE)`] experiments. Follow-up comparisons showed evidence of the distinctiveness manipulation, whereby distinctive words produced significantly higher *d'* scores compared to regular words in both experiments (see `r table_numbering("exp5__table__ensor.vs.current__full", display = "cite")`).
 
 &nbsp;
 
-`r table_numbering("exp5__table__ensor.vs.current__FAs")`
-```{r echo=FALSE, cache=TRUE}
-      exp5__table__ensor.vs.current__FAs %>%
-          kable("latex", booktabs = T, align = "rccc", escape = F) %>%
-          kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
-          column_spec(2:3, width = "1.2cm") %>%
-          column_spec(4, width = "6cm") %>%
-          add_header_above(c(" " = 1, "FAs" = 3), bold = T) %>%
-          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
-          pack_rows("Current study", 3, 0)
+`r table_numbering("exp5__table__ensor.vs.current__full")`
+```{r echo=FALSE, cache=FALSE}
+    exp5__table__ensor.vs.current__full %>%
+        kable("latex", booktabs = T, align = "rlccl") %>%
+        kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
+        collapse_rows(columns = 1, valign = "top") %>%
+        pack_rows("Hits", 1, 3) %>%
+        pack_rows("FAs", 4, 6) %>%
+        pack_rows("d'", 7, 9)
+
+
+        #column_spec(1, width = "2cm", bold = T)
+        ##column_spec(2, width = "3cm") %>%
+        #column_spec(3:4, width = "1.5cm") %>%
+        #column_spec(5, width = "4cm") %>%
 ```
 
+\newpage
 #### Elimination of PSE (comparison with @ensor2019b)
 ```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
-      ensor.exp1__d.prime__ttest2 <- ensor.exp1__d.prime %>% filter(stim == "col.word" | 
-                                                                      stim == "grey.drawing") %>%
-                                      t.test(d.prime~stim, paired=TRUE, data = .)
-      ensor.exp2__d.prime__ttest2 <- ensor.exp2__d.prime %>% filter(stim == "col.word" | 
-                                                                      stim == "grey.drawing") %>%
-                                      t.test(d.prime~stim, paired=TRUE, data = .)
-      exp5__d.prime__ttest2 <- exp5__d.prime %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
-                                      t.test(d.prime~stim, paired=TRUE, data = .)
-#################################################################################################################
-##    Ensor vs. current d-prime table - PSE elimination:                                                       ##
-#################################################################################################################
-      exp5__table__ensor.vs.current__d.prime2 <- 
-            tribble(~" ", ~"Distinctive words", ~"Grey drawings", ~"Planned comparisons",
-                  "Trials: 40 study / 80 test:",
-                      round(mean(ensor.exp1__col.word.d.prime$dprime__col.word),2),
-                      round(mean(ensor.exp1__grey.drawing.d.prime$dprime__grey.drawing),2),
-                      apa::apa(ensor.exp1__d.prime__ttest2, format = "rmarkdown", print = FALSE),
-                  "Trials: 80 study / 160 test:",
-                      round(mean(ensor.exp2__col.word.d.prime$dprime__col.word),2),
-                      round(mean(ensor.exp2__grey.drawing.d.prime$dprime__grey.drawing),2),
-                      apa::apa(ensor.exp2__d.prime__ttest2, format = "rmarkdown", print = FALSE),
-                  "Trials: 60 study / 120 test:", 
-                      round(exp5__d.prime %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
-                      round(exp5__d.prime %>% filter(stim == "grey.drawing") %>% pull(d.prime) %>%
-                              mean(),2),
-                      apa::apa(exp5__d.prime__ttest2, format = "rmarkdown", print = FALSE))
-```      
-
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-      table_numbering(name = "exp5__table__ensor.vs.current__d.prime2",
-                      caption = "Mean *d;* scores for distinctive word stimuli and grey drawings, across the current experiment and @ensor2019b.", display = FALSE)
-```
-
-A key finding in @ensor2019b data was an elimination of the PSE; distinctive word stimuli and grey drawings produced similar *d'* scores, indicative of comparable distinctiveness between the two stimuli formats. Such findings were replicated in the current reanalysis of their data (see `r table_numbering("exp5__table__ensor.vs.current__d.prime2", display = "cite")`). In the current experiment, however, this finding was not replicated, with drawings showing significantly higher *d'* than the distinctive words, suggesting the manipulation was not effective. 
-
-&nbsp;
-
-`r table_numbering("exp5__table__ensor.vs.current__d.prime2")`
-```{r echo=FALSE, cache=TRUE}
-      exp5__table__ensor.vs.current__d.prime2 %>%
-          kable("latex", booktabs = T, align = "rccc", escape = F) %>%
-          kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
-          column_spec(2:3, width = "1.2cm") %>%
-          column_spec(4, width = "6cm") %>%
-          add_header_above(c(" " = 1, "*d'" = 3), bold = T) %>%
-          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
-          pack_rows("Current study", 3, 0)
-```
-
-```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
-      ensor.exp1__prop.hit__ttest2 <- ensor.exp1__prop.hit %>% filter(stim == "col.word" | 
-                                                                      stim == "grey.drawing") %>%
-                                      t.test(prop.hit~stim, paired=TRUE, data = .)
-      ensor.exp2__prop.hit__ttest2 <- ensor.exp2__prop.hit %>% filter(stim == "col.word" | 
-                                                                      stim == "grey.drawing") %>%
-                                      t.test(prop.hit~stim, paired=TRUE, data = .)
-      exp5__prop.hit__ttest__grey.word.vs.col.word2 <- exp5__prop.hit %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
-                                      t.test(prop.hit~stim, paired=TRUE, data = .)
 #################################################################################################################
 ##    Ensor vs. current prop hits table - PSE elimination:                                                     ##
 #################################################################################################################
-      exp5__table__ensor.vs.current__prop.hit2 <- 
-            tribble(~" ", ~"Distinctive words", ~"Grey drawings", ~"Planned comparisons",
-                  "Trials: 40 study / 80 test:",
-                      round(mean(ensor.exp1.data$prop.hit__col.word),2),
-                      round(mean(ensor.exp1.data$prop.hit__grey.drawing),2),
-                      apa::apa(ensor.exp1__prop.hit__ttest2, format = "rmarkdown", print = FALSE),
-                  "Trials: 80 study / 160 test:",
-                      round(mean(ensor.exp2.data$prop.hit__col.word),2),
-                      round(mean(ensor.exp2.data$prop.hit__grey.drawing),2),
-                      apa::apa(ensor.exp2__prop.hit__ttest2, format = "rmarkdown", print = FALSE),
-                  "Trials: 60 study / 120 test:", 
-                      round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
-                      round(exp5__prop.hit %>% filter(stim == "grey.drawing") %>% pull(prop.hit) %>%
-                              mean(),2),
-                      apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.word2, format = "rmarkdown", print = FALSE))      
-```        
+    ensor.exp1__prop.hit__ttest2 <- ensor.exp1__prop.hit %>% 
+        filter(stim == "col.word" | stim == "grey.drawing") %>%
+        t.test(prop.hit~stim, paired=TRUE, data = .)
+    ensor.exp2__prop.hit__ttest2 <- ensor.exp2__prop.hit %>% 
+        filter(stim == "col.word" | stim == "grey.drawing") %>%
+        t.test(prop.hit~stim, paired=TRUE, data = .)
+    exp5__prop.hit__ttest__grey.word.vs.col.word2 <- exp5__prop.hit %>% 
+        filter(stim == "col.word" | stim == "grey.drawing") %>%
+        t.test(prop.hit~stim, paired=TRUE, data = .)
+
+    exp5__table__ensor.vs.current__prop.hit2 <- 
+        tribble(~" ", ~"  ", ~"Distinctive words", ~"Grey drawings", ~"Planned comparisons",
+            "Ensor, Surprenant, & Neath (2019)", "Trials: 40 study / 80 test:",
+                round(mean(ensor.exp1.data$prop.hit__col.word),2),
+                round(mean(ensor.exp1.data$prop.hit__grey.drawing),2),
+                apa::apa(ensor.exp1__prop.hit__ttest2, format = "rmarkdown", print = FALSE),
+            "Ensor, Surprenant, & Neath (2019)", "Trials: 80 study / 160 test:",
+                  round(mean(ensor.exp2.data$prop.hit__col.word),2),
+                  round(mean(ensor.exp2.data$prop.hit__grey.drawing),2),
+                  apa::apa(ensor.exp2__prop.hit__ttest2, format = "rmarkdown", print = FALSE),
+            "Current study", "Trials: 60 study / 120 test:", 
+                  round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
+                  round(exp5__prop.hit %>% filter(stim == "grey.drawing") %>% pull(prop.hit) %>% mean(),2),
+                  apa::apa(exp5__prop.hit__ttest__grey.word.vs.col.word2, format = "rmarkdown", print = FALSE))      
+##################################################################################################################
+##    Ensor vs. current prop FAs table - PSE elimination:                                                       ##
+##################################################################################################################
+    ensor.exp1__prop.FA__ttest2 <- ensor.exp1__prop.FA %>% 
+        filter(stim == "col.word" | stim == "grey.drawing") %>%
+        t.test(prop.FA~stim, paired=TRUE, data = .)
+    ensor.exp2__prop.FA__ttest2 <- ensor.exp2__prop.FA %>% 
+        filter(stim == "col.word" | stim == "grey.drawing") %>%
+        t.test(prop.FA~stim, paired=TRUE, data = .)
+    exp5__prop.FA__ttest__grey.word.vs.col.word2 <- exp5__prop.FA %>% 
+        filter(stim == "col.word" | stim == "grey.drawing") %>%
+        t.test(prop.FA~stim, paired=TRUE, data = .)
+
+    exp5__table__ensor.vs.current__prop.FA2 <- 
+        tribble(~" ", ~"  ", ~"Distinctive words", ~"Grey drawings", ~"Planned comparisons",
+            "Ensor, Surprenant, & Neath (2019)", "Trials: 40 study / 80 test:",
+                round(mean(ensor.exp1.data$prop.FA__col.word),2),
+                round(mean(ensor.exp1.data$prop.FA__grey.drawing),2),
+                apa::apa(ensor.exp1__prop.FA__ttest2, format = "rmarkdown", print = FALSE),
+            "Ensor, Surprenant, & Neath (2019)", "Trials: 80 study / 160 test:",
+                round(mean(ensor.exp2.data$prop.FA__col.word),2),
+                round(mean(ensor.exp2.data$prop.FA__grey.drawing),2),
+                apa::apa(ensor.exp2__prop.FA__ttest2, format = "rmarkdown", print = FALSE),
+            "Current study", "Trials: 60 study / 120 test:", 
+                round(exp5__prop.FA %>% filter(stim == "col.word") %>% pull(prop.FA) %>% mean(),2),
+                round(exp5__prop.FA %>% filter(stim == "grey.drawing") %>% pull(prop.FA) %>% mean(),2),
+                apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.word2, format = "rmarkdown", print = FALSE))
+    
+#################################################################################################################
+##    Ensor vs. current d-prime table - PSE elimination:                                                       ##
+################################################################################################################# 
+    ensor.exp1__d.prime__ttest2 <- ensor.exp1__d.prime %>%
+        filter(stim == "col.word" | stim == "grey.drawing") %>%
+        t.test(d.prime~stim, paired=TRUE, data = .)
+    ensor.exp2__d.prime__ttest2 <- ensor.exp2__d.prime %>% 
+        filter(stim == "col.word" | stim == "grey.drawing") %>%
+        t.test(d.prime~stim, paired=TRUE, data = .)
+    exp5__d.prime__ttest2 <- exp5__d.prime %>% 
+        filter(stim == "col.word" | stim == "grey.drawing") %>%
+        t.test(d.prime~stim, paired=TRUE, data = .)
+
+    exp5__table__ensor.vs.current__d.prime2 <- 
+        tribble(~" ", ~"  ", ~"Distinctive words", ~"Grey drawings", ~"Planned comparisons",
+            "Ensor, Surprenant, & Neath (2019)", "Trials: 40 study / 80 test:",
+                round(mean(ensor.exp1__col.word.d.prime$dprime__col.word),2),
+                round(mean(ensor.exp1__grey.drawing.d.prime$dprime__grey.drawing),2),
+                apa::apa(ensor.exp1__d.prime__ttest2, format = "rmarkdown", print = FALSE),
+            "Ensor, Surprenant, & Neath (2019)", "Trials: 80 study / 160 test:",
+                round(mean(ensor.exp2__col.word.d.prime$dprime__col.word),2),
+                round(mean(ensor.exp2__grey.drawing.d.prime$dprime__grey.drawing),2),
+                apa::apa(ensor.exp2__d.prime__ttest2, format = "rmarkdown", print = FALSE),
+            "Current study", "Trials: 60 study / 120 test:", 
+                round(exp5__d.prime %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
+                round(exp5__d.prime %>% filter(stim == "grey.drawing") %>% pull(d.prime) %>% mean(),2),
+                apa::apa(exp5__d.prime__ttest2, format = "rmarkdown", print = FALSE))
+##################################################################################################################
+##    Ensor vs. current full table:                                                                             ##
+##################################################################################################################
+      exp5__table__ensor.vs.current2__full <- exp5__table__ensor.vs.current__prop.hit2 %>%
+        bind_rows(exp5__table__ensor.vs.current__prop.FA2) %>%
+        bind_rows(exp5__table__ensor.vs.current__d.prime2)
+```      
 
 ```{r echo=FALSE, results = FALSE, cache=FALSE}
-      table_numbering(name = "exp5__table__ensor.vs.current__prop.hit2",
-                      caption = "Mean proportion of hits for distinctive word stimuli and grey drawings, across the current experiment and @ensor2019b.", display = FALSE)
+      table_numbering(name = "exp5__table__ensor.vs.current2__full",
+                      caption = "Mean *d;* scores for distinctive word stimuli and grey drawings, across the current experiment and @ensor2019b.", display = FALSE)
 ```
 
-Similarly, @ensor2019b also showed no difference in the number of hits between the distinctive words and grey drawings, across both experiments (see `r table_numbering("exp5__table__ensor.vs.current__prop.hit2", display = "cite")`). This again suggests their distinctiveness manipulation was successful in eliminating the PSE, however, such a finding was not apparent in the current study, where grey drawings produced significantly more hits than the distinctive words. 
-
-&nbsp;
-
-`r table_numbering("exp5__table__ensor.vs.current__prop.hit2")`
+`r table_numbering("exp5__table__ensor.vs.current2__full")`
 ```{r echo=FALSE, cache=TRUE}
-      exp5__table__ensor.vs.current__prop.hit2 %>%
-          kable("latex", booktabs = T, align = "rccc", escape = F) %>%
-          kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
-          column_spec(2:3, width = "1.2cm") %>%
-          column_spec(4, width = "6cm") %>%
-          add_header_above(c(" " = 1, "Hits" = 3), bold = T) %>%
-          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
-          pack_rows("Current study", 3, 0)
+    exp5__table__ensor.vs.current2__full %>%
+        kable("latex", booktabs = T, align = "rlccl") %>%
+        kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
+        collapse_rows(columns = 1, valign = "top") %>%
+        pack_rows("Hits", 1, 3) %>%
+        pack_rows("FAs", 4, 6) %>%
+        pack_rows("d'", 7, 9)
 ```
 
+A key finding in @ensor2019b data was an elimination of the PSE; distinctive word stimuli and grey drawings produced similar *d'* scores, indicative of comparable distinctiveness between the two stimuli formats. Such findings were replicated in the current reanalysis of their data (see `r table_numbering("exp5__table__ensor.vs.current2__full", display = "cite")`). In the current experiment, however, this finding was not replicated, with drawings showing significantly higher *d'* than the distinctive words, suggesting the manipulation was not effective. 
 
-```{r echo=FALSE, results = FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.show='hide'}
-      ensor.exp1__prop.FA__ttest2 <- ensor.exp1__prop.FA %>% filter(stim == "col.word" | 
-                                                                      stim == "grey.drawing") %>%
-                                      t.test(prop.FA~stim, paired=TRUE, data = .)
-      ensor.exp2__prop.FA__ttest2 <- ensor.exp2__prop.FA %>% filter(stim == "col.word" | 
-                                                                      stim == "grey.drawing") %>%
-                                      t.test(prop.FA~stim, paired=TRUE, data = .)
-      exp5__prop.FA__ttest__grey.word.vs.col.word2 <- exp5__prop.FA %>% filter(stim == "col.word" | stim == "grey.drawing") %>%
-                                      t.test(prop.FA~stim, paired=TRUE, data = .)
-#################################################################################################################
-##    Ensor vs. current prop FAs table - PSE elimination:                                                     ##
-#################################################################################################################
-      exp5__table__ensor.vs.current__prop.FA2 <- 
-            tribble(~" ", ~"Distinctive words", ~"Grey drawings", ~"Planned comparisons",
-                  "Trials: 40 study / 80 test:",
-                      round(mean(ensor.exp1.data$prop.FA__col.word),2),
-                      round(mean(ensor.exp1.data$prop.FA__grey.drawing),2),
-                      apa::apa(ensor.exp1__prop.FA__ttest2, format = "rmarkdown", print = FALSE),
-                  "Trials: 80 study / 160 test:",
-                      round(mean(ensor.exp2.data$prop.FA__col.word),2),
-                      round(mean(ensor.exp2.data$prop.FA__grey.drawing),2),
-                      apa::apa(ensor.exp2__prop.FA__ttest2, format = "rmarkdown", print = FALSE),
-                  "Trials: 60 study / 120 test:", 
-                      round(exp5__prop.FA %>% filter(stim == "col.word") %>% pull(prop.FA) %>% mean(),2),
-                      round(exp5__prop.FA %>% filter(stim == "grey.drawing") %>% pull(prop.FA) %>%
-                              mean(),2),
-                      apa::apa(exp5__prop.FA__ttest__grey.word.vs.col.word2, format = "rmarkdown", print = FALSE))      
-```        
+Similarly, @ensor2019b also showed no difference in the number of hits between the distinctive words and grey drawings, across both experiments. This again suggests their distinctiveness manipulation was successful in eliminating the PSE, however, such a finding was not apparent in the current study, where grey drawings produced significantly more hits than the distinctive words. 
 
-```{r echo=FALSE, results = FALSE, cache=FALSE}
-      table_numbering(name = "exp5__table__ensor.vs.current__prop.FA2",
-                      caption = "Mean proportion of FAs for distinctive word stimuli and grey drawings, across the current experiment and @ensor2019b.", display = FALSE)
-```
-
-Finally, @ensor2019b also showed no difference in the number of FAs between the distinctive words and grey drawings, across both experiments (see `r table_numbering("exp5__table__ensor.vs.current__prop.FA2", display = "cite")`) - an expected result if the distinctiveness manipulation resulted in similar levels between the distinctive words and grey drawings. Again, the current experiment produced different results; interestingly though, there were significantly more FAs for the grey drawings, as opposed to the distinctive word stimuli. This is somewhat unexpected, since the rest of the findings identify the grey drawings as having increased memorability compared to the distinctive words.
-
-&nbsp;
-
-`r table_numbering("exp5__table__ensor.vs.current__prop.FA2")`
-```{r echo=FALSE, cache=TRUE}
-      exp5__table__ensor.vs.current__prop.FA2 %>%
-          kable("latex", booktabs = T, align = "rccc", escape = FALSE) %>%
-          kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
-          column_spec(2:3, width = "1.2cm") %>%
-          column_spec(4, width = "6cm") %>%
-          add_header_above(c(" " = 1, "FAs" = 3), bold = T) %>%
-          pack_rows("Ensor, Surprenant, & Neath (2019)", 1, 2) %>%
-          pack_rows("Current study", 3, 0)
-```
-
-
-
+Finally, @ensor2019b also showed no difference in the number of FAs between the distinctive words and grey drawings, across both experiments - an expected result if the distinctiveness manipulation resulted in similar levels between the distinctive words and grey drawings. Again, the current experiment produced different results; interestingly though, there were significantly more FAs for the grey drawings, as opposed to the distinctive word stimuli. This is somewhat unexpected, since the rest of the findings identify the grey drawings as having increased memorability compared to the distinctive words.
 
 \newpage
 #### Recollection and Familiarity 
@@ -9211,7 +9152,7 @@ To determine if recollection and familiarity response patterns were mediated by 
                        caption = "Mean d' scores by stimuli format and recognition judgement.")
 ```
 
-```{r fig.width=7, fig.height=5, echo=FALSE, cache=TRUE, warning=FALSE}
+```{r fig.width=7, fig.height=4, echo=FALSE, cache=TRUE}
       exp5__figure__rfg.d.prime
 ```
 `r figure_numbering("exp5__figure__rfg.d.prime")`
@@ -9542,27 +9483,26 @@ For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.m
 
 
 ### Discussion
-@ensor2019b demonstrated how picture superiority effects (PSEs) could be eliminated by increasing the distinctiveness of word stimuli (relative to shaded drawings) via manipulations to colour, font, size, and capitalisation. The current experiment aimed to replicate such findings in order to examine whether such 
+@ensor2019b demonstrated how picture superiority effects (PSEs) could be eliminated by increasing the distinctiveness of word stimuli (relative to shaded drawings) via manipulations to colour, font, size, and capitalisation. The current experiment aimed to replicate such findings in order to examine whether such effect would extend to the *photograph* superiority effect (PhSE). The first hypothesis proposed that the distinctive word stimuli would produce a higher proportion of correct hits, lower proportion of false alarms (FAs), and higher overall *d'* scores in comparison to regular word stimuli, however, these predictions were not wholly supported by the data. While the distinctive words showed a lower proportion of FAs and higher *d'* scores compared to regular words, the formats did not differ in the proportion of obtained hits. 
 
 
-effects extend to photographs 
+It is difficult to conclude the distinctive word stimuli were indeed more distinctive than the regular words on the basis of these findings. In both @ensor2019b experiments, the distinctive words produced a significantly higher proportion of hits compared to the regular words. This is in contrast to the results of the current study, whereby no difference was found as a result of the distinctiveness manipulation. Visual inspection of the data does not indicate the number of trials had an impact on the number of hits; while @ensor2019b did observe a reduction in the proportion of hits for both word formats when trial numbers were increased, the current study (whose trial numbers were between the two @ensor2019b experiments) still showed a lower proportion of hits than both. 
 
 
-to determine whether the 
+Visual inspection of the data shows that subjects generally made more FAs in the @ensor2019b experiments compared to the current study; this is especially apparent when comparisons are made toward the experiment with more trials.
 
 
-The first hypothesis pertained to the current manipulation, whereby the word items with manipulations to colour, font, and capitalisation were expected to produce enhanced recognition relative to regular word stimuli.  
+ Visual inspection of the data shows that the *d'* scores obtained in the current experiment sit between the @ensor2019b experiments - in line with reducing scores as the number of trials increases. 
 
-Recognition will be enhanced for  across items, compared to those consistently presented in the same black typeface. For colour words, this enhancement is expected to manifest as the following compared to greyscale words:
-    + i) higher overall *d'* scores;
-    + ii) higher proportion of correct hits;
-    + iii) lower proportion of false alarms. 
-    
+pertained to the current manipulation, whereby the word items with manipulations to colour, font, and capitalisation were expected to produce enhanced recognition relative to regular word stimuli.  
+
+
 The current study has two primary aims: i) replicate the elimination of the PSE demonstrated by @ensor2019b; ii) examine whether the PhSE is also attenuated / eliminated when comparing photograph items with distinctive word stimuli. A secondary aim is to further characterise the role of colour in the previously established *photo* superiority effect (PhSE).     
     
+It is not entirely clear why 
 
 
-The second hypothesis proposed standard picture superiority effects (PSEs) would emerge - a finding that was abundantly clear when examining the data, with *all* pictures (greyscale drawings; colour drawings; greyscale photographs; colour photographs) demonstrating superior performance compared to regular words (manifesting as significantly higher proportions of hits, lower proportions of FAs, and a higher mean *d'* scores). In a similar fashion, *photo* superiority effects (PhSEs) were demonstrated when comparing performance for photograph items against that of drawing items, both for greyscale items (replicating the finding of *Experiment 3*) and colour items (replicating the finding of *Experiment 4*). 
+The second hypothesis proposed standard picture superiority effects (PSEs) would emerge - a finding that was abundantly clear when examining the data, with *all* pictures (greyscale drawings; colour drawings; greyscale photographs; colour photographs) demonstrating superior performance compared to regular words (manifesting as significantly higher proportions of hits, lower proportions of FAs, and a higher mean *d'* scores). In a similar fashion, *photo* superiority effects (PhSEs) were also demonstrated when comparing performance for photograph items against that of drawing items; this effect was evident in both greyscale items (replicating the finding of *Experiment 3*) and colour items (replicating the finding of *Experiment 4*). 
 
 
 
