@@ -8937,18 +8937,15 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
 ##    Ensor vs. current hits table:                                                                            ##
 ################################################################################################################# 
       exp5__table__ensor.vs.current__hits <- 
-            tribble(~" ", ~"  ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
-                  "Ensor, Surprenant, & Neath (2019)",
+            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
                   "Trials: 40 study / 80 test:",
                       round(mean(ensor.exp1.data$prop.hit__grey.word),2),
                       round(mean(ensor.exp1.data$prop.hit__col.word),2),
                       apa::apa(ensor.exp1__prop.hit__ttest, format = "rmarkdown", print = FALSE),
-                  "Ensor, Surprenant, & Neath (2019)",
                   "Trials: 80 study / 160 test:",
                       round(mean(ensor.exp2.data$prop.hit__grey.word),2),
                       round(mean(ensor.exp2.data$prop.hit__col.word),2),
                       apa::apa(ensor.exp2__prop.hit__ttest, format = "rmarkdown", print = FALSE),
-                  "Current study",
                   "Trials: 60 study / 120 test:", 
                       round(exp5__prop.hit %>% filter(stim == "grey.word") %>% pull(prop.hit) %>% mean(),2),
                       round(exp5__prop.hit %>% filter(stim == "col.word") %>% pull(prop.hit) %>% mean(),2),
@@ -8957,18 +8954,15 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
 ##    Ensor vs. current FAs table:                                                                             ##
 ################################################################################################################# 
       exp5__table__ensor.vs.current__FAs <- 
-            tribble(~" ", ~"  ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
-                  "Ensor, Surprenant, & Neath (2019)",
+            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
                   "Trials: 40 study / 80 test:",
                       round(mean(ensor.exp1.data$prop.FA__grey.word),2),
                       round(mean(ensor.exp1.data$prop.FA__col.word),2),
                       apa::apa(ensor.exp1__prop.FA__ttest, format = "rmarkdown", print = FALSE),
-                  "Ensor, Surprenant, & Neath (2019)",
                   "Trials: 80 study / 160 test:",
                       round(mean(ensor.exp2.data$prop.FA__grey.word),2),
                       round(mean(ensor.exp2.data$prop.FA__col.word),2),
                       apa::apa(ensor.exp2__prop.FA__ttest, format = "rmarkdown", print = FALSE),
-                  "Current study",
                   "Trials: 60 study / 120 test:", 
                       round(exp5__prop.FA %>% filter(stim == "grey.word") %>% pull(prop.FA) %>% mean(),2),
                       round(exp5__prop.FA %>% filter(stim == "col.word") %>% pull(prop.FA) %>% mean(),2),
@@ -8977,18 +8971,15 @@ Throughout each of the conducted ANOVAs, there was consistently a significant ma
 ##    Ensor vs. current d-prime table:                                                                         ##
 #################################################################################################################
       exp5__table__ensor.vs.current__d.prime <- 
-            tribble(~" ", ~"  ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
-                  "Ensor, Surprenant, & Neath (2019)",
+            tribble(~" ", ~"Grey words", ~"Distinctive words", ~"Planned comparisons",
                   "Trials: 40 study / 80 test:",
                       round(mean(ensor.exp1__grey.word.d.prime$dprime__grey.word),2),
                       round(mean(ensor.exp1__col.word.d.prime$dprime__col.word),2),
                       apa::apa(ensor.exp1__d.prime__ttest, format = "rmarkdown", print = FALSE),
-                  "Ensor, Surprenant, & Neath (2019)",
                   "Trials: 80 study / 160 test:",
                       round(mean(ensor.exp2__grey.word.d.prime$dprime__grey.word),2),
                       round(mean(ensor.exp2__col.word.d.prime$dprime__col.word),2),
                       apa::apa(ensor.exp2__d.prime__ttest, format = "rmarkdown", print = FALSE),
-                  "Current study",
                   "Trials: 60 study / 120 test:", 
                       round(exp5__d.prime %>% filter(stim == "grey.word") %>% pull(d.prime) %>% mean(),2),
                       round(exp5__d.prime %>% filter(stim == "col.word") %>% pull(d.prime) %>% mean(),2),
@@ -9013,18 +9004,25 @@ and second [`r apa::anova_apa(ensor.exp2__d.prime.aov, effect = "stim", format =
 
 `r table_numbering("exp5__table__ensor.vs.current__full")`
 ```{r echo=FALSE, cache=FALSE}
-    exp5__table__ensor.vs.current__full %>%
-        kable("latex", booktabs = T, align = "rlccl") %>%
+    exp5__table__ensor.vs.current__full.table <- exp5__table__ensor.vs.current__full %>%
+        kable("latex", booktabs = T, align = "lccl", escape = F) %>%
         kable_styling(font_size = 10, full_width = T, latex_options = c("hold_position", "condensed")) %>%
-        collapse_rows(columns = 1, valign = "top") %>%
-        pack_rows("Hits", 1, 3) %>%
-        pack_rows("FAs", 4, 6) %>%
-        pack_rows("d'", 7, 9)
+        pack_rows("Hits", 1, 3, italic = T) %>%
+        pack_rows("Ensor, Surprenant, & Neath (2019):", 1, 2) %>%
+        pack_rows("Current study:", 3, 3) %>%
+        pack_rows("FAs", 4, 6, italic = T) %>%
+        pack_rows("Ensor, Surprenant, & Neath (2019):", 4, 5) %>%
+        pack_rows("Current study:", 6, 6) %>%
+        pack_rows("d'", 7, 9, italic = T) %>% 
+        pack_rows("Ensor, Surprenant, & Neath (2019):", 7, 8) %>%
+        pack_rows("Current study:", 9, 9) %>%
+        column_spec(1, width = "5.5cm") %>%
+        column_spec(2:3, width = "1.5cm") %>%
+        row_spec(3, hline_after = TRUE) %>%
+        row_spec(6, hline_after = TRUE)
 
-        #column_spec(1, width = "2cm", bold = T)
-        ##column_spec(2, width = "3cm") %>%
-        #column_spec(3:4, width = "1.5cm") %>%
-        #column_spec(5, width = "4cm") %>%
+knitr::asis_output(str_replace_all(exp5__table__ensor.vs.current__full.table, "\\*(t*?)\\*", "\textit{t}"))
+
 ```
 
 \newpage
@@ -9482,7 +9480,10 @@ For the proportion of G hits, the distinctive words (*M* = `r exp5__prop.hit.G.m
 
 Despite predictions that the distinctive word stimuli would produce a higher proportion of correct hits, lower proportion of false alarms (FAs), and higher overall *d'* scores compared to regular word stimuli, the results suggest the manipulation was not wholly effective. While a lower proportion of FAs and higher *d'* scores were found for the distinctive words, they did not differ from regular words in the proportion of obtained hits. Visual inspection of the data does not suggest the number of trials had an impact on the number of hits; while @ensor2019b did observe a reduction in the proportion of hits for both word formats when trial numbers were increased, the current study (whose trial numbers sit between the two @ensor2019b experiments) still showed a lower proportion of hits than both. Obtained *d'* scores sit between the @ensor2019b experiments - in line with reducing scores as the number of trials increases - but visual inspection of the data shows that subjects generally made more FAs in the @ensor2019b experiments compared to the current study; this is especially apparent when comparisons are made between the current experiment and the @ensor2019b experiment with more trials. Such results make it difficult to conclude whether the distinctive word stimuli used in the current experiment were indeed more distinctive than the regular words. In particular, one would expect items of a higher distinctiveness (and thus enhanced memorability) to specifically show a higher number of hits than items of lower distinctiveness. Indeed, this was the case in both @ensor2019b experiments, whereby the distinctive words produced a significantly higher proportion of hits compared to the regular words. The current findings could be interpreted within a DCT framework, whereby *all* words are inferior to the dual-codes of pictures (and thus 'distinctive' words will not produce better performance), there is still clear support for the distinctiveness hypothesis in the current results. While standard PSEs were expected - a finding that was abundantly clear from the data, with *all* pictures (greyscale drawings; colour drawings; greyscale photographs; colour photographs) demonstrating superior performance compared to regular words (manifesting as significantly higher proportions of hits, lower proportions of FAs, and a higher mean *d'* scores) - the *photo* superiority effects (PhSEs) of previous experiments was again evident. Whether recognition performance was compared between greyscale drawings and photographs, or colour drawings and photographs, the photograph items consistently demonstrated superior performance over drawings. A replication of the PhSE from *Experiment 3* (greyscale) and *Experiment 4* (colour) in the current study indicate that DCT is not sufficient to explain the current results. Rather, it seems the word stimuli of the current experiment failed to be enhanced to the level seen in @ensor2019b.
 
-Not only were the distinctive words comparable to regular words for the number of hits, but as a result, they also did not eliminate the PSE in comparison to drawings as was expected. This is somewhat surprising given the similarities between the distinctive word stimuli used in the current study and those utilised by @ensor2019b. The majority of items were those provided by the authors. There were some restraints, in that our photograph items had been matched with a specific subset of the @rossion2004 drawings. These items didn't match the stimuli used by @ensor2019b exactly, and so while many of the same stimuli could indeed be used, some new distinctive word items had to be created. This process was conducted carefully, using the same distinctive text generator, and using combinations utilised by @ensor2019b for words not in the current list (i.e. if @ensor2019b presented "truck" in a distinctive blue and capitalised font, this same combination was used in the current study, but the object "truck" replaced with one from the current list). The criteria currently applied when selecting a pool of items from @rossion2004 appear to be more stringent than those applied by @ensor2019b; they excluded any items that were best described by two-word names (e.g. "baby carriage"), whilst our criteria consisted of: i) items with a written name between 4 and 7 letters; ii) items that would conjure the same intended concept in UK-based samples (e.g. “ladder” should be universally understood across English-speaking cultures, whereas “wagon” or “pants” can be interpreted differently); iii) items that were not unknown, or uncommon, for our sample (e.g. Americanisms such as “wrench”); and iv) non-specific concepts such as “bird” (since the pool of items already contained specific exemplars of birds, such as “peacock” and “penguin”). Other methodological differences include the fact that the current paradigm had participants make responses at encoding to ensure their attention was directed toward each item, in contrast to the passive presentation of items used by @ensor2019b. Subjects were also required to provide follow up recognition judgements in the current paradigm, rather than just an old/new response. It seems likely that the distinctiveness benefits demonstrated by @ensor2019b are sensitive to these methodological inconsistencies. 
+&nbsp;
+&nbsp;
+
+Not only were the distinctive words comparable to regular words for the number of hits, but as a result, they also did not clearly eliminate the PSE in comparison to drawings as was expected. This is somewhat surprising given the similarities between the distinctive word stimuli used in the current study and those utilised by @ensor2019b. The majority of items were those provided by the authors. There were some restraints, in that our photograph items had been matched with a specific subset of the @rossion2004 drawings. These items didn't match the stimuli used by @ensor2019b exactly, and so while many of the same stimuli could indeed be used, some new distinctive word items had to be created. This process was conducted carefully, using the same distinctive text generator, and using combinations utilised by @ensor2019b for words not in the current list (i.e. if @ensor2019b presented "truck" in a distinctive blue and capitalised font, this same combination was used in the current study, but the object "truck" replaced with one from the current list). The criteria currently applied when selecting a pool of items from @rossion2004 appear to be more stringent than those applied by @ensor2019b; they excluded any items that were best described by two-word names (e.g. "baby carriage"), whilst our criteria consisted of: i) items with a written name between 4 and 7 letters; ii) items that would conjure the same intended concept in UK-based samples (e.g. “ladder” should be universally understood across English-speaking cultures, whereas “wagon” or “pants” can be interpreted differently); iii) items that were not unknown, or uncommon, for our sample (e.g. Americanisms such as “wrench”); and iv) non-specific concepts such as “bird” (since the pool of items already contained specific exemplars of birds, such as “peacock” and “penguin”). Other methodological differences include the fact that the current paradigm had participants make responses at encoding to ensure their attention was directed toward each item, in contrast to the passive presentation of items used by @ensor2019b. Subjects were also required to provide follow up recognition judgements in the current paradigm, rather than just an old/new response. It seems likely that the distinctiveness benefits demonstrated by @ensor2019b are sensitive to these methodological inconsistencies. 
 
 A limitation of the current study (and indeed, of @ensor2019b) lies in its' inability to determine how a number of factors separately contribute toward an overall level of distinctiveness. The distinctive word stimuli utilised in these experiments contained manipulations to colour, font, size, and capitalisation, though little rationale was provided as to why these particular factors were selected. While not arbitrary - as one might consider these factors to be the most effective in creating item-to-item variability - there is little justification as to why they should be selected over others such as letter height, spacing, italics, underlining etc. Such comparisons are outside the scope of the current programme of research, where innumerable combinations of factors could be compared, but they raise the question as to the factors that contribute most to the notion of distinctiveness. It could simply be assumed that each of these factors provide similar contributions, and that they each play a role in the overall levels of distinctiveness of a stimulus. However, across three experiments, the current programme of research has consistently demonstrated that colour information has no discernible impact on recognition performance - and as such, does not contribute to making stimuli more distinctive. This seems to be an important distinction to make, especially as colour inherently seems to be regarded as important 
 
